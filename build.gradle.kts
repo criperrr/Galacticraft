@@ -64,6 +64,9 @@ plugins {
 }
 
 java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    }
     sourceCompatibility = JavaVersion.VERSION_21
     targetCompatibility = JavaVersion.VERSION_21
 
@@ -326,6 +329,53 @@ tasks.jar {
     }
 }
 
+val checkApiBoundaries by tasks.registering {
+    group = "verification"
+    description = "Verifies that dev.galacticraft.api contains zero imports from dev.galacticraft.mod."
+    val apiDir = file("src/main/java/dev/galacticraft/api")
+    inputs.dir(apiDir)
+    doLast {
+        val violations = mutableListOf<String>()
+        apiDir.walkTopDown().filter { it.isFile && it.extension == "java" }.forEach { javaFile ->
+            javaFile.useLines { lines ->
+                lines.forEachIndexed { idx, line ->
+                    val trimmed = line.trim()
+                    if (trimmed.startsWith("import dev.galacticraft.mod.") || trimmed.startsWith("import static dev.galacticraft.mod.")) {
+                        violations.add("${javaFile.relativeTo(projectDir)}:${idx + 1}: $trimmed")
+                    }
+                }
+            }
+        }
+        if (violations.isNotEmpty()) {
+            throw GradleException("API boundary violation(s) — dev.galacticraft.api must not import dev.galacticraft.mod:\n" + violations.joinToString("\n"))
+        }
+    }
+}
+
+val apiJar by tasks.registering(Jar::class) {
+    archiveBaseName.set("${modName}-api")
+    from(sourceSets.main.get().output) {
+        include("dev/galacticraft/api/**")
+        include("dev/galacticraft/impl/**")
+    }
+    from("LICENSE") {
+        rename { "${it}_${modName}-api" }
+    }
+}
+
+val apiSourcesJar by tasks.registering(Jar::class) {
+    archiveBaseName.set("${modName}-api")
+    archiveClassifier.set("sources")
+    from(sourceSets.main.get().allSource) {
+        include("dev/galacticraft/api/**")
+        include("dev/galacticraft/impl/**")
+    }
+}
+
+tasks.check {
+    dependsOn(checkApiBoundaries)
+}
+
 tasks.test {
     useJUnitPlatform()
     workingDir = project.file("run")
@@ -378,6 +428,29 @@ publishing {
                 }
             }
         }
+
+        register("mavenApi", MavenPublication::class) {
+            groupId = modGroup
+            artifactId = "${modName}-api"
+            version = project.version.toString()
+
+            artifact(apiJar)
+            artifact(apiSourcesJar)
+
+            pom {
+                name.set("${modName} API")
+                organization {
+                    name.set("Team Galacticraft")
+                    url.set("https://github.com/TeamGalacticraft")
+                }
+                licenses {
+                    license {
+                        name.set("MIT")
+                        url.set("https://github.com/TeamGalacticraft/Galacticraft/blob/main/LICENSE")
+                    }
+                }
+            }
+        }
     }
 
     repositories {
@@ -389,6 +462,36 @@ publishing {
                 }
             }
         }
+    }
+}
+
+subprojects {
+    apply(plugin = "java")
+
+    group = "$modGroup.addons"
+    version = rootProject.version
+
+    java {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(21))
+        }
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
+    }
+
+    repositories {
+        mavenLocal()
+        rootProject.repositories.forEach { add(it) }
+    }
+
+    dependencies {
+        compileOnly(rootProject)
+    }
+
+    tasks.withType(JavaCompile::class) {
+        options.encoding = "UTF-8"
+        options.release.set(21)
+        dependsOn(rootProject.tasks.compileJava)
     }
 }
 

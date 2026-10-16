@@ -28,3 +28,14 @@ pluginManagement {
 }
 
 rootProject.name = "Galacticraft"
+
+include(
+    ":addons:galacticraft-tweaker",
+    ":addons:galacticraft-rpc",
+    ":addons:galactic-computers",
+    ":addons:more-planets-extras",
+    ":addons:extra-planets",
+    ":addons:more-planets",
+    ":addons:zollern-galaxy",
+    ":addons:galaxy-space",
+)

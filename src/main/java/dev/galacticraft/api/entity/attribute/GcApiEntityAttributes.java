@@ -22,7 +22,7 @@
 
 package dev.galacticraft.api.entity.attribute;
 
-import dev.galacticraft.mod.Constant;
+import dev.galacticraft.api.APIConstants;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -30,7 +30,7 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.RangedAttribute;
 
 public final class GcApiEntityAttributes {
-    public static final Holder.Reference<Attribute> CAN_BREATHE_IN_SPACE = Registry.registerForHolder(BuiltInRegistries.ATTRIBUTE, Constant.id("can_breathe_in_space"), (new RangedAttribute("galacticraft.attribute.name.generic.can_breathe_in_space", 0.0D, 0.0D, 1.0D)).setSyncable(true));
+    public static final Holder.Reference<Attribute> CAN_BREATHE_IN_SPACE = Registry.registerForHolder(BuiltInRegistries.ATTRIBUTE, APIConstants.id("can_breathe_in_space"), (new RangedAttribute("galacticraft.attribute.name.generic.can_breathe_in_space", 0.0D, 0.0D, 1.0D)).setSyncable(true));
 
     private GcApiEntityAttributes() {
     }

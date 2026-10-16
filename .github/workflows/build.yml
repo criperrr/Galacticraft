@@ -2,7 +2,8 @@ name: Build
 
 on:
   push:
-    branches: [ 'main' ]
+    branches: [ 'main', 'epic*/**' ]
+  pull_request:
 
 jobs:
   build:
@@ -34,13 +35,13 @@ jobs:
       - name: Initialize build environment
         run: ./gradlew
 
-      - name: Spotless check
-        run: ./gradlew spotlessCheck
+      - name: Spotless & API boundary check
+        run: ./gradlew checkApiBoundaries spotlessCheck
 
       - name: Build
         id: build
         if: ${{ !cancelled() }}
-        run: ./gradlew assemble testClasses -x spotlessCheck
+        run: ./gradlew assemble apiJar testClasses -x spotlessCheck
 
       - name: Test
         if: ${{ steps.build.outcome == 'success' && !cancelled() }}

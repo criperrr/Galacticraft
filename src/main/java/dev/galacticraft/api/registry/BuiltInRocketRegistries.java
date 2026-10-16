@@ -23,16 +23,16 @@
 package dev.galacticraft.api.registry;
 
 import com.mojang.serialization.Lifecycle;
+import dev.galacticraft.api.APIConstants;
 import dev.galacticraft.api.rocket.part.type.*;
 import dev.galacticraft.api.rocket.recipe.type.RocketPartRecipeType;
 import dev.galacticraft.api.rocket.travelpredicate.TravelPredicateType;
 import dev.galacticraft.impl.rocket.part.type.*;
+import dev.galacticraft.impl.rocket.part.type.ExplosiveUpgradeType;
+import dev.galacticraft.impl.rocket.part.type.StorageUpgradeType;
 import dev.galacticraft.impl.rocket.recipe.type.CenteredPatternedRocketPartRecipeType;
 import dev.galacticraft.impl.rocket.recipe.type.PatternedRocketPartRecipeType;
 import dev.galacticraft.impl.rocket.travelpredicate.type.*;
-import dev.galacticraft.mod.Constant;
-import dev.galacticraft.mod.content.rocket.part.type.ExplosiveUpgradeType;
-import dev.galacticraft.mod.content.rocket.part.type.StorageUpgradeType;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.minecraft.core.MappedRegistry;
 import net.minecraft.core.Registry;
@@ -78,21 +78,21 @@ public final class BuiltInRocketRegistries {
     }
 
     static {
-        Registry.register(TRAVEL_PREDICATE_TYPE, Constant.id("default"), DefaultTravelPredicateType.INSTANCE);
-        Registry.register(TRAVEL_PREDICATE_TYPE, Constant.id("access_weight"), AccessWeightTravelPredicateType.INSTANCE);
-        Registry.register(TRAVEL_PREDICATE_TYPE, Constant.id("constant"), ConstantTravelPredicateType.INSTANCE);
-        Registry.register(TRAVEL_PREDICATE_TYPE, Constant.id("and"), AndTravelPredicateType.INSTANCE);
-        Registry.register(TRAVEL_PREDICATE_TYPE, Constant.id("or"), OrTravelPredicateType.INSTANCE);
+        Registry.register(TRAVEL_PREDICATE_TYPE, APIConstants.id("default"), DefaultTravelPredicateType.INSTANCE);
+        Registry.register(TRAVEL_PREDICATE_TYPE, APIConstants.id("access_weight"), AccessWeightTravelPredicateType.INSTANCE);
+        Registry.register(TRAVEL_PREDICATE_TYPE, APIConstants.id("constant"), ConstantTravelPredicateType.INSTANCE);
+        Registry.register(TRAVEL_PREDICATE_TYPE, APIConstants.id("and"), AndTravelPredicateType.INSTANCE);
+        Registry.register(TRAVEL_PREDICATE_TYPE, APIConstants.id("or"), OrTravelPredicateType.INSTANCE);
 
-        Registry.register(ROCKET_CONE_TYPE, Constant.id("basic"), BasicRocketConeType.INSTANCE);
-        Registry.register(ROCKET_BODY_TYPE, Constant.id("basic"), BasicRocketBodyType.INSTANCE);
-        Registry.register(ROCKET_FIN_TYPE, Constant.id("basic"), BasicRocketFinType.INSTANCE);
-        Registry.register(ROCKET_BOOSTER_TYPE, Constant.id("basic"), BasicRocketBoosterType.INSTANCE);
-        Registry.register(ROCKET_ENGINE_TYPE, Constant.id("basic"), BasicRocketEngineType.INSTANCE);
-        Registry.register(ROCKET_UPGRADE_TYPE, Constant.id("storage"), StorageUpgradeType.INSTANCE);
-        Registry.register(ROCKET_UPGRADE_TYPE, Constant.id("explosive"), ExplosiveUpgradeType.INSTANCE);
+        Registry.register(ROCKET_CONE_TYPE, APIConstants.id("basic"), BasicRocketConeType.INSTANCE);
+        Registry.register(ROCKET_BODY_TYPE, APIConstants.id("basic"), BasicRocketBodyType.INSTANCE);
+        Registry.register(ROCKET_FIN_TYPE, APIConstants.id("basic"), BasicRocketFinType.INSTANCE);
+        Registry.register(ROCKET_BOOSTER_TYPE, APIConstants.id("basic"), BasicRocketBoosterType.INSTANCE);
+        Registry.register(ROCKET_ENGINE_TYPE, APIConstants.id("basic"), BasicRocketEngineType.INSTANCE);
+        Registry.register(ROCKET_UPGRADE_TYPE, APIConstants.id("storage"), StorageUpgradeType.INSTANCE);
+        Registry.register(ROCKET_UPGRADE_TYPE, APIConstants.id("explosive"), ExplosiveUpgradeType.INSTANCE);
 
-        Registry.register(ROCKET_PART_RECIPE_TYPE, Constant.id("wrap_patterned"), PatternedRocketPartRecipeType.INSTANCE);
-        Registry.register(ROCKET_PART_RECIPE_TYPE, Constant.id("centered_patterned"), CenteredPatternedRocketPartRecipeType.INSTANCE);
+        Registry.register(ROCKET_PART_RECIPE_TYPE, APIConstants.id("wrap_patterned"), PatternedRocketPartRecipeType.INSTANCE);
+        Registry.register(ROCKET_PART_RECIPE_TYPE, APIConstants.id("centered_patterned"), CenteredPatternedRocketPartRecipeType.INSTANCE);
     }
 }

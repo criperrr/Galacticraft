@@ -22,31 +22,31 @@
 
 package dev.galacticraft.api.registry;
 
+import dev.galacticraft.api.APIConstants;
 import dev.galacticraft.api.rocket.part.*;
 import dev.galacticraft.api.rocket.part.type.*;
 import dev.galacticraft.api.rocket.recipe.type.RocketPartRecipeType;
 import dev.galacticraft.api.rocket.travelpredicate.ConfiguredTravelPredicate;
 import dev.galacticraft.api.rocket.travelpredicate.TravelPredicateType;
-import dev.galacticraft.mod.Constant;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 
 public final class RocketRegistries {
-    public static final ResourceKey<Registry<TravelPredicateType<?>>> TRAVEL_PREDICATE_TYPE = ResourceKey.createRegistryKey(Constant.id("travel_predicate_type"));
-    public static final ResourceKey<Registry<ConfiguredTravelPredicate<?, ?>>> TRAVEL_PREDICATE = ResourceKey.createRegistryKey(Constant.id("travel_predicate"));
+    public static final ResourceKey<Registry<TravelPredicateType<?>>> TRAVEL_PREDICATE_TYPE = ResourceKey.createRegistryKey(APIConstants.id("travel_predicate_type"));
+    public static final ResourceKey<Registry<ConfiguredTravelPredicate<?, ?>>> TRAVEL_PREDICATE = ResourceKey.createRegistryKey(APIConstants.id("travel_predicate"));
 
-    public static final ResourceKey<Registry<RocketConeType<?>>> ROCKET_CONE_TYPE = ResourceKey.createRegistryKey(Constant.id("rocket_cone_type"));
-    public static final ResourceKey<Registry<RocketBodyType<?>>> ROCKET_BODY_TYPE = ResourceKey.createRegistryKey(Constant.id("rocket_body_type"));
-    public static final ResourceKey<Registry<RocketFinType<?>>> ROCKET_FIN_TYPE = ResourceKey.createRegistryKey(Constant.id("rocket_fin_type"));
-    public static final ResourceKey<Registry<RocketBoosterType<?>>> ROCKET_BOOSTER_TYPE = ResourceKey.createRegistryKey(Constant.id("rocket_booster_type"));
-    public static final ResourceKey<Registry<RocketEngineType<?>>> ROCKET_ENGINE_TYPE = ResourceKey.createRegistryKey(Constant.id("rocket_engine_type"));
-    public static final ResourceKey<Registry<RocketUpgradeType<?>>> ROCKET_UPGRADE_TYPE = ResourceKey.createRegistryKey(Constant.id("rocket_upgrade_type"));
-    public static final ResourceKey<Registry<RocketPartRecipeType<?>>> ROCKET_PART_RECIPE_TYPE = ResourceKey.createRegistryKey(Constant.id("rocket_part_recipe_type"));
+    public static final ResourceKey<Registry<RocketConeType<?>>> ROCKET_CONE_TYPE = ResourceKey.createRegistryKey(APIConstants.id("rocket_cone_type"));
+    public static final ResourceKey<Registry<RocketBodyType<?>>> ROCKET_BODY_TYPE = ResourceKey.createRegistryKey(APIConstants.id("rocket_body_type"));
+    public static final ResourceKey<Registry<RocketFinType<?>>> ROCKET_FIN_TYPE = ResourceKey.createRegistryKey(APIConstants.id("rocket_fin_type"));
+    public static final ResourceKey<Registry<RocketBoosterType<?>>> ROCKET_BOOSTER_TYPE = ResourceKey.createRegistryKey(APIConstants.id("rocket_booster_type"));
+    public static final ResourceKey<Registry<RocketEngineType<?>>> ROCKET_ENGINE_TYPE = ResourceKey.createRegistryKey(APIConstants.id("rocket_engine_type"));
+    public static final ResourceKey<Registry<RocketUpgradeType<?>>> ROCKET_UPGRADE_TYPE = ResourceKey.createRegistryKey(APIConstants.id("rocket_upgrade_type"));
+    public static final ResourceKey<Registry<RocketPartRecipeType<?>>> ROCKET_PART_RECIPE_TYPE = ResourceKey.createRegistryKey(APIConstants.id("rocket_part_recipe_type"));
 
-    public static final ResourceKey<Registry<RocketCone<?, ?>>> ROCKET_CONE = ResourceKey.createRegistryKey(Constant.id("rocket_cone"));
-    public static final ResourceKey<Registry<RocketBody<?, ?>>> ROCKET_BODY = ResourceKey.createRegistryKey(Constant.id("rocket_body"));
-    public static final ResourceKey<Registry<RocketFin<?, ?>>> ROCKET_FIN = ResourceKey.createRegistryKey(Constant.id("rocket_fin"));
-    public static final ResourceKey<Registry<RocketBooster<?, ?>>> ROCKET_BOOSTER = ResourceKey.createRegistryKey(Constant.id("rocket_booster"));
-    public static final ResourceKey<Registry<RocketEngine<?, ?>>> ROCKET_ENGINE = ResourceKey.createRegistryKey(Constant.id("rocket_engine"));
-    public static final ResourceKey<Registry<RocketUpgrade<?, ?>>> ROCKET_UPGRADE = ResourceKey.createRegistryKey(Constant.id("rocket_upgrade"));
+    public static final ResourceKey<Registry<RocketCone<?, ?>>> ROCKET_CONE = ResourceKey.createRegistryKey(APIConstants.id("rocket_cone"));
+    public static final ResourceKey<Registry<RocketBody<?, ?>>> ROCKET_BODY = ResourceKey.createRegistryKey(APIConstants.id("rocket_body"));
+    public static final ResourceKey<Registry<RocketFin<?, ?>>> ROCKET_FIN = ResourceKey.createRegistryKey(APIConstants.id("rocket_fin"));
+    public static final ResourceKey<Registry<RocketBooster<?, ?>>> ROCKET_BOOSTER = ResourceKey.createRegistryKey(APIConstants.id("rocket_booster"));
+    public static final ResourceKey<Registry<RocketEngine<?, ?>>> ROCKET_ENGINE = ResourceKey.createRegistryKey(APIConstants.id("rocket_engine"));
+    public static final ResourceKey<Registry<RocketUpgrade<?, ?>>> ROCKET_UPGRADE = ResourceKey.createRegistryKey(APIConstants.id("rocket_upgrade"));
 }

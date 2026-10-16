@@ -22,13 +22,13 @@
 
 package dev.galacticraft.mod;
 
-import dev.galacticraft.api.component.GCItemSubPredicates;
 import dev.galacticraft.mod.api.config.Config;
 import dev.galacticraft.mod.attachments.GCAttachments;
 import dev.galacticraft.mod.command.GCCommands;
 import dev.galacticraft.mod.config.ConfigImpl;
 import dev.galacticraft.mod.content.*;
 import dev.galacticraft.mod.content.advancements.GCTriggers;
+import dev.galacticraft.mod.content.advancements.critereon.GCItemSubPredicates;
 import dev.galacticraft.mod.content.entity.data.GCEntityDataSerializers;
 import dev.galacticraft.mod.content.item.GCCreativeModeTabs;
 import dev.galacticraft.mod.content.item.GCItems;

@@ -23,13 +23,13 @@
 package dev.galacticraft.api.registry;
 
 import com.mojang.serialization.Lifecycle;
+import dev.galacticraft.api.APIConstants;
 import dev.galacticraft.api.universe.celestialbody.CelestialBodyType;
 import dev.galacticraft.api.universe.celestialbody.CelestialHandler;
 import dev.galacticraft.api.universe.celestialbody.landable.teleporter.type.CelestialTeleporterType;
 import dev.galacticraft.api.universe.display.CelestialDisplayType;
 import dev.galacticraft.api.universe.display.ring.CelestialRingDisplayType;
 import dev.galacticraft.api.universe.position.CelestialPositionType;
-import dev.galacticraft.mod.Constant;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.minecraft.core.DefaultedMappedRegistry;
 import net.minecraft.core.WritableRegistry;
@@ -39,23 +39,23 @@ public final class BuiltInAddonRegistries {
     }
 
     public static final WritableRegistry<CelestialPositionType<?>> CELESTIAL_POSITION_TYPE = FabricRegistryBuilder.from(
-            new DefaultedMappedRegistry<>(Constant.id("static").toString(),
+            new DefaultedMappedRegistry<>(APIConstants.id("static").toString(),
                     AddonRegistries.CELESTIAL_POSITION_TYPE, Lifecycle.experimental(), false)).buildAndRegister();
 
     public static final WritableRegistry<CelestialDisplayType<?>> CELESTIAL_DISPLAY_TYPE = FabricRegistryBuilder.from(
-            new DefaultedMappedRegistry<>(Constant.id("empty").toString(),
+            new DefaultedMappedRegistry<>(APIConstants.id("empty").toString(),
                     AddonRegistries.CELESTIAL_DISPLAY_TYPE, Lifecycle.experimental(), false)).buildAndRegister();
 
     public static final WritableRegistry<CelestialRingDisplayType<?>> CELESTIAL_RING_DISPLAY_TYPE = FabricRegistryBuilder.from(
-            new DefaultedMappedRegistry<>(Constant.id("empty").toString(),
+            new DefaultedMappedRegistry<>(APIConstants.id("empty").toString(),
                     AddonRegistries.CELESTIAL_RING_DISPLAY_TYPE, Lifecycle.experimental(), false)).buildAndRegister();
 
     public static final WritableRegistry<CelestialBodyType<?>> CELESTIAL_BODY_TYPE = FabricRegistryBuilder.from(
-            new DefaultedMappedRegistry<>(Constant.id("star").toString(),
+            new DefaultedMappedRegistry<>(APIConstants.id("star").toString(),
                     AddonRegistries.CELESTIAL_BODY_TYPE, Lifecycle.experimental(), false)).buildAndRegister();
 
     public static final WritableRegistry<CelestialTeleporterType<?>> CELESTIAL_TELEPORTER_TYPE = FabricRegistryBuilder.createDefaulted(
-            AddonRegistries.CELESTIAL_TELEPORTER_TYPE, Constant.id("direct")).buildAndRegister();
+            AddonRegistries.CELESTIAL_TELEPORTER_TYPE, APIConstants.id("direct")).buildAndRegister();
 
     public static final WritableRegistry<CelestialHandler> CELESTIAL_HANDLER = FabricRegistryBuilder.createSimple(AddonRegistries.CELESTIAL_HANDLER)
             .buildAndRegister();

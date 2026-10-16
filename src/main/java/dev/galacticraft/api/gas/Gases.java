@@ -22,8 +22,7 @@
 
 package dev.galacticraft.api.gas;
 
-import dev.galacticraft.mod.Constant;
-import dev.galacticraft.mod.util.Translations;
+import dev.galacticraft.api.APIConstants;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -40,151 +39,151 @@ import org.jetbrains.annotations.Contract;
 @ApiStatus.Experimental
 @Deprecated
 public final class Gases {
-    public static final ResourceLocation HYDROGEN_ID = Constant.id("hydrogen");
+    public static final ResourceLocation HYDROGEN_ID = APIConstants.id("hydrogen");
     /**
      * Hydrogen gas.
      */
     public static final Fluid HYDROGEN = GasFluid.create(
-            Component.translatable(Translations.Gas.HYDROGEN),
-            Constant.id("gas/hydrogen"), "H2"
+            Component.translatable(APIConstants.Gas.HYDROGEN),
+            APIConstants.id("gas/hydrogen"), "H2"
     );
-    public static final ResourceLocation NITROGEN_ID = Constant.id("nitrogen");
+    public static final ResourceLocation NITROGEN_ID = APIConstants.id("nitrogen");
     /**
      * Nitrogen gas.
      */
     public static final Fluid NITROGEN = GasFluid.create(
-            Component.translatable(Translations.Gas.NITROGEN),
-            Constant.id("gas/nitrogen"), "N2"
+            Component.translatable(APIConstants.Gas.NITROGEN),
+            APIConstants.id("gas/nitrogen"), "N2"
     );
-    public static final ResourceLocation OXYGEN_ID = Constant.id("oxygen");
+    public static final ResourceLocation OXYGEN_ID = APIConstants.id("oxygen");
     /**
      * Oxygen gas.
      */
     public static final Fluid OXYGEN = GasFluid.create(
-            Component.translatable(Translations.Gas.OXYGEN),
-            Constant.id("gas/oxygen"), "O2"
+            Component.translatable(APIConstants.Gas.OXYGEN),
+            APIConstants.id("gas/oxygen"), "O2"
     );
-    public static final ResourceLocation OZONE_ID = Constant.id("ozone");
+    public static final ResourceLocation OZONE_ID = APIConstants.id("ozone");
     /**
      * Ozone.
      */
     public static final Fluid OZONE = GasFluid.create(
-            Component.translatable(Translations.Gas.OZONE),
-            Constant.id("gas/ozone"), "O3"
+            Component.translatable(APIConstants.Gas.OZONE),
+            APIConstants.id("gas/ozone"), "O3"
     );
-    public static final ResourceLocation WATER_VAPOR_ID = Constant.id("water_vapor");
+    public static final ResourceLocation WATER_VAPOR_ID = APIConstants.id("water_vapor");
     /**
      * Water vapor.
      */
     public static final Fluid WATER_VAPOR = GasFluid.create(
-            Component.translatable(Translations.Gas.WATER_VAPOR),
-            Constant.id("gas/water_vapor"), "H2O"
+            Component.translatable(APIConstants.Gas.WATER_VAPOR),
+            APIConstants.id("gas/water_vapor"), "H2O"
     );
-    public static final ResourceLocation HYDROGEN_DEUTERIUM_OXIDE_ID = Constant.id("hydrogen_deuterium_oxide");
+    public static final ResourceLocation HYDROGEN_DEUTERIUM_OXIDE_ID = APIConstants.id("hydrogen_deuterium_oxide");
     /**
      * Hydrogen deuterium oxide.
      */
     public static final Fluid HYDROGEN_DEUTERIUM_OXIDE = GasFluid.create(
-            Component.translatable(Translations.Gas.HYDROGEN_DEUTERIUM_OXIDE),
-            Constant.id("gas/hydrogen_deuterium_oxide"),
+            Component.translatable(APIConstants.Gas.HYDROGEN_DEUTERIUM_OXIDE),
+            APIConstants.id("gas/hydrogen_deuterium_oxide"),
             "HDO"
     );
-    public static final ResourceLocation CARBON_MONOXIDE_ID = Constant.id("carbon_monoxide");
+    public static final ResourceLocation CARBON_MONOXIDE_ID = APIConstants.id("carbon_monoxide");
     /**
      * Carbon monoxide.
      */
     public static final Fluid CARBON_MONOXIDE = GasFluid.create(
-            Component.translatable(Translations.Gas.CARBON_MONOXIDE),
-            Constant.id("gas/carbon_monoxide"), "CO"
+            Component.translatable(APIConstants.Gas.CARBON_MONOXIDE),
+            APIConstants.id("gas/carbon_monoxide"), "CO"
     );
-    public static final ResourceLocation CARBON_DIOXIDE_ID = Constant.id("carbon_dioxide");
+    public static final ResourceLocation CARBON_DIOXIDE_ID = APIConstants.id("carbon_dioxide");
     /**
      * Carbon dioxide.
      */
     public static final Fluid CARBON_DIOXIDE = GasFluid.create(
-            Component.translatable(Translations.Gas.CARBON_DIOXIDE),
-            Constant.id("gas/carbon_dioxide"), "CO2"
+            Component.translatable(APIConstants.Gas.CARBON_DIOXIDE),
+            APIConstants.id("gas/carbon_dioxide"), "CO2"
     );
-    public static final ResourceLocation METHANE_ID = Constant.id("methane");
+    public static final ResourceLocation METHANE_ID = APIConstants.id("methane");
     /**
      * Methane.
      */
     public static final Fluid METHANE = GasFluid.create(
-            Component.translatable(Translations.Gas.METHANE),
-            Constant.id("gas/methane"), "CH4"
+            Component.translatable(APIConstants.Gas.METHANE),
+            APIConstants.id("gas/methane"), "CH4"
     );
-    public static final ResourceLocation NITRIC_OXIDE_ID = Constant.id("nitric_oxide");
+    public static final ResourceLocation NITRIC_OXIDE_ID = APIConstants.id("nitric_oxide");
     /**
      * Nitric oxide.
      */
     public static final Fluid NITRIC_OXIDE = GasFluid.create(
-            Component.translatable(Translations.Gas.NITRIC_OXIDE),
-            Constant.id("gas/nitric_oxide"),
+            Component.translatable(APIConstants.Gas.NITRIC_OXIDE),
+            APIConstants.id("gas/nitric_oxide"),
             "NO"
     );
-    public static final ResourceLocation NITROUS_OXIDE_ID = Constant.id("nitrous_oxide");
+    public static final ResourceLocation NITROUS_OXIDE_ID = APIConstants.id("nitrous_oxide");
     /**
      * Nitrous oxide.
      */
     public static final Fluid NITROUS_OXIDE = GasFluid.create(
-            Component.translatable(Translations.Gas.NITROUS_OXIDE),
-            Constant.id("gas/nitrous_oxide"), "N2O"
+            Component.translatable(APIConstants.Gas.NITROUS_OXIDE),
+            APIConstants.id("gas/nitrous_oxide"), "N2O"
     );
-    public static final ResourceLocation NITROGEN_DIOXIDE_ID = Constant.id("nitrogen_dioxide");
+    public static final ResourceLocation NITROGEN_DIOXIDE_ID = APIConstants.id("nitrogen_dioxide");
     /**
      * Nitrogen dioxide.
      */
     public static final Fluid NITROGEN_DIOXIDE = GasFluid.create(
-            Component.translatable(Translations.Gas.NITROGEN_DIOXIDE),
-            Constant.id("gas/nitrogen_dioxide"), "NO2"
+            Component.translatable(APIConstants.Gas.NITROGEN_DIOXIDE),
+            APIConstants.id("gas/nitrogen_dioxide"), "NO2"
     );
-    public static final ResourceLocation HELIUM_ID = Constant.id("helium");
+    public static final ResourceLocation HELIUM_ID = APIConstants.id("helium");
     /**
      * Helium.
      */
     public static final Fluid HELIUM = GasFluid.create(
-            Component.translatable(Translations.Gas.HELIUM),
-            Constant.id("gas/helium"), "He"
+            Component.translatable(APIConstants.Gas.HELIUM),
+            APIConstants.id("gas/helium"), "He"
     );
-    public static final ResourceLocation NEON_ID = Constant.id("neon");
+    public static final ResourceLocation NEON_ID = APIConstants.id("neon");
     /**
      * Neon.
      */
     public static final Fluid NEON = GasFluid.create(
-            Component.translatable(Translations.Gas.NEON),
-            Constant.id("gas/neon"), "Ne"
+            Component.translatable(APIConstants.Gas.NEON),
+            APIConstants.id("gas/neon"), "Ne"
     );
-    public static final ResourceLocation ARGON_ID = Constant.id("argon");
+    public static final ResourceLocation ARGON_ID = APIConstants.id("argon");
     /**
      * Argon.
      */
     public static final Fluid ARGON = GasFluid.create(
-            Component.translatable(Translations.Gas.ARGON),
-            Constant.id("gas/argon"), "Ar"
+            Component.translatable(APIConstants.Gas.ARGON),
+            APIConstants.id("gas/argon"), "Ar"
     );
-    public static final ResourceLocation KRYPTON_ID = Constant.id("krypton");
+    public static final ResourceLocation KRYPTON_ID = APIConstants.id("krypton");
     /**
      * Krypton.
      */
     public static final Fluid KRYPTON = GasFluid.create(
-            Component.translatable(Translations.Gas.KRYPTON),
-            Constant.id("gas/krypton"), "Kr"
+            Component.translatable(APIConstants.Gas.KRYPTON),
+            APIConstants.id("gas/krypton"), "Kr"
     );
-    public static final ResourceLocation XENON_ID = Constant.id("xenon");
+    public static final ResourceLocation XENON_ID = APIConstants.id("xenon");
     /**
      * Xenon.
      */
     public static final Fluid XENON = GasFluid.create(
-            Component.translatable(Translations.Gas.XENON),
-            Constant.id("gas/xenon"), "Xe"
+            Component.translatable(APIConstants.Gas.XENON),
+            APIConstants.id("gas/xenon"), "Xe"
     );
-    public static final ResourceLocation IODINE_ID = Constant.id("iodine");
+    public static final ResourceLocation IODINE_ID = APIConstants.id("iodine");
     /**
      * Iodine.
      */
     public static final Fluid IODINE = GasFluid.create(
-            Component.translatable(Translations.Gas.IODINE),
-            Constant.id("gas/iodine"), "I2"
+            Component.translatable(APIConstants.Gas.IODINE),
+            APIConstants.id("gas/iodine"), "I2"
     );
 
     static {

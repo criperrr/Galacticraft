@@ -22,40 +22,49 @@
 
 package dev.galacticraft.api.rocket;
 
-import dev.galacticraft.mod.content.GCRocketParts;
+import dev.galacticraft.api.APIConstants;
+import dev.galacticraft.api.registry.RocketRegistries;
+import dev.galacticraft.api.rocket.part.*;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.EitherHolder;
 
 import java.util.Optional;
 
 public class RocketPrefabs {
+    private static final ResourceKey<RocketCone<?, ?>> TIER_1_CONE = APIConstants.key(RocketRegistries.ROCKET_CONE, "tier_1");
+    private static final ResourceKey<RocketBody<?, ?>> TIER_1_BODY = APIConstants.key(RocketRegistries.ROCKET_BODY, "tier_1");
+    private static final ResourceKey<RocketFin<?, ?>> TIER_1_FIN = APIConstants.key(RocketRegistries.ROCKET_FIN, "tier_1");
+    private static final ResourceKey<RocketEngine<?, ?>> TIER_1_ENGINE = APIConstants.key(RocketRegistries.ROCKET_ENGINE, "tier_1");
+    private static final ResourceKey<RocketUpgrade<?, ?>> STORAGE_UPGRADE = APIConstants.key(RocketRegistries.ROCKET_UPGRADE, "storage");
+
     public static final RocketData MISSING = new RocketData(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), 0);
     public static final RocketData TIER_1 = new RocketData(
-            new EitherHolder<>(GCRocketParts.TIER_1_CONE),
-            new EitherHolder<>(GCRocketParts.TIER_1_BODY),
-            new EitherHolder<>(GCRocketParts.TIER_1_FIN),
+            new EitherHolder<>(TIER_1_CONE),
+            new EitherHolder<>(TIER_1_BODY),
+            new EitherHolder<>(TIER_1_FIN),
             null,
-            new EitherHolder<>(GCRocketParts.TIER_1_ENGINE),
+            new EitherHolder<>(TIER_1_ENGINE),
             null,
             null,
             0xFFFFFFFF
     );
     public static final RocketData TIER_1_STORAGE_UPGRADE = new RocketData(
-            new EitherHolder<>(GCRocketParts.TIER_1_CONE),
-            new EitherHolder<>(GCRocketParts.TIER_1_BODY),
-            new EitherHolder<>(GCRocketParts.TIER_1_FIN),
+            new EitherHolder<>(TIER_1_CONE),
+            new EitherHolder<>(TIER_1_BODY),
+            new EitherHolder<>(TIER_1_FIN),
             null,
-            new EitherHolder<>(GCRocketParts.TIER_1_ENGINE),
-            new EitherHolder<>(GCRocketParts.STORAGE_UPGRADE),
+            new EitherHolder<>(TIER_1_ENGINE),
+            new EitherHolder<>(STORAGE_UPGRADE),
             null,
             0xFFFFFFFF
     );
     // Same as t1 for now
     public static final RocketData TIER_2 = new RocketData(
-            new EitherHolder<>(GCRocketParts.TIER_1_CONE),
-            new EitherHolder<>(GCRocketParts.TIER_1_BODY),
-            new EitherHolder<>(GCRocketParts.TIER_1_FIN),
+            new EitherHolder<>(TIER_1_CONE),
+            new EitherHolder<>(TIER_1_BODY),
+            new EitherHolder<>(TIER_1_FIN),
             null,
-            new EitherHolder<>(GCRocketParts.TIER_1_ENGINE),
+            new EitherHolder<>(TIER_1_ENGINE),
             null,
             null,
             0xFFFFFFFF

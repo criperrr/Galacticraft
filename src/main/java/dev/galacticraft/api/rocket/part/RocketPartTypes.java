@@ -22,22 +22,21 @@
 
 package dev.galacticraft.api.rocket.part;
 
+import dev.galacticraft.api.APIConstants;
 import dev.galacticraft.api.registry.RocketRegistries;
 import dev.galacticraft.api.rocket.part.config.*;
 import dev.galacticraft.api.rocket.part.type.*;
-import dev.galacticraft.mod.Constant;
-import dev.galacticraft.mod.util.Translations;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 
 public enum RocketPartTypes {
-    CONE(RocketRegistries.ROCKET_CONE, RocketConeConfig.class, RocketConeType.class, RocketCone.class, Component.translatable(Translations.Ui.CONE)),
-    BODY(RocketRegistries.ROCKET_BODY, RocketBodyConfig.class, RocketBodyType.class, RocketBody.class, Component.translatable(Translations.Ui.BODY)),
-    FIN(RocketRegistries.ROCKET_FIN, RocketFinConfig.class, RocketFinType.class, RocketFin.class, Component.translatable(Translations.Ui.FINS)),
-    BOOSTER(RocketRegistries.ROCKET_BOOSTER, RocketBoosterConfig.class, RocketBoosterType.class, RocketBooster.class, Component.translatable(Translations.Ui.BOOSTER)),
-    ENGINE(RocketRegistries.ROCKET_ENGINE, RocketEngineConfig.class, RocketEngineType.class, RocketEngine.class, Component.translatable(Translations.Ui.ENGINE)),
-    UPGRADE(RocketRegistries.ROCKET_UPGRADE, RocketUpgradeConfig.class, RocketUpgradeType.class, RocketUpgrade.class, Component.translatable(Translations.Ui.UPGRADE));
+    CONE(RocketRegistries.ROCKET_CONE, RocketConeConfig.class, RocketConeType.class, RocketCone.class, Component.translatable(APIConstants.Ui.CONE)),
+    BODY(RocketRegistries.ROCKET_BODY, RocketBodyConfig.class, RocketBodyType.class, RocketBody.class, Component.translatable(APIConstants.Ui.BODY)),
+    FIN(RocketRegistries.ROCKET_FIN, RocketFinConfig.class, RocketFinType.class, RocketFin.class, Component.translatable(APIConstants.Ui.FINS)),
+    BOOSTER(RocketRegistries.ROCKET_BOOSTER, RocketBoosterConfig.class, RocketBoosterType.class, RocketBooster.class, Component.translatable(APIConstants.Ui.BOOSTER)),
+    ENGINE(RocketRegistries.ROCKET_ENGINE, RocketEngineConfig.class, RocketEngineType.class, RocketEngine.class, Component.translatable(APIConstants.Ui.ENGINE)),
+    UPGRADE(RocketRegistries.ROCKET_UPGRADE, RocketUpgradeConfig.class, RocketUpgradeType.class, RocketUpgrade.class, Component.translatable(APIConstants.Ui.UPGRADE));
 
     public final ResourceKey<? extends Registry<? extends RocketPart<?, ?>>> key;
     private final Class<? extends RocketPartConfig> config;
@@ -54,7 +53,7 @@ public enum RocketPartTypes {
     }
 
     public static RocketPartTypes fromPart(ResourceKey<? extends RocketPart<?, ?>> key) {
-        assert key.registry().getNamespace().equals(Constant.MOD_ID);
+        assert key.registry().getNamespace().equals(APIConstants.MOD_ID);
         switch (key.registry().getPath()) {
             case "rocket_cone" -> {
                 return CONE;

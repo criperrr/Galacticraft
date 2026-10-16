@@ -118,6 +118,15 @@ CLASSPATH="\\\"\\\""
 
 
 # Determine the Java command to use to start the JVM.
+if [ -z "$JAVA_HOME" ] ; then
+    for candidate in "$APP_HOME"/../.tools/jdk-21* /usr/lib/jvm/java-21-openjdk* ; do
+        if [ -x "$candidate/bin/java" ] ; then
+            JAVA_HOME="$candidate"
+            export JAVA_HOME
+            break
+        fi
+    done
+fi
 if [ -n "$JAVA_HOME" ] ; then
     if [ -x "$JAVA_HOME/jre/sh/java" ] ; then
         # IBM's JDK on AIX uses strange locations for the executables
