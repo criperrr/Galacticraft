@@ -311,6 +311,7 @@ public class GCItems {
     public static final Item OLI_GRUB_SPAWN_EGG = ITEMS.register(Constant.SpawnEgg.OLI_GRUB, new SpawnEggItem(GCEntityTypes.OLI_GRUB, 0xd4dd7e, 0xa4bf63, new Item.Properties()));
     public static final Item GREY_SPAWN_EGG = ITEMS.register(Constant.SpawnEgg.GREY, new SpawnEggItem(GCEntityTypes.GREY, 0x656463, 0x769e41, new Item.Properties()));
     public static final Item ARCH_GREY_SPAWN_EGG = ITEMS.register(Constant.SpawnEgg.ARCH_GREY, new SpawnEggItem(GCEntityTypes.ARCH_GREY, 0x656463, 0x2d8563, new Item.Properties()));
+    public static final Item SLIMELING_SPAWN_EGG = ITEMS.register(Constant.SpawnEgg.SLIMELING, new SpawnEggItem(GCEntityTypes.SLIMELING, 0x51a03e, 0xd2783b, new Item.Properties()));
 
     private static Item registerGeneric(String id) {
         return ITEMS.register(id, new Item(new Item.Properties()));
@@ -337,5 +338,6 @@ public class GCItems {
         DispenserBlock.registerBehavior(OLI_GRUB_SPAWN_EGG, DispenserBlock.DISPENSER_REGISTRY.get(Items.CREEPER_SPAWN_EGG));
         DispenserBlock.registerBehavior(GREY_SPAWN_EGG, DispenserBlock.DISPENSER_REGISTRY.get(Items.CREEPER_SPAWN_EGG));
         DispenserBlock.registerBehavior(ARCH_GREY_SPAWN_EGG, DispenserBlock.DISPENSER_REGISTRY.get(Items.CREEPER_SPAWN_EGG));
+        DispenserBlock.registerBehavior(SLIMELING_SPAWN_EGG, DispenserBlock.DISPENSER_REGISTRY.get(Items.CREEPER_SPAWN_EGG));
     }
 }

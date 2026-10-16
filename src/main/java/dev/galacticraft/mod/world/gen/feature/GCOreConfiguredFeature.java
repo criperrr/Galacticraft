@@ -45,6 +45,7 @@ public class GCOreConfiguredFeature {
     public static final RuleTest DEEPSLATE_ORE_REPLACEABLE = new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
     public static final RuleTest MOON_ROCK_ORE_REPLACEABLE = new TagMatchTest(GCBlockTags.MOON_ROCK_ORE_REPLACEABLES);
     public static final RuleTest LUNASLATE_ORE_REPLACEABLE = new TagMatchTest(GCBlockTags.LUNASLATE_ORE_REPLACEABLES);
+    public static final RuleTest MARS_STONE_ORE_REPLACEABLE = new TagMatchTest(GCBlockTags.MARS_STONE_ORE_REPLACEABLES);
 
     public static final List<OreConfiguration.TargetBlockState> TIN_ORES = List.of(OreConfiguration.target(STONE_ORE_REPLACEABLE, GCBlocks.TIN_ORE.defaultBlockState()), OreConfiguration.target(DEEPSLATE_ORE_REPLACEABLE, GCBlocks.DEEPSLATE_TIN_ORE.defaultBlockState()));
     public static final List<OreConfiguration.TargetBlockState> ALUMINUM_ORES = List.of(OreConfiguration.target(STONE_ORE_REPLACEABLE, GCBlocks.ALUMINUM_ORE.defaultBlockState()), OreConfiguration.target(DEEPSLATE_ORE_REPLACEABLE, GCBlocks.DEEPSLATE_ALUMINUM_ORE.defaultBlockState()));
@@ -54,6 +55,12 @@ public class GCOreConfiguredFeature {
     public static final List<OreConfiguration.TargetBlockState> TIN_ORES_MOON = List.of(OreConfiguration.target(MOON_ROCK_ORE_REPLACEABLE, GCBlocks.MOON_TIN_ORE.defaultBlockState()), OreConfiguration.target(LUNASLATE_ORE_REPLACEABLE, GCBlocks.LUNASLATE_TIN_ORE.defaultBlockState()));
     public static final List<OreConfiguration.TargetBlockState> CHEESE_ORES_MOON = List.of(OreConfiguration.target(MOON_ROCK_ORE_REPLACEABLE, GCBlocks.MOON_CHEESE_ORE.defaultBlockState()));
     public static final List<OreConfiguration.TargetBlockState> LUNAR_SAPPHIRE_ORES_MOON = List.of(OreConfiguration.target(MOON_ROCK_ORE_REPLACEABLE, GCBlocks.LUNAR_SAPPHIRE_ORE.defaultBlockState()));
+
+    public static final List<OreConfiguration.TargetBlockState> COPPER_ORES_MARS = List.of(OreConfiguration.target(MARS_STONE_ORE_REPLACEABLE, GCBlocks.MARS_COPPER_ORE.defaultBlockState()));
+    public static final List<OreConfiguration.TargetBlockState> TIN_ORES_MARS = List.of(OreConfiguration.target(MARS_STONE_ORE_REPLACEABLE, GCBlocks.MARS_TIN_ORE.defaultBlockState()));
+    public static final List<OreConfiguration.TargetBlockState> IRON_ORES_MARS = List.of(OreConfiguration.target(MARS_STONE_ORE_REPLACEABLE, GCBlocks.MARS_IRON_ORE.defaultBlockState()));
+    public static final List<OreConfiguration.TargetBlockState> DESH_ORES_MARS = List.of(OreConfiguration.target(MARS_STONE_ORE_REPLACEABLE, GCBlocks.DESH_ORE.defaultBlockState()));
+    public static final List<OreConfiguration.TargetBlockState> ICE_ORES_MARS = List.of(OreConfiguration.target(MARS_STONE_ORE_REPLACEABLE, GCBlocks.DENSE_ICE.defaultBlockState()));
 
     // OVERWORLD
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_SILICON_SMALL = key("ore_silicon_small");
@@ -79,6 +86,17 @@ public class GCOreConfiguredFeature {
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_LUNAR_SAPPHIRE_MOON = key("ore_lunar_sapphire_moon");
 
+    // MARS
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_COPPER_SMALL_MARS = key("ore_copper_small_mars");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_COPPER_LARGE_MARS = key("ore_copper_large_mars");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_TIN_MARS = key("ore_tin_mars");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_TIN_SMALL_MARS = key("ore_tin_small_mars");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_IRON_MARS = key("ore_iron_mars");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_IRON_SMALL_MARS = key("ore_iron_small_mars");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_DESH_MARS = key("ore_desh_mars");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_DESH_SMALL_MARS = key("ore_desh_small_mars");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_ICE_MARS = key("ore_ice_mars");
+
     @Contract(pure = true)
     private static @NotNull ResourceKey<ConfiguredFeature<?, ?>> key(String s) {
         return Constant.key(Registries.CONFIGURED_FEATURE, s);
@@ -86,15 +104,12 @@ public class GCOreConfiguredFeature {
 
     public static void bootstrapRegistries(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         // OVERWORLD
-        // OVERWORLD
         context.register(ORE_SILICON_SMALL, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(SILICON_ORES, 6, 0.5F)));
         context.register(ORE_SILICON_LARGE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(SILICON_ORES, 9, 0.7F)));
         context.register(ORE_TIN, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(TIN_ORES, 7)));
         context.register(ORE_TIN_SMALL, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(TIN_ORES, 3)));
         context.register(ORE_ALUMINUM, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(ALUMINUM_ORES, 7)));
         context.register(ORE_ALUMINUM_SMALL, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(ALUMINUM_ORES, 3)));
-
-        // MOON
 
         // MOON
         context.register(BASALT_DISK_MOON, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(BASE_STONE_MOON, GCBlocks.MOON_BASALT.defaultBlockState(), 33)));
@@ -105,5 +120,16 @@ public class GCOreConfiguredFeature {
         context.register(ORE_CHEESE_SMALL_MOON, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(CHEESE_ORES_MOON, 4)));
         context.register(ORE_CHEESE_LARGE_MOON, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(CHEESE_ORES_MOON, 9)));
         context.register(ORE_LUNAR_SAPPHIRE_MOON, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(LUNAR_SAPPHIRE_ORES_MOON, 3)));
+
+        // MARS
+        context.register(ORE_COPPER_SMALL_MARS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(COPPER_ORES_MARS, 6)));
+        context.register(ORE_COPPER_LARGE_MARS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(COPPER_ORES_MARS, 12)));
+        context.register(ORE_TIN_MARS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(TIN_ORES_MARS, 6)));
+        context.register(ORE_TIN_SMALL_MARS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(TIN_ORES_MARS, 4)));
+        context.register(ORE_IRON_MARS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(IRON_ORES_MARS, 8)));
+        context.register(ORE_IRON_SMALL_MARS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(IRON_ORES_MARS, 4)));
+        context.register(ORE_DESH_MARS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(DESH_ORES_MARS, 6)));
+        context.register(ORE_DESH_SMALL_MARS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(DESH_ORES_MARS, 3)));
+        context.register(ORE_ICE_MARS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(ICE_ORES_MARS, 18)));
     }
 }

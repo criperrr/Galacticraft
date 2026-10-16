@@ -634,6 +634,7 @@ public class GCTranslationProvider extends TranslationProvider {
         this.item(GCItems.OLI_GRUB_SPAWN_EGG, "Oli Grub Spawn Egg");
         this.item(GCItems.GREY_SPAWN_EGG, "Grey Spawn Egg");
         this.item(GCItems.ARCH_GREY_SPAWN_EGG, "Arch Grey Spawn Egg");
+        this.item(GCItems.SLIMELING_SPAWN_EGG, "Slimeling Spawn Egg");
     }
 
     protected void generateItemTagTranslations() {
@@ -853,6 +854,7 @@ public class GCTranslationProvider extends TranslationProvider {
         this.entity(GCEntityTypes.PARACHEST, "Parachest");
         this.entity(GCEntityTypes.ROCKET, "Rocket");
         this.entity(GCEntityTypes.RUMBLER, "Rumbler");
+        this.entity(GCEntityTypes.SLIMELING, "Slimeling");
         this.entity(GCEntityTypes.THROWABLE_METEOR_CHUNK, "Meteor Chunk");
     }
 
@@ -912,6 +914,9 @@ public class GCTranslationProvider extends TranslationProvider {
         this.add(GCBiomes.Moon.LUNAR_LOWLANDS, "Lunar Lowlands");
         this.add(GCBiomes.Moon.OLIVINE_SPIKES, "Olivine Spikes");
         this.add(GCBiomes.SPACE, "Space");
+        this.add(GCBiomes.Mars.MARS_FLAT, "Mars Flat");
+        this.add(GCBiomes.Mars.MARS_CANYON, "Mars Canyon");
+        this.add(GCBiomes.Mars.MARS_HIGHLANDS, "Mars Highlands");
         this.add(GCBiomes.Venus.VENUS_FLAT, "Venus Flat");
         this.add(GCBiomes.Venus.VENUS_MOUNTAIN, "Venus Mountain");
         this.add(GCBiomes.Venus.VENUS_VALLEY, "Venus Valley");

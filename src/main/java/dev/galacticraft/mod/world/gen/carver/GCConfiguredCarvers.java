@@ -45,6 +45,9 @@ public class GCConfiguredCarvers {
     public static final ResourceKey<ConfiguredWorldCarver<?>> MOON_CRATER_CARVER = key(Constant.Carver.MOON_CRATER_CARVER);
     public static final ResourceKey<ConfiguredWorldCarver<?>> MOON_HIGHLANDS_CAVE_CARVER = key(Constant.Carver.MOON_HIGHLANDS_CAVE_CARVER);
     public static final ResourceKey<ConfiguredWorldCarver<?>> MOON_MARE_CAVE_CARVER = key(Constant.Carver.MOON_MARE_CAVE_CARVER);
+    public static final ResourceKey<ConfiguredWorldCarver<?>> MARS_CANYON_CARVER = key(Constant.Carver.MARS_CANYON_CARVER);
+    public static final ResourceKey<ConfiguredWorldCarver<?>> MARS_CRATER_CARVER = key(Constant.Carver.MARS_CRATER_CARVER);
+    public static final ResourceKey<ConfiguredWorldCarver<?>> MARS_CAVE_CARVER = key(Constant.Carver.MARS_CAVE_CARVER);
 
     @Contract(pure = true)
     private static @NotNull ResourceKey<ConfiguredWorldCarver<?>> key(String s) {
@@ -95,6 +98,41 @@ public class GCConfiguredCarvers {
                 HolderSet.direct(),
                 UniformFloat.of(0.7f, 1.4f),
                 UniformFloat.of(0.8f, 1.3f),
+                UniformFloat.of(-1.0f, -0.4f)
+        )));
+        context.register(MARS_CANYON_CARVER, WorldCarver.CANYON.configured(new CanyonCarverConfiguration(
+                0.07f,
+                UniformHeight.of(VerticalAnchor.absolute(10), VerticalAnchor.absolute(90)),
+                ConstantFloat.of(3.5f),
+                VerticalAnchor.aboveBottom(8),
+                CarverDebugSettings.DEFAULT,
+                BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.MARS_CARVER_REPLACEABLES),
+                UniformFloat.of(-0.125f, 0.125f),
+                new CanyonCarverConfiguration.CanyonShapeConfiguration(
+                        UniformFloat.of(0.75f, 1.0f),
+                        TrapezoidFloat.of(0, 8, 2),
+                        3,
+                        UniformFloat.of(0.75f, 1.0f),
+                        1.0f,
+                        0.0f)
+        )));
+        context.register(MARS_CRATER_CARVER, GCCarvers.CRATERS.configured(new CraterCarverConfig(
+                0.04f,
+                ConstantHeight.of(VerticalAnchor.absolute(128)),
+                UniformFloat.of(0.4f, 0.6f),
+                CarverDebugSettings.DEFAULT,
+                25,
+                8,
+                8
+        )));
+        context.register(MARS_CAVE_CARVER, WorldCarver.CAVE.configured(new CaveCarverConfiguration(
+                0.16f,
+                UniformHeight.of(VerticalAnchor.aboveBottom(8), VerticalAnchor.absolute(180)),
+                UniformFloat.of(0.1f, 0.9f),
+                VerticalAnchor.aboveBottom(8),
+                BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.MARS_CARVER_REPLACEABLES),
+                UniformFloat.of(0.8f, 1.6f),
+                UniformFloat.of(0.8f, 1.4f),
                 UniformFloat.of(-1.0f, -0.4f)
         )));
     }

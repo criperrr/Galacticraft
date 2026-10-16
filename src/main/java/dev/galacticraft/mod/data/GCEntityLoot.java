@@ -234,6 +234,18 @@ public class GCEntityLoot extends GCEntityLootSubProvider {
         add(GCEntityTypes.GREY, noDrops());
         add(GCEntityTypes.ARCH_GREY, noDrops());
         add(GCEntityTypes.FALLING_METEOR, noDrops());
+        add(GCEntityTypes.SLIMELING,
+                LootTable.lootTable()
+                        .withPool(
+                                LootPool.lootPool()
+                                        .setRolls(ConstantValue.exactly(1.0F))
+                                        .add(
+                                                LootItem.lootTableItem(Items.SLIME_BALL)
+                                                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))
+                                                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.lookup, UniformGenerator.between(0.0F, 1.0F)))
+                                        )
+                        )
+        );
 
         add(GCEntityTypes.SKELETON_BOSS,
                 LootTable.lootTable()

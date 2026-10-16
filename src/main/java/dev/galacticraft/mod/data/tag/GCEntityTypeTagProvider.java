@@ -59,7 +59,8 @@ public class GCEntityTypeTagProvider extends FabricTagProvider.EntityTypeTagProv
         this.getOrCreateTagBuilder(GCEntityTypeTags.HAS_PET_INVENTORY)
                 .add(EntityType.WOLF)
                 .add(EntityType.CAT)
-                .add(EntityType.PARROT);
+                .add(EntityType.PARROT)
+                .add(GCEntityTypes.SLIMELING);
 
         this.getOrCreateTagBuilder(GCEntityTypeTags.IMMUNE_TO_ACID)
                 .add(EntityType.TRIDENT)

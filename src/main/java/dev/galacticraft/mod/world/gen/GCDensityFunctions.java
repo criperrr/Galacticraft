@@ -40,6 +40,11 @@ public class GCDensityFunctions {
         public static final ResourceKey<DensityFunction> FINAL_DENSITY = createKey("moon/final_density");
     }
 
+    public static final class Mars {
+        // Final Density handles overall terrain shape
+        public static final ResourceKey<DensityFunction> FINAL_DENSITY = createKey("mars/final_density");
+    }
+
     public static final class Venus {
         // Final Density handles overall terrain shape
         public static final ResourceKey<DensityFunction> FINAL_DENSITY = createKey("venus/final_density");
@@ -129,6 +134,11 @@ public class GCDensityFunctions {
 //                noodles
 //            )
 //        );
+
+        context.register(Mars.FINAL_DENSITY, DensityFunctions.add(
+                DensityFunctions.yClampedGradient(0, 96, 1, -1),
+                BlendedNoise.createUnseeded(0.25, 0.375, 80.0, 160.0, 8.0)
+        ));
 
         context.register(Venus.FINAL_DENSITY, DensityFunctions.add(
                 DensityFunctions.yClampedGradient(0, 90, 1, -1),

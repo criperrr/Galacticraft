@@ -127,6 +127,11 @@ public class GCEntityTypes {
             .eyeHeight(1.25F)
             .clientTrackingRange(8)
             .build());
+    public static final EntityType<SlimelingEntity> SLIMELING = ENTITIES.register(Entity.SLIMELING, EntityType.Builder.of(SlimelingEntity::new, MobCategory.CREATURE)
+            .sized(0.45F, 0.7F)
+            .eyeHeight(0.56F)
+            .clientTrackingRange(8)
+            .build());
 
     public static final EntityType<FallingMeteorEntity> FALLING_METEOR = ENTITIES.register(Entity.FALLING_METEOR, EntityType.Builder.of(FallingMeteorEntity::new, MobCategory.AMBIENT)
             .clientTrackingRange(16)
@@ -197,6 +202,7 @@ public class GCEntityTypes {
         FabricDefaultAttributeRegistry.register(OLI_GRUB, OliGrubEntity.createAttributes());
         FabricDefaultAttributeRegistry.register(GREY, GreyEntity.createAttributes());
         FabricDefaultAttributeRegistry.register(ARCH_GREY, ArchGreyEntity.createAttributes());
+        FabricDefaultAttributeRegistry.register(SLIMELING, SlimelingEntity.createAttributes());
         FabricDefaultAttributeRegistry.register(SKELETON_BOSS, SkeletonBoss.createAttributes().add(GcApiEntityAttributes.CAN_BREATHE_IN_SPACE, 1.0D));
     }
 }

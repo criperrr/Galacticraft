@@ -1136,6 +1136,7 @@ public interface Constant {
         String GAZER = "gazer";
         String FALLING_METEOR = "falling_meteor";
         String EVOLVED_SKELETON_BOSS = "evolved_skeleton_boss";
+        String SLIMELING = "slimeling";
     }
 
     interface SpawnEgg {
@@ -1155,6 +1156,7 @@ public interface Constant {
         String OLI_GRUB = "oli_grub_spawn_egg";
         String COMET_CUBE = "comet_cube_spawn_egg";
         String GAZER = "gazer_spawn_egg";
+        String SLIMELING = "slimeling_spawn_egg";
     }
 
     interface EntityTexture {
@@ -1169,6 +1171,7 @@ public interface Constant {
         String GAZER = "textures/entity/gazer.png";
         String LANDER = "textures/entity/lander.png";
         String SKELETON_BOSS = "textures/entity/skeletonboss.png";
+        String SLIMELING = "textures/entity/slimeling.png";
     }
 
     interface GearTexture {
@@ -1400,6 +1403,9 @@ public interface Constant {
         String MOON_CRATER_CARVER = "moon_crater_carver";
         String MOON_HIGHLANDS_CAVE_CARVER = "moon_highlands_cave_carver";
         String MOON_MARE_CAVE_CARVER = "moon_mare_cave_carver";
+        String MARS_CANYON_CARVER = "mars_canyon_carver";
+        String MARS_CRATER_CARVER = "mars_crater_carver";
+        String MARS_CAVE_CARVER = "mars_cave_carver";
     }
 
     interface Packet {

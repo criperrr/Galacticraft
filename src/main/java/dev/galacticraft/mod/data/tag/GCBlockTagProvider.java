@@ -112,12 +112,17 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(GCBlocks.MOON_CHEESE_LEAVES);
 
         this.tag(GCBlockTags.FOOTPRINTS)
-                .add(GCBlocks.MOON_TURF);
+                .add(GCBlocks.MOON_TURF)
+                .add(GCBlocks.MARS_SURFACE_ROCK);
 
         this.tag(GCBlockTags.INFINIBURN_MOON)
                 .add(GCBlocks.MOON_BASALT_BRICK);
+        this.tag(GCBlockTags.INFINIBURN_MARS)
+                .add(GCBlocks.MARS_COBBLESTONE);
         this.tag(GCBlockTags.BASE_STONE_MOON)
                 .add(GCBlocks.MOON_ROCK);
+        this.tag(GCBlockTags.BASE_STONE_MARS)
+                .add(GCBlocks.MARS_STONE);
         this.tag(GCBlockTags.MOON_CARVER_REPLACEABLES)
                 .add(GCBlocks.MOON_ROCK)
                 .add(GCBlocks.MOON_SURFACE_ROCK)
@@ -125,6 +130,10 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(GCBlocks.MOON_DIRT)
                 .add(GCBlocks.MOON_TURF)
                 .add(GCBlocks.LUNASLATE);
+        this.tag(GCBlockTags.MARS_CARVER_REPLACEABLES)
+                .add(GCBlocks.MARS_STONE)
+                .add(GCBlocks.MARS_SUB_SURFACE_ROCK)
+                .add(GCBlocks.MARS_SURFACE_ROCK);
         this.tag(GCBlockTags.OLIVINE_CAVE_REPLACEABLES)
                 .add(GCBlocks.LUNASLATE)
                 .add(GCBlocks.MOON_ROCK);
@@ -140,6 +149,11 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(GCBlocks.MOON_TURF)
                 .add(GCBlocks.DENSE_ICE)
                 .add(GCBlocks.LUNASLATE);
+        this.tag(GCBlockTags.MARS_CRATER_CARVER_REPLACEABLES)
+                .add(GCBlocks.MARS_STONE)
+                .add(GCBlocks.MARS_SUB_SURFACE_ROCK)
+                .add(GCBlocks.MARS_SURFACE_ROCK)
+                .add(GCBlocks.DENSE_ICE);
 
         this.tag(GCBlockTags.MOON_ROCK_ORE_REPLACEABLES)
                 .add(GCBlocks.MOON_ROCK);
@@ -148,7 +162,8 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         this.tag(GCBlockTags.MOON_BASALT_ORE_REPLACEABLES)
                 .add(GCBlocks.MOON_BASALT);
         this.tag(GCBlockTags.MARS_STONE_ORE_REPLACEABLES)
-                .add(GCBlocks.MARS_STONE);
+                .add(GCBlocks.MARS_STONE)
+                .add(GCBlocks.MARS_SUB_SURFACE_ROCK);
         this.tag(GCBlockTags.ASTEROID_ROCK_ORE_REPLACEABLES)
                 .add(GCBlocks.ASTEROID_ROCK)
                 .add(GCBlocks.ASTEROID_ROCK_1)
