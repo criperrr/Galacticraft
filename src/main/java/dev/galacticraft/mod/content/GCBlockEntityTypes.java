@@ -39,6 +39,7 @@ public class GCBlockEntityTypes {
     public static final GCRegistry<BlockEntityType<?>> BLOCK_ENTITIES = new GCRegistry<>(BuiltInRegistries.BLOCK_ENTITY_TYPE);
     // POWER GENERATION
     public static final BlockEntityType<CoalGeneratorBlockEntity> COAL_GENERATOR = register(Constant.Block.COAL_GENERATOR, CoalGeneratorBlockEntity::new, GCBlocks.COAL_GENERATOR);
+    public static final BlockEntityType<GeothermalGeneratorBlockEntity> GEOTHERMAL_GENERATOR = register(Constant.Block.GEOTHERMAL_GENERATOR, GeothermalGeneratorBlockEntity::new, GCBlocks.GEOTHERMAL_GENERATOR);
     public static final BlockEntityType<BasicSolarPanelBlockEntity> BASIC_SOLAR_PANEL = register(Constant.Block.BASIC_SOLAR_PANEL, BasicSolarPanelBlockEntity::new, GCBlocks.BASIC_SOLAR_PANEL);
     public static final BlockEntityType<AdvancedSolarPanelBlockEntity> ADVANCED_SOLAR_PANEL = register(Constant.Block.ADVANCED_SOLAR_PANEL, AdvancedSolarPanelBlockEntity::new, GCBlocks.ADVANCED_SOLAR_PANEL);
 
@@ -74,6 +75,7 @@ public class GCBlockEntityTypes {
     public static final BlockEntityType<FuelLoaderBlockEntity> FUEL_LOADER = register(Constant.Block.FUEL_LOADER, FuelLoaderBlockEntity::new, GCBlocks.FUEL_LOADER);
     public static final BlockEntityType<ParachestBlockEntity> PARACHEST = register(Constant.Block.PARACHEST, ParachestBlockEntity::new, GCBlocks.PARACHEST);
     public static final BlockEntityType<ShortRangeTelepadBlockEntity> SHORT_RANGE_TELEPAD = register(Constant.Block.SHORT_RANGE_TELEPAD, ShortRangeTelepadBlockEntity::new, GCBlocks.SHORT_RANGE_TELEPAD);
+    public static final BlockEntityType<CrashedProbeBlockEntity> CRASHED_PROBE = register(Constant.Block.CRASHED_PROBE_BLOCK, CrashedProbeBlockEntity::new, GCBlocks.CRASHED_PROBE);
 
     // MISC
     public static final BlockEntityType<SolarPanelPartBlockEntity> SOLAR_PANEL_PART = register(Constant.Block.SOLAR_PANEL_PART, SolarPanelPartBlockEntity::new, GCBlocks.SOLAR_PANEL_PART);

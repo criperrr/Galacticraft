@@ -44,6 +44,8 @@
       "dev.galacticraft.mod.gametest.ExtinguishableTestSuite",
       "dev.galacticraft.mod.gametest.MarsTestSuite",
       "dev.galacticraft.mod.gametest.AsteroidsTestSuite",
+      "dev.galacticraft.mod.gametest.VenusTestSuite",
+      "dev.galacticraft.mod.gametest.machine.GeothermalGeneratorTestSuite",
       "dev.galacticraft.mod.gametest.PipeTestSuite",
       "dev.galacticraft.mod.gametest.WireTestSuite"
     ]

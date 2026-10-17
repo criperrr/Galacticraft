@@ -227,6 +227,7 @@ public class GCTranslationProvider extends TranslationProvider {
         this.block(GCBlocks.VOLCANIC_ROCK, "Volcanic Rock");
         this.block(GCBlocks.PUMICE, "Pumice");
         this.block(GCBlocks.VAPOR_SPOUT, "Vapor Spout");
+        this.block(GCBlocks.CRASHED_PROBE, "Crashed Probe");
 
         // MISC DECOR
         this.block(GCBlocks.WALKWAY, "Walkway");
@@ -372,6 +373,7 @@ public class GCTranslationProvider extends TranslationProvider {
         this.block(GCBlocks.COAL_GENERATOR, "Coal Generator");
         this.block(GCBlocks.BASIC_SOLAR_PANEL, "Basic Solar Panel");
         this.block(GCBlocks.ADVANCED_SOLAR_PANEL, "Advanced Solar Panel");
+        this.block(GCBlocks.GEOTHERMAL_GENERATOR, "Geothermal Generator");
         this.block(GCBlocks.ENERGY_STORAGE_MODULE, "Energy Storage Module");
         this.block(GCBlocks.ELECTRIC_FURNACE, "Electric Furnace");
         this.block(GCBlocks.ELECTRIC_ARC_FURNACE, "Electric Arc Furnace");
@@ -457,6 +459,7 @@ public class GCTranslationProvider extends TranslationProvider {
         this.item(GCItems.ORION_DRIVE, "Orion Drive");
         this.item(GCItems.ATMOSPHERIC_VALVE, "Atmospheric Valve");
         this.item(GCItems.AMBIENT_THERMAL_CONTROLLER, "Ambient Thermal Controller");
+        this.item(GCItems.RADIOISOTOPE_CORE, "Radioisotope Core");
 
         // FOOD
         this.add(Items.CANNED_FOOD_TEMPLATE, "Canned %s");
@@ -533,6 +536,7 @@ public class GCTranslationProvider extends TranslationProvider {
         // BATTERIES
         this.item(GCItems.BATTERY, "Battery");
         this.item(GCItems.INFINITE_BATTERY, "Infinite Battery");
+        this.item(GCItems.ATOMIC_BATTERY, "Atomic Battery");
 
         // FLUID BUCKETS
         this.item(GCItems.CRUDE_OIL_BUCKET, "Oil Bucket");
@@ -1040,6 +1044,8 @@ public class GCTranslationProvider extends TranslationProvider {
         this.blockDesc(GCBlocks.OXYGEN_STORAGE_MODULE, "Stores a large amount of oxygen.");
         this.blockDesc(GCBlocks.PARACHEST, "Falls from the sky when you travel to certain planets, carrying your rocket, fuel, and cargo.");
         this.blockDesc(GCBlocks.REFINERY, "Refines crude oil into fuel used by rockets and vehicles.");
+        this.blockDesc(GCBlocks.CRASHED_PROBE, "A damaged probe that landed on Venus. Salvageable for radioisotope parts.");
+        this.blockDesc(GCBlocks.GEOTHERMAL_GENERATOR, "Harnesses geothermal energy from vapor spouts to generate electricity.");
 
         this.add(Tooltip.CREATIVE_ONLY, "Creative Only");
         this.add(Tooltip.ENERGY_REMAINING, "Energy Remaining: %s");
@@ -1054,6 +1060,7 @@ public class GCTranslationProvider extends TranslationProvider {
         this.add(Tooltip.FLUID_CANISTER_EMPTY, "Empty");
         this.add(Tooltip.FLUID_CANISTER_FLUID_INFO, "%s: %s");
         this.add(Tooltip.FLUID_CANISTER_LOX, "LOX");
+        this.add(Tooltip.ATOMIC_BATTERY_OUTPUT, "Infinite Output: %s EU/t");
     }
 
     protected void generateConfigTranslations() {

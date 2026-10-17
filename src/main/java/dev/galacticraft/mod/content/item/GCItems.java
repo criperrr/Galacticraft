@@ -122,6 +122,7 @@ public class GCItems {
     public static final Item SOLAR_DUST = registerGeneric(Constant.Item.SOLAR_DUST);
     public static final Item SOLAR_ARRAY_WAFER = registerGeneric(Constant.Item.SOLAR_ARRAY_WAFER);
     public static final Item SOLAR_ARRAY_PANEL = registerGeneric(Constant.Item.SOLAR_ARRAY_PANEL);
+    public static final Item RADIOISOTOPE_CORE = registerGeneric(Constant.Item.RADIOISOTOPE_CORE);
 
     public static final Item OXYGEN_CONCENTRATOR = registerGeneric(Constant.Item.OXYGEN_CONCENTRATOR);
     public static final Item OXYGEN_FAN = registerGeneric(Constant.Item.OXYGEN_FAN);
@@ -211,6 +212,7 @@ public class GCItems {
     // BATTERIES
     public static final BatteryItem BATTERY = ITEMS.register(Constant.Item.BATTERY, new BatteryItem(new Item.Properties().stacksTo(1), 15000, 500));
     public static final Item INFINITE_BATTERY = ITEMS.register(Constant.Item.INFINITE_BATTERY, new InfiniteBatteryItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
+    public static final Item ATOMIC_BATTERY = ITEMS.register(Constant.Item.ATOMIC_BATTERY, new AtomicBatteryItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
 
     // GALACTICRAFT INVENTORY
     public static final Item SMALL_OXYGEN_TANK = ITEMS.register(Constant.Item.SMALL_OXYGEN_TANK, new OxygenTankItem(new Item.Properties(), (int) Galacticraft.CONFIG.smallOxygenTankCapacity()));

@@ -47,6 +47,9 @@ public class GCOreConfiguredFeature {
     public static final RuleTest LUNASLATE_ORE_REPLACEABLE = new TagMatchTest(GCBlockTags.LUNASLATE_ORE_REPLACEABLES);
     public static final RuleTest MARS_STONE_ORE_REPLACEABLE = new TagMatchTest(GCBlockTags.MARS_STONE_ORE_REPLACEABLES);
 
+    public static final RuleTest SOFT_VENUS_ROCK_ORE_REPLACEABLE = new TagMatchTest(GCBlockTags.SOFT_VENUS_ROCK_ORE_REPLACEABLES);
+    public static final RuleTest HARD_VENUS_ROCK_ORE_REPLACEABLE = new TagMatchTest(GCBlockTags.HARD_VENUS_ROCK_ORE_REPLACEABLES);
+
     public static final List<OreConfiguration.TargetBlockState> TIN_ORES = List.of(OreConfiguration.target(STONE_ORE_REPLACEABLE, GCBlocks.TIN_ORE.defaultBlockState()), OreConfiguration.target(DEEPSLATE_ORE_REPLACEABLE, GCBlocks.DEEPSLATE_TIN_ORE.defaultBlockState()));
     public static final List<OreConfiguration.TargetBlockState> ALUMINUM_ORES = List.of(OreConfiguration.target(STONE_ORE_REPLACEABLE, GCBlocks.ALUMINUM_ORE.defaultBlockState()), OreConfiguration.target(DEEPSLATE_ORE_REPLACEABLE, GCBlocks.DEEPSLATE_ALUMINUM_ORE.defaultBlockState()));
     public static final List<OreConfiguration.TargetBlockState> SILICON_ORES = List.of(OreConfiguration.target(STONE_ORE_REPLACEABLE, GCBlocks.SILICON_ORE.defaultBlockState()), OreConfiguration.target(DEEPSLATE_ORE_REPLACEABLE, GCBlocks.DEEPSLATE_SILICON_ORE.defaultBlockState()));
@@ -61,6 +64,12 @@ public class GCOreConfiguredFeature {
     public static final List<OreConfiguration.TargetBlockState> IRON_ORES_MARS = List.of(OreConfiguration.target(MARS_STONE_ORE_REPLACEABLE, GCBlocks.MARS_IRON_ORE.defaultBlockState()));
     public static final List<OreConfiguration.TargetBlockState> DESH_ORES_MARS = List.of(OreConfiguration.target(MARS_STONE_ORE_REPLACEABLE, GCBlocks.DESH_ORE.defaultBlockState()));
     public static final List<OreConfiguration.TargetBlockState> ICE_ORES_MARS = List.of(OreConfiguration.target(MARS_STONE_ORE_REPLACEABLE, GCBlocks.DENSE_ICE.defaultBlockState()));
+
+    public static final List<OreConfiguration.TargetBlockState> COPPER_ORES_VENUS = List.of(OreConfiguration.target(SOFT_VENUS_ROCK_ORE_REPLACEABLE, GCBlocks.VENUS_COPPER_ORE.defaultBlockState()), OreConfiguration.target(HARD_VENUS_ROCK_ORE_REPLACEABLE, GCBlocks.VENUS_COPPER_ORE.defaultBlockState()));
+    public static final List<OreConfiguration.TargetBlockState> TIN_ORES_VENUS = List.of(OreConfiguration.target(SOFT_VENUS_ROCK_ORE_REPLACEABLE, GCBlocks.VENUS_TIN_ORE.defaultBlockState()), OreConfiguration.target(HARD_VENUS_ROCK_ORE_REPLACEABLE, GCBlocks.VENUS_TIN_ORE.defaultBlockState()));
+    public static final List<OreConfiguration.TargetBlockState> ALUMINUM_ORES_VENUS = List.of(OreConfiguration.target(SOFT_VENUS_ROCK_ORE_REPLACEABLE, GCBlocks.VENUS_ALUMINUM_ORE.defaultBlockState()), OreConfiguration.target(HARD_VENUS_ROCK_ORE_REPLACEABLE, GCBlocks.VENUS_ALUMINUM_ORE.defaultBlockState()));
+    public static final List<OreConfiguration.TargetBlockState> GALENA_ORES_VENUS = List.of(OreConfiguration.target(HARD_VENUS_ROCK_ORE_REPLACEABLE, GCBlocks.GALENA_ORE.defaultBlockState()), OreConfiguration.target(SOFT_VENUS_ROCK_ORE_REPLACEABLE, GCBlocks.GALENA_ORE.defaultBlockState()));
+    public static final List<OreConfiguration.TargetBlockState> SOLAR_ORES_VENUS = List.of(OreConfiguration.target(SOFT_VENUS_ROCK_ORE_REPLACEABLE, GCBlocks.SOLAR_ORE.defaultBlockState()), OreConfiguration.target(HARD_VENUS_ROCK_ORE_REPLACEABLE, GCBlocks.SOLAR_ORE.defaultBlockState()));
 
     // OVERWORLD
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_SILICON_SMALL = key("ore_silicon_small");
@@ -97,6 +106,14 @@ public class GCOreConfiguredFeature {
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_DESH_SMALL_MARS = key("ore_desh_small_mars");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_ICE_MARS = key("ore_ice_mars");
 
+    // VENUS
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_COPPER_VENUS = key("ore_copper_venus");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_COPPER_LARGE_VENUS = key("ore_copper_large_venus");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_TIN_VENUS = key("ore_tin_venus");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_ALUMINUM_VENUS = key("ore_aluminum_venus");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_GALENA_VENUS = key("ore_galena_venus");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_SOLAR_VENUS = key("ore_solar_venus");
+
     @Contract(pure = true)
     private static @NotNull ResourceKey<ConfiguredFeature<?, ?>> key(String s) {
         return Constant.key(Registries.CONFIGURED_FEATURE, s);
@@ -131,5 +148,13 @@ public class GCOreConfiguredFeature {
         context.register(ORE_DESH_MARS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(DESH_ORES_MARS, 6)));
         context.register(ORE_DESH_SMALL_MARS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(DESH_ORES_MARS, 3)));
         context.register(ORE_ICE_MARS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(ICE_ORES_MARS, 18)));
+
+        // VENUS
+        context.register(ORE_COPPER_VENUS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(COPPER_ORES_VENUS, 6)));
+        context.register(ORE_COPPER_LARGE_VENUS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(COPPER_ORES_VENUS, 12)));
+        context.register(ORE_TIN_VENUS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(TIN_ORES_VENUS, 6)));
+        context.register(ORE_ALUMINUM_VENUS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(ALUMINUM_ORES_VENUS, 6)));
+        context.register(ORE_GALENA_VENUS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(GALENA_ORES_VENUS, 6)));
+        context.register(ORE_SOLAR_VENUS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(SOLAR_ORES_VENUS, 5)));
     }
 }

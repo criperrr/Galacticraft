@@ -142,6 +142,8 @@ public class GCModelProvider extends FabricModelProvider {
         generator.createTrivialCube(GCBlocks.VOLCANIC_ROCK);
         generator.createTrivialCube(GCBlocks.PUMICE);
         this.createVaporSpout(generator);
+        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(GCBlocks.CRASHED_PROBE, Constant.id("block/crashed_probe")));
+        generator.skipAutoItemBlock(GCBlocks.CRASHED_PROBE);
 
         // MISC DECOR
         generator.createNonTemplateHorizontalBlock(GCBlocks.TIN_LADDER);
@@ -399,6 +401,19 @@ public class GCModelProvider extends FabricModelProvider {
                 TextureProvider.builder(Constant.MOD_ID)
                         .sides("block/machine_side")
                         .top("block/oxygen_sealer_top")
+                        .build()
+        );
+
+        createActiveMachine(generator, GCBlocks.GEOTHERMAL_GENERATOR,
+                TextureProvider.builder(Constant.MOD_ID)
+                        .sides("block/machine_side")
+                        .top("block/geothermal_vent")
+                        .front("block/geothermal")
+                        .build(),
+                TextureProvider.builder(Constant.MOD_ID)
+                        .sides("block/machine_side")
+                        .top("block/geothermal_vent")
+                        .front("block/geothermal_inactive")
                         .build()
         );
 
@@ -725,6 +740,7 @@ public class GCModelProvider extends FabricModelProvider {
         generator.generateFlatItem(GCItems.ORION_DRIVE, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(GCItems.ATMOSPHERIC_VALVE, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(GCItems.AMBIENT_THERMAL_CONTROLLER, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.RADIOISOTOPE_CORE, ModelTemplates.FLAT_ITEM);
 
         for (Item flag : GCItems.FLAGS.colorMap().values()) {
             GCModelTemplates.FLAG_INVENTORY.create(ModelLocationUtils.getModelLocation(flag), new TextureMapping(), generator.output);
@@ -804,6 +820,7 @@ public class GCModelProvider extends FabricModelProvider {
         // BATTERIES
         generator.generateFlatItem(GCItems.BATTERY, ModelTemplates.FLAT_ITEM);
         this.createLayeredItem(generator, GCItems.INFINITE_BATTERY, Constant.Item.INFINITE_INDICATOR);
+        generator.generateFlatItem(GCItems.ATOMIC_BATTERY, ModelTemplates.FLAT_ITEM);
 
         // FLUID BUCKETS
         generator.generateFlatItem(GCItems.CRUDE_OIL_BUCKET, ModelTemplates.FLAT_ITEM);
