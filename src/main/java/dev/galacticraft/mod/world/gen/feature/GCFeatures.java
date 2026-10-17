@@ -61,6 +61,18 @@ public class GCFeatures {
             "venus_crashed_probe",
             new VenusCrashedProbeFeature(NoneFeatureConfiguration.CODEC)
     );
+    public static final Feature<NoneFeatureConfiguration> MOON_SURFACE_OUTCROP = FEATURES.register(
+            "moon_surface_outcrop",
+            new MoonSurfaceOutcropFeature(NoneFeatureConfiguration.CODEC)
+    );
+    public static final Feature<NoneFeatureConfiguration> MOON_OLIVINE_SPIKE = FEATURES.register(
+            "moon_olivine_spike",
+            new MoonOlivineSpikeFeature(NoneFeatureConfiguration.CODEC)
+    );
+    public static final Feature<NoneFeatureConfiguration> MOON_CAVE_FLORA = FEATURES.register(
+            "moon_cave_flora",
+            new MoonCaveFloraFeature(NoneFeatureConfiguration.CODEC)
+    );
 
     public static void register() {
         Constant.LOGGER.debug("Registering Galacticraft worldgen features");

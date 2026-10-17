@@ -23,18 +23,20 @@
 package dev.galacticraft.mod.world.gen.carver;
 
 import com.mojang.serialization.Codec;
+import dev.galacticraft.mod.content.GCBlocks;
+import dev.galacticraft.mod.world.biome.GCBiomes;
 import dev.galacticraft.mod.world.gen.carver.config.CraterCarverConfig;
-import dev.galacticraft.mod.world.gen.structure.GCStructures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.CarvingMask;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.levelgen.Aquifer;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.carver.CarvingContext;
 import net.minecraft.world.level.levelgen.carver.WorldCarver;
 
@@ -47,64 +49,152 @@ public class CraterCarver extends WorldCarver<CraterCarverConfig> {
 
     @Override
     public boolean carve(CarvingContext context, CraterCarverConfig config, ChunkAccess chunk, Function<BlockPos, Holder<Biome>> posToBiome, RandomSource random, Aquifer aquiferSampler, ChunkPos pos, CarvingMask carvingMask) {
-        int y = config.y.sample(random, context);
-        //pos = center chunk pos
-        BlockPos craterCenter = pos.getBlockAt(random.nextInt(16), y, random.nextInt(16));
+        int fallbackY = config.y.sample(random, context);
+        BlockPos craterCenter = pos.getBlockAt(random.nextInt(16), fallbackY, random.nextInt(16));
 
-        if (!chunk.getReferencesForStructure(context.registryAccess().registryOrThrow(Registries.STRUCTURE).getOrThrow(GCStructures.Moon.VILLAGE)).isEmpty()) {
-            return false;
+        BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
+        BlockPos.MutableBlockPos copy = new BlockPos.MutableBlockPos();
+
+        // GC4 EnumCraterSize distribution between minRadius (8) and maxRadius (27)
+        double radius = config.minRadius + (random.nextDouble() * (config.maxRadius - config.minRadius));
+        if (random.nextBoolean() && (radius < (config.minRadius + config.idealRangeOffset) || radius > (config.maxRadius - config.idealRangeOffset))) {
+            radius = config.minRadius + (random.nextDouble() * (config.maxRadius - config.minRadius));
         }
+        double depthMultiplier = 1.0 - ((random.nextDouble() - 0.5) * 0.3);
+        boolean fresh = random.nextInt(4) == 0;
 
-        BlockPos.MutableBlockPos mutable = craterCenter.mutable();
-
-        double radius = 8 + (random.nextDouble() * (config.maxRadius - config.minRadius));
-        if (random.nextBoolean() && radius < (config.minRadius + config.idealRangeOffset) || radius > (config.maxRadius - config.idealRangeOffset))
-            radius = 8 + (random.nextDouble() * (config.maxRadius - config.minRadius));
-        double depthMultiplier = 1 - ((random.nextDouble() - 0.5) * 0.3);
-        boolean fresh = random.nextInt(16) == 1;
-        for (int innerChunkX = 0; innerChunkX < 16; innerChunkX++) { //iterate through positions in chunk
+        for (int innerChunkX = 0; innerChunkX < 16; innerChunkX++) {
             for (int innerChunkZ = 0; innerChunkZ < 16; innerChunkZ++) {
-                double toDig = 0;
+                int worldX = chunk.getPos().getBlockX(innerChunkX);
+                int worldZ = chunk.getPos().getBlockZ(innerChunkZ);
 
-                double xDev = Math.abs((chunk.getPos().getBlockX(innerChunkX)) - craterCenter.getX());
-                double zDev = Math.abs((chunk.getPos().getBlockZ(innerChunkZ)) - craterCenter.getZ());
-                if (xDev >= 0 && xDev < 32 && zDev >= 0 && zDev < 32) {
-                    if (xDev * xDev + zDev * zDev < radius * radius) { //distance to crater and depth
-                        xDev /= radius;
-                        zDev /= radius;
-                        final double sqrtY = xDev * xDev + zDev * zDev;
-                        double yDev = sqrtY * sqrtY * 6;
-                        double craterDepth = 5 - yDev;
-                        craterDepth *= depthMultiplier;
-                        if (craterDepth > 0.0) {
-                            toDig = craterDepth;
-                        }
-                    }
+                double dx = Math.abs(worldX - craterCenter.getX());
+                double dz = Math.abs(worldZ - craterCenter.getZ());
+                if (dx >= 32 || dz >= 32) {
+                    continue;
+                }
 
-                    if (toDig >= 1) {
-                        toDig++; // Increase crater depth, but for sum, not each crater
-                        if (fresh) toDig++; // Dig one more block, because we're not replacing the top with turf
-                    }
-                    BlockPos.MutableBlockPos copy = new BlockPos.MutableBlockPos();
-                    mutable.set(innerChunkX, y, innerChunkZ);
-                    for (int dug = 0; dug < toDig; dug++) {
-                        mutable.move(Direction.DOWN);
-                        if (!chunk.getBlockState(mutable).isAir() || carvingMask.get(innerChunkX, mutable.getY() + 64, innerChunkZ) || dug > 0) {
-                            chunk.setBlockState(mutable, AIR, false);
-                            if (dug == 0) {
-                                carvingMask.set(innerChunkX, mutable.getY() + 64, innerChunkZ);
-                            }
-                            if (!fresh && dug + 1 >= toDig && !chunk.getBlockState(copy.set(mutable).move(Direction.DOWN, 2)).isAir()) {
-                                context.topMaterial(posToBiome, chunk, mutable, false).ifPresent(blockStatex -> chunk.setBlockState(mutable.move(Direction.DOWN), blockStatex, false));
-                            }
-                        } else {
-                            dug--;
+                double distSq = dx * dx + dz * dz;
+                if (distSq >= radius * radius) {
+                    continue;
+                }
+
+                // GC4 ChunkProviderMoon.makeCrater quartic bowl profile:
+                // sqrtY = (xDev^2 + zDev^2), yDev = sqrtY^2 * 6, craterDepth = 5 - yDev
+                double normX = dx / radius;
+                double normZ = dz / radius;
+                double sqrtY = normX * normX + normZ * normZ;
+                double yDev = sqrtY * sqrtY * 6.0;
+                double craterDepth = (5.0 - yDev) * depthMultiplier;
+                if (craterDepth <= 0.0) {
+                    continue;
+                }
+
+                int toDig = (int) Math.ceil(craterDepth);
+                if (toDig < 1) {
+                    continue;
+                }
+                if (fresh) {
+                    toDig++;
+                }
+
+                // Find actual surface height in this column so craters carve cleanly from Y=60 mares up to Y=140 highlands
+                int surfaceY = chunk.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, innerChunkX, innerChunkZ);
+                if (surfaceY <= context.getMinGenY() + 8) {
+                    surfaceY = fallbackY;
+                }
+
+                mutable.set(innerChunkX, Math.min(chunk.getMaxBuildHeight() - 1, surfaceY + 1), innerChunkZ);
+                while (mutable.getY() > context.getMinGenY() + 8 && chunk.getBlockState(mutable).isAir()) {
+                    mutable.move(Direction.DOWN);
+                }
+
+                int dug = 0;
+                while (dug < toDig && mutable.getY() > context.getMinGenY() + 6) {
+                    BlockState current = chunk.getBlockState(mutable);
+                    int maskY = mutable.getY() - context.getMinGenY();
+                    if (!current.isAir() || (maskY >= 0 && maskY < chunk.getHeight() && carvingMask.get(innerChunkX, maskY, innerChunkZ))) {
+                        chunk.setBlockState(mutable, AIR, false);
+                        if (dug == 0 && maskY >= 0 && maskY < chunk.getHeight()) {
+                            carvingMask.set(innerChunkX, maskY, innerChunkZ);
                         }
+                        dug++;
+                    }
+                    mutable.move(Direction.DOWN);
+                }
+
+                // Floor material dressing (GC4 ChunkProviderMoon + GalaxySpace getCraterAdditions)
+                if (!chunk.getBlockState(mutable).isAir() && !chunk.getBlockState(copy.set(mutable).move(Direction.DOWN)).isAir()) {
+                    BlockPos worldFloorPos = new BlockPos(worldX, mutable.getY(), worldZ);
+                    Holder<Biome> biomeHolder = posToBiome.apply(worldFloorPos);
+
+                    if (isMoonBiome(biomeHolder)) {
+                        BlockState floorState = pickMoonCraterFloor(biomeHolder, fresh, worldX, mutable.getY(), worldZ, sqrtY);
+                        chunk.setBlockState(mutable, floorState, false);
+                        // Ensure basaltic mare crater floors don't expose white moon rock underneath
+                        if (biomeHolder.is(GCBiomes.Moon.BASALTIC_MARE) || biomeHolder.is(GCBiomes.Moon.OLIVINE_SPIKES)) {
+                            BlockPos underPos = copy.set(mutable).move(Direction.DOWN);
+                            if (!chunk.getBlockState(underPos).isAir()) {
+                                chunk.setBlockState(underPos, GCBlocks.MOON_BASALT.defaultBlockState(), false);
+                            }
+                        }
+                    } else {
+                        context.topMaterial(posToBiome, chunk, worldFloorPos, false)
+                                .ifPresent(topState -> chunk.setBlockState(mutable, topState, false));
                     }
                 }
             }
         }
         return true;
+    }
+
+    private static boolean isMoonBiome(Holder<Biome> biome) {
+        return biome.is(GCBiomes.Moon.BASALTIC_MARE)
+                || biome.is(GCBiomes.Moon.OLIVINE_SPIKES)
+                || biome.is(GCBiomes.Moon.COMET_TUNDRA)
+                || biome.is(GCBiomes.Moon.LUNAR_HIGHLANDS)
+                || biome.is(GCBiomes.Moon.LUNAR_LOWLANDS);
+    }
+
+    private static int posHash(int x, int y, int z) {
+        long hash = ((long) x * 3129871L) ^ ((long) z * 6187919L) ^ ((long) y * 1000003L);
+        hash = (hash ^ (hash >> 16)) * 0x45d9f3bL;
+        hash = (hash ^ (hash >> 16)) * 0x45d9f3bL;
+        hash = hash ^ (hash >> 16);
+        return (int) (hash & 0x7fffffff);
+    }
+
+    private static BlockState pickMoonCraterFloor(Holder<Biome> biome, boolean fresh, int worldX, int worldY, int worldZ, double normalizedDistSq) {
+        int hash = posHash(worldX, worldY, worldZ);
+        if (biome.is(GCBiomes.Moon.BASALTIC_MARE)) {
+            // Basaltic Mare: pure dark basalt floor, with occasional shocked impact surface rock
+            if (fresh && (hash % 4 == 0)) {
+                return GCBlocks.MOON_SURFACE_ROCK.defaultBlockState();
+            }
+            return (hash % 7 == 0) ? GCBlocks.MOON_SURFACE_ROCK.defaultBlockState() : GCBlocks.MOON_BASALT.defaultBlockState();
+        }
+        if (biome.is(GCBiomes.Moon.OLIVINE_SPIKES)) {
+            // Olivine Spikes: basalt, olivine basalt, and central rich olivine basalt
+            if (normalizedDistSq < 0.35 && (hash % 4 == 0)) {
+                return GCBlocks.RICH_OLIVINE_BASALT.defaultBlockState();
+            }
+            return (hash % 3 == 0) ? GCBlocks.OLIVINE_BASALT.defaultBlockState() : GCBlocks.MOON_BASALT.defaultBlockState();
+        }
+        if (biome.is(GCBiomes.Moon.COMET_TUNDRA)) {
+            // Comet Tundra: impact reveals dense ice in crater basin, or rocky rim
+            if (normalizedDistSq < 0.45 && (hash % 3 != 0)) {
+                return GCBlocks.DENSE_ICE.defaultBlockState();
+            }
+            return GCBlocks.MOON_SURFACE_ROCK.defaultBlockState();
+        }
+        // Highlands & Lowlands:
+        if (fresh) {
+            // Fresh crater floor exposes fractured rock and rubble
+            return (hash % 4 == 0) ? GCBlocks.COBBLED_MOON_ROCK.defaultBlockState() : GCBlocks.MOON_SURFACE_ROCK.defaultBlockState();
+        } else {
+            // Weathered crater floor is covered in mature lunar turf, with rock outcrops
+            return (hash % 6 == 0) ? GCBlocks.MOON_SURFACE_ROCK.defaultBlockState() : GCBlocks.MOON_TURF.defaultBlockState();
+        }
     }
 
     @Override

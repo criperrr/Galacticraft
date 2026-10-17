@@ -1,0 +1,12 @@
+{
+  "feature": "galacticraft:moon_meteor",
+  "placement": [
+    {
+      "type": "minecraft:count",
+      "count": 1
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

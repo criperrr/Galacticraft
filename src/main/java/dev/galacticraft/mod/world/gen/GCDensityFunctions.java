@@ -39,6 +39,10 @@ public class GCDensityFunctions {
 
     public static final class Moon {
         public static final ResourceKey<DensityFunction> EROSION = createKey("moon/erosion");
+        public static final ResourceKey<DensityFunction> BASE_HEIGHT = createKey("moon/base_height");
+        public static final ResourceKey<DensityFunction> OFFSET = createKey("moon/offset");
+        public static final ResourceKey<DensityFunction> FACTOR = createKey("moon/factor");
+        public static final ResourceKey<DensityFunction> SMOOTH_RELIEF = createKey("moon/smooth_relief");
         public static final ResourceKey<DensityFunction> FINAL_DENSITY = createKey("moon/final_density");
     }
 
@@ -76,77 +80,142 @@ public class GCDensityFunctions {
         DensityFunction shiftZ = getFunction(vanillaRegistry, NoiseRouterData.SHIFT_Z);
         DensityFunction y = getFunction(vanillaRegistry, NoiseRouterData.Y);
 
-//        DensityFunction noodles = registerAndWrap(context, NOODLES, DensityFunctions.rangeChoice(
-//                DensityFunctions.interpolated(
-//                        DensityFunctions.rangeChoice(
-//                                y, -25, 45,
-//                                DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.NOODLE), 1, 1),
-//                                DensityFunctions.constant(-1)
-//                        )
-//                ),
-//                -1000000, 0, DensityFunctions.constant(64),
-//                DensityFunctions.add(
-//                        DensityFunctions.interpolated(
-//                                DensityFunctions.rangeChoice(
-//                                        y, -25, 45,
-//                                        DensityFunctions.add(
-//                                                DensityFunctions.constant(-0.07500000000000001),
-//                                                DensityFunctions.mul(
-//                                                        DensityFunctions.constant(-0.025),
-//                                                        DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.NOODLE_THICKNESS), 1, 1)
-//                                                )
-//                                        ),
-//                                        DensityFunctions.constant(0)
-//                                )
-//                        ),
-//                        DensityFunctions.mul(
-//                                DensityFunctions.constant(1.5),
-//                                DensityFunctions.max(
-//                                        DensityFunctions.interpolated(
-//                                                DensityFunctions.rangeChoice(
-//                                                        y, -25, 45,
-//                                                        DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.NOODLE_RIDGE_A), 2.6666666666666665, 2.6666666666666665),
-//                                                        DensityFunctions.zero()
-//                                                )
-//                                        ).abs(),
-//                                        DensityFunctions.interpolated(
-//                                                DensityFunctions.rangeChoice(
-//                                                        y, -25, 45,
-//                                                        DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.NOODLE_RIDGE_B), 2.6666666666666665, 2.6666666666666665),
-//                                                        DensityFunctions.zero()
-//                                                    )
-//                                        ).abs()
-//                                )
-//                        )
-//                )
-//        ));
-//        DensityFunction erosion = registerAndWrap(context, Moon.EROSION, DensityFunctions.flatCache(
-//              DensityFunctions.shiftedNoise2d(
-//                      shiftX, shiftZ, 1.0, noiseRegistry.getOrThrow(GCNoiseData.EROSION)
-//              )
-//        ));
-//        context.register(Moon.FINAL_DENSITY, DensityFunctions.min(
-//                DensityFunctions.add(
-//                        DensityFunctions.interpolated(
-//                                DensityFunctions.blendDensity(
-//                                        DensityFunctions.rangeChoice(
-//                                                erosion, 0.05, 2.000000000000001,
-//                                                DensityFunctions.yClampedGradient(-64, 190, 1, -1),
-//                                                DensityFunctions.yClampedGradient(-64, 200, 1, -1)
-//                                        )
-//                                )
-//                        ),
-//                        DensityFunctions.add(
-//                                DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.BASALT_MARE), 0.00005, 0.0007),
-//                                DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.BASALT_MARE_HEIGHT), 0, 0)
-//                        )
-//                ),
-//                noodles
-//            )
-//        );
+        DensityFunction noodles = registerAndWrap(context, NOODLES, DensityFunctions.rangeChoice(
+                DensityFunctions.interpolated(
+                        DensityFunctions.rangeChoice(
+                                y, -25, 45,
+                                DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.NOODLE), 1, 1),
+                                DensityFunctions.constant(-1)
+                        )
+                ),
+                -1000000, 0, DensityFunctions.constant(64),
+                DensityFunctions.add(
+                        DensityFunctions.interpolated(
+                                DensityFunctions.rangeChoice(
+                                        y, -25, 45,
+                                        DensityFunctions.add(
+                                                DensityFunctions.constant(-0.07500000000000001),
+                                                DensityFunctions.mul(
+                                                        DensityFunctions.constant(-0.025),
+                                                        DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.NOODLE_THICKNESS), 1, 1)
+                                                )
+                                        ),
+                                        DensityFunctions.constant(0)
+                                )
+                        ),
+                        DensityFunctions.mul(
+                                DensityFunctions.constant(1.5),
+                                DensityFunctions.max(
+                                        DensityFunctions.interpolated(
+                                                DensityFunctions.rangeChoice(
+                                                        y, -25, 45,
+                                                        DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.NOODLE_RIDGE_A), 2.6666666666666665, 2.6666666666666665),
+                                                        DensityFunctions.zero()
+                                                )
+                                        ).abs(),
+                                        DensityFunctions.interpolated(
+                                                DensityFunctions.rangeChoice(
+                                                        y, -25, 45,
+                                                        DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.NOODLE_RIDGE_B), 2.6666666666666665, 2.6666666666666665),
+                                                        DensityFunctions.zero()
+                                                )
+                                        ).abs()
+                                )
+                        )
+                )
+        ));
+
+        DensityFunction erosion = registerAndWrap(context, Moon.EROSION, DensityFunctions.flatCache(
+                DensityFunctions.shiftedNoise2d(
+                        shiftX, shiftZ, 1.0, noiseRegistry.getOrThrow(GCNoiseData.EROSION)
+                )
+        ));
 
         DensityFunction continents = getFunction(vanillaRegistry, NoiseRouterData.CONTINENTS);
         var continentsCoord = new DensityFunctions.Spline.Coordinate(vanillaRegistry.getOrThrow(NoiseRouterData.CONTINENTS));
+
+        // Moon vertical gradient anchor: monotonically decreases from +1.5 at Y=-32 to -1.5 at Y=224 (0.0 at Y=96, 1 block = 0.01171875).
+        DensityFunction moonBaseHeight = registerAndWrap(context, Moon.BASE_HEIGHT,
+                DensityFunctions.yClampedGradient(-32, 224, 1.5, -1.5)
+        );
+
+        // Smooth C1 cubic Hermite spline for Moon base elevation replicating GC4 ChunkProviderMoon (MID_HEIGHT = 63..76)
+        // and smooth transitions between Lunar Maria, Lowlands, and Highlands:
+        // - BASALTIC_MARE & OLIVINE_SPIKES [-1.0, -0.35]: low-lying flat basaltic maria basins (Y ~ 62..68)
+        // - LUNAR_LOWLANDS & COMET_TUNDRA [-0.35, 0.25]: classic GC4 rolling lunar regolith plains (Y ~ 68..80)
+        // - LUNAR_HIGHLANDS [0.25, 1.0]: elevated rugged cratered highlands & lunar mountains (Y ~ 82..135)
+        var moonOffsetSpline = CubicSpline.builder(continentsCoord)
+                .addPoint(-1.00F, -0.39F, 0.04F)
+                .addPoint(-0.55F, -0.36F, 0.12F)
+                .addPoint(-0.35F, -0.32F, 0.24F)
+                .addPoint(-0.05F, -0.25F, 0.22F)
+                .addPoint(0.25F, -0.17F, 0.36F)
+                .addPoint(0.50F, 0.02F, 0.72F)
+                .addPoint(0.75F, 0.22F, 0.65F)
+                .addPoint(1.00F, 0.36F, 0.45F)
+                .build();
+        DensityFunction moonOffset = registerAndWrap(context, Moon.OFFSET, DensityFunctions.spline(moonOffsetSpline));
+
+        // Smooth C1 cubic Hermite spline for Moon relief amplitude replicating GC4 ChunkProviderMoon dual-scale blending:
+        // - Maria [-1.0, -0.35]: smooth plains (noiseGen1 * 8 -> factor ~0.24..0.32)
+        // - Lowlands [-0.35, 0.25]: rolling lunar hills (blended noiseGen1 & noiseGen2 -> factor ~0.35..0.62)
+        // - Highlands [0.25, 1.0]: rugged lunar hills & mountain massifs (noiseGen2 * 24 -> factor ~0.68..1.35)
+        var moonFactorSpline = CubicSpline.builder(continentsCoord)
+                .addPoint(-1.00F, 0.24F, 0.04F)
+                .addPoint(-0.55F, 0.28F, 0.14F)
+                .addPoint(-0.35F, 0.35F, 0.28F)
+                .addPoint(-0.05F, 0.46F, 0.35F)
+                .addPoint(0.25F, 0.64F, 0.72F)
+                .addPoint(0.50F, 0.94F, 0.95F)
+                .addPoint(0.75F, 1.18F, 0.75F)
+                .addPoint(1.00F, 1.35F, 0.50F)
+                .build();
+        DensityFunction moonFactor = registerAndWrap(context, Moon.FACTOR, DensityFunctions.spline(moonFactorSpline));
+
+        // GC4 ChunkProviderMoon multi-generator relief:
+        // - noiseGen1 (MOON_LOWLAND_NOISE, frequency 0.0125, amplitude 8)
+        // - noiseGen2 (MOON_HIGHLAND_NOISE, frequency 0.015, amplitude 24)
+        // - highland ridge absolute relief & basalt mare undulation
+        DensityFunction moonLowlandNoise = DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.75, noiseRegistry.getOrThrow(GCNoiseData.MOON_LOWLAND_NOISE));
+        DensityFunction moonHighlandNoise = DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.90, noiseRegistry.getOrThrow(GCNoiseData.MOON_HIGHLAND_NOISE));
+        DensityFunction moonHighlandRidges = DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.55, noiseRegistry.getOrThrow(GCNoiseData.MOON_HIGHLAND_NOISE)).abs();
+        DensityFunction moonMareNoise = DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.60, noiseRegistry.getOrThrow(GCNoiseData.BASALT_MARE));
+
+        DensityFunction moonSmoothRelief = registerAndWrap(context, Moon.SMOOTH_RELIEF,
+                DensityFunctions.mul(
+                        moonFactor,
+                        DensityFunctions.add(
+                                DensityFunctions.mul(DensityFunctions.constant(0.10), moonLowlandNoise),
+                                DensityFunctions.add(
+                                        DensityFunctions.mul(DensityFunctions.constant(0.11), moonHighlandNoise),
+                                        DensityFunctions.add(
+                                                DensityFunctions.mul(DensityFunctions.constant(0.08), moonHighlandRidges),
+                                                DensityFunctions.mul(DensityFunctions.constant(0.05), moonMareNoise)
+                                        )
+                                )
+                        )
+                )
+        );
+
+        // Subtle 3D BlendedNoise weighted by moonFactor for natural highland scarps without floating islands
+        DensityFunction moonSubtle3dRoughness = DensityFunctions.mul(
+                moonFactor,
+                DensityFunctions.mul(
+                        DensityFunctions.constant(0.038),
+                        BlendedNoise.createUnseeded(0.25, 0.125, 80.0, 160.0, 8.0)
+                )
+        );
+
+        context.register(Moon.FINAL_DENSITY, DensityFunctions.min(
+                DensityFunctions.add(
+                        moonBaseHeight,
+                        DensityFunctions.add(
+                                moonOffset,
+                                DensityFunctions.add(moonSmoothRelief, moonSubtle3dRoughness)
+                        )
+                ),
+                noodles
+        ));
 
         // Mars vertical gradient anchor: monotonically decreases from +1.5 at Y=-32 to -1.5 at Y=224 (0.0 at Y=96, 1 block = 0.01171875).
         DensityFunction marsBaseHeight = registerAndWrap(context, Mars.BASE_HEIGHT,

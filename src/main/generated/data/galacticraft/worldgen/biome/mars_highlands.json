@@ -55,53 +55,9 @@
   "spawners": {
     "ambient": [],
     "axolotls": [],
-    "creature": [
-      {
-        "type": "galacticraft:slimeling",
-        "maxCount": 2,
-        "minCount": 1,
-        "weight": 12
-      }
-    ],
+    "creature": [],
     "misc": [],
-    "monster": [
-      {
-        "type": "galacticraft:evolved_spider",
-        "maxCount": 3,
-        "minCount": 2,
-        "weight": 100
-      },
-      {
-        "type": "galacticraft:evolved_zombie",
-        "maxCount": 3,
-        "minCount": 2,
-        "weight": 95
-      },
-      {
-        "type": "galacticraft:evolved_skeleton",
-        "maxCount": 3,
-        "minCount": 2,
-        "weight": 100
-      },
-      {
-        "type": "galacticraft:evolved_creeper",
-        "maxCount": 3,
-        "minCount": 2,
-        "weight": 100
-      },
-      {
-        "type": "galacticraft:evolved_enderman",
-        "maxCount": 4,
-        "minCount": 1,
-        "weight": 10
-      },
-      {
-        "type": "galacticraft:evolved_witch",
-        "maxCount": 1,
-        "minCount": 1,
-        "weight": 5
-      }
-    ],
+    "monster": [],
     "underground_water_creature": [],
     "water_ambient": [],
     "water_creature": []

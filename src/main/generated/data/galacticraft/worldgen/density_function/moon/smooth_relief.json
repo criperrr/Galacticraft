@@ -1,0 +1,68 @@
+{
+  "type": "minecraft:mul",
+  "argument1": "galacticraft:moon/factor",
+  "argument2": {
+    "type": "minecraft:add",
+    "argument1": {
+      "type": "minecraft:mul",
+      "argument1": 0.1,
+      "argument2": {
+        "type": "minecraft:shifted_noise",
+        "noise": "galacticraft:moon/lowland_noise",
+        "shift_x": "minecraft:shift_x",
+        "shift_y": 0.0,
+        "shift_z": "minecraft:shift_z",
+        "xz_scale": 0.75,
+        "y_scale": 0.0
+      }
+    },
+    "argument2": {
+      "type": "minecraft:add",
+      "argument1": {
+        "type": "minecraft:mul",
+        "argument1": 0.11,
+        "argument2": {
+          "type": "minecraft:shifted_noise",
+          "noise": "galacticraft:moon/highland_noise",
+          "shift_x": "minecraft:shift_x",
+          "shift_y": 0.0,
+          "shift_z": "minecraft:shift_z",
+          "xz_scale": 0.9,
+          "y_scale": 0.0
+        }
+      },
+      "argument2": {
+        "type": "minecraft:add",
+        "argument1": {
+          "type": "minecraft:mul",
+          "argument1": 0.08,
+          "argument2": {
+            "type": "minecraft:abs",
+            "argument": {
+              "type": "minecraft:shifted_noise",
+              "noise": "galacticraft:moon/highland_noise",
+              "shift_x": "minecraft:shift_x",
+              "shift_y": 0.0,
+              "shift_z": "minecraft:shift_z",
+              "xz_scale": 0.55,
+              "y_scale": 0.0
+            }
+          }
+        },
+        "argument2": {
+          "type": "minecraft:mul",
+          "argument1": 0.05,
+          "argument2": {
+            "type": "minecraft:shifted_noise",
+            "noise": "galacticraft:moon/basalt_mare",
+            "shift_x": "minecraft:shift_x",
+            "shift_y": 0.0,
+            "shift_z": "minecraft:shift_z",
+            "xz_scale": 0.6,
+            "y_scale": 0.0
+          }
+        }
+      }
+    }
+  }
+}

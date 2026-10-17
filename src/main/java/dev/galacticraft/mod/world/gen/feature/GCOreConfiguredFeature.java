@@ -46,6 +46,7 @@ public class GCOreConfiguredFeature {
     public static final RuleTest DEEPSLATE_ORE_REPLACEABLE = new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
     public static final RuleTest MOON_ROCK_ORE_REPLACEABLE = new TagMatchTest(GCBlockTags.MOON_ROCK_ORE_REPLACEABLES);
     public static final RuleTest LUNASLATE_ORE_REPLACEABLE = new TagMatchTest(GCBlockTags.LUNASLATE_ORE_REPLACEABLES);
+    public static final RuleTest MOON_BASALT_ORE_REPLACEABLE = new TagMatchTest(GCBlockTags.MOON_BASALT_ORE_REPLACEABLES);
     public static final RuleTest MARS_STONE_ORE_REPLACEABLE = new TagMatchTest(GCBlockTags.MARS_STONE_ORE_REPLACEABLES);
 
     public static final RuleTest SOFT_VENUS_ROCK_ORE_REPLACEABLE = new TagMatchTest(GCBlockTags.SOFT_VENUS_ROCK_ORE_REPLACEABLES);
@@ -59,6 +60,20 @@ public class GCOreConfiguredFeature {
     public static final List<OreConfiguration.TargetBlockState> TIN_ORES_MOON = List.of(OreConfiguration.target(MOON_ROCK_ORE_REPLACEABLE, GCBlocks.MOON_TIN_ORE.defaultBlockState()), OreConfiguration.target(LUNASLATE_ORE_REPLACEABLE, GCBlocks.LUNASLATE_TIN_ORE.defaultBlockState()));
     public static final List<OreConfiguration.TargetBlockState> CHEESE_ORES_MOON = List.of(OreConfiguration.target(MOON_ROCK_ORE_REPLACEABLE, GCBlocks.MOON_CHEESE_ORE.defaultBlockState()));
     public static final List<OreConfiguration.TargetBlockState> LUNAR_SAPPHIRE_ORES_MOON = List.of(OreConfiguration.target(MOON_ROCK_ORE_REPLACEABLE, GCBlocks.LUNAR_SAPPHIRE_ORE.defaultBlockState()));
+    public static final List<OreConfiguration.TargetBlockState> DIRT_ORES_MOON = List.of(OreConfiguration.target(MOON_ROCK_ORE_REPLACEABLE, GCBlocks.MOON_DIRT.defaultBlockState()));
+    public static final List<OreConfiguration.TargetBlockState> OLIVINE_BASALT_ORES_MOON = List.of(
+            OreConfiguration.target(MOON_BASALT_ORE_REPLACEABLE, GCBlocks.OLIVINE_BASALT.defaultBlockState()),
+            OreConfiguration.target(MOON_ROCK_ORE_REPLACEABLE, GCBlocks.OLIVINE_BASALT.defaultBlockState()),
+            OreConfiguration.target(LUNASLATE_ORE_REPLACEABLE, GCBlocks.OLIVINE_BASALT.defaultBlockState())
+    );
+    public static final List<OreConfiguration.TargetBlockState> RICH_OLIVINE_BASALT_ORES_MOON = List.of(
+            OreConfiguration.target(MOON_BASALT_ORE_REPLACEABLE, GCBlocks.RICH_OLIVINE_BASALT.defaultBlockState()),
+            OreConfiguration.target(MOON_ROCK_ORE_REPLACEABLE, GCBlocks.RICH_OLIVINE_BASALT.defaultBlockState()),
+            OreConfiguration.target(LUNASLATE_ORE_REPLACEABLE, GCBlocks.RICH_OLIVINE_BASALT.defaultBlockState())
+    );
+    public static final List<OreConfiguration.TargetBlockState> DENSE_ICE_ORES_MOON = List.of(
+            OreConfiguration.target(MOON_ROCK_ORE_REPLACEABLE, GCBlocks.DENSE_ICE.defaultBlockState())
+    );
 
     public static final List<OreConfiguration.TargetBlockState> COPPER_ORES_MARS = List.of(OreConfiguration.target(MARS_STONE_ORE_REPLACEABLE, GCBlocks.MARS_COPPER_ORE.defaultBlockState()));
     public static final List<OreConfiguration.TargetBlockState> TIN_ORES_MARS = List.of(OreConfiguration.target(MARS_STONE_ORE_REPLACEABLE, GCBlocks.MARS_TIN_ORE.defaultBlockState()));
@@ -85,6 +100,10 @@ public class GCOreConfiguredFeature {
 
     // MOON
     public static final ResourceKey<ConfiguredFeature<?, ?>> BASALT_DISK_MOON = key("basalt_disk_moon");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_DIRT_MOON = key("ore_dirt_moon");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_OLIVINE_BASALT_MOON = key("ore_olivine_basalt_moon");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_RICH_OLIVINE_BASALT_MOON = key("ore_rich_olivine_basalt_moon");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_DENSE_ICE_MOON = key("ore_dense_ice_moon");
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_COPPER_SMALL_MOON = key("ore_copper_small_moon");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_COPPER_LARGE_MOON = key("ore_copper_large_moon");
@@ -131,8 +150,12 @@ public class GCOreConfiguredFeature {
         context.register(ORE_ALUMINUM, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(ALUMINUM_ORES, 7)));
         context.register(ORE_ALUMINUM_SMALL, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(ALUMINUM_ORES, 3)));
 
-        // MOON
+        // MOON (GC4 BiomeDecoratorMoon + Addons)
         context.register(BASALT_DISK_MOON, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(BASE_STONE_MOON, GCBlocks.MOON_BASALT.defaultBlockState(), 33)));
+        context.register(ORE_DIRT_MOON, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(DIRT_ORES_MOON, 32)));
+        context.register(ORE_OLIVINE_BASALT_MOON, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(OLIVINE_BASALT_ORES_MOON, 24)));
+        context.register(ORE_RICH_OLIVINE_BASALT_MOON, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(RICH_OLIVINE_BASALT_ORES_MOON, 10)));
+        context.register(ORE_DENSE_ICE_MOON, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(DENSE_ICE_ORES_MOON, 20)));
         context.register(ORE_COPPER_SMALL_MOON, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(COPPER_ORES_MOON, 10)));
         context.register(ORE_COPPER_LARGE_MOON, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(COPPER_ORES_MOON, 20)));
         context.register(ORE_TIN_MOON, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(TIN_ORES_MOON, 6)));

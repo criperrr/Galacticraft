@@ -25,6 +25,7 @@ package dev.galacticraft.mod.world.gen;
 import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.content.GCBlocks;
 import dev.galacticraft.mod.world.gen.surfacerule.MarsSurfaceRules;
+import dev.galacticraft.mod.world.gen.surfacerule.MoonSurfaceRules;
 import dev.galacticraft.mod.world.gen.surfacerule.VenusSurfaceRules;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -49,19 +50,19 @@ public class GCNoiseGeneratorSettings {
         HolderGetter<DensityFunction> densityLookup = context.lookup(Registries.DENSITY_FUNCTION);
         HolderGetter<NormalNoise.NoiseParameters> noiseLookup = context.lookup(Registries.NOISE);
 
-//        context.register(MOON, new NoiseGeneratorSettings(
-//                NoiseSettings.create(-32, 256, 1, 2),
-//                GCBlocks.MOON_ROCK.defaultBlockState(),
-//                Blocks.AIR.defaultBlockState(),
-//                GCNoiseGeneratorSettings.moon(densityLookup, noiseLookup),
-//                MoonSurfaceRules.MOON,
-//                new OverworldBiomeBuilder().spawnTarget(),
-//                -32,
-//                false,
-//                false,
-//                false,
-//                false
-//        ));
+        context.register(MOON, new NoiseGeneratorSettings(
+                NoiseSettings.create(-32, 256, 1, 2),
+                GCBlocks.MOON_ROCK.defaultBlockState(),
+                Blocks.AIR.defaultBlockState(),
+                GCNoiseGeneratorSettings.moon(densityLookup, noiseLookup),
+                MoonSurfaceRules.MOON,
+                new OverworldBiomeBuilder().spawnTarget(),
+                -32,
+                false,
+                false,
+                false,
+                false
+        ));
 
         context.register(MARS, new NoiseGeneratorSettings(
                 NoiseSettings.create(-32, 256, 1, 2),
@@ -95,7 +96,6 @@ public class GCNoiseGeneratorSettings {
     public static NoiseRouter moon(HolderGetter<DensityFunction> densityLookup, HolderGetter<NormalNoise.NoiseParameters> noiseLookup) {
         DensityFunction shiftX = GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.SHIFT_X);
         DensityFunction shiftZ = GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.SHIFT_Z);
-        DensityFunction y = GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.Y);
         return new NoiseRouter(
                 DensityFunctions.constant(1), // barrierNoise
                 DensityFunctions.zero(), // fluidLevelFloodednessNoise
@@ -105,44 +105,13 @@ public class GCNoiseGeneratorSettings {
                         shiftX, shiftZ, 0.25, noiseLookup.getOrThrow(Noises.TEMPERATURE)
                 ), // temperature
                 DensityFunctions.shiftedNoise2d(
-                        shiftX, shiftZ, 0, noiseLookup.getOrThrow(Noises.VEGETATION)
+                        shiftX, shiftZ, 0.25, noiseLookup.getOrThrow(Noises.VEGETATION)
                 ), // vegetation
                 GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.CONTINENTS), // continents
                 GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Moon.EROSION), // erosion
                 GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.DEPTH), // depth
                 GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.RIDGES), // ridges
-                DensityFunctions.add(
-                        DensityFunctions.constant(0.1171875),
-                        DensityFunctions.mul(
-                                DensityFunctions.yClampedGradient(
-                                        -30, -40, 0, 1
-                                ),
-                                DensityFunctions.add(
-                                        DensityFunctions.constant(-0.1171875),
-                                        DensityFunctions.add(
-                                                DensityFunctions.constant(-0.078125),
-                                                DensityFunctions.mul(
-                                                        DensityFunctions.yClampedGradient(
-                                                                240, 256, 1, 0
-                                                        ),
-                                                        DensityFunctions.add(
-                                                                DensityFunctions.constant(0.078125),
-                                                                DensityFunctions.add(
-                                                                        DensityFunctions.constant(-0.703125),
-                                                                        DensityFunctions.mul(
-                                                                                DensityFunctions.constant(4),
-                                                                                DensityFunctions.mul(
-                                                                                        GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.DEPTH),
-                                                                                        DensityFunctions.cache2d(GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.FACTOR))
-                                                                                ).quarterNegative()
-                                                                        )
-                                                                ).clamp(-30, 64)
-                                                        )
-                                                )
-                                        )
-                                )
-                        )
-                ), // initialDensityWithoutJaggedness
+                GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Moon.FINAL_DENSITY), // initialDensityWithoutJaggedness
                 DensityFunctions.blendDensity(GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Moon.FINAL_DENSITY)), // finalDensity
                 DensityFunctions.zero(), // veinToggle
                 DensityFunctions.zero(), // veinRidged
