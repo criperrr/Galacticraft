@@ -60,8 +60,7 @@ public class MoonSurfaceRules {
     private static final RuleSource DENSE_ICE = block(GCBlocks.DENSE_ICE);
 
     private static final RuleSource MARE_FLOOR = SurfaceRules.sequence(
-            SurfaceRules.ifTrue(SurfaceRules.noiseCondition(GCNoiseData.EROSION, 0.035, 0.050), MOON_TURF),
-            SurfaceRules.ifTrue(SurfaceRules.noiseCondition(GCNoiseData.EROSION, 0.050, 0.068), MOON_SURFACE_ROCK),
+            SurfaceRules.ifTrue(SurfaceRules.noiseCondition(GCNoiseData.EROSION, 0.035, 0.068), MOON_SURFACE_ROCK),
             MOON_BASALT
     );
 

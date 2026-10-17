@@ -26,11 +26,9 @@ import com.mojang.serialization.Codec;
 import dev.galacticraft.mod.content.GCBlocks;
 import dev.galacticraft.mod.world.biome.GCBiomes;
 import dev.galacticraft.mod.world.gen.carver.config.CraterCarverConfig;
-import dev.galacticraft.mod.world.gen.structure.GCStructures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.biome.Biome;
@@ -53,12 +51,6 @@ public class CraterCarver extends WorldCarver<CraterCarverConfig> {
     public boolean carve(CarvingContext context, CraterCarverConfig config, ChunkAccess chunk, Function<BlockPos, Holder<Biome>> posToBiome, RandomSource random, Aquifer aquiferSampler, ChunkPos pos, CarvingMask carvingMask) {
         int fallbackY = config.y.sample(random, context);
         BlockPos craterCenter = pos.getBlockAt(random.nextInt(16), fallbackY, random.nextInt(16));
-
-        var structureRegistry = context.registryAccess().registryOrThrow(Registries.STRUCTURE);
-        var moonVillage = structureRegistry.getHolder(GCStructures.Moon.VILLAGE);
-        if (moonVillage.isPresent() && !chunk.getReferencesForStructure(moonVillage.get().value()).isEmpty()) {
-            return false;
-        }
 
         BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
         BlockPos.MutableBlockPos copy = new BlockPos.MutableBlockPos();
@@ -117,16 +109,6 @@ public class CraterCarver extends WorldCarver<CraterCarverConfig> {
                     mutable.move(Direction.DOWN);
                 }
 
-                BlockState originalSurface = chunk.getBlockState(mutable);
-                boolean isMoonColumn = originalSurface.is(GCBlocks.MOON_TURF)
-                        || originalSurface.is(GCBlocks.MOON_DIRT)
-                        || originalSurface.is(GCBlocks.MOON_ROCK)
-                        || originalSurface.is(GCBlocks.MOON_SURFACE_ROCK)
-                        || originalSurface.is(GCBlocks.MOON_BASALT)
-                        || originalSurface.is(GCBlocks.OLIVINE_BASALT)
-                        || originalSurface.is(GCBlocks.RICH_OLIVINE_BASALT)
-                        || originalSurface.is(GCBlocks.DENSE_ICE);
-
                 int dug = 0;
                 while (dug < toDig && mutable.getY() > context.getMinGenY() + 6) {
                     BlockState current = chunk.getBlockState(mutable);
@@ -146,12 +128,19 @@ public class CraterCarver extends WorldCarver<CraterCarverConfig> {
                     BlockPos worldFloorPos = new BlockPos(worldX, mutable.getY(), worldZ);
                     Holder<Biome> biomeHolder = posToBiome.apply(worldFloorPos);
 
-                    if (!fresh) {
-                        context.topMaterial(posToBiome, chunk, mutable, false)
+                    if (isMoonBiome(biomeHolder)) {
+                        BlockState floorState = pickMoonCraterFloor(biomeHolder, fresh, worldX, mutable.getY(), worldZ, sqrtY);
+                        chunk.setBlockState(mutable, floorState, false);
+                        // Ensure basaltic mare crater floors don't expose white moon rock underneath
+                        if (biomeHolder.is(GCBiomes.Moon.BASALTIC_MARE) || biomeHolder.is(GCBiomes.Moon.OLIVINE_SPIKES)) {
+                            BlockPos underPos = copy.set(mutable).move(Direction.DOWN);
+                            if (!chunk.getBlockState(underPos).isAir()) {
+                                chunk.setBlockState(underPos, GCBlocks.MOON_BASALT.defaultBlockState(), false);
+                            }
+                        }
+                    } else {
+                        context.topMaterial(posToBiome, chunk, worldFloorPos, false)
                                 .ifPresent(topState -> chunk.setBlockState(mutable, topState, false));
-                    } else if (isMoonColumn) {
-                        BlockState freshFloor = pickFreshMoonCraterFloor(biomeHolder, random, sqrtY);
-                        chunk.setBlockState(mutable, freshFloor, false);
                     }
                 }
             }
@@ -159,24 +148,53 @@ public class CraterCarver extends WorldCarver<CraterCarverConfig> {
         return true;
     }
 
-    private static BlockState pickFreshMoonCraterFloor(Holder<Biome> biome, RandomSource random, double normalizedDistSq) {
-        // GalaxySpace ChunkProviderCallisto.getCraterAdditions: impact craters expose sub-surface rock, ice, or basalt near the center
+    private static boolean isMoonBiome(Holder<Biome> biome) {
+        return biome.is(GCBiomes.Moon.BASALTIC_MARE)
+                || biome.is(GCBiomes.Moon.OLIVINE_SPIKES)
+                || biome.is(GCBiomes.Moon.COMET_TUNDRA)
+                || biome.is(GCBiomes.Moon.LUNAR_HIGHLANDS)
+                || biome.is(GCBiomes.Moon.LUNAR_LOWLANDS);
+    }
+
+    private static int posHash(int x, int y, int z) {
+        long hash = ((long) x * 3129871L) ^ ((long) z * 6187919L) ^ ((long) y * 1000003L);
+        hash = (hash ^ (hash >> 16)) * 0x45d9f3bL;
+        hash = (hash ^ (hash >> 16)) * 0x45d9f3bL;
+        hash = hash ^ (hash >> 16);
+        return (int) (hash & 0x7fffffff);
+    }
+
+    private static BlockState pickMoonCraterFloor(Holder<Biome> biome, boolean fresh, int worldX, int worldY, int worldZ, double normalizedDistSq) {
+        int hash = posHash(worldX, worldY, worldZ);
+        if (biome.is(GCBiomes.Moon.BASALTIC_MARE)) {
+            // Basaltic Mare: pure dark basalt floor, with occasional shocked impact surface rock
+            if (fresh && (hash % 4 == 0)) {
+                return GCBlocks.MOON_SURFACE_ROCK.defaultBlockState();
+            }
+            return (hash % 7 == 0) ? GCBlocks.MOON_SURFACE_ROCK.defaultBlockState() : GCBlocks.MOON_BASALT.defaultBlockState();
+        }
+        if (biome.is(GCBiomes.Moon.OLIVINE_SPIKES)) {
+            // Olivine Spikes: basalt, olivine basalt, and central rich olivine basalt
+            if (normalizedDistSq < 0.35 && (hash % 4 == 0)) {
+                return GCBlocks.RICH_OLIVINE_BASALT.defaultBlockState();
+            }
+            return (hash % 3 == 0) ? GCBlocks.OLIVINE_BASALT.defaultBlockState() : GCBlocks.MOON_BASALT.defaultBlockState();
+        }
         if (biome.is(GCBiomes.Moon.COMET_TUNDRA)) {
-            if (normalizedDistSq < 0.45 && random.nextInt(3) != 0) {
+            // Comet Tundra: impact reveals dense ice in crater basin, or rocky rim
+            if (normalizedDistSq < 0.45 && (hash % 3 != 0)) {
                 return GCBlocks.DENSE_ICE.defaultBlockState();
             }
             return GCBlocks.MOON_SURFACE_ROCK.defaultBlockState();
         }
-        if (biome.is(GCBiomes.Moon.OLIVINE_SPIKES)) {
-            if (normalizedDistSq < 0.35 && random.nextInt(4) == 0) {
-                return GCBlocks.RICH_OLIVINE_BASALT.defaultBlockState();
-            }
-            return random.nextBoolean() ? GCBlocks.OLIVINE_BASALT.defaultBlockState() : GCBlocks.MOON_BASALT.defaultBlockState();
+        // Highlands & Lowlands:
+        if (fresh) {
+            // Fresh crater floor exposes fractured rock and rubble
+            return (hash % 4 == 0) ? GCBlocks.COBBLED_MOON_ROCK.defaultBlockState() : GCBlocks.MOON_SURFACE_ROCK.defaultBlockState();
+        } else {
+            // Weathered crater floor is covered in mature lunar turf, with rock outcrops
+            return (hash % 6 == 0) ? GCBlocks.MOON_SURFACE_ROCK.defaultBlockState() : GCBlocks.MOON_TURF.defaultBlockState();
         }
-        if (biome.is(GCBiomes.Moon.BASALTIC_MARE)) {
-            return random.nextInt(3) == 0 ? GCBlocks.MOON_SURFACE_ROCK.defaultBlockState() : GCBlocks.MOON_BASALT.defaultBlockState();
-        }
-        return random.nextInt(4) == 0 ? GCBlocks.COBBLED_MOON_ROCK.defaultBlockState() : GCBlocks.MOON_SURFACE_ROCK.defaultBlockState();
     }
 
     @Override
