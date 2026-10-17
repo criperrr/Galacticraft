@@ -35,11 +35,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Customizable configuration for planetary meteor impact craters and fallen meteor deposits.
- * Allows configuring impact probability, crater size, meteor core composition, scorched rim blocks,
- * and rich ore ejecta scattered around the crater for any planet or biome.
+ * Customizable configuration for multi-chunk planetary meteor impact craters and asteroid ore deposits.
+ * Uses deterministic {@code DensityCellular2D} Voronoi partitioning so giant craters (30-56 blocks wide)
+ * can be generated seamlessly across chunk borders without far-chunk {@code setBlock} violations.
  */
 public record PlanetaryMeteorConfig(
+        double regionSize,
+        double spread,
         float spawnProbability,
         int minCraterRadius,
         int maxCraterRadius,
@@ -54,11 +56,13 @@ public record PlanetaryMeteorConfig(
 ) implements FeatureConfiguration {
 
     public static final Codec<PlanetaryMeteorConfig> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            Codec.DOUBLE.fieldOf("region_size").forGetter(PlanetaryMeteorConfig::regionSize),
+            Codec.DOUBLE.fieldOf("spread").forGetter(PlanetaryMeteorConfig::spread),
             Codec.floatRange(0.0F, 1.0F).fieldOf("spawn_probability").forGetter(PlanetaryMeteorConfig::spawnProbability),
-            Codec.intRange(3, 32).fieldOf("min_crater_radius").forGetter(PlanetaryMeteorConfig::minCraterRadius),
-            Codec.intRange(4, 48).fieldOf("max_crater_radius").forGetter(PlanetaryMeteorConfig::maxCraterRadius),
-            Codec.intRange(1, 8).fieldOf("min_meteor_radius").forGetter(PlanetaryMeteorConfig::minMeteorRadius),
-            Codec.intRange(1, 12).fieldOf("max_meteor_radius").forGetter(PlanetaryMeteorConfig::maxMeteorRadius),
+            Codec.intRange(4, 48).fieldOf("min_crater_radius").forGetter(PlanetaryMeteorConfig::minCraterRadius),
+            Codec.intRange(6, 64).fieldOf("max_crater_radius").forGetter(PlanetaryMeteorConfig::maxCraterRadius),
+            Codec.intRange(1, 10).fieldOf("min_meteor_radius").forGetter(PlanetaryMeteorConfig::minMeteorRadius),
+            Codec.intRange(1, 14).fieldOf("max_meteor_radius").forGetter(PlanetaryMeteorConfig::maxMeteorRadius),
             BlockStateProvider.CODEC.fieldOf("meteor_shell_block").forGetter(PlanetaryMeteorConfig::meteorShellBlock),
             BlockStateProvider.CODEC.fieldOf("meteor_core_block").forGetter(PlanetaryMeteorConfig::meteorCoreBlock),
             BlockStateProvider.CODEC.fieldOf("scorched_rim_block").forGetter(PlanetaryMeteorConfig::scorchedRimBlock),
@@ -72,11 +76,13 @@ public record PlanetaryMeteorConfig(
     }
 
     public static class Builder {
-        private float spawnProbability = 0.35F;
-        private int minCraterRadius = 6;
-        private int maxCraterRadius = 13;
-        private int minMeteorRadius = 1;
-        private int maxMeteorRadius = 3;
+        private double regionSize = 680.0;
+        private double spread = 0.75;
+        private float spawnProbability = 0.22F;
+        private int minCraterRadius = 15;
+        private int maxCraterRadius = 26;
+        private int minMeteorRadius = 2;
+        private int maxMeteorRadius = 4;
         private BlockStateProvider meteorShellBlock = BlockStateProvider.simple(
                 GCBlocks.FALLEN_METEOR.defaultBlockState().setValue(FallenMeteorBlock.HEAT, 5)
         );
@@ -90,7 +96,13 @@ public record PlanetaryMeteorConfig(
                 Blocks.MAGMA_BLOCK.defaultBlockState()
         );
         private final List<BlockState> ejectaOres = new ArrayList<>();
-        private int oreChance = 6;
+        private int oreChance = 4;
+
+        public Builder cellularGrid(double regionSize, double spread) {
+            this.regionSize = regionSize;
+            this.spread = spread;
+            return this;
+        }
 
         public Builder spawnProbability(float probability) {
             this.spawnProbability = probability;
@@ -133,6 +145,8 @@ public record PlanetaryMeteorConfig(
 
         public PlanetaryMeteorConfig build() {
             return new PlanetaryMeteorConfig(
+                    this.regionSize,
+                    this.spread,
                     this.spawnProbability,
                     this.minCraterRadius,
                     this.maxCraterRadius,

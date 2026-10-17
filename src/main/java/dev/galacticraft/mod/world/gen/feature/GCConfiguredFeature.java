@@ -86,11 +86,14 @@ public class GCConfiguredFeature {
                 .build()
         );
 
-        // Customizable planetary meteor crater & fallen meteor deposit for Venus
+        // Customizable multi-chunk planetary meteor impact crater & asteroid ore deposit for Venus:
+        // Rare Voronoi regionSize (680 blocks, 22% cell probability), large crater bowl (radius 15..26 -> diameter 30..52 blocks),
+        // and diverse ores brought by the impacting asteroid
         registerPlanetMeteor(context, VENUS_METEOR, PlanetaryMeteorConfig.builder()
-                .spawnProbability(0.42F)
-                .craterRadiusRange(5, 11)
-                .meteorRadiusRange(1, 3)
+                .cellularGrid(680.0, 0.75)
+                .spawnProbability(0.22F)
+                .craterRadiusRange(15, 26)
+                .meteorRadiusRange(2, 4)
                 .meteorBlocks(
                         GCBlocks.FALLEN_METEOR.defaultBlockState().setValue(FallenMeteorBlock.HEAT, 5),
                         GCBlocks.RAW_METEORIC_IRON_BLOCK.defaultBlockState()
@@ -99,12 +102,20 @@ public class GCConfiguredFeature {
                         GCBlocks.SCORCHED_VENUS_ROCK.defaultBlockState(),
                         Blocks.MAGMA_BLOCK.defaultBlockState()
                 )
+                .addEjectaOre(GCBlocks.RAW_METEORIC_IRON_BLOCK.defaultBlockState())
                 .addEjectaOre(GCBlocks.GALENA_ORE.defaultBlockState())
                 .addEjectaOre(GCBlocks.SOLAR_ORE.defaultBlockState())
+                .addEjectaOre(GCBlocks.ILMENITE_ORE.defaultBlockState())
+                .addEjectaOre(GCBlocks.DESH_ORE.defaultBlockState())
                 .addEjectaOre(GCBlocks.VENUS_COPPER_ORE.defaultBlockState())
                 .addEjectaOre(GCBlocks.VENUS_TIN_ORE.defaultBlockState())
                 .addEjectaOre(GCBlocks.VENUS_ALUMINUM_ORE.defaultBlockState())
-                .oreChance(5)
+                .addEjectaOre(GCBlocks.SILICON_ORE.defaultBlockState())
+                .addEjectaOre(Blocks.DEEPSLATE_GOLD_ORE.defaultBlockState())
+                .addEjectaOre(Blocks.DEEPSLATE_DIAMOND_ORE.defaultBlockState())
+                .addEjectaOre(Blocks.RAW_IRON_BLOCK.defaultBlockState())
+                .addEjectaOre(Blocks.RAW_GOLD_BLOCK.defaultBlockState())
+                .oreChance(4)
                 .build()
         );
 

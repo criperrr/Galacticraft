@@ -55,12 +55,12 @@ public class VenusBiomes {
     }
 
     public static void addDefaultVenusSurfaceFeatures(BiomeGenerationSettings.Builder builder) {
-        // Multi-chunk TFCVolcanoes cellular volcano generator must be present in all Venus biomes
-        // so that large volcano skirts crossing biome boundaries never get clipped at chunk edges!
-        // Its internal per-biome frequency map controls which biomes actually spawn volcano centers.
+        // Multi-chunk TFCVolcanoes cellular volcano and meteor generators must be present in all Venus biomes
+        // so that large craters and volcano skirts crossing biome boundaries never get clipped at chunk edges!
+        // Their internal per-biome frequency logic controls where centers spawn.
         builder.addFeature(GenerationStep.Decoration.RAW_GENERATION, GCPlacedFeatures.VENUS_VOLCANO);
+        builder.addFeature(GenerationStep.Decoration.RAW_GENERATION, GCPlacedFeatures.VENUS_METEOR);
         builder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, GCPlacedFeatures.VENUS_SURFACE_OUTCROP);
-        builder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, GCPlacedFeatures.VENUS_METEOR);
     }
 
     public static Biome createVenusFlat(

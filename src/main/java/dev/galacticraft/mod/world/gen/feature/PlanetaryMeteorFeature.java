@@ -26,22 +26,34 @@ import com.mojang.serialization.Codec;
 import dev.galacticraft.mod.content.GCBlocks;
 import dev.galacticraft.mod.content.block.environment.FallenMeteorBlock;
 import dev.galacticraft.mod.world.gen.feature.config.PlanetaryMeteorConfig;
+import dev.galacticraft.mod.world.gen.noise.DensityCellular2D;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.RandomState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 
+import java.util.List;
+
 /**
- * Reusable planetary meteor impact crater and fallen meteor generator.
- * Can be registered on any planet or biome via {@link PlanetaryMeteorConfig} to give players a configurable
- * probability of finding impact craters with hot {@link FallenMeteorBlock}, raw meteoric iron cores,
- * basalt/scorched ejecta, and rich scattered surface ores.
+ * Multi-chunk planetary meteor impact crater and asteroid ore deposit generator.
+ * <p>
+ * Uses deterministic {@link DensityCellular2D} Voronoi cells so that:
+ * <ul>
+ *   <li>Meteor craters are genuinely rare landmarks (controlled by {@code regionSize} and {@code spawnProbability})</li>
+ *   <li>Craters can be large (30 to 52+ blocks across) and deep without ever causing far-chunk {@code setBlock} errors</li>
+ *   <li>The central asteroid mass is built of solid full blocks ({@code RAW_METEORIC_IRON_BLOCK}, {@code OBSIDIAN},
+ *       {@code MAGMA_BLOCK}, and diverse meteor-borne ores), while individual {@link FallenMeteorBlock} fragments rest
+ *       singly on solid ground (never stacked into floating mini-cubes)</li>
+ * </ul>
  */
 public class PlanetaryMeteorFeature extends Feature<PlanetaryMeteorConfig> {
 
@@ -52,180 +64,264 @@ public class PlanetaryMeteorFeature extends Feature<PlanetaryMeteorConfig> {
     @Override
     public boolean place(FeaturePlaceContext<PlanetaryMeteorConfig> context) {
         WorldGenLevel level = context.level();
-        RandomSource random = context.random();
         PlanetaryMeteorConfig config = context.config();
-
-        if (random.nextFloat() > config.spawnProbability()) {
-            return false;
-        }
-
         BlockPos origin = context.origin();
-        int centerX = origin.getX();
-        int centerZ = origin.getZ();
-        int centerY = level.getHeight(Heightmap.Types.WORLD_SURFACE_WG, centerX, centerZ) - 1;
-        if (centerY < 45 || centerY > 175) {
+        long seed = level.getSeed();
+
+        ChunkPos chunkPos = new ChunkPos(origin);
+        int chunkMinX = chunkPos.getMinBlockX();
+        int chunkMinZ = chunkPos.getMinBlockZ();
+        int sampleX = chunkPos.getMiddleBlockX();
+        int sampleZ = chunkPos.getMiddleBlockZ();
+
+        // 1. Sample deterministic Voronoi cell (offset seed from volcanoes so meteor craters and volcanoes never overlap)
+        DensityCellular2D cellularNoise = new DensityCellular2D(seed ^ 0x4F1BBCDCBFA53E09L, config.regionSize(), config.spread(), 1, 3);
+        DensityCellular2D.Cell cell = cellularNoise.cell(sampleX, sampleZ);
+
+        if (!cellularNoise.checkCellRarity(cell, config.spawnProbability()) || cellularNoise.maxSafeDiameter(cell) <= 0.14) {
             return false;
         }
 
-        BlockState groundState = level.getBlockState(new BlockPos(centerX, centerY, centerZ));
-        if (groundState.isAir() || !groundState.getFluidState().isEmpty()) {
+        int centerX = DensityCellular2D.fastFloor(cell.x());
+        int centerZ = DensityCellular2D.fastFloor(cell.z());
+
+        // Also ensure we are not overlapping a volcano cell center
+        DensityCellular2D volcanoGrid = new DensityCellular2D(seed + 7653L, 560.0, 0.75, 1, 3);
+        DensityCellular2D.Cell volcanoCell = volcanoGrid.cell(centerX, centerZ);
+        if (Math.hypot(centerX - volcanoCell.x(), centerZ - volcanoCell.z()) < 85.0) {
             return false;
         }
 
-        // Ensure impact site is reasonably level (avoid sheer cliff walls)
-        int minH = centerY;
-        int maxH = centerY;
-        int checkStep = 5;
-        for (int dx = -checkStep; dx <= checkStep; dx += checkStep) {
-            for (int dz = -checkStep; dz <= checkStep; dz += checkStep) {
-                int h = level.getHeight(Heightmap.Types.WORLD_SURFACE_WG, centerX + dx, centerZ + dz) - 1;
-                minH = Math.min(minH, h);
-                maxH = Math.max(maxH, h);
-            }
-        }
-        if (maxH - minH > 8) {
+        long cellHash = DensityCellular2D.hash(cell.id(), seed, 0x9E3779B97F4A7C15L);
+        double craterRoll = DensityCellular2D.jitter(cellHash ^ 0xBF58476D1CE4E5B9L);
+        double meteorRoll = DensityCellular2D.jitter(cellHash ^ 0x94D049BB133111EBL);
+
+        int craterRadius = Mth.lerpInt((float) craterRoll, config.minCraterRadius(), config.maxCraterRadius());
+        int craterDepth = Math.max(7, (int) Math.round(craterRadius * 0.56));
+        int meteorRadius = Mth.lerpInt((float) meteorRoll, config.minMeteorRadius(), config.maxMeteorRadius());
+        double outerApronRadius = craterRadius * 1.38;
+
+        // Skip chunk immediately if it does not intersect the crater + ejecta apron
+        double chunkDist = Math.hypot(sampleX - centerX, sampleZ - centerZ);
+        if (chunkDist > outerApronRadius + 16.0) {
             return false;
         }
 
-        int craterRadius = Mth.randomBetweenInclusive(random, config.minCraterRadius(), config.maxCraterRadius());
-        int craterDepth = Math.max(2, craterRadius / 2);
-        int meteorRadius = Mth.randomBetweenInclusive(random, config.minMeteorRadius(), config.maxMeteorRadius());
+        // 2. Query terrain height at impact center via ChunkGenerator.getBaseHeight (safe across unloaded chunks)
+        ChunkGenerator generator = context.chunkGenerator();
+        RandomState randomState = level.getLevel().getChunkSource().randomState();
+        int centerGroundY = generator.getBaseHeight(centerX, centerZ, Heightmap.Types.OCEAN_FLOOR_WG, level, randomState) - 1;
+        if (centerGroundY < 50 || centerGroundY > 155) {
+            return false;
+        }
 
-        BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
+        int craterBottomY = Math.max(12, centerGroundY - craterDepth);
+        int meteorCenterY = craterBottomY + Math.max(1, meteorRadius - 1);
 
-        // 1. Excavate crater bowl & build scorched/basalt raised rim
-        for (int dx = -craterRadius - 2; dx <= craterRadius + 2; dx++) {
-            for (int dz = -craterRadius - 2; dz <= craterRadius + 2; dz++) {
-                double dist = Math.sqrt(dx * dx + dz * dz) + (random.nextDouble() - 0.5) * 0.85;
-                double norm = dist / (double) craterRadius;
-                if (norm > 1.25) {
+        BlockPos.MutableBlockPos cursor = new BlockPos.MutableBlockPos();
+        boolean modified = false;
+
+        // 3. Shape only columns within the current 16x16 chunk (100% chunk-safe!)
+        for (int lx = 0; lx < 16; lx++) {
+            int worldX = chunkMinX + lx;
+            for (int lz = 0; lz < 16; lz++) {
+                int worldZ = chunkMinZ + lz;
+                double dx = worldX - centerX;
+                double dz = worldZ - centerZ;
+                double rawDist = Math.hypot(dx, dz);
+
+                if (rawDist > outerApronRadius) {
                     continue;
                 }
 
-                int colX = centerX + dx;
-                int colZ = centerZ + dz;
-                int surfaceY = level.getHeight(Heightmap.Types.WORLD_SURFACE_WG, colX, colZ) - 1;
+                double angle = Math.atan2(dz, dx);
+                double angularJitter = Math.sin(angle * 6.0 + DensityCellular2D.jitter(cellHash) * 6.28) * 0.06
+                        + Math.cos(angle * 11.0 - DensityCellular2D.jitter(cellHash >> 8) * 6.28) * 0.04;
+                double spatialJitter = DensityCellular2D.valueNoise2D(seed ^ 0x517CC1B7L, worldX * 0.09, worldZ * 0.09) * 0.07;
 
-                if (norm <= 0.85) {
-                    // Parabolic crater excavation
-                    double bowlFactor = 1.0 - (norm / 0.85) * (norm / 0.85);
-                    int excavate = Math.max(1, (int) Math.round(craterDepth * bowlFactor));
-                    int floorY = surfaceY - excavate;
-
-                    for (int y = surfaceY + 2; y > floorY; y--) {
-                        pos.set(colX, y, colZ);
-                        level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
-                    }
-
-                    // Scorched/magma floor lining
-                    for (int d = 0; d <= 1; d++) {
-                        pos.set(colX, floorY - d, colZ);
-                        BlockState floorBlock;
-                        if (d == 0 && norm < 0.45 && random.nextInt(3) == 0) {
-                            floorBlock = config.craterFloorBlock().getState(random, pos);
-                        } else if (random.nextInt(3) == 0) {
-                            floorBlock = Blocks.BASALT.defaultBlockState();
-                        } else {
-                            floorBlock = config.scorchedRimBlock().getState(random, pos);
-                        }
-                        level.setBlock(pos, floorBlock, Block.UPDATE_CLIENTS);
-                    }
-                } else {
-                    // Raised impact rim with basalt, scorched rock, and ore ejecta
-                    double rimFactor = 1.0 - Math.abs(norm - 1.02) / 0.23;
-                    int rimHeight = rimFactor > 0.35 ? 1 : 0;
-                    for (int y = surfaceY; y <= surfaceY + rimHeight; y++) {
-                        pos.set(colX, y, colZ);
-                        BlockState rimBlock;
-                        if (!config.ejectaOres().isEmpty() && random.nextInt(config.oreChance() * 2) == 0) {
-                            rimBlock = config.ejectaOres().get(random.nextInt(config.ejectaOres().size()));
-                        } else if (random.nextInt(3) == 0) {
-                            rimBlock = Blocks.BASALT.defaultBlockState();
-                        } else if (random.nextInt(6) == 0) {
-                            rimBlock = Blocks.OBSIDIAN.defaultBlockState();
-                        } else {
-                            rimBlock = config.scorchedRimBlock().getState(random, pos);
-                        }
-                        level.setBlock(pos, rimBlock, Block.UPDATE_CLIENTS);
-                    }
+                double effectiveCraterRadius = craterRadius * (1.0 + angularJitter + spatialJitter);
+                double norm = rawDist / Math.max(1.0, effectiveCraterRadius);
+                if (norm > 1.35) {
+                    continue;
                 }
-            }
-        }
 
-        // 2. Place Fallen Meteor & Meteoric Iron core in the center of the crater
-        int meteorCenterY = centerY - craterDepth + Math.max(1, meteorRadius / 2);
-        for (int dx = -meteorRadius; dx <= meteorRadius; dx++) {
-            for (int dy = -meteorRadius; dy <= meteorRadius; dy++) {
-                for (int dz = -meteorRadius; dz <= meteorRadius; dz++) {
-                    double distSq = dx * dx + dy * dy + dz * dz;
-                    double rSq = (meteorRadius + 0.35) * (meteorRadius + 0.35);
-                    if (distSq <= rSq) {
-                        pos.set(centerX + dx, meteorCenterY + dy, centerZ + dz);
-                        BlockState state;
-                        if (distSq <= (meteorRadius - 0.75) * (meteorRadius - 0.75) && meteorRadius >= 2) {
-                            // Inner core of raw meteoric iron or rich ore
-                            state = config.meteorCoreBlock().getState(random, pos);
-                        } else {
-                            // Hot fallen meteor shell
-                            BlockState shell = config.meteorShellBlock().getState(random, pos);
-                            if (shell.is(GCBlocks.FALLEN_METEOR)) {
-                                shell = shell.setValue(FallenMeteorBlock.HEAT, Mth.randomBetweenInclusive(random, 4, 5));
+                int localSurfaceY = level.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, worldX, worldZ) - 1;
+                if (localSurfaceY <= 10) {
+                    continue;
+                }
+
+                RandomSource colRand = RandomSource.create(DensityCellular2D.hash(worldX, worldZ, seed ^ 0x27D4EB2FL));
+
+                if (norm <= 0.92) {
+                    // Inside the parabolic impact crater bowl
+                    double bowlRatio = norm / 0.92;
+                    // Steep inner crater walls and deep impact bowl
+                    double depthCurve = 1.0 - Math.pow(bowlRatio, 1.85);
+                    int excavate = Math.max(1, (int) Math.round(craterDepth * depthCurve));
+
+                    // Smoothly anchor deep center to centerGroundY while outer wall blends to localSurfaceY
+                    double refY = Mth.lerp(bowlRatio * bowlRatio, centerGroundY, localSurfaceY);
+                    int floorY = Math.max(10, (int) Math.round(refY) - excavate);
+
+                    // Carve air above crater floor
+                    for (int y = localSurfaceY + 4; y > floorY; y--) {
+                        cursor.set(worldX, y, worldZ);
+                        if (!level.getBlockState(cursor).isAir()) {
+                            level.setBlock(cursor, Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
+                        }
+                    }
+
+                    // Line the crater floor and sub-floor (3 blocks thick) with impact melt, basalt, obsidian, and ores
+                    for (int d = 0; d <= 2; d++) {
+                        cursor.set(worldX, floorY - d, worldZ);
+                        level.setBlock(cursor, pickCraterFloorBlock(config, colRand, cursor, bowlRatio, d), Block.UPDATE_CLIENTS);
+                    }
+
+                    // 4. Solid Asteroid & Rich Ore Core in the center of the crater (NO stacked non-full FallenMeteorBlock!)
+                    if (rawDist <= meteorRadius + 1.25) {
+                        for (int y = floorY - 1; y <= meteorCenterY + meteorRadius; y++) {
+                            double dy = (y - meteorCenterY) * 1.15;
+                            double dist3d = Math.sqrt(dx * dx + dy * dy + dz * dz);
+                            double wobble = (colRand.nextDouble() - 0.5) * 0.45;
+                            if (dist3d <= meteorRadius + wobble) {
+                                cursor.set(worldX, y, worldZ);
+                                BlockState boulderBlock = pickSolidMeteorBoulderBlock(config, colRand, cursor, dist3d / Math.max(1.0, meteorRadius));
+                                level.setBlock(cursor, boulderBlock, Block.UPDATE_CLIENTS);
                             }
-                            state = shell;
                         }
-                        level.setBlock(pos, state, Block.UPDATE_CLIENTS);
+
+                        // Place a single grounded FallenMeteorBlock fragment resting on top of the solid boulder center
+                        if (Math.abs(dx) <= 1.0 && Math.abs(dz) <= 1.0 && colRand.nextInt(2) == 0) {
+                            int topSolidY = level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, worldX, worldZ);
+                            cursor.set(worldX, topSolidY - 1, worldZ);
+                            BlockState below = level.getBlockState(cursor);
+                            if (!below.isAir() && !below.is(GCBlocks.FALLEN_METEOR)) {
+                                cursor.set(worldX, topSolidY, worldZ);
+                                BlockState fallen = config.meteorShellBlock().getState(colRand, cursor);
+                                if (fallen.is(GCBlocks.FALLEN_METEOR)) {
+                                    fallen = fallen.setValue(FallenMeteorBlock.HEAT, Mth.randomBetweenInclusive(colRand, 4, 5));
+                                }
+                                level.setBlock(cursor, fallen, Block.UPDATE_CLIENTS);
+                            }
+                        }
+                    } else if (bowlRatio > 0.28 && bowlRatio < 0.78 && colRand.nextInt(45) == 0) {
+                        // Occasional single FallenMeteorBlock fragment resting on the solid crater floor
+                        cursor.set(worldX, floorY, worldZ);
+                        if (!level.getBlockState(cursor).isAir() && !level.getBlockState(cursor).is(GCBlocks.FALLEN_METEOR)) {
+                            cursor.set(worldX, floorY + 1, worldZ);
+                            BlockState fallen = config.meteorShellBlock().getState(colRand, cursor);
+                            if (fallen.is(GCBlocks.FALLEN_METEOR)) {
+                                fallen = fallen.setValue(FallenMeteorBlock.HEAT, Mth.randomBetweenInclusive(colRand, 3, 5));
+                            }
+                            level.setBlock(cursor, fallen, Block.UPDATE_CLIENTS);
+                        }
+                    }
+
+                    modified = true;
+                } else {
+                    // Raised impact crater rim & ejecta blanket (0.92 < norm <= 1.35)
+                    double rimArch = Math.sin(((norm - 0.92) / 0.43) * Math.PI);
+                    int rimBoost = (int) Math.round(rimArch * Math.max(2.0, craterDepth * 0.28));
+
+                    if (rimBoost > 0 || colRand.nextFloat() < (float) (1.35 - norm) * 1.8F) {
+                        for (int y = localSurfaceY - 1; y <= localSurfaceY + rimBoost; y++) {
+                            cursor.set(worldX, y, worldZ);
+                            level.setBlock(cursor, pickRimEjectaBlock(config, colRand, cursor, y == localSurfaceY + rimBoost), Block.UPDATE_CLIENTS);
+                        }
+                        modified = true;
                     }
                 }
             }
         }
 
-        // 3. Scatter TFCVolcanoes PyroclasticBomb-style ore & basalt ejecta clusters around the impact crater
-        int bombCount = 4 + random.nextInt(5);
-        for (int i = 0; i < bombCount; i++) {
-            double angle = random.nextDouble() * Math.PI * 2.0;
-            double dist = craterRadius * (0.75 + random.nextDouble() * 0.85);
-            int bx = centerX + (int) Math.round(Math.cos(angle) * dist);
-            int bz = centerZ + (int) Math.round(Math.sin(angle) * dist);
-            int by = level.getHeight(Heightmap.Types.WORLD_SURFACE_WG, bx, bz) - 1;
-            if (by > 40 && by < 190) {
-                placeEjectaCluster(level, new BlockPos(bx, by, bz), random, config);
+        return modified;
+    }
+
+    /**
+     * Selects a solid full-cube block for the impacted asteroid core inside the crater:
+     * Raw Meteoric Iron blocks, diverse planetary/asteroid ores, obsidian, crying obsidian, and magma.
+     */
+    private static BlockState pickSolidMeteorBoulderBlock(
+            PlanetaryMeteorConfig config,
+            RandomSource rand,
+            BlockPos pos,
+            double normalizedRadius
+    ) {
+        List<BlockState> ores = config.ejectaOres();
+        // Inner core is rich in Raw Meteoric Iron and diverse ores brought by the meteor
+        if (normalizedRadius < 0.55) {
+            if (rand.nextInt(3) != 0) {
+                return config.meteorCoreBlock().getState(rand, pos);
+            }
+            if (!ores.isEmpty()) {
+                return ores.get(rand.nextInt(ores.size()));
             }
         }
 
-        return true;
-    }
-
-    private void placeEjectaCluster(WorldGenLevel level, BlockPos pos, RandomSource random, PlanetaryMeteorConfig config) {
-        level.setBlock(pos, sampleEjectaRock(random, pos, config), Block.UPDATE_CLIENTS);
-        for (int i = 0; i < 6; i++) {
-            BlockPos target = pos.offset(
-                    random.nextInt(3) - random.nextInt(3),
-                    random.nextInt(2) - random.nextInt(2),
-                    random.nextInt(3) - random.nextInt(3)
-            );
-            int surfY = level.getHeight(Heightmap.Types.WORLD_SURFACE_WG, target.getX(), target.getZ()) - 1;
-            BlockPos grounded = new BlockPos(target.getX(), Math.min(target.getY(), surfY), target.getZ());
-            if (!level.getBlockState(grounded.below()).isAir()) {
-                level.setBlock(grounded, sampleEjectaRock(random, grounded, config), Block.UPDATE_CLIENTS);
-            }
+        // Outer crust of the solid meteor boulder: meteoric iron, rich ores, obsidian, crying obsidian, and basalt
+        if (!ores.isEmpty() && rand.nextInt(Math.max(2, config.oreChance() - 1)) == 0) {
+            return ores.get(rand.nextInt(ores.size()));
         }
-    }
 
-    private BlockState sampleEjectaRock(RandomSource random, BlockPos pos, PlanetaryMeteorConfig config) {
-        if (!config.ejectaOres().isEmpty() && random.nextInt(config.oreChance()) == 0) {
-            return config.ejectaOres().get(random.nextInt(config.ejectaOres().size()));
-        }
-        int roll = random.nextInt(10);
-        if (roll < 4) {
-            return Blocks.BASALT.defaultBlockState();
+        int roll = rand.nextInt(12);
+        if (roll < 3) {
+            return config.meteorCoreBlock().getState(rand, pos);
         } else if (roll < 6) {
-            return config.scorchedRimBlock().getState(random, pos);
-        } else if (roll < 8) {
-            return config.craterFloorBlock().getState(random, pos);
-        } else if (roll == 8) {
             return Blocks.OBSIDIAN.defaultBlockState();
+        } else if (roll == 6) {
+            return Blocks.CRYING_OBSIDIAN.defaultBlockState();
+        } else if (roll < 9) {
+            return config.craterFloorBlock().getState(rand, pos);
         } else {
-            return GCBlocks.FALLEN_METEOR.defaultBlockState().setValue(FallenMeteorBlock.HEAT, 4);
+            return Blocks.BASALT.defaultBlockState();
+        }
+    }
+
+    private static BlockState pickCraterFloorBlock(
+            PlanetaryMeteorConfig config,
+            RandomSource rand,
+            BlockPos pos,
+            double bowlRatio,
+            int depth
+    ) {
+        List<BlockState> ores = config.ejectaOres();
+        if (!ores.isEmpty() && rand.nextInt(config.oreChance() * (depth + 1)) == 0) {
+            return ores.get(rand.nextInt(ores.size()));
+        }
+        if (depth == 0 && bowlRatio < 0.48 && rand.nextInt(3) == 0) {
+            return config.craterFloorBlock().getState(rand, pos);
+        }
+        int roll = rand.nextInt(10);
+        if (roll < 4) {
+            return config.scorchedRimBlock().getState(rand, pos);
+        } else if (roll < 7) {
+            return Blocks.BASALT.defaultBlockState();
+        } else if (roll < 9) {
+            return Blocks.SMOOTH_BASALT.defaultBlockState();
+        } else {
+            return Blocks.OBSIDIAN.defaultBlockState();
+        }
+    }
+
+    private static BlockState pickRimEjectaBlock(
+            PlanetaryMeteorConfig config,
+            RandomSource rand,
+            BlockPos pos,
+            boolean isTopSurface
+    ) {
+        List<BlockState> ores = config.ejectaOres();
+        if (isTopSurface && !ores.isEmpty() && rand.nextInt(config.oreChance() * 2) == 0) {
+            return ores.get(rand.nextInt(ores.size()));
+        }
+        int roll = rand.nextInt(12);
+        if (roll < 5) {
+            return config.scorchedRimBlock().getState(rand, pos);
+        } else if (roll < 9) {
+            return Blocks.BASALT.defaultBlockState();
+        } else if (roll < 11) {
+            return Blocks.SMOOTH_BASALT.defaultBlockState();
+        } else {
+            return isTopSurface ? config.craterFloorBlock().getState(rand, pos) : Blocks.OBSIDIAN.defaultBlockState();
         }
     }
 }

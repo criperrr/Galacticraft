@@ -100,8 +100,8 @@ public class GCPlacedFeatures {
         // TFCVolcanoes cellular multi-chunk volcano placement: runs once per chunk so all chunks overlapping
         // a rare Voronoi cell center shape their 16x16 slice of the volcano seamlessly
         registerPlanetVolcanoPlacement(context, configuredFeatureLookup, VENUS_VOLCANO, GCConfiguredFeature.VENUS_VOLCANO);
-        // Planetary meteor impact crater & fallen meteor placement on Venus
-        registerPlanetMeteorPlacement(context, configuredFeatureLookup, VENUS_METEOR, GCConfiguredFeature.VENUS_METEOR, 42);
+        // Multi-chunk cellular planetary meteor impact crater placement on Venus
+        registerPlanetMeteorPlacement(context, configuredFeatureLookup, VENUS_METEOR, GCConfiguredFeature.VENUS_METEOR);
         // Geological basalt/scorched rock patches with scattered surface ore blocks
         context.register(VENUS_SURFACE_OUTCROP, new PlacedFeature(configuredFeatureLookup.getOrThrow(GCConfiguredFeature.VENUS_SURFACE_OUTCROP), List.of(
                 RarityFilter.onAverageOnceEvery(6),
@@ -134,19 +134,16 @@ public class GCPlacedFeatures {
     }
 
     /**
-     * Reusable helper to register a planetary meteor impact crater placement with custom chunk rarity for any planet.
+     * Reusable helper to register a multi-chunk cellular planetary meteor impact crater placement for any planet.
      */
     public static void registerPlanetMeteorPlacement(
             BootstrapContext<PlacedFeature> context,
             HolderGetter<ConfiguredFeature<?, ?>> configuredLookup,
             ResourceKey<PlacedFeature> placedKey,
-            ResourceKey<ConfiguredFeature<?, ?>> configuredKey,
-            int averageOnceEveryChunks
+            ResourceKey<ConfiguredFeature<?, ?>> configuredKey
     ) {
         context.register(placedKey, new PlacedFeature(configuredLookup.getOrThrow(configuredKey), List.of(
-                RarityFilter.onAverageOnceEvery(averageOnceEveryChunks),
-                InSquarePlacement.spread(),
-                PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                CountPlacement.of(1),
                 BiomeFilter.biome()
         )));
     }
