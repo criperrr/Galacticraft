@@ -30,7 +30,6 @@ import dev.galacticraft.mod.Constant;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
 import org.joml.Matrix4f;
 
 public class SatelliteSkyRenderer extends SpaceSkyRenderer {
@@ -119,10 +118,24 @@ public class SatelliteSkyRenderer extends SpaceSkyRenderer {
         matrices.popPose();
         context.profiler().pop();
 
-        context.profiler().push("earth");
-        float light = Mth.clamp(Mth.cos(context.world().getTimeOfDay(partialTicks) * Mth.TWO_PI) * 2.0F + 1.5F, 0.5F, 1.0F);
-        RenderSystem.setShaderColor(light, light, light, 1.0F);
-        this.earthManager.render(matrices, context.world(), context.camera().getPosition().y() + 2048.0D, partialTicks, context.camera());
+        context.profiler().push("parent_planet");
+        ResourceLocation bodyTex = this.parentBody != null ? this.parentBody : Constant.CelestialBody.EARTH;
+        ResourceLocation atmoTex = (bodyTex.equals(Constant.CelestialBody.EARTH) || bodyTex.equals(Constant.CelestialBody.VENUS) || bodyTex.equals(Constant.CelestialBody.MARS))
+                ? Constant.Skybox.ATMOSPHERE : null;
+        PlanetUnderPlayerRenderer.renderPlanetBelow(
+                matrices,
+                context.world(),
+                bodyTex,
+                atmoTex,
+                1000.0D,
+                partialTicks,
+                0.0F,
+                100.0F,
+                80.0F,
+                0.4F,
+                0.7F,
+                1.0F
+        );
         context.profiler().pop();
 
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);

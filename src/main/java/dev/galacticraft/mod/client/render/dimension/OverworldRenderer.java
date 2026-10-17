@@ -207,9 +207,20 @@ public class OverworldRenderer extends SpaceSkyRenderer {
         poseStack.popPose();
 
         // 3. Earth visible below rocket as player ascends
-        float light = Mth.clamp(Mth.cos(celestialAngle * Mth.TWO_PI) * 2.0F + 1.0F, 0.5F, 1.0F);
-        RenderSystem.setShaderColor(light, light, light, 1.0F);
-        this.earthManager.render(poseStack, level, 2.0D * (player.getY() - 64.0D), partialTicks, camera);
+        PlanetUnderPlayerRenderer.renderPlanetBelow(
+                poseStack,
+                level,
+                Constant.CelestialBody.EARTH,
+                Constant.Skybox.ATMOSPHERE,
+                player.getY(),
+                partialTicks,
+                Constant.OVERWORLD_SKYPROVIDER_STARTHEIGHT,
+                Constant.SPACE_HEIGHT,
+                70.0F,
+                0.4F,
+                0.7F,
+                1.0F
+        );
 
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.depthMask(true);

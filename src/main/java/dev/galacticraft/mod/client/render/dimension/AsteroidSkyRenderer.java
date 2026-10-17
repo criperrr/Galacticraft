@@ -28,6 +28,7 @@ import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Axis;
 import dev.galacticraft.mod.Constant;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import org.joml.Matrix4f;
 
@@ -146,6 +147,24 @@ public class AsteroidSkyRenderer extends SpaceSkyRenderer {
         RenderSystem.disableBlend();
         matrices.popPose();
         context.profiler().pop();
+
+        // 5. Dwarf Planet Ceres below when ascending to high altitudes
+        var player = Minecraft.getInstance().player;
+        double playerY = player != null ? player.getY() : 64.0D;
+        PlanetUnderPlayerRenderer.renderPlanetBelow(
+                matrices,
+                context.world(),
+                Constant.CelestialBody.CERES,
+                null,
+                playerY,
+                partialTicks,
+                180.0F,
+                450.0F,
+                60.0F,
+                0.0F,
+                0.0F,
+                0.0F
+        );
 
         RenderSystem.depthMask(true);
         context.profiler().pop();

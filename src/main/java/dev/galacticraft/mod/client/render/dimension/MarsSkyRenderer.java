@@ -29,16 +29,21 @@ import com.mojang.math.Axis;
 import dev.galacticraft.mod.Constant;
 import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
 
 /**
  * Authoritative sky renderer for Mars, faithfully restored from Galacticraft 4 legacy
- * (micdoodle8) with atmospheric sun aura, occulting solar disk, distant Earth/Moon,
- * and Martian moons (Phobos and Deimos).
+ * (micdoodle8) with 360-degree atmospheric sky enclosure, solar aura, occulting solar disk,
+ * distant Earth/Moon, Martian moons (Phobos and Deimos), and pixel-art Mars planet body
+ * rendered underneath the player at high altitudes.
  */
 public class MarsSkyRenderer implements DimensionRenderingRegistry.SkyRenderer {
     public static final MarsSkyRenderer INSTANCE = new MarsSkyRenderer();
@@ -49,21 +54,8 @@ public class MarsSkyRenderer implements DimensionRenderingRegistry.SkyRenderer {
 
     public MarsSkyRenderer() {
         this.skyBuffer = new VertexBuffer(VertexBuffer.Usage.STATIC);
-        final byte byte2 = 64;
-        final int i = 256 / byte2 + 2;
-        float f = 16.0F;
-        BufferBuilder buffer = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION);
-
-        for (int j = -byte2 * i; j <= byte2 * i; j += byte2) {
-            for (int l = -byte2 * i; l <= byte2 * i; l += byte2) {
-                buffer.addVertex(j, f, l)
-                        .addVertex(j + byte2, f, l)
-                        .addVertex(j + byte2, f, l + byte2)
-                        .addVertex(j, f, l + byte2);
-            }
-        }
         this.skyBuffer.bind();
-        this.skyBuffer.upload(buffer.buildOrThrow());
+        this.skyBuffer.upload(VenusSkyRenderer.buildAtmosphericEnclosure(Tesselator.getInstance(), 16.0F));
         VertexBuffer.unbind();
     }
 
@@ -75,24 +67,32 @@ public class MarsSkyRenderer implements DimensionRenderingRegistry.SkyRenderer {
         matrices.mulPose(context.positionMatrix());
         float celestialAngle = level.getTimeOfDay(partialTicks);
 
+        Player player = Minecraft.getInstance().player;
+        double playerY = player != null ? player.getY() : 64.0D;
+
+        // As the player ascends past Y=180 into space (up to Y=450), the red atmosphere fades away
+        float spaceProgress = Mth.clamp((float) ((playerY - 180.0D) / 270.0D), 0.0F, 1.0F);
+        float atmosphereAlpha = 1.0F - spaceProgress;
+
         Vec3 skyColor = level.getSkyColor(context.camera().getPosition(), partialTicks);
         float rSky = (float) skyColor.x;
         float gSky = (float) skyColor.y;
         float bSky = (float) skyColor.z;
 
-        // 1. Atmospheric sky dome
-        RenderSystem.depthMask(false);
-        FogRenderer.levelFogColor();
-        RenderSystem.setShaderColor(rSky, gSky, bSky, 1.0F);
-        this.skyBuffer.bind();
-        this.skyBuffer.drawWithShader(matrices.last().pose(), context.projectionMatrix(), RenderSystem.getShader());
-        VertexBuffer.unbind();
+        // 1. 360-degree Atmospheric sky enclosure (NO black void!)
+        if (atmosphereAlpha > 0.0F) {
+            RenderSystem.depthMask(false);
+            FogRenderer.levelFogColor();
+            RenderSystem.enableBlend();
+            RenderSystem.blendFuncSeparate(770, 771, 1, 0);
+            RenderSystem.setShaderColor(rSky, gSky, bSky, atmosphereAlpha);
+            this.skyBuffer.bind();
+            this.skyBuffer.drawWithShader(matrices.last().pose(), context.projectionMatrix(), RenderSystem.getShader());
+            VertexBuffer.unbind();
+        }
 
-        RenderSystem.enableBlend();
-        RenderSystem.blendFuncSeparate(770, 771, 1, 0);
-
-        // 2. Stars (fading out in daytime, bright at night)
-        float starBrightness = level.getStarBrightness(partialTicks);
+        // 2. Stars (fading out in daytime, bright at night and in space)
+        float starBrightness = Math.max(level.getStarBrightness(partialTicks), spaceProgress);
         if (starBrightness > 0.0F) {
             matrices.pushPose();
             StarManager.rotateForCelestialAngle(matrices, celestialAngle);
@@ -100,8 +100,8 @@ public class MarsSkyRenderer implements DimensionRenderingRegistry.SkyRenderer {
             matrices.popPose();
         }
 
-        // 3. Martian Sun Aura (2-tier smooth colored triangle fan corona)
-        float sunAuraFactor = 1.0F - starBrightness;
+        // 3. Martian Sun Aura (2-tier smooth colored triangle fan corona in atmosphere)
+        float sunAuraFactor = (1.0F - level.getStarBrightness(partialTicks)) * atmosphereAlpha;
         if (sunAuraFactor > 0.0F) {
             matrices.pushPose();
             matrices.mulPose(Axis.YN.rotationDegrees(90.0F));
@@ -148,7 +148,7 @@ public class MarsSkyRenderer implements DimensionRenderingRegistry.SkyRenderer {
             matrices.popPose();
         }
 
-        // 4. Sun Disk (with occulting black square and atmospheric sun)
+        // 4. Sun Disk (with occulting black square and atmospheric/orbital sun)
         matrices.pushPose();
         matrices.mulPose(Axis.YN.rotationDegrees(90.0F));
         matrices.mulPose(Axis.XP.rotationDegrees(celestialAngle * 360.0F));
@@ -166,13 +166,14 @@ public class MarsSkyRenderer implements DimensionRenderingRegistry.SkyRenderer {
                 .addVertex(sunMatrix, -blackSize, 99.9F, blackSize);
         BufferUploader.drawWithShader(quadBuffer.buildOrThrow());
 
-        // Atmospheric sun texture
+        // Atmospheric/Orbital sun texture
         RenderSystem.blendFuncSeparate(
                 GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO
         );
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderTexture(0, Constant.Skybox.SUN_ATMOSPHERIC);
+        ResourceLocation sunTex = spaceProgress > 0.5F ? Constant.Skybox.SUN_ORBITAL : Constant.Skybox.SUN_ATMOSPHERIC;
+        RenderSystem.setShaderTexture(0, sunTex);
         quadBuffer = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
         quadBuffer.addVertex(sunMatrix, -this.sunSize, 100.0F, -this.sunSize).setUv(0.0F, 0.0F)
                 .addVertex(sunMatrix, this.sunSize, 100.0F, -this.sunSize).setUv(1.0F, 0.0F)
@@ -238,6 +239,22 @@ public class MarsSkyRenderer implements DimensionRenderingRegistry.SkyRenderer {
         BufferUploader.drawWithShader(quadBuffer.buildOrThrow());
 
         matrices.popPose();
+
+        // 7. Mars Planet Below Player (Pixel art rendered below at high altitudes)
+        PlanetUnderPlayerRenderer.renderPlanetBelow(
+                matrices,
+                level,
+                Constant.CelestialBody.MARS,
+                Constant.Skybox.ATMOSPHERE,
+                playerY,
+                partialTicks,
+                180.0F,
+                450.0F,
+                70.0F,
+                1.0F,
+                0.65F,
+                0.45F
+        );
 
         RenderSystem.disableBlend();
         RenderSystem.depthMask(true);
