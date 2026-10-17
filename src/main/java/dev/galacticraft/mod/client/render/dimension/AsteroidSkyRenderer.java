@@ -150,7 +150,7 @@ public class AsteroidSkyRenderer extends SpaceSkyRenderer {
 
         // 5. Dwarf Planet Ceres below when ascending to high altitudes
         var player = Minecraft.getInstance().player;
-        double playerY = player != null ? player.getY() : 64.0D;
+        double playerY = player != null ? (player.getVehicle() != null ? player.getVehicle().getY() : player.getY()) : 64.0D;
         PlanetUnderPlayerRenderer.renderPlanetBelow(
                 matrices,
                 context.world(),
@@ -159,8 +159,7 @@ public class AsteroidSkyRenderer extends SpaceSkyRenderer {
                 playerY,
                 partialTicks,
                 180.0F,
-                450.0F,
-                60.0F,
+                1.0F,
                 0.0F,
                 0.0F,
                 0.0F

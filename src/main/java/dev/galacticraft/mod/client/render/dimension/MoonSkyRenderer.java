@@ -133,7 +133,7 @@ public class MoonSkyRenderer extends SpaceSkyRenderer {
         context.profiler().pop();
 
         // 4. Moon Planet Below Player (Pixel art rendered below at high altitudes)
-        double playerY = player != null ? player.getY() : 64.0D;
+        double playerY = player != null ? (player.getVehicle() != null ? player.getVehicle().getY() : player.getY()) : 64.0D;
         PlanetUnderPlayerRenderer.renderPlanetBelow(
                 matrices,
                 context.world(),
@@ -142,8 +142,7 @@ public class MoonSkyRenderer extends SpaceSkyRenderer {
                 playerY,
                 partialTicks,
                 180.0F,
-                450.0F,
-                70.0F,
+                1.0F,
                 0.0F,
                 0.0F,
                 0.0F

@@ -36,12 +36,11 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
 
 /**
  * Authoritative sky renderer for Venus, faithfully restored from Galacticraft 4 legacy
- * (micdoodle8). Features a 360-degree atmospheric sky enclosure (no cut-off horizon or void),
+ * (micdoodle8). Features a 360-degree atmospheric sky enclosure (no cut-off horizon or black void),
  * retrograde celestial movement, rich sulfuric solar corona, distant Earth, and pixel-art
  * Venus planet body rendered underneath the player at high altitudes.
  */
@@ -59,52 +58,47 @@ public class VenusSkyRenderer implements DimensionRenderingRegistry.SkyRenderer 
         if (this.skyBuffer == null) {
             this.skyBuffer = new VertexBuffer(VertexBuffer.Usage.STATIC);
             this.skyBuffer.bind();
-            this.skyBuffer.upload(buildAtmosphericEnclosure(16.0F));
+            this.skyBuffer.upload(buildAtmosphericDome(Tesselator.getInstance(), 256.0F, 128.0F));
             VertexBuffer.unbind();
         }
         return this.skyBuffer;
     }
 
-    public static MeshData buildAtmosphericEnclosure(float size) {
-        return buildAtmosphericEnclosure(Tesselator.getInstance(), size);
-    }
-
     /**
-     * Builds a complete 360-degree atmospheric skybox enclosure with inverted faces
-     * so that the atmosphere smoothly envelops the observer in all directions.
+     * Builds a complete, seamless 360-degree atmospheric enclosure (dome + cylinder + base)
+     * so that the planetary atmosphere smoothly envelops the observer in all directions with NO black void.
      */
-    public static MeshData buildAtmosphericEnclosure(Tesselator tesselator, float size) {
-        BufferBuilder buffer = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION);
-        // Top (+Y)
-        buffer.addVertex(-size, size, -size)
-                .addVertex(-size, size, size)
-                .addVertex(size, size, size)
-                .addVertex(size, size, -size);
-        // Bottom (-Y)
-        buffer.addVertex(-size, -size, -size)
-                .addVertex(size, -size, -size)
-                .addVertex(size, -size, size)
-                .addVertex(-size, -size, size);
-        // North (-Z)
-        buffer.addVertex(-size, -size, -size)
-                .addVertex(-size, size, -size)
-                .addVertex(size, size, -size)
-                .addVertex(size, -size, -size);
-        // South (+Z)
-        buffer.addVertex(size, -size, size)
-                .addVertex(size, size, size)
-                .addVertex(-size, size, size)
-                .addVertex(-size, -size, size);
-        // West (-X)
-        buffer.addVertex(-size, -size, size)
-                .addVertex(-size, size, size)
-                .addVertex(-size, size, -size)
-                .addVertex(-size, -size, -size);
-        // East (+X)
-        buffer.addVertex(size, -size, -size)
-                .addVertex(size, size, -size)
-                .addVertex(size, size, size)
-                .addVertex(size, -size, size);
+    public static MeshData buildAtmosphericDome(Tesselator tesselator, float radius, float halfHeight) {
+        BufferBuilder buffer = tesselator.begin(VertexFormat.Mode.TRIANGLES, DefaultVertexFormat.POSITION);
+        int segments = 32;
+
+        for (int i = 0; i < segments; i++) {
+            float a1 = (float) (i * 2 * Math.PI / segments);
+            float a2 = (float) ((i + 1) * 2 * Math.PI / segments);
+            float x1 = radius * Mth.cos(a1);
+            float z1 = radius * Mth.sin(a1);
+            float x2 = radius * Mth.cos(a2);
+            float z2 = radius * Mth.sin(a2);
+
+            // Top disc (facing inward/downward into camera)
+            buffer.addVertex(0.0F, halfHeight, 0.0F);
+            buffer.addVertex(x1, halfHeight, z1);
+            buffer.addVertex(x2, halfHeight, z2);
+
+            // Bottom disc (facing inward/upward into camera)
+            buffer.addVertex(0.0F, -halfHeight, 0.0F);
+            buffer.addVertex(x2, -halfHeight, z2);
+            buffer.addVertex(x1, -halfHeight, z1);
+
+            // Cylinder wall quad (2 triangles)
+            buffer.addVertex(x1, halfHeight, z1);
+            buffer.addVertex(x1, -halfHeight, z1);
+            buffer.addVertex(x2, -halfHeight, z2);
+
+            buffer.addVertex(x1, halfHeight, z1);
+            buffer.addVertex(x2, -halfHeight, z2);
+            buffer.addVertex(x2, halfHeight, z2);
+        }
         return buffer.buildOrThrow();
     }
 
@@ -139,20 +133,25 @@ public class VenusSkyRenderer implements DimensionRenderingRegistry.SkyRenderer 
         float celestialAngle = level.getTimeOfDay(partialTicks);
 
         Player player = Minecraft.getInstance().player;
-        double playerY = player != null ? player.getY() : 64.0D;
+        double playerY = player != null ? (player.getVehicle() != null ? player.getVehicle().getY() : player.getY()) : 64.0D;
 
         // As the player ascends past Y=180 into space (up to Y=450), the yellow atmosphere fades away
         float spaceProgress = Mth.clamp((float) ((playerY - 180.0D) / 270.0D), 0.0F, 1.0F);
         float atmosphereAlpha = 1.0F - spaceProgress;
 
-        Vec3 skyColor = level.getSkyColor(context.camera().getPosition(), partialTicks);
-        float rSky = (float) skyColor.x;
-        float gSky = (float) skyColor.y;
-        float bSky = (float) skyColor.z;
+        // Authentic GC4 WorldProviderVenus celestial color model:
+        // Day: [255, 207, 81] (rich golden sulfurous yellow), Night: [118, 89, 21] (warm glowing amber)
+        float dayFactor = Mth.clamp(Mth.cos(celestialAngle * Mth.TWO_PI) * 2.0F + 0.5F, 0.0F, 1.0F);
+        float nightFactor = 1.0F - dayFactor;
 
-        // 1. Full 360-degree Atmospheric Sky Enclosure (NO black void!)
+        float rSky = (255.0F / 255.0F) * dayFactor + (118.0F / 255.0F) * nightFactor;
+        float gSky = (207.0F / 255.0F) * dayFactor + (89.0F / 255.0F) * nightFactor;
+        float bSky = (81.0F / 255.0F) * dayFactor + (21.0F / 255.0F) * nightFactor;
+
+        // 1. Full 360-degree Atmospheric Sky Enclosure (NO black void or cutoff!)
         if (atmosphereAlpha > 0.0F) {
             RenderSystem.depthMask(false);
+            RenderSystem.disableCull();
             FogRenderer.levelFogColor();
             RenderSystem.enableBlend();
             RenderSystem.blendFuncSeparate(770, 771, 1, 0);
@@ -162,10 +161,11 @@ public class VenusSkyRenderer implements DimensionRenderingRegistry.SkyRenderer 
             buffer.bind();
             buffer.drawWithShader(poseStack.last().pose(), context.projectionMatrix(), GameRenderer.getPositionShader());
             VertexBuffer.unbind();
+            RenderSystem.enableCull();
         }
 
         // 2. Stars (Retrograde rotation for Venus - rises in west, sets in east)
-        float starBrightness = Math.max(level.getStarBrightness(partialTicks), spaceProgress);
+        float starBrightness = Math.max(level.getStarBrightness(partialTicks) * 0.3F, spaceProgress);
         if (starBrightness > 0.0F) {
             poseStack.pushPose();
             StarManager.rotateForRetrogradeCelestialAngle(poseStack, celestialAngle);
@@ -256,11 +256,10 @@ public class VenusSkyRenderer implements DimensionRenderingRegistry.SkyRenderer 
                 playerY,
                 partialTicks,
                 180.0F,
-                450.0F,
-                70.0F,
+                1.0F,
                 1.0F,
                 0.85F,
-                0.4F
+                0.35F
         );
 
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);

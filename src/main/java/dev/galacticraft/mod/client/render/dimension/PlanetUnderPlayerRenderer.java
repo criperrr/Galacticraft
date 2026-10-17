@@ -35,7 +35,14 @@ import org.joml.Matrix4f;
 /**
  * Renders the iconic pixel-art planetary celestial body directly underneath the player
  * when ascending to high altitudes (e.g. rocket ascent or high-altitude flight),
- * faithfully restored from Galacticraft Legacy (micdoodle8) and its classic addons.
+ * faithfully restored from Galacticraft 4 Legacy (micdoodle8) and its classic addons (GalaxySpace/AsmodeusCore).
+ *
+ * Mathematical model from micdoodle8 (SkyProviderOverworld.java):
+ *  - theta = sqrt((playerY - startHeight) / 1000.0) * 400.0
+ *  - alpha = clamp((theta / 100.0 - 0.2) * 2.0, 0.0, 1.0)
+ *  - scale = 850.0 * (0.25 - theta / 10000.0)
+ *  - translate(0.0, -playerY, 0.0) puts the horizontal XZ planar quad at Y = 0 (planetary sea level),
+ *    causing the planet to naturally shrink into the distance as altitude increases.
  */
 public class PlanetUnderPlayerRenderer {
 
@@ -47,8 +54,7 @@ public class PlanetUnderPlayerRenderer {
             double playerY,
             float partialTicks,
             float startHeight,
-            float maxFadeHeight,
-            float baseScale,
+            float baseScaleMultiplier,
             float haloR,
             float haloG,
             float haloB
@@ -57,63 +63,132 @@ public class PlanetUnderPlayerRenderer {
             return;
         }
 
-        float progress = (float) ((playerY - startHeight) / (maxFadeHeight - startHeight));
-        float alpha = Mth.clamp(progress, 0.0F, 1.0F);
+        float theta = (float) Math.sqrt(Math.max((playerY - startHeight) / 1000.0D, 0.0D)) * 400.0F;
+        float alpha = Mth.clamp((theta / 100.0F - 0.2F) * 2.0F, 0.0F, 1.0F);
         if (alpha <= 0.01F) {
             return;
         }
 
-        // Illumination from the celestial angle (day vs night side of the planet)
+        // Illumination from celestial angle (day vs night side of the planet below)
         float celestialAngle = level.getTimeOfDay(partialTicks);
-        float light = Mth.clamp(Mth.cos(celestialAngle * Mth.TWO_PI) * 0.7F + 0.6F, 0.25F, 1.0F);
+        float light = Mth.clamp(Mth.cos(celestialAngle * Mth.TWO_PI) * 0.75F + 0.6F, 0.2F, 1.0F);
 
-        // Apparent angular scale: wide when just clearing the terrain/clouds, gradually receding
-        float heightFactor = Mth.clamp((float) ((playerY - startHeight) / 1200.0D), 0.0F, 0.6F);
-        float size = baseScale * (1.25F - 0.45F * heightFactor);
+        float scale = 850.0F * (0.25F - theta / 10000.0F) * baseScaleMultiplier;
+        scale = Math.max(scale, 0.2F);
 
         poseStack.pushPose();
 
-        // Orient planet below player at nadir (Y = -100)
+        // Authentic GC4 Legacy ground projection:
+        // Scale horizontally on X and Z, and translate down by playerY to ground level (Y = 0)
+        poseStack.scale(scale, 1.0F, scale);
+        poseStack.translate(0.0F, -(float) playerY, 0.0F);
+
         Matrix4f matrix = poseStack.last().pose();
         Tesselator tesselator = Tesselator.getInstance();
 
         RenderSystem.enableBlend();
         RenderSystem.depthMask(false);
+        RenderSystem.disableCull();
 
         // 1. Optional Atmospheric Halo / Rim below the planet
         if (atmosphereTexture != null) {
             RenderSystem.blendFuncSeparate(
                     GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO
             );
-            RenderSystem.setShaderColor(haloR * light, haloG * light, haloB * light, alpha * 0.4F);
+            RenderSystem.setShaderColor(haloR * light, haloG * light, haloB * light, alpha * 0.55F);
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderTexture(0, atmosphereTexture);
-            float haloSize = size * 1.12F;
+            float haloSize = 1.08F;
             BufferBuilder haloBuffer = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-            haloBuffer.addVertex(matrix, -haloSize, -100.2F, haloSize).setUv(0.0F, 1.0F)
-                    .addVertex(matrix, haloSize, -100.2F, haloSize).setUv(1.0F, 1.0F)
-                    .addVertex(matrix, haloSize, -100.2F, -haloSize).setUv(1.0F, 0.0F)
-                    .addVertex(matrix, -haloSize, -100.2F, -haloSize).setUv(0.0F, 0.0F);
+            haloBuffer.addVertex(matrix, -haloSize, -0.2F, haloSize).setUv(0.0F, 1.0F);
+            haloBuffer.addVertex(matrix, haloSize, -0.2F, haloSize).setUv(1.0F, 1.0F);
+            haloBuffer.addVertex(matrix, haloSize, -0.2F, -haloSize).setUv(1.0F, 0.0F);
+            haloBuffer.addVertex(matrix, -haloSize, -0.2F, -haloSize).setUv(0.0F, 0.0F);
             BufferUploader.drawWithShader(haloBuffer.buildOrThrow());
         }
 
-        // 2. Planet Pixel Art Body
+        // 2. Planet Pixel Art Body (XZ horizontal planar quad)
         RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
         RenderSystem.setShaderColor(light, light, light, alpha);
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, planetTexture);
 
+        float size = 1.0F;
         BufferBuilder buffer = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-        buffer.addVertex(matrix, -size, -100.0F, size).setUv(0.0F, 1.0F)
-                .addVertex(matrix, size, -100.0F, size).setUv(1.0F, 1.0F)
-                .addVertex(matrix, size, -100.0F, -size).setUv(1.0F, 0.0F)
-                .addVertex(matrix, -size, -100.0F, -size).setUv(0.0F, 0.0F);
+        buffer.addVertex(matrix, -size, 0.0F, size).setUv(0.0F, 1.0F);
+        buffer.addVertex(matrix, size, 0.0F, size).setUv(1.0F, 1.0F);
+        buffer.addVertex(matrix, size, 0.0F, -size).setUv(1.0F, 0.0F);
+        buffer.addVertex(matrix, -size, 0.0F, -size).setUv(0.0F, 0.0F);
         BufferUploader.drawWithShader(buffer.buildOrThrow());
 
+        RenderSystem.enableCull();
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.defaultBlendFunc();
         RenderSystem.disableBlend();
         RenderSystem.depthMask(true);
+
+        poseStack.popPose();
+    }
+
+    /**
+     * Specialized orbital projection for space stations / satellites in orbit around a planet.
+     */
+    public static void renderPlanetBelowOrbit(
+            PoseStack poseStack,
+            Level level,
+            ResourceLocation planetTexture,
+            @Nullable ResourceLocation atmosphereTexture,
+            float partialTicks,
+            float size,
+            float haloR,
+            float haloG,
+            float haloB
+    ) {
+        float celestialAngle = level.getTimeOfDay(partialTicks);
+        float light = Mth.clamp(Mth.cos(celestialAngle * Mth.TWO_PI) * 0.75F + 0.6F, 0.2F, 1.0F);
+
+        poseStack.pushPose();
+        Matrix4f matrix = poseStack.last().pose();
+        Tesselator tesselator = Tesselator.getInstance();
+
+        RenderSystem.enableBlend();
+        RenderSystem.depthMask(false);
+        RenderSystem.disableCull();
+
+        if (atmosphereTexture != null) {
+            RenderSystem.blendFuncSeparate(
+                    GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO
+            );
+            RenderSystem.setShaderColor(haloR * light, haloG * light, haloB * light, 0.6F);
+            RenderSystem.setShader(GameRenderer::getPositionTexShader);
+            RenderSystem.setShaderTexture(0, atmosphereTexture);
+            float haloSize = size * 1.1F;
+            BufferBuilder haloBuffer = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+            haloBuffer.addVertex(matrix, -haloSize, -100.2F, haloSize).setUv(0.0F, 1.0F);
+            haloBuffer.addVertex(matrix, haloSize, -100.2F, haloSize).setUv(1.0F, 1.0F);
+            haloBuffer.addVertex(matrix, haloSize, -100.2F, -haloSize).setUv(1.0F, 0.0F);
+            haloBuffer.addVertex(matrix, -haloSize, -100.2F, -haloSize).setUv(0.0F, 0.0F);
+            BufferUploader.drawWithShader(haloBuffer.buildOrThrow());
+        }
+
+        RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+        RenderSystem.setShaderColor(light, light, light, 1.0F);
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderTexture(0, planetTexture);
+
+        BufferBuilder buffer = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+        buffer.addVertex(matrix, -size, -100.0F, size).setUv(0.0F, 1.0F);
+        buffer.addVertex(matrix, size, -100.0F, size).setUv(1.0F, 1.0F);
+        buffer.addVertex(matrix, size, -100.0F, -size).setUv(1.0F, 0.0F);
+        buffer.addVertex(matrix, -size, -100.0F, -size).setUv(0.0F, 0.0F);
+        BufferUploader.drawWithShader(buffer.buildOrThrow());
+
+        RenderSystem.enableCull();
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.defaultBlendFunc();
+        RenderSystem.disableBlend();
+        RenderSystem.depthMask(true);
+
         poseStack.popPose();
     }
 }

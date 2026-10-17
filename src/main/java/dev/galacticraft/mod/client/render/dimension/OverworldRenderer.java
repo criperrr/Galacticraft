@@ -46,27 +46,16 @@ public class OverworldRenderer extends SpaceSkyRenderer {
     protected final EarthManager earthManager = new EarthManager();
 
     public OverworldRenderer() {
-        this.createSky();
     }
 
-    private void createSky() {
-        if (this.skyBuffer != null) {
-            this.skyBuffer.close();
+    private VertexBuffer getSkyBuffer() {
+        if (this.skyBuffer == null) {
+            this.skyBuffer = new VertexBuffer(VertexBuffer.Usage.STATIC);
+            this.skyBuffer.bind();
+            this.skyBuffer.upload(VenusSkyRenderer.buildAtmosphericDome(Tesselator.getInstance(), 256.0F, 128.0F));
+            VertexBuffer.unbind();
         }
-        this.skyBuffer = new VertexBuffer(VertexBuffer.Usage.STATIC);
-        this.skyBuffer.bind();
-        this.skyBuffer.upload(OverworldRenderer.buildSkyDisc(Tesselator.getInstance(), 16.0F));
-        VertexBuffer.unbind();
-    }
-
-    private static MeshData buildSkyDisc(Tesselator tesselator, float f) {
-        float f2 = Math.signum(f) * 512.0F;
-        BufferBuilder bufferBuilder = tesselator.begin(VertexFormat.Mode.TRIANGLE_FAN, DefaultVertexFormat.POSITION);
-        bufferBuilder.addVertex(0.0F, f, 0.0F);
-        for (int i = -180; i <= 180; i += 45) {
-            bufferBuilder.addVertex(f2 * Mth.cos(((float) i) * Mth.DEG_TO_RAD), f, 512.0F * Mth.sin(((float) i) * Mth.DEG_TO_RAD));
-        }
-        return bufferBuilder.buildOrThrow();
+        return this.skyBuffer;
     }
 
     public void renderOverworldSky(Player player, Matrix4f matrix4f, Matrix4f projectionMatrix, float partialTicks, Camera camera, boolean bl, Runnable runnable) {
@@ -81,11 +70,14 @@ public class OverworldRenderer extends SpaceSkyRenderer {
 
         FogRenderer.levelFogColor();
         RenderSystem.depthMask(false);
+        RenderSystem.disableCull();
         RenderSystem.setShader(GameRenderer::getPositionShader);
-        RenderSystem.setShaderColor(x, y, z, 1.0F); // Top half of the sky
-        this.skyBuffer.bind();
-        this.skyBuffer.drawWithShader(poseStack.last().pose(), projectionMatrix, GameRenderer.getPositionShader());
+        RenderSystem.setShaderColor(x, y, z, 1.0F);
+        VertexBuffer vb = getSkyBuffer();
+        vb.bind();
+        vb.drawWithShader(poseStack.last().pose(), projectionMatrix, GameRenderer.getPositionShader());
         VertexBuffer.unbind();
+        RenderSystem.enableCull();
         RenderSystem.enableBlend();
         // RenderSystem.defaultBlendFunc();
         // final float[] sunriseColors = this.minecraft.level.effects().getSunriseColor(this.minecraft.level.getTimeOfDay(partialTicks), partialTicks);
@@ -207,17 +199,17 @@ public class OverworldRenderer extends SpaceSkyRenderer {
 
         poseStack.popPose();
 
-        // 3. Earth visible below rocket as player ascends
+        // 3. Earth visible below rocket or ascending player
+        double pY = player.getVehicle() != null ? player.getVehicle().getY() : player.getY();
         PlanetUnderPlayerRenderer.renderPlanetBelow(
                 poseStack,
                 level,
                 Constant.CelestialBody.EARTH,
                 Constant.Skybox.ATMOSPHERE,
-                player.getY(),
+                pY,
                 partialTicks,
                 Constant.OVERWORLD_SKYPROVIDER_STARTHEIGHT,
-                Constant.SPACE_HEIGHT,
-                70.0F,
+                1.0F,
                 0.4F,
                 0.7F,
                 1.0F

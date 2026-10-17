@@ -36,7 +36,6 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
 
 /**
@@ -59,7 +58,7 @@ public class MarsSkyRenderer implements DimensionRenderingRegistry.SkyRenderer {
         if (this.skyBuffer == null) {
             this.skyBuffer = new VertexBuffer(VertexBuffer.Usage.STATIC);
             this.skyBuffer.bind();
-            this.skyBuffer.upload(VenusSkyRenderer.buildAtmosphericEnclosure(16.0F));
+            this.skyBuffer.upload(VenusSkyRenderer.buildAtmosphericDome(Tesselator.getInstance(), 256.0F, 128.0F));
             VertexBuffer.unbind();
         }
         return this.skyBuffer;
@@ -74,20 +73,22 @@ public class MarsSkyRenderer implements DimensionRenderingRegistry.SkyRenderer {
         float celestialAngle = level.getTimeOfDay(partialTicks);
 
         Player player = Minecraft.getInstance().player;
-        double playerY = player != null ? player.getY() : 64.0D;
+        double playerY = player != null ? (player.getVehicle() != null ? player.getVehicle().getY() : player.getY()) : 64.0D;
 
         // As the player ascends past Y=180 into space (up to Y=450), the red atmosphere fades away
         float spaceProgress = Mth.clamp((float) ((playerY - 180.0D) / 270.0D), 0.0F, 1.0F);
         float atmosphereAlpha = 1.0F - spaceProgress;
 
-        Vec3 skyColor = level.getSkyColor(context.camera().getPosition(), partialTicks);
-        float rSky = (float) skyColor.x;
-        float gSky = (float) skyColor.y;
-        float bSky = (float) skyColor.z;
+        // GC4 WorldProviderMars day/night atmospheric color
+        float dayFactor = Mth.clamp(Mth.cos(celestialAngle * Mth.TWO_PI) * 2.0F + 0.5F, 0.0F, 1.0F);
+        float rSky = (154.0F / 255.0F) * dayFactor;
+        float gSky = (114.0F / 255.0F) * dayFactor;
+        float bSky = (66.0F / 255.0F) * dayFactor;
 
         // 1. 360-degree Atmospheric sky enclosure (NO black void!)
-        if (atmosphereAlpha > 0.0F) {
+        if (atmosphereAlpha > 0.0F && (rSky > 0.01F || gSky > 0.01F || bSky > 0.01F)) {
             RenderSystem.depthMask(false);
+            RenderSystem.disableCull();
             FogRenderer.levelFogColor();
             RenderSystem.enableBlend();
             RenderSystem.blendFuncSeparate(770, 771, 1, 0);
@@ -97,6 +98,7 @@ public class MarsSkyRenderer implements DimensionRenderingRegistry.SkyRenderer {
             buffer.bind();
             buffer.drawWithShader(matrices.last().pose(), context.projectionMatrix(), GameRenderer.getPositionShader());
             VertexBuffer.unbind();
+            RenderSystem.enableCull();
         }
 
         // 2. Stars (fading out in daytime, bright at night and in space)
@@ -228,8 +230,7 @@ public class MarsSkyRenderer implements DimensionRenderingRegistry.SkyRenderer {
                 playerY,
                 partialTicks,
                 180.0F,
-                450.0F,
-                70.0F,
+                1.0F,
                 1.0F,
                 0.65F,
                 0.45F

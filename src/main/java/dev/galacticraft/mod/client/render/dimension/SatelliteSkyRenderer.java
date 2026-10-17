@@ -122,16 +122,13 @@ public class SatelliteSkyRenderer extends SpaceSkyRenderer {
         ResourceLocation bodyTex = this.parentBody != null ? this.parentBody : Constant.CelestialBody.EARTH;
         ResourceLocation atmoTex = (bodyTex.equals(Constant.CelestialBody.EARTH) || bodyTex.equals(Constant.CelestialBody.VENUS) || bodyTex.equals(Constant.CelestialBody.MARS))
                 ? Constant.Skybox.ATMOSPHERE : null;
-        PlanetUnderPlayerRenderer.renderPlanetBelow(
+        PlanetUnderPlayerRenderer.renderPlanetBelowOrbit(
                 matrices,
                 context.world(),
                 bodyTex,
                 atmoTex,
-                1000.0D,
                 partialTicks,
-                0.0F,
-                100.0F,
-                80.0F,
+                75.0F,
                 0.4F,
                 0.7F,
                 1.0F
