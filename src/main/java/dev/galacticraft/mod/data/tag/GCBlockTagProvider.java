@@ -135,7 +135,8 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         this.tag(GCBlockTags.MARS_CARVER_REPLACEABLES)
                 .add(GCBlocks.MARS_STONE)
                 .add(GCBlocks.MARS_SUB_SURFACE_ROCK)
-                .add(GCBlocks.MARS_SURFACE_ROCK);
+                .add(GCBlocks.MARS_SURFACE_ROCK)
+                .add(GCBlocks.DENSE_ICE);
         this.tag(GCBlockTags.VENUS_CARVER_REPLACEABLES)
                 .add(GCBlocks.SOFT_VENUS_ROCK)
                 .add(GCBlocks.HARD_VENUS_ROCK)

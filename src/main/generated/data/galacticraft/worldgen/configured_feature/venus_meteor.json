@@ -1,0 +1,56 @@
+{
+  "type": "galacticraft:planetary_meteor",
+  "config": {
+    "crater_floor_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:magma_block"
+      }
+    },
+    "ejecta_ores": [
+      {
+        "Name": "galacticraft:galena_ore"
+      },
+      {
+        "Name": "galacticraft:solar_ore"
+      },
+      {
+        "Name": "galacticraft:venus_copper_ore"
+      },
+      {
+        "Name": "galacticraft:venus_tin_ore"
+      },
+      {
+        "Name": "galacticraft:venus_aluminum_ore"
+      }
+    ],
+    "max_crater_radius": 11,
+    "max_meteor_radius": 3,
+    "meteor_core_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:raw_meteoric_iron_block"
+      }
+    },
+    "meteor_shell_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:fallen_meteor",
+        "Properties": {
+          "heat": "5",
+          "waterlogged": "false"
+        }
+      }
+    },
+    "min_crater_radius": 5,
+    "min_meteor_radius": 1,
+    "ore_chance": 5,
+    "scorched_rim_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:scorched_venus_rock"
+      }
+    },
+    "spawn_probability": 0.42
+  }
+}

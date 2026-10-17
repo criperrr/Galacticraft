@@ -25,14 +25,18 @@
     "water_fog_color": 329011
   },
   "features": [
-    [],
+    [
+      "galacticraft:venus_volcano"
+    ],
     [
       "galacticraft:venus_lava_lake"
     ],
-    [],
+    [
+      "galacticraft:venus_surface_outcrop"
+    ],
     [],
     [
-      "galacticraft:venus_volcano"
+      "galacticraft:venus_meteor"
     ],
     [],
     [

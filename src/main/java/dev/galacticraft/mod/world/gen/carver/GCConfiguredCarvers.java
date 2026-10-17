@@ -48,6 +48,7 @@ public class GCConfiguredCarvers {
     public static final ResourceKey<ConfiguredWorldCarver<?>> MARS_CANYON_CARVER = key(Constant.Carver.MARS_CANYON_CARVER);
     public static final ResourceKey<ConfiguredWorldCarver<?>> MARS_CRATER_CARVER = key(Constant.Carver.MARS_CRATER_CARVER);
     public static final ResourceKey<ConfiguredWorldCarver<?>> MARS_CAVE_CARVER = key(Constant.Carver.MARS_CAVE_CARVER);
+    public static final ResourceKey<ConfiguredWorldCarver<?>> MARS_CAVERN_CARVER = key(Constant.Carver.MARS_CAVERN_CARVER);
     public static final ResourceKey<ConfiguredWorldCarver<?>> VENUS_CAVE_CARVER = key(Constant.Carver.VENUS_CAVE_CARVER);
     public static final ResourceKey<ConfiguredWorldCarver<?>> VENUS_CANYON_CARVER = key(Constant.Carver.VENUS_CANYON_CARVER);
 
@@ -136,6 +137,17 @@ public class GCConfiguredCarvers {
                 UniformFloat.of(0.8f, 1.6f),
                 UniformFloat.of(0.8f, 1.4f),
                 UniformFloat.of(-1.0f, -0.4f)
+        )));
+        // GC4 MapGenCavernMars + GalaxySpace WorldProviderMars_WE: wide, flattened subterranean caverns (y <= 65, caveWidth=40, d3=d2*0.2)
+        context.register(MARS_CAVERN_CARVER, WorldCarver.CAVE.configured(new CaveCarverConfiguration(
+                0.08f,
+                UniformHeight.of(VerticalAnchor.absolute(8), VerticalAnchor.absolute(62)),
+                UniformFloat.of(0.18f, 0.35f),
+                VerticalAnchor.aboveBottom(8),
+                BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.MARS_CARVER_REPLACEABLES),
+                UniformFloat.of(2.2f, 3.8f),
+                UniformFloat.of(0.45f, 0.85f),
+                UniformFloat.of(-0.85f, -0.45f)
         )));
         // GC4 MapGenCaveVenus + MapGenLavaVenus + GalaxySpace WE_CaveGen
         context.register(VENUS_CAVE_CARVER, WorldCarver.CAVE.configured(new CaveCarverConfiguration(

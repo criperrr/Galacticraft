@@ -149,30 +149,34 @@ public class GCMultiNoiseBiomeSourceParameterLists {
     @Contract("_ -> new")
     private static <T> Climate.@NotNull ParameterList<T> generateMars(Function<ResourceKey<Biome>, T> biomeRegistry) {
         ImmutableList.Builder<Pair<Climate.ParameterPoint, T>> builder = ImmutableList.builder();
+        // Aligns Mars biome boundaries 100% with GCDensityFunctions.Mars elevation splines and GalaxySpace WorldProviderMars_WE bands:
+        // - MARS_CANYON [-1.0, -0.20]: deep Martian canyons/ravines (GC4 VALLEY_HEIGHT_MOD & GalaxySpace Mars_Ravine)
+        // - MARS_FLAT [-0.20, 0.30]: rusty plains & high plains (GC4 BiomeGenFlatMars & GalaxySpace Mars_Plains / Mars_High_Plains)
+        // - MARS_HIGHLANDS [0.30, 1.0]: rugged highlands & mountains (GC4 MOUNTAIN_HEIGHT_MOD & GalaxySpace Mars_Mountains / Mars_Triangle_Mountains)
         writeBiomeParameters(builder::add,
                 HOT,
-                DRY,
-                Parameter.span(MID_INLAND_CONTINENTALNESS, FAR_INLAND_CONTINENTALNESS),
-                MIN_EROSION,
-                WEIRDNESS_H_MIXED,
+                FULL_RANGE,
+                Parameter.span(-1.0F, -0.20F),
+                FULL_RANGE,
+                FULL_RANGE,
                 0.0F,
-                biomeRegistry.apply(GCBiomes.Mars.MARS_HIGHLANDS));
+                biomeRegistry.apply(GCBiomes.Mars.MARS_CANYON));
         writeBiomeParameters(builder::add,
                 HOT,
-                DRY,
-                Parameter.span(SHORE_CONTINENTALNESS, MID_INLAND_CONTINENTALNESS),
-                MIN_EROSION,
-                WEIRDNESS_L_MIXED,
+                FULL_RANGE,
+                Parameter.span(-0.20F, 0.30F),
+                FULL_RANGE,
+                FULL_RANGE,
                 0.0F,
                 biomeRegistry.apply(GCBiomes.Mars.MARS_FLAT));
         writeBiomeParameters(builder::add,
                 HOT,
-                DRY,
-                RIVER_CONTINENTALNESS,
-                ERODED,
-                WEIRDNESS_RIVER,
+                FULL_RANGE,
+                Parameter.span(0.30F, 1.0F),
+                FULL_RANGE,
+                FULL_RANGE,
                 0.0F,
-                biomeRegistry.apply(GCBiomes.Mars.MARS_CANYON));
+                biomeRegistry.apply(GCBiomes.Mars.MARS_HIGHLANDS));
 
         return new Climate.ParameterList<>(builder.build());
     }

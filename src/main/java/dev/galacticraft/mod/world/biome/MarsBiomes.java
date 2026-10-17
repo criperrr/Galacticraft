@@ -26,6 +26,7 @@ import dev.galacticraft.mod.content.GCEntityTypes;
 import dev.galacticraft.mod.content.GCSounds;
 import dev.galacticraft.mod.world.gen.carver.GCConfiguredCarvers;
 import dev.galacticraft.mod.world.gen.feature.GCOrePlacedFeatures;
+import dev.galacticraft.mod.world.gen.feature.GCPlacedFeatures;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.sounds.Musics;
 import net.minecraft.world.entity.MobCategory;
@@ -42,6 +43,7 @@ public class MarsBiomes {
     public static Biome createMarsFlat(HolderGetter<PlacedFeature> featureLookup, HolderGetter<ConfiguredWorldCarver<?>> carverLookup) {
         var generation = new BiomeGenerationSettings.Builder(featureLookup, carverLookup);
         generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MARS_CAVE_CARVER);
+        generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MARS_CAVERN_CARVER);
         generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MARS_CRATER_CARVER);
         return mars(featureLookup, carverLookup, generation);
     }
@@ -49,6 +51,7 @@ public class MarsBiomes {
     public static Biome createMarsCanyon(HolderGetter<PlacedFeature> featureLookup, HolderGetter<ConfiguredWorldCarver<?>> carverLookup) {
         var generation = new BiomeGenerationSettings.Builder(featureLookup, carverLookup);
         generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MARS_CAVE_CARVER);
+        generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MARS_CAVERN_CARVER);
         generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MARS_CANYON_CARVER);
         return mars(featureLookup, carverLookup, generation);
     }
@@ -56,6 +59,7 @@ public class MarsBiomes {
     public static Biome createMarsHighlands(HolderGetter<PlacedFeature> featureLookup, HolderGetter<ConfiguredWorldCarver<?>> carverLookup) {
         var generation = new BiomeGenerationSettings.Builder(featureLookup, carverLookup);
         generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MARS_CAVE_CARVER);
+        generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MARS_CAVERN_CARVER);
         generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MARS_CRATER_CARVER);
         generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MARS_CANYON_CARVER);
         return mars(featureLookup, carverLookup, generation);
@@ -81,6 +85,7 @@ public class MarsBiomes {
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_DESH_SMALL_MARS);
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_DESH_MIDDLE_MARS);
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_ICE_MARS);
+        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_SUB_SURFACE_MARS);
     }
 
     public static Biome mars(
@@ -102,6 +107,7 @@ public class MarsBiomes {
                 .backgroundMusic(Musics.createGameMusic(GCSounds.MUSIC_MARS));
 
         MarsBiomes.addDefaultMarsOres(generation);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, GCPlacedFeatures.MARS_CAVERN_VINES);
         MarsBiomes.monsters(spawnBuilder, 95, 100);
         spawnBuilder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(GCEntityTypes.SLIMELING, 12, 1, 2));
 

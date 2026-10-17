@@ -43,6 +43,10 @@ public class GCDensityFunctions {
     }
 
     public static final class Mars {
+        public static final ResourceKey<DensityFunction> BASE_HEIGHT = createKey("mars/base_height");
+        public static final ResourceKey<DensityFunction> OFFSET = createKey("mars/offset");
+        public static final ResourceKey<DensityFunction> FACTOR = createKey("mars/factor");
+        public static final ResourceKey<DensityFunction> SMOOTH_RELIEF = createKey("mars/smooth_relief");
         // Final Density handles overall terrain shape
         public static final ResourceKey<DensityFunction> FINAL_DENSITY = createKey("mars/final_density");
     }
@@ -141,13 +145,85 @@ public class GCDensityFunctions {
 //            )
 //        );
 
-        context.register(Mars.FINAL_DENSITY, DensityFunctions.add(
-                DensityFunctions.yClampedGradient(0, 96, 1, -1),
-                BlendedNoise.createUnseeded(0.25, 0.375, 80.0, 160.0, 8.0)
-        ));
-
         DensityFunction continents = getFunction(vanillaRegistry, NoiseRouterData.CONTINENTS);
         var continentsCoord = new DensityFunctions.Spline.Coordinate(vanillaRegistry.getOrThrow(NoiseRouterData.CONTINENTS));
+
+        // Mars vertical gradient anchor: monotonically decreases from +1.5 at Y=-32 to -1.5 at Y=224 (0.0 at Y=96, 1 block = 0.01171875).
+        DensityFunction marsBaseHeight = registerAndWrap(context, Mars.BASE_HEIGHT,
+                DensityFunctions.yClampedGradient(-32, 224, 1.5, -1.5)
+        );
+
+        // Smooth C1 cubic Hermite spline for Mars base elevation replicating GC4 ChunkProviderMars + GalaxySpace WorldProviderMars_WE:
+        // - MARS_CANYON [-1.0, -0.20]: GC4 VALLEY_HEIGHT_MOD (floor Y~52) & GalaxySpace Mars_Ravine (biomeSurfaceHeight=45 -> Y~48..58)
+        // - MARS_FLAT [-0.20, 0.30]: GalaxySpace Mars_Plains (Y~80), GC4 MID_HEIGHT (Y=93), & GalaxySpace Mars_High_Plains (Y~100)
+        // - MARS_HIGHLANDS [0.30, 1.0]: GC4 MOUNTAIN_HEIGHT_MOD=95 & GalaxySpace Mars_Mountains / Mars_Triangle_Mountains (Y~110..175)
+        var marsOffsetSpline = CubicSpline.builder(continentsCoord)
+                .addPoint(-1.00F, -0.50F, 0.04F)
+                .addPoint(-0.40F, -0.45F, 0.25F)
+                .addPoint(-0.20F, -0.18F, 0.65F)
+                .addPoint(0.00F, -0.035F, 0.35F)
+                .addPoint(0.30F, 0.05F, 0.45F)
+                .addPoint(0.55F, 0.28F, 0.90F)
+                .addPoint(0.80F, 0.48F, 0.70F)
+                .addPoint(1.00F, 0.60F, 0.50F)
+                .build();
+        DensityFunction marsOffset = registerAndWrap(context, Mars.OFFSET, DensityFunctions.spline(marsOffsetSpline));
+
+        // Smooth C1 cubic Hermite spline for Mars relief amplitude (GalaxySpace Ravine=1.2, Plains=1.5, Mountains=1.8..2.4 & GC4 mountain/hill mods)
+        var marsFactorSpline = CubicSpline.builder(continentsCoord)
+                .addPoint(-1.00F, 0.32F, 0.0F)
+                .addPoint(-0.40F, 0.36F, 0.20F)
+                .addPoint(-0.20F, 0.42F, 0.30F)
+                .addPoint(0.00F, 0.52F, 0.35F)
+                .addPoint(0.30F, 0.75F, 0.90F)
+                .addPoint(0.55F, 1.15F, 1.20F)
+                .addPoint(0.80F, 1.45F, 0.90F)
+                .addPoint(1.00F, 1.65F, 0.60F)
+                .build();
+        DensityFunction marsFactor = registerAndWrap(context, Mars.FACTOR, DensityFunctions.spline(marsFactorSpline));
+
+        // GC4 ChunkProviderMars multi-generator relief:
+        // - noiseGen1 (MARS_BASE_NOISE, TERRAIN_HEIGHT_MOD = 12)
+        // - noiseGen2 (MARS_HILL_NOISE, SMALL_FEATURE_HEIGHT_MOD = 26)
+        // - |noiseGen3| (MARS_BASE_NOISE.abs(), MOUNTAIN_HEIGHT_MOD = 95 & GalaxySpace Mars_Triangle_Mountains ridges)
+        // - GalaxySpace WE_Biome 4-octave persistence=0.65 layer (MARS_WE_TERRAIN_NOISE)
+        DensityFunction marsBaseNoise = DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.85, noiseRegistry.getOrThrow(GCNoiseData.MARS_BASE_NOISE));
+        DensityFunction marsHillNoise = DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 1.00, noiseRegistry.getOrThrow(GCNoiseData.MARS_HILL_NOISE));
+        DensityFunction marsMountainRidges = DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.55, noiseRegistry.getOrThrow(GCNoiseData.MARS_BASE_NOISE)).abs();
+        DensityFunction marsWeTerrainNoise = DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.65, noiseRegistry.getOrThrow(GCNoiseData.MARS_WE_TERRAIN_NOISE));
+
+        DensityFunction marsSmoothRelief = registerAndWrap(context, Mars.SMOOTH_RELIEF,
+                DensityFunctions.mul(
+                        marsFactor,
+                        DensityFunctions.add(
+                                DensityFunctions.mul(DensityFunctions.constant(0.11), marsBaseNoise),
+                                DensityFunctions.add(
+                                        DensityFunctions.mul(DensityFunctions.constant(0.09), marsHillNoise),
+                                        DensityFunctions.add(
+                                                DensityFunctions.mul(DensityFunctions.constant(0.08), marsMountainRidges),
+                                                DensityFunctions.mul(DensityFunctions.constant(0.07), marsWeTerrainNoise)
+                                        )
+                                )
+                        )
+                )
+        );
+
+        // Subtle 3D BlendedNoise weighted by marsFactor for natural Martian cliff faces and canyon walls without floating islands
+        DensityFunction marsSubtle3dRoughness = DensityFunctions.mul(
+                marsFactor,
+                DensityFunctions.mul(
+                        DensityFunctions.constant(0.045),
+                        BlendedNoise.createUnseeded(0.25, 0.125, 80.0, 160.0, 8.0)
+                )
+        );
+
+        context.register(Mars.FINAL_DENSITY, DensityFunctions.add(
+                marsBaseHeight,
+                DensityFunctions.add(
+                        marsOffset,
+                        DensityFunctions.add(marsSmoothRelief, marsSubtle3dRoughness)
+                )
+        ));
 
         // Vertical gradient anchor: monotonically decreases from +1.5 at Y=-32 to -1.5 at Y=224 (0.0 at Y=96, 1 block = 0.01171875).
         DensityFunction venusBaseHeight = registerAndWrap(context, Venus.BASE_HEIGHT,
@@ -155,57 +231,59 @@ public class GCDensityFunctions {
         );
 
         // Smooth C1 cubic Hermite spline for base elevation (replicates GC4 ChunkProviderVenus 5x5 parabolicField kernel
-        // across BiomeGenVenusValley [baseHeight=-0.4 -> Y~57], BiomeGenFlatVenus [baseHeight=0.5 -> Y~73],
-        // and BiomeGenVenusMountain + GalaxySpace Io_Mountains [baseHeight=2.0..2.8 -> Y~98..122]).
+        // across BiomeGenVenusValley [rootHeight=-0.4 -> Y~60], BiomeGenFlatVenus [rootHeight=0.5 -> Y~73],
+        // and BiomeGenVenusMountain [rootHeight=2.0 -> Y~95..106]).
+        // Gentle derivatives prevent low-frequency continent transitions from appearing as diagonal ramps.
         var offsetSpline = CubicSpline.builder(continentsCoord)
-                .addPoint(-1.00F, -0.45F, 0.02F)
-                .addPoint(-0.35F, -0.43F, 0.15F)
-                .addPoint(-0.15F, -0.34F, 0.40F)
+                .addPoint(-1.00F, -0.42F, 0.02F)
+                .addPoint(-0.35F, -0.39F, 0.12F)
+                .addPoint(-0.15F, -0.32F, 0.22F)
                 .addPoint(0.05F, -0.27F, 0.08F)
-                .addPoint(0.25F, -0.25F, 0.25F)
-                .addPoint(0.35F, -0.18F, 0.65F)
-                .addPoint(0.65F, 0.03F, 0.65F)
-                .addPoint(1.00F, 0.25F, 0.45F)
+                .addPoint(0.25F, -0.24F, 0.18F)
+                .addPoint(0.40F, -0.16F, 0.32F)
+                .addPoint(0.70F, -0.02F, 0.35F)
+                .addPoint(1.00F, 0.12F, 0.25F)
                 .build();
         DensityFunction venusOffset = registerAndWrap(context, Venus.OFFSET, DensityFunctions.spline(offsetSpline));
 
         // Smooth C1 cubic Hermite spline for terrain heightVariation (replicates GC4 d9: Valley=0.2, Flat=0.4, Mountain=1.0..1.35)
         var factorSpline = CubicSpline.builder(continentsCoord)
-                .addPoint(-1.00F, 0.25F, 0.0F)
-                .addPoint(-0.35F, 0.28F, 0.20F)
-                .addPoint(-0.15F, 0.36F, 0.40F)
-                .addPoint(0.05F, 0.45F, 0.15F)
-                .addPoint(0.25F, 0.50F, 0.50F)
-                .addPoint(0.35F, 0.65F, 1.10F)
-                .addPoint(0.65F, 1.05F, 1.00F)
-                .addPoint(1.00F, 1.35F, 0.60F)
+                .addPoint(-1.00F, 0.24F, 0.0F)
+                .addPoint(-0.35F, 0.28F, 0.15F)
+                .addPoint(-0.15F, 0.36F, 0.25F)
+                .addPoint(0.05F, 0.44F, 0.15F)
+                .addPoint(0.25F, 0.52F, 0.35F)
+                .addPoint(0.40F, 0.72F, 0.75F)
+                .addPoint(0.70F, 1.08F, 0.75F)
+                .addPoint(1.00F, 1.35F, 0.45F)
                 .build();
         DensityFunction venusFactor = registerAndWrap(context, Venus.FACTOR, DensityFunctions.spline(factorSpline));
 
-        // GC4 ChunkProviderVenus noiseGenSmooth1 (4 octaves, persistence 0.25, freq 0.015) +
+        // GC4 ChunkProviderVenus noiseGenSmooth1 (4 octaves, persistence 0.25, freq 0.015, +/- 20 blocks) +
         // GalaxySpace WE_Biome volcanic terrain layer (5 octaves, persistence 0.6) + ridge detail on mountains.
         DensityFunction gc4SmoothNoise = DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.96, noiseRegistry.getOrThrow(GCNoiseData.VENUS_SMOOTH_NOISE));
-        DensityFunction gsVolcanicNoise = DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.50, noiseRegistry.getOrThrow(GCNoiseData.VENUS_VOLCANIC_NOISE));
-        DensityFunction ridgeNoise = DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.35, noiseRegistry.getOrThrow(Noises.RIDGE));
+        DensityFunction gsVolcanicNoise = DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.55, noiseRegistry.getOrThrow(GCNoiseData.VENUS_VOLCANIC_NOISE));
+        DensityFunction ridgeNoise = DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.40, noiseRegistry.getOrThrow(Noises.RIDGE));
 
         DensityFunction venusSmoothRelief = registerAndWrap(context, Venus.SMOOTH_RELIEF,
                 DensityFunctions.mul(
                         venusFactor,
                         DensityFunctions.add(
-                                DensityFunctions.mul(DensityFunctions.constant(0.16), gc4SmoothNoise),
+                                DensityFunctions.mul(DensityFunctions.constant(0.26), gc4SmoothNoise),
                                 DensityFunctions.add(
-                                        DensityFunctions.mul(DensityFunctions.constant(0.09), gsVolcanicNoise),
-                                        DensityFunctions.mul(DensityFunctions.constant(0.05), ridgeNoise)
+                                        DensityFunctions.mul(DensityFunctions.constant(0.15), gsVolcanicNoise),
+                                        DensityFunctions.mul(DensityFunctions.constant(0.08), ridgeNoise)
                                 )
                         )
                 )
         );
 
-        // Subtle 3D BlendedNoise weighted by venusFactor for natural craggy volcanic rock faces without ever overhanging into floating islands
+        // GC4 ChunkProviderVenus 3D BlendedNoise (octaves1/octaves2/octaves3 in initializeNoiseField)
+        // weighted by venusFactor for authentic 3D GC4 hills and craggy mountains while staying strictly monotonic vertically
         DensityFunction subtle3dRoughness = DensityFunctions.mul(
                 venusFactor,
                 DensityFunctions.mul(
-                        DensityFunctions.constant(0.045),
+                        DensityFunctions.constant(0.16),
                         BlendedNoise.createUnseeded(0.25, 0.125, 80.0, 160.0, 8.0)
                 )
         );

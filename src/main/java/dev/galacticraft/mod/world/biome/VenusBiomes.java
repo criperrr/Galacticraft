@@ -54,11 +54,21 @@ public class VenusBiomes {
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_SOLAR_VENUS);
     }
 
+    public static void addDefaultVenusSurfaceFeatures(BiomeGenerationSettings.Builder builder) {
+        // Multi-chunk TFCVolcanoes cellular volcano generator must be present in all Venus biomes
+        // so that large volcano skirts crossing biome boundaries never get clipped at chunk edges!
+        // Its internal per-biome frequency map controls which biomes actually spawn volcano centers.
+        builder.addFeature(GenerationStep.Decoration.RAW_GENERATION, GCPlacedFeatures.VENUS_VOLCANO);
+        builder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, GCPlacedFeatures.VENUS_SURFACE_OUTCROP);
+        builder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, GCPlacedFeatures.VENUS_METEOR);
+    }
+
     public static Biome createVenusFlat(
             HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter
     ) {
         BiomeGenerationSettings.Builder generation = new BiomeGenerationSettings.Builder(featureGetter, carverGetter);
         addDefaultVenusCarvers(generation);
+        addDefaultVenusSurfaceFeatures(generation);
         generation.addFeature(GenerationStep.Decoration.LAKES, GCPlacedFeatures.VENUS_LAVA_LAKE);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, GCPlacedFeatures.VENUS_FLAT_VAPOR_POOL);
         addDefaultVenusOres(generation);
@@ -70,8 +80,8 @@ public class VenusBiomes {
     ) {
         BiomeGenerationSettings.Builder generation = new BiomeGenerationSettings.Builder(featureGetter, carverGetter);
         addDefaultVenusCarvers(generation);
+        addDefaultVenusSurfaceFeatures(generation);
         generation.addFeature(GenerationStep.Decoration.LAKES, GCPlacedFeatures.VENUS_LAVA_LAKE);
-        generation.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, GCPlacedFeatures.VENUS_VOLCANO);
         addDefaultVenusOres(generation);
         return createVenusBiome(generation, 2.0F, 0.1F);
     }
@@ -81,9 +91,9 @@ public class VenusBiomes {
     ) {
         BiomeGenerationSettings.Builder generation = new BiomeGenerationSettings.Builder(featureGetter, carverGetter);
         addDefaultVenusCarvers(generation);
+        addDefaultVenusSurfaceFeatures(generation);
         generation.addFeature(GenerationStep.Decoration.LAKES, GCPlacedFeatures.VENUS_VALLEY_LAVA_LAKE);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, GCPlacedFeatures.VENUS_VAPOR_POOL);
-        generation.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, GCPlacedFeatures.VENUS_VOLCANO);
         generation.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, GCPlacedFeatures.VENUS_CRASHED_PROBE);
         addDefaultVenusOres(generation);
         return createVenusBiome(generation, 2.0F, 0.8F);

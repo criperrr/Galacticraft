@@ -28,10 +28,17 @@ import dev.galacticraft.api.universe.celestialbody.CelestialBody;
 import dev.galacticraft.api.universe.celestialbody.landable.Landable;
 import dev.galacticraft.impl.universe.celestialbody.config.PlanetConfig;
 import dev.galacticraft.mod.Constant;
+import dev.galacticraft.mod.content.GCBlocks;
 import dev.galacticraft.mod.content.GCCelestialBodies;
 import dev.galacticraft.mod.content.GCEntityTypes;
 import dev.galacticraft.mod.content.entity.SlimelingEntity;
 import dev.galacticraft.mod.world.dimension.GCDimensions;
+import dev.galacticraft.mod.world.gen.GCDensityFunctions;
+import dev.galacticraft.mod.world.gen.GCNoiseData;
+import dev.galacticraft.mod.world.gen.carver.GCConfiguredCarvers;
+import dev.galacticraft.mod.world.gen.feature.GCFeatures;
+import dev.galacticraft.mod.world.gen.feature.GCOrePlacedFeatures;
+import dev.galacticraft.mod.world.gen.feature.GCPlacedFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
@@ -39,7 +46,12 @@ import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+
+import java.util.Optional;
 
 public class MarsTestSuite implements GalacticraftGameTest {
     @GameTest(template = EMPTY_STRUCTURE)
@@ -84,15 +96,84 @@ public class MarsTestSuite implements GalacticraftGameTest {
             return;
         }
 
-        boolean marsDimTypeRegistered = context.getLevel().registryAccess().registryOrThrow(Registries.DIMENSION_TYPE).containsKey(Constant.id("mars"));
-        boolean marsBiomeRegistered = context.getLevel().registryAccess().registryOrThrow(Registries.BIOME).containsKey(Constant.id("mars_flat"));
+        var registryAccess = context.getLevel().registryAccess();
+        boolean marsDimTypeRegistered = registryAccess.registryOrThrow(Registries.DIMENSION_TYPE).containsKey(Constant.id("mars"));
+        var biomeRegistry = registryAccess.registryOrThrow(Registries.BIOME);
+        boolean marsBiomesRegistered = biomeRegistry.containsKey(Constant.id("mars_flat"))
+                && biomeRegistry.containsKey(Constant.id("mars_canyon"))
+                && biomeRegistry.containsKey(Constant.id("mars_highlands"));
         if (!marsDimTypeRegistered) {
             context.fail("Expected Mars dimension type to be registered in server registries!");
             return;
         }
-        if (!marsBiomeRegistered) {
-            context.fail("Expected Mars biomes to be registered in server registries!");
+        if (!marsBiomesRegistered) {
+            context.fail("Expected Mars biomes (mars_flat, mars_canyon, mars_highlands) to be registered in server registries!");
             return;
+        }
+
+        var densityRegistry = registryAccess.registryOrThrow(Registries.DENSITY_FUNCTION);
+        if (!densityRegistry.containsKey(GCDensityFunctions.Mars.BASE_HEIGHT)
+                || !densityRegistry.containsKey(GCDensityFunctions.Mars.OFFSET)
+                || !densityRegistry.containsKey(GCDensityFunctions.Mars.FACTOR)
+                || !densityRegistry.containsKey(GCDensityFunctions.Mars.SMOOTH_RELIEF)
+                || !densityRegistry.containsKey(GCDensityFunctions.Mars.FINAL_DENSITY)) {
+            context.fail("Expected all Mars density functions (BASE_HEIGHT, OFFSET, FACTOR, SMOOTH_RELIEF, FINAL_DENSITY) to be registered!");
+            return;
+        }
+
+        var noiseRegistry = registryAccess.registryOrThrow(Registries.NOISE);
+        if (!noiseRegistry.containsKey(GCNoiseData.MARS_BASE_NOISE)
+                || !noiseRegistry.containsKey(GCNoiseData.MARS_HILL_NOISE)
+                || !noiseRegistry.containsKey(GCNoiseData.MARS_VALLEY_NOISE)
+                || !noiseRegistry.containsKey(GCNoiseData.MARS_WE_TERRAIN_NOISE)) {
+            context.fail("Expected all Mars noise parameters to be registered!");
+            return;
+        }
+
+        var carverRegistry = registryAccess.registryOrThrow(Registries.CONFIGURED_CARVER);
+        if (!carverRegistry.containsKey(GCConfiguredCarvers.MARS_CAVERN_CARVER)) {
+            context.fail("Expected MARS_CAVERN_CARVER to be registered in CONFIGURED_CARVER registry!");
+            return;
+        }
+
+        var placedFeatureRegistry = registryAccess.registryOrThrow(Registries.PLACED_FEATURE);
+        if (!placedFeatureRegistry.containsKey(GCPlacedFeatures.MARS_CAVERN_VINES)
+                || !placedFeatureRegistry.containsKey(GCOrePlacedFeatures.ORE_SUB_SURFACE_MARS)) {
+            context.fail("Expected MARS_CAVERN_VINES and ORE_SUB_SURFACE_MARS placed features to be registered!");
+            return;
+        }
+
+        context.succeed();
+    }
+
+    @GameTest(template = EMPTY_STRUCTURE)
+    public void marsCavernVinesFeatureTest(GameTestHelper context) {
+        BlockPos ceilingRelative = new BlockPos(2, 6, 2);
+        context.setBlock(ceilingRelative, GCBlocks.MARS_STONE.defaultBlockState());
+        for (int dy = 1; dy <= 5; dy++) {
+            context.setBlock(ceilingRelative.below(dy), net.minecraft.world.level.block.Blocks.AIR.defaultBlockState());
+        }
+        context.setBlock(ceilingRelative.below(6), GCBlocks.MARS_STONE.defaultBlockState());
+
+        BlockPos worldStartPos = context.absolutePos(ceilingRelative.below());
+        if (worldStartPos.getY() <= 65) {
+            boolean placed = GCFeatures.MARS_CAVERN_VINES.place(new FeaturePlaceContext<>(
+                    Optional.empty(),
+                    context.getLevel(),
+                    context.getLevel().getChunkSource().getGenerator(),
+                    RandomSource.create(42L),
+                    worldStartPos,
+                    NoneFeatureConfiguration.INSTANCE
+            ));
+            if (!placed) {
+                context.fail("Expected MarsCavernVinesFeature to place hanging vines beneath MARS_STONE cavern ceiling!");
+                return;
+            }
+            var topVineState = context.getBlockState(ceilingRelative.below());
+            if (!topVineState.is(GCBlocks.CAVERNOUS_VINES) && !topVineState.is(GCBlocks.CAVERNOUS_VINES_PLANT)) {
+                context.fail("Expected CAVERNOUS_VINES or CAVERNOUS_VINES_PLANT below ceiling, found: " + topVineState);
+                return;
+            }
         }
 
         context.succeed();

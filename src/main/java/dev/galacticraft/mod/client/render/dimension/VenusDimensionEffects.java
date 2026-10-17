@@ -23,7 +23,9 @@
 package dev.galacticraft.mod.client.render.dimension;
 
 import dev.galacticraft.mod.api.dimension.GalacticDimensionEffects;
+import dev.galacticraft.mod.content.GCBlocks;
 import dev.galacticraft.mod.particle.GCParticleTypes;
+import dev.galacticraft.mod.world.gen.noise.DensityCellular2D;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.ParticleStatus;
@@ -91,8 +93,12 @@ public class VenusDimensionEffects extends GalacticDimensionEffects {
 
     @Override
     public boolean tickRain(@NotNull ClientLevel level, Camera camera, int ticks) {
-        // GC4 TickHandlerClientVenus: tick ambient Venus sky lightning & thunder every client tick
+        // 1. GC4 TickHandlerClientVenus: tick ambient Venus sky lightning & thunder every client tick
         VenusWeatherRenderer.INSTANCE.tickLightning(level, camera);
+
+        // 2. TFCVolcanoes (TFCVHelpers.spawnSmoke & TremorEvent.trySpawnSurfaceSmoke):
+        // Emit rising smoke, embers, and charring particles from hotter geothermal zones and volcanic blocks on the ground
+        tickGeothermalGroundEffects(level, camera, ticks);
 
         float rainLevel = level.getRainLevel(1.0F);
         float rainStrength = rainLevel / (Minecraft.useFancyGraphics() ? 1.0F : 2.0F);
@@ -122,7 +128,11 @@ public class VenusDimensionEffects extends GalacticDimensionEffects {
                         double baseYOff = shape.max(Direction.Axis.Y, xOffset, zOffset);
                         double fluidHeight = fluidState.getHeight(level, below);
                         double yOffset = Math.max(baseYOff, fluidHeight);
-                        SimpleParticleType simpleParticleType = fluidState.is(FluidTags.LAVA) || blockState.is(Blocks.MAGMA_BLOCK) || CampfireBlock.isLitCampfire(blockState)
+                        SimpleParticleType simpleParticleType = fluidState.is(FluidTags.LAVA)
+                                || blockState.is(Blocks.MAGMA_BLOCK)
+                                || blockState.is(GCBlocks.SCORCHED_VENUS_ROCK)
+                                || blockState.is(GCBlocks.VOLCANIC_ROCK)
+                                || CampfireBlock.isLitCampfire(blockState)
                                 ? ParticleTypes.SMOKE
                                 : GCParticleTypes.SPLASH_VENUS;
                         this.minecraft.level.addParticle(simpleParticleType, (double) below.getX() + xOffset, (double) below.getY() + yOffset, (double) below.getZ() + zOffset, 0.0, 0.0, 0.0);
@@ -140,6 +150,84 @@ public class VenusDimensionEffects extends GalacticDimensionEffects {
         }
 
         return true;
+    }
+
+    /**
+     * Ported from {@code TFCVHelpers.spawnSmoke}, {@code TFCVHelpers.sendCharringParticles}, and {@code TremorEvent.trySpawnSurfaceSmoke}:
+     * Makes hotter regions of Venus (geothermal hotspots, volcano slopes, magma/scorched rock patches, and fallen meteors)
+     * visibly vent rising smoke plumes, embers, and lava sparks directly out of the ground.
+     */
+    private void tickGeothermalGroundEffects(ClientLevel level, Camera camera, int ticks) {
+        if (this.minecraft.options.particles().get() == ParticleStatus.MINIMAL) {
+            return;
+        }
+
+        RandomSource random = RandomSource.create((long) ticks * 982451653L ^ 0x5DEECE66DL);
+        BlockPos cameraPos = BlockPos.containing(camera.getPosition());
+        int samples = this.minecraft.options.particles().get() == ParticleStatus.DECREASED ? 6 : 14;
+
+        for (int i = 0; i < samples; i++) {
+            int dx = random.nextInt(48) - 24;
+            int dz = random.nextInt(48) - 24;
+            int wx = cameraPos.getX() + dx;
+            int wz = cameraPos.getZ() + dz;
+
+            BlockPos surfaceTop = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, new BlockPos(wx, 0, wz));
+            BlockPos groundPos = surfaceTop.below();
+            if (groundPos.getY() <= level.getMinBuildHeight() || Math.abs(groundPos.getY() - cameraPos.getY()) > 28) {
+                continue;
+            }
+
+            BlockState state = level.getBlockState(groundPos);
+            FluidState fluid = level.getFluidState(groundPos);
+
+            boolean isHotBlock = fluid.is(FluidTags.LAVA)
+                    || state.is(Blocks.MAGMA_BLOCK)
+                    || state.is(GCBlocks.SCORCHED_VENUS_ROCK)
+                    || state.is(GCBlocks.VOLCANIC_ROCK)
+                    || state.is(GCBlocks.FALLEN_METEOR);
+            boolean isBasaltPatch = state.is(Blocks.BASALT) || state.is(Blocks.SMOOTH_BASALT);
+
+            // Sample regional geothermal intensity so some regions of the planet are visibly much hotter than others
+            double regionalHeat = DensityCellular2D.sampleThermalHotspot(1337L, wx, wz);
+            boolean inHotZone = regionalHeat > 0.56;
+
+            if (!isHotBlock && !(inHotZone && (isBasaltPatch || random.nextInt(4) == 0))) {
+                continue;
+            }
+
+            double px = groundPos.getX() + 0.15 + random.nextDouble() * 0.7;
+            double py = groundPos.getY() + 1.02;
+            double pz = groundPos.getZ() + 0.15 + random.nextDouble() * 0.7;
+
+            // TFCVHelpers.spawnSmoke: upward velocity with subtle horizontal drift
+            double vx = (random.nextDouble() - 0.5) * 0.02;
+            double vy = 0.04 + random.nextDouble() * 0.08;
+            double vz = (random.nextDouble() - 0.5) * 0.02;
+
+            if (fluid.is(FluidTags.LAVA) || state.is(Blocks.MAGMA_BLOCK) || state.is(GCBlocks.FALLEN_METEOR)) {
+                level.addParticle(ParticleTypes.LARGE_SMOKE, px, py, pz, vx, vy * 1.15, vz);
+                if (random.nextInt(4) == 0) {
+                    level.addParticle(ParticleTypes.LAVA, px, py, pz, 0.0, 0.05, 0.0);
+                }
+                if (random.nextInt(3) == 0) {
+                    level.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, px, py + 0.1, pz, vx * 0.5, 0.06, vz * 0.5);
+                }
+                if (random.nextInt(45) == 0) {
+                    level.playLocalSound(groundPos, SoundEvents.LAVA_POP, SoundSource.AMBIENT, 0.18F, 0.75F + random.nextFloat() * 0.35F, false);
+                }
+            } else if (isHotBlock || regionalHeat > 0.68) {
+                level.addParticle(ParticleTypes.SMOKE, px, py, pz, vx, vy, vz);
+                if (random.nextInt(5) == 0) {
+                    level.addParticle(ParticleTypes.LARGE_SMOKE, px, py, pz, vx * 0.8, vy * 0.9, vz * 0.8);
+                }
+                if (random.nextInt(9) == 0) {
+                    level.addParticle(ParticleTypes.FLAME, px, py + 0.05, pz, vx * 0.3, 0.02, vz * 0.3);
+                }
+            } else if (inHotZone && random.nextInt(3) == 0) {
+                level.addParticle(ParticleTypes.SMOKE, px, py, pz, vx * 0.7, vy * 0.75, vz * 0.7);
+            }
+        }
     }
 
     public void playWeatherSounds(ClientLevel level, BlockPos below, BlockPos cameraPos, RandomSource random) {

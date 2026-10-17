@@ -168,7 +168,7 @@ public class GCNoiseGeneratorSettings {
                 GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.EROSION), // erosion
                 GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.DEPTH), // depth
                 GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.RIDGES), // ridges
-                DensityFunctions.noise(noiseLookup.getOrThrow(Noises.SPAGHETTI_3D_1)), // initialDensityWithoutJaggedness
+                GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Mars.FINAL_DENSITY), // initialDensityWithoutJaggedness
                 DensityFunctions.blendDensity(GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Mars.FINAL_DENSITY)), // finalDensity
                 DensityFunctions.zero(), // veinToggle
                 DensityFunctions.zero(), // veinRidged

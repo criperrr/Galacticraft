@@ -194,10 +194,22 @@
                   {
                     "type": "minecraft:condition",
                     "if_true": {
+                      "type": "minecraft:steep"
+                    },
+                    "then_run": {
+                      "type": "minecraft:block",
+                      "result_state": {
+                        "Name": "galacticraft:hard_venus_rock"
+                      }
+                    }
+                  },
+                  {
+                    "type": "minecraft:condition",
+                    "if_true": {
                       "type": "minecraft:y_above",
                       "add_stone_depth": false,
                       "anchor": {
-                        "absolute": 60
+                        "absolute": 52
                       },
                       "surface_depth_multiplier": 0
                     },
@@ -214,10 +226,93 @@
                             "surface_type": "floor"
                           },
                           "then_run": {
-                            "type": "minecraft:block",
-                            "result_state": {
-                              "Name": "galacticraft:soft_venus_rock"
-                            }
+                            "type": "minecraft:sequence",
+                            "sequence": [
+                              {
+                                "type": "minecraft:sequence",
+                                "sequence": [
+                                  {
+                                    "type": "minecraft:condition",
+                                    "if_true": {
+                                      "type": "minecraft:noise_threshold",
+                                      "max_threshold": 1.0,
+                                      "min_threshold": 0.58,
+                                      "noise": "minecraft:nether_state_selector"
+                                    },
+                                    "then_run": {
+                                      "type": "minecraft:sequence",
+                                      "sequence": [
+                                        {
+                                          "type": "minecraft:condition",
+                                          "if_true": {
+                                            "type": "minecraft:noise_threshold",
+                                            "max_threshold": 1.0,
+                                            "min_threshold": 0.62,
+                                            "noise": "minecraft:patch"
+                                          },
+                                          "then_run": {
+                                            "type": "minecraft:block",
+                                            "result_state": {
+                                              "Name": "minecraft:magma_block"
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "galacticraft:scorched_venus_rock"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "type": "minecraft:condition",
+                                    "if_true": {
+                                      "type": "minecraft:noise_threshold",
+                                      "max_threshold": 1.0,
+                                      "min_threshold": 0.48,
+                                      "noise": "minecraft:surface"
+                                    },
+                                    "then_run": {
+                                      "type": "minecraft:sequence",
+                                      "sequence": [
+                                        {
+                                          "type": "minecraft:condition",
+                                          "if_true": {
+                                            "type": "minecraft:noise_threshold",
+                                            "max_threshold": 1.0,
+                                            "min_threshold": 0.35,
+                                            "noise": "minecraft:patch"
+                                          },
+                                          "then_run": {
+                                            "type": "minecraft:block",
+                                            "result_state": {
+                                              "Name": "minecraft:smooth_basalt"
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:basalt",
+                                            "Properties": {
+                                              "axis": "y"
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "minecraft:block",
+                                "result_state": {
+                                  "Name": "galacticraft:soft_venus_rock"
+                                }
+                              }
+                            ]
                           }
                         },
                         {
@@ -232,7 +327,7 @@
                           "then_run": {
                             "type": "minecraft:block",
                             "result_state": {
-                              "Name": "galacticraft:soft_venus_rock"
+                              "Name": "galacticraft:hard_venus_rock"
                             }
                           }
                         },
@@ -258,6 +353,84 @@
                       "type": "minecraft:sequence",
                       "sequence": [
                         {
+                          "type": "minecraft:sequence",
+                          "sequence": [
+                            {
+                              "type": "minecraft:condition",
+                              "if_true": {
+                                "type": "minecraft:noise_threshold",
+                                "max_threshold": 1.0,
+                                "min_threshold": 0.58,
+                                "noise": "minecraft:nether_state_selector"
+                              },
+                              "then_run": {
+                                "type": "minecraft:sequence",
+                                "sequence": [
+                                  {
+                                    "type": "minecraft:condition",
+                                    "if_true": {
+                                      "type": "minecraft:noise_threshold",
+                                      "max_threshold": 1.0,
+                                      "min_threshold": 0.62,
+                                      "noise": "minecraft:patch"
+                                    },
+                                    "then_run": {
+                                      "type": "minecraft:block",
+                                      "result_state": {
+                                        "Name": "minecraft:magma_block"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "type": "minecraft:block",
+                                    "result_state": {
+                                      "Name": "galacticraft:scorched_venus_rock"
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "type": "minecraft:condition",
+                              "if_true": {
+                                "type": "minecraft:noise_threshold",
+                                "max_threshold": 1.0,
+                                "min_threshold": 0.48,
+                                "noise": "minecraft:surface"
+                              },
+                              "then_run": {
+                                "type": "minecraft:sequence",
+                                "sequence": [
+                                  {
+                                    "type": "minecraft:condition",
+                                    "if_true": {
+                                      "type": "minecraft:noise_threshold",
+                                      "max_threshold": 1.0,
+                                      "min_threshold": 0.35,
+                                      "noise": "minecraft:patch"
+                                    },
+                                    "then_run": {
+                                      "type": "minecraft:block",
+                                      "result_state": {
+                                        "Name": "minecraft:smooth_basalt"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "type": "minecraft:block",
+                                    "result_state": {
+                                      "Name": "minecraft:basalt",
+                                      "Properties": {
+                                        "axis": "y"
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        },
+                        {
                           "type": "minecraft:condition",
                           "if_true": {
                             "type": "minecraft:noise_threshold",
@@ -268,29 +441,14 @@
                           "then_run": {
                             "type": "minecraft:block",
                             "result_state": {
-                              "Name": "galacticraft:volcanic_rock"
-                            }
-                          }
-                        },
-                        {
-                          "type": "minecraft:condition",
-                          "if_true": {
-                            "type": "minecraft:noise_threshold",
-                            "max_threshold": 1.0,
-                            "min_threshold": 0.35,
-                            "noise": "minecraft:patch"
-                          },
-                          "then_run": {
-                            "type": "minecraft:block",
-                            "result_state": {
-                              "Name": "galacticraft:scorched_venus_rock"
+                              "Name": "galacticraft:pumice"
                             }
                           }
                         },
                         {
                           "type": "minecraft:block",
                           "result_state": {
-                            "Name": "galacticraft:pumice"
+                            "Name": "galacticraft:soft_venus_rock"
                           }
                         }
                       ]
@@ -340,7 +498,7 @@
                     "then_run": {
                       "type": "minecraft:block",
                       "result_state": {
-                        "Name": "galacticraft:volcanic_rock"
+                        "Name": "galacticraft:hard_venus_rock"
                       }
                     }
                   },
@@ -360,21 +518,6 @@
                         {
                           "type": "minecraft:condition",
                           "if_true": {
-                            "type": "minecraft:noise_threshold",
-                            "max_threshold": 1.0,
-                            "min_threshold": 0.15,
-                            "noise": "minecraft:surface"
-                          },
-                          "then_run": {
-                            "type": "minecraft:block",
-                            "result_state": {
-                              "Name": "galacticraft:volcanic_rock"
-                            }
-                          }
-                        },
-                        {
-                          "type": "minecraft:condition",
-                          "if_true": {
                             "type": "minecraft:stone_depth",
                             "add_surface_depth": false,
                             "offset": 0,
@@ -382,10 +525,93 @@
                             "surface_type": "floor"
                           },
                           "then_run": {
-                            "type": "minecraft:block",
-                            "result_state": {
-                              "Name": "galacticraft:soft_venus_rock"
-                            }
+                            "type": "minecraft:sequence",
+                            "sequence": [
+                              {
+                                "type": "minecraft:sequence",
+                                "sequence": [
+                                  {
+                                    "type": "minecraft:condition",
+                                    "if_true": {
+                                      "type": "minecraft:noise_threshold",
+                                      "max_threshold": 1.0,
+                                      "min_threshold": 0.58,
+                                      "noise": "minecraft:nether_state_selector"
+                                    },
+                                    "then_run": {
+                                      "type": "minecraft:sequence",
+                                      "sequence": [
+                                        {
+                                          "type": "minecraft:condition",
+                                          "if_true": {
+                                            "type": "minecraft:noise_threshold",
+                                            "max_threshold": 1.0,
+                                            "min_threshold": 0.62,
+                                            "noise": "minecraft:patch"
+                                          },
+                                          "then_run": {
+                                            "type": "minecraft:block",
+                                            "result_state": {
+                                              "Name": "minecraft:magma_block"
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "galacticraft:scorched_venus_rock"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "type": "minecraft:condition",
+                                    "if_true": {
+                                      "type": "minecraft:noise_threshold",
+                                      "max_threshold": 1.0,
+                                      "min_threshold": 0.48,
+                                      "noise": "minecraft:surface"
+                                    },
+                                    "then_run": {
+                                      "type": "minecraft:sequence",
+                                      "sequence": [
+                                        {
+                                          "type": "minecraft:condition",
+                                          "if_true": {
+                                            "type": "minecraft:noise_threshold",
+                                            "max_threshold": 1.0,
+                                            "min_threshold": 0.35,
+                                            "noise": "minecraft:patch"
+                                          },
+                                          "then_run": {
+                                            "type": "minecraft:block",
+                                            "result_state": {
+                                              "Name": "minecraft:smooth_basalt"
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:basalt",
+                                            "Properties": {
+                                              "axis": "y"
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "minecraft:block",
+                                "result_state": {
+                                  "Name": "galacticraft:hard_venus_rock"
+                                }
+                              }
+                            ]
                           }
                         },
                         {
@@ -417,10 +643,93 @@
                       "surface_type": "floor"
                     },
                     "then_run": {
-                      "type": "minecraft:block",
-                      "result_state": {
-                        "Name": "galacticraft:soft_venus_rock"
-                      }
+                      "type": "minecraft:sequence",
+                      "sequence": [
+                        {
+                          "type": "minecraft:sequence",
+                          "sequence": [
+                            {
+                              "type": "minecraft:condition",
+                              "if_true": {
+                                "type": "minecraft:noise_threshold",
+                                "max_threshold": 1.0,
+                                "min_threshold": 0.58,
+                                "noise": "minecraft:nether_state_selector"
+                              },
+                              "then_run": {
+                                "type": "minecraft:sequence",
+                                "sequence": [
+                                  {
+                                    "type": "minecraft:condition",
+                                    "if_true": {
+                                      "type": "minecraft:noise_threshold",
+                                      "max_threshold": 1.0,
+                                      "min_threshold": 0.62,
+                                      "noise": "minecraft:patch"
+                                    },
+                                    "then_run": {
+                                      "type": "minecraft:block",
+                                      "result_state": {
+                                        "Name": "minecraft:magma_block"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "type": "minecraft:block",
+                                    "result_state": {
+                                      "Name": "galacticraft:scorched_venus_rock"
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "type": "minecraft:condition",
+                              "if_true": {
+                                "type": "minecraft:noise_threshold",
+                                "max_threshold": 1.0,
+                                "min_threshold": 0.48,
+                                "noise": "minecraft:surface"
+                              },
+                              "then_run": {
+                                "type": "minecraft:sequence",
+                                "sequence": [
+                                  {
+                                    "type": "minecraft:condition",
+                                    "if_true": {
+                                      "type": "minecraft:noise_threshold",
+                                      "max_threshold": 1.0,
+                                      "min_threshold": 0.35,
+                                      "noise": "minecraft:patch"
+                                    },
+                                    "then_run": {
+                                      "type": "minecraft:block",
+                                      "result_state": {
+                                        "Name": "minecraft:smooth_basalt"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "type": "minecraft:block",
+                                    "result_state": {
+                                      "Name": "minecraft:basalt",
+                                      "Properties": {
+                                        "axis": "y"
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "minecraft:block",
+                          "result_state": {
+                            "Name": "galacticraft:soft_venus_rock"
+                          }
+                        }
+                      ]
                     }
                   },
                   {
@@ -462,6 +771,18 @@
                   {
                     "type": "minecraft:condition",
                     "if_true": {
+                      "type": "minecraft:steep"
+                    },
+                    "then_run": {
+                      "type": "minecraft:block",
+                      "result_state": {
+                        "Name": "galacticraft:hard_venus_rock"
+                      }
+                    }
+                  },
+                  {
+                    "type": "minecraft:condition",
+                    "if_true": {
                       "type": "minecraft:stone_depth",
                       "add_surface_depth": false,
                       "offset": 0,
@@ -469,10 +790,93 @@
                       "surface_type": "floor"
                     },
                     "then_run": {
-                      "type": "minecraft:block",
-                      "result_state": {
-                        "Name": "galacticraft:soft_venus_rock"
-                      }
+                      "type": "minecraft:sequence",
+                      "sequence": [
+                        {
+                          "type": "minecraft:sequence",
+                          "sequence": [
+                            {
+                              "type": "minecraft:condition",
+                              "if_true": {
+                                "type": "minecraft:noise_threshold",
+                                "max_threshold": 1.0,
+                                "min_threshold": 0.58,
+                                "noise": "minecraft:nether_state_selector"
+                              },
+                              "then_run": {
+                                "type": "minecraft:sequence",
+                                "sequence": [
+                                  {
+                                    "type": "minecraft:condition",
+                                    "if_true": {
+                                      "type": "minecraft:noise_threshold",
+                                      "max_threshold": 1.0,
+                                      "min_threshold": 0.62,
+                                      "noise": "minecraft:patch"
+                                    },
+                                    "then_run": {
+                                      "type": "minecraft:block",
+                                      "result_state": {
+                                        "Name": "minecraft:magma_block"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "type": "minecraft:block",
+                                    "result_state": {
+                                      "Name": "galacticraft:scorched_venus_rock"
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "type": "minecraft:condition",
+                              "if_true": {
+                                "type": "minecraft:noise_threshold",
+                                "max_threshold": 1.0,
+                                "min_threshold": 0.48,
+                                "noise": "minecraft:surface"
+                              },
+                              "then_run": {
+                                "type": "minecraft:sequence",
+                                "sequence": [
+                                  {
+                                    "type": "minecraft:condition",
+                                    "if_true": {
+                                      "type": "minecraft:noise_threshold",
+                                      "max_threshold": 1.0,
+                                      "min_threshold": 0.35,
+                                      "noise": "minecraft:patch"
+                                    },
+                                    "then_run": {
+                                      "type": "minecraft:block",
+                                      "result_state": {
+                                        "Name": "minecraft:smooth_basalt"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "type": "minecraft:block",
+                                    "result_state": {
+                                      "Name": "minecraft:basalt",
+                                      "Properties": {
+                                        "axis": "y"
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "minecraft:block",
+                          "result_state": {
+                            "Name": "galacticraft:soft_venus_rock"
+                          }
+                        }
+                      ]
                     }
                   },
                   {
@@ -506,6 +910,18 @@
                 {
                   "type": "minecraft:condition",
                   "if_true": {
+                    "type": "minecraft:steep"
+                  },
+                  "then_run": {
+                    "type": "minecraft:block",
+                    "result_state": {
+                      "Name": "galacticraft:hard_venus_rock"
+                    }
+                  }
+                },
+                {
+                  "type": "minecraft:condition",
+                  "if_true": {
                     "type": "minecraft:stone_depth",
                     "add_surface_depth": false,
                     "offset": 0,
@@ -513,10 +929,93 @@
                     "surface_type": "floor"
                   },
                   "then_run": {
-                    "type": "minecraft:block",
-                    "result_state": {
-                      "Name": "galacticraft:soft_venus_rock"
-                    }
+                    "type": "minecraft:sequence",
+                    "sequence": [
+                      {
+                        "type": "minecraft:sequence",
+                        "sequence": [
+                          {
+                            "type": "minecraft:condition",
+                            "if_true": {
+                              "type": "minecraft:noise_threshold",
+                              "max_threshold": 1.0,
+                              "min_threshold": 0.58,
+                              "noise": "minecraft:nether_state_selector"
+                            },
+                            "then_run": {
+                              "type": "minecraft:sequence",
+                              "sequence": [
+                                {
+                                  "type": "minecraft:condition",
+                                  "if_true": {
+                                    "type": "minecraft:noise_threshold",
+                                    "max_threshold": 1.0,
+                                    "min_threshold": 0.62,
+                                    "noise": "minecraft:patch"
+                                  },
+                                  "then_run": {
+                                    "type": "minecraft:block",
+                                    "result_state": {
+                                      "Name": "minecraft:magma_block"
+                                    }
+                                  }
+                                },
+                                {
+                                  "type": "minecraft:block",
+                                  "result_state": {
+                                    "Name": "galacticraft:scorched_venus_rock"
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "type": "minecraft:condition",
+                            "if_true": {
+                              "type": "minecraft:noise_threshold",
+                              "max_threshold": 1.0,
+                              "min_threshold": 0.48,
+                              "noise": "minecraft:surface"
+                            },
+                            "then_run": {
+                              "type": "minecraft:sequence",
+                              "sequence": [
+                                {
+                                  "type": "minecraft:condition",
+                                  "if_true": {
+                                    "type": "minecraft:noise_threshold",
+                                    "max_threshold": 1.0,
+                                    "min_threshold": 0.35,
+                                    "noise": "minecraft:patch"
+                                  },
+                                  "then_run": {
+                                    "type": "minecraft:block",
+                                    "result_state": {
+                                      "Name": "minecraft:smooth_basalt"
+                                    }
+                                  }
+                                },
+                                {
+                                  "type": "minecraft:block",
+                                  "result_state": {
+                                    "Name": "minecraft:basalt",
+                                    "Properties": {
+                                      "axis": "y"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "type": "minecraft:block",
+                        "result_state": {
+                          "Name": "galacticraft:soft_venus_rock"
+                        }
+                      }
+                    ]
                   }
                 },
                 {
