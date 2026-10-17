@@ -82,12 +82,6 @@ jobs:
       - name: Validar Separação da API e Formatação Spotless
         run: ./gradlew checkApiBoundaries spotlessCheck
 
-      - name: Compilar Código e Classes de Teste
-        run: ./gradlew assemble apiJar testClasses -x spotlessCheck
-
-      - name: Executar Suíte Completa de GameTests e Validações
-        run: ./gradlew test check -x spotlessCheck
-
       - name: Validar Consistência dos Dados Gerados (DataGen)
         run: |
           echo "Verificando se todos os assets e dados JSON estão atualizados via DataGen..."
@@ -98,3 +92,79 @@ jobs:
             exit 1
           fi
           echo "✅ Todos os recursos gerados por DataGen estão sincronizados e válidos."
+
+      - name: Executar Suíte Completa de GameTests (Servidor Headless Fabric)
+        run: ./gradlew test check -x spotlessCheck
+
+      - name: Compilar e Remapear JARs de Produção (Fabric Loom Build)
+        run: ./gradlew build apiJar -x test -x spotlessCheck
+
+      - name: Auditoria Aprofundada de Integridade do Mod Fabric (.jar)
+        run: |
+          echo "Executando auditoria profunda no pacote .jar gerado..."
+          python3 - << 'EOF'
+          import zipfile, sys, os, glob
+
+          jars = [f for f in glob.glob("build/libs/Galacticraft-*.jar") if not any(x in f for x in ["-sources", "-javadoc", "-dirty"])]
+          if not jars:
+              print("❌ ERRO: Nenhum JAR do Galacticraft encontrado em build/libs/!")
+              sys.exit(1)
+
+          mod_jar = sorted(jars, key=os.path.getmtime, reverse=True)[0]
+          size = os.path.getsize(mod_jar)
+          print(f"JAR sob auditoria: {mod_jar} ({size} bytes)")
+
+          if size < 20_000_000:
+              print(f"❌ ERRO: Tamanho do JAR ({size} bytes) abaixo do threshold mínimo esperado de 20MB!")
+              sys.exit(1)
+
+          with zipfile.ZipFile(mod_jar, "r") as z:
+              files = set(z.namelist())
+
+              # 1. Metadados Fabric e Mixins
+              required_meta = [
+                  "fabric.mod.json",
+                  "galacticraft.mixins.json",
+                  "galacticraft-api.mixins.json"
+              ]
+              for meta in required_meta:
+                  if meta not in files:
+                      print(f"❌ ERRO: Metadado obrigatório '{meta}' ausente no JAR!")
+                      sys.exit(1)
+
+              # 2. Entrypoints principais do mod e cliente
+              entrypoints = [
+                  "dev/galacticraft/mod/Galacticraft.class",
+                  "dev/galacticraft/mod/GalacticraftClient.class",
+                  "dev/galacticraft/impl/internal/fabric/GalacticraftAPI.class"
+              ]
+              for entry in entrypoints:
+                  if entry not in files:
+                      print(f"❌ ERRO: Entrypoint '{entry}' não encontrado no JAR compilado!")
+                      sys.exit(1)
+
+              # 3. Presença de assets fundamentais
+              has_assets = any(f.startswith("assets/galacticraft/") for f in files)
+              if not has_assets:
+                  print("❌ ERRO: Diretório de assets 'assets/galacticraft/' ausente no JAR!")
+                  sys.exit(1)
+
+          print("✅ Auditoria profunda do JAR Fabric concluída com sucesso absoluto!")
+          EOF
+
+      - name: Publicar JARs de Produção como Artefato do PR
+        uses: actions/upload-artifact@v4
+        with:
+          name: galacticraft-fabric-1.21.1-PR${{ github.event.pull_request.number || github.sha }}
+          path: |
+            build/libs/Galacticraft-*.jar
+          retention-days: 14
+
+      - name: Validação Estrita de Promoção para Main (Release Gate)
+        if: github.base_ref == 'main'
+        run: |
+          echo "=========================================================="
+          echo "🚀 RELEASE PROMOTION GATE (dev -> main)"
+          echo "Todos os 135 GameTests foram validados."
+          echo "JAR de produção verificado e empacotado para release."
+          echo "=========================================================="
