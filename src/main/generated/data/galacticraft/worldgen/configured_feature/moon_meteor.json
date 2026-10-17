@@ -9,28 +9,7 @@
     },
     "ejecta_ores": [
       {
-        "Name": "galacticraft:raw_meteoric_iron_block"
-      },
-      {
-        "Name": "galacticraft:lunar_sapphire_ore"
-      },
-      {
         "Name": "galacticraft:moon_cheese_ore"
-      },
-      {
-        "Name": "galacticraft:moon_copper_ore"
-      },
-      {
-        "Name": "galacticraft:moon_tin_ore"
-      },
-      {
-        "Name": "galacticraft:rich_olivine_basalt"
-      },
-      {
-        "Name": "galacticraft:ilmenite_ore"
-      },
-      {
-        "Name": "minecraft:raw_iron_block"
       }
     ],
     "max_crater_radius": 24,
@@ -53,7 +32,7 @@
     },
     "min_crater_radius": 14,
     "min_meteor_radius": 2,
-    "ore_chance": 5,
+    "ore_chance": 8,
     "region_size": 560.0,
     "scorched_rim_block": {
       "type": "minecraft:simple_state_provider",
