@@ -1,0 +1,92 @@
+name: Build and Release Galacticraft 5
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: "Nome da Tag / Release (ex: v5.0.0-alpha.1)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-galacticraft
+  cancel-in-progress: false
+
+jobs:
+  test_and_release:
+    name: Build, Test and Release Jars
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout Repositório
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validar Gradle Wrapper
+        uses: gradle/actions/wrapper-validation@v4
+
+      - name: Configurar JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: temurin
+
+      - name: Configurar Cache do Gradle
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+            .gradle
+          key: ${{ runner.os }}-gradle-release-${{ hashFiles('gradle/gradle-wrapper.properties', 'settings.gradle.kts', 'build.gradle.kts', 'gradle.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-release-
+            ${{ runner.os }}-gradle-
+
+      - name: Executar Checagens de Qualidade e Testes
+        run: |
+          ./gradlew checkApiBoundaries spotlessCheck
+          ./gradlew test check -x spotlessCheck
+
+      - name: Compilar Jars de Release e API
+        run: ./gradlew build apiJar -x test -x spotlessCheck
+
+      - name: Determinar Tag de Release
+        id: get_tag
+        run: |
+          if [ -n "${{ github.event.inputs.tag_name }}" ]; then
+            TAG="${{ github.event.inputs.tag_name }}"
+          elif [[ "${{ github.ref }}" == refs/tags/* ]]; then
+            TAG="${GITHUB_REF#refs/tags/}"
+          else
+            TAG="v5.0.0-$(git rev-parse --short HEAD)"
+          fi
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          echo "🏷️ Tag selecionada: $TAG"
+
+      - name: Coletar Jars Compilados
+        id: collect_jars
+        run: |
+          mkdir -p release_artifacts
+          cp build/libs/*.jar release_artifacts/
+          ls -la release_artifacts/
+
+      - name: Publicar Release no GitHub
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.get_tag.outputs.tag }}
+          name: "Galacticraft 5 - ${{ steps.get_tag.outputs.tag }}"
+          files: release_artifacts/*.jar
+          generate_release_notes: true
+          draft: false
+          prerelease: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

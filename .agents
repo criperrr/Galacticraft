@@ -1,0 +1,306 @@
+# .agents — AI Agent Navigation and Workspace Operational Guide
+
+> **Context**: This workspace is dedicated to the development, refactoring, and modernization of **GalactiCraft 5 (GC5)** for **Minecraft 1.21.1 (Fabric)**, as well as porting and integrating features from legacy GalactiCraft addons.
+
+---
+
+## 1. Naming Conventions and Acronyms
+
+To conserve token budget and maintain high-density context without ambiguity, all agents working in this workspace should adhere to the following standard abbreviations:
+
+| Acronym | Full Name | Description |
+|---|---|---|
+| **`GC`** | GalactiCraft | The overarching franchise / mod concept |
+| **`GC4`** | GalactiCraft 4 | The legacy Minecraft 1.12.2 Forge codebase (reference/Rosetta Stone) |
+| **`GC5`** | GalactiCraft 5.0 | The modern Minecraft 1.21.1 Fabric core mod |
+| **`GCEP`** | GalactiCraft ExtraPlanets | Addon adding Solar System planets, Tiers 4-10 rockets, and radiation |
+| **`GCMP`** | GalactiCraft MorePlanets | Addon adding fictional alien planets (Nibiru, Chalos, Diona) & boss fights |
+| **`GCZG`** | GalactiCraft Zollern Galaxy | Addon adding multi-star systems, alien biomes, and lore |
+| **`GCGS`** | GalactiCraft Galaxy Space | Addon adding real-world stellar systems (Centauri, Barnards) and rocketry |
+| **`GCT`** | GalactiCraft Tweaker | CraftTweaker / ZenScript integration for GC recipes |
+| **`GCMPE`** | GalactiCraft More Planets Extras | Space stations extension for MorePlanets |
+| **`GCC`** | GalactiCraft Computers | OpenComputers sealable cable blocks & automation |
+| **`GCRPC`** | GalactiCraft Rich Presence | Discord Rich Presence tracking for celestial bodies |
+
+*(Rule: Use these acronyms in agent conversations, commit messages, and internal notes, but preserve full naming when defining user-facing strings, public Java APIs, or formal documentation).*
+
+---
+
+## 2. Directory Structure and Orientation
+
+```
+galacticraft/
+├── .agents                         <- This file: master orientation guide for AI agents
+├── Galacticraft/                   <- PRIMARY REPOSITORY: GC5 source code (Fork: criperrr/Galacticraft)
+├── Galacticraft-Legacy/            <- ROSETTA STONE: GC4 source code (TeamGalacticraft/Galacticraft-Legacy)
+├── libraries/                      <- Cloned external libraries (MachineLib, DynamicDimensions, etc.)
+├── docs/                           <- KNOWLEDGE BASE: Centralized, exhaustive documentation
+│   ├── MASTER_IMPLEMENTATION_PLAN.md    <- AUTHORITATIVE MASTER ROADMAP (112 Tasks, 10 Epics)
+│   ├── ROSETTA_STONE_MIGRATION_GUIDE.md <- MASTER MIGRATION MATRIX: GC4/Addons -> GC5
+│   ├── DEPENDENCIES_AND_LIBRARIES.md    <- Master dependency matrix for libraries
+│   ├── fabric/                     <- Unified Fabric 1.21.1 developer docs, API modules, Loom & mcsrc
+│   │   ├── README.md               <- Master index for Fabric 1.21.1
+│   │   ├── ecosystem/              <- Core ecosystem architecture (API modules, loader, loom, mcsrc)
+│   │   └── guides/                 <- 45 community developer guides with inlined Java snippets
+│   ├── GC5/                        <- In-depth architecture & implementation guide of GC5 (1.21.1 Fabric)
+│   │   ├── DEVELOPER_GUIDE_AND_STYLE_MANUAL.md <- MASTER COOKBOOK with real Java snippets
+│   │   └── [Architecture & Subsystem Specs]   <- 9 authoritative specification documents
+│   ├── GC4/                        <- Legacy GC4 technical specifications & Rosetta Stone
+│   ├── ExtraPlanets/               <- GCEP complete architecture & mechanics documentation
+│   ├── MorePlanets/                <- GCMP complete architecture & mechanics documentation
+│   ├── Zollern-Galaxy/             <- GCZG complete architecture & mechanics documentation
+│   ├── GalaxySpace/                <- GCGS complete architecture & mechanics documentation
+│   ├── GalacticraftTweaker/        <- GCT complete architecture & recipe scripting documentation
+│   ├── MorePlanetsExtras/          <- GCMPE space station architecture documentation
+│   ├── GalacticComputers/          <- GCC airtight sealing & cable logic documentation
+│   └── Galacticraft-RPC/           <- GCRPC dynamic presence & tracking documentation
+├── addons_galacticraft/            <- Binary archive of 1.12.2 addons (.jar files, libs, and config files)
+└── [Addon Source Repositories]     <- Cloned Git trees of legacy addons for source-level inspection
+```
+
+---
+
+## 3. Git Operations and Remotes
+
+* The active working tree for mod development is `/home/criper/Documentos/projetos/galacticraft/Galacticraft`.
+* Remotes configured:
+  * **`origin`**: `https://github.com/criperrr/Galacticraft.git` (Personal fork — **all commits and pushes go here**).
+  * **`upstream`**: `https://github.com/TeamGalacticraft/Galacticraft.git` (Official repository — used for syncing new changes).
+* Always run commands within `Galacticraft/` when executing Gradle tasks (`./gradlew build`, `./gradlew runClient`, `./gradlew runDatagen`).
+
+---
+
+## 4. Agent Guidelines for Modernizing and Modifying GC5
+
+When designing new features, refactoring existing systems, or porting mechanics from legacy addons (`GCEP`, `GCMP`, `GCZG`, `GCGS`):
+
+### A. Always Consult the Documentation First
+1. **The Definitive Implementation Guide**:
+   ALWAYS read [`docs/GC5/DEVELOPER_GUIDE_AND_STYLE_MANUAL.md`](file:///home/criper/Documentos/projetos/galacticraft/docs/GC5/DEVELOPER_GUIDE_AND_STYLE_MANUAL.md). It contains complete, compilable, human-written Java cookbooks for:
+   - Creating machines with `MachineBlockEntity` and `StorageSpec`.
+   - Bootstrapping celestial bodies via Mojang Codecs and Datagen.
+   - Registering modular rocket parts (`RocketEngine`, `RocketData`).
+   - Implementing type-safe `CustomPacketPayload` networking.
+2. **Understand Modern GC5 Foundations**:
+   Read [`docs/GC5/ARCHITECTURE.md`](file:///home/criper/Documentos/projetos/galacticraft/docs/GC5/ARCHITECTURE.md) and [`docs/GC5/MIGRATION_AND_REFACTORING_NOTES.md`](file:///home/criper/Documentos/projetos/galacticraft/docs/GC5/MIGRATION_AND_REFACTORING_NOTES.md).
+3. **Understand the Target Addon Mechanic**:
+   Read `docs/<Addon>/MECHANICS_AND_IMPLEMENTATION.md` and cross-reference with `docs/GC4/` to see the original legacy base classes.
+4. **Map to Modern Fabric 1.21.1**:
+   Consult `docs/fabric/` for the canonical Fabric 1.21.1 implementation patterns.
+
+### B. Coding Standards in GC5
+* Target Java: **Java 21**.
+* Target Minecraft: **1.21.1** on **Fabric Loader 0.16.x** and **Fabric API 0.116.x**.
+* Preserve API boundaries: place public extension points in `dev.galacticraft.api` and internal logic in `dev.galacticraft.impl` / `dev.galacticraft.mod`.
+* Never hardcode item IDs or block models — use Datagen (`dev.galacticraft.mod.data`).
+* Use `Transaction` contexts for all resource operations (Fabric Transfer API).
+
+---
+
+## 5. GC5 Git Commit Protocol and Pre-Commit Pipeline
+
+All AI agents operating in this workspace must strictly follow the official commit specification established in `TeamGalacticraft/Galacticraft`, `.github/CONTRIBUTING.md`, and the pre-commit git hooks.
+
+### A. Core Versioning Philosophy
+1. **Strict Atomicity**: Each commit must address a single logical change. Never bundle Datagen updates, Spotless formatting, and Java gameplay logic into a single monolithic commit.
+2. **Imperative Lowercase Grammar**: Commit titles must be in English, present imperative tense (`add`, `fix`, `prevent`, `update`, `refactor`), starting in lowercase after the type prefix and with **no trailing period**.
+3. **Mandatory Pre-Commit Verification**: Every commit must pass code style checks, license header checks, and Spotless formatting prior to creation.
+
+---
+
+### B. Syntactic Commit Structure
+
+```text
+<type>(<optional-scope>): <short description in lowercase imperative>
+
+[Optional blank line]
+[Optional body detailing the 'why', technical context, and non-obvious impacts]
+
+[Optional blank line]
+[Optional footer with issue references or co-authors]
+```
+
+#### 1. Canonical Commit Types
+
+| Type | When to Use | GC5 Repository Examples |
+|---|---|---|
+| **`feat`** | New user-facing gameplay features, blocks, items, machines, rendering pipelines, or public APIs. | `feat: add oxygen detector`<br>`feat: banner-based flag blocks (#549)`<br>`feat: make the back side of tin ladders climbable`<br>`feat: prevent copper blocks from weathering when there are no adjacent breathable positions` |
+| **`fix`** | Bug fixes, crashes, rendering artifacts, network/server de-sync, or incorrect tags. | `fix: increment the interactions with rocket workbench statistic`<br>`fix: drop items from the slots in the creative Galacticraft gear inventory without crashing (#563)`<br>`fix: balance the profiler pushes and pops`<br>`fix: restart the rocket launch sound when rejoining the world (resolves #571)` |
+| **`chore`** | Maintenance, Datagen runs, Spotless formatting, dependency/Gradle bumps, CI/CD, or contributor updates. | `chore: rerun datagen to update block tags, item tags and translations for ores`<br>`chore: rerun spotlessApply to standardize the order of imports`<br>`chore: update contributors in fabric.mod.json`<br>`chore: upgrade to new minor gradle version 8.14.5`<br>`chore: add license header` |
+| **`refactor`** | Java code restructuring without behavioral or functional changes (cleaning up warnings, simplifying methods, sharing helpers). | `refactor: standardize all references to Level objects (#609)`<br>`refactor: address various minor warnings for JEI compatibility code`<br>`refactor: move code from CannedFoodItem to CannedFoodColorCache`<br>`refactor: remove redundant type arguments` |
+| **`style`** | Purely stylistic changes that do not affect logic (constants, whitespace). | `style: use HALF_PI constant` |
+| **`wip`** | Intermediate commits on local feature branches before stabilization. | `wip: flag blocks`<br>`wip: more flag rei stuff` |
+| **`test`** | Adding or updating unit tests or Minecraft GameTests. | `test: add gametests for oxygen collector` |
+| **`docs`** | Documentation updates (`CONTRIBUTING.md`, architectural specs, developer guides). | `docs: add to the code style section of the contributing guidelines` |
+
+#### 2. Scope Conventions (`scope`)
+Scopes are optional, enclosed in parentheses, and written in lowercase (except for established third-party integration acronyms):
+* Recipe viewers: `fix(REI):`, `feat(jei):`, `chore(emi):`
+* Build and CI: `chore(ci): use temporary address for maven`, `fix(ci):`
+* Datagen: `chore(datagen):`
+* Subsystems / Epics: `feat(epic1):`, `refactor(network):`
+
+#### 3. Subject Line Rules
+* **Length**: Keep subject lines between 50 and 72 characters.
+* **Lowercase**: The first word after `<type>: ` or `<type>(<scope>): ` must be lowercase (e.g. `fix: balance...`, **not** `fix: Balance...`).
+* **No Trailing Period**: Never end the subject line with a period (e.g. `fix: potential NPE`, **not** `fix: potential NPE.`).
+* **Imperative Mood**: Use `add` (not *added*), `fix` (not *fixes/fixed*), `prevent` (not *preventing*), `update` (not *updates*).
+* **Issue Linking**: To link or close issues in the subject line, place the reference in parentheses at the end:
+  * `(resolves #574)`
+  * `(closes #548)`
+  * `(#563)`
+
+#### 4. Body and Footer Rules
+* Explain the technical rationale, background context, and non-obvious fixes:
+  ```text
+  fix: prevent the rocket preview from disappearing after REI/JEI/EMI transfer handlers are called
+  The client-side listeners were being removed when the setScreen method was called.
+  ```
+* For PR squashes or multi-phase tasks, include commit bullet points in the body:
+  ```text
+  feat: add oxygen detector (#593)
+
+  * feat: add oxygen detector
+  * feat: integration with machinelib
+  * refactor: simplify oxygen detector per review feedback
+  * chore: run DataGen
+  * chore: spotless apply
+
+  ---------
+
+  Co-authored-by: TakeABao23 <72166600+TakeABao23@users.noreply.github.com>
+  ```
+
+---
+
+### C. Agent Execution Triggers (When to Commit)
+
+Agents must **never** accumulate massive uncommitted working trees. Commit at these specific milestones:
+
+1. **Atomic Unit Completion**:
+   - Immediately after completing a cohesive unit of logic (e.g., implementing a new block entity, fixing a screen widget, or writing a network payload).
+   - Commit as `feat: ...`, `fix: ...`, or `refactor: ...`.
+2. **Post-Data Generation**:
+   - Immediately after updating data providers and running `./gradlew runDatagen`.
+   - Stage modified files in `src/main/generated/` and commit separately:
+     ```bash
+     git commit -m "chore: run DataGen"
+     # or
+     git commit -m "chore: rerun datagen to update block tags, item tags and translations for ores"
+     ```
+   - **CRITICAL**: Never manually edit files in `src/main/generated/` — they will be overwritten and discarded.
+3. **Post-Formatting & License Headers**:
+   - After applying license headers to new classes or formatting code via Spotless:
+     ```bash
+     git commit -m "chore: spotless apply"
+     # or
+     git commit -m "chore: rerun spotlessApply to standardize the order of imports"
+     ```
+4. **Configuration & Dependency Updates**:
+   - When modifying `fabric.mod.json`, `gradle.properties`, or `build.gradle`:
+     ```bash
+     git commit -m "chore: bump MachineLib version to fix incompatibility with Continuity"
+     ```
+
+---
+
+### D. Mandatory Pre-Commit Verification Pipeline
+
+Before executing any `git commit`, agents must ensure the working tree conforms to the GC5 verification pipeline (matching `.githooks/pre-commit` and `.githooks/pre-push`):
+
+```mermaid
+flowchart TD
+    A["1. Code Implementation"] --> B{"Modified generatable resources?<br>(tags, loot, models, recipes)"}
+    B -- Yes --> C["./gradlew runDatagen"]
+    B -- No --> D["2. Check License Headers & Style"]
+    C --> D
+    D --> E["./gradlew spotlessCheck"]
+    E -- Failed --> F["./gradlew spotlessApply"]
+    F --> G["git add formatted changes"]
+    G --> E
+    E -- Succeeded --> H["3. Run Test Suite"]
+    H --> I["./gradlew :test"]
+    I -- Failed --> J["Fix regression / failing test"]
+    J --> A
+    I -- Succeeded --> K["4. git commit (GC5 Format)"]
+```
+
+#### Pre-Commit Checklist:
+1. **Java Code Style**:
+   - Indent with **4 spaces** (never tabs).
+   - Space after keywords: `if (condition)` (not `if(condition)`).
+   - Space after commas: `a, b, c` (not `a,b,c`).
+   - Space around operators: `y = m * x + c`.
+   - Opening braces `{}` go on the same line.
+   - Use `var` for local variables with obvious types.
+2. **License Headers**:
+   - Ensure every new `.java` file includes the project's standard license header.
+3. **Spotless Check & Apply**:
+   - Run `./gradlew spotlessCheck`. If it fails, run `./gradlew spotlessApply` and stage the changes.
+4. **Unit Tests & GameTests**:
+   - Run `./gradlew :test` before pushing or finalizing branches.
+
+---
+
+### E. Agent Anti-Patterns (Strict Prohibitions)
+
+| ❌ Prohibited (Anti-Pattern) | Reason in GC5 | ✅ Canonical GC5 Form |
+|---|---|---|
+| `git commit -m "Fix bugs"` | Vague, capitalized, lacks scope and traceability. | `fix: drop items from the slots in creative GC gear inventory without crashing` |
+| `git commit -m "feat: added new planet."` | Past tense verb (*added*) and trailing period `.`. | `feat: add new planet celestial definition` |
+| Manually editing files in `src/main/generated/` | Manual edits will be purged and lost on next datagen build. | Edit data generator classes in `dev.galacticraft.mod.data` and execute `./gradlew runDatagen`. |
+| Committing code that violates Spotless | Violates the pre-commit hook and fails GitHub CI. | Always run `./gradlew spotlessApply` prior to commit. |
+| Grouping multi-class refactors with unrelated bug fixes | Pollutes `git bisect` and obscures changes. | Separate into distinct `refactor: ...` and `fix: ...` commits. |
+| Committing before user in-game verification | Prevents interactive QA and debugging in the live client. | Launch `./gradlew runClient`, provide a step-by-step testing guide, and wait for user approval before committing. |
+
+---
+
+### F. Mandatory In-Game User Verification Before Commit
+1. **Do Not Commit Prematurely**: After completing code changes, Datagen, Spotless, and automated GameTests (`./gradlew :test`), **stop before running `git commit`**.
+2. **Launch the Game Client**: Start `./gradlew runClient` (in background/daemon mode) so the game window opens automatically for the user.
+3. **Provide a Step-by-Step Testing Guide**: Present a concise, high-efficiency checklist in Portuguese showing exact commands (`/execute in ...`, `/give ...`, `/locate ...`), controls, and expected behaviors so the user can test every modified mechanic quickly.
+4. **Commit Atomically Only After User Approval**: Once the user confirms the in-game test passed, create atomic commits strictly following Section 5.B and 5.C (separating `feat:`/`fix:` logic, `chore: run DataGen`, `chore: spotless apply`, and `test: add gametests ...`).
+
+---
+
+## 8. Governança Rígida de Branches, Commits, CI/CD e Blindagem de Testes
+
+### 8.1. Axioma de Commits (Sintaxe Obrigatória e Isolamento por Chat/Sessão)
+- **Formato Estrito:** `<category>(<scope>): <short-description in lowercase imperative>` (ex: `feat(epic3): add grapple hook entity and 16x16 pixel art`, `fix(telepad): resolve target linking and zero-g detection`).
+- **Categorias Permitidas:** `feat`, `fix`, `test`, `refactor`, `chore`, `docs`, `style`.
+- **Regra de Sintaxe:** Mensagens fora desta sintaxe ou commits sem propósito atômico claro são rejeitados pelo pipeline de CI (`pr-gatekeeper.yml`).
+- **Isolamento de Escopo por Chat (Commit Cirúrgico):**
+  - **Proibição Absoluta de Adição Global:** NUNCA execute `git add .`, `git add -A`, `git add -u` ou `git commit -a`.
+  - **Adição Cirúrgica de Arquivos:** Inspecione os arquivos manipulados no chat atual e execute `git add <arquivo1> <arquivo2> ...` apenas para os arquivos pertencentes ao escopo daquela tarefa.
+  - **Preservação da Working Tree:** Alterações pendentes não relacionadas ao chat solicitante devem permanecer intocadas na working tree (unstaged).
+
+### 8.2. Axioma de Criação de Branches
+- **Nomenclatura Obrigatória:** `epic<N>/<task-name>` para os grandes épicos do projeto (ex: `epic1/foundations`, `epic2/mars-planet`, `epic3/asteroids-dimension`, `epic4/venus-planet`) ou `<categoria>/<nome-da-task>` para correções e melhorias pontuais (ex: `feat/rocket-refactor`, `fix/oxygen-sealer-leak`).
+- **Proibição de Trabalho Direto em `main`:** É expressamente proibido commitar diretamente na branch `main`. Todo desenvolvimento deve ser ramificado e integrado através de Pull Request com verificação de CI.
+
+### 8.3. Axioma de Integração Contínua e Pull Requests via GitHub CLI (`gh`)
+- **Fluxo Exclusivo de Integração:**
+  1. Criar branch temática: `git checkout -b <branch>`.
+  2. Implementar, validar localmente com Datagen, Spotless e GameTests (`./gradlew check`).
+  3. Enviar branch cirurgicamente para o fork remoto: `git push origin <branch>`.
+  4. Abrir Pull Request: `gh pr create --base main --title "..." --body "..."`.
+  5. **Acompanhamento Ativo da Esteira de CI:** O agente DEVE acompanhar a esteira com `gh pr checks <PR> --watch` até a conclusão. A tarefa NUNCA é considerada pronta sem o status `SUCCESS`.
+  6. **Merge via GitHub CLI:**
+     - Se aprovado pelo CI e pelo usuário: merge via `gh pr merge <PR> --squash` ou `--rebase`.
+     - Se o CI falhar: inspecionar o erro com `gh run view <run-id> --log-failed`, corrigir o código, comitar cirurgicamente e aguardar nova esteira.
+
+### 8.4. Proteção contra Testes Falsos (Anti-Tautologia) e Zonas Protegidas
+- **Proibição de Testes Tautológicos:** Proibido criar testes com asserções vazias ou genéricas que sempre passam sem verificar estado real.
+- **Zonas Protegidas:**
+  - Diretórios de CI e workflows: `.github/workflows/`.
+  - Regra inegociável: Modelos e agentes de IA **NÃO têm permissão** para afrouxar verificações ou desativar steps de validação para forçar a passagem do CI. Se uma verificação falhar, a causa raiz na implementação deve ser resolvida.
+
+### 8.5. Axioma de Títulos e Descrições de Pull Requests (PRs)
+- **Proibição de Slop de IA:** Sem introduções corporativas vazias, sem negritos excessivos e sem emojis no corpo do PR.
+- **Regras Estritas:**
+  - **Idioma:** Inglês (`en-US`).
+  - **Caixa:** Todo em minúsculas (`lowercase`), tanto no título quanto no `--body`.
+  - **Tom:** Direto, técnico e despojado (estilo sênior no terminal).
+- **Exemplo de Título:** `feat(epic3): add asteroids zero-g physics, grapple hook and telepad`
+- **Exemplo de Body:** `implements asteroids dimension with 0g vacuum inertia, grapple hook entity with cooldown and tether line, and short-range telepad pairing with 7px custom model`
+
