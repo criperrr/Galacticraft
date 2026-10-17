@@ -28,11 +28,10 @@
     [],
     [
       "galacticraft:ore_copper_venus",
+      "galacticraft:ore_copper_large_venus",
       "galacticraft:ore_tin_venus",
       "galacticraft:ore_aluminum_venus",
       "galacticraft:ore_galena_venus",
-      "galacticraft:ore_galena_venus",
-      "galacticraft:ore_solar_venus",
       "galacticraft:ore_solar_venus"
     ]
   ],

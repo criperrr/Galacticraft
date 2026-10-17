@@ -74,6 +74,8 @@ public class GCVenusAtmosphereHandler {
             if (player.isSpectator()) continue;
 
             BlockPos pos = player.blockPosition();
+            if (!level.hasChunkAt(pos)) continue;
+
             boolean exposedToSky = level.canSeeSky(pos);
             boolean breathable = level.isBreathable(pos);
             boolean protectedPlayer = isProtected(player);
