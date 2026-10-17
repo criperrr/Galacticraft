@@ -49,7 +49,13 @@ public class IconCelestialDisplayType extends CelestialDisplayType<IconCelestial
         texture.bind();
         int width = GlStateManager._getTexLevelParameter(GL32C.GL_TEXTURE_2D, 0, GL32C.GL_TEXTURE_WIDTH);
         int height = GlStateManager._getTexLevelParameter(GL32C.GL_TEXTURE_2D, 0, GL32C.GL_TEXTURE_HEIGHT);
-        Graphics.blitCentered(graphics.pose().last().pose(), 0.0f, 0.0f, realSize, realSize, 0.0f, config.u(), config.v(), config.width(), config.height(), width, height, config.texture());
+        int uWidth = config.width();
+        int vHeight = config.height();
+        if (config.u() == 0 && config.v() == 0 && width > 0 && height > 0) {
+            uWidth = width;
+            vHeight = height;
+        }
+        Graphics.blitCentered(graphics.pose().last().pose(), 0.0f, 0.0f, realSize, realSize, 0.0f, config.u(), config.v(), uWidth, vHeight, width, height, config.texture());
 
         config.decoration().ifPresent(decoration -> {
             float decoSize = realSize / 3.0F;

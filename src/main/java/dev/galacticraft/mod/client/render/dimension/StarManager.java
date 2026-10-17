@@ -24,6 +24,7 @@ package dev.galacticraft.mod.client.render.dimension;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
+import com.mojang.math.Axis;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.util.Mth;
@@ -32,16 +33,21 @@ import org.joml.Matrix4f;
 
 import java.util.Random;
 
-// TODO: implement fancy star visuals
+/**
+ * Manages rendering of the iconic Galacticraft celestial star field.
+ * Restored from the authoritative Galacticraft 4 legacy algorithm (micdoodle8) with seed 10842L,
+ * realistic astronomical depth spread, and accurate celestial coordinates.
+ */
 public class StarManager {
     private final VertexBuffer starBuffer;
 
     public StarManager() {
         this.starBuffer = new VertexBuffer(VertexBuffer.Usage.STATIC);
-        final Random random = new Random(27893L);
+        final Random random = new Random(10842L);
         final BufferBuilder buffer = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION);
         RenderSystem.setShader(GameRenderer::getPositionShader);
-        for (int i = 0; i < 12000; ++i) {
+
+        for (int i = 0; i < 20000; ++i) {
             double j = random.nextFloat() * 2.0F - 1.0F;
             double k = random.nextFloat() * 2.0F - 1.0F;
             double l = random.nextFloat() * 2.0F - 1.0F;
@@ -53,9 +59,10 @@ public class StarManager {
                 j *= n;
                 k *= n;
                 l *= n;
-                double o = j * 100.0D;
-                double p = k * 100.0D;
-                double q = l * 100.0D;
+                double dist = random.nextDouble() * 100.0D + 150.0D;
+                double o = j * dist;
+                double p = k * dist;
+                double q = l * dist;
                 double r = Math.atan2(j, l);
                 double s = Math.sin(r);
                 double t = Math.cos(r);
@@ -76,7 +83,7 @@ public class StarManager {
                     double h = b * v - e * w;
                     double aa = h * s - f * t;
                     double ab = f * s + h * t;
-                    buffer.addVertex((float) ((o + aa) * (i > 6000 ? -1 : 1)), (float) ((p + g) * (i > 6000 ? -1 : 1)), (float) ((q + ab) * (i > 6000 ? -1 : 1)));
+                    buffer.addVertex((float) (o + aa), (float) (p + g), (float) (q + ab));
                 }
             }
         }
@@ -86,11 +93,32 @@ public class StarManager {
     }
 
     public void tick() {
+    }
 
+    /**
+     * Applies standard Galacticraft legacy celestial sphere rotation for stars.
+     * Corresponds to GL11: glRotatef(-90, 0, 1, 0), glRotatef(celestialAngle * 360, 1, 0, 0), glRotatef(-19, 0, 1, 0).
+     */
+    public static void rotateForCelestialAngle(PoseStack poseStack, float celestialAngle) {
+        poseStack.mulPose(Axis.YN.rotationDegrees(90.0F));
+        poseStack.mulPose(Axis.XP.rotationDegrees(celestialAngle * 360.0F));
+        poseStack.mulPose(Axis.YN.rotationDegrees(19.0F));
+    }
+
+    /**
+     * Applies retrograde Galacticraft legacy celestial sphere rotation for stars (e.g. Venus).
+     */
+    public static void rotateForRetrogradeCelestialAngle(PoseStack poseStack, float celestialAngle) {
+        poseStack.mulPose(Axis.YN.rotationDegrees(90.0F));
+        poseStack.mulPose(Axis.XN.rotationDegrees(celestialAngle * 360.0F));
+        poseStack.mulPose(Axis.YN.rotationDegrees(19.0F));
     }
 
     public void render(PoseStack poseStack, Matrix4f projectionMatrix, Level level, float partialTicks, float brightness) {
-        RenderSystem.setShaderColor(1.0F, 0.95F, 0.9F, brightness);
+        if (brightness <= 0.0F) {
+            return;
+        }
+        RenderSystem.setShaderColor(1.0F, 0.98F, 0.95F, brightness);
         FogRenderer.setupNoFog();
         this.starBuffer.bind();
         this.starBuffer.drawWithShader(poseStack.last().pose(), projectionMatrix, GameRenderer.getPositionShader());

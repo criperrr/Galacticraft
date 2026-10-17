@@ -272,9 +272,9 @@ public class VenusSkyRenderer implements DimensionRenderingRegistry.SkyRenderer 
                 .addVertex(last2, f10, 99.9F, f10)
                 .addVertex(last2, -f10, 99.9F, f10);
         BufferUploader.drawWithShader(buffer.buildOrThrow());
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 0.1F);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         f10 = this.sunSize;
-        RenderSystem.setShaderTexture(0, Constant.Skybox.SUN_VENUS);
+        RenderSystem.setShaderTexture(0, Constant.Skybox.SUN_ATMOSPHERIC);
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         buffer = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
         buffer.addVertex(last2, -f10, 100.0F, -f10).setUv(0.0F, 0.0F)
@@ -288,18 +288,19 @@ public class VenusSkyRenderer implements DimensionRenderingRegistry.SkyRenderer 
         poseStack.scale(0.6F, 0.6F, 0.6F);
         poseStack.mulPose(Axis.ZP.rotationDegrees(40.0F));
         poseStack.mulPose(Axis.XP.rotationDegrees(200F));
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1F);
+        Matrix4f earthMatrix = poseStack.last().pose();
+
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, Constant.CelestialBody.EARTH);
         buffer = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-        buffer.addVertex(last2, -f10, -100.0F, f10).setUv(0, 1.0F)
-                .addVertex(last2, f10, -100.0F, f10).setUv(1.0F, 1.0F)
-                .addVertex(last2, f10, -100.0F, -f10).setUv(1.0F, 0)
-                .addVertex(last2, -f10, -100.0F, -f10).setUv(0, 0);
+        buffer.addVertex(earthMatrix, -f10, -100.0F, f10).setUv(0.0F, 1.0F)
+                .addVertex(earthMatrix, f10, -100.0F, f10).setUv(1.0F, 1.0F)
+                .addVertex(earthMatrix, f10, -100.0F, -f10).setUv(1.0F, 0.0F)
+                .addVertex(earthMatrix, -f10, -100.0F, -f10).setUv(0.0F, 0.0F);
         BufferUploader.drawWithShader(buffer.buildOrThrow());
 
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.disableBlend();
-//        GL11.glEnable(GL11.GL_FOG);
         poseStack.popPose();
         RenderSystem.setShaderColor(0.0F, 0.0F, 0.0F, 1.0F);
         double horizon = minecraft.player.getEyePosition().y - level.getLevelData().getHorizonHeight(level);

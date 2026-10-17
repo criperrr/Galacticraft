@@ -22,6 +22,7 @@
 
 package dev.galacticraft.mod.client.render.dimension;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Axis;
@@ -52,37 +53,55 @@ public class SatelliteSkyRenderer extends SpaceSkyRenderer {
         matrices.mulPose(context.positionMatrix());
         Tesselator tesselator = Tesselator.getInstance();
 
+        float celestialAngle = context.world().getTimeOfDay(partialTicks);
         context.profiler().push("stars");
         matrices.pushPose();
-        matrices.mulPose(Axis.ZP.rotationDegrees(context.world().getTimeOfDay(partialTicks) * 360.0f));
+        StarManager.rotateForCelestialAngle(matrices, celestialAngle);
 
-        this.starManager.render(matrices, context.projectionMatrix(), context.world(), partialTicks);
+        this.starManager.render(matrices, context.projectionMatrix(), context.world(), partialTicks, 0.9F);
 
         matrices.popPose();
         context.profiler().pop();
 
         context.profiler().push("sun");
         matrices.pushPose();
+        matrices.mulPose(Axis.YN.rotationDegrees(90.0F));
+        matrices.mulPose(Axis.XP.rotationDegrees(celestialAngle * 360.0F));
 
-        matrices.mulPose(Axis.ZP.rotationDegrees(context.world().getTimeOfDay(partialTicks) * 360.0f));
-
+        float sunSize = 16.0F;
+        float blackSize = sunSize / 3.5F;
         Matrix4f matrix = matrices.last().pose();
+
+        RenderSystem.enableBlend();
+        RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+        RenderSystem.setShaderColor(0.0F, 0.0F, 0.0F, 1.0F);
+        RenderSystem.setShader(GameRenderer::getPositionShader);
+
+        BufferBuilder buffer = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION);
+        buffer.addVertex(matrix, -blackSize, 99.9F, -blackSize)
+                .addVertex(matrix, blackSize, 99.9F, -blackSize)
+                .addVertex(matrix, blackSize, 99.9F, blackSize)
+                .addVertex(matrix, -blackSize, 99.9F, blackSize);
+        BufferUploader.drawWithShader(buffer.buildOrThrow());
+
+        RenderSystem.blendFuncSeparate(
+                GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO
+        );
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderTexture(0, Constant.CelestialBody.SOL_FROM_MOON);
-        float size = 6.0F;
-        BufferBuilder buffer = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-        buffer.addVertex(matrix, -size, 100.0F, -size).setUv(1.0F, 0.0F)
-                .addVertex(matrix, size, 100.0F, -size).setUv(0.0F, 0.0F)
-                .addVertex(matrix, size, 100.0F, size).setUv(0.0F, 1.0F)
-                .addVertex(matrix, -size, 100.0F, size).setUv(1.0F, 1.0F);
+        RenderSystem.setShaderTexture(0, Constant.Skybox.SUN_ORBITAL);
+        buffer = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+        buffer.addVertex(matrix, -sunSize, 100.0F, -sunSize).setUv(0.0F, 0.0F)
+                .addVertex(matrix, sunSize, 100.0F, -sunSize).setUv(1.0F, 0.0F)
+                .addVertex(matrix, sunSize, 100.0F, sunSize).setUv(1.0F, 1.0F)
+                .addVertex(matrix, -sunSize, 100.0F, sunSize).setUv(0.0F, 1.0F);
         BufferUploader.drawWithShader(buffer.buildOrThrow());
 
         context.profiler().pop();
         context.profiler().push("moon");
 
         RenderSystem.setShaderTexture(0, Constant.Skybox.MOON_PHASES);
-        size = 6.0F;
+        float moonSize = 6.0F;
         final float phase = context.world().getMoonPhase();
         final int u = (int) (phase % 4);
         final int v = (int) (phase / 4 % 2);
@@ -91,10 +110,10 @@ public class SatelliteSkyRenderer extends SpaceSkyRenderer {
         final float v0 = (v + 0.375F) / 2.0F;
         final float v1 = (v + 0.625F) / 2.0F;
         buffer = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-        buffer.addVertex(matrix, -size, -100.0F, size).setUv(u0, v1)
-                .addVertex(matrix, size, -100.0F, size).setUv(u0, v0)
-                .addVertex(matrix, size, -100.0F, -size).setUv(u1, v0)
-                .addVertex(matrix, -size, -100.0F, -size).setUv(u1, v1);
+        buffer.addVertex(matrix, -moonSize, -100.0F, moonSize).setUv(u0, v1)
+                .addVertex(matrix, moonSize, -100.0F, moonSize).setUv(u0, v0)
+                .addVertex(matrix, moonSize, -100.0F, -moonSize).setUv(u1, v0)
+                .addVertex(matrix, -moonSize, -100.0F, -moonSize).setUv(u1, v1);
         BufferUploader.drawWithShader(buffer.buildOrThrow());
 
         matrices.popPose();

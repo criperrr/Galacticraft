@@ -43,6 +43,7 @@ public class GCDimensionEffects {
         DimensionRenderingRegistry.registerDimensionEffects(MARS, MarsDimensionEffects.INSTANCE);
         DimensionRenderingRegistry.registerCloudRenderer(GCDimensions.MARS, EmptyCloudRenderer.INSTANCE);
         DimensionRenderingRegistry.registerWeatherRenderer(GCDimensions.MARS, EmptyWeatherRenderer.INSTANCE);
+        DimensionRenderingRegistry.registerSkyRenderer(GCDimensions.MARS, MarsSkyRenderer.INSTANCE);
 
         DimensionRenderingRegistry.registerDimensionEffects(VENUS, VenusDimensionEffects.INSTANCE);
         DimensionRenderingRegistry.registerCloudRenderer(GCDimensions.VENUS, EmptyCloudRenderer.INSTANCE);

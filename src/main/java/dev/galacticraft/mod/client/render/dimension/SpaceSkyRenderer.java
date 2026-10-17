@@ -22,7 +22,6 @@
 
 package dev.galacticraft.mod.client.render.dimension;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.galacticraft.mod.client.render.dimension.star.CelestialBodyRendererManager;
@@ -37,44 +36,22 @@ public class SpaceSkyRenderer implements DimensionRenderingRegistry.SkyRenderer 
 
     @Override
     public void render(WorldRenderContext context) {
+        float partialTicks = context.tickCounter().getGameTimeDeltaPartialTick(true);
         PoseStack matrices = new PoseStack();
         matrices.mulPose(context.positionMatrix());
-        // render whole skybox black for when first loading into the dimension
-        RenderSystem.setShaderColor(0.0F, 0.0F, 0.0F, 1.0F);
+        float celestialAngle = context.world().getTimeOfDay(partialTicks);
 
         RenderSystem.disableBlend();
-        RenderSystem.blendFuncSeparate(
-                GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO
-        );
+        RenderSystem.depthMask(false);
 
-        context.profiler().push("celestial_render");
+        context.profiler().push("stars");
         matrices.pushPose();
-
-        // Update camera position for star rendering
-        this.celestialBodyRendererManager.updateSolarPosition(
-            context.camera().getPosition().x / 128.0,
-            context.camera().getPosition().y / 128.0,
-            context.camera().getPosition().z / 128.0
-        );
-
-        this.celestialBodyRendererManager.render(context);
-
+        StarManager.rotateForCelestialAngle(matrices, celestialAngle);
+        this.starManager.render(matrices, context.projectionMatrix(), context.world(), partialTicks, 0.9F);
         matrices.popPose();
         context.profiler().pop();
-        RenderSystem.setShaderColor(1.0f, 1.0F, 1.0F, 1.0F);
 
-//        PoseStack matrices = new PoseStack();
-//        matrices.mulPose(context.positionMatrix());
-//
-//        context.profiler().push("stars");
-//        matrices.pushPose();
-//        matrices.mulPose(Axis.YP.rotationDegrees(-90.0F));
-//        matrices.mulPose(Axis.XP.rotationDegrees(context.world().getTimeOfDay(context.tickCounter().getRealtimeDeltaTicks()) * 360.0f));
-//        matrices.mulPose(Axis.YP.rotationDegrees(-19.0F));
-//
-//        this.starManager.render(matrices, context.projectionMatrix(), context.world(), context.tickCounter().getRealtimeDeltaTicks());
-//
-//        matrices.popPose();
-//        context.profiler().pop();
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.depthMask(true);
     }
 }
