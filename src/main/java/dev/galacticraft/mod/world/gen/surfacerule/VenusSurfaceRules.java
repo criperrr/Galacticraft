@@ -26,6 +26,7 @@ import dev.galacticraft.mod.content.GCBlocks;
 import dev.galacticraft.mod.world.biome.GCBiomes;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.Noises;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import org.jetbrains.annotations.Contract;
@@ -37,25 +38,66 @@ public class VenusSurfaceRules {
     public static final SurfaceRules.RuleSource HARD_ROCK = block(GCBlocks.HARD_VENUS_ROCK);
     public static final SurfaceRules.RuleSource SCORCHED_ROCK = block(GCBlocks.SCORCHED_VENUS_ROCK);
     public static final SurfaceRules.RuleSource VOLCANIC_ROCK = block(GCBlocks.VOLCANIC_ROCK);
+    public static final SurfaceRules.RuleSource MAGMA = block(Blocks.MAGMA_BLOCK);
+    public static final SurfaceRules.RuleSource BASALT = block(Blocks.BASALT);
+    public static final SurfaceRules.RuleSource GALENA = block(GCBlocks.GALENA_ORE);
+
+    private static final SurfaceRules.RuleSource VALLEY_FLOOR = SurfaceRules.sequence(
+            SurfaceRules.ifTrue(SurfaceRules.noiseCondition(Noises.SURFACE, 0.2, 1.0), MAGMA),
+            SurfaceRules.ifTrue(SurfaceRules.noiseCondition(Noises.PATCH, 0.0, 1.0), BASALT),
+            VOLCANIC_ROCK
+    );
+
+    private static final SurfaceRules.RuleSource VALLEY_UNDER_FLOOR = SurfaceRules.sequence(
+            SurfaceRules.ifTrue(SurfaceRules.noiseCondition(Noises.SURFACE, 0.25, 1.0), MAGMA),
+            SurfaceRules.ifTrue(SurfaceRules.noiseCondition(Noises.PATCH, 0.1, 1.0), BASALT),
+            VOLCANIC_ROCK
+    );
+
+    private static final SurfaceRules.RuleSource MOUNTAIN_SURFACE = SurfaceRules.sequence(
+            SurfaceRules.ifTrue(SurfaceRules.steep(), VOLCANIC_ROCK),
+            SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, HARD_ROCK),
+            SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, HARD_ROCK)
+    );
+
+    private static final SurfaceRules.RuleSource FLAT_SURFACE = SurfaceRules.sequence(
+            SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, SCORCHED_ROCK),
+            SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, SOFT_ROCK),
+            HARD_ROCK
+    );
+
+    private static final SurfaceRules.RuleSource PEAK_METALLIC_SNOW = SurfaceRules.ifTrue(
+            SurfaceRules.yBlockCheck(VerticalAnchor.absolute(160), 0),
+            SurfaceRules.sequence(
+                    SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, GALENA),
+                    SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, GALENA)
+            )
+    );
 
     private static final SurfaceRules.RuleSource SURFACE_GENERATION = SurfaceRules.sequence(
+            // Above Y >= 160: Maxwell Montes heavy metal snow of Galena/Bismuth
+            PEAK_METALLIC_SNOW,
+
+            // Biome specific surface generation
             SurfaceRules.ifTrue(
                     SurfaceRules.isBiome(GCBiomes.Venus.VENUS_VALLEY),
                     SurfaceRules.sequence(
-                            SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, SCORCHED_ROCK),
-                            SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, VOLCANIC_ROCK)
+                            SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, VALLEY_FLOOR),
+                            SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, VALLEY_UNDER_FLOOR),
+                            VOLCANIC_ROCK
                     )
             ),
             SurfaceRules.ifTrue(
                     SurfaceRules.isBiome(GCBiomes.Venus.VENUS_MOUNTAIN),
-                    SurfaceRules.sequence(
-                            SurfaceRules.ifTrue(SurfaceRules.steep(), VOLCANIC_ROCK),
-                            SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, HARD_ROCK),
-                            SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, HARD_ROCK)
-                    )
+                    MOUNTAIN_SURFACE
             ),
-            SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, SOFT_ROCK),
-            SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, HARD_ROCK)
+            SurfaceRules.ifTrue(
+                    SurfaceRules.isBiome(GCBiomes.Venus.VENUS_FLAT),
+                    FLAT_SURFACE
+            ),
+
+            // Default fallback
+            FLAT_SURFACE
     );
 
     public static final SurfaceRules.RuleSource VENUS = createDefaultRule();

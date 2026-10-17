@@ -50,7 +50,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
 public class VenusDimensionEffects extends GalacticDimensionEffects {
-    public static final VenusDimensionEffects INSTANCE = new VenusDimensionEffects(Float.NaN, false, SkyType.NORMAL, true, true);
+    public static final VenusDimensionEffects INSTANCE = new VenusDimensionEffects(240.0F, true, SkyType.NORMAL, true, true);
     private final Minecraft minecraft = Minecraft.getInstance();
     private int rainSoundTime;
 
@@ -61,13 +61,13 @@ public class VenusDimensionEffects extends GalacticDimensionEffects {
     @Override
     public Vec3 getFogColor(ClientLevel level, float partialTicks, Vec3 cameraPos, CubicSampler.Vec3Fetcher fetcher) {
         float night = getStarBrightness(level, 1.0F);
-        float day = 1.0F - getStarBrightness(level, 1.0F);
-        float dayColR = 203.0F / 255.0F;
-        float dayColG = 147.0F / 255.0F;
-        float dayColB = 0.0F / 255.0F;
-        float nightColR = 131.0F / 255.0F;
-        float nightColG = 108.0F / 255.0F;
-        float nightColB = 46.0F / 255.0F;
+        float day = 1.0F - night;
+        float dayColR = 215.0F / 255.0F;
+        float dayColG = 145.0F / 255.0F;
+        float dayColB = 55.0F / 255.0F;
+        float nightColR = 140.0F / 255.0F;
+        float nightColG = 90.0F / 255.0F;
+        float nightColB = 30.0F / 255.0F;
         return new Vec3(dayColR * day + nightColR * night, dayColG * day + nightColG * night, dayColB * day + nightColB * night);
     }
 
@@ -79,13 +79,13 @@ public class VenusDimensionEffects extends GalacticDimensionEffects {
     @Override
     public Vec3 getSkyColor(ClientLevel level, float partialTicks) {
         float night = getStarBrightness(level, 1.0F);
-        float day = 1.0F - getStarBrightness(level, 1.0F);
-        float dayColR = 255.0F / 255.0F;
-        float dayColG = 207.0F / 255.0F;
-        float dayColB = 81.0F / 255.0F;
-        float nightColR = 118.0F / 255.0F;
-        float nightColG = 89.0F / 255.0F;
-        float nightColB = 21.0F / 255.0F;
+        float day = 1.0F - night;
+        float dayColR = 215.0F / 255.0F;
+        float dayColG = 145.0F / 255.0F;
+        float dayColB = 55.0F / 255.0F;
+        float nightColR = 140.0F / 255.0F;
+        float nightColG = 90.0F / 255.0F;
+        float nightColB = 30.0F / 255.0F;
         return new Vec3(dayColR * day + nightColR * night, dayColG * day + nightColG * night, dayColB * day + nightColB * night);
     }
 

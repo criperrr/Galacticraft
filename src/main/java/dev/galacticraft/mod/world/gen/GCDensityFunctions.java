@@ -30,6 +30,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.DensityFunction;
 import net.minecraft.world.level.levelgen.DensityFunctions;
 import net.minecraft.world.level.levelgen.NoiseRouterData;
+import net.minecraft.world.level.levelgen.Noises;
 import net.minecraft.world.level.levelgen.synth.BlendedNoise;
 
 public class GCDensityFunctions {
@@ -46,6 +47,11 @@ public class GCDensityFunctions {
     }
 
     public static final class Venus {
+        public static final ResourceKey<DensityFunction> BASE_HEIGHT = createKey("venus/base_height");
+        public static final ResourceKey<DensityFunction> SLOPES = createKey("venus/slopes");
+        public static final ResourceKey<DensityFunction> MONS = createKey("venus/mons");
+        public static final ResourceKey<DensityFunction> CANALI = createKey("venus/canali");
+        public static final ResourceKey<DensityFunction> CALDERA = createKey("venus/caldera");
         // Final Density handles overall terrain shape
         public static final ResourceKey<DensityFunction> FINAL_DENSITY = createKey("venus/final_density");
     }
@@ -140,9 +146,46 @@ public class GCDensityFunctions {
                 BlendedNoise.createUnseeded(0.25, 0.375, 80.0, 160.0, 8.0)
         ));
 
-        context.register(Venus.FINAL_DENSITY, DensityFunctions.add(
-                DensityFunctions.yClampedGradient(0, 90, 1, -1),
+        DensityFunction continents = getFunction(vanillaRegistry, NoiseRouterData.CONTINENTS);
+        DensityFunction ridge = DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.RIDGE));
+        DensityFunction calcite = DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.CALCITE));
+
+        DensityFunction venusBaseHeight = registerAndWrap(context, Venus.BASE_HEIGHT,
+                DensityFunctions.yClampedGradient(40, 190, 0.4, -0.6)
+        );
+        DensityFunction venusSlopes = registerAndWrap(context, Venus.SLOPES,
                 BlendedNoise.createUnseeded(0.25, 0.375, 80.0, 160.0, 8.0)
+        );
+        DensityFunction venusMons = registerAndWrap(context, Venus.MONS,
+                DensityFunctions.mul(
+                        DensityFunctions.constant(0.65),
+                        DensityFunctions.max(continents, DensityFunctions.zero())
+                )
+        );
+        DensityFunction venusCanali = registerAndWrap(context, Venus.CANALI,
+                DensityFunctions.add(
+                        DensityFunctions.constant(-0.5),
+                        DensityFunctions.mul(DensityFunctions.constant(1.5), ridge.abs())
+                ).clamp(-0.5, 0.0)
+        );
+        DensityFunction venusTopFalloff = DensityFunctions.yClampedGradient(185, 210, 0.0, -0.8);
+        DensityFunction venusCalderaDip = DensityFunctions.mul(
+                DensityFunctions.yClampedGradient(155, 195, 0.0, -0.2),
+                DensityFunctions.max(calcite, DensityFunctions.zero())
+        );
+        DensityFunction venusCaldera = registerAndWrap(context, Venus.CALDERA,
+                DensityFunctions.add(venusTopFalloff, venusCalderaDip)
+        );
+
+        context.register(Venus.FINAL_DENSITY, DensityFunctions.add(
+                venusBaseHeight,
+                DensityFunctions.add(
+                        venusSlopes,
+                        DensityFunctions.add(
+                                venusMons,
+                                DensityFunctions.add(venusCanali, venusCaldera)
+                        )
+                )
         ));
 
         context.register(Asteroid.FINAL_DENSITY, DensityFunctions.add(

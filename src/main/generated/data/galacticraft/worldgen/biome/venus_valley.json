@@ -1,6 +1,6 @@
 {
   "carvers": {},
-  "downfall": 0.5,
+  "downfall": 0.8,
   "effects": {
     "fog_color": 10518688,
     "mood_sound": {
@@ -21,7 +21,9 @@
   },
   "features": [
     [],
-    [],
+    [
+      "minecraft:lake_lava_surface"
+    ],
     [],
     [],
     [],
@@ -33,6 +35,12 @@
       "galacticraft:ore_aluminum_venus",
       "galacticraft:ore_galena_venus",
       "galacticraft:ore_solar_venus"
+    ],
+    [
+      "minecraft:lake_lava_underground"
+    ],
+    [
+      "minecraft:spring_lava"
     ]
   ],
   "has_precipitation": true,
@@ -42,32 +50,7 @@
     "axolotls": [],
     "creature": [],
     "misc": [],
-    "monster": [
-      {
-        "type": "galacticraft:evolved_spider",
-        "maxCount": 4,
-        "minCount": 4,
-        "weight": 100
-      },
-      {
-        "type": "galacticraft:evolved_zombie",
-        "maxCount": 4,
-        "minCount": 4,
-        "weight": 95
-      },
-      {
-        "type": "galacticraft:evolved_skeleton",
-        "maxCount": 4,
-        "minCount": 4,
-        "weight": 100
-      },
-      {
-        "type": "galacticraft:evolved_creeper",
-        "maxCount": 4,
-        "minCount": 4,
-        "weight": 100
-      }
-    ],
+    "monster": [],
     "underground_water_creature": [],
     "water_ambient": [],
     "water_creature": []

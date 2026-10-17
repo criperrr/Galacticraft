@@ -30,7 +30,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public class MarsDimensionEffects extends GalacticDimensionEffects {
-    public static final MarsDimensionEffects INSTANCE = new MarsDimensionEffects(Float.NaN, false, SkyType.NORMAL, true, true);
+    public static final MarsDimensionEffects INSTANCE = new MarsDimensionEffects(Float.NaN, true, SkyType.NORMAL, true, true);
 
     public MarsDimensionEffects(float cloudLevel, boolean hasGround, SkyType skyType, boolean forceBrightLightmap, boolean constantAmbientLight) {
         super(cloudLevel, hasGround, skyType, forceBrightLightmap, constantAmbientLight);

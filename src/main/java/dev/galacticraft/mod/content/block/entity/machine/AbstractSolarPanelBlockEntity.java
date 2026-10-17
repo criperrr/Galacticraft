@@ -30,6 +30,7 @@ import dev.galacticraft.machinelib.api.storage.StorageSpec;
 import dev.galacticraft.machinelib.api.util.EnergySource;
 import dev.galacticraft.mod.api.block.entity.SolarPanel;
 import dev.galacticraft.mod.machine.GCMachineStatuses;
+import dev.galacticraft.mod.world.dimension.GCDimensions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
@@ -105,6 +106,15 @@ public abstract class AbstractSolarPanelBlockEntity extends MachineBlockEntity i
         } else if (level.isRaining()) {
             if (status == null) status = GCMachineStatuses.PARTIALLY_GENERATING;
             multiplier *= 0.5;
+        }
+
+        if (level.dimension().equals(GCDimensions.VENUS)) {
+            if (pos.getY() < 200) {
+                if (status == null) status = GCMachineStatuses.PARTIALLY_GENERATING;
+                multiplier *= 0.1;
+            } else {
+                multiplier *= 1.5;
+            }
         }
         long time = level.getDayTime() % this.dayLength;
         // Don't use this.isDay() because it returns false when it is thundering
