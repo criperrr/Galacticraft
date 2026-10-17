@@ -38,30 +38,51 @@ public class VenusSurfaceRules {
     public static final SurfaceRules.RuleSource HARD_ROCK = block(GCBlocks.HARD_VENUS_ROCK);
     public static final SurfaceRules.RuleSource SCORCHED_ROCK = block(GCBlocks.SCORCHED_VENUS_ROCK);
     public static final SurfaceRules.RuleSource VOLCANIC_ROCK = block(GCBlocks.VOLCANIC_ROCK);
-    public static final SurfaceRules.RuleSource MAGMA = block(Blocks.MAGMA_BLOCK);
-    public static final SurfaceRules.RuleSource BASALT = block(Blocks.BASALT);
+    public static final SurfaceRules.RuleSource PUMICE = block(GCBlocks.PUMICE);
     public static final SurfaceRules.RuleSource GALENA = block(GCBlocks.GALENA_ORE);
 
-    private static final SurfaceRules.RuleSource VALLEY_FLOOR = SurfaceRules.sequence(
-            SurfaceRules.ifTrue(SurfaceRules.noiseCondition(Noises.SURFACE, 0.2, 1.0), MAGMA),
-            SurfaceRules.ifTrue(SurfaceRules.noiseCondition(Noises.PATCH, 0.0, 1.0), BASALT),
-            VOLCANIC_ROCK
+    // GC4 BiomeGenVenusValley: low valley floors (Y < 60, corresponding to GC4 j1 < 53) have Pumice (ROCK_VOLCANIC_DEPOSIT)
+    // and Volcanic Rock (ROCK_MAGMA) over Hard Venus Rock; higher valley slopes have Soft Venus Rock.
+    private static final SurfaceRules.RuleSource VALLEY_LOW_FLOOR = SurfaceRules.sequence(
+            SurfaceRules.ifTrue(SurfaceRules.noiseCondition(Noises.SURFACE, 0.25, 1.0), VOLCANIC_ROCK),
+            SurfaceRules.ifTrue(SurfaceRules.noiseCondition(Noises.PATCH, 0.35, 1.0), SCORCHED_ROCK),
+            PUMICE
     );
 
-    private static final SurfaceRules.RuleSource VALLEY_UNDER_FLOOR = SurfaceRules.sequence(
-            SurfaceRules.ifTrue(SurfaceRules.noiseCondition(Noises.SURFACE, 0.25, 1.0), MAGMA),
-            SurfaceRules.ifTrue(SurfaceRules.noiseCondition(Noises.PATCH, 0.1, 1.0), BASALT),
-            VOLCANIC_ROCK
+    private static final SurfaceRules.RuleSource VALLEY_SURFACE = SurfaceRules.sequence(
+            SurfaceRules.ifTrue(
+                    SurfaceRules.yBlockCheck(VerticalAnchor.absolute(60), 0),
+                    SurfaceRules.sequence(
+                            SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, SOFT_ROCK),
+                            SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, SOFT_ROCK),
+                            HARD_ROCK
+                    )
+            ),
+            SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, VALLEY_LOW_FLOOR),
+            SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, HARD_ROCK),
+            HARD_ROCK
     );
 
+    // GC4 BiomeGenVenusMountain + GalaxySpace Io_Volcano / ExtraPlanets volcanic mountains:
+    // Steep volcanic slopes expose Volcanic Rock (ROCK_MAGMA); normal mountain tops have Soft Venus Rock over Hard Venus Rock.
     private static final SurfaceRules.RuleSource MOUNTAIN_SURFACE = SurfaceRules.sequence(
             SurfaceRules.ifTrue(SurfaceRules.steep(), VOLCANIC_ROCK),
-            SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, HARD_ROCK),
-            SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, HARD_ROCK)
+            SurfaceRules.ifTrue(
+                    SurfaceRules.yBlockCheck(VerticalAnchor.absolute(115), 0),
+                    SurfaceRules.sequence(
+                            SurfaceRules.ifTrue(SurfaceRules.noiseCondition(Noises.SURFACE, 0.15, 1.0), VOLCANIC_ROCK),
+                            SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, SOFT_ROCK),
+                            SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, HARD_ROCK)
+                    )
+            ),
+            SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, SOFT_ROCK),
+            SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, SOFT_ROCK),
+            HARD_ROCK
     );
 
+    // GC4 BiomeGenFlatVenus: Soft Venus Rock (ROCK_SOFT) on surface and sub-surface over Hard Venus Rock (ROCK_HARD)
     private static final SurfaceRules.RuleSource FLAT_SURFACE = SurfaceRules.sequence(
-            SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, SCORCHED_ROCK),
+            SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, SOFT_ROCK),
             SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, SOFT_ROCK),
             HARD_ROCK
     );
@@ -75,17 +96,10 @@ public class VenusSurfaceRules {
     );
 
     private static final SurfaceRules.RuleSource SURFACE_GENERATION = SurfaceRules.sequence(
-            // Above Y >= 160: Maxwell Montes heavy metal snow of Galena/Bismuth
             PEAK_METALLIC_SNOW,
-
-            // Biome specific surface generation
             SurfaceRules.ifTrue(
                     SurfaceRules.isBiome(GCBiomes.Venus.VENUS_VALLEY),
-                    SurfaceRules.sequence(
-                            SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, VALLEY_FLOOR),
-                            SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, VALLEY_UNDER_FLOOR),
-                            VOLCANIC_ROCK
-                    )
+                    VALLEY_SURFACE
             ),
             SurfaceRules.ifTrue(
                     SurfaceRules.isBiome(GCBiomes.Venus.VENUS_MOUNTAIN),
@@ -95,8 +109,6 @@ public class VenusSurfaceRules {
                     SurfaceRules.isBiome(GCBiomes.Venus.VENUS_FLAT),
                     FLAT_SURFACE
             ),
-
-            // Default fallback
             FLAT_SURFACE
     );
 

@@ -31,13 +31,23 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.LakeFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 
 public class GCConfiguredFeature {
     public static final ResourceKey<ConfiguredFeature<?, ?>> OIL_LAKE = ResourceKey.create(Registries.CONFIGURED_FEATURE, Constant.id("oil_lake"));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> VENUS_LAVA_LAKE = ResourceKey.create(Registries.CONFIGURED_FEATURE, Constant.id("venus_lava_lake"));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> VENUS_VAPOR_POOL = ResourceKey.create(Registries.CONFIGURED_FEATURE, Constant.id("venus_vapor_pool"));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> VENUS_VOLCANO = ResourceKey.create(Registries.CONFIGURED_FEATURE, Constant.id("venus_volcano"));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> VENUS_CRASHED_PROBE = ResourceKey.create(Registries.CONFIGURED_FEATURE, Constant.id("venus_crashed_probe"));
 
     public static void bootstrapRegistries(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         context.register(OIL_LAKE, new ConfiguredFeature<>(Feature.LAKE,
                 new LakeFeature.Configuration(BlockStateProvider.simple(GCBlocks.CRUDE_OIL), BlockStateProvider.simple(Blocks.STONE))));
+        context.register(VENUS_LAVA_LAKE, new ConfiguredFeature<>(GCFeatures.VENUS_LAVA_LAKE, FeatureConfiguration.NONE));
+        context.register(VENUS_VAPOR_POOL, new ConfiguredFeature<>(GCFeatures.VENUS_VAPOR_POOL, FeatureConfiguration.NONE));
+        context.register(VENUS_VOLCANO, new ConfiguredFeature<>(GCFeatures.VENUS_VOLCANO, FeatureConfiguration.NONE));
+        context.register(VENUS_CRASHED_PROBE, new ConfiguredFeature<>(GCFeatures.VENUS_CRASHED_PROBE, FeatureConfiguration.NONE));
     }
 }

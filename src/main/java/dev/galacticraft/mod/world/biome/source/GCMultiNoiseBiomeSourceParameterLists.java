@@ -180,30 +180,32 @@ public class GCMultiNoiseBiomeSourceParameterLists {
     @Contract("_ -> new")
     private static <T> Climate.@NotNull ParameterList<T> generateVenus(Function<ResourceKey<Biome>, T> biomeRegistry) {
         ImmutableList.Builder<Pair<Climate.ParameterPoint, T>> builder = ImmutableList.builder();
-        writeBiomeParameters(builder::add,
-                HOT, // hot to prevent snow
-                DRY,
-                FAR_INLAND_CONTINENTALNESS,
-                MIN_EROSION,
-                WEIRDNESS_H_MOUNTAINS,
-                0.0F,
-                biomeRegistry.apply(GCBiomes.Venus.VENUS_MOUNTAIN));
+        // Replicates GC4 GenLayerVenusSurround: VENUS_FLAT [-0.15, 0.35] always surrounds VENUS_MOUNTAIN [0.35, 1.0]
+        // and separates it from VENUS_VALLEY [-1.0, -0.15], aligning biome boundaries 100% with terrain elevation splines.
         writeBiomeParameters(builder::add,
                 HOT,
-                DRY,
-                MID_INLAND_CONTINENTALNESS,
-                SOMEWHAT_ERODED,
-                WEIRDNESS_L_PLAINS,
+                FULL_RANGE,
+                Parameter.span(-1.0F, -0.15F),
+                FULL_RANGE,
+                FULL_RANGE,
+                0.0F,
+                biomeRegistry.apply(GCBiomes.Venus.VENUS_VALLEY));
+        writeBiomeParameters(builder::add,
+                HOT,
+                FULL_RANGE,
+                Parameter.span(-0.15F, 0.35F),
+                FULL_RANGE,
+                FULL_RANGE,
                 0.0F,
                 biomeRegistry.apply(GCBiomes.Venus.VENUS_FLAT));
         writeBiomeParameters(builder::add,
                 HOT,
-                SOMEWHAT_HUMID,
-                NEAR_INLAND_CONTINENTALNESS,
-                MAX_EROSION,
-                WEIRDNESS_RIVER,
+                FULL_RANGE,
+                Parameter.span(0.35F, 1.0F),
+                FULL_RANGE,
+                FULL_RANGE,
                 0.0F,
-                biomeRegistry.apply(GCBiomes.Venus.VENUS_VALLEY));
+                biomeRegistry.apply(GCBiomes.Venus.VENUS_MOUNTAIN));
 
         return new Climate.ParameterList<>(builder.build());
     }

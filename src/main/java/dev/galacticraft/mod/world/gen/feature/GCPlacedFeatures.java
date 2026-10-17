@@ -41,6 +41,12 @@ import java.util.List;
 
 public class GCPlacedFeatures {
     public static final ResourceKey<PlacedFeature> OIL_LAKE = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("oil_lake"));
+    public static final ResourceKey<PlacedFeature> VENUS_LAVA_LAKE = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("venus_lava_lake"));
+    public static final ResourceKey<PlacedFeature> VENUS_VALLEY_LAVA_LAKE = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("venus_valley_lava_lake"));
+    public static final ResourceKey<PlacedFeature> VENUS_VAPOR_POOL = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("venus_vapor_pool"));
+    public static final ResourceKey<PlacedFeature> VENUS_FLAT_VAPOR_POOL = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("venus_flat_vapor_pool"));
+    public static final ResourceKey<PlacedFeature> VENUS_VOLCANO = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("venus_volcano"));
+    public static final ResourceKey<PlacedFeature> VENUS_CRASHED_PROBE = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("venus_crashed_probe"));
 
     public static void bootstrapRegistries(BootstrapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatureLookup = context.lookup(Registries.CONFIGURED_FEATURE);
@@ -48,6 +54,48 @@ public class GCPlacedFeatures {
                 PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
                 RarityFilter.onAverageOnceEvery(70),
                 InSquarePlacement.spread(),
+                BiomeFilter.biome()
+        )));
+        // GC4 ChunkProviderVenus: 1-in-10 lava lake in standard Venus biomes
+        context.register(VENUS_LAVA_LAKE, new PlacedFeature(configuredFeatureLookup.getOrThrow(GCConfiguredFeature.VENUS_LAVA_LAKE), List.of(
+                RarityFilter.onAverageOnceEvery(10),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                BiomeFilter.biome()
+        )));
+        // GC4 ChunkProviderVenus: 1-in-3 lava/acid lake in BiomeGenVenusValley
+        context.register(VENUS_VALLEY_LAVA_LAKE, new PlacedFeature(configuredFeatureLookup.getOrThrow(GCConfiguredFeature.VENUS_LAVA_LAKE), List.of(
+                RarityFilter.onAverageOnceEvery(3),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                BiomeFilter.biome()
+        )));
+        // GC4 ChunkProviderVenus: 1-in-5 vapor pool & spout in BiomeGenVenusValley
+        context.register(VENUS_VAPOR_POOL, new PlacedFeature(configuredFeatureLookup.getOrThrow(GCConfiguredFeature.VENUS_VAPOR_POOL), List.of(
+                RarityFilter.onAverageOnceEvery(5),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                BiomeFilter.biome()
+        )));
+        // GalaxySpace BiomeDecoratorIo: rarer vapor pool & spout on volcanic plains
+        context.register(VENUS_FLAT_VAPOR_POOL, new PlacedFeature(configuredFeatureLookup.getOrThrow(GCConfiguredFeature.VENUS_VAPOR_POOL), List.of(
+                RarityFilter.onAverageOnceEvery(18),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                BiomeFilter.biome()
+        )));
+        // ExtraPlanets WorldGenVolcano + GalaxySpace volcanic cones
+        context.register(VENUS_VOLCANO, new PlacedFeature(configuredFeatureLookup.getOrThrow(GCConfiguredFeature.VENUS_VOLCANO), List.of(
+                RarityFilter.onAverageOnceEvery(22),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                BiomeFilter.biome()
+        )));
+        // GC4 ChunkProviderVenus: 1-in-190 crashed probe crater in BiomeGenVenusValley
+        context.register(VENUS_CRASHED_PROBE, new PlacedFeature(configuredFeatureLookup.getOrThrow(GCConfiguredFeature.VENUS_CRASHED_PROBE), List.of(
+                RarityFilter.onAverageOnceEvery(190),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
                 BiomeFilter.biome()
         )));
     }

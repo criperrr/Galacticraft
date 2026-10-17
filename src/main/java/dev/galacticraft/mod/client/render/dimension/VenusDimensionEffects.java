@@ -62,12 +62,12 @@ public class VenusDimensionEffects extends GalacticDimensionEffects {
     public Vec3 getFogColor(ClientLevel level, float partialTicks, Vec3 cameraPos, CubicSampler.Vec3Fetcher fetcher) {
         float night = getStarBrightness(level, 1.0F);
         float day = 1.0F - night;
-        float dayColR = 215.0F / 255.0F;
-        float dayColG = 145.0F / 255.0F;
-        float dayColB = 55.0F / 255.0F;
-        float nightColR = 140.0F / 255.0F;
-        float nightColG = 90.0F / 255.0F;
-        float nightColB = 30.0F / 255.0F;
+        float dayColR = 203.0F / 255.0F;
+        float dayColG = 147.0F / 255.0F;
+        float dayColB = 0.0F / 255.0F;
+        float nightColR = 131.0F / 255.0F;
+        float nightColG = 108.0F / 255.0F;
+        float nightColB = 46.0F / 255.0F;
         return new Vec3(dayColR * day + nightColR * night, dayColG * day + nightColG * night, dayColB * day + nightColB * night);
     }
 
@@ -80,17 +80,20 @@ public class VenusDimensionEffects extends GalacticDimensionEffects {
     public Vec3 getSkyColor(ClientLevel level, float partialTicks) {
         float night = getStarBrightness(level, 1.0F);
         float day = 1.0F - night;
-        float dayColR = 215.0F / 255.0F;
-        float dayColG = 145.0F / 255.0F;
-        float dayColB = 55.0F / 255.0F;
-        float nightColR = 140.0F / 255.0F;
-        float nightColG = 90.0F / 255.0F;
-        float nightColB = 30.0F / 255.0F;
+        float dayColR = 255.0F / 255.0F;
+        float dayColG = 207.0F / 255.0F;
+        float dayColB = 81.0F / 255.0F;
+        float nightColR = 118.0F / 255.0F;
+        float nightColG = 89.0F / 255.0F;
+        float nightColB = 21.0F / 255.0F;
         return new Vec3(dayColR * day + nightColR * night, dayColG * day + nightColG * night, dayColB * day + nightColB * night);
     }
 
     @Override
     public boolean tickRain(@NotNull ClientLevel level, Camera camera, int ticks) {
+        // GC4 TickHandlerClientVenus: tick ambient Venus sky lightning & thunder every client tick
+        VenusWeatherRenderer.INSTANCE.tickLightning(level, camera);
+
         float rainLevel = level.getRainLevel(1.0F);
         float rainStrength = rainLevel / (Minecraft.useFancyGraphics() ? 1.0F : 2.0F);
         if (!(rainStrength <= 0.0F)) {

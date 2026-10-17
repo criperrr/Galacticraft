@@ -39,6 +39,8 @@ public class GCVenusAtmosphereHandler {
     private static final EquipmentSlot[] ARMOR_SLOTS = new EquipmentSlot[]{
             EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET
     };
+    private static int venusRainTimer = 1200;
+    private static boolean venusRaining = false;
 
     public static boolean isProtected(ServerPlayer player) {
         if (player.isCreative() || player.isSpectator()) return true;
@@ -64,6 +66,19 @@ public class GCVenusAtmosphereHandler {
 
     public static void onWorldTick(ServerLevel level) {
         if (!level.dimension().equals(GCDimensions.VENUS)) return;
+
+        // Replicates GC4 WorldProviderVenus.updateWeatherOverride():
+        // Independent sulfuric acid rain cycle on Venus (1000..4600 ticks raining, 1000..3000 ticks dry)
+        if (--venusRainTimer <= 0) {
+            venusRaining = !venusRaining;
+            if (venusRaining) {
+                venusRainTimer = level.random.nextInt(3600) + 1000;
+                level.setWeatherParameters(0, venusRainTimer, true, false);
+            } else {
+                venusRainTimer = level.random.nextInt(2000) + 1000;
+                level.setWeatherParameters(venusRainTimer, 0, false, false);
+            }
+        }
 
         long gameTime = level.getGameTime();
         boolean tick20 = (gameTime % 20 == 0);
@@ -128,9 +143,8 @@ public class GCVenusAtmosphereHandler {
                     player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 1));
                 }
 
-                // Acid Virga vs Surface Vapor:
-                // At Y >= 200: if raining and exposed to sky, direct sulfuric acid rain burns unshielded players (2.0F damage).
-                if (player.getY() >= 200.0 && isRaining && exposedToSky) {
+                // Sulfuric acid rain burns unshielded players exposed to the sky
+                if (isRaining && exposedToSky) {
                     player.hurt(level.damageSources().source(GCDamageTypes.SULFURIC_ACID), 2.0F);
                 }
             }

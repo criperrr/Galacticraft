@@ -1,8 +1,13 @@
 {
-  "carvers": {},
+  "carvers": {
+    "air": [
+      "galacticraft:venus_cave_carver",
+      "galacticraft:venus_canyon_carver"
+    ]
+  },
   "downfall": 0.1,
   "effects": {
-    "fog_color": 10518688,
+    "fog_color": -3435776,
     "mood_sound": {
       "block_search_extent": 8,
       "offset": 2.0,
@@ -15,16 +20,20 @@
       "replace_current_music": false,
       "sound": "galacticraft:music.moon"
     },
-    "sky_color": -14016,
+    "sky_color": -12463,
     "water_color": 4159204,
     "water_fog_color": 329011
   },
   "features": [
     [],
+    [
+      "galacticraft:venus_lava_lake"
+    ],
     [],
     [],
-    [],
-    [],
+    [
+      "galacticraft:venus_volcano"
+    ],
     [],
     [
       "galacticraft:ore_copper_venus",

@@ -23,9 +23,10 @@
 package dev.galacticraft.mod.world.biome;
 
 import dev.galacticraft.mod.content.GCSounds;
+import dev.galacticraft.mod.world.gen.carver.GCConfiguredCarvers;
 import dev.galacticraft.mod.world.gen.feature.GCOrePlacedFeatures;
+import dev.galacticraft.mod.world.gen.feature.GCPlacedFeatures;
 import net.minecraft.core.HolderGetter;
-import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
 import net.minecraft.sounds.Musics;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.levelgen.GenerationStep;
@@ -37,6 +38,11 @@ import java.awt.*;
 public class VenusBiomes {
     public static void monsters(MobSpawnSettings.Builder builder, int zombieWeight, int zombieVillagerWeight, int skeletonWeight) {
         // Venus is a sterile, hostile planetary environment with no fantasy monster spawns.
+    }
+
+    public static void addDefaultVenusCarvers(BiomeGenerationSettings.Builder builder) {
+        builder.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.VENUS_CAVE_CARVER);
+        builder.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.VENUS_CANYON_CARVER);
     }
 
     public static void addDefaultVenusOres(BiomeGenerationSettings.Builder builder) {
@@ -52,6 +58,9 @@ public class VenusBiomes {
             HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter
     ) {
         BiomeGenerationSettings.Builder generation = new BiomeGenerationSettings.Builder(featureGetter, carverGetter);
+        addDefaultVenusCarvers(generation);
+        generation.addFeature(GenerationStep.Decoration.LAKES, GCPlacedFeatures.VENUS_LAVA_LAKE);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, GCPlacedFeatures.VENUS_FLAT_VAPOR_POOL);
         addDefaultVenusOres(generation);
         return createVenusBiome(generation, 2.0F, 0.3F);
     }
@@ -60,6 +69,9 @@ public class VenusBiomes {
             HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter
     ) {
         BiomeGenerationSettings.Builder generation = new BiomeGenerationSettings.Builder(featureGetter, carverGetter);
+        addDefaultVenusCarvers(generation);
+        generation.addFeature(GenerationStep.Decoration.LAKES, GCPlacedFeatures.VENUS_LAVA_LAKE);
+        generation.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, GCPlacedFeatures.VENUS_VOLCANO);
         addDefaultVenusOres(generation);
         return createVenusBiome(generation, 2.0F, 0.1F);
     }
@@ -68,6 +80,11 @@ public class VenusBiomes {
             HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter
     ) {
         BiomeGenerationSettings.Builder generation = new BiomeGenerationSettings.Builder(featureGetter, carverGetter);
+        addDefaultVenusCarvers(generation);
+        generation.addFeature(GenerationStep.Decoration.LAKES, GCPlacedFeatures.VENUS_VALLEY_LAVA_LAKE);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, GCPlacedFeatures.VENUS_VAPOR_POOL);
+        generation.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, GCPlacedFeatures.VENUS_VOLCANO);
+        generation.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, GCPlacedFeatures.VENUS_CRASHED_PROBE);
         addDefaultVenusOres(generation);
         return createVenusBiome(generation, 2.0F, 0.8F);
     }
@@ -85,8 +102,8 @@ public class VenusBiomes {
         BiomeSpecialEffects.Builder specialEffects = new BiomeSpecialEffects.Builder();
         specialEffects.waterColor(4159204)
                 .waterFogColor(329011)
-                .fogColor(10518688)
-                .skyColor(new Color(255, 201, 64).getRGB())
+                .fogColor(new Color(203, 147, 0).getRGB())
+                .skyColor(new Color(255, 207, 81).getRGB())
                 .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
                 .backgroundMusic(Musics.createGameMusic(GCSounds.MUSIC_MOON));
 
