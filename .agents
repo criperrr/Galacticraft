@@ -291,10 +291,13 @@ flowchart TD
   3. Enviar branch cirurgicamente para o fork remoto: `git push origin <categoria>/<nome-da-task>`.
   4. Abrir Pull Request apontando para `dev`: `gh pr create --base dev --title "..." --body "..."`.
   5. **Verificação Obrigatória de Testes:** O agente DEVE acompanhar ativamente a esteira de CI (`gh pr checks <PR> --watch` ou consulta equivalente) para verificar se todos os testes passaram (`SUCCESS`). A tarefa NUNCA deve ser considerada finalizada sem essa verificação.
-  6. **Merge via GitHub CLI (`gh`):**
-     - Se os testes passarem: o agente DEVE obrigatoriamente utilizar a CLI `gh` da máquina do usuário para realizar o merge do PR na branch `dev` (`gh pr merge --squash --auto` ou `gh pr merge <PR> --squash`).
-     - Se os testes falharem: o agente DEVE investigar a causa raiz da falha na esteira, corrigir o código, subir novo commit cirúrgico e aguardar a nova execução do CI até que seja aprovado.
-  7. **Promoção para `main` (Releases):** PRs para `main` são exclusivamente criados a partir de `dev` para publicação de releases.
+  6. **Merge Autônomo e Exclusão Imediata da Branch da Feature:**
+     - **Autorização 100% Automática:** A autorização de merge ocorre automaticamente quando todos os testes da esteira de CI passarem (`SUCCESS`). O agente **NÃO deve esperar autorização manual** do usuário caso os testes sejam aprovados.
+     - **Execução do Merge e Limpeza:** O agente DEVE executar imediatamente o merge via squash e a exclusão da branch da feature remota e local:
+       `gh pr merge <PR> --squash --delete-branch`
+       `git checkout dev && git pull origin dev && git branch -D <categoria>/<nome-da-task>`
+     - **Tratamento de Falhas:** Se os testes falharem, o agente DEVE investigar a causa raiz (`gh run view <run-id> --log-failed`), corrigir o código cirurgicamente, subir novo commit e aguardar aprovação da esteira.
+  7. **Promoção para `main` (Releases):** PRs para `main` nascem exclusivamente a partir de `dev` para publicação de releases.
 - **Pré-requisito Mandatório da CLI `gh` (Instalação e Login):**
   - O agente deve verificar se o GitHub CLI está instalado (`which gh`) e autenticado (`gh auth status`).
 - **Resolução Autônoma de Falhas de CI via Logs:**
