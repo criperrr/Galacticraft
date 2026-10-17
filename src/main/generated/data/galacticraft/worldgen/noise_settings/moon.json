@@ -159,23 +159,8 @@
                           "type": "minecraft:condition",
                           "if_true": {
                             "type": "minecraft:noise_threshold",
-                            "max_threshold": 0.05,
-                            "min_threshold": 0.035,
-                            "noise": "galacticraft:moon/erosion"
-                          },
-                          "then_run": {
-                            "type": "minecraft:block",
-                            "result_state": {
-                              "Name": "galacticraft:moon_turf"
-                            }
-                          }
-                        },
-                        {
-                          "type": "minecraft:condition",
-                          "if_true": {
-                            "type": "minecraft:noise_threshold",
                             "max_threshold": 0.068,
-                            "min_threshold": 0.05,
+                            "min_threshold": 0.035,
                             "noise": "galacticraft:moon/erosion"
                           },
                           "then_run": {
