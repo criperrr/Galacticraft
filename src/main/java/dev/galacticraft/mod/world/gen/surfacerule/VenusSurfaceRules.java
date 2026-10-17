@@ -33,17 +33,37 @@ import org.jetbrains.annotations.NotNull;
 
 public class VenusSurfaceRules {
     private static final SurfaceRules.RuleSource BEDROCK = block(Blocks.BEDROCK);
+    public static final SurfaceRules.RuleSource SOFT_ROCK = block(GCBlocks.SOFT_VENUS_ROCK);
     public static final SurfaceRules.RuleSource HARD_ROCK = block(GCBlocks.HARD_VENUS_ROCK);
+    public static final SurfaceRules.RuleSource SCORCHED_ROCK = block(GCBlocks.SCORCHED_VENUS_ROCK);
+    public static final SurfaceRules.RuleSource VOLCANIC_ROCK = block(GCBlocks.VOLCANIC_ROCK);
+
+    private static final SurfaceRules.RuleSource SURFACE_GENERATION = SurfaceRules.sequence(
+            SurfaceRules.ifTrue(
+                    SurfaceRules.isBiome(GCBiomes.Venus.VENUS_VALLEY),
+                    SurfaceRules.sequence(
+                            SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, SCORCHED_ROCK),
+                            SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, VOLCANIC_ROCK)
+                    )
+            ),
+            SurfaceRules.ifTrue(
+                    SurfaceRules.isBiome(GCBiomes.Venus.VENUS_MOUNTAIN),
+                    SurfaceRules.sequence(
+                            SurfaceRules.ifTrue(SurfaceRules.steep(), VOLCANIC_ROCK),
+                            SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, HARD_ROCK),
+                            SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, HARD_ROCK)
+                    )
+            ),
+            SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, SOFT_ROCK),
+            SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, HARD_ROCK)
+    );
 
     public static final SurfaceRules.RuleSource VENUS = createDefaultRule();
 
     public static @NotNull SurfaceRules.RuleSource createDefaultRule() {
         return SurfaceRules.sequence(
-                SurfaceRules.ifTrue(
-                        SurfaceRules.isBiome(GCBiomes.Venus.VENUS_MOUNTAIN, GCBiomes.Venus.VENUS_FLAT),
-                        HARD_ROCK
-                ),
-                SurfaceRules.ifTrue(SurfaceRules.verticalGradient("bedrock_floor", VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(5)), BEDROCK)
+                SurfaceRules.ifTrue(SurfaceRules.verticalGradient("bedrock_floor", VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(5)), BEDROCK),
+                SurfaceRules.ifTrue(SurfaceRules.abovePreliminarySurface(), SURFACE_GENERATION)
         );
     }
 

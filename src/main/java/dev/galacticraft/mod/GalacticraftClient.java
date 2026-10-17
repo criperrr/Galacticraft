@@ -119,6 +119,7 @@ public class GalacticraftClient implements ClientModInitializer {
         MenuScreens.register(GCMenuTypes.BASIC_SOLAR_PANEL, BasicSolarPanelScreen::new);
         MenuScreens.register(GCMenuTypes.ADVANCED_SOLAR_PANEL, AdvancedSolarPanelScreen::new);
         MenuScreens.register(GCMenuTypes.COAL_GENERATOR, CoalGeneratorScreen::new);
+        MenuScreens.register(GCMenuTypes.GEOTHERMAL_GENERATOR, GeothermalGeneratorScreen::new);
         MenuScreens.register(GCMenuTypes.CIRCUIT_FABRICATOR, CircuitFabricatorScreen::new);
         MenuScreens.register(GCMenuTypes.REFINERY, RefineryScreen::new);
         MenuScreens.register(GCMenuTypes.ELECTRIC_FURNACE, ElectricFurnaceScreen::new);

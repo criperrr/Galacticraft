@@ -77,6 +77,19 @@ public class GCMachineRecipes extends FabricRecipeProvider {
                 .emiDefaultRecipe(true)
                 .save(output);
 
+        GCShapedRecipeBuilder.crafting(RecipeCategory.DECORATIONS, GCBlocks.GEOTHERMAL_GENERATOR)
+                .define('B', GCItems.COMPRESSED_BRONZE)
+                .define('V', GCItems.ATMOSPHERIC_VALVE)
+                .define('W', GCBlocks.ALUMINUM_WIRE)
+                .define('S', GCBlocks.BASIC_SOLAR_PANEL)
+                .define('F', GCItems.ISOTHERMAL_FABRIC)
+                .pattern("BVB")
+                .pattern("WSW")
+                .pattern("BFB")
+                .unlockedBy(getHasName(GCItems.ISOTHERMAL_FABRIC), has(GCItems.ISOTHERMAL_FABRIC))
+                .emiDefaultRecipe(true)
+                .save(output);
+
         GCShapedRecipeBuilder.crafting(RecipeCategory.DECORATIONS, GCBlocks.CIRCUIT_FABRICATOR)
                 .define('A', GCItemTags.ALUMINUM_INGOTS)
                 .define('L', Items.LEVER)

@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "galacticraft:compressed_bronze"
+    },
+    "F": {
+      "item": "galacticraft:isothermal_fabric"
+    },
+    "S": {
+      "item": "galacticraft:basic_solar_panel"
+    },
+    "V": {
+      "item": "galacticraft:atmospheric_valve"
+    },
+    "W": {
+      "item": "galacticraft:aluminum_wire"
+    }
+  },
+  "pattern": [
+    "BVB",
+    "WSW",
+    "BFB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:geothermal_generator"
+  }
+}

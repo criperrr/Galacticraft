@@ -19,7 +19,22 @@
     "water_color": 4159204,
     "water_fog_color": 329011
   },
-  "features": [],
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "galacticraft:ore_copper_venus",
+      "galacticraft:ore_copper_large_venus",
+      "galacticraft:ore_tin_venus",
+      "galacticraft:ore_aluminum_venus",
+      "galacticraft:ore_galena_venus",
+      "galacticraft:ore_solar_venus"
+    ]
+  ],
   "has_precipitation": true,
   "spawn_costs": {},
   "spawners": {

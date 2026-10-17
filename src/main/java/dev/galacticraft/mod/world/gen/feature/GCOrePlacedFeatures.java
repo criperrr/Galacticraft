@@ -79,6 +79,14 @@ public class GCOrePlacedFeatures {
     public static final ResourceKey<PlacedFeature> ORE_DESH_SMALL_MARS = key("ore_desh_small_mars");
     public static final ResourceKey<PlacedFeature> ORE_ICE_MARS = key("ore_ice_mars");
 
+    // VENUS
+    public static final ResourceKey<PlacedFeature> ORE_COPPER_VENUS = key("ore_copper_venus");
+    public static final ResourceKey<PlacedFeature> ORE_COPPER_LARGE_VENUS = key("ore_copper_large_venus");
+    public static final ResourceKey<PlacedFeature> ORE_TIN_VENUS = key("ore_tin_venus");
+    public static final ResourceKey<PlacedFeature> ORE_ALUMINUM_VENUS = key("ore_aluminum_venus");
+    public static final ResourceKey<PlacedFeature> ORE_GALENA_VENUS = key("ore_galena_venus");
+    public static final ResourceKey<PlacedFeature> ORE_SOLAR_VENUS = key("ore_solar_venus");
+
     public static void register() {
         BiomeModifications.create(Constant.id("ores")).add(ModificationPhase.ADDITIONS, BiomeSelectors.foundInOverworld(), context -> {
             context.getGenerationSettings().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ORE_SILICON);
@@ -125,6 +133,14 @@ public class GCOrePlacedFeatures {
         context.register(ORE_DESH_MIDDLE_MARS, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_DESH_MARS), modifiersWithCount(12, HeightRangePlacement.triangle(VerticalAnchor.absolute(-16), VerticalAnchor.absolute(64)))));
         context.register(ORE_DESH_SMALL_MARS, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_DESH_SMALL_MARS), modifiersWithCount(8, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(48)))));
         context.register(ORE_ICE_MARS, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_ICE_MARS), modifiersWithCount(4, HeightRangePlacement.uniform(VerticalAnchor.absolute(60), VerticalAnchor.absolute(120)))));
+
+        // VENUS (aligned with GC4 BiomeDecoratorVenus frequencies & height ranges)
+        context.register(ORE_COPPER_VENUS, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_COPPER_VENUS), modifiersWithCount(18, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.absolute(60)))));
+        context.register(ORE_COPPER_LARGE_VENUS, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_COPPER_LARGE_VENUS), modifiersWithCount(6, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.absolute(60)))));
+        context.register(ORE_TIN_VENUS, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_TIN_VENUS), modifiersWithCount(22, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.absolute(60)))));
+        context.register(ORE_ALUMINUM_VENUS, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_ALUMINUM_VENUS), modifiersWithCount(18, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.absolute(60)))));
+        context.register(ORE_GALENA_VENUS, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_GALENA_VENUS), modifiersWithCount(18, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.absolute(60)))));
+        context.register(ORE_SOLAR_VENUS, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_SOLAR_VENUS), modifiersWithCount(6, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.absolute(50)))));
     }
 
     @Contract(pure = true)

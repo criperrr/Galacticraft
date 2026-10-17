@@ -263,6 +263,16 @@ public class GCMiscRecipeProvider extends FabricRecipeProvider {
                 .emiDefaultRecipe(true)
                 .save(output);
 
+        GCShapedRecipeBuilder.crafting(RecipeCategory.MISC, GCItems.ATOMIC_BATTERY)
+                .define('L', GCItems.LEAD_INGOT)
+                .define('C', GCItems.RADIOISOTOPE_CORE)
+                .pattern("LLL")
+                .pattern("LCL")
+                .pattern("LLL")
+                .unlockedBy(getHasName(GCItems.RADIOISOTOPE_CORE), has(GCItems.RADIOISOTOPE_CORE))
+                .emiDefaultRecipe(true)
+                .save(output);
+
         GCShapedRecipeBuilder.crafting(RecipeCategory.MISC, GCItems.AMBIENT_THERMAL_CONTROLLER)
                 .define('B', GCItems.COMPRESSED_BRONZE)
                 .define('S', GCItems.COMPRESSED_STEEL)

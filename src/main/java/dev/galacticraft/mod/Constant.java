@@ -534,6 +534,8 @@ public interface Constant {
         String TITANTIUM_UPGRADE_SMITHING_TEMPLATE = "titanium_upgrade_smithing_template";
         String BATTERY = "battery";
         String INFINITE_BATTERY = "infinite_battery";
+        String ATOMIC_BATTERY = "atomic_battery";
+        String RADIOISOTOPE_CORE = "radioisotope_core";
         String INFINITE_INDICATOR = "infinite_indicator";
         String FLUID_CANISTER = "fluid_canister";
 
@@ -620,6 +622,7 @@ public interface Constant {
 
     interface ScreenTexture {
         ResourceLocation COAL_GENERATOR_SCREEN = id("textures/gui/coal_generator_screen.png");
+        ResourceLocation GEOTHERMAL_GENERATOR_SCREEN = id("textures/gui/coal_generator_screen.png");
         ResourceLocation SOLAR_PANEL_SCREEN = id("textures/gui/solar_panel_screen.png");
         ResourceLocation REFINERY_SCREEN = id("textures/gui/refinery_screen.png");
         ResourceLocation ENERGY_STORAGE_MODULE_SCREEN = id("textures/gui/energy_storage_module_screen.png");
@@ -1188,6 +1191,7 @@ public interface Constant {
 
     interface Menu {
         String COAL_GENERATOR_MENU = "coal_generator_menu";
+        String GEOTHERMAL_GENERATOR_MENU = "geothermal_generator_menu";
         String BASIC_SOLAR_PANEL_MENU = "basic_solar_panel_menu";
         String ADVANCED_SOLAR_PANEL_MENU = "advanced_solar_panel_menu";
         String CIRCUIT_FABRICATOR_MENU = "circuit_fabricator_menu";

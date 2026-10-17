@@ -176,6 +176,7 @@ public class GCEventHandlers {
             footprintManager.footprintBlockChanges.clear();
         }
         level.galacticraft$getSealerManager().tick();
+        GCVenusAtmosphereHandler.onWorldTick(level);
     }
 
     public static void onServerTick(MinecraftServer server) {

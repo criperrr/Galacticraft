@@ -2,15 +2,18 @@
   "type": "galacticraft:planet",
   "config": {
     "parent": "galacticraft:sol",
-    "access_weight": 1,
+    "access_weight": 3,
     "atmosphere": {
-      "composition": {},
-      "pressure": 3.0E-15,
-      "temperature": 23.0
+      "composition": {
+        "galacticraft:carbon_dioxide": 965000.0,
+        "galacticraft:nitrogen": 35000.0
+      },
+      "pressure": 92.0,
+      "temperature": 462.0
     },
     "celestial_handler": "galacticraft:default",
     "day_length": 720000,
-    "day_temperature": 105,
+    "day_temperature": 462,
     "description": {
       "translate": "planet.galacticraft.venus.description"
     },
@@ -26,11 +29,11 @@
         "width": 16
       }
     },
-    "gravity": 0.91,
+    "gravity": 0.904,
     "name": {
       "translate": "planet.galacticraft.venus"
     },
-    "night_temperature": -180,
+    "night_temperature": 462,
     "position": {
       "type": "galacticraft:orbital",
       "config": {

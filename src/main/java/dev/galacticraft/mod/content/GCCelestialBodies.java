@@ -197,14 +197,16 @@ public class GCCelestialBodies {
                 GCDimensions.VENUS,
                 teleporters.getOrThrow(GCTeleporterTypes.LANDER_CELESTIAL_TELEPORTER),
                 new GasComposition.Builder()
-                        .temperature(23.0)
-                        .pressure(3.0E-15F)
+                        .temperature(462.0)
+                        .pressure(92.0F)
+                        .gas(Gases.CARBON_DIOXIDE_ID, 965000.000)
+                        .gas(Gases.NITROGEN_ID, 35000.000)
                         .build(),
-                0.91F,
+                0.904F,
                 GCCelestialHandlers.DEFAULT,
-                1,
-                105,
-                -180,
+                3,
+                462,
+                462,
                 720000L, // 30 times longer than earth
                 null
         )));

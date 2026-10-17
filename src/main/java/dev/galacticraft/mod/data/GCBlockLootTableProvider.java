@@ -180,6 +180,7 @@ public class GCBlockLootTableProvider extends FabricBlockLootTableProvider {
         this.add(GCBlocks.VOLCANIC_ROCK, this.createSilkTouchOnlyTable(GCBlocks.VOLCANIC_ROCK));
         this.dropSelf(GCBlocks.PUMICE);
         this.add(GCBlocks.VAPOR_SPOUT, this.createSingleItemTableWithSilkTouch(GCBlocks.VAPOR_SPOUT, GCBlocks.SOFT_VENUS_ROCK));
+        this.add(GCBlocks.CRASHED_PROBE, this.createSilkTouchOnlyTable(GCBlocks.CRASHED_PROBE));
 
         this.dropSelf(GCBlocks.WALKWAY);
         this.dropSelf(GCBlocks.FLUID_PIPE_WALKWAY);
@@ -334,6 +335,7 @@ public class GCBlockLootTableProvider extends FabricBlockLootTableProvider {
         this.dropSelf(GCBlocks.COAL_GENERATOR);
         this.dropSelf(GCBlocks.BASIC_SOLAR_PANEL);
         this.dropSelf(GCBlocks.ADVANCED_SOLAR_PANEL);
+        this.dropSelf(GCBlocks.GEOTHERMAL_GENERATOR);
         this.dropSelf(GCBlocks.ENERGY_STORAGE_MODULE);
         this.dropSelf(GCBlocks.ELECTRIC_FURNACE);
         this.dropSelf(GCBlocks.ELECTRIC_ARC_FURNACE);
