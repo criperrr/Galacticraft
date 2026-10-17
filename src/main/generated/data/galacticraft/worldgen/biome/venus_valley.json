@@ -26,7 +26,8 @@
   },
   "features": [
     [
-      "galacticraft:venus_volcano"
+      "galacticraft:venus_volcano",
+      "galacticraft:venus_meteor"
     ],
     [
       "galacticraft:venus_valley_lava_lake"
@@ -36,7 +37,6 @@
     ],
     [],
     [
-      "galacticraft:venus_meteor",
       "galacticraft:venus_crashed_probe"
     ],
     [],
