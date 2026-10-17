@@ -1,22 +1,22 @@
 {
-  "type": "minecraft:clamp",
-  "input": {
-    "type": "minecraft:add",
-    "argument1": -0.5,
-    "argument2": {
+  "type": "minecraft:mul",
+  "argument1": -0.25,
+  "argument2": {
+    "type": "minecraft:clamp",
+    "input": {
       "type": "minecraft:mul",
-      "argument1": 1.5,
+      "argument1": 4.0,
       "argument2": {
-        "type": "minecraft:abs",
-        "argument": {
-          "type": "minecraft:noise",
-          "noise": "minecraft:ridge",
-          "xz_scale": 1.0,
-          "y_scale": 1.0
+        "type": "minecraft:add",
+        "argument1": 0.05,
+        "argument2": {
+          "type": "minecraft:mul",
+          "argument1": -1.0,
+          "argument2": "minecraft:overworld/continents"
         }
       }
-    }
-  },
-  "max": 0.0,
-  "min": -0.5
+    },
+    "max": 1.0,
+    "min": 0.0
+  }
 }

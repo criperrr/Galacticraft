@@ -147,38 +147,65 @@ public class GCDensityFunctions {
         ));
 
         DensityFunction continents = getFunction(vanillaRegistry, NoiseRouterData.CONTINENTS);
-        DensityFunction ridge = DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.RIDGE));
-        DensityFunction calcite = DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.CALCITE));
 
+        // Vertical gradient anchor: monotonically decreases from +1.5 at Y=-32 to -1.5 at Y=224.
+        // Guarantees that density decreases strictly with height: ZERO floating islands, 100% solid ground.
         DensityFunction venusBaseHeight = registerAndWrap(context, Venus.BASE_HEIGHT,
-                DensityFunctions.yClampedGradient(40, 190, 0.4, -0.6)
+                DensityFunctions.yClampedGradient(-32, 224, 1.5, -1.5)
         );
+
+        // 2D gentle surface roll for the vast Basalt Plains (VENUS_FLAT): subtle +/- 3.5 block undulations around Y=70
+        DensityFunction surfaceNoise2d = DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.25, noiseRegistry.getOrThrow(Noises.SURFACE));
         DensityFunction venusSlopes = registerAndWrap(context, Venus.SLOPES,
-                BlendedNoise.createUnseeded(0.25, 0.375, 80.0, 160.0, 8.0)
+                DensityFunctions.mul(DensityFunctions.constant(0.04), surfaceNoise2d)
+        );
+
+        // 2D Mountain Uplift for Shield Volcanoes (VENUS_MOUNTAIN):
+        // Ramps up smoothly when continents > 0.15, lifting the terrain solidly by +70 to +95 blocks (Y=140 to Y=168)
+        DensityFunction mountainFactor = DensityFunctions.mul(
+                DensityFunctions.constant(2.5),
+                DensityFunctions.add(continents, DensityFunctions.constant(-0.15))
+        ).clamp(0.0, 1.0);
+        DensityFunction mountainBase = DensityFunctions.mul(mountainFactor, DensityFunctions.constant(0.85));
+        DensityFunction ridge2d = DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.25, noiseRegistry.getOrThrow(Noises.RIDGE));
+        DensityFunction mountainRidges = DensityFunctions.mul(
+                mountainFactor,
+                DensityFunctions.mul(DensityFunctions.constant(0.25), ridge2d)
         );
         DensityFunction venusMons = registerAndWrap(context, Venus.MONS,
-                DensityFunctions.mul(
-                        DensityFunctions.constant(0.65),
-                        DensityFunctions.max(continents, DensityFunctions.zero())
-                )
-        );
-        DensityFunction venusCanali = registerAndWrap(context, Venus.CANALI,
-                DensityFunctions.add(
-                        DensityFunctions.constant(-0.5),
-                        DensityFunctions.mul(DensityFunctions.constant(1.5), ridge.abs())
-                ).clamp(-0.5, 0.0)
-        );
-        DensityFunction venusTopFalloff = DensityFunctions.yClampedGradient(185, 210, 0.0, -0.8);
-        DensityFunction venusCalderaDip = DensityFunctions.mul(
-                DensityFunctions.yClampedGradient(155, 195, 0.0, -0.2),
-                DensityFunctions.max(calcite, DensityFunctions.zero())
-        );
-        DensityFunction venusCaldera = registerAndWrap(context, Venus.CALDERA,
-                DensityFunctions.add(venusTopFalloff, venusCalderaDip)
+                DensityFunctions.add(mountainBase, mountainRidges)
         );
 
-        context.register(Venus.FINAL_DENSITY, DensityFunctions.add(
-                venusBaseHeight,
+        // 2D Rift Valleys (VENUS_VALLEY / Canali):
+        // Drops the valley floor smoothly down to Y=46-52 when continents < 0.05
+        DensityFunction valleyFactor = DensityFunctions.mul(
+                DensityFunctions.constant(4.0),
+                DensityFunctions.add(
+                        DensityFunctions.constant(0.05),
+                        DensityFunctions.mul(DensityFunctions.constant(-1.0), continents)
+                )
+        ).clamp(0.0, 1.0);
+        DensityFunction venusCanali = registerAndWrap(context, Venus.CANALI,
+                DensityFunctions.mul(valleyFactor, DensityFunctions.constant(-0.25))
+        );
+
+        // Summit Caldera depression: smooth subtle depression at peak tops (above Y=145)
+        DensityFunction calderaFactor = DensityFunctions.mul(
+                mountainFactor,
+                DensityFunctions.yClampedGradient(140, 175, 0.0, 1.0)
+        );
+        DensityFunction calciteNoise = DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.35, noiseRegistry.getOrThrow(Noises.CALCITE));
+        DensityFunction venusCaldera = registerAndWrap(context, Venus.CALDERA,
+                DensityFunctions.mul(
+                        DensityFunctions.constant(-0.15),
+                        DensityFunctions.mul(calderaFactor, DensityFunctions.max(calciteNoise, DensityFunctions.zero()))
+                )
+        );
+
+        // Final density: Baseline offset of -0.305 centers flat plains at Y=70.
+        // All terrain offsets are strictly 2D, ensuring monotonic vertical density falloff and zero floating debris.
+        DensityFunction terrainHeightOffset = DensityFunctions.add(
+                DensityFunctions.constant(-0.305),
                 DensityFunctions.add(
                         venusSlopes,
                         DensityFunctions.add(
@@ -186,6 +213,11 @@ public class GCDensityFunctions {
                                 DensityFunctions.add(venusCanali, venusCaldera)
                         )
                 )
+        );
+
+        context.register(Venus.FINAL_DENSITY, DensityFunctions.add(
+                venusBaseHeight,
+                terrainHeightOffset
         ));
 
         context.register(Asteroid.FINAL_DENSITY, DensityFunctions.add(

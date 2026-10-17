@@ -194,38 +194,7 @@ public class GCNoiseGeneratorSettings {
                 GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.EROSION), // erosion
                 GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.DEPTH), // depth
                 GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.RIDGES), // ridges
-                DensityFunctions.add(
-                        DensityFunctions.constant(0.1171875),
-                        DensityFunctions.mul(
-                                DensityFunctions.yClampedGradient(
-                                        -20, -32, 0, 1
-                                ),
-                                DensityFunctions.add(
-                                        DensityFunctions.constant(-0.1171875),
-                                        DensityFunctions.add(
-                                                DensityFunctions.constant(-0.078125),
-                                                DensityFunctions.mul(
-                                                        DensityFunctions.yClampedGradient(
-                                                                210, 224, 1, 0
-                                                        ),
-                                                        DensityFunctions.add(
-                                                                DensityFunctions.constant(0.078125),
-                                                                DensityFunctions.add(
-                                                                        DensityFunctions.constant(-0.703125),
-                                                                        DensityFunctions.mul(
-                                                                                DensityFunctions.constant(4),
-                                                                                DensityFunctions.mul(
-                                                                                        GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.DEPTH),
-                                                                                        DensityFunctions.cache2d(GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.FACTOR))
-                                                                                ).quarterNegative()
-                                                                        )
-                                                                ).clamp(-30, 64)
-                                                        )
-                                                )
-                                        )
-                                )
-                        )
-                ), // initialDensityWithoutJaggedness
+                GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Venus.FINAL_DENSITY), // initialDensityWithoutJaggedness
                 DensityFunctions.blendDensity(GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Venus.FINAL_DENSITY)), // finalDensity
                 DensityFunctions.zero(), // veinToggle
                 DensityFunctions.zero(), // veinRidged

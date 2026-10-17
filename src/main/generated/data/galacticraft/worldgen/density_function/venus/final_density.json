@@ -3,14 +3,18 @@
   "argument1": "galacticraft:venus/base_height",
   "argument2": {
     "type": "minecraft:add",
-    "argument1": "galacticraft:venus/slopes",
+    "argument1": -0.305,
     "argument2": {
       "type": "minecraft:add",
-      "argument1": "galacticraft:venus/mons",
+      "argument1": "galacticraft:venus/slopes",
       "argument2": {
         "type": "minecraft:add",
-        "argument1": "galacticraft:venus/canali",
-        "argument2": "galacticraft:venus/caldera"
+        "argument1": "galacticraft:venus/mons",
+        "argument2": {
+          "type": "minecraft:add",
+          "argument1": "galacticraft:venus/canali",
+          "argument2": "galacticraft:venus/caldera"
+        }
       }
     }
   }
