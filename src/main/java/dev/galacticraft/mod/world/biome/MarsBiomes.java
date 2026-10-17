@@ -22,14 +22,12 @@
 
 package dev.galacticraft.mod.world.biome;
 
-import dev.galacticraft.mod.content.GCEntityTypes;
 import dev.galacticraft.mod.content.GCSounds;
 import dev.galacticraft.mod.world.gen.carver.GCConfiguredCarvers;
 import dev.galacticraft.mod.world.gen.feature.GCOrePlacedFeatures;
 import dev.galacticraft.mod.world.gen.feature.GCPlacedFeatures;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.sounds.Musics;
-import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
@@ -66,12 +64,7 @@ public class MarsBiomes {
     }
 
     public static void monsters(MobSpawnSettings.Builder builder, int zombieWeight, int skeletonWeight) {
-        builder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(GCEntityTypes.EVOLVED_SPIDER, 100, 2, 3));
-        builder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(GCEntityTypes.EVOLVED_ZOMBIE, zombieWeight, 2, 3));
-        builder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(GCEntityTypes.EVOLVED_SKELETON, skeletonWeight, 2, 3));
-        builder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(GCEntityTypes.EVOLVED_CREEPER, 100, 2, 3));
-        builder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(GCEntityTypes.EVOLVED_ENDERMAN, 10, 1, 4));
-        builder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(GCEntityTypes.EVOLVED_WITCH, 5, 1, 1));
+        // Mars is a hostile, sterile celestial body with no living creature spawns.
     }
 
     public static void addDefaultMarsOres(BiomeGenerationSettings.Builder builder) {
@@ -108,8 +101,7 @@ public class MarsBiomes {
 
         MarsBiomes.addDefaultMarsOres(generation);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, GCPlacedFeatures.MARS_CAVERN_VINES);
-        MarsBiomes.monsters(spawnBuilder, 95, 100);
-        spawnBuilder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(GCEntityTypes.SLIMELING, 12, 1, 2));
+        MarsBiomes.monsters(spawnBuilder, 0, 0);
 
         return new Biome.BiomeBuilder()
                 .mobSpawnSettings(spawnBuilder.build())

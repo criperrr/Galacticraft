@@ -44,11 +44,9 @@ import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConf
  */
 public class MoonSurfaceOutcropFeature extends Feature<NoneFeatureConfiguration> {
 
+    // On the Moon surface, only Moon Cheese Ore is exposed naturally
     private static final BlockState[] MOON_SURFACE_ORES = new BlockState[]{
-            GCBlocks.MOON_COPPER_ORE.defaultBlockState(),
-            GCBlocks.MOON_TIN_ORE.defaultBlockState(),
-            GCBlocks.MOON_CHEESE_ORE.defaultBlockState(),
-            GCBlocks.LUNAR_SAPPHIRE_ORE.defaultBlockState()
+            GCBlocks.MOON_CHEESE_ORE.defaultBlockState()
     };
 
     public MoonSurfaceOutcropFeature(Codec<NoneFeatureConfiguration> codec) {

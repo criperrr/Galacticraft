@@ -141,15 +141,8 @@ public class GCConfiguredFeature {
                         GCBlocks.MOON_SURFACE_ROCK.defaultBlockState(),
                         GCBlocks.COBBLED_MOON_ROCK.defaultBlockState()
                 )
-                .addEjectaOre(GCBlocks.RAW_METEORIC_IRON_BLOCK.defaultBlockState())
-                .addEjectaOre(GCBlocks.LUNAR_SAPPHIRE_ORE.defaultBlockState())
                 .addEjectaOre(GCBlocks.MOON_CHEESE_ORE.defaultBlockState())
-                .addEjectaOre(GCBlocks.MOON_COPPER_ORE.defaultBlockState())
-                .addEjectaOre(GCBlocks.MOON_TIN_ORE.defaultBlockState())
-                .addEjectaOre(GCBlocks.RICH_OLIVINE_BASALT.defaultBlockState())
-                .addEjectaOre(GCBlocks.ILMENITE_ORE.defaultBlockState())
-                .addEjectaOre(Blocks.RAW_IRON_BLOCK.defaultBlockState())
-                .oreChance(5)
+                .oreChance(8)
                 .build()
         );
 

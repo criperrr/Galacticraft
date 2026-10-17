@@ -160,10 +160,7 @@ public class CraterCarver extends WorldCarver<CraterCarverConfig> {
     }
 
     private static BlockState pickFreshMoonCraterFloor(Holder<Biome> biome, RandomSource random, double normalizedDistSq) {
-        // GalaxySpace ChunkProviderCallisto.getCraterAdditions: impact craters expose sub-surface rock, ice, or rare minerals near the center
-        if (normalizedDistSq < 0.22 && random.nextInt(40) == 0) {
-            return GCBlocks.LUNAR_SAPPHIRE_ORE.defaultBlockState();
-        }
+        // GalaxySpace ChunkProviderCallisto.getCraterAdditions: impact craters expose sub-surface rock, ice, or basalt near the center
         if (biome.is(GCBiomes.Moon.COMET_TUNDRA)) {
             if (normalizedDistSq < 0.45 && random.nextInt(3) != 0) {
                 return GCBlocks.DENSE_ICE.defaultBlockState();
