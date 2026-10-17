@@ -25,7 +25,6 @@ package dev.galacticraft.mod.world.gen.carver;
 import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.tag.GCBlockTags;
 import dev.galacticraft.mod.world.gen.carver.config.CraterCarverConfig;
-import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -88,7 +87,7 @@ public class GCConfiguredCarvers {
                 UniformHeight.of(VerticalAnchor.aboveBottom(8), VerticalAnchor.absolute(180)),
                 UniformFloat.of(0.1f, 0.9f),
                 VerticalAnchor.aboveBottom(-64),
-                HolderSet.direct(),
+                BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.MOON_CARVER_REPLACEABLES),
                 UniformFloat.of(0.7f, 1.4f),
                 UniformFloat.of(0.8f, 1.3f),
                 UniformFloat.of(-1.0f, -0.4f)
@@ -98,7 +97,7 @@ public class GCConfiguredCarvers {
                 UniformHeight.of(VerticalAnchor.aboveBottom(8), VerticalAnchor.absolute(180)),
                 UniformFloat.of(0.1f, 0.9f),
                 VerticalAnchor.aboveBottom(-64),
-                HolderSet.direct(),
+                BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.MOON_CARVER_REPLACEABLES),
                 UniformFloat.of(0.7f, 1.4f),
                 UniformFloat.of(0.8f, 1.3f),
                 UniformFloat.of(-1.0f, -0.4f)

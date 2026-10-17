@@ -109,39 +109,55 @@ public class GCMultiNoiseBiomeSourceParameterLists {
     @Contract("_ -> new")
     private static <T> Climate.@NotNull ParameterList<T> generateMoon(Function<ResourceKey<Biome>, T> biomeRegistry) {
         ImmutableList.Builder<Pair<Climate.ParameterPoint, T>> builder = ImmutableList.builder();
+        // Aligns all 5 Moon biomes with GCDensityFunctions.Moon elevation splines:
+        // 1. Maria Basins [-1.0, -0.35]:
+        //    - BASALTIC_MARE: vast dark basaltic maria plains (temperature [-0.35, 1.0])
+        //    - OLIVINE_SPIKES: mantle-uplift olivine basalt & crystalline spike basins (temperature [-1.0, -0.35])
+        // 2. Lunar Regolith Plains [-0.35, 0.25]:
+        //    - LUNAR_LOWLANDS: classic GC4 ChunkProviderMoon rolling regolith plains (temperature [-0.45, 1.0])
+        //    - COMET_TUNDRA: shadowed cometary ice & regolith plains (temperature [-1.0, -0.45])
+        // 3. Lunar Highlands [0.25, 1.0]:
+        //    - LUNAR_HIGHLANDS: elevated cratered highlands & lunar mountain ranges
         writeBiomeParameters(builder::add,
-                HOT,
-                DRY,
-                Parameter.span(SHORE_CONTINENTALNESS, MID_INLAND_CONTINENTALNESS),
-                MIN_EROSION,
-                WEIRDNESS_H_MIXED,
-                0.0F,
-                biomeRegistry.apply(GCBiomes.Moon.LUNAR_HIGHLANDS));
-        writeBiomeParameters(builder::add,
-                HOT,
-                DRY,
-                Parameter.span(SHORE_CONTINENTALNESS, MID_INLAND_CONTINENTALNESS),
-                MIN_EROSION,
-                WEIRDNESS_L_MIXED,
+                Parameter.span(-0.35F, 1.0F),
+                FULL_RANGE,
+                Parameter.span(-1.0F, -0.35F),
+                FULL_RANGE,
+                FULL_RANGE,
                 0.0F,
                 biomeRegistry.apply(GCBiomes.Moon.BASALTIC_MARE));
         writeBiomeParameters(builder::add,
-                HOT,
-                DRY,
-                Parameter.span(SHORE_CONTINENTALNESS, MID_INLAND_CONTINENTALNESS),
-                MIN_EROSION,
-                WEIRDNESS_L_MIXED,
+                Parameter.span(-1.0F, -0.35F),
+                FULL_RANGE,
+                Parameter.span(-1.0F, -0.35F),
+                FULL_RANGE,
+                FULL_RANGE,
+                0.0F,
+                biomeRegistry.apply(GCBiomes.Moon.OLIVINE_SPIKES));
+        writeBiomeParameters(builder::add,
+                Parameter.span(-0.45F, 1.0F),
+                FULL_RANGE,
+                Parameter.span(-0.35F, 0.25F),
+                FULL_RANGE,
+                FULL_RANGE,
+                0.0F,
+                biomeRegistry.apply(GCBiomes.Moon.LUNAR_LOWLANDS));
+        writeBiomeParameters(builder::add,
+                Parameter.span(-1.0F, -0.45F),
+                FULL_RANGE,
+                Parameter.span(-0.35F, 0.25F),
+                FULL_RANGE,
+                FULL_RANGE,
                 0.0F,
                 biomeRegistry.apply(GCBiomes.Moon.COMET_TUNDRA));
         writeBiomeParameters(builder::add,
                 FULL_RANGE,
                 FULL_RANGE,
-                Climate.Parameter.span(-1.2F, -1.05F),
+                Parameter.span(0.25F, 1.0F),
                 FULL_RANGE,
                 FULL_RANGE,
                 0.0F,
-                biomeRegistry.apply(GCBiomes.Moon.OLIVINE_SPIKES)
-        );
+                biomeRegistry.apply(GCBiomes.Moon.LUNAR_HIGHLANDS));
 
         return new Climate.ParameterList<>(builder.build());
     }

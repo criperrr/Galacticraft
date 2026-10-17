@@ -29,7 +29,6 @@ import net.minecraft.core.Vec3i;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.level.levelgen.structure.BuiltinStructureSets;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureSet;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadStructurePlacement;
@@ -43,6 +42,7 @@ public class GCStructureSets {
         public static final ResourceKey<StructureSet> PILLAGER_BASE = ResourceKey.create(Registries.STRUCTURE_SET, Constant.id("moon_pillager_bases"));
         public static final ResourceKey<StructureSet> RUINS = ResourceKey.create(Registries.STRUCTURE_SET, Constant.id("moon_ruins"));
         public static final ResourceKey<StructureSet> BOSS = ResourceKey.create(Registries.STRUCTURE_SET, Constant.id("moon_boss"));
+        public static final ResourceKey<StructureSet> VILLAGE = ResourceKey.create(Registries.STRUCTURE_SET, Constant.id("moon_villages"));
     }
 
     public static void bootstrapRegistries(BootstrapContext<StructureSet> context) {
@@ -57,12 +57,16 @@ public class GCStructureSets {
                 structureLookup.getOrThrow(GCStructures.Moon.RUINS),
                 new RandomSpreadStructurePlacement(32, 8, RandomSpreadType.LINEAR, 38245864)
         ));
+        context.register(Moon.VILLAGE, new StructureSet(
+                structureLookup.getOrThrow(GCStructures.Moon.VILLAGE),
+                new RandomSpreadStructurePlacement(34, 12, RandomSpreadType.LINEAR, 10387313)
+        ));
         context.register(Moon.PILLAGER_BASE, new StructureSet(structureLookup.getOrThrow(GCStructures.Moon.PILLAGER_BASE), new RandomSpreadStructurePlacement(
                 Vec3i.ZERO,
                 StructurePlacement.FrequencyReductionMethod.LEGACY_TYPE_1,
                 0.1F,
                 5927643,
-                Optional.of(new StructurePlacement.ExclusionZone(structureSetLookup.getOrThrow(BuiltinStructureSets.VILLAGES), 10)),
+                Optional.of(new StructurePlacement.ExclusionZone(structureSetLookup.getOrThrow(Moon.VILLAGE), 10)),
                 32,
                 8,
                 RandomSpreadType.LINEAR

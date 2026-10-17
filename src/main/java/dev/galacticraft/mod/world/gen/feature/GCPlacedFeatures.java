@@ -53,6 +53,11 @@ public class GCPlacedFeatures {
     public static final ResourceKey<PlacedFeature> VENUS_METEOR = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("venus_meteor"));
     public static final ResourceKey<PlacedFeature> VENUS_SURFACE_OUTCROP = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("venus_surface_outcrop"));
     public static final ResourceKey<PlacedFeature> VENUS_CRASHED_PROBE = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("venus_crashed_probe"));
+    public static final ResourceKey<PlacedFeature> MOON_METEOR = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("moon_meteor"));
+    public static final ResourceKey<PlacedFeature> MOON_SURFACE_OUTCROP = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("moon_surface_outcrop"));
+    public static final ResourceKey<PlacedFeature> MOON_OLIVINE_SPIKE_SURFACE = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("moon_olivine_spike_surface"));
+    public static final ResourceKey<PlacedFeature> MOON_OLIVINE_SPIKE_CAVE = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("moon_olivine_spike_cave"));
+    public static final ResourceKey<PlacedFeature> MOON_CAVE_FLORA = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("moon_cave_flora"));
 
     public static void bootstrapRegistries(BootstrapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatureLookup = context.lookup(Registries.CONFIGURED_FEATURE);
@@ -114,6 +119,37 @@ public class GCPlacedFeatures {
                 RarityFilter.onAverageOnceEvery(190),
                 InSquarePlacement.spread(),
                 PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                BiomeFilter.biome()
+        )));
+
+        // Multi-chunk cellular planetary meteor impact crater placement on the Moon
+        registerPlanetMeteorPlacement(context, configuredFeatureLookup, MOON_METEOR, GCConfiguredFeature.MOON_METEOR);
+        // Lunar regolith/basalt rock patches and erratic ore-bearing boulders
+        context.register(MOON_SURFACE_OUTCROP, new PlacedFeature(configuredFeatureLookup.getOrThrow(GCConfiguredFeature.MOON_SURFACE_OUTCROP), List.of(
+                RarityFilter.onAverageOnceEvery(5),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                BiomeFilter.biome()
+        )));
+        // Volcanic olivine-basalt and olivine crystal spires in the Olivine Spikes biome
+        context.register(MOON_OLIVINE_SPIKE_SURFACE, new PlacedFeature(configuredFeatureLookup.getOrThrow(GCConfiguredFeature.MOON_OLIVINE_SPIKE), List.of(
+                RarityFilter.onAverageOnceEvery(2),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                BiomeFilter.biome()
+        )));
+        // Subterranean olivine crystal outcrops in deep lunar caves
+        context.register(MOON_OLIVINE_SPIKE_CAVE, new PlacedFeature(configuredFeatureLookup.getOrThrow(GCConfiguredFeature.MOON_OLIVINE_SPIKE), List.of(
+                CountPlacement.of(3),
+                InSquarePlacement.spread(),
+                HeightRangePlacement.uniform(VerticalAnchor.absolute(-48), VerticalAnchor.absolute(42)),
+                BiomeFilter.biome()
+        )));
+        // Subterranean bioluminescent lunar cave flora (Moon Moss, Moon Tangle, Moon Weed, Moon Shrubs, Cheese Spores)
+        context.register(MOON_CAVE_FLORA, new PlacedFeature(configuredFeatureLookup.getOrThrow(GCConfiguredFeature.MOON_CAVE_FLORA), List.of(
+                CountPlacement.of(5),
+                InSquarePlacement.spread(),
+                HeightRangePlacement.uniform(VerticalAnchor.absolute(-32), VerticalAnchor.absolute(52)),
                 BiomeFilter.biome()
         )));
     }

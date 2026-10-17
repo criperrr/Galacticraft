@@ -47,6 +47,10 @@ public class GCConfiguredFeature {
     public static final ResourceKey<ConfiguredFeature<?, ?>> VENUS_METEOR = ResourceKey.create(Registries.CONFIGURED_FEATURE, Constant.id("venus_meteor"));
     public static final ResourceKey<ConfiguredFeature<?, ?>> VENUS_SURFACE_OUTCROP = ResourceKey.create(Registries.CONFIGURED_FEATURE, Constant.id("venus_surface_outcrop"));
     public static final ResourceKey<ConfiguredFeature<?, ?>> VENUS_CRASHED_PROBE = ResourceKey.create(Registries.CONFIGURED_FEATURE, Constant.id("venus_crashed_probe"));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> MOON_METEOR = ResourceKey.create(Registries.CONFIGURED_FEATURE, Constant.id("moon_meteor"));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> MOON_SURFACE_OUTCROP = ResourceKey.create(Registries.CONFIGURED_FEATURE, Constant.id("moon_surface_outcrop"));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> MOON_OLIVINE_SPIKE = ResourceKey.create(Registries.CONFIGURED_FEATURE, Constant.id("moon_olivine_spike"));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> MOON_CAVE_FLORA = ResourceKey.create(Registries.CONFIGURED_FEATURE, Constant.id("moon_cave_flora"));
 
     public static void bootstrapRegistries(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         context.register(OIL_LAKE, new ConfiguredFeature<>(Feature.LAKE,
@@ -121,6 +125,37 @@ public class GCConfiguredFeature {
 
         context.register(VENUS_SURFACE_OUTCROP, new ConfiguredFeature<>(GCFeatures.VENUS_SURFACE_OUTCROP, FeatureConfiguration.NONE));
         context.register(VENUS_CRASHED_PROBE, new ConfiguredFeature<>(GCFeatures.VENUS_CRASHED_PROBE, FeatureConfiguration.NONE));
+
+        // Multi-chunk planetary meteor impact crater & meteoric iron/sapphire/olivine ejecta deposit for the Moon:
+        // Airless Moon preserves large impact bowls (radius 14..24 -> diameter 28..48 blocks) with cooled FALLEN_METEOR (HEAT=1)
+        registerPlanetMeteor(context, MOON_METEOR, PlanetaryMeteorConfig.builder()
+                .cellularGrid(560.0, 0.75)
+                .spawnProbability(0.24F)
+                .craterRadiusRange(14, 24)
+                .meteorRadiusRange(2, 4)
+                .meteorBlocks(
+                        GCBlocks.FALLEN_METEOR.defaultBlockState().setValue(FallenMeteorBlock.HEAT, 1),
+                        GCBlocks.RAW_METEORIC_IRON_BLOCK.defaultBlockState()
+                )
+                .craterBlocks(
+                        GCBlocks.MOON_SURFACE_ROCK.defaultBlockState(),
+                        GCBlocks.COBBLED_MOON_ROCK.defaultBlockState()
+                )
+                .addEjectaOre(GCBlocks.RAW_METEORIC_IRON_BLOCK.defaultBlockState())
+                .addEjectaOre(GCBlocks.LUNAR_SAPPHIRE_ORE.defaultBlockState())
+                .addEjectaOre(GCBlocks.MOON_CHEESE_ORE.defaultBlockState())
+                .addEjectaOre(GCBlocks.MOON_COPPER_ORE.defaultBlockState())
+                .addEjectaOre(GCBlocks.MOON_TIN_ORE.defaultBlockState())
+                .addEjectaOre(GCBlocks.RICH_OLIVINE_BASALT.defaultBlockState())
+                .addEjectaOre(GCBlocks.ILMENITE_ORE.defaultBlockState())
+                .addEjectaOre(Blocks.RAW_IRON_BLOCK.defaultBlockState())
+                .oreChance(5)
+                .build()
+        );
+
+        context.register(MOON_SURFACE_OUTCROP, new ConfiguredFeature<>(GCFeatures.MOON_SURFACE_OUTCROP, FeatureConfiguration.NONE));
+        context.register(MOON_OLIVINE_SPIKE, new ConfiguredFeature<>(GCFeatures.MOON_OLIVINE_SPIKE, FeatureConfiguration.NONE));
+        context.register(MOON_CAVE_FLORA, new ConfiguredFeature<>(GCFeatures.MOON_CAVE_FLORA, FeatureConfiguration.NONE));
     }
 
     /**

@@ -32,6 +32,9 @@ public class GCNoiseData {
     public static final ResourceKey<NormalNoise.NoiseParameters> EROSION = createKey("moon/erosion");
     public static final ResourceKey<NormalNoise.NoiseParameters> BASALT_MARE = createKey("moon/basalt_mare");
     public static final ResourceKey<NormalNoise.NoiseParameters> BASALT_MARE_HEIGHT = createKey("moon/basalt_mare_height");
+    public static final ResourceKey<NormalNoise.NoiseParameters> MOON_LOWLAND_NOISE = createKey("moon/lowland_noise");
+    public static final ResourceKey<NormalNoise.NoiseParameters> MOON_HIGHLAND_NOISE = createKey("moon/highland_noise");
+    public static final ResourceKey<NormalNoise.NoiseParameters> MOON_BLEND_NOISE = createKey("moon/blend_noise");
     public static final ResourceKey<NormalNoise.NoiseParameters> MARS_BASE_NOISE = createKey("mars/base_noise");
     public static final ResourceKey<NormalNoise.NoiseParameters> MARS_HILL_NOISE = createKey("mars/hill_noise");
     public static final ResourceKey<NormalNoise.NoiseParameters> MARS_VALLEY_NOISE = createKey("mars/valley_noise");
@@ -44,9 +47,15 @@ public class GCNoiseData {
     }
 
     public static void bootstrapRegistries(BootstrapContext<NormalNoise.NoiseParameters> context) {
-//        register(context, EROSION, -11, 1, 1, 0, 1, 1);
-//        register(context, BASALT_MARE, 5, 0, 0.1, 0.2, 0.1, 0, 0, 0, 0);
-//        register(context, BASALT_MARE_HEIGHT, -12, 0.3);
+        register(context, EROSION, -11, 1.0, 1.0, 0.0, 1.0, 1.0);
+        register(context, BASALT_MARE, -7, 1.0, 0.5, 0.25);
+        register(context, BASALT_MARE_HEIGHT, -9, 1.0, 0.5);
+        // GC4 ChunkProviderMoon noiseGen1: 4 octaves, persistence 0.25, base frequency 0.0125 (amplitude 8 blocks in maria/lowlands)
+        register(context, MOON_LOWLAND_NOISE, -6, 1.0, 0.25, 0.0625, 0.015625);
+        // GC4 ChunkProviderMoon noiseGen2: 4 octaves, persistence 0.25, base frequency 0.015 (amplitude 24 blocks in lunar highlands)
+        register(context, MOON_HIGHLAND_NOISE, -6, 1.0, 0.35, 0.1225, 0.042875);
+        // GC4 ChunkProviderMoon noiseGen3 & noiseGen4: smooth regional blending & regolith depth noise
+        register(context, MOON_BLEND_NOISE, -7, 1.0, 0.25);
         // GC4 ChunkProviderSpace noiseGen1 & noiseGen3: 4 octaves, persistence 0.25, base frequency 0.015 / 0.01
         register(context, MARS_BASE_NOISE, -6, 1.0, 0.25, 0.0625, 0.015625);
         // GC4 ChunkProviderSpace noiseGen2 (SMALL_FEATURE_HEIGHT_MOD = 26): 4 octaves, persistence 0.25, base frequency 0.003
