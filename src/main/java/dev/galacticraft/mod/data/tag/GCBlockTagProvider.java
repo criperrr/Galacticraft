@@ -119,6 +119,8 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(GCBlocks.MOON_BASALT_BRICK);
         this.tag(GCBlockTags.INFINIBURN_MARS)
                 .add(GCBlocks.MARS_COBBLESTONE);
+        this.tag(GCBlockTags.INFINIBURN_ASTEROID)
+                .add(GCBlocks.ASTEROID_ROCK);
         this.tag(GCBlockTags.BASE_STONE_MOON)
                 .add(GCBlocks.MOON_ROCK);
         this.tag(GCBlockTags.BASE_STONE_MARS)
@@ -615,6 +617,7 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                         GCBlocks.TIN_LADDER,
                         GCBlocks.FUELING_PAD,
                         GCBlocks.ROCKET_LAUNCH_PAD,
+                        GCBlocks.SHORT_RANGE_TELEPAD,
                         GCBlocks.GLOWSTONE_LANTERN,
                         GCBlocks.UNLIT_LANTERN,
                         GCBlocks.UNLIT_SOUL_LANTERN,

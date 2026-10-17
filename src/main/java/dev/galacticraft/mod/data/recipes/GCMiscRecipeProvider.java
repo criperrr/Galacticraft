@@ -355,6 +355,18 @@ public class GCMiscRecipeProvider extends FabricRecipeProvider {
                 .emiDefaultRecipe(true)
                 .save(output);
 
+        GCShapedRecipeBuilder.crafting(RecipeCategory.TRANSPORTATION, GCBlocks.SHORT_RANGE_TELEPAD)
+                .define('W', GCItems.BEAM_CORE)
+                .define('X', GCItems.COMPRESSED_TITANIUM)
+                .define('Y', ConventionalItemTags.REDSTONE_DUSTS)
+                .define('Z', ConventionalItemTags.ENDER_PEARLS)
+                .pattern("XWX")
+                .pattern("ZYZ")
+                .pattern("XXX")
+                .unlockedBy(getHasName(GCItems.COMPRESSED_TITANIUM), has(GCItems.COMPRESSED_TITANIUM))
+                .emiDefaultRecipe(true)
+                .save(output);
+
         GCShapedRecipeBuilder.crafting(RecipeCategory.MISC, GCItems.OXYGEN_FAN)
                 .define('S', GCItems.COMPRESSED_STEEL)
                 .define('W', GCItems.BASIC_WAFER)

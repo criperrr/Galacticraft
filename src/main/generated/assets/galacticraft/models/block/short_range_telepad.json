@@ -1,0 +1,9 @@
+{
+  "parent": "galacticraft:block/template_telepad",
+  "textures": {
+    "bottom": "galacticraft:block/titanium_block",
+    "particle": "galacticraft:block/short_range_telepad_top",
+    "side": "galacticraft:block/short_range_telepad_side",
+    "top": "galacticraft:block/short_range_telepad_top"
+  }
+}

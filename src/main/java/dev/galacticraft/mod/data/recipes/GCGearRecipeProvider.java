@@ -324,6 +324,16 @@ public class GCGearRecipeProvider extends FabricRecipeProvider {
                 .emiDefaultRecipe(true)
                 .save(output);
 
+        GCShapedRecipeBuilder.crafting(RecipeCategory.TOOLS, GCItems.GRAPPLE_HOOK)
+                .define('X', ConventionalItemTags.IRON_INGOTS)
+                .define('Z', ConventionalItemTags.STRINGS)
+                .pattern("  Z")
+                .pattern("XZ ")
+                .pattern("XX ")
+                .unlockedBy("has_string", has(ConventionalItemTags.STRINGS))
+                .emiDefaultRecipe(true)
+                .save(output);
+
         GCShapedRecipeBuilder.crafting(RecipeCategory.TOOLS, GCItems.FLUID_CANISTER)
                 .define('T', GCItems.COMPRESSED_TIN)
                 .define('S', GCItems.COMPRESSED_STEEL)

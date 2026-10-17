@@ -2,11 +2,11 @@
   "type": "galacticraft:planet",
   "config": {
     "parent": "galacticraft:sol",
-    "access_weight": 2,
+    "access_weight": 3,
     "atmosphere": {
       "composition": {},
       "pressure": 0.0,
-      "temperature": -2.0
+      "temperature": -180.0
     },
     "celestial_handler": "galacticraft:default",
     "day_length": 99999999,
@@ -25,7 +25,7 @@
         "width": 16
       }
     },
-    "gravity": 0.1,
+    "gravity": 0.0,
     "name": {
       "translate": "planet.galacticraft.asteroid"
     },

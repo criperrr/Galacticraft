@@ -245,6 +245,7 @@ public class GCTranslationProvider extends TranslationProvider {
         this.block(GCBlocks.GLASS_FLUID_PIPE, "Glass Fluid Pipe");
         this.block(GCBlocks.FUELING_PAD, "Fueling Pad");
         this.block(GCBlocks.ROCKET_LAUNCH_PAD, "Rocket Launch Pad");
+        this.block(GCBlocks.SHORT_RANGE_TELEPAD, "Short Range Telepad");
         this.block(GCBlocks.ROCKET_WORKBENCH, "Rocket Workbench");
         this.block(GCBlocks.PARACHEST, "Parachest");
 
@@ -521,6 +522,7 @@ public class GCTranslationProvider extends TranslationProvider {
         this.item(GCItems.TITANIUM_HOE, "Titanium Hoe");
 
         this.item(GCItems.STANDARD_WRENCH, "Standard Wrench");
+        this.item(GCItems.GRAPPLE_HOOK, "Grapple Hook");
 
         this.item(GCItems.FLUID_CANISTER, "Empty Canister");
         this.add(Items.FLUID_CANISTER_FILLED, "%s Canister");
@@ -855,7 +857,10 @@ public class GCTranslationProvider extends TranslationProvider {
         this.entity(GCEntityTypes.ROCKET, "Rocket");
         this.entity(GCEntityTypes.RUMBLER, "Rumbler");
         this.entity(GCEntityTypes.SLIMELING, "Slimeling");
+        this.entity(GCEntityTypes.GRAPPLE, "Grapple Hook");
         this.entity(GCEntityTypes.THROWABLE_METEOR_CHUNK, "Meteor Chunk");
+        this.add("chat.galacticraft.telepad.target", "Telepad Target: %s");
+        this.add("chat.galacticraft.telepad.no_target", "Telepad has no target set.");
     }
 
     protected void generateBannerPatternTranslations() {

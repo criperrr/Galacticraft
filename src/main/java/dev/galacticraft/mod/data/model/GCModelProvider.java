@@ -183,6 +183,7 @@ public class GCModelProvider extends FabricModelProvider {
         generator.createTrivialCube(GCBlocks.HEAVY_SEALABLE_ALUMINUM_WIRE);
         createLaunchPadBlock(GCBlocks.FUELING_PAD, generator);
         createLaunchPadBlock(GCBlocks.ROCKET_LAUNCH_PAD, generator);
+        this.createShortRangeTelepad(generator);
         this.createRocketWorkbench(generator);
         generator.createNonTemplateModelBlock(GCBlocks.FALLEN_METEOR);
 
@@ -793,6 +794,7 @@ public class GCModelProvider extends FabricModelProvider {
         generator.generateFlatItem(GCItems.TITANIUM_HOE, ModelTemplates.FLAT_HANDHELD_ITEM);
 
         generator.generateFlatItem(GCItems.STANDARD_WRENCH, ModelTemplates.FLAT_HANDHELD_ITEM);
+        generator.generateFlatItem(GCItems.GRAPPLE_HOOK, ModelTemplates.FLAT_HANDHELD_ITEM);
 
         this.generateFluidCanisterModels(generator);
 
@@ -1106,5 +1108,16 @@ public class GCModelProvider extends FabricModelProvider {
 
     private static TextureMapping color(ResourceLocation resourceLocation) {
         return new TextureMapping().put(GCTextureSlot.COLOR, resourceLocation);
+    }
+
+    private void createShortRangeTelepad(BlockModelGenerators generator) {
+        var mapping = new TextureMapping()
+                .put(TextureSlot.PARTICLE, Constant.id("block/short_range_telepad_top"))
+                .put(TextureSlot.TOP, Constant.id("block/short_range_telepad_top"))
+                .put(TextureSlot.BOTTOM, Constant.id("block/titanium_block"))
+                .put(TextureSlot.SIDE, Constant.id("block/short_range_telepad_side"));
+        var telepadModel = GCModelTemplates.TELEPAD.create(GCBlocks.SHORT_RANGE_TELEPAD, mapping, generator.modelOutput);
+        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(GCBlocks.SHORT_RANGE_TELEPAD, telepadModel));
+        generator.delegateItemModel(GCBlocks.SHORT_RANGE_TELEPAD, telepadModel);
     }
 }
