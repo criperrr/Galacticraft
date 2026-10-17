@@ -28,6 +28,7 @@ val isCi = (System.getenv("CI") ?: "false") == "true"
 val runJei = project.getProperties().getOrDefault("jei", "false").toString().toBoolean()
 val runEmi = project.getProperties().getOrDefault("emi", "false").toString().toBoolean()
 val runRei = project.getProperties().getOrDefault("rei", !runJei && !runEmi).toString().toBoolean()
+val runSodium = project.getProperties().getOrDefault("sodium", !isCi).toString().toBoolean()
 
 // Minecraft, Mappings, Loader Versions
 val minecraftVersion         = project.property("minecraft.version").toString()
@@ -53,6 +54,12 @@ val wthitVersion             = project.property("wthit.version").toString()
 val architecturyVersion      = project.property("architectury.version").toString()
 val appleskinVersion         = project.property("appleskin.version").toString()
 val objVersion               = project.property("obj.version").toString()
+val sodiumVersion            = project.property("sodium.version").toString()
+val reesesSodiumOptionsVersion = project.property("reeses.sodium.options.version").toString()
+val sodiumExtraVersion       = project.property("sodium.extra.version").toString()
+val lithiumVersion           = project.property("lithium.version").toString()
+val ferriteCoreVersion       = project.property("ferritecore.version").toString()
+val immediatelyFastVersion   = project.property("immediatelyfast.version").toString()
 
 plugins {
     java
@@ -220,6 +227,11 @@ repositories {
             includeGroup("squeek.appleskin")
         }
     }
+    maven("https://api.modrinth.com/maven") {
+        content {
+            includeGroup("maven.modrinth")
+        }
+    }
 }
 
 configurations {
@@ -275,6 +287,15 @@ dependencies {
 	modCompileOnly("dev.emi:emi-fabric:$emiVersion:api")
     if (runEmi) {
 	    modLocalRuntime("dev.emi:emi-fabric:$emiVersion")
+    }
+
+    if (runSodium) {
+        modLocalRuntime("maven.modrinth:sodium:$sodiumVersion")
+        modLocalRuntime("maven.modrinth:reeses-sodium-options:$reesesSodiumOptionsVersion")
+        modLocalRuntime("maven.modrinth:sodium-extra:$sodiumExtraVersion")
+        modLocalRuntime("maven.modrinth:lithium:$lithiumVersion")
+        modLocalRuntime("maven.modrinth:ferrite-core:$ferriteCoreVersion")
+        modLocalRuntime("maven.modrinth:immediatelyfast:$immediatelyFastVersion")
     }
 
     testImplementation("net.fabricmc:fabric-loader-junit:$loaderVersion")
