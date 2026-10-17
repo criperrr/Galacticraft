@@ -26,6 +26,7 @@ import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.mojang.authlib.GameProfile;
 import dev.galacticraft.api.entity.ControllableEntity;
 import dev.galacticraft.api.entity.IgnoreShift;
+import dev.galacticraft.api.universe.celestialbody.CelestialBody;
 import dev.galacticraft.mod.content.entity.vehicle.AbstractLanderEntity;
 import dev.galacticraft.mod.content.entity.vehicle.AdvancedVehicle;
 import dev.galacticraft.mod.content.entity.vehicle.RocketEntity;
@@ -40,6 +41,8 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.player.Input;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.core.Holder;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.MoverType;
@@ -62,8 +65,48 @@ public abstract class LocalPlayerMixin extends AbstractClientPlayer {
     @Shadow
     public Input input;
 
+    @Unique
+    private boolean gc$wasFlying = false;
+    @Unique
+    private boolean gc$ignoreJumpUntilRelease = false;
+
     public LocalPlayerMixin(ClientLevel clientLevel, GameProfile gameProfile) {
         super(clientLevel, gameProfile);
+    }
+
+    @Inject(method = "aiStep", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/AbstractClientPlayer;aiStep()V"))
+    private void gc$handleZeroGPreTravel(CallbackInfo ci) {
+        Holder<CelestialBody<?, ?>> holder = this.level().galacticraft$getCelestialBody();
+        boolean isZeroG = holder != null && holder.value().gravity() == 0.0F;
+        boolean isFlying = this.getAbilities().flying;
+        if (isZeroG) {
+            if (this.gc$wasFlying && !isFlying) {
+                Vec3 dm = this.getDeltaMovement();
+                if (dm.y > 0.0D) {
+                    this.setDeltaMovement(dm.x, 0.0D, dm.z);
+                }
+                this.gc$ignoreJumpUntilRelease = true;
+            }
+            if (!this.input.jumping) {
+                this.gc$ignoreJumpUntilRelease = false;
+            }
+            if (!isFlying && !this.onGround() && !this.isPassenger()) {
+                Vec3 dm = this.getDeltaMovement();
+                double dy = 0.0D;
+                if (this.input.jumping && !this.gc$ignoreJumpUntilRelease) {
+                    dy += 0.008D;
+                }
+                if (this.input.shiftKeyDown) {
+                    dy -= 0.008D;
+                }
+                if (dy != 0.0D) {
+                    this.setDeltaMovement(dm.x, Mth.clamp(dm.y + dy, -0.7D, 0.7D), dm.z);
+                }
+            }
+        } else {
+            this.gc$ignoreJumpUntilRelease = false;
+        }
+        this.gc$wasFlying = isFlying;
     }
 
     @Inject(method = "aiStep", at = @At("RETURN"))

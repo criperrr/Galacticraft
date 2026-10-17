@@ -166,6 +166,7 @@ public class GalacticraftClient implements ClientModInitializer {
         EntityRendererRegistry.register(GCEntityTypes.BUGGY, BuggyRenderer::new);
         EntityRendererRegistry.register(GCEntityTypes.PARACHEST, ParachestRenderer::new);
         EntityRendererRegistry.register(GCEntityTypes.THROWABLE_METEOR_CHUNK, ThrownItemRenderer::new);
+        EntityRendererRegistry.register(GCEntityTypes.GRAPPLE, GrappleHookEntityRenderer::new);
         EntityRendererRegistry.register(GCEntityTypes.SKELETON_BOSS, EvolvedSkeletonBossRenderer::new);
 
         GCBlockEntityRenderer.register();

@@ -73,6 +73,7 @@ public class GCBlockEntityTypes {
     public static final BlockEntityType<LaunchPadBlockEntity> LAUNCH_PAD = register(Constant.Block.ROCKET_LAUNCH_PAD, LaunchPadBlockEntity::new, GCBlocks.ROCKET_LAUNCH_PAD, GCBlocks.FUELING_PAD);
     public static final BlockEntityType<FuelLoaderBlockEntity> FUEL_LOADER = register(Constant.Block.FUEL_LOADER, FuelLoaderBlockEntity::new, GCBlocks.FUEL_LOADER);
     public static final BlockEntityType<ParachestBlockEntity> PARACHEST = register(Constant.Block.PARACHEST, ParachestBlockEntity::new, GCBlocks.PARACHEST);
+    public static final BlockEntityType<ShortRangeTelepadBlockEntity> SHORT_RANGE_TELEPAD = register(Constant.Block.SHORT_RANGE_TELEPAD, ShortRangeTelepadBlockEntity::new, GCBlocks.SHORT_RANGE_TELEPAD);
 
     // MISC
     public static final BlockEntityType<SolarPanelPartBlockEntity> SOLAR_PANEL_PART = register(Constant.Block.SOLAR_PANEL_PART, SolarPanelPartBlockEntity::new, GCBlocks.SOLAR_PANEL_PART);

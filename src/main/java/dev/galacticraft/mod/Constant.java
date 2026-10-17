@@ -597,6 +597,7 @@ public interface Constant {
         String BASIC_ROCKET_FINS_SCHEMATIC = "basic_rocket_fins_schematic";
         String BASIC_ROCKET_ENGINE_SCHEMATIC = "basic_rocket_engine_schematic";
         String MOON_TANGLE_FRUIT = "moon_tangle_fruit";
+        String GRAPPLE_HOOK = "grapple_hook";
     }
 
     interface Particle {
@@ -1137,6 +1138,7 @@ public interface Constant {
         String FALLING_METEOR = "falling_meteor";
         String EVOLVED_SKELETON_BOSS = "evolved_skeleton_boss";
         String SLIMELING = "slimeling";
+        String GRAPPLE = "grapple";
     }
 
     interface SpawnEgg {

@@ -247,15 +247,15 @@ public class GCCelestialBodies {
                 GCDimensions.ASTEROID,
                 teleporters.getOrThrow(GCTeleporterTypes.LANDER_CELESTIAL_TELEPORTER),
                 new GasComposition.Builder()
-                        .temperature(-2.0)
-                        .pressure(0)
+                        .temperature(-180.0)
+                        .pressure(0.0F)
                         .build(),
-                0.1f,
+                0.0F,
                 GCCelestialHandlers.DEFAULT,
-                2,
+                3,
                 -2,
                 -2,
-                99999999L, // 30 times longer than earth
+                99999999L,
                 null
         )));
 

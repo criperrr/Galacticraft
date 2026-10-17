@@ -174,6 +174,17 @@ public abstract class LivingEntityMixin extends Entity implements CryogenicAcces
     private Vec3 gc$adjustAtmosphericDrag(Vec3 original) {
         Holder<CelestialBody<?, ?>> holder = this.level().galacticraft$getCelestialBody();
         if (holder != null) {
+            if (holder.value().gravity() == 0.0F && !this.onGround() && !(((Object) this) instanceof Player player && player.getAbilities().flying)) {
+                double vx = original.x * (0.996D / 0.91D);
+                double vy = original.y * (0.996D / 0.9800000190734863D);
+                double vz = original.z * (0.996D / 0.91D);
+                double maxSpeed = 0.7D;
+                return new Vec3(
+                        Mth.clamp(vx, -maxSpeed, maxSpeed),
+                        Mth.clamp(vy, -maxSpeed, maxSpeed),
+                        Mth.clamp(vz, -maxSpeed, maxSpeed)
+                );
+            }
             float drag = holder.value().atmosphere().pressure() / 2000.0F;
             return original.multiply(1.0F - drag, 1.0F - drag * 2.0F, 1.0F - drag);
         }

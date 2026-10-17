@@ -176,6 +176,12 @@ public class GCEntityTypes {
     public static final EntityType<ThrowableMeteorChunkEntity> THROWABLE_METEOR_CHUNK = ENTITIES.register(Constant.Item.THROWABLE_METEOR_CHUNK, EntityType.Builder.<ThrowableMeteorChunkEntity>of(ThrowableMeteorChunkEntity::new, MobCategory.MISC)
             .sized(0.25F, 0.25F)
             .build());
+    public static final EntityType<GrappleHookEntity> GRAPPLE = ENTITIES.register(Entity.GRAPPLE, EntityType.Builder.<GrappleHookEntity>of(GrappleHookEntity::new, MobCategory.MISC)
+            .sized(0.5F, 0.5F)
+            .clientTrackingRange(16)
+            .updateInterval(1)
+            .alwaysUpdateVelocity(true)
+            .build());
     // Bosses
     public static final EntityType<SkeletonBoss> SKELETON_BOSS = ENTITIES.register(Entity.EVOLVED_SKELETON_BOSS, EntityType.Builder.of(SkeletonBoss::new, MobCategory.MONSTER)
             .sized(1.5F, 4.0F)

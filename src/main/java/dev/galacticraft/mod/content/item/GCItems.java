@@ -175,6 +175,7 @@ public class GCItems {
     public static final Item TITANIUM_HOE = ITEMS.register(Constant.Item.TITANIUM_HOE, new HoeItem(GCTiers.TITANIUM, new Item.Properties().attributes(HoeItem.createAttributes(GCTiers.TITANIUM, -3.0F, -1.0F))));
 
     public static final Item STANDARD_WRENCH = ITEMS.register(Constant.Item.STANDARD_WRENCH, new StandardWrenchItem(new Item.Properties().durability(256)));
+    public static final Item GRAPPLE_HOOK = ITEMS.register(Constant.Item.GRAPPLE_HOOK, new GrappleHookItem(new Item.Properties().durability(256)));
 
     public static final Item FLUID_CANISTER = ITEMS.register(Constant.Item.FLUID_CANISTER, new FluidCanisterItem(new Item.Properties().stacksTo(1), Galacticraft.CONFIG.fluidCanisterCapacity()));
 

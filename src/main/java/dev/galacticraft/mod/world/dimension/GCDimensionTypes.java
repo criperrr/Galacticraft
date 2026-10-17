@@ -95,7 +95,7 @@ public class GCDimensionTypes {
                 new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 7), 0)
         ));
         context.register(ASTEROID, new DimensionType(
-                OptionalLong.empty(), // fixedTime
+                OptionalLong.of(6000L), // fixedTime: perpetual space
                 false, // hasSkyLight
                 false, // hasCeiling
                 false, // ultraWarm

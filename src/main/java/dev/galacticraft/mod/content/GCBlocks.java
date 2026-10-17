@@ -38,6 +38,7 @@ import dev.galacticraft.mod.content.block.special.aluminumwire.tier2.HeavySealab
 import dev.galacticraft.mod.content.block.special.fluidpipe.GlassFluidPipeBlock;
 import dev.galacticraft.mod.content.block.special.launchpad.FuelPadBlock;
 import dev.galacticraft.mod.content.block.special.launchpad.LaunchPadBlock;
+import dev.galacticraft.mod.content.block.special.telepad.ShortRangeTelepadBlock;
 import dev.galacticraft.mod.content.block.special.walkway.GlassFluidPipeWalkwayBlock;
 import dev.galacticraft.mod.content.block.special.walkway.HeavyWireWalkwayBlock;
 import dev.galacticraft.mod.content.block.special.walkway.WalkwayBlock;
@@ -280,6 +281,7 @@ public class GCBlocks {
     // SPECIAL
     public static final Block ROCKET_LAUNCH_PAD = BLOCKS.registerWithItem(Constant.Block.ROCKET_LAUNCH_PAD, new LaunchPadBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).instrument(NoteBlockInstrument.BASEDRUM).strength(1.5F, 10.0F).requiresCorrectToolForDrops()));
     public static final Block FUELING_PAD = BLOCKS.registerWithItem(Constant.Block.FUELING_PAD, new FuelPadBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).instrument(NoteBlockInstrument.BASEDRUM).strength(1.5F, 10.0F).requiresCorrectToolForDrops()));
+    public static final Block SHORT_RANGE_TELEPAD = BLOCKS.registerWithItem(Constant.Block.SHORT_RANGE_TELEPAD, new ShortRangeTelepadBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(3.0F, 6.0F).sound(SoundType.METAL).requiresCorrectToolForDrops()));
     public static final Block ROCKET_WORKBENCH = BLOCKS.registerWithItem(Constant.Block.ROCKET_WORKBENCH, new RocketWorkbench(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).instrument(NoteBlockInstrument.BASEDRUM).strength(1.5F, 6.0F).requiresCorrectToolForDrops()));
     public static final Block PARACHEST = BLOCKS.registerWithItem(Constant.Block.PARACHEST, new ParachestBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CHEST)));
     public static final Block ALUMINUM_WIRE = BLOCKS.registerWithItem(Constant.Block.ALUMINUM_WIRE, new AluminumWireBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_WOOL).forceSolidOn()));

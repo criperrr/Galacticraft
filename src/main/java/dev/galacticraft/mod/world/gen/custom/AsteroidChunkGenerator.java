@@ -31,7 +31,6 @@ import dev.galacticraft.api.perlin.generator.Gradient;
 import dev.galacticraft.api.vector.BlockVec3;
 import dev.galacticraft.mod.content.GCBlocks;
 import dev.galacticraft.mod.world.gen.base.MapGenAbandonedBase;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
@@ -363,6 +362,10 @@ public class AsteroidChunkGenerator extends ChunkGenerator {
                 }
             }
         }
+
+        if (size >= 16 && Math.abs(asteroidX * 31 + asteroidZ * 17) % 8 == 0) {
+            MapGenAbandonedBase.generateInChunk(primer, rand, asteroidX, asteroidY, asteroidZ);
+        }
     }
 
     private final int getTerrainHeightFor(float yMod, int asteroidY, int asteroidSize) {
@@ -486,19 +489,7 @@ public class AsteroidChunkGenerator extends ChunkGenerator {
 
     @Override
     public CompletableFuture<ChunkAccess> fillFromNoise(Blender blender, RandomState noiseConfig, StructureManager structureAccessor, ChunkAccess chunk) {
-        CompletableFuture<ChunkAccess> future = new CompletableFuture<>();
-
-        Minecraft.getInstance().submit(() -> {
-            try {
-                // This operation will now run on Minecraft's main thread
-                ChunkAccess result = generateChunkData(blender, noiseConfig, structureAccessor, chunk);
-                future.complete(result);
-            } catch (Exception e) {
-                future.completeExceptionally(e);
-            }
-        });
-
-        return future;
+        return CompletableFuture.completedFuture(generateChunkData(blender, noiseConfig, structureAccessor, chunk));
     }
 
     public void resetBase() {
@@ -583,9 +574,11 @@ public class AsteroidChunkGenerator extends ChunkGenerator {
         coordList.add(tag);
         nbt.put("coords", coordList);
         this.datafile.setDirty();
-        Path dataPath = Path.of(currentWorldSaveDirectory.toString(), saveDataID);
-        Path dataFile = dataPath.resolve("data.dat");
-        this.setData(dataFile, datafile);
+        if (currentWorldSaveDirectory != null) {
+            Path dataPath = Path.of(currentWorldSaveDirectory.toString(), saveDataID);
+            Path dataFile = dataPath.resolve("data.dat");
+            this.setData(dataFile, datafile);
+        }
     }
 
 
@@ -598,9 +591,11 @@ public class AsteroidChunkGenerator extends ChunkGenerator {
         }
         nbt.put("coords", coordList);
         this.datafile.setDirty();
-        Path dataPath = Path.of(currentWorldSaveDirectory.toString(), saveDataID);
-        Path dataFile = dataPath.resolve("data.dat");
-        this.setData(dataFile, datafile);
+        if (currentWorldSaveDirectory != null) {
+            Path dataPath = Path.of(currentWorldSaveDirectory.toString(), saveDataID);
+            Path dataFile = dataPath.resolve("data.dat");
+            this.setData(dataFile, datafile);
+        }
     }
 
     private static class AsteroidData {
@@ -703,23 +698,21 @@ public class AsteroidChunkGenerator extends ChunkGenerator {
     }
 
     public void loadAsteroidSavedData() {
+        if (currentWorldSaveDirectory == null) {
+            this.datafile = new AsteroidSaveData("");
+            this.dataNotLoaded = false;
+            return;
+        }
         Path dataPath = Path.of(currentWorldSaveDirectory.toString(), saveDataID);
         Path dataFile = dataPath.resolve("data.dat");
 
         this.datafile = this.loadData(dataFile);
 
         if (this.datafile == null) {
-            if (!Files.exists(dataFile)) {
-                try {
-                    Files.createDirectories(dataPath);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                try {
-                    Files.createFile(dataFile);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+            try {
+                Files.createDirectories(dataPath);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
             this.datafile = new AsteroidSaveData("");
             this.writeToNBT(this.datafile.datacompound);
@@ -734,6 +727,7 @@ public class AsteroidChunkGenerator extends ChunkGenerator {
 
     public void setData(Path filePath, AsteroidSaveData data) {
         try {
+            Files.createDirectories(filePath.getParent());
             NbtIo.write(data.datacompound, filePath);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -741,19 +735,18 @@ public class AsteroidChunkGenerator extends ChunkGenerator {
     }
 
     public AsteroidSaveData loadData(Path filePath) {
-        if (Files.exists(filePath)) {
-            CompoundTag tag;
-            try {
-                tag = NbtIo.read(filePath);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+        try {
+            if (Files.exists(filePath) && Files.size(filePath) > 0) {
+                CompoundTag tag = NbtIo.read(filePath);
+                if (tag != null) {
+                    AsteroidSaveData saveData = new AsteroidSaveData("");
+                    saveData.datacompound = tag;
+                    return saveData;
+                }
             }
-            AsteroidSaveData saveData = new AsteroidSaveData("");
-            saveData.datacompound = tag;
-            return saveData;
-        } else {
-            return null;
+        } catch (IOException ignored) {
         }
+        return null;
     }
 
 

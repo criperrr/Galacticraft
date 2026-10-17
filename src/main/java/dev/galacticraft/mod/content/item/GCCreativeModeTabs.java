@@ -248,6 +248,7 @@ public class GCCreativeModeTabs {
                 }
                 output.accept(ROCKET_LAUNCH_PAD);
                 output.accept(FUELING_PAD);
+                output.accept(SHORT_RANGE_TELEPAD);
                 output.accept(ROCKET_WORKBENCH);
 
                 // MISC MACHINES
@@ -482,6 +483,7 @@ public class GCCreativeModeTabs {
                 output.accept(TITANIUM_HOE);
 
                 output.accept(STANDARD_WRENCH);
+                output.accept(GRAPPLE_HOOK);
 
                 // ARMOR
                 output.accept(HEAVY_DUTY_HELMET);
