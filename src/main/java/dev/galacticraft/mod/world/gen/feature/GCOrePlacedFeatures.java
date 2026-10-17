@@ -78,6 +78,7 @@ public class GCOrePlacedFeatures {
     public static final ResourceKey<PlacedFeature> ORE_DESH_MIDDLE_MARS = key("ore_desh_middle_mars");
     public static final ResourceKey<PlacedFeature> ORE_DESH_SMALL_MARS = key("ore_desh_small_mars");
     public static final ResourceKey<PlacedFeature> ORE_ICE_MARS = key("ore_ice_mars");
+    public static final ResourceKey<PlacedFeature> ORE_SUB_SURFACE_MARS = key("ore_sub_surface_mars");
 
     // VENUS
     public static final ResourceKey<PlacedFeature> ORE_COPPER_VENUS = key("ore_copper_venus");
@@ -133,6 +134,7 @@ public class GCOrePlacedFeatures {
         context.register(ORE_DESH_MIDDLE_MARS, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_DESH_MARS), modifiersWithCount(12, HeightRangePlacement.triangle(VerticalAnchor.absolute(-16), VerticalAnchor.absolute(64)))));
         context.register(ORE_DESH_SMALL_MARS, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_DESH_SMALL_MARS), modifiersWithCount(8, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(48)))));
         context.register(ORE_ICE_MARS, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_ICE_MARS), modifiersWithCount(4, HeightRangePlacement.uniform(VerticalAnchor.absolute(60), VerticalAnchor.absolute(120)))));
+        context.register(ORE_SUB_SURFACE_MARS, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_SUB_SURFACE_MARS), modifiersWithCount(20, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(200)))));
 
         // VENUS (aligned with GC4 BiomeDecoratorVenus frequencies & height ranges)
         context.register(ORE_COPPER_VENUS, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_COPPER_VENUS), modifiersWithCount(18, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.absolute(60)))));

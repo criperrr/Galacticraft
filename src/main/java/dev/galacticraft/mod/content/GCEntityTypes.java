@@ -134,8 +134,10 @@ public class GCEntityTypes {
             .build());
 
     public static final EntityType<FallingMeteorEntity> FALLING_METEOR = ENTITIES.register(Entity.FALLING_METEOR, EntityType.Builder.of(FallingMeteorEntity::new, MobCategory.AMBIENT)
-            .clientTrackingRange(16)
-            .updateInterval(5)
+            .clientTrackingRange(32)
+            .updateInterval(2)
+            .alwaysUpdateVelocity(true)
+            .fireImmune()
             .sized(1.0f, 1.0f)
             .eyeHeight(0.5f)
             .build());

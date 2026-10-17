@@ -1,8 +1,13 @@
 {
-  "carvers": {},
-  "downfall": 0.5,
+  "carvers": {
+    "air": [
+      "galacticraft:venus_cave_carver",
+      "galacticraft:venus_canyon_carver"
+    ]
+  },
+  "downfall": 0.3,
   "effects": {
-    "fog_color": 10518688,
+    "fog_color": -3435776,
     "mood_sound": {
       "block_search_extent": 8,
       "offset": 2.0,
@@ -15,14 +20,21 @@
       "replace_current_music": false,
       "sound": "galacticraft:music.moon"
     },
-    "sky_color": -14016,
+    "sky_color": -12463,
     "water_color": 4159204,
     "water_fog_color": 329011
   },
   "features": [
-    [],
-    [],
-    [],
+    [
+      "galacticraft:venus_volcano",
+      "galacticraft:venus_meteor"
+    ],
+    [
+      "galacticraft:venus_lava_lake"
+    ],
+    [
+      "galacticraft:venus_surface_outcrop"
+    ],
     [],
     [],
     [],
@@ -33,6 +45,9 @@
       "galacticraft:ore_aluminum_venus",
       "galacticraft:ore_galena_venus",
       "galacticraft:ore_solar_venus"
+    ],
+    [
+      "galacticraft:venus_flat_vapor_pool"
     ]
   ],
   "has_precipitation": true,
@@ -42,32 +57,7 @@
     "axolotls": [],
     "creature": [],
     "misc": [],
-    "monster": [
-      {
-        "type": "galacticraft:evolved_spider",
-        "maxCount": 4,
-        "minCount": 4,
-        "weight": 100
-      },
-      {
-        "type": "galacticraft:evolved_zombie",
-        "maxCount": 4,
-        "minCount": 4,
-        "weight": 95
-      },
-      {
-        "type": "galacticraft:evolved_skeleton",
-        "maxCount": 4,
-        "minCount": 4,
-        "weight": 100
-      },
-      {
-        "type": "galacticraft:evolved_creeper",
-        "maxCount": 4,
-        "minCount": 4,
-        "weight": 100
-      }
-    ],
+    "monster": [],
     "underground_water_creature": [],
     "water_ambient": [],
     "water_creature": []

@@ -2,6 +2,7 @@
   "carvers": {
     "air": [
       "galacticraft:mars_cave_carver",
+      "galacticraft:mars_cavern_carver",
       "galacticraft:mars_canyon_carver"
     ]
   },
@@ -41,7 +42,11 @@
       "galacticraft:ore_iron_middle_mars",
       "galacticraft:ore_desh_small_mars",
       "galacticraft:ore_desh_middle_mars",
-      "galacticraft:ore_ice_mars"
+      "galacticraft:ore_ice_mars",
+      "galacticraft:ore_sub_surface_mars"
+    ],
+    [
+      "galacticraft:mars_cavern_vines"
     ]
   ],
   "has_precipitation": false,

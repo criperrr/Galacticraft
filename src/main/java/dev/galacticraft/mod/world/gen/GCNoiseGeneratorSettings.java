@@ -168,7 +168,7 @@ public class GCNoiseGeneratorSettings {
                 GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.EROSION), // erosion
                 GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.DEPTH), // depth
                 GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.RIDGES), // ridges
-                DensityFunctions.noise(noiseLookup.getOrThrow(Noises.SPAGHETTI_3D_1)), // initialDensityWithoutJaggedness
+                GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Mars.FINAL_DENSITY), // initialDensityWithoutJaggedness
                 DensityFunctions.blendDensity(GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Mars.FINAL_DENSITY)), // finalDensity
                 DensityFunctions.zero(), // veinToggle
                 DensityFunctions.zero(), // veinRidged
@@ -177,18 +177,24 @@ public class GCNoiseGeneratorSettings {
     }
 
     public static NoiseRouter venus(HolderGetter<DensityFunction> densityLookup, HolderGetter<NormalNoise.NoiseParameters> noiseLookup) {
+        DensityFunction shiftX = GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.SHIFT_X);
+        DensityFunction shiftZ = GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.SHIFT_Z);
         return new NoiseRouter(
                 DensityFunctions.zero(), // barrierNoise
                 DensityFunctions.zero(), // fluidLevelFloodednessNoise
                 DensityFunctions.zero(), // fluidLevelSpreadNoise
                 DensityFunctions.zero(), // lavaNoise
-                DensityFunctions.zero(), // temperature
-                DensityFunctions.zero(), // vegetation
-                DensityFunctions.zero(), // continents
-                DensityFunctions.zero(), // erosion
-                DensityFunctions.zero(), // depth
-                DensityFunctions.zero(), // ridges
-                DensityFunctions.noise(noiseLookup.getOrThrow(Noises.SPAGHETTI_3D_1)), // initialDensityWithoutJaggedness
+                DensityFunctions.shiftedNoise2d(
+                        shiftX, shiftZ, 0.25, noiseLookup.getOrThrow(Noises.TEMPERATURE)
+                ), // temperature
+                DensityFunctions.shiftedNoise2d(
+                        shiftX, shiftZ, 0.25, noiseLookup.getOrThrow(Noises.VEGETATION)
+                ), // vegetation
+                GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.CONTINENTS), // continents
+                GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.EROSION), // erosion
+                GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.DEPTH), // depth
+                GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.RIDGES), // ridges
+                GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Venus.FINAL_DENSITY), // initialDensityWithoutJaggedness
                 DensityFunctions.blendDensity(GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Venus.FINAL_DENSITY)), // finalDensity
                 DensityFunctions.zero(), // veinToggle
                 DensityFunctions.zero(), // veinRidged

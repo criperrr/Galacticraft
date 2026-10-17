@@ -283,25 +283,26 @@ flowchart TD
   - Regex estrita: `^(feat|fix|test|refactor|chore|docs)/[a-z0-9-]+$` (apenas minúsculas, números e hífens).
 - **Proibição:** É expressamente proibido ramificar a partir de `main`, com a única exceção de hotfixes emergenciais de produção (`fix/hotfix-...`).
 
-### 8.3. Axioma de Merge Autônomo e Validação Obrigatória de PRs (Regra Absoluta)
+### 8.3. Axioma Supremo: Proibição Absoluta de Pull Requests Antes de Teste em Jogo pelo Usuário (Regra Inegociável)
+- **Axioma Mandatório (Sem PRs sem Teste Manual do Usuário):** É TERMINANTEMENTE PROIBIDO abrir Pull Requests (`gh pr create`) ou realizar merges (`gh pr merge`) antes que o usuário teste a feature pessoalmente dentro do Minecraft aberto em seu computador e aprove expressamente as alterações.
 - **Proibição de Merge Local:** Agentes e modelos de IA **NUNCA** executam `git merge` localmente em `dev` ou `main`.
-- **Fluxo Exclusivo de Integração:**
-  1. Criar branch temática a partir de `dev` antes de tocar no código: `git checkout -b <categoria>/<nome-da-task> dev`.
-  2. Implementar, validar localmente com Datagen, Spotless e GameTests (`./gradlew test check`).
-  3. Enviar branch cirurgicamente para o fork remoto: `git push origin <categoria>/<nome-da-task>`.
-  4. Abrir Pull Request apontando para `dev`: `gh pr create --base dev --title "..." --body "..."`.
-  5. **Verificação Obrigatória de Testes:** O agente DEVE acompanhar ativamente a esteira de CI (`gh pr checks <PR> --watch` ou consulta equivalente) para verificar se todos os testes passaram (`SUCCESS`). A tarefa NUNCA deve ser considerada finalizada sem essa verificação.
-  6. **Merge Autônomo e Exclusão Imediata da Branch da Feature:**
-     - **Autorização 100% Automática:** A autorização de merge ocorre automaticamente quando todos os testes da esteira de CI passarem (`SUCCESS`). O agente **NÃO deve esperar autorização manual** do usuário caso os testes sejam aprovados.
-     - **Execução do Merge e Limpeza:** O agente DEVE executar imediatamente o merge via squash e a exclusão da branch da feature remota e local:
+- **Sequência Estrita e Inviolável de Ciclo de Vida:**
+  1. **Branch Prévia Obrigatória:** Criar branch temática exclusivamente a partir de `dev`: `git checkout -b <categoria>/<nome-da-task> dev`.
+  2. **Implementação e Checagens Técnicas Locais:** Código Java, Datagen (`./gradlew runDatagen`), Spotless (`./gradlew spotlessApply`) e GameTests (`./gradlew :test`).
+  3. **Commit Local Cirúrgico:** Commits atômicos na branch da feature respeitando a sintaxe canônica e sem inclusão de arquivos alheios ao escopo.
+  4. **PONTO DE BLOQUEIO MANDATÓRIO: Abertura do Jogo e Roteiro de Teste para o Usuário:**
+     - O agente DEVE iniciar o cliente do Minecraft localmente na máquina do usuário via `./gradlew runClient` (em modo daemon/background).
+     - O agente DEVE apresentar ao usuário uma instrução clara e passo a passo em português de como testar a nova funcionalidade (comandos de teleporte `/execute in ...`, coordenadas, itens necessários e comportamento esperado a ser observado).
+     - **PARADA OBRIGATÓRIA:** O agente DEVE parar imediatamente e aguardar o feedback do usuário. É EXPRESSAMENTE PROIBIDO abrir PR enquanto o usuário não confirmar que testou e aprovou.
+  5. **Abertura de PR (Somente com Aval do Usuário):**
+     - Após o "aprovado" explícito do usuário:
+       - Subir a branch para o fork remoto: `git push -u origin <categoria>/<nome-da-task>`.
+       - Abrir o Pull Request para `dev`: `gh pr create --base dev --title "..." --body "..."` (seguindo as regras de texto puro e sem markdown de 8.5).
+  6. **Acompanhamento de CI e Merge Pós-Aprovação:**
+     - Acompanhar a esteira de CI remota (`gh pr checks <PR> --watch`).
+     - Quando os testes no servidor do GitHub passarem (`SUCCESS`), executar o merge autônomo via squash e excluir a branch remota e local:
        `gh pr merge <PR> --squash --delete-branch`
        `git checkout dev && git pull origin dev && git branch -D <categoria>/<nome-da-task>`
-     - **Tratamento de Falhas:** Se os testes falharem, o agente DEVE investigar a causa raiz (`gh run view <run-id> --log-failed`), corrigir o código cirurgicamente, subir novo commit e aguardar aprovação da esteira.
-  7. **Promoção para `main` (Releases):** PRs para `main` nascem exclusivamente a partir de `dev` para publicação de releases.
-- **Pré-requisito Mandatório da CLI `gh` (Instalação e Login):**
-  - O agente deve verificar se o GitHub CLI está instalado (`which gh`) e autenticado (`gh auth status`).
-- **Resolução Autônoma de Falhas de CI via Logs:**
-  - Inspecionar a causa da falha: `gh run view <run-id> --log-failed`.
 
 ### 8.4. Proteção contra Testes Falsos (Anti-Tautologia) e Zonas Protegidas
 - **Proibição de Testes Tautológicos:** Proibido criar testes com asserções genéricas ou vazias, testes sem validação de mutação de estado real ou mocks excessivos que disfarcem falhas de integração.

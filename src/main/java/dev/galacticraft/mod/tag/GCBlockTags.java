@@ -46,6 +46,7 @@ public class GCBlockTags {
     public static final TagKey<Block> MOON_CRATER_CARVER_REPLACEABLES = galacticraftTag("moon_crater_carver_replaceables");
     public static final TagKey<Block> MARS_CARVER_REPLACEABLES = galacticraftTag("mars_carver_replaceables");
     public static final TagKey<Block> MARS_CRATER_CARVER_REPLACEABLES = galacticraftTag("mars_crater_carver_replaceables");
+    public static final TagKey<Block> VENUS_CARVER_REPLACEABLES = galacticraftTag("venus_carver_replaceables");
 
     public static final TagKey<Block> MOON_ROCK_ORE_REPLACEABLES = galacticraftTag("moon_rock_ore_replaceables");
     public static final TagKey<Block> MOON_BASALT_ORE_REPLACEABLES = galacticraftTag("moon_basalt_ore_replaceables");

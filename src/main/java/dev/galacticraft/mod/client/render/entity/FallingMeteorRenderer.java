@@ -29,12 +29,14 @@ import dev.galacticraft.mod.content.block.environment.FallenMeteorBlock;
 import dev.galacticraft.mod.content.entity.FallingMeteorEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.state.BlockState;
 
 import static dev.galacticraft.mod.content.GCBlocks.FALLEN_METEOR;
@@ -54,22 +56,22 @@ public class FallingMeteorRenderer extends EntityRenderer<FallingMeteorEntity> {
 
     @Override
     public void render(FallingMeteorEntity entity, float yaw, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light) {
-        float scale = entity.getSize() * 0.5f;
+        float scale = Math.max(0.85f, entity.getSize() * 0.55f);
+        float yRot = Mth.lerp(tickDelta, entity.yRotO, entity.getYRot());
+        float xRot = Mth.lerp(tickDelta, entity.xRotO, entity.getXRot());
 
         matrices.pushPose();
-        matrices.mulPose(Axis.YP.rotationDegrees(entity.getYRot()));
-        matrices.mulPose(Axis.XP.rotationDegrees(entity.getXRot()));
+        matrices.mulPose(Axis.YP.rotationDegrees(yRot));
+        matrices.mulPose(Axis.XP.rotationDegrees(xRot));
         matrices.scale(scale, scale, scale);
-        matrices.translate(-0.5, -0.25, -0.5);
+        matrices.translate(-0.5, -0.5, -0.5);
 
-        this.dispatcher.renderBatched(
+        this.dispatcher.renderSingleBlock(
                 METEOR_BLOCK_STATE,
-                entity.blockPosition(),
-                entity.level(),
                 matrices,
-                vertexConsumers.getBuffer(ItemBlockRenderTypes.getMovingBlockRenderType(METEOR_BLOCK_STATE)),
-                false,
-                entity.getRandom()
+                vertexConsumers,
+                LightTexture.FULL_BRIGHT,
+                OverlayTexture.NO_OVERLAY
         );
 
         matrices.popPose();

@@ -95,9 +95,9 @@ public final class GCBiomes {
         context.register(Mars.MARS_CANYON, MarsBiomes.createMarsCanyon(featureLookup, carverLookup));
         context.register(Mars.MARS_HIGHLANDS, MarsBiomes.createMarsHighlands(featureLookup, carverLookup));
 
-        context.register(Venus.VENUS_VALLEY, VenusBiomes.venus(featureLookup, carverLookup));
-        context.register(Venus.VENUS_FLAT, VenusBiomes.venus(featureLookup, carverLookup));
-        context.register(Venus.VENUS_MOUNTAIN, VenusBiomes.venus(featureLookup, carverLookup));
+        context.register(Venus.VENUS_VALLEY, VenusBiomes.createVenusValley(featureLookup, carverLookup));
+        context.register(Venus.VENUS_FLAT, VenusBiomes.createVenusFlat(featureLookup, carverLookup));
+        context.register(Venus.VENUS_MOUNTAIN, VenusBiomes.createVenusMountain(featureLookup, carverLookup));
 
         context.register(Asteroid.ASTEROID_FIELD, AsteroidBiomes.asteroid(featureLookup, carverLookup));
     }

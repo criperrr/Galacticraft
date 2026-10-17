@@ -61,17 +61,23 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class FallenMeteorBlock extends FallingBlock implements SimpleWaterloggedBlock {
     public static final MapCodec<FallenMeteorBlock> CODEC = simpleCodec(FallenMeteorBlock::new);
-    private static final VoxelShape SHAPE = box(3, 0, 3, 13, 10, 13);
+    // Matches the 9-element GC4 irregular meteorite model bounds (2.5..13.5 X/Z, 0.0..11.5 Y)
+    private static final VoxelShape SHAPE = Shapes.or(
+            box(3.0, 0.5, 3.0, 13.0, 10.5, 13.0),
+            box(5.0, 0.0, 5.0, 11.0, 0.5, 11.5),
+            box(2.5, 2.0, 2.5, 13.5, 11.5, 13.5)
+    );
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final IntegerProperty HEAT = IntegerProperty.create("heat", 0, 5);
     private static final float FALL_DAMAGE_PER_DISTANCE = 2.0F;
     private static final int FALL_DAMAGE_MAX = 40;
-    private final int[] COOLING_RATES = { 0, 10, 8, 6, 4, 2 };
+    private final int[] COOLING_RATES = {0, 10, 8, 6, 4, 2};
 
     public FallenMeteorBlock(BlockBehaviour.Properties settings) {
         super(settings);
@@ -122,37 +128,54 @@ public class FallenMeteorBlock extends FallingBlock implements SimpleWaterlogged
 
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-
         int heat = state.getValue(HEAT);
-        if (!(state.getValue(WATERLOGGED) && heat > 0)) {
+        if (heat <= 0) {
             return;
         }
 
-        double spread = heat > 3 ? (heat - 3) * 0.03D : 0;
+        double spread = heat > 3 ? (heat - 3) * 0.03D : 0.01D;
 
-        for (var i = 0; i < heat; ++i) {
-            level.addParticle(
-                    ParticleTypes.CLOUD,
-                    pos.getX() + random.nextDouble(),
-                    pos.getY() + 0.2D + random.nextDouble(),
-                    pos.getZ() + random.nextDouble(),
-                    (random.nextDouble() - 0.5D) * spread,
-                    heat * 0.01D,
-                    (random.nextDouble() - 0.5D) * spread
-            );
+        if (state.getValue(WATERLOGGED)) {
+            for (var i = 0; i < heat; ++i) {
+                level.addParticle(
+                        ParticleTypes.CLOUD,
+                        pos.getX() + random.nextDouble(),
+                        pos.getY() + 0.2D + random.nextDouble(),
+                        pos.getZ() + random.nextDouble(),
+                        (random.nextDouble() - 0.5D) * spread,
+                        heat * 0.01D,
+                        (random.nextDouble() - 0.5D) * spread
+                );
+            }
+
+            if (random.nextInt(40) == 0) {
+                level.playLocalSound(
+                        pos,
+                        SoundEvents.FIRE_EXTINGUISH,
+                        SoundSource.BLOCKS,
+                        heat * 0.12F,
+                        0.8F,
+                        true
+                );
+            }
+        } else {
+            // Hot fallen meteors in dry/planetary environments emit rising smoke and embers
+            if (random.nextInt(7 - heat) == 0) {
+                double px = pos.getX() + 0.2D + random.nextDouble() * 0.6D;
+                double py = pos.getY() + 0.55D + random.nextDouble() * 0.3D;
+                double pz = pos.getZ() + 0.2D + random.nextDouble() * 0.6D;
+                level.addParticle(
+                        heat >= 4 ? ParticleTypes.LARGE_SMOKE : ParticleTypes.SMOKE,
+                        px, py, pz,
+                        (random.nextDouble() - 0.5D) * spread,
+                        0.02D + heat * 0.008D,
+                        (random.nextDouble() - 0.5D) * spread
+                );
+                if (heat >= 4 && random.nextInt(3) == 0) {
+                    level.addParticle(ParticleTypes.FLAME, px, py, pz, 0.0D, 0.015D, 0.0D);
+                }
+            }
         }
-
-        if (random.nextInt(40) == 0) {
-            level.playLocalSound(
-                    pos,
-                    SoundEvents.FIRE_EXTINGUISH,
-                    SoundSource.BLOCKS,
-                    heat * 0.12F,
-                    0.8F,
-                    true
-            );
-        }
-
     }
 
     @Override
@@ -260,13 +283,13 @@ public class FallenMeteorBlock extends FallingBlock implements SimpleWaterlogged
     }
 
     public static int colorMultiplier(BlockState state, BlockAndTintGetter blockView, BlockPos pos) {
-        return blockView != null && pos != null ? switch (state.getValue(HEAT)) {
-            case 1 -> FastColor.ARGB32.color(255, 255, 255, 218);
-            case 2 -> FastColor.ARGB32.color(255, 255, 228, 178);
-            case 3 -> FastColor.ARGB32.color(255, 255, 187, 137);
-            case 4 -> FastColor.ARGB32.color(255, 238, 148, 98);
-            case 5 -> FastColor.ARGB32.color(255, 198, 108, 58);
-            default -> 16777215;
-        } : 16777215;
+        return switch (state.getValue(HEAT)) {
+            case 1 -> FastColor.ARGB32.color(255, 235, 220, 205);
+            case 2 -> FastColor.ARGB32.color(255, 245, 200, 165);
+            case 3 -> FastColor.ARGB32.color(255, 255, 175, 125);
+            case 4 -> FastColor.ARGB32.color(255, 255, 145, 90);
+            case 5 -> FastColor.ARGB32.color(255, 255, 115, 65);
+            default -> FastColor.ARGB32.color(255, 215, 210, 205);
+        };
     }
 }

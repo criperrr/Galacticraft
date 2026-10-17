@@ -26,6 +26,7 @@ import dev.galacticraft.mod.content.GCBlocks;
 import dev.galacticraft.mod.world.biome.GCBiomes;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.Noises;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import org.jetbrains.annotations.Contract;
@@ -36,18 +37,77 @@ public class MarsSurfaceRules {
     public static final SurfaceRules.RuleSource SURFACE_ROCK = block(GCBlocks.MARS_SURFACE_ROCK);
     public static final SurfaceRules.RuleSource SUB_SURFACE_ROCK = block(GCBlocks.MARS_SUB_SURFACE_ROCK);
     public static final SurfaceRules.RuleSource STONE = block(GCBlocks.MARS_STONE);
+    public static final SurfaceRules.RuleSource DENSE_ICE = block(GCBlocks.DENSE_ICE);
+
+    // GC4 VALLEY_HEIGHT_MOD & GalaxySpace Mars_Ravine:
+    // Steep canyon walls expose Martian Stone (meta 9); canyon floors mix Sub-Surface Rock (meta 6) and Surface Rock (meta 5)
+    private static final SurfaceRules.RuleSource CANYON_SURFACE = SurfaceRules.sequence(
+            SurfaceRules.ifTrue(SurfaceRules.steep(), STONE),
+            SurfaceRules.ifTrue(
+                    SurfaceRules.ON_FLOOR,
+                    SurfaceRules.sequence(
+                            SurfaceRules.ifTrue(SurfaceRules.noiseCondition(Noises.SURFACE, 0.15, 1.0), SURFACE_ROCK),
+                            SUB_SURFACE_ROCK
+                    )
+            ),
+            SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, SUB_SURFACE_ROCK),
+            STONE
+    );
+
+    // GC4 MOUNTAIN_HEIGHT_MOD & GalaxySpace Mars_Mountains / Mars_Triangle_Mountains:
+    // Steep mountain cliffs expose bare Mars Stone; high peaks (Y >= 145) feature Dense Ice permafrost patches and rocky ridges
+    private static final SurfaceRules.RuleSource HIGHLANDS_SURFACE = SurfaceRules.sequence(
+            SurfaceRules.ifTrue(SurfaceRules.steep(), STONE),
+            SurfaceRules.ifTrue(
+                    SurfaceRules.yBlockCheck(VerticalAnchor.absolute(145), 0),
+                    SurfaceRules.sequence(
+                            SurfaceRules.ifTrue(
+                                    SurfaceRules.ON_FLOOR,
+                                    SurfaceRules.sequence(
+                                            SurfaceRules.ifTrue(SurfaceRules.noiseCondition(Noises.SURFACE, 0.35, 1.0), DENSE_ICE),
+                                            SurfaceRules.ifTrue(SurfaceRules.noiseCondition(Noises.PATCH, 0.30, 1.0), STONE),
+                                            SURFACE_ROCK
+                                    )
+                            ),
+                            SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, SUB_SURFACE_ROCK)
+                    )
+            ),
+            SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, SURFACE_ROCK),
+            SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, SUB_SURFACE_ROCK),
+            SurfaceRules.ifTrue(SurfaceRules.DEEP_UNDER_FLOOR, SUB_SURFACE_ROCK),
+            STONE
+    );
+
+    // GC4 BiomeGenFlatMars + ChunkProviderSpace.replaceBlocksForBiome & GalaxySpace Mars_Plains / Mars_High_Plains:
+    // Top layer is Mars Surface Rock (meta 5) with occasional bare Mars Stone outcrops (GC4 var12 <= 0),
+    // underlain by a 3-4 block layer of Mars Sub-Surface Rock (meta 6) over Mars Stone (meta 9).
+    private static final SurfaceRules.RuleSource FLAT_SURFACE = SurfaceRules.sequence(
+            SurfaceRules.ifTrue(
+                    SurfaceRules.ON_FLOOR,
+                    SurfaceRules.sequence(
+                            SurfaceRules.ifTrue(SurfaceRules.noiseCondition(Noises.SURFACE, -1.0, -0.55), STONE),
+                            SURFACE_ROCK
+                    )
+            ),
+            SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, SUB_SURFACE_ROCK),
+            SurfaceRules.ifTrue(SurfaceRules.DEEP_UNDER_FLOOR, SUB_SURFACE_ROCK),
+            STONE
+    );
 
     private static final SurfaceRules.RuleSource SURFACE_GENERATION = SurfaceRules.sequence(
             SurfaceRules.ifTrue(
                     SurfaceRules.isBiome(GCBiomes.Mars.MARS_CANYON),
-                    SurfaceRules.sequence(
-                            SurfaceRules.ifTrue(SurfaceRules.steep(), STONE),
-                            SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, SUB_SURFACE_ROCK),
-                            SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, STONE)
-                    )
+                    CANYON_SURFACE
             ),
-            SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, SURFACE_ROCK),
-            SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, SUB_SURFACE_ROCK)
+            SurfaceRules.ifTrue(
+                    SurfaceRules.isBiome(GCBiomes.Mars.MARS_HIGHLANDS),
+                    HIGHLANDS_SURFACE
+            ),
+            SurfaceRules.ifTrue(
+                    SurfaceRules.isBiome(GCBiomes.Mars.MARS_FLAT),
+                    FLAT_SURFACE
+            ),
+            FLAT_SURFACE
     );
 
     public static final SurfaceRules.RuleSource MARS = createDefaultRule();
