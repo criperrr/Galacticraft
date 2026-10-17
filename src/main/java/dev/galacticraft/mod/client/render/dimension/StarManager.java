@@ -39,57 +39,62 @@ import java.util.Random;
  * realistic astronomical depth spread, and accurate celestial coordinates.
  */
 public class StarManager {
-    private final VertexBuffer starBuffer;
+    private VertexBuffer starBuffer = null;
 
     public StarManager() {
-        this.starBuffer = new VertexBuffer(VertexBuffer.Usage.STATIC);
-        final Random random = new Random(10842L);
-        final BufferBuilder buffer = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION);
-        RenderSystem.setShader(GameRenderer::getPositionShader);
+    }
 
-        for (int i = 0; i < 20000; ++i) {
-            double j = random.nextFloat() * 2.0F - 1.0F;
-            double k = random.nextFloat() * 2.0F - 1.0F;
-            double l = random.nextFloat() * 2.0F - 1.0F;
-            double m = 0.15F + random.nextFloat() * 0.1F;
-            double n = j * j + k * k + l * l;
+    private VertexBuffer getStarBuffer() {
+        if (this.starBuffer == null) {
+            this.starBuffer = new VertexBuffer(VertexBuffer.Usage.STATIC);
+            final Random random = new Random(10842L);
+            final BufferBuilder buffer = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION);
 
-            if (n < 1.0D && n > 0.01D) {
-                n = 1.0D / Math.sqrt(n);
-                j *= n;
-                k *= n;
-                l *= n;
-                double dist = random.nextDouble() * 100.0D + 150.0D;
-                double o = j * dist;
-                double p = k * dist;
-                double q = l * dist;
-                double r = Math.atan2(j, l);
-                double s = Math.sin(r);
-                double t = Math.cos(r);
-                double u = Math.atan2(Math.sqrt(j * j + l * l), k);
-                double v = Math.sin(u);
-                double w = Math.cos(u);
-                double x = random.nextDouble() * Math.PI * 2.0D;
-                double y = Math.sin(x);
-                double z = Math.cos(x);
+            for (int i = 0; i < 20000; ++i) {
+                double j = random.nextFloat() * 2.0F - 1.0F;
+                double k = random.nextFloat() * 2.0F - 1.0F;
+                double l = random.nextFloat() * 2.0F - 1.0F;
+                double m = 0.15F + random.nextFloat() * 0.1F;
+                double n = j * j + k * k + l * l;
 
-                for (int a = 0; a < 4; ++a) {
-                    double b = 0.0D;
-                    double c = ((a & 2) - 1) * m;
-                    double d = ((a + 1 & 2) - 1) * m;
-                    double e = c * z - d * y;
-                    double f = d * z + c * y;
-                    double g = e * v + b * w;
-                    double h = b * v - e * w;
-                    double aa = h * s - f * t;
-                    double ab = f * s + h * t;
-                    buffer.addVertex((float) (o + aa), (float) (p + g), (float) (q + ab));
+                if (n < 1.0D && n > 0.01D) {
+                    n = 1.0D / Math.sqrt(n);
+                    j *= n;
+                    k *= n;
+                    l *= n;
+                    double dist = random.nextDouble() * 100.0D + 150.0D;
+                    double o = j * dist;
+                    double p = k * dist;
+                    double q = l * dist;
+                    double r = Math.atan2(j, l);
+                    double s = Math.sin(r);
+                    double t = Math.cos(r);
+                    double u = Math.atan2(Math.sqrt(j * j + l * l), k);
+                    double v = Math.sin(u);
+                    double w = Math.cos(u);
+                    double x = random.nextDouble() * Math.PI * 2.0D;
+                    double y = Math.sin(x);
+                    double z = Math.cos(x);
+
+                    for (int a = 0; a < 4; ++a) {
+                        double b = 0.0D;
+                        double c = ((a & 2) - 1) * m;
+                        double d = ((a + 1 & 2) - 1) * m;
+                        double e = c * z - d * y;
+                        double f = d * z + c * y;
+                        double g = e * v + b * w;
+                        double h = b * v - e * w;
+                        double aa = h * s - f * t;
+                        double ab = f * s + h * t;
+                        buffer.addVertex((float) (o + aa), (float) (p + g), (float) (q + ab));
+                    }
                 }
             }
+            this.starBuffer.bind();
+            this.starBuffer.upload(buffer.buildOrThrow());
+            VertexBuffer.unbind();
         }
-        this.starBuffer.bind();
-        this.starBuffer.upload(buffer.buildOrThrow());
-        VertexBuffer.unbind();
+        return this.starBuffer;
     }
 
     public void tick() {
@@ -118,10 +123,12 @@ public class StarManager {
         if (brightness <= 0.0F) {
             return;
         }
+        RenderSystem.setShader(GameRenderer::getPositionShader);
         RenderSystem.setShaderColor(1.0F, 0.98F, 0.95F, brightness);
         FogRenderer.setupNoFog();
-        this.starBuffer.bind();
-        this.starBuffer.drawWithShader(poseStack.last().pose(), projectionMatrix, GameRenderer.getPositionShader());
+        VertexBuffer buffer = getStarBuffer();
+        buffer.bind();
+        buffer.drawWithShader(poseStack.last().pose(), projectionMatrix, GameRenderer.getPositionShader());
         VertexBuffer.unbind();
     }
 

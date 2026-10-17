@@ -81,9 +81,10 @@ public class OverworldRenderer extends SpaceSkyRenderer {
 
         FogRenderer.levelFogColor();
         RenderSystem.depthMask(false);
+        RenderSystem.setShader(GameRenderer::getPositionShader);
         RenderSystem.setShaderColor(x, y, z, 1.0F); // Top half of the sky
         this.skyBuffer.bind();
-        this.skyBuffer.drawWithShader(poseStack.last().pose(), projectionMatrix, RenderSystem.getShader());
+        this.skyBuffer.drawWithShader(poseStack.last().pose(), projectionMatrix, GameRenderer.getPositionShader());
         VertexBuffer.unbind();
         RenderSystem.enableBlend();
         // RenderSystem.defaultBlendFunc();

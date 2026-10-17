@@ -49,14 +49,20 @@ public class MarsSkyRenderer implements DimensionRenderingRegistry.SkyRenderer {
     public static final MarsSkyRenderer INSTANCE = new MarsSkyRenderer();
 
     private final StarManager starManager = new StarManager();
-    private final VertexBuffer skyBuffer;
+    private VertexBuffer skyBuffer = null;
     private final float sunSize = 17.5F;
 
     public MarsSkyRenderer() {
-        this.skyBuffer = new VertexBuffer(VertexBuffer.Usage.STATIC);
-        this.skyBuffer.bind();
-        this.skyBuffer.upload(VenusSkyRenderer.buildAtmosphericEnclosure(Tesselator.getInstance(), 16.0F));
-        VertexBuffer.unbind();
+    }
+
+    private VertexBuffer getSkyBuffer() {
+        if (this.skyBuffer == null) {
+            this.skyBuffer = new VertexBuffer(VertexBuffer.Usage.STATIC);
+            this.skyBuffer.bind();
+            this.skyBuffer.upload(VenusSkyRenderer.buildAtmosphericEnclosure(16.0F));
+            VertexBuffer.unbind();
+        }
+        return this.skyBuffer;
     }
 
     @Override
@@ -85,9 +91,11 @@ public class MarsSkyRenderer implements DimensionRenderingRegistry.SkyRenderer {
             FogRenderer.levelFogColor();
             RenderSystem.enableBlend();
             RenderSystem.blendFuncSeparate(770, 771, 1, 0);
+            RenderSystem.setShader(GameRenderer::getPositionShader);
             RenderSystem.setShaderColor(rSky, gSky, bSky, atmosphereAlpha);
-            this.skyBuffer.bind();
-            this.skyBuffer.drawWithShader(matrices.last().pose(), context.projectionMatrix(), RenderSystem.getShader());
+            VertexBuffer buffer = getSkyBuffer();
+            buffer.bind();
+            buffer.drawWithShader(matrices.last().pose(), context.projectionMatrix(), GameRenderer.getPositionShader());
             VertexBuffer.unbind();
         }
 
@@ -100,7 +108,7 @@ public class MarsSkyRenderer implements DimensionRenderingRegistry.SkyRenderer {
             matrices.popPose();
         }
 
-        // 3. Martian Sun Aura (2-tier smooth colored triangle fan corona in atmosphere)
+        // 3. Martian Sun Aura (2-tier smooth colored corona in atmosphere)
         float sunAuraFactor = (1.0F - level.getStarBrightness(partialTicks)) * atmosphereAlpha;
         if (sunAuraFactor > 0.0F) {
             matrices.pushPose();
@@ -112,38 +120,9 @@ public class MarsSkyRenderer implements DimensionRenderingRegistry.SkyRenderer {
             float auraB = 180.0F / 255.0F * sunAuraFactor;
             float auraAlpha = 0.3F * sunAuraFactor;
 
-            RenderSystem.setShader(GameRenderer::getPositionColorShader);
-            BufferBuilder auraBuffer = Tesselator.getInstance().begin(VertexFormat.Mode.TRIANGLE_FAN, DefaultVertexFormat.POSITION_COLOR);
             Matrix4f auraMatrix = matrices.last().pose();
-
-            // Inner aura (radius 20)
-            auraBuffer.addVertex(auraMatrix, 0.0F, 100.0F, 0.0F).setColor(auraR, auraG, auraB, auraAlpha * 2.0F);
-            float f10 = 20.0F;
-            auraBuffer.addVertex(auraMatrix, -f10, 100.0F, -f10).setColor(auraR, auraG, auraB, 0.0F)
-                    .addVertex(auraMatrix, 0.0F, 100.0F, -f10 * 1.5F).setColor(auraR, auraG, auraB, 0.0F)
-                    .addVertex(auraMatrix, f10, 100.0F, -f10).setColor(auraR, auraG, auraB, 0.0F)
-                    .addVertex(auraMatrix, f10 * 1.5F, 100.0F, 0.0F).setColor(auraR, auraG, auraB, 0.0F)
-                    .addVertex(auraMatrix, f10, 100.0F, f10).setColor(auraR, auraG, auraB, 0.0F)
-                    .addVertex(auraMatrix, 0.0F, 100.0F, f10 * 1.5F).setColor(auraR, auraG, auraB, 0.0F)
-                    .addVertex(auraMatrix, -f10, 100.0F, f10).setColor(auraR, auraG, auraB, 0.0F)
-                    .addVertex(auraMatrix, -f10 * 1.5F, 100.0F, 0.0F).setColor(auraR, auraG, auraB, 0.0F)
-                    .addVertex(auraMatrix, -f10, 100.0F, -f10).setColor(auraR, auraG, auraB, 0.0F);
-            BufferUploader.drawWithShader(auraBuffer.buildOrThrow());
-
-            // Outer aura (radius 40)
-            auraBuffer = Tesselator.getInstance().begin(VertexFormat.Mode.TRIANGLE_FAN, DefaultVertexFormat.POSITION_COLOR);
-            auraBuffer.addVertex(auraMatrix, 0.0F, 100.0F, 0.0F).setColor(auraR, auraG, auraB, auraAlpha);
-            f10 = 40.0F;
-            auraBuffer.addVertex(auraMatrix, -f10, 100.0F, -f10).setColor(auraR, auraG, auraB, 0.0F)
-                    .addVertex(auraMatrix, 0.0F, 100.0F, -f10 * 1.5F).setColor(auraR, auraG, auraB, 0.0F)
-                    .addVertex(auraMatrix, f10, 100.0F, -f10).setColor(auraR, auraG, auraB, 0.0F)
-                    .addVertex(auraMatrix, f10 * 1.5F, 100.0F, 0.0F).setColor(auraR, auraG, auraB, 0.0F)
-                    .addVertex(auraMatrix, f10, 100.0F, f10).setColor(auraR, auraG, auraB, 0.0F)
-                    .addVertex(auraMatrix, 0.0F, 100.0F, f10 * 1.5F).setColor(auraR, auraG, auraB, 0.0F)
-                    .addVertex(auraMatrix, -f10, 100.0F, f10).setColor(auraR, auraG, auraB, 0.0F)
-                    .addVertex(auraMatrix, -f10 * 1.5F, 100.0F, 0.0F).setColor(auraR, auraG, auraB, 0.0F)
-                    .addVertex(auraMatrix, -f10, 100.0F, -f10).setColor(auraR, auraG, auraB, 0.0F);
-            BufferUploader.drawWithShader(auraBuffer.buildOrThrow());
+            VenusSkyRenderer.renderCoronaFan(auraMatrix, 20.0F, auraR, auraG, auraB, auraAlpha * 2.0F);
+            VenusSkyRenderer.renderCoronaFan(auraMatrix, 40.0F, auraR, auraG, auraB, auraAlpha);
 
             matrices.popPose();
         }

@@ -49,14 +49,24 @@ public class VenusSkyRenderer implements DimensionRenderingRegistry.SkyRenderer 
     public static final VenusSkyRenderer INSTANCE = new VenusSkyRenderer();
 
     private final StarManager starManager = new StarManager();
-    private final VertexBuffer skyBuffer;
+    private VertexBuffer skyBuffer = null;
     private final float sunSize = 30.0F * (1.0F / 0.75F);
 
     public VenusSkyRenderer() {
-        this.skyBuffer = new VertexBuffer(VertexBuffer.Usage.STATIC);
-        this.skyBuffer.bind();
-        this.skyBuffer.upload(buildAtmosphericEnclosure(Tesselator.getInstance(), 16.0F));
-        VertexBuffer.unbind();
+    }
+
+    private VertexBuffer getSkyBuffer() {
+        if (this.skyBuffer == null) {
+            this.skyBuffer = new VertexBuffer(VertexBuffer.Usage.STATIC);
+            this.skyBuffer.bind();
+            this.skyBuffer.upload(buildAtmosphericEnclosure(16.0F));
+            VertexBuffer.unbind();
+        }
+        return this.skyBuffer;
+    }
+
+    public static MeshData buildAtmosphericEnclosure(float size) {
+        return buildAtmosphericEnclosure(Tesselator.getInstance(), size);
     }
 
     /**
@@ -98,6 +108,28 @@ public class VenusSkyRenderer implements DimensionRenderingRegistry.SkyRenderer 
         return buffer.buildOrThrow();
     }
 
+    public static void renderCoronaFan(Matrix4f matrix, float radius, float r, float g, float b, float centerAlpha) {
+        float[][] rim = new float[][] {
+                {-radius, -radius},
+                {0.0F, -radius * 1.5F},
+                {radius, -radius},
+                {radius * 1.5F, 0.0F},
+                {radius, radius},
+                {0.0F, radius * 1.5F},
+                {-radius, radius},
+                {-radius * 1.5F, 0.0F}
+        };
+        RenderSystem.setShader(GameRenderer::getPositionColorShader);
+        BufferBuilder auraBuffer = Tesselator.getInstance().begin(VertexFormat.Mode.TRIANGLES, DefaultVertexFormat.POSITION_COLOR);
+        for (int i = 0; i < 8; i++) {
+            int next = (i + 1) % 8;
+            auraBuffer.addVertex(matrix, 0.0F, 100.0F, 0.0F).setColor(r, g, b, centerAlpha);
+            auraBuffer.addVertex(matrix, rim[i][0], 100.0F, rim[i][1]).setColor(r, g, b, 0.0F);
+            auraBuffer.addVertex(matrix, rim[next][0], 100.0F, rim[next][1]).setColor(r, g, b, 0.0F);
+        }
+        BufferUploader.drawWithShader(auraBuffer.buildOrThrow());
+    }
+
     @Override
     public void render(WorldRenderContext context) {
         ClientLevel level = context.world();
@@ -124,9 +156,11 @@ public class VenusSkyRenderer implements DimensionRenderingRegistry.SkyRenderer 
             FogRenderer.levelFogColor();
             RenderSystem.enableBlend();
             RenderSystem.blendFuncSeparate(770, 771, 1, 0);
+            RenderSystem.setShader(GameRenderer::getPositionShader);
             RenderSystem.setShaderColor(rSky, gSky, bSky, atmosphereAlpha);
-            this.skyBuffer.bind();
-            this.skyBuffer.drawWithShader(poseStack.last().pose(), context.projectionMatrix(), RenderSystem.getShader());
+            VertexBuffer buffer = getSkyBuffer();
+            buffer.bind();
+            buffer.drawWithShader(poseStack.last().pose(), context.projectionMatrix(), GameRenderer.getPositionShader());
             VertexBuffer.unbind();
         }
 
@@ -151,37 +185,9 @@ public class VenusSkyRenderer implements DimensionRenderingRegistry.SkyRenderer 
             float auraB = 140.0F / 255.0F * auraFactor;
             float auraAlpha = 0.35F * auraFactor;
 
-            RenderSystem.setShader(GameRenderer::getPositionColorShader);
-            BufferBuilder auraBuffer = Tesselator.getInstance().begin(VertexFormat.Mode.TRIANGLE_FAN, DefaultVertexFormat.POSITION_COLOR);
             Matrix4f auraMatrix = poseStack.last().pose();
-
-            auraBuffer.addVertex(auraMatrix, 0.0F, 100.0F, 0.0F).setColor(auraR, auraG, auraB, auraAlpha * 2.0F);
-            float f10 = 24.0F;
-            auraBuffer.addVertex(auraMatrix, -f10, 100.0F, -f10).setColor(auraR, auraG, auraB, 0.0F)
-                    .addVertex(auraMatrix, 0.0F, 100.0F, -f10 * 1.5F).setColor(auraR, auraG, auraB, 0.0F)
-                    .addVertex(auraMatrix, f10, 100.0F, -f10).setColor(auraR, auraG, auraB, 0.0F)
-                    .addVertex(auraMatrix, f10 * 1.5F, 100.0F, 0.0F).setColor(auraR, auraG, auraB, 0.0F)
-                    .addVertex(auraMatrix, f10, 100.0F, f10).setColor(auraR, auraG, auraB, 0.0F)
-                    .addVertex(auraMatrix, 0.0F, 100.0F, f10 * 1.5F).setColor(auraR, auraG, auraB, 0.0F)
-                    .addVertex(auraMatrix, -f10, 100.0F, f10).setColor(auraR, auraG, auraB, 0.0F)
-                    .addVertex(auraMatrix, -f10 * 1.5F, 100.0F, 0.0F).setColor(auraR, auraG, auraB, 0.0F)
-                    .addVertex(auraMatrix, -f10, 100.0F, -f10).setColor(auraR, auraG, auraB, 0.0F);
-            BufferUploader.drawWithShader(auraBuffer.buildOrThrow());
-
-            // Outer corona
-            auraBuffer = Tesselator.getInstance().begin(VertexFormat.Mode.TRIANGLE_FAN, DefaultVertexFormat.POSITION_COLOR);
-            auraBuffer.addVertex(auraMatrix, 0.0F, 100.0F, 0.0F).setColor(auraR, auraG, auraB, auraAlpha);
-            f10 = 48.0F;
-            auraBuffer.addVertex(auraMatrix, -f10, 100.0F, -f10).setColor(auraR, auraG, auraB, 0.0F)
-                    .addVertex(auraMatrix, 0.0F, 100.0F, -f10 * 1.5F).setColor(auraR, auraG, auraB, 0.0F)
-                    .addVertex(auraMatrix, f10, 100.0F, -f10).setColor(auraR, auraG, auraB, 0.0F)
-                    .addVertex(auraMatrix, f10 * 1.5F, 100.0F, 0.0F).setColor(auraR, auraG, auraB, 0.0F)
-                    .addVertex(auraMatrix, f10, 100.0F, f10).setColor(auraR, auraG, auraB, 0.0F)
-                    .addVertex(auraMatrix, 0.0F, 100.0F, f10 * 1.5F).setColor(auraR, auraG, auraB, 0.0F)
-                    .addVertex(auraMatrix, -f10, 100.0F, f10).setColor(auraR, auraG, auraB, 0.0F)
-                    .addVertex(auraMatrix, -f10 * 1.5F, 100.0F, 0.0F).setColor(auraR, auraG, auraB, 0.0F)
-                    .addVertex(auraMatrix, -f10, 100.0F, -f10).setColor(auraR, auraG, auraB, 0.0F);
-            BufferUploader.drawWithShader(auraBuffer.buildOrThrow());
+            renderCoronaFan(auraMatrix, 24.0F, auraR, auraG, auraB, auraAlpha * 2.0F);
+            renderCoronaFan(auraMatrix, 48.0F, auraR, auraG, auraB, auraAlpha);
 
             poseStack.popPose();
         }
