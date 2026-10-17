@@ -43,6 +43,7 @@
       "dev.galacticraft.mod.gametest.machine.RefineryTestSuite",
       "dev.galacticraft.mod.gametest.ExtinguishableTestSuite",
       "dev.galacticraft.mod.gametest.MarsTestSuite",
+      "dev.galacticraft.mod.gametest.AsteroidsTestSuite",
       "dev.galacticraft.mod.gametest.PipeTestSuite",
       "dev.galacticraft.mod.gametest.WireTestSuite"
     ]
