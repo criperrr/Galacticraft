@@ -3,7 +3,7 @@
     "type": "minecraft:random_spread",
     "exclusion_zone": {
       "chunk_count": 10,
-      "other_set": "minecraft:villages"
+      "other_set": "galacticraft:moon_villages"
     },
     "frequency": 0.1,
     "frequency_reduction_method": "legacy_type_1",

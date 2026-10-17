@@ -26,13 +26,18 @@
     "water_fog_color": 329011
   },
   "features": [
+    [
+      "galacticraft:moon_meteor"
+    ],
     [],
-    [],
-    [],
+    [
+      "galacticraft:moon_surface_outcrop"
+    ],
     [],
     [],
     [],
     [
+      "galacticraft:ore_olivine_basalt_moon",
       "galacticraft:ore_copper_moon",
       "galacticraft:ore_copper_large_moon",
       "galacticraft:ore_tin_small_moon",
@@ -40,7 +45,16 @@
       "galacticraft:ore_tin_upper_moon",
       "galacticraft:ore_cheese_moon",
       "galacticraft:ore_cheese_large_moon",
-      "galacticraft:ore_lunar_sapphire_moon"
+      "galacticraft:ore_lunar_sapphire_moon",
+      "galacticraft:ore_dirt_moon",
+      "galacticraft:disk_basalt_moon"
+    ],
+    [
+      "galacticraft:moon_olivine_spike_cave"
+    ],
+    [],
+    [
+      "galacticraft:moon_cave_flora"
     ]
   ],
   "has_precipitation": false,

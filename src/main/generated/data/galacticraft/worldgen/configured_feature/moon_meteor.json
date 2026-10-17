@@ -1,0 +1,67 @@
+{
+  "type": "galacticraft:planetary_meteor",
+  "config": {
+    "crater_floor_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:cobbled_moon_rock"
+      }
+    },
+    "ejecta_ores": [
+      {
+        "Name": "galacticraft:raw_meteoric_iron_block"
+      },
+      {
+        "Name": "galacticraft:lunar_sapphire_ore"
+      },
+      {
+        "Name": "galacticraft:moon_cheese_ore"
+      },
+      {
+        "Name": "galacticraft:moon_copper_ore"
+      },
+      {
+        "Name": "galacticraft:moon_tin_ore"
+      },
+      {
+        "Name": "galacticraft:rich_olivine_basalt"
+      },
+      {
+        "Name": "galacticraft:ilmenite_ore"
+      },
+      {
+        "Name": "minecraft:raw_iron_block"
+      }
+    ],
+    "max_crater_radius": 24,
+    "max_meteor_radius": 4,
+    "meteor_core_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:raw_meteoric_iron_block"
+      }
+    },
+    "meteor_shell_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:fallen_meteor",
+        "Properties": {
+          "heat": "1",
+          "waterlogged": "false"
+        }
+      }
+    },
+    "min_crater_radius": 14,
+    "min_meteor_radius": 2,
+    "ore_chance": 5,
+    "region_size": 560.0,
+    "scorched_rim_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:moon_surface_rock"
+      }
+    },
+    "spawn_probability": 0.24,
+    "spread": 0.75
+  }
+}

@@ -15,7 +15,7 @@
       "above_bottom": -64
     },
     "probability": 0.18,
-    "replaceable": [],
+    "replaceable": "#galacticraft:moon_carver_replaceables",
     "vertical_radius_multiplier": {
       "type": "minecraft:uniform",
       "max_exclusive": 1.3,
