@@ -2,8 +2,8 @@ name: PR Gatekeeper (Quality & Security Gate)
 
 on:
   pull_request:
-    branches: [ 'main', 'epic*/**' ]
-    types: [ opened, synchronize, reopened ]
+    branches: [dev, main]
+    types: [opened, synchronize, reopened]
 
 concurrency:
   group: pr-gatekeeper-${{ github.event.pull_request.number || github.ref }}
@@ -25,11 +25,17 @@ jobs:
         run: |
           BRANCH_NAME="${{ github.head_ref }}"
           echo "Validando branch: $BRANCH_NAME"
-          REGEX="^(epic[0-9]+|feat|fix|test|refactor|chore|docs)/[a-z0-9_-]+$"
+          # Permite branch 'dev' para PRs de promoção/release apontando para 'main'
+          if [[ "${{ github.base_ref }}" == "main" && "$BRANCH_NAME" == "dev" ]]; then
+            echo "✅ Promoção de release de 'dev' para 'main' autorizada."
+            exit 0
+          fi
+          # Permite branches seguindo a regex: ^(feat|fix|test|refactor|chore|docs)/[a-z0-9-]+$
+          REGEX="^(feat|fix|test|refactor|chore|docs)/[a-z0-9-]+$"
           if [[ ! "$BRANCH_NAME" =~ $REGEX ]]; then
             echo "❌ ERRO: A branch '$BRANCH_NAME' viola o Axioma de Criação de Branches."
-            echo "Formato esperado: epic<N>/<task-name> ou <categoria>/<task-name>"
-            echo "Categorias permitidas: epic1..10, feat, fix, test, refactor, chore, docs."
+            echo "Formato esperado: <categoria>/<nome-da-task>"
+            echo "Categorias permitidas: feat, fix, test, refactor, chore, docs (apenas letras minúsculas, números e hífens)."
             exit 1
           fi
           echo "✅ Nomenclatura de branch válida: $BRANCH_NAME"
@@ -38,7 +44,7 @@ jobs:
         run: |
           echo "Validando mensagens de commit do PR..."
           COMMITS=$(git log --no-merges origin/${{ github.base_ref }}..HEAD --pretty=format:"%s")
-          COMMIT_REGEX="^(feat|fix|test|refactor|chore|docs)(\([a-zA-Z0-9_-]+\))?(\/|:)[[:space:]]*.+"
+          COMMIT_REGEX="^(feat|fix|test|refactor|chore|docs|ci)(\([a-zA-Z0-9_-]+\))?(\/|:)[[:space:]]*.+"
 
           while IFS= read -r msg; do
             if [ -n "$msg" ]; then

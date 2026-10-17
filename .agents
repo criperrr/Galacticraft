@@ -274,33 +274,47 @@ flowchart TD
   - **Adição Cirúrgica de Arquivos:** Inspecione os arquivos manipulados no chat atual e execute `git add <arquivo1> <arquivo2> ...` apenas para os arquivos pertencentes ao escopo daquela tarefa.
   - **Preservação da Working Tree:** Alterações pendentes não relacionadas ao chat solicitante devem permanecer intocadas na working tree (unstaged).
 
-### 8.2. Axioma de Criação de Branches
-- **Nomenclatura Obrigatória:** `epic<N>/<task-name>` para os grandes épicos do projeto (ex: `epic1/foundations`, `epic2/mars-planet`, `epic3/asteroids-dimension`, `epic4/venus-planet`) ou `<categoria>/<nome-da-task>` para correções e melhorias pontuais (ex: `feat/rocket-refactor`, `fix/oxygen-sealer-leak`).
-- **Proibição de Trabalho Direto em `main`:** É expressamente proibido commitar diretamente na branch `main`. Todo desenvolvimento deve ser ramificado e integrado através de Pull Request com verificação de CI.
+### 8.2. Axioma de Criação de Branches (Regra Prévia Obrigatória)
+- **Criação Prévia Mandatória:** O modelo DEVE OBRIGATORIAMENTE E SEMPRE criar uma branch temática a partir de `dev` (`git checkout -b <categoria>/<nome-da-task> dev`) ANTES de realizar qualquer modificação em qualquer arquivo do projeto.
+- **Proibição Absoluta de Trabalho Direto em `main` ou `dev`:** É EXPRESSAMENTE PROIBIDO realizar alterações diretamente na branch `main` ou na branch `dev`. A working tree deve ser ramificada imediatamente no início de qualquer tarefa.
+- **Branch Base Obrigatória (Somente `dev` e `main`):** O repositório possui ESTRITAMENTE as branches permanentes `main` (produção/baseline) e `dev` (desenvolvimento/integração). Toda nova tarefa, feature ou correção deve nascer exclusivamente a partir da branch `dev`.
+- **Nomenclatura Obrigatória:** `<categoria>/<nome-da-task>` (ex: `feat/asteroids-dimension`, `feat/venus-dimension`, `fix/oxygen-sealer-leak`, `test/energy-concurrency`).
+  - Categorias permitidas: `feat`, `fix`, `test`, `refactor`, `chore`, `docs`.
+  - Regex estrita: `^(feat|fix|test|refactor|chore|docs)/[a-z0-9-]+$` (apenas minúsculas, números e hífens).
+- **Proibição:** É expressamente proibido ramificar a partir de `main`, com a única exceção de hotfixes emergenciais de produção (`fix/hotfix-...`).
 
-### 8.3. Axioma de Integração Contínua e Pull Requests via GitHub CLI (`gh`)
+### 8.3. Axioma de Merge Autônomo e Validação Obrigatória de PRs (Regra Absoluta)
+- **Proibição de Merge Local:** Agentes e modelos de IA **NUNCA** executam `git merge` localmente em `dev` ou `main`.
 - **Fluxo Exclusivo de Integração:**
-  1. Criar branch temática: `git checkout -b <branch>`.
-  2. Implementar, validar localmente com Datagen, Spotless e GameTests (`./gradlew check`).
-  3. Enviar branch cirurgicamente para o fork remoto: `git push origin <branch>`.
-  4. Abrir Pull Request: `gh pr create --base main --title "..." --body "..."`.
-  5. **Acompanhamento Ativo da Esteira de CI:** O agente DEVE acompanhar a esteira com `gh pr checks <PR> --watch` até a conclusão. A tarefa NUNCA é considerada pronta sem o status `SUCCESS`.
-  6. **Merge via GitHub CLI:**
-     - Se aprovado pelo CI e pelo usuário: merge via `gh pr merge <PR> --squash` ou `--rebase`.
-     - Se o CI falhar: inspecionar o erro com `gh run view <run-id> --log-failed`, corrigir o código, comitar cirurgicamente e aguardar nova esteira.
+  1. Criar branch temática a partir de `dev` antes de tocar no código: `git checkout -b <categoria>/<nome-da-task> dev`.
+  2. Implementar, validar localmente com Datagen, Spotless e GameTests (`./gradlew test check`).
+  3. Enviar branch cirurgicamente para o fork remoto: `git push origin <categoria>/<nome-da-task>`.
+  4. Abrir Pull Request apontando para `dev`: `gh pr create --base dev --title "..." --body "..."`.
+  5. **Verificação Obrigatória de Testes:** O agente DEVE acompanhar ativamente a esteira de CI (`gh pr checks <PR> --watch` ou consulta equivalente) para verificar se todos os testes passaram (`SUCCESS`). A tarefa NUNCA deve ser considerada finalizada sem essa verificação.
+  6. **Merge via GitHub CLI (`gh`):**
+     - Se os testes passarem: o agente DEVE obrigatoriamente utilizar a CLI `gh` da máquina do usuário para realizar o merge do PR na branch `dev` (`gh pr merge --squash --auto` ou `gh pr merge <PR> --squash`).
+     - Se os testes falharem: o agente DEVE investigar a causa raiz da falha na esteira, corrigir o código, subir novo commit cirúrgico e aguardar a nova execução do CI até que seja aprovado.
+  7. **Promoção para `main` (Releases):** PRs para `main` são exclusivamente criados a partir de `dev` para publicação de releases.
+- **Pré-requisito Mandatório da CLI `gh` (Instalação e Login):**
+  - O agente deve verificar se o GitHub CLI está instalado (`which gh`) e autenticado (`gh auth status`).
+- **Resolução Autônoma de Falhas de CI via Logs:**
+  - Inspecionar a causa da falha: `gh run view <run-id> --log-failed`.
 
 ### 8.4. Proteção contra Testes Falsos (Anti-Tautologia) e Zonas Protegidas
-- **Proibição de Testes Tautológicos:** Proibido criar testes com asserções vazias ou genéricas que sempre passam sem verificar estado real.
-- **Zonas Protegidas:**
+- **Proibição de Testes Tautológicos:** Proibido criar testes com asserções genéricas ou vazias, testes sem validação de mutação de estado real ou mocks excessivos que disfarcem falhas de integração.
+- **Zonas Protegidas (Arquivos Intocáveis por IA para Burlar CI):**
   - Diretórios de CI e workflows: `.github/workflows/`.
-  - Regra inegociável: Modelos e agentes de IA **NÃO têm permissão** para afrouxar verificações ou desativar steps de validação para forçar a passagem do CI. Se uma verificação falhar, a causa raiz na implementação deve ser resolvida.
+  - Regra inegociável: Modelos e agentes de IA **NÃO têm permissão** para afrouxar verificações ou desativar steps de validação para forçar a passagem do CI. Se uma verificação falhar, a causa raiz na implementação deve ser investigada e corrigida.
 
 ### 8.5. Axioma de Títulos e Descrições de Pull Requests (PRs)
-- **Proibição de Slop de IA:** Sem introduções corporativas vazias, sem negritos excessivos e sem emojis no corpo do PR.
-- **Regras Estritas:**
-  - **Idioma:** Inglês (`en-US`).
-  - **Caixa:** Todo em minúsculas (`lowercase`), tanto no título quanto no `--body`.
-  - **Tom:** Direto, técnico e despojado (estilo sênior no terminal).
-- **Exemplo de Título:** `feat(epic3): add asteroids zero-g physics, grapple hook and telepad`
-- **Exemplo de Body:** `implements asteroids dimension with 0g vacuum inertia, grapple hook entity with cooldown and tether line, and short-range telepad pairing with 7px custom model`
+- **Estilo Idêntico a Mensagens de Commit (Proibição de Slop de IA):** Expressamente proibido o uso de templates corporativos, prolixos e gerados por IA em títulos ou bodies de PR (sem `### Resumo`, sem listas com negrito `**`, sem emojis, sem tabelas e sem qualquer formatação de markdown).
+- **Regras Estritas de Escrita:**
+  - **Idioma:** Exclusivamente em inglês (`en-US`).
+  - **Caixa:** Totalmente em minúsculas (`lowercase`), tanto no título quanto no `--body`.
+  - **Sem Markdown:** Texto puro, corrido, sem headers, bullet points rebuscados ou negrito.
+  - **Tom:** Informal, direto e despojado ("meio jogado"), mas com vocabulário tecnicamente denso e preciso (estilo clássico de engenheiro sênior no terminal).
+- **Exemplo de Título:**
+  `feat(epic3): add asteroids zero-g physics, grapple hook and telepad`
+- **Exemplo de Body (`--body`):**
+  `implements asteroids dimension with 0g vacuum inertia, grapple hook entity with cooldown and tether line, and short-range telepad pairing with 7px custom model`
 
