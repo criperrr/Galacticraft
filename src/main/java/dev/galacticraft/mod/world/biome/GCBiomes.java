@@ -60,6 +60,22 @@ public final class GCBiomes {
         public static final ResourceKey<Biome> ASTEROID_FIELD = key("asteroid_field");
     }
 
+    public static final class Mercury {
+        // Surface Biomes
+        public static final ResourceKey<Biome> INTER_CRATER_PLAINS = key("mercury_inter_crater_plains");
+        public static final ResourceKey<Biome> SMOOTH_LAVA_PLAINS = key("mercury_smooth_lava_plains");
+        public static final ResourceKey<Biome> CALORIS_BASIN = key("mercury_caloris_basin");
+        public static final ResourceKey<Biome> CHAOTIC_TERRAIN = key("mercury_chaotic_terrain");
+        public static final ResourceKey<Biome> POLAR_DARK_CRATERS = key("mercury_polar_dark_craters");
+
+        // Subterranean 3D Biomes
+        public static final ResourceKey<Biome> COLOSSAL_LAVA_TUBES = key("mercury_colossal_lava_tubes");
+        public static final ResourceKey<Biome> MEGABRECCIA_CAVERNS = key("mercury_megabreccia_caverns");
+        public static final ResourceKey<Biome> TECTONIC_CHASMS = key("mercury_tectonic_chasms");
+        public static final ResourceKey<Biome> MAGMA_DEPTHS = key("mercury_magma_depths");
+        public static final ResourceKey<Biome> HOLLOW_LABYRINTH = key("mercury_hollow_labyrinth");
+    }
+
     public static final ResourceKey<Biome> SPACE = ResourceKey.create(Registries.BIOME, Constant.id("space"));
 
     public static Biome createSpaceBiome(HolderGetter<PlacedFeature> holderGetter, HolderGetter<ConfiguredWorldCarver<?>> holderGetter2) {
@@ -100,6 +116,18 @@ public final class GCBiomes {
         context.register(Venus.VENUS_MOUNTAIN, VenusBiomes.createVenusMountain(featureLookup, carverLookup));
 
         context.register(Asteroid.ASTEROID_FIELD, AsteroidBiomes.asteroid(featureLookup, carverLookup));
+
+        context.register(Mercury.INTER_CRATER_PLAINS, MercuryBiomes.createInterCraterPlains(featureLookup, carverLookup));
+        context.register(Mercury.SMOOTH_LAVA_PLAINS, MercuryBiomes.createSmoothLavaPlains(featureLookup, carverLookup));
+        context.register(Mercury.CALORIS_BASIN, MercuryBiomes.createCalorisBasin(featureLookup, carverLookup));
+        context.register(Mercury.CHAOTIC_TERRAIN, MercuryBiomes.createChaoticTerrain(featureLookup, carverLookup));
+        context.register(Mercury.POLAR_DARK_CRATERS, MercuryBiomes.createPolarDarkCraters(featureLookup, carverLookup));
+
+        context.register(Mercury.COLOSSAL_LAVA_TUBES, MercuryBiomes.createColossalLavaTubes(featureLookup, carverLookup));
+        context.register(Mercury.MEGABRECCIA_CAVERNS, MercuryBiomes.createMegabrecciaCaverns(featureLookup, carverLookup));
+        context.register(Mercury.TECTONIC_CHASMS, MercuryBiomes.createTectonicChasms(featureLookup, carverLookup));
+        context.register(Mercury.MAGMA_DEPTHS, MercuryBiomes.createMagmaDepths(featureLookup, carverLookup));
+        context.register(Mercury.HOLLOW_LABYRINTH, MercuryBiomes.createHollowLabyrinth(featureLookup, carverLookup));
     }
 
     @Contract(pure = true)

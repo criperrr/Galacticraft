@@ -121,6 +121,8 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(GCBlocks.MARS_COBBLESTONE);
         this.tag(GCBlockTags.INFINIBURN_ASTEROID)
                 .add(GCBlocks.ASTEROID_ROCK);
+        this.tag(GCBlockTags.INFINIBURN_MERCURY)
+                .add(GCBlocks.MERCURY_BASALT_BRICK);
         this.tag(GCBlockTags.BASE_STONE_MOON)
                 .add(GCBlocks.MOON_ROCK);
         this.tag(GCBlockTags.BASE_STONE_MARS)
@@ -146,6 +148,21 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(GCBlocks.SCORCHED_VENUS_ROCK)
                 .add(GCBlocks.VOLCANIC_ROCK)
                 .add(GCBlocks.PUMICE);
+        this.tag(GCBlockTags.MERCURY_CARVER_REPLACEABLES)
+                .add(GCBlocks.MERCURY_REGOLITH)
+                .add(GCBlocks.MERCURY_COMPACTED_REGOLITH)
+                .add(GCBlocks.MERCURY_FROST_REGOLITH)
+                .add(GCBlocks.MERCURY_HOLLOW_DEPOSIT)
+                .add(GCBlocks.MERCURY_BASALT)
+                .add(GCBlocks.MERCURY_SHOCK_BRECCIA)
+                .add(GCBlocks.MERCURY_GRAPHITE_ROCK)
+                .add(GCBlocks.MERCURY_ALUMINUM_ORE)
+                .add(GCBlocks.MERCURY_COPPER_ORE)
+                .add(GCBlocks.MERCURY_TITANIUM_ORE)
+                .add(GCBlocks.MERCURY_NATIVE_IRON_ORE)
+                .add(GCBlocks.MERCURY_GRAPHITE_ORE)
+                .add(GCBlocks.MERCURY_SULFIDE_ORE)
+                .add(net.minecraft.world.level.block.Blocks.PACKED_ICE);
         this.tag(GCBlockTags.OLIVINE_CAVE_REPLACEABLES)
                 .add(GCBlocks.LUNASLATE)
                 .add(GCBlocks.MOON_ROCK);

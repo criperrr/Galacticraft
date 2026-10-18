@@ -45,6 +45,7 @@ public class GCNoiseGeneratorSettings {
     public static final ResourceKey<NoiseGeneratorSettings> MOON = key("moon");
     public static final ResourceKey<NoiseGeneratorSettings> MARS = key("mars");
     public static final ResourceKey<NoiseGeneratorSettings> VENUS = key("venus");
+    public static final ResourceKey<NoiseGeneratorSettings> MERCURY = key("mercury");
 
     public static void bootstrapRegistries(BootstrapContext<NoiseGeneratorSettings> context) {
         HolderGetter<DensityFunction> densityLookup = context.lookup(Registries.DENSITY_FUNCTION);
@@ -91,6 +92,44 @@ public class GCNoiseGeneratorSettings {
                 false,
                 false
         ));
+
+        context.register(MERCURY, new NoiseGeneratorSettings(
+                NoiseSettings.create(-64, 384, 1, 2), // Limits from Y = -64 to 320 (height = 384)
+                GCBlocks.MERCURY_BASALT.defaultBlockState(),
+                Blocks.AIR.defaultBlockState(),
+                GCNoiseGeneratorSettings.mercury(densityLookup, noiseLookup),
+                dev.galacticraft.mod.world.gen.surfacerule.MercurySurfaceRules.MERCURY,
+                new OverworldBiomeBuilder().spawnTarget(),
+                -64, // Sea level / fluid floor
+                false,
+                false,
+                false,
+                false
+        ));
+    }
+
+    public static NoiseRouter mercury(HolderGetter<DensityFunction> densityLookup, HolderGetter<NormalNoise.NoiseParameters> noiseLookup) {
+        DensityFunction shiftX = GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.SHIFT_X);
+        DensityFunction shiftZ = GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.SHIFT_Z);
+        DensityFunction finalDensity = GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Mercury.FINAL_DENSITY);
+
+        return new NoiseRouter(
+                DensityFunctions.constant(1), // barrierNoise
+                DensityFunctions.zero(), // fluidLevelFloodednessNoise
+                DensityFunctions.zero(), // fluidLevelSpreadNoise
+                DensityFunctions.zero(), // lavaNoise
+                DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.25, noiseLookup.getOrThrow(Noises.TEMPERATURE)),
+                DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.25, noiseLookup.getOrThrow(Noises.VEGETATION)),
+                GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.CONTINENTS),
+                GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.EROSION),
+                GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Mercury.DEPTH),
+                GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.RIDGES),
+                finalDensity,
+                DensityFunctions.blendDensity(finalDensity),
+                DensityFunctions.zero(),
+                DensityFunctions.zero(),
+                DensityFunctions.zero()
+        );
     }
 
     public static NoiseRouter moon(HolderGetter<DensityFunction> densityLookup, HolderGetter<NormalNoise.NoiseParameters> noiseLookup) {

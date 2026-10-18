@@ -174,6 +174,24 @@ public interface Constant {
         String PUMICE = "pumice";
         String VAPOR_SPOUT = "vapor_spout";
 
+        // Mercury Natural
+        String MERCURY_REGOLITH = "mercury_regolith";
+        String MERCURY_COMPACTED_REGOLITH = "mercury_compacted_regolith";
+        String MERCURY_FROST_REGOLITH = "mercury_frost_regolith";
+        String MERCURY_HOLLOW_DEPOSIT = "mercury_hollow_deposit";
+        String MERCURY_BASALT = "mercury_basalt";
+        String MERCURY_SHOCK_BRECCIA = "mercury_shock_breccia";
+        String MERCURY_GRAPHITE_ROCK = "mercury_graphite_rock";
+        String MERCURY_BASALT_BRICK = "mercury_basalt_brick";
+
+        // Mercury Ore
+        String MERCURY_ALUMINUM_ORE = "mercury_aluminum_ore";
+        String MERCURY_COPPER_ORE = "mercury_copper_ore";
+        String MERCURY_TITANIUM_ORE = "mercury_titanium_ore";
+        String MERCURY_NATIVE_IRON_ORE = "mercury_native_iron_ore";
+        String MERCURY_GRAPHITE_ORE = "mercury_graphite_ore";
+        String MERCURY_SULFIDE_ORE = "mercury_sulfide_ore";
+
         // Ore
         String MARS_IRON_ORE = "mars_iron_ore";
         String MARS_TIN_ORE = "mars_tin_ore";
@@ -1049,7 +1067,6 @@ public interface Constant {
         ResourceLocation SOL = id("textures/gui/celestialbodies/sol.png");
         ResourceLocation SOL_OVERCAST = id("textures/gui/celestialbodies/sol_overcast.png");
         ResourceLocation SOL_FROM_MOON = id("textures/gui/celestialbodies/sol_from_moon.png");
-        ResourceLocation SUN = id("textures/gui/celestialbodies/sun.png");
         ResourceLocation MERCURY = id("textures/gui/celestialbodies/mercury.png");
         ResourceLocation VENUS = id("textures/gui/celestialbodies/venus.png");
         ResourceLocation EARTH = id("textures/gui/celestialbodies/earth.png");
@@ -1067,48 +1084,6 @@ public interface Constant {
         ResourceLocation URANUS = id("textures/gui/celestialbodies/uranus.png");
         ResourceLocation URANUS_RINGS = id("textures/gui/celestialbodies/uranus_rings.png");
         ResourceLocation NEPTUNE = id("textures/gui/celestialbodies/neptune.png");
-        ResourceLocation PHOBOS = id("textures/gui/celestialbodies/phobos.png");
-        ResourceLocation DEIMOS = id("textures/gui/celestialbodies/deimos.png");
-        ResourceLocation CERES = id("textures/gui/celestialbodies/ceres.png");
-        ResourceLocation PLUTO = id("textures/gui/celestialbodies/pluto.png");
-        ResourceLocation CHARON = id("textures/gui/celestialbodies/charon.png");
-        ResourceLocation ERIS = id("textures/gui/celestialbodies/eris.png");
-        ResourceLocation HAUMEA = id("textures/gui/celestialbodies/haumea.png");
-        ResourceLocation MAKEMAKE = id("textures/gui/celestialbodies/makemake.png");
-        ResourceLocation KUIPER_BELT = id("textures/gui/celestialbodies/kuiper_belt.png");
-        ResourceLocation HAUMEA_RINGS = id("textures/gui/celestialbodies/haumea_rings.png");
-        ResourceLocation TITAN = id("textures/gui/celestialbodies/titan.png");
-        ResourceLocation TRITON = id("textures/gui/celestialbodies/triton.png");
-        ResourceLocation ENCELADUS = id("textures/gui/celestialbodies/enceladus.png");
-        ResourceLocation OBERON = id("textures/gui/celestialbodies/oberon.png");
-        ResourceLocation TITANIA = id("textures/gui/celestialbodies/titania.png");
-        ResourceLocation RHEA = id("textures/gui/celestialbodies/rhea.png");
-        ResourceLocation IAPETUS = id("textures/gui/celestialbodies/iapetus.png");
-        ResourceLocation CHALOS = id("textures/gui/celestialbodies/chalos.png");
-        ResourceLocation DIONA = id("textures/gui/celestialbodies/diona.png");
-        ResourceLocation FRONOS = id("textures/gui/celestialbodies/fronos.png");
-        ResourceLocation KOENTUS = id("textures/gui/celestialbodies/koentus.png");
-        ResourceLocation LAZENDUS = id("textures/gui/celestialbodies/lazendus.png");
-        ResourceLocation NIBIRU = id("textures/gui/celestialbodies/nibiru.png");
-        ResourceLocation ASGARD = id("textures/gui/celestialbodies/asgard.png");
-        ResourceLocation ASTROS = id("textures/gui/celestialbodies/astros.png");
-        ResourceLocation ATHEON = id("textures/gui/celestialbodies/atheon.png");
-        ResourceLocation CANDORA = id("textures/gui/celestialbodies/candora.png");
-        ResourceLocation EDEN = id("textures/gui/celestialbodies/eden.png");
-        ResourceLocation EXODUS = id("textures/gui/celestialbodies/exodus.png");
-        ResourceLocation KRIFFUS = id("textures/gui/celestialbodies/kriffus.png");
-        ResourceLocation NOVA = id("textures/gui/celestialbodies/nova.png");
-        ResourceLocation OASIS = id("textures/gui/celestialbodies/oasis.png");
-        ResourceLocation OLYMPUS = id("textures/gui/celestialbodies/olympus.png");
-        ResourceLocation PANTHEON = id("textures/gui/celestialbodies/pantheon.png");
-        ResourceLocation PRAEDYTH = id("textures/gui/celestialbodies/praedyth.png");
-        ResourceLocation PSION6 = id("textures/gui/celestialbodies/psion6.png");
-        ResourceLocation PURGOT = id("textures/gui/celestialbodies/purgot.png");
-        ResourceLocation SOL_2 = id("textures/gui/celestialbodies/sol-2.png");
-        ResourceLocation VEGA = id("textures/gui/celestialbodies/vega.png");
-        ResourceLocation XANTHEON = id("textures/gui/celestialbodies/xantheon.png");
-        ResourceLocation XATHIUS = id("textures/gui/celestialbodies/xathius.png");
-        ResourceLocation ZOLLUS = id("textures/gui/celestialbodies/zollus.png");
     }
 
     interface CelestialOverlay {
@@ -1123,9 +1098,6 @@ public interface Constant {
         ResourceLocation SUN = ResourceLocation.withDefaultNamespace("textures/environment/sun.png");
         ResourceLocation SUN_MOON = id("textures/environment/sun_moon.png");
         ResourceLocation SUN_VENUS = id("textures/environment/sun_venus.png");
-        ResourceLocation SUN_ORBITAL = id("textures/gui/planets/orbitalsun.png");
-        ResourceLocation SUN_ATMOSPHERIC = id("textures/gui/planets/atmosphericsun.png");
-        ResourceLocation GALAXY = id("textures/gui/planets/galaxy.png");
         ResourceLocation EARTH = id("textures/environment/earth.png");
         ResourceLocation CLOUDS = id("textures/environment/clouds.png");
         ResourceLocation ATMOSPHERE = id("textures/environment/atmosphere.png");
@@ -1461,6 +1433,12 @@ public interface Constant {
         String MARS_CAVERN_CARVER = "mars_cavern_carver";
         String VENUS_CAVE_CARVER = "venus_cave_carver";
         String VENUS_CANYON_CARVER = "venus_canyon_carver";
+        String MERCURY_COLLAPSED_RILLES_CARVER = "mercury_collapsed_rilles_carver";
+        String MERCURY_SCARP_PORTAL_CARVER = "mercury_scarp_portal_carver";
+        String MERCURY_TECTONIC_FISSURE_CARVER = "mercury_tectonic_fissure_carver";
+        String MERCURY_SKYLIGHT_CARVER = "mercury_skylight_carver";
+        String MERCURY_SUBLIMATION_FUNNEL_CARVER = "mercury_sublimation_funnel_carver";
+        String MERCURY_CAVE_CARVER = "mercury_cave_carver";
     }
 
     interface Packet {

@@ -73,6 +73,10 @@ public class GCFeatures {
             "moon_cave_flora",
             new MoonCaveFloraFeature(NoneFeatureConfiguration.CODEC)
     );
+    public static final Feature<NoneFeatureConfiguration> MERCURY_SPELEOTHEM = FEATURES.register(
+            "mercury_speleothem",
+            new MercurySpeleothemFeature(NoneFeatureConfiguration.CODEC)
+    );
 
     public static void register() {
         Constant.LOGGER.debug("Registering Galacticraft worldgen features");

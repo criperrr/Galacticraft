@@ -29,6 +29,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
@@ -51,6 +52,9 @@ public class GCOreConfiguredFeature {
 
     public static final RuleTest SOFT_VENUS_ROCK_ORE_REPLACEABLE = new TagMatchTest(GCBlockTags.SOFT_VENUS_ROCK_ORE_REPLACEABLES);
     public static final RuleTest HARD_VENUS_ROCK_ORE_REPLACEABLE = new TagMatchTest(GCBlockTags.HARD_VENUS_ROCK_ORE_REPLACEABLES);
+
+    public static final RuleTest MERCURY_BASALT_REPLACEABLE = new net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest(GCBlocks.MERCURY_BASALT);
+    public static final RuleTest MERCURY_SHOCK_BRECCIA_REPLACEABLE = new net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest(GCBlocks.MERCURY_SHOCK_BRECCIA);
 
     public static final List<OreConfiguration.TargetBlockState> TIN_ORES = List.of(OreConfiguration.target(STONE_ORE_REPLACEABLE, GCBlocks.TIN_ORE.defaultBlockState()), OreConfiguration.target(DEEPSLATE_ORE_REPLACEABLE, GCBlocks.DEEPSLATE_TIN_ORE.defaultBlockState()));
     public static final List<OreConfiguration.TargetBlockState> ALUMINUM_ORES = List.of(OreConfiguration.target(STONE_ORE_REPLACEABLE, GCBlocks.ALUMINUM_ORE.defaultBlockState()), OreConfiguration.target(DEEPSLATE_ORE_REPLACEABLE, GCBlocks.DEEPSLATE_ALUMINUM_ORE.defaultBlockState()));
@@ -136,6 +140,15 @@ public class GCOreConfiguredFeature {
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_GALENA_VENUS = key("ore_galena_venus");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_SOLAR_VENUS = key("ore_solar_venus");
 
+    // MERCURY
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_ALUMINUM_MERCURY = key("ore_aluminum_mercury");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_COPPER_MERCURY = key("ore_copper_mercury");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_TITANIUM_MERCURY = key("ore_titanium_mercury");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_NATIVE_IRON_MERCURY = key("ore_native_iron_mercury");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_GRAPHITE_MERCURY = key("ore_graphite_mercury");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_SULFIDE_MERCURY = key("ore_sulfide_mercury");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> MAGMA_PATCH_MERCURY = key("magma_patch_mercury");
+
     @Contract(pure = true)
     private static @NotNull ResourceKey<ConfiguredFeature<?, ?>> key(String s) {
         return Constant.key(Registries.CONFIGURED_FEATURE, s);
@@ -183,5 +196,17 @@ public class GCOreConfiguredFeature {
         context.register(ORE_ALUMINUM_VENUS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(ALUMINUM_ORES_VENUS, 6)));
         context.register(ORE_GALENA_VENUS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(GALENA_ORES_VENUS, 6)));
         context.register(ORE_SOLAR_VENUS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(SOLAR_ORES_VENUS, 5)));
+
+        // MERCURY
+        context.register(ORE_ALUMINUM_MERCURY, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(MERCURY_BASALT_REPLACEABLE, GCBlocks.MERCURY_ALUMINUM_ORE.defaultBlockState(), 8)));
+        context.register(ORE_COPPER_MERCURY, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(MERCURY_BASALT_REPLACEABLE, GCBlocks.MERCURY_COPPER_ORE.defaultBlockState(), 9)));
+        context.register(ORE_TITANIUM_MERCURY, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(MERCURY_BASALT_REPLACEABLE, GCBlocks.MERCURY_TITANIUM_ORE.defaultBlockState(), 6)));
+        context.register(ORE_NATIVE_IRON_MERCURY, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(MERCURY_SHOCK_BRECCIA_REPLACEABLE, GCBlocks.MERCURY_NATIVE_IRON_ORE.defaultBlockState(), 12)));
+        context.register(ORE_GRAPHITE_MERCURY, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(MERCURY_BASALT_REPLACEABLE, GCBlocks.MERCURY_GRAPHITE_ORE.defaultBlockState(), 7)));
+        context.register(ORE_SULFIDE_MERCURY, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(MERCURY_SHOCK_BRECCIA_REPLACEABLE, GCBlocks.MERCURY_SULFIDE_ORE.defaultBlockState(), 5)));
+        context.register(MAGMA_PATCH_MERCURY, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(List.of(
+                OreConfiguration.target(MERCURY_BASALT_REPLACEABLE, Blocks.MAGMA_BLOCK.defaultBlockState()),
+                OreConfiguration.target(MERCURY_SHOCK_BRECCIA_REPLACEABLE, Blocks.MAGMA_BLOCK.defaultBlockState())
+        ), 32)));
     }
 }
