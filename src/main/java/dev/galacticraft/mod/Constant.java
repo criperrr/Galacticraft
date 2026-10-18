@@ -1331,6 +1331,7 @@ public interface Constant {
         String NO_DROP = "NoDrop";
         String OWNER = "Owner";
         String PROGRESS = "Progress";
+        String RECIPES_USED = "RecipesUsed";
         String TRANSFERRING_CAN = "TransferringCan";
         String TRANSFERRING_FOOD = "TransferringFood";
         String STORAGE = "StorageStack";
