@@ -3,29 +3,29 @@
   "argument1": 0.0,
   "argument2": {
     "type": "minecraft:mul",
-    "argument1": 2.4,
+    "argument1": 2.8,
     "argument2": {
       "type": "minecraft:add",
-      "argument1": 0.28,
+      "argument1": -0.15,
       "argument2": {
         "type": "minecraft:add",
         "argument1": {
           "type": "minecraft:add",
           "argument1": {
             "type": "minecraft:y_clamped_gradient",
-            "from_value": 1.5,
-            "from_y": -52,
+            "from_value": 1.4,
+            "from_y": -54,
             "to_value": 0.0,
-            "to_y": -38
+            "to_y": -40
           },
           "argument2": {
             "type": "minecraft:add",
             "argument1": {
               "type": "minecraft:y_clamped_gradient",
               "from_value": 0.0,
-              "from_y": -38,
-              "to_value": 2.2,
-              "to_y": -12
+              "from_y": -28,
+              "to_value": 1.6,
+              "to_y": -14
             },
             "argument2": {
               "type": "minecraft:mul",
@@ -42,21 +42,26 @@
         "argument2": {
           "type": "minecraft:add",
           "argument1": {
-            "type": "minecraft:mul",
-            "argument1": 1.4,
-            "argument2": {
-              "type": "minecraft:noise",
-              "noise": "galacticraft:mercury/basal_pillars",
-              "xz_scale": 1.5,
-              "y_scale": 0.8
-            }
+            "type": "minecraft:noise",
+            "noise": "galacticraft:mercury/magma_chambers",
+            "xz_scale": 0.65,
+            "y_scale": 0.55
           },
           "argument2": {
-            "type": "minecraft:mul",
-            "argument1": 1.5,
+            "type": "minecraft:add",
+            "argument1": {
+              "type": "minecraft:mul",
+              "argument1": 0.4,
+              "argument2": {
+                "type": "minecraft:noise",
+                "noise": "galacticraft:mercury/basal_pillars",
+                "xz_scale": 1.2,
+                "y_scale": 0.8
+              }
+            },
             "argument2": {
-              "type": "minecraft:add",
-              "argument1": 0.25,
+              "type": "minecraft:mul",
+              "argument1": 0.6,
               "argument2": {
                 "type": "minecraft:shifted_noise",
                 "noise": "galacticraft:mercury/cave_rarity",
