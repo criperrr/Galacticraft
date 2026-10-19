@@ -84,6 +84,7 @@ public class GCDensityFunctions {
         public static final ResourceKey<DensityFunction> TECTONIC_CHASMS = createKey("mercury/tectonic_chasms");
         public static final ResourceKey<DensityFunction> MAGMA_DEPTHS = createKey("mercury/magma_depths");
         public static final ResourceKey<DensityFunction> HOLLOW_LABYRINTH = createKey("mercury/hollow_labyrinth");
+        public static final ResourceKey<DensityFunction> PILLARS = createKey("mercury/pillars");
         public static final ResourceKey<DensityFunction> CAVES = createKey("mercury/caves");
 
         public static final ResourceKey<DensityFunction> FINAL_DENSITY = createKey("mercury/final_density");
@@ -457,10 +458,13 @@ public class GCDensityFunctions {
         );
 
         DensityFunction mercury3dRoughness = DensityFunctions.mul(
-                mercuryFactor,
+                DensityFunctions.yClampedGradient(140, 240, 1.0, 0.0),
                 DensityFunctions.mul(
-                        DensityFunctions.constant(0.08),
-                        BlendedNoise.createUnseeded(0.25, 0.125, 80.0, 160.0, 8.0)
+                        mercuryFactor,
+                        DensityFunctions.mul(
+                                DensityFunctions.constant(0.08),
+                                BlendedNoise.createUnseeded(0.25, 0.125, 80.0, 160.0, 8.0)
+                        )
                 )
         );
 
@@ -565,35 +569,43 @@ public class GCDensityFunctions {
                 )
         );
 
-        // (D) Abismo Magmático Profundo (Mercury Magma Depths) [Y = -52 to -14]
-        // Basal volcanic complex: dramatic chambers, magma cauldrons and lava channels
-        // structured by massive basalt massifs, natural rock pillars, and organic vaulted 3D roof (NO flat ceiling!)
+        // (D) Abismo Magmático Profundo (Mercury Magma Depths) [Y = -54 to -14]
+        // Basal volcanic complex: colossal chambers, magma cauldrons and vast subterranean lava halls
+        // structured by massive basalt massifs, natural rock pillars, and organic vaulted 3D roof
         DensityFunction magmaRoofRoughness = DensityFunctions.mul(
                 DensityFunctions.constant(0.85),
                 DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.MERCURY_MEGABRECCIA_CHEESE), 1.2, 1.2)
         );
         DensityFunction magmaYDist = DensityFunctions.add(
-                DensityFunctions.yClampedGradient(-52, -38, 1.5, 0.0),
+                DensityFunctions.yClampedGradient(-54, -40, 1.4, 0.0),
                 DensityFunctions.add(
-                        DensityFunctions.yClampedGradient(-38, -12, 0.0, 2.2),
+                        DensityFunctions.yClampedGradient(-28, -14, 0.0, 1.6),
                         magmaRoofRoughness // Smooth 3D dome roof variation: eliminates flat ceiling!
                 )
         );
-        // Pillar & chamber noise: higher frequency and amplitude to produce structured basalt walls, ridges, and islands
-        DensityFunction pillarNoise = DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.MERCURY_BASAL_PILLARS), 1.5, 0.8);
+        // Low-frequency 3D chamber noise for colossal rooms (60-120 blocks wide)
+        DensityFunction chamber3d = DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.MERCURY_MAGMA_CHAMBERS), 0.65, 0.55);
+        // Structural basalt spines and pillars within the chambers
+        DensityFunction basaltSpines = DensityFunctions.mul(
+                DensityFunctions.constant(0.40),
+                DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.MERCURY_BASAL_PILLARS), 1.2, 0.8)
+        );
         DensityFunction magmaMetric = DensityFunctions.add(
                 magmaYDist,
                 DensityFunctions.add(
-                        DensityFunctions.mul(DensityFunctions.constant(1.4), pillarNoise),
-                        DensityFunctions.mul(DensityFunctions.constant(1.5), DensityFunctions.add(caveRarity, DensityFunctions.constant(0.25)))
+                        chamber3d,
+                        DensityFunctions.add(
+                                basaltSpines,
+                                DensityFunctions.mul(DensityFunctions.constant(0.6), caveRarity)
+                        )
                 )
         );
         DensityFunction magmaDepths = registerAndWrap(context, Mercury.MAGMA_DEPTHS,
                 DensityFunctions.min(
                         DensityFunctions.zero(),
                         DensityFunctions.mul(
-                                DensityFunctions.constant(2.4),
-                                DensityFunctions.add(magmaMetric, DensityFunctions.constant(0.28))
+                                DensityFunctions.constant(2.8),
+                                DensityFunctions.add(magmaMetric, DensityFunctions.constant(-0.15))
                         )
                 )
         );
@@ -714,16 +726,69 @@ public class GCDensityFunctions {
                 )
         );
 
-        // Smooth cave ceiling cutoff: guarantees caves taper closed before Y = 120, preventing surface breaches
+        // Dynamic Crust Surface Ceiling Taper (from SKILL.md Section 3.1):
+        // Automatically scales cave ceiling closed relative to local terrain elevation (mercurySolidTerrain)
+        // preventing surface breaches even in deep impact craters (Caloris Basin) or valleys!
+        DensityFunction surfaceCeilingTaper = DensityFunctions.add(
+                DensityFunctions.mul(DensityFunctions.constant(-25.0), mercurySolidTerrain),
+                DensityFunctions.constant(3.5)
+        ).clamp(0.0, 3.5);
+
         DensityFunction boundedCaveCarve = DensityFunctions.min(
                 DensityFunctions.zero(),
-                DensityFunctions.add(totalCaveCarve, DensityFunctions.yClampedGradient(114, 122, 0.0, 3.0))
+                DensityFunctions.add(totalCaveCarve, surfaceCeilingTaper)
         );
 
-        // Final density: solid terrain (crosses 0 at Y = 128) + bounded cave carve offsets + impenetrable bedrock protection
+        // (H) Pilares Naturais de Sustentação Geológica (Mercury Subterranean Noise Pillars) [Y = -48 to 70]
+        // Massive monolithic stone columns spanning floor to ceiling in vast subterranean cavities (vanilla/YUNG's inspired)
+        // Strictly masked by caveMask & pillarYFalloff to guarantee ZERO floating blocks in open air or above surface!
+        DensityFunction pillarA = DensityFunctions.interpolated(
+                DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.MERCURY_CAVE_PILLARS), 0.8, 0.8)
+        ).abs();
+        DensityFunction pillarB = DensityFunctions.interpolated(
+                DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.MERCURY_CAVE_PILLARS), 1.6, 1.6)
+        ).abs();
+        DensityFunction pillarGrid = DensityFunctions.max(pillarA, pillarB);
+        // Pillar thickness tapers towards mid-height (hourglass shape)
+        DensityFunction pillarHourglass = DensityFunctions.add(
+                DensityFunctions.yClampedGradient(-40, 15, 0.08, 0.0),
+                DensityFunctions.yClampedGradient(15, 65, 0.0, 0.08)
+        );
+        DensityFunction rawPillars = DensityFunctions.rangeChoice(
+                DensityFunctions.add(pillarGrid, pillarHourglass),
+                0.0,
+                0.14,
+                DensityFunctions.mul(
+                        DensityFunctions.constant(4.5),
+                        DensityFunctions.add(
+                                DensityFunctions.constant(0.14),
+                                DensityFunctions.mul(DensityFunctions.constant(-1.0), DensityFunctions.add(pillarGrid, pillarHourglass))
+                        )
+                ),
+                DensityFunctions.zero()
+        );
+        DensityFunction pillarYFalloff = DensityFunctions.mul(
+                DensityFunctions.yClampedGradient(-50, -38, 0.0, 1.0),
+                DensityFunctions.yClampedGradient(55, 70, 1.0, 0.0)
+        );
+        DensityFunction caveMask = DensityFunctions.rangeChoice(
+                boundedCaveCarve,
+                -100.0,
+                -0.10,
+                DensityFunctions.constant(1.0),
+                DensityFunctions.zero()
+        );
+        DensityFunction pillarDensity = registerAndWrap(context, Mercury.PILLARS,
+                DensityFunctions.mul(rawPillars, DensityFunctions.mul(pillarYFalloff, caveMask))
+        );
+
+        // Final density: solid terrain + bounded cave carve + structural pillars + impenetrable bedrock protection
         context.register(Mercury.FINAL_DENSITY, DensityFunctions.add(
                 mercurySolidTerrain,
-                DensityFunctions.add(boundedCaveCarve, bedrockShield)
+                DensityFunctions.add(
+                        DensityFunctions.add(boundedCaveCarve, pillarDensity),
+                        bedrockShield
+                )
         ));
     }
 

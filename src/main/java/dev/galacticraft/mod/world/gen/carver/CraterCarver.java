@@ -32,6 +32,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.CarvingMask;
 import net.minecraft.world.level.chunk.ChunkAccess;
@@ -70,7 +71,8 @@ public class CraterCarver extends WorldCarver<CraterCarverConfig> {
 
                 double dx = Math.abs(worldX - craterCenter.getX());
                 double dz = Math.abs(worldZ - craterCenter.getZ());
-                if (dx >= 32 || dz >= 32) {
+                int maxReach = Math.max(32, config.maxRadius + 4);
+                if (dx >= maxReach || dz >= maxReach) {
                     continue;
                 }
 
@@ -79,13 +81,14 @@ public class CraterCarver extends WorldCarver<CraterCarverConfig> {
                     continue;
                 }
 
-                // GC4 ChunkProviderMoon.makeCrater quartic bowl profile:
-                // sqrtY = (xDev^2 + zDev^2), yDev = sqrtY^2 * 6, craterDepth = 5 - yDev
+                // Quartic bowl profile with configurable baseDepth:
+                // At center (sqrtY = 0): craterDepth = config.baseDepth * depthMultiplier
+                // At rim (sqrtY = 1): craterDepth = 0
                 double normX = dx / radius;
                 double normZ = dz / radius;
                 double sqrtY = normX * normX + normZ * normZ;
                 double yDev = sqrtY * sqrtY * 6.0;
-                double craterDepth = (5.0 - yDev) * depthMultiplier;
+                double craterDepth = (config.baseDepth - (yDev * (config.baseDepth / 6.0))) * depthMultiplier;
                 if (craterDepth <= 0.0) {
                     continue;
                 }
@@ -138,6 +141,15 @@ public class CraterCarver extends WorldCarver<CraterCarverConfig> {
                                 chunk.setBlockState(underPos, GCBlocks.MOON_BASALT.defaultBlockState(), false);
                             }
                         }
+                    } else if (isMercuryBiome(biomeHolder)) {
+                        BlockState floorState = pickMercuryCraterFloor(biomeHolder, fresh, worldX, mutable.getY(), worldZ, sqrtY);
+                        chunk.setBlockState(mutable, floorState, false);
+                        if (biomeHolder.is(GCBiomes.Mercury.POLAR_DARK_CRATERS)) {
+                            BlockPos underPos = copy.set(mutable).move(Direction.DOWN);
+                            if (!chunk.getBlockState(underPos).isAir()) {
+                                chunk.setBlockState(underPos, GCBlocks.MERCURY_SHOCK_BRECCIA.defaultBlockState(), false);
+                            }
+                        }
                     } else {
                         context.topMaterial(posToBiome, chunk, worldFloorPos, false)
                                 .ifPresent(topState -> chunk.setBlockState(mutable, topState, false));
@@ -154,6 +166,38 @@ public class CraterCarver extends WorldCarver<CraterCarverConfig> {
                 || biome.is(GCBiomes.Moon.COMET_TUNDRA)
                 || biome.is(GCBiomes.Moon.LUNAR_HIGHLANDS)
                 || biome.is(GCBiomes.Moon.LUNAR_LOWLANDS);
+    }
+
+    private static boolean isMercuryBiome(Holder<Biome> biome) {
+        return biome.is(GCBiomes.Mercury.POLAR_DARK_CRATERS)
+                || biome.is(GCBiomes.Mercury.CALORIS_BASIN)
+                || biome.is(GCBiomes.Mercury.CHAOTIC_TERRAIN)
+                || biome.is(GCBiomes.Mercury.INTER_CRATER_PLAINS)
+                || biome.is(GCBiomes.Mercury.SMOOTH_LAVA_PLAINS);
+    }
+
+    private static BlockState pickMercuryCraterFloor(Holder<Biome> biome, boolean fresh, int worldX, int worldY, int worldZ, double normalizedDistSq) {
+        int hash = posHash(worldX, worldY, worldZ);
+        if (biome.is(GCBiomes.Mercury.POLAR_DARK_CRATERS)) {
+            // Deep interior of polar craters (permanent cold trap): pure packed ice & blue ice sheets!
+            if (normalizedDistSq < 0.40) {
+                return (hash % 4 == 0) ? Blocks.BLUE_ICE.defaultBlockState() : Blocks.PACKED_ICE.defaultBlockState();
+            } else if (normalizedDistSq < 0.65) {
+                return (hash % 2 == 0) ? Blocks.PACKED_ICE.defaultBlockState() : GCBlocks.MERCURY_FROST_REGOLITH.defaultBlockState();
+            }
+            return GCBlocks.MERCURY_FROST_REGOLITH.defaultBlockState();
+        }
+        if (biome.is(GCBiomes.Mercury.CALORIS_BASIN)) {
+            if (normalizedDistSq < 0.35 && (hash % 3 == 0)) {
+                return GCBlocks.MERCURY_GRAPHITE_ROCK.defaultBlockState();
+            }
+            return (hash % 4 == 0) ? GCBlocks.MERCURY_SHOCK_BRECCIA.defaultBlockState() : GCBlocks.MERCURY_BASALT.defaultBlockState();
+        }
+        // General Mercury surface (Inter-Crater Plains, Smooth Lava, Chaotic):
+        if (fresh || normalizedDistSq < 0.30) {
+            return (hash % 3 == 0) ? GCBlocks.MERCURY_SHOCK_BRECCIA.defaultBlockState() : GCBlocks.MERCURY_BASALT.defaultBlockState();
+        }
+        return (hash % 5 == 0) ? GCBlocks.MERCURY_COMPACTED_REGOLITH.defaultBlockState() : GCBlocks.MERCURY_REGOLITH.defaultBlockState();
     }
 
     private static int posHash(int x, int y, int z) {

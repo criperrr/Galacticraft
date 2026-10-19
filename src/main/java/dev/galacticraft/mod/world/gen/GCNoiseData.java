@@ -54,6 +54,8 @@ public class GCNoiseData {
     public static final ResourceKey<NormalNoise.NoiseParameters> MERCURY_CAVE_RARITY = createKey("mercury/cave_rarity");
     public static final ResourceKey<NormalNoise.NoiseParameters> MERCURY_CRAWLWAY_A = createKey("mercury/crawlway_a");
     public static final ResourceKey<NormalNoise.NoiseParameters> MERCURY_CRAWLWAY_B = createKey("mercury/crawlway_b");
+    public static final ResourceKey<NormalNoise.NoiseParameters> MERCURY_CAVE_PILLARS = createKey("mercury/cave_pillars");
+    public static final ResourceKey<NormalNoise.NoiseParameters> MERCURY_MAGMA_CHAMBERS = createKey("mercury/magma_chambers");
 
     private static ResourceKey<NormalNoise.NoiseParameters> createKey(String id) {
         return ResourceKey.create(Registries.NOISE, Constant.id(id));
@@ -96,6 +98,8 @@ public class GCNoiseData {
         register(context, MERCURY_CAVE_RARITY, -8, 1.0, 0.35);
         register(context, MERCURY_CRAWLWAY_A, -6, 1.0, 0.4, 0.1);
         register(context, MERCURY_CRAWLWAY_B, -6, 1.0, 0.4, 0.1);
+        register(context, MERCURY_CAVE_PILLARS, -6, 1.0, 0.5, 0.25);
+        register(context, MERCURY_MAGMA_CHAMBERS, -8, 1.0, 0.5, 0.25);
     }
 
     private static void register(

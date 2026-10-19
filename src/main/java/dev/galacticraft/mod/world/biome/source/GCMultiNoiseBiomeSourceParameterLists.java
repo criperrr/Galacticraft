@@ -273,52 +273,52 @@ public class GCMultiNoiseBiomeSourceParameterLists {
                 biomeRegistry.apply(GCBiomes.Mercury.POLAR_DARK_CRATERS)
         );
 
-        // Caloris Basin: Deep depression, low continentalness, high temperature
+        // Caloris Basin: Deep impact depression, low continentalness (-1.0 to -0.15), elevated daytime temp
         writeMercury3dBiome(
                 builder::add,
                 WARM,
                 DRY,
-                Parameter.span(-1.0F, -0.2F),
+                Parameter.span(-1.0F, -0.15F),
                 SOMEWHAT_ERODED,
                 surfaceDepth,
-                Parameter.span(-0.5F, 0.5F),
+                Parameter.span(-0.6F, 0.4F),
                 0.0F,
                 biomeRegistry.apply(GCBiomes.Mercury.CALORIS_BASIN)
         );
 
-        // Smooth Lava Plains: Low-relief volcanic plains, mid continentalness
+        // Smooth Lava Plains: Low-relief volcanic smooth plains, transition lowlands (-0.35 to 0.05)
         writeMercury3dBiome(
                 builder::add,
                 Parameter.span(-0.2F, 0.5F),
                 SOMEWHAT_DRY,
-                NEAR_INLAND_CONTINENTALNESS,
-                MIN_EROSION,
+                Parameter.span(-0.35F, 0.05F),
+                Parameter.span(0.1F, 1.0F),
                 surfaceDepth,
-                WEIRDNESS_L_PLAINS,
+                Parameter.span(-0.7F, -0.1F),
                 0.0F,
                 biomeRegistry.apply(GCBiomes.Mercury.SMOOTH_LAVA_PLAINS)
         );
 
-        // Chaotic Terrain: Antipodal jagged broken blocks, high weirdness & non-uniform erosion
+        // Chaotic Terrain: Antipodal jagged broken blocks, high continentalness (0.35 to 1.0), high weirdness
         writeMercury3dBiome(
                 builder::add,
                 HOT,
                 DRY,
-                FAR_INLAND_CONTINENTALNESS,
+                Parameter.span(0.35F, 1.0F),
                 NOT_VERY_ERODED,
                 surfaceDepth,
-                Parameter.span(0.45F, 1.0F),
+                Parameter.span(0.30F, 1.0F),
                 0.0F,
                 biomeRegistry.apply(GCBiomes.Mercury.CHAOTIC_TERRAIN)
         );
 
-        // Inter-Crater Plains: Primary base undulating terrain
+        // Inter-Crater Plains: Primary base undulating cratered terrain, bridging the entire mid-crust
         writeMercury3dBiome(
                 builder::add,
                 Parameter.span(-0.2F, 0.6F),
                 FULL_RANGE,
-                MID_INLAND_CONTINENTALNESS,
-                MED_EROSION,
+                Parameter.span(-0.15F, 0.45F),
+                FULL_RANGE,
                 surfaceDepth,
                 FULL_RANGE,
                 0.0F,

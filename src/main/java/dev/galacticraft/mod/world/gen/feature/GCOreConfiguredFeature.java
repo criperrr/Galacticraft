@@ -201,7 +201,10 @@ public class GCOreConfiguredFeature {
         context.register(ORE_ALUMINUM_MERCURY, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(MERCURY_BASALT_REPLACEABLE, GCBlocks.MERCURY_ALUMINUM_ORE.defaultBlockState(), 8)));
         context.register(ORE_COPPER_MERCURY, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(MERCURY_BASALT_REPLACEABLE, GCBlocks.MERCURY_COPPER_ORE.defaultBlockState(), 9)));
         context.register(ORE_TITANIUM_MERCURY, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(MERCURY_BASALT_REPLACEABLE, GCBlocks.MERCURY_TITANIUM_ORE.defaultBlockState(), 6)));
-        context.register(ORE_NATIVE_IRON_MERCURY, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(MERCURY_SHOCK_BRECCIA_REPLACEABLE, GCBlocks.MERCURY_NATIVE_IRON_ORE.defaultBlockState(), 12)));
+        context.register(ORE_NATIVE_IRON_MERCURY, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(List.of(
+                OreConfiguration.target(MERCURY_BASALT_REPLACEABLE, GCBlocks.MERCURY_NATIVE_IRON_ORE.defaultBlockState()),
+                OreConfiguration.target(MERCURY_SHOCK_BRECCIA_REPLACEABLE, GCBlocks.MERCURY_NATIVE_IRON_ORE.defaultBlockState())
+        ), 10)));
         context.register(ORE_GRAPHITE_MERCURY, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(MERCURY_BASALT_REPLACEABLE, GCBlocks.MERCURY_GRAPHITE_ORE.defaultBlockState(), 7)));
         context.register(ORE_SULFIDE_MERCURY, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(MERCURY_SHOCK_BRECCIA_REPLACEABLE, GCBlocks.MERCURY_SULFIDE_ORE.defaultBlockState(), 5)));
         context.register(MAGMA_PATCH_MERCURY, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(List.of(

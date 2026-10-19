@@ -303,16 +303,12 @@ public class MercurySpeleothemFeature extends Feature<NoneFeatureConfiguration> 
     }
 
     private static BlockState pickBrecciaOreBlock(RandomSource random, double normalizedDist) {
-        // Core vs outer mantle composition
+        // Core vs outer mantle composition: purely structural rock (no ores)
         int roll = random.nextInt(100);
-        if (roll < 60) {
+        if (roll < 65) {
             return GCBlocks.MERCURY_SHOCK_BRECCIA.defaultBlockState();
-        } else if (roll < 80) {
+        } else if (roll < 85) {
             return GCBlocks.MERCURY_GRAPHITE_ROCK.defaultBlockState();
-        } else if (roll < 90) {
-            return GCBlocks.MERCURY_TITANIUM_ORE.defaultBlockState();
-        } else if (roll < 96) {
-            return GCBlocks.MERCURY_NATIVE_IRON_ORE.defaultBlockState();
         } else {
             return GCBlocks.MERCURY_BASALT.defaultBlockState();
         }

@@ -65,9 +65,9 @@ public class MercurySurfaceRules {
     private static final RuleSource MERCURY_FROST_REGOLITH = block(GCBlocks.MERCURY_FROST_REGOLITH);
     private static final RuleSource MERCURY_HOLLOW_DEPOSIT = block(GCBlocks.MERCURY_HOLLOW_DEPOSIT);
     private static final RuleSource MERCURY_BASALT = block(GCBlocks.MERCURY_BASALT);
+    private static final RuleSource MERCURY_BASALT_BRICK = block(GCBlocks.MERCURY_BASALT_BRICK);
     private static final RuleSource MERCURY_SHOCK_BRECCIA = block(GCBlocks.MERCURY_SHOCK_BRECCIA);
     private static final RuleSource MERCURY_GRAPHITE_ROCK = block(GCBlocks.MERCURY_GRAPHITE_ROCK);
-    private static final RuleSource MERCURY_SULFIDE_ORE = block(GCBlocks.MERCURY_SULFIDE_ORE);
     private static final RuleSource MAGMA_BLOCK = block(Blocks.MAGMA_BLOCK);
 
     /**
@@ -116,14 +116,17 @@ public class MercurySurfaceRules {
 
     /**
      * Subterranean monumental cave floor & feature rules:
+     * Geological stratification modeled on planetary thermal contraction, impact excavation, and volatile venting.
+     * Absolutely NO ores carpet cave floors; ores generate strictly as natural 3D veins via Feature.ORE.
+     * Absolutely NO regolith underground; subterranean floors are basalt, shock breccia, or graphite.
      */
-    private static final RuleSource UNDERGROUND_DECORATION = SurfaceRules.sequence(
-            // Magma Depths: Basaltic lava pools on deep basal floor (Y <= -48), magma block crusts/margins, and solid basalt floors (terra firme)
+     private static final RuleSource UNDERGROUND_DECORATION = SurfaceRules.sequence(
+            // Magma Depths: Basaltic lava pools on deep basal floor (Y <= -48), magma block crusts/margins, and solid basalt floors
             SurfaceRules.ifTrue(
                     IS_MAGMA_DEPTHS,
                     SurfaceRules.sequence(
                             SurfaceRules.ifTrue(SurfaceRules.not(SurfaceRules.yBlockCheck(VerticalAnchor.absolute(-48), 0)), LAVA),
-                            // Magma shores in lower basin (Y <= -40)
+                            // Magma shores and volcanic scoria crusts in lower basin (Y <= -40)
                             SurfaceRules.ifTrue(
                                     SurfaceRules.not(SurfaceRules.yBlockCheck(VerticalAnchor.absolute(-40), 0)),
                                     SurfaceRules.ifTrue(SurfaceRules.noiseCondition(GCNoiseData.MERCURY_BASE_NOISE, -0.05, 1.0), MAGMA_BLOCK)
@@ -136,22 +139,54 @@ public class MercurySurfaceRules {
                             MERCURY_BASALT
                     )
             ),
-            // Hollow Labyrinth: High-albedo white sublimation deposits coating cavern surfaces
+            // Hollow Labyrinth: High-albedo white sublimation deposits coating cavern floors and porous graphite walls
             SurfaceRules.ifTrue(
                     IS_HOLLOW_LABYRINTH,
-                    SurfaceRules.ifTrue(
-                            SurfaceRules.noiseCondition(GCNoiseData.MERCURY_HOLLOW_SPONGE, -0.15, 1.0),
-                            MERCURY_HOLLOW_DEPOSIT
+                    SurfaceRules.sequence(
+                            SurfaceRules.ifTrue(
+                                    SurfaceRules.noiseCondition(GCNoiseData.MERCURY_HOLLOW_SPONGE, -0.20, 1.0),
+                                    MERCURY_HOLLOW_DEPOSIT
+                            ),
+                            SurfaceRules.ifTrue(
+                                    SurfaceRules.noiseCondition(GCNoiseData.MERCURY_BASE_NOISE, 0.30, 1.0),
+                                    MERCURY_GRAPHITE_ROCK
+                            ),
+                            MERCURY_BASALT
                     )
             ),
             // Megabreccia Caverns: Impact breccia floor with intercalated pure graphite (LRM) strata
             SurfaceRules.ifTrue(
                     IS_MEGABRECCIA,
                     SurfaceRules.sequence(
-                            SurfaceRules.ifTrue(SurfaceRules.noiseCondition(GCNoiseData.MERCURY_MEGABRECCIA_CHEESE, 0.20, 1.0), MERCURY_GRAPHITE_ROCK),
+                            SurfaceRules.ifTrue(SurfaceRules.noiseCondition(GCNoiseData.MERCURY_MEGABRECCIA_CHEESE, 0.25, 1.0), MERCURY_GRAPHITE_ROCK),
                             MERCURY_SHOCK_BRECCIA
                     )
-            )
+            ),
+            // Colossal Lava Tubes: Polished basalt floor and cooling terrace basalt bricks
+            SurfaceRules.ifTrue(
+                    IS_LAVA_TUBES,
+                    SurfaceRules.sequence(
+                            SurfaceRules.ifTrue(
+                                    SurfaceRules.noiseCondition(GCNoiseData.MERCURY_LAVA_TUBES, 0.35, 1.0),
+                                    MERCURY_BASALT_BRICK
+                            ),
+                            MERCURY_BASALT
+                    )
+            ),
+            // Tectonic Chasms: Deep fault plunge with sheared shock breccia and basalt walls
+            SurfaceRules.ifTrue(
+                    IS_TECTONIC_CHASM,
+                    SurfaceRules.sequence(
+                            SurfaceRules.ifTrue(
+                                    SurfaceRules.noiseCondition(GCNoiseData.MERCURY_BASE_NOISE, 0.35, 1.0),
+                                    MERCURY_SHOCK_BRECCIA
+                            ),
+                            MERCURY_BASALT
+                    )
+            ),
+            // Universal fallback for any other subterranean cave floor: Basalt or deep Shock Breccia
+            SurfaceRules.ifTrue(SurfaceRules.yBlockCheck(VerticalAnchor.absolute(40), 0), MERCURY_BASALT),
+            MERCURY_SHOCK_BRECCIA
     );
 
     public static final RuleSource MERCURY = createDefaultRule();
@@ -161,16 +196,43 @@ public class MercurySurfaceRules {
                 // 1. Bedrock at world floor (Y = -64)
                 SurfaceRules.ifTrue(SurfaceRules.verticalGradient("bedrock_floor", VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(5)), BEDROCK),
 
-                // 2. Surface regolith layers
-                SurfaceRules.ifTrue(SurfaceRules.abovePreliminarySurface(), SURFACE_GENERATION),
+                // 2. Surface regolith layers (strictly for exterior planetary surface Y >= 95, never inside deep caves)
+                SurfaceRules.ifTrue(
+                        SurfaceRules.abovePreliminarySurface(),
+                        SurfaceRules.ifTrue(
+                                SurfaceRules.yBlockCheck(VerticalAnchor.absolute(95), 0),
+                                SURFACE_GENERATION
+                        )
+                ),
 
-                // 3. Underground cavern floor and feature decoration
+                // 3. Underground cavern floor and feature decoration (NO regolith, NO solid ore blankets)
                 SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, UNDERGROUND_DECORATION),
 
-                // 4. Dense Shock Breccia in deep crust (Y = -64 to 40)
+                // 4. Underground cavern ceiling decoration (sublimation crusts and graphite veins in hollows/megabreccia)
+                SurfaceRules.ifTrue(
+                        SurfaceRules.ON_CEILING,
+                        SurfaceRules.sequence(
+                                SurfaceRules.ifTrue(
+                                        IS_HOLLOW_LABYRINTH,
+                                        SurfaceRules.ifTrue(
+                                                SurfaceRules.noiseCondition(GCNoiseData.MERCURY_HOLLOW_SPONGE, -0.10, 1.0),
+                                                MERCURY_HOLLOW_DEPOSIT
+                                        )
+                                ),
+                                SurfaceRules.ifTrue(
+                                        IS_MEGABRECCIA,
+                                        SurfaceRules.ifTrue(
+                                                SurfaceRules.noiseCondition(GCNoiseData.MERCURY_MEGABRECCIA_CHEESE, 0.30, 1.0),
+                                                MERCURY_GRAPHITE_ROCK
+                                        )
+                                )
+                        )
+                ),
+
+                // 5. Dense Shock Breccia in deep crust (Y = -64 to 40)
                 SurfaceRules.ifTrue(SurfaceRules.verticalGradient("mercury_shock_breccia", VerticalAnchor.absolute(35), VerticalAnchor.absolute(45)), MERCURY_SHOCK_BRECCIA),
 
-                // 5. Default Base Rock is Ultramafic Basalt (Y = 40 to 120+)
+                // 6. Default Base Rock is Ultramafic Basalt (Y = 40 to 120+)
                 MERCURY_BASALT
         );
     }
