@@ -173,7 +173,6 @@ public interface Constant {
         String VOLCANIC_ROCK = "volcanic_rock";
         String PUMICE = "pumice";
         String VAPOR_SPOUT = "vapor_spout";
-
         // Mercury Natural
         String MERCURY_REGOLITH = "mercury_regolith";
         String MERCURY_COMPACTED_REGOLITH = "mercury_compacted_regolith";
@@ -191,6 +190,7 @@ public interface Constant {
         String MERCURY_NATIVE_IRON_ORE = "mercury_native_iron_ore";
         String MERCURY_GRAPHITE_ORE = "mercury_graphite_ore";
         String MERCURY_SULFIDE_ORE = "mercury_sulfide_ore";
+
 
         // Ore
         String MARS_IRON_ORE = "mars_iron_ore";
@@ -1067,6 +1067,7 @@ public interface Constant {
         ResourceLocation SOL = id("textures/gui/celestialbodies/sol.png");
         ResourceLocation SOL_OVERCAST = id("textures/gui/celestialbodies/sol_overcast.png");
         ResourceLocation SOL_FROM_MOON = id("textures/gui/celestialbodies/sol_from_moon.png");
+        ResourceLocation SUN = id("textures/gui/celestialbodies/sun.png");
         ResourceLocation MERCURY = id("textures/gui/celestialbodies/mercury.png");
         ResourceLocation VENUS = id("textures/gui/celestialbodies/venus.png");
         ResourceLocation EARTH = id("textures/gui/celestialbodies/earth.png");
@@ -1484,6 +1485,10 @@ public interface Constant {
         String MERCURY_SKYLIGHT_CARVER = "mercury_skylight_carver";
         String MERCURY_SUBLIMATION_FUNNEL_CARVER = "mercury_sublimation_funnel_carver";
         String MERCURY_CAVE_CARVER = "mercury_cave_carver";
+        String MERCURY_CRATER_CARVER = "mercury_crater_carver";
+        String MERCURY_DEEP_POLAR_CRATER_CARVER = "mercury_deep_polar_crater_carver";
+        String MERCURY_LARGE_CRATER_CARVER = "mercury_large_crater_carver";
+
     }
 
     interface Packet {

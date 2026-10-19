@@ -56,6 +56,9 @@ public class GCConfiguredCarvers {
     public static final ResourceKey<ConfiguredWorldCarver<?>> MERCURY_SKYLIGHT_CARVER = key(Constant.Carver.MERCURY_SKYLIGHT_CARVER);
     public static final ResourceKey<ConfiguredWorldCarver<?>> MERCURY_SUBLIMATION_FUNNEL_CARVER = key(Constant.Carver.MERCURY_SUBLIMATION_FUNNEL_CARVER);
     public static final ResourceKey<ConfiguredWorldCarver<?>> MERCURY_CAVE_CARVER = key(Constant.Carver.MERCURY_CAVE_CARVER);
+    public static final ResourceKey<ConfiguredWorldCarver<?>> MERCURY_CRATER_CARVER = key(Constant.Carver.MERCURY_CRATER_CARVER);
+    public static final ResourceKey<ConfiguredWorldCarver<?>> MERCURY_DEEP_POLAR_CRATER_CARVER = key(Constant.Carver.MERCURY_DEEP_POLAR_CRATER_CARVER);
+    public static final ResourceKey<ConfiguredWorldCarver<?>> MERCURY_LARGE_CRATER_CARVER = key(Constant.Carver.MERCURY_LARGE_CRATER_CARVER);
 
     @Contract(pure = true)
     private static @NotNull ResourceKey<ConfiguredWorldCarver<?>> key(String s) {
@@ -275,6 +278,45 @@ public class GCConfiguredCarvers {
                 UniformFloat.of(0.9f, 1.8f),
                 UniformFloat.of(0.8f, 1.5f),
                 UniformFloat.of(-1.0f, -0.4f)
+        )));
+
+        // 7. Mercury Standard Impact Craters:
+        // Circular quartic bowl craters (radius 10 to 28, depth 14 blocks)
+        context.register(MERCURY_CRATER_CARVER, GCCarvers.CRATERS.configured(new CraterCarverConfig(
+                0.05f,
+                ConstantHeight.of(VerticalAnchor.absolute(128)),
+                UniformFloat.of(0.4f, 0.6f),
+                CarverDebugSettings.DEFAULT,
+                28,
+                10,
+                6,
+                14.0
+        )));
+
+        // 8. Mercury Deep Polar Cold-Trap Craters:
+        // Deep parabolic crater bowls (radius 16 to 32, depth 22 blocks) with permanent ice trap floors
+        context.register(MERCURY_DEEP_POLAR_CRATER_CARVER, GCCarvers.CRATERS.configured(new CraterCarverConfig(
+                0.10f,
+                ConstantHeight.of(VerticalAnchor.absolute(128)),
+                UniformFloat.of(0.4f, 0.6f),
+                CarverDebugSettings.DEFAULT,
+                32,
+                16,
+                5,
+                22.0
+        )));
+
+        // 9. Mercury Large Basin Impact Craters:
+        // Massive impact structures (radius 20 to 32, depth 18 blocks)
+        context.register(MERCURY_LARGE_CRATER_CARVER, GCCarvers.CRATERS.configured(new CraterCarverConfig(
+                0.035f,
+                ConstantHeight.of(VerticalAnchor.absolute(128)),
+                UniformFloat.of(0.4f, 0.6f),
+                CarverDebugSettings.DEFAULT,
+                32,
+                20,
+                4,
+                18.0
         )));
     }
 }

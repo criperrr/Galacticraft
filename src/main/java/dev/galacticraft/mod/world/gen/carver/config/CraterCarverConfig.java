@@ -40,17 +40,24 @@ public class CraterCarverConfig extends CarverConfiguration {
             CarverDebugSettings.CODEC.fieldOf("debug_settings").forGetter(i -> i.debugSettings),
             Codec.INT.fieldOf("max_radius").forGetter(i -> i.maxRadius),
             Codec.INT.fieldOf("min_radius").forGetter(i -> i.minRadius),
-            Codec.INT.fieldOf("ideal_range_offset").forGetter(i -> i.idealRangeOffset)
+            Codec.INT.fieldOf("ideal_range_offset").forGetter(i -> i.idealRangeOffset),
+            Codec.DOUBLE.optionalFieldOf("base_depth", 5.0).forGetter(i -> i.baseDepth)
     ).apply(instance, CraterCarverConfig::new));
 
     public final int maxRadius;
     public final int minRadius;
     public final int idealRangeOffset;
+    public final double baseDepth;
 
-    public CraterCarverConfig(float probability, HeightProvider y, FloatProvider yScale, CarverDebugSettings carverDebugConfig, int maxRadius, int minRadius, int idealRangeOffset) {
+    public CraterCarverConfig(float probability, HeightProvider y, FloatProvider yScale, CarverDebugSettings carverDebugConfig, int maxRadius, int minRadius, int idealRangeOffset, double baseDepth) {
         super(probability, y, yScale, VerticalAnchor.bottom(), carverDebugConfig, BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.MOON_CRATER_CARVER_REPLACEABLES)); // TODO: Crater replaceables
         this.maxRadius = maxRadius;
         this.minRadius = minRadius;
         this.idealRangeOffset = idealRangeOffset;
+        this.baseDepth = baseDepth;
+    }
+
+    public CraterCarverConfig(float probability, HeightProvider y, FloatProvider yScale, CarverDebugSettings carverDebugConfig, int maxRadius, int minRadius, int idealRangeOffset) {
+        this(probability, y, yScale, carverDebugConfig, maxRadius, minRadius, idealRangeOffset, 5.0);
     }
 }
