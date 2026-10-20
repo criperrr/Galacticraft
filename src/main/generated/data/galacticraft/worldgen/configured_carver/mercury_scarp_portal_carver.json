@@ -3,37 +3,37 @@
   "config": {
     "floor_level": {
       "type": "minecraft:uniform",
-      "max_exclusive": 0.2,
-      "min_inclusive": -0.4
+      "max_exclusive": -0.2,
+      "min_inclusive": -0.6
     },
     "horizontal_radius_multiplier": {
       "type": "minecraft:uniform",
-      "max_exclusive": 3.8,
-      "min_inclusive": 2.2
+      "max_exclusive": 1.8,
+      "min_inclusive": 1.1
     },
     "lava_level": {
       "above_bottom": 8
     },
-    "probability": 0.07,
+    "probability": 0.015,
     "replaceable": "#galacticraft:mercury_carver_replaceables",
     "vertical_radius_multiplier": {
       "type": "minecraft:uniform",
-      "max_exclusive": 3.0,
-      "min_inclusive": 1.8
+      "max_exclusive": 1.5,
+      "min_inclusive": 0.9
     },
     "y": {
       "type": "minecraft:uniform",
       "max_inclusive": {
-        "absolute": 200
+        "absolute": 170
       },
       "min_inclusive": {
-        "absolute": 80
+        "absolute": 110
       }
     },
     "yScale": {
       "type": "minecraft:uniform",
-      "max_exclusive": 1.4,
-      "min_inclusive": 0.8
+      "max_exclusive": 0.8,
+      "min_inclusive": 0.2
     }
   }
 }

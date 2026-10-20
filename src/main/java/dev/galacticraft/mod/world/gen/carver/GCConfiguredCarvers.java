@@ -184,97 +184,98 @@ public class GCConfiguredCarvers {
         )));
 
         // ==========================================
-        // MERCURY SURFACE ENTRANCES & NATURAL CONNECTIONS
-        // Elevation spans from Caloris Basin (Y = 70) to Chaotic Mountain Ridges (Y = 200+)
+        // MERCURY SURFACE ENTRANCES & NATURAL CONNECTIONS (Vanilla Overworld Balanced)
+        // Balanced distribution matching vanilla Minecraft: ~0.14 standard cave entrances,
+        // ~0.015 rare ravines, and thematic surface openings.
         // ==========================================
 
-        // 1. Collapsed Lava Rilles (Trincheiras de Rilles Desabadas):
-        // Sinuous open trenches cutting across plains and basins down into underground conduits
+        // 1. Collapsed Lava Rilles / Ravinas (Vanilla Canyon style):
+        // Rare dramatic ravines cutting the surface down into the subterranean world (1 in ~65 chunks)
         context.register(MERCURY_COLLAPSED_RILLES_CARVER, WorldCarver.CANYON.configured(new CanyonCarverConfiguration(
-                0.06f,
-                UniformHeight.of(VerticalAnchor.absolute(60), VerticalAnchor.absolute(185)),
-                ConstantFloat.of(3.5f),
+                0.015f,
+                UniformHeight.of(VerticalAnchor.absolute(20), VerticalAnchor.absolute(130)),
+                ConstantFloat.of(3.0f),
                 VerticalAnchor.aboveBottom(8),
                 CarverDebugSettings.DEFAULT,
                 BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.MERCURY_CARVER_REPLACEABLES),
-                UniformFloat.of(-0.10f, 0.10f),
+                UniformFloat.of(-0.125f, 0.125f),
                 new CanyonCarverConfiguration.CanyonShapeConfiguration(
-                        UniformFloat.of(1.8f, 3.0f),
-                        TrapezoidFloat.of(0, 18, 4),
-                        4,
-                        UniformFloat.of(1.4f, 2.2f),
+                        UniformFloat.of(0.75f, 1.0f),
+                        TrapezoidFloat.of(0.0f, 6.0f, 2.0f),
+                        3,
+                        UniformFloat.of(0.75f, 1.0f),
                         1.0f,
                         0.0f)
         )));
 
-        // 2. Horizontal Portals and Scarp Mouths (Portais Horizontais e Bocas de Escarpa):
-        // Giant arched entrances cut into cliff walls, crater rims, and lobate scarps (Y = 80 to 200)
+        // 2. Horizontal Portals and Scarp Mouths:
+        // Arched cave mouths cut into scarps and crater rims (1 in ~70 chunks)
         context.register(MERCURY_SCARP_PORTAL_CARVER, WorldCarver.CAVE.configured(new CaveCarverConfiguration(
-                0.07f,
-                UniformHeight.of(VerticalAnchor.absolute(80), VerticalAnchor.absolute(200)),
-                UniformFloat.of(0.8f, 1.4f),
+                0.015f,
+                UniformHeight.of(VerticalAnchor.absolute(110), VerticalAnchor.absolute(170)),
+                UniformFloat.of(0.2f, 0.8f),
                 VerticalAnchor.aboveBottom(8),
                 BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.MERCURY_CARVER_REPLACEABLES),
-                UniformFloat.of(2.2f, 3.8f),
-                UniformFloat.of(1.8f, 3.0f),
-                UniformFloat.of(-0.4f, 0.2f)
+                UniformFloat.of(1.1f, 1.8f),
+                UniformFloat.of(0.9f, 1.5f),
+                UniformFloat.of(-0.6f, -0.2f)
         )));
 
-        // 3. Open Tectonic Chasms (Gargantas e Fissuras Tectônicas Abertas):
-        // Deep linear fault rifts plunging from the surface down into the tectonic underworld (Y = 20 to 200)
+        // 3. Open Tectonic Chasms / Fissuras Tectônicas:
+        // Deep linear fault rifts plunging from the surface down into the tectonic depths (1 in ~80 chunks)
         context.register(MERCURY_TECTONIC_FISSURE_CARVER, WorldCarver.CANYON.configured(new CanyonCarverConfiguration(
-                0.05f,
-                UniformHeight.of(VerticalAnchor.absolute(20), VerticalAnchor.absolute(200)),
-                ConstantFloat.of(4.5f),
+                0.012f,
+                UniformHeight.of(VerticalAnchor.absolute(10), VerticalAnchor.absolute(140)),
+                ConstantFloat.of(2.5f),
                 VerticalAnchor.aboveBottom(8),
                 CarverDebugSettings.DEFAULT,
                 BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.MERCURY_CARVER_REPLACEABLES),
-                UniformFloat.of(-0.02f, 0.02f),
+                UniformFloat.of(-0.04f, 0.04f),
                 new CanyonCarverConfiguration.CanyonShapeConfiguration(
-                        UniformFloat.of(0.8f, 1.4f),
-                        TrapezoidFloat.of(0, 15, 3),
-                        3,
-                        UniformFloat.of(1.0f, 1.6f),
+                        UniformFloat.of(0.6f, 0.9f),
+                        TrapezoidFloat.of(0.0f, 8.0f, 2.0f),
+                        2,
+                        UniformFloat.of(0.7f, 1.0f),
                         1.0f,
                         0.0f)
         )));
 
         // 4. Collapse Skylights (Claraboias de Colapso):
-        // Cylindrical vertical pit shafts (12-22 diameter) connecting surface directly into deep caverns
+        // Rare circular vertical pit shafts (1 in ~100 chunks) opening into caverns below
         context.register(MERCURY_SKYLIGHT_CARVER, WorldCarver.CAVE.configured(new CaveCarverConfiguration(
-                0.05f,
-                UniformHeight.of(VerticalAnchor.absolute(65), VerticalAnchor.absolute(180)),
+                0.01f,
+                UniformHeight.of(VerticalAnchor.absolute(70), VerticalAnchor.absolute(130)),
                 ConstantFloat.of(1.0f),
                 VerticalAnchor.aboveBottom(8),
                 BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.MERCURY_CARVER_REPLACEABLES),
-                UniformFloat.of(2.2f, 3.5f),
-                UniformFloat.of(2.0f, 3.2f),
+                UniformFloat.of(1.0f, 1.6f),
+                UniformFloat.of(1.0f, 1.6f),
                 UniformFloat.of(-1.0f, -0.6f)
         )));
 
-        // 5. Sublimation Funnels in Hollows (Funis de Sublimação nos Hollows):
-        // Conical sinkholes connecting depression surfaces to hollow labyrinths (Y = 75 to 180)
+        // 5. Sublimation Funnels in Hollows:
+        // Small conical sinkholes in volatile depressions
         context.register(MERCURY_SUBLIMATION_FUNNEL_CARVER, WorldCarver.CAVE.configured(new CaveCarverConfiguration(
-                0.08f,
-                UniformHeight.of(VerticalAnchor.absolute(75), VerticalAnchor.absolute(180)),
+                0.02f,
+                UniformHeight.of(VerticalAnchor.absolute(80), VerticalAnchor.absolute(120)),
                 ConstantFloat.of(1.0f),
                 VerticalAnchor.aboveBottom(8),
                 BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.MERCURY_CARVER_REPLACEABLES),
-                UniformFloat.of(0.8f, 1.6f),
-                UniformFloat.of(0.8f, 1.6f),
+                UniformFloat.of(0.6f, 1.0f),
+                UniformFloat.of(0.6f, 1.0f),
                 UniformFloat.of(-0.8f, -0.3f)
         )));
 
-        // 6. Deep Cave Network (Standard WorldCarver.CAVE):
-        // Winding organic caves with frequent surface entrances connecting mountains, plains and the underworld
+        // 6. Standard Normal Cave Network (Exact Vanilla Overworld proportions):
+        // Classic Minecraft cave tunnels, worms and organic surface entrances (1 in 7 chunks)
         context.register(MERCURY_CAVE_CARVER, WorldCarver.CAVE.configured(new CaveCarverConfiguration(
-                0.15f,
-                UniformHeight.of(VerticalAnchor.aboveBottom(8), VerticalAnchor.absolute(200)),
+                0.14285715f,
+                UniformHeight.of(VerticalAnchor.aboveBottom(8), VerticalAnchor.absolute(180)),
                 UniformFloat.of(0.1f, 0.9f),
                 VerticalAnchor.aboveBottom(8),
                 BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.MERCURY_CARVER_REPLACEABLES),
-                UniformFloat.of(1.0f, 2.2f),
-                UniformFloat.of(0.9f, 1.8f),
+                UniformFloat.of(0.7f, 1.4f),
+                UniformFloat.of(0.8f, 1.3f),
                 UniformFloat.of(-1.0f, -0.4f)
         )));
     }

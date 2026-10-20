@@ -2,7 +2,6 @@
   "carvers": {
     "air": [
       "galacticraft:mercury_cave_carver",
-      "galacticraft:mercury_collapsed_rilles_carver",
       "galacticraft:mercury_skylight_carver",
       "galacticraft:mercury_sublimation_funnel_carver"
     ]

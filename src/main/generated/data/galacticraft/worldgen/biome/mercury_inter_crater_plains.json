@@ -2,9 +2,7 @@
   "carvers": {
     "air": [
       "galacticraft:mercury_cave_carver",
-      "galacticraft:mercury_collapsed_rilles_carver",
-      "galacticraft:mercury_skylight_carver",
-      "galacticraft:mercury_tectonic_fissure_carver"
+      "galacticraft:mercury_collapsed_rilles_carver"
     ]
   },
   "downfall": 0.0,

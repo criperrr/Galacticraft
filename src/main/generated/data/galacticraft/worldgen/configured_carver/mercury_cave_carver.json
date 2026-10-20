@@ -8,23 +8,23 @@
     },
     "horizontal_radius_multiplier": {
       "type": "minecraft:uniform",
-      "max_exclusive": 2.2,
-      "min_inclusive": 1.0
+      "max_exclusive": 1.4,
+      "min_inclusive": 0.7
     },
     "lava_level": {
       "above_bottom": 8
     },
-    "probability": 0.15,
+    "probability": 0.14285715,
     "replaceable": "#galacticraft:mercury_carver_replaceables",
     "vertical_radius_multiplier": {
       "type": "minecraft:uniform",
-      "max_exclusive": 1.8,
-      "min_inclusive": 0.9
+      "max_exclusive": 1.3,
+      "min_inclusive": 0.8
     },
     "y": {
       "type": "minecraft:uniform",
       "max_inclusive": {
-        "absolute": 200
+        "absolute": 180
       },
       "min_inclusive": {
         "above_bottom": 8
