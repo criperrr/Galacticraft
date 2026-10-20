@@ -103,6 +103,9 @@ public abstract class ServerLevelMixin extends Level implements GCLevelAccessor 
 
     @Inject(method = "tickChunk", at = @At("HEAD"))
     private void tickFootprints(LevelChunk chunk, int randomTickSpeed, CallbackInfo ci) {
+        if (this.galacticraft$getCelestialBody() == null) {
+            return;
+        }
         var profiler = getProfiler();
         profiler.push("footprints");
         footprintManager.tick((ServerLevel) (Object) this, chunk.getPos().toLong());

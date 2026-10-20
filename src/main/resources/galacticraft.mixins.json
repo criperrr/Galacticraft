@@ -33,9 +33,13 @@
     "PlayerMixin",
     "ServerLevelMixin",
     "ServerPlayerMixin",
-    "SpiderMixin"
+    "SpiderMixin",
+    "StructureManagerAccessor",
+    "NoiseBasedChunkGeneratorPerfMixin",
+    "ChunkGeneratorPerfMixin"
   ],
   "client": [
+    "client.LevelRendererPerfMixin",
     "client.AbstractClientPlayerMixin",
     "client.AbstractContainerScreenMixin",
     "client.AlphaWarningTitleScreenMixin",
