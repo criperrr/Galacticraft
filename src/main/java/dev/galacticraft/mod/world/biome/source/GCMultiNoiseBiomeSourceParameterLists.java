@@ -254,10 +254,10 @@ public class GCMultiNoiseBiomeSourceParameterLists {
     private static <T> Climate.@NotNull ParameterList<T> generateMercury(Function<ResourceKey<Biome>, T> biomeRegistry) {
         ImmutableList.Builder<Pair<Climate.ParameterPoint, T>> builder = ImmutableList.builder();
 
-        Parameter surfaceDepth = Parameter.span(-1.0F, 0.18F);
+        Parameter surfaceDepth = Parameter.span(-2.0F, 0.18F);
 
         // ==========================================
-        // 1. SURFACE BIOMES (depth <= 0.18, Y >= 115)
+        // 1. SURFACE BIOMES (depth <= 0.18, planetary surface & atmosphere)
         // ==========================================
 
         // Polar Dark Craters: Cold and Polar shadows
@@ -326,15 +326,15 @@ public class GCMultiNoiseBiomeSourceParameterLists {
         );
 
         // ==========================================
-        // 2. MONUMENTAL SUBTERRANEAN 3D BIOMES (depth > 0.18, Y < 115)
+        // 2. MONUMENTAL SUBTERRANEAN 3D BIOMES (depth > 0.18, complete subterranean coverage)
         // ==========================================
 
-        // (A) Volatile Hollow Labyrinth: Shallow subsurface (Y = 65 to 115 -> depth 0.15 to 0.45)
+        // (A) Volatile Hollow Labyrinth: Shallow subsurface (depth 0.18 to 0.45)
         writeMercury3dBiome(
                 builder::add,
                 FULL_RANGE,
                 FULL_RANGE,
-                Parameter.span(-0.3F, 1.0F),
+                FULL_RANGE,
                 FULL_RANGE,
                 Parameter.span(0.18F, 0.45F),
                 Parameter.span(-0.4F, 0.4F),
@@ -342,28 +342,27 @@ public class GCMultiNoiseBiomeSourceParameterLists {
                 biomeRegistry.apply(GCBiomes.Mercury.HOLLOW_LABYRINTH)
         );
 
-        // (B) Colossal Lava Tubes: Horizontal conduits (Y = 20 to 95 -> depth 0.40 to 0.85)
+        // (B) Colossal Lava Tubes: Horizontal conduits (depth 0.40 to 0.75)
         writeMercury3dBiome(
                 builder::add,
                 FULL_RANGE,
                 FULL_RANGE,
-                Parameter.span(-1.0F, 0.3F),
                 FULL_RANGE,
-                Parameter.span(0.40F, 0.85F),
+                FULL_RANGE,
+                Parameter.span(0.40F, 0.75F),
                 Parameter.span(-0.4F, 0.4F),
                 0.0F,
                 biomeRegistry.apply(GCBiomes.Mercury.COLOSSAL_LAVA_TUBES)
         );
 
-        // (C) Tectonic Chasms: Deep vertical canyons (Y = -30 to 110 -> depth 0.25 to 1.10)
-        // High weirdness fault zones
+        // (C) Tectonic Chasms: Deep vertical canyons (depth 0.18 to 1.20, high weirdness fault zones)
         writeMercury3dBiome(
                 builder::add,
                 FULL_RANGE,
                 FULL_RANGE,
                 FULL_RANGE,
                 FULL_RANGE,
-                Parameter.span(0.25F, 1.10F),
+                Parameter.span(0.18F, 1.20F),
                 Parameter.span(0.40F, 1.0F),
                 0.0F,
                 biomeRegistry.apply(GCBiomes.Mercury.TECTONIC_CHASMS)
@@ -374,13 +373,13 @@ public class GCMultiNoiseBiomeSourceParameterLists {
                 FULL_RANGE,
                 FULL_RANGE,
                 FULL_RANGE,
-                Parameter.span(0.25F, 1.10F),
+                Parameter.span(0.18F, 1.20F),
                 Parameter.span(-1.0F, -0.40F),
                 0.0F,
                 biomeRegistry.apply(GCBiomes.Mercury.TECTONIC_CHASMS)
         );
 
-        // (D) Megabreccia Caverns: Domed halls (Y = -30 to 50 -> depth 0.70 to 1.20)
+        // (D) Megabreccia Caverns: Domed halls (depth 0.70 to 1.20)
         writeMercury3dBiome(
                 builder::add,
                 FULL_RANGE,
@@ -393,14 +392,14 @@ public class GCMultiNoiseBiomeSourceParameterLists {
                 biomeRegistry.apply(GCBiomes.Mercury.MEGABRECCIA_CAVERNS)
         );
 
-        // (E) Magma Depths: Basal gallery (Y = -64 to -10 -> depth 1.15 to 1.60)
+        // (E) Magma Depths: Basal gallery (depth 1.15 to 2.00)
         writeMercury3dBiome(
                 builder::add,
                 FULL_RANGE,
                 FULL_RANGE,
                 FULL_RANGE,
                 FULL_RANGE,
-                Parameter.span(1.15F, 1.60F),
+                Parameter.span(1.15F, 2.00F),
                 FULL_RANGE,
                 0.0F,
                 biomeRegistry.apply(GCBiomes.Mercury.MAGMA_DEPTHS)

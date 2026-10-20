@@ -124,7 +124,7 @@ public class GCNoiseGeneratorSettings {
                 GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.EROSION),
                 GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Mercury.DEPTH),
                 GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.RIDGES),
-                finalDensity,
+                GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Mercury.SOLID_TERRAIN), // initialDensityWithoutJaggedness (true planetary surface for preliminarySurfaceLevel)
                 DensityFunctions.interpolated(DensityFunctions.blendDensity(finalDensity)),
                 DensityFunctions.zero(),
                 DensityFunctions.zero(),

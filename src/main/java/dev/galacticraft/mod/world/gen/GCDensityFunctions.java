@@ -75,6 +75,7 @@ public class GCDensityFunctions {
         public static final ResourceKey<DensityFunction> OFFSET = createKey("mercury/offset");
         public static final ResourceKey<DensityFunction> FACTOR = createKey("mercury/factor");
         public static final ResourceKey<DensityFunction> SMOOTH_RELIEF = createKey("mercury/smooth_relief");
+        public static final ResourceKey<DensityFunction> SOLID_TERRAIN = createKey("mercury/solid_terrain");
         public static final ResourceKey<DensityFunction> DEPTH = createKey("mercury/depth");
 
         // Subterranean monumental cave systems
@@ -397,12 +398,6 @@ public class GCDensityFunctions {
         // Base plains at Y = 120, height Y = -64 to 320
         // ==========================================
 
-        // 1. Depth function: 0.0 at surface Y = 128, scaling to 1.5 at bedrock Y = -64
-        // Used by MultiNoise climate sampler for vertical 3D biome transitions
-        DensityFunction mercuryDepth = registerAndWrap(context, Mercury.DEPTH,
-                DensityFunctions.yClampedGradient(128, -64, 0.0, 1.5)
-        );
-
         // 1. Coordinate displacement & continuous continentalness with flatCache for column-wise vectorization
         DensityFunction mercuryShiftX = DensityFunctions.flatCache(DensityFunctions.cache2d(DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.SHIFT), 0.25, 0.0)));
         DensityFunction mercuryShiftZ = DensityFunctions.flatCache(DensityFunctions.cache2d(DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.SHIFT), 0.0, 0.25)));
@@ -434,6 +429,13 @@ public class GCDensityFunctions {
                 .addPoint(1.00F, 0.72F, 0.30F)
                 .build();
         DensityFunction mercuryOffset = registerAndWrap(context, Mercury.OFFSET, DensityFunctions.flatCache(DensityFunctions.spline(mercuryOffsetSpline)));
+
+        // Depth function (Vanilla Overworld pattern): crosses 0.0 exactly at local terrain surface (mercuryBaseHeight + mercuryOffset),
+        // negative in open sky, scaling to 1.5 at bedrock floor.
+        // MultiNoise climate sampler uses depth > 0.18 for 3D subterranean biomes.
+        DensityFunction mercuryDepth = registerAndWrap(context, Mercury.DEPTH,
+                DensityFunctions.add(mercuryBaseHeight, mercuryOffset)
+        );
 
         // 4. Factor spline for relief amplitude scaling
         var mercuryFactorSpline = CubicSpline.builder(mercuryContinentsCoord)
@@ -481,13 +483,13 @@ public class GCDensityFunctions {
                 )
         );
 
-        DensityFunction mercurySolidTerrain = DensityFunctions.add(
+        DensityFunction mercurySolidTerrain = registerAndWrap(context, Mercury.SOLID_TERRAIN, DensityFunctions.add(
                 mercuryBaseHeight,
                 DensityFunctions.add(
                         mercuryOffset,
                         DensityFunctions.add(mercurySmoothRelief, mercury3dRoughness)
                 )
-        );
+        ));
 
         // ==========================================
         // MONUMENTAL SUBTERRANEAN 3D CAVERNS (CONTINUOUS NOISE CAVES)
