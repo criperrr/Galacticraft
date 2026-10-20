@@ -16,7 +16,7 @@
             "argument1": {
               "type": "minecraft:y_clamped_gradient",
               "from_value": 1.0,
-              "from_y": 55,
+              "from_y": 60,
               "to_value": 0.0,
               "to_y": 260
             },
@@ -25,14 +25,14 @@
               "argument1": "galacticraft:mercury/factor",
               "argument2": {
                 "type": "minecraft:mul",
-                "argument1": 0.34,
+                "argument1": 0.28,
                 "argument2": {
                   "type": "minecraft:old_blended_noise",
-                  "smear_scale_multiplier": 4.0,
-                  "xz_factor": 40.0,
-                  "xz_scale": 0.5,
-                  "y_factor": 40.0,
-                  "y_scale": 0.5
+                  "smear_scale_multiplier": 8.0,
+                  "xz_factor": 80.0,
+                  "xz_scale": 0.25,
+                  "y_factor": 160.0,
+                  "y_scale": 0.25
                 }
               }
             }
@@ -68,7 +68,7 @@
                       "argument1": {
                         "type": "minecraft:y_clamped_gradient",
                         "from_value": 1.0,
-                        "from_y": 55,
+                        "from_y": 60,
                         "to_value": 0.0,
                         "to_y": 260
                       },
@@ -77,14 +77,14 @@
                         "argument1": "galacticraft:mercury/factor",
                         "argument2": {
                           "type": "minecraft:mul",
-                          "argument1": 0.34,
+                          "argument1": 0.28,
                           "argument2": {
                             "type": "minecraft:old_blended_noise",
-                            "smear_scale_multiplier": 4.0,
-                            "xz_factor": 40.0,
-                            "xz_scale": 0.5,
-                            "y_factor": 40.0,
-                            "y_scale": 0.5
+                            "smear_scale_multiplier": 8.0,
+                            "xz_factor": 80.0,
+                            "xz_scale": 0.25,
+                            "y_factor": 160.0,
+                            "y_scale": 0.25
                           }
                         }
                       }
@@ -202,7 +202,7 @@
                               "argument1": {
                                 "type": "minecraft:y_clamped_gradient",
                                 "from_value": 1.0,
-                                "from_y": 55,
+                                "from_y": 60,
                                 "to_value": 0.0,
                                 "to_y": 260
                               },
@@ -211,14 +211,14 @@
                                 "argument1": "galacticraft:mercury/factor",
                                 "argument2": {
                                   "type": "minecraft:mul",
-                                  "argument1": 0.34,
+                                  "argument1": 0.28,
                                   "argument2": {
                                     "type": "minecraft:old_blended_noise",
-                                    "smear_scale_multiplier": 4.0,
-                                    "xz_factor": 40.0,
-                                    "xz_scale": 0.5,
-                                    "y_factor": 40.0,
-                                    "y_scale": 0.5
+                                    "smear_scale_multiplier": 8.0,
+                                    "xz_factor": 80.0,
+                                    "xz_scale": 0.25,
+                                    "y_factor": 160.0,
+                                    "y_scale": 0.25
                                   }
                                 }
                               }
@@ -241,48 +241,40 @@
       "argument2": {
         "type": "minecraft:mul",
         "argument1": {
-          "type": "minecraft:mul",
+          "type": "minecraft:add",
           "argument1": {
-            "type": "minecraft:add",
-            "argument1": {
-              "type": "minecraft:mul",
-              "argument1": 2.0,
-              "argument2": {
-                "type": "minecraft:noise",
-                "noise": "galacticraft:mercury/basal_pillars",
-                "xz_scale": 20.0,
-                "y_scale": 0.25
-              }
-            },
+            "type": "minecraft:mul",
+            "argument1": 2.2,
             "argument2": {
-              "type": "minecraft:add",
-              "argument1": -1.1,
-              "argument2": {
-                "type": "minecraft:mul",
-                "argument1": -0.5,
-                "argument2": {
-                  "type": "minecraft:noise",
-                  "noise": "minecraft:pillar_rareness",
-                  "xz_scale": 1.0,
-                  "y_scale": 1.0
-                }
-              }
+              "type": "minecraft:noise",
+              "noise": "galacticraft:mercury/basal_pillars",
+              "xz_scale": 16.0,
+              "y_scale": 0.25
             }
           },
           "argument2": {
-            "type": "minecraft:cube",
-            "argument": {
+            "type": "minecraft:add",
+            "argument1": {
+              "type": "minecraft:noise",
+              "noise": "galacticraft:mercury/cave_rarity",
+              "xz_scale": 1.5,
+              "y_scale": 1.5
+            },
+            "argument2": {
               "type": "minecraft:add",
-              "argument1": 0.65,
+              "argument1": {
+                "type": "minecraft:y_clamped_gradient",
+                "from_value": 0.15,
+                "from_y": -54,
+                "to_value": 0.0,
+                "to_y": -42
+              },
               "argument2": {
-                "type": "minecraft:mul",
-                "argument1": 0.45000000000000007,
-                "argument2": {
-                  "type": "minecraft:noise",
-                  "noise": "minecraft:pillar_thickness",
-                  "xz_scale": 1.0,
-                  "y_scale": 1.0
-                }
+                "type": "minecraft:y_clamped_gradient",
+                "from_value": 0.0,
+                "from_y": -26,
+                "to_value": 0.15,
+                "to_y": -14
               }
             }
           }
@@ -299,9 +291,9 @@
           "argument2": {
             "type": "minecraft:y_clamped_gradient",
             "from_value": 1.0,
-            "from_y": -22,
+            "from_y": -20,
             "to_value": 0.0,
-            "to_y": -14
+            "to_y": -12
           }
         }
       }
@@ -409,7 +401,7 @@
                               "argument1": {
                                 "type": "minecraft:y_clamped_gradient",
                                 "from_value": 1.0,
-                                "from_y": 55,
+                                "from_y": 60,
                                 "to_value": 0.0,
                                 "to_y": 260
                               },
@@ -418,14 +410,14 @@
                                 "argument1": "galacticraft:mercury/factor",
                                 "argument2": {
                                   "type": "minecraft:mul",
-                                  "argument1": 0.34,
+                                  "argument1": 0.28,
                                   "argument2": {
                                     "type": "minecraft:old_blended_noise",
-                                    "smear_scale_multiplier": 4.0,
-                                    "xz_factor": 40.0,
-                                    "xz_scale": 0.5,
-                                    "y_factor": 40.0,
-                                    "y_scale": 0.5
+                                    "smear_scale_multiplier": 8.0,
+                                    "xz_factor": 80.0,
+                                    "xz_scale": 0.25,
+                                    "y_factor": 160.0,
+                                    "y_scale": 0.25
                                   }
                                 }
                               }
@@ -448,48 +440,40 @@
       "argument2": {
         "type": "minecraft:mul",
         "argument1": {
-          "type": "minecraft:mul",
+          "type": "minecraft:add",
           "argument1": {
-            "type": "minecraft:add",
-            "argument1": {
-              "type": "minecraft:mul",
-              "argument1": 2.0,
-              "argument2": {
-                "type": "minecraft:noise",
-                "noise": "galacticraft:mercury/basal_pillars",
-                "xz_scale": 20.0,
-                "y_scale": 0.25
-              }
-            },
+            "type": "minecraft:mul",
+            "argument1": 2.2,
             "argument2": {
-              "type": "minecraft:add",
-              "argument1": -1.1,
-              "argument2": {
-                "type": "minecraft:mul",
-                "argument1": -0.5,
-                "argument2": {
-                  "type": "minecraft:noise",
-                  "noise": "minecraft:pillar_rareness",
-                  "xz_scale": 1.0,
-                  "y_scale": 1.0
-                }
-              }
+              "type": "minecraft:noise",
+              "noise": "galacticraft:mercury/basal_pillars",
+              "xz_scale": 16.0,
+              "y_scale": 0.25
             }
           },
           "argument2": {
-            "type": "minecraft:cube",
-            "argument": {
+            "type": "minecraft:add",
+            "argument1": {
+              "type": "minecraft:noise",
+              "noise": "galacticraft:mercury/cave_rarity",
+              "xz_scale": 1.5,
+              "y_scale": 1.5
+            },
+            "argument2": {
               "type": "minecraft:add",
-              "argument1": 0.65,
+              "argument1": {
+                "type": "minecraft:y_clamped_gradient",
+                "from_value": 0.15,
+                "from_y": -54,
+                "to_value": 0.0,
+                "to_y": -42
+              },
               "argument2": {
-                "type": "minecraft:mul",
-                "argument1": 0.45000000000000007,
-                "argument2": {
-                  "type": "minecraft:noise",
-                  "noise": "minecraft:pillar_thickness",
-                  "xz_scale": 1.0,
-                  "y_scale": 1.0
-                }
+                "type": "minecraft:y_clamped_gradient",
+                "from_value": 0.0,
+                "from_y": -26,
+                "to_value": 0.15,
+                "to_y": -14
               }
             }
           }
@@ -506,9 +490,9 @@
           "argument2": {
             "type": "minecraft:y_clamped_gradient",
             "from_value": 1.0,
-            "from_y": -22,
+            "from_y": -20,
             "to_value": 0.0,
-            "to_y": -14
+            "to_y": -12
           }
         }
       }
