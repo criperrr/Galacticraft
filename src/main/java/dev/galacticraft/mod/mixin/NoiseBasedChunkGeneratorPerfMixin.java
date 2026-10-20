@@ -58,33 +58,37 @@ public abstract class NoiseBasedChunkGeneratorPerfMixin {
         return "unknown";
     }
 
-    @Inject(method = "createBiomes", at = @At("RETURN"))
+    @Inject(method = "createBiomes", at = @At("RETURN"), cancellable = true)
     private void gc$measureBiomes(RandomState randomState, Blender blender, StructureManager structureManager, ChunkAccess chunkAccess, CallbackInfoReturnable<CompletableFuture<ChunkAccess>> cir) {
         String dimension = gc$resolveDimension(structureManager);
         long start = System.nanoTime();
         CompletableFuture<ChunkAccess> originalFuture = cir.getReturnValue();
-        cir.setReturnValue(originalFuture.thenApply(chunk -> {
-            long duration = System.nanoTime() - start;
-            GCPerformanceTracker.recordStage(dimension, "biomes", duration);
-            return chunk;
-        }));
+        if (originalFuture != null) {
+            cir.setReturnValue(originalFuture.thenApply(chunk -> {
+                long duration = System.nanoTime() - start;
+                GCPerformanceTracker.recordStage(dimension, "biomes", duration);
+                return chunk;
+            }));
+        }
     }
 
-    @Inject(method = "fillFromNoise", at = @At("RETURN"))
+    @Inject(method = "fillFromNoise", at = @At("RETURN"), cancellable = true)
     private void gc$measureNoise(Blender blender, RandomState randomState, StructureManager structureManager, ChunkAccess chunkAccess, CallbackInfoReturnable<CompletableFuture<ChunkAccess>> cir) {
         String dimension = gc$resolveDimension(structureManager);
         int chunkX = chunkAccess.getPos().x;
         int chunkZ = chunkAccess.getPos().z;
         long start = System.nanoTime();
         CompletableFuture<ChunkAccess> originalFuture = cir.getReturnValue();
-        cir.setReturnValue(originalFuture.thenApply(chunk -> {
-            long duration = System.nanoTime() - start;
-            GCPerformanceTracker.recordStage(dimension, "noise", duration);
-            if (duration > 80_000_000L) { // If noise alone took >80ms
-                GCPerformanceTracker.recordSlowChunk(dimension, chunkX, chunkZ, duration, 0, duration, 0, 0, 0);
-            }
-            return chunk;
-        }));
+        if (originalFuture != null) {
+            cir.setReturnValue(originalFuture.thenApply(chunk -> {
+                long duration = System.nanoTime() - start;
+                GCPerformanceTracker.recordStage(dimension, "noise", duration);
+                if (duration > 80_000_000L) { // If noise alone took >80ms
+                    GCPerformanceTracker.recordSlowChunk(dimension, chunkX, chunkZ, duration, 0, duration, 0, 0, 0);
+                }
+                return chunk;
+            }));
+        }
     }
 
     @Unique
