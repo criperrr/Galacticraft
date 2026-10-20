@@ -1,43 +1,6 @@
 {
   "type": "minecraft:add",
-  "argument1": {
-    "type": "minecraft:add",
-    "argument1": "galacticraft:mercury/base_height",
-    "argument2": {
-      "type": "minecraft:add",
-      "argument1": "galacticraft:mercury/offset",
-      "argument2": {
-        "type": "minecraft:add",
-        "argument1": "galacticraft:mercury/smooth_relief",
-        "argument2": {
-          "type": "minecraft:mul",
-          "argument1": {
-            "type": "minecraft:y_clamped_gradient",
-            "from_value": 1.0,
-            "from_y": 60,
-            "to_value": 0.0,
-            "to_y": 260
-          },
-          "argument2": {
-            "type": "minecraft:mul",
-            "argument1": "galacticraft:mercury/factor",
-            "argument2": {
-              "type": "minecraft:mul",
-              "argument1": 0.28,
-              "argument2": {
-                "type": "minecraft:old_blended_noise",
-                "smear_scale_multiplier": 8.0,
-                "xz_factor": 80.0,
-                "xz_scale": 0.25,
-                "y_factor": 160.0,
-                "y_scale": 0.25
-              }
-            }
-          }
-        }
-      }
-    }
-  },
+  "argument1": "galacticraft:mercury/pillars",
   "argument2": {
     "type": "minecraft:y_clamped_gradient",
     "from_value": 6.0,
