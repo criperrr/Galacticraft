@@ -25,7 +25,7 @@
     },
     "fluid_level_floodedness": 0.0,
     "fluid_level_spread": 0.0,
-    "initial_density_without_jaggedness": "galacticraft:mercury/final_density",
+    "initial_density_without_jaggedness": "galacticraft:mercury/smooth_relief",
     "lava": 0.0,
     "ridges": "minecraft:overworld/ridges",
     "temperature": {

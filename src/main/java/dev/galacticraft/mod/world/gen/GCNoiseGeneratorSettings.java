@@ -111,6 +111,7 @@ public class GCNoiseGeneratorSettings {
     public static NoiseRouter mercury(HolderGetter<DensityFunction> densityLookup, HolderGetter<NormalNoise.NoiseParameters> noiseLookup) {
         DensityFunction shiftX = GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.SHIFT_X);
         DensityFunction shiftZ = GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.SHIFT_Z);
+        DensityFunction smoothRelief = GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Mercury.SMOOTH_RELIEF);
         DensityFunction finalDensity = GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Mercury.FINAL_DENSITY);
 
         return new NoiseRouter(
@@ -124,7 +125,7 @@ public class GCNoiseGeneratorSettings {
                 GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.EROSION),
                 GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Mercury.DEPTH),
                 GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.RIDGES),
-                finalDensity,
+                smoothRelief,
                 DensityFunctions.blendDensity(finalDensity),
                 DensityFunctions.zero(),
                 DensityFunctions.zero(),

@@ -482,13 +482,13 @@ public class GCDensityFunctions {
                 )
         );
 
-        DensityFunction mercurySolidTerrain = DensityFunctions.add(
+        DensityFunction mercurySolidTerrain = DensityFunctions.cacheOnce(DensityFunctions.add(
                 mercuryBaseHeight,
                 DensityFunctions.add(
                         mercuryOffset,
                         DensityFunctions.add(mercurySmoothRelief, mercury3dRoughness)
                 )
-        );
+        ));
 
         // ==========================================
         // MONUMENTAL SUBTERRANEAN 3D CAVERNS (CONTINUOUS NOISE CAVES)
@@ -733,47 +733,30 @@ public class GCDensityFunctions {
         // Dynamic Crust Surface Ceiling Taper (from SKILL.md Section 3.1):
         // Automatically scales cave ceiling closed relative to local terrain elevation (mercurySolidTerrain)
         // preventing surface breaches even in deep impact craters (Caloris Basin) or valleys!
-        DensityFunction surfaceCeilingTaper = DensityFunctions.add(
+        DensityFunction surfaceCeilingTaper = DensityFunctions.cacheOnce(DensityFunctions.add(
                 DensityFunctions.mul(DensityFunctions.constant(-25.0), mercurySolidTerrain),
                 DensityFunctions.constant(3.5)
-        ).clamp(0.0, 3.5);
+        ).clamp(0.0, 3.5));
 
         DensityFunction boundedCaveCarve = DensityFunctions.min(
                 DensityFunctions.zero(),
                 DensityFunctions.add(totalCaveCarve, surfaceCeilingTaper)
         );
 
-        // (H) Pilares Naturais de Sustentação Geológica e Magmática (Mercury Geological & Basal Pillars)
-        // 1. General subterranean cave pillars (Mojang 1.21 vanilla cave pillars math)
-        // Vertically stretched fluted columns (XZ frequency 24.0, Y scale 0.3) spanning ceiling to floor
-        DensityFunction pillarNoise = DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.PILLAR), 24.0, 0.3);
-        DensityFunction pillarRareness = DensityFunctions.mappedNoise(noiseRegistry.getOrThrow(Noises.PILLAR_RARENESS), 0.0, -2.0);
-        DensityFunction pillarThickness = DensityFunctions.mappedNoise(noiseRegistry.getOrThrow(Noises.PILLAR_THICKNESS), 0.0, 1.1);
-        DensityFunction rawCavePillars = DensityFunctions.mul(
-                DensityFunctions.add(
-                        DensityFunctions.mul(pillarNoise, DensityFunctions.constant(2.0)),
-                        pillarRareness
-                ),
-                pillarThickness.cube()
+        // (H) Pilares Naturais de Sustentação Geológica (Mercury Geological Pillars)
+        // Optimized Vanilla 1.21 pillar formula with cached column and thickness noises
+        DensityFunction pillarNoise = DensityFunctions.cacheOnce(DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.PILLAR), 25.0, 0.3));
+        DensityFunction pillarRareness = DensityFunctions.cacheOnce(DensityFunctions.mappedNoise(noiseRegistry.getOrThrow(Noises.PILLAR_RARENESS), 0.0, -2.0));
+        DensityFunction pillarThickness = DensityFunctions.cacheOnce(DensityFunctions.mappedNoise(noiseRegistry.getOrThrow(Noises.PILLAR_THICKNESS), 0.0, 1.1));
+        DensityFunction rawCavePillars = DensityFunctions.cacheOnce(
+                DensityFunctions.mul(
+                        DensityFunctions.add(
+                                DensityFunctions.mul(pillarNoise, DensityFunctions.constant(2.0)),
+                                pillarRareness
+                        ),
+                        pillarThickness.cube()
+                )
         );
-
-        // 2. Colossal Basalt Pillars in Magma Depths (Y = -54 to -14):
-        // Massive monolithic volcanic basalt columns rising from bedrock through lava oceans into the vaulted ceiling
-        DensityFunction magmaPillarNoise = DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.MERCURY_BASAL_PILLARS), 16.0, 0.25);
-        DensityFunction magmaPillarRareness = DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.MERCURY_CAVE_RARITY), 1.5, 1.5);
-        DensityFunction magmaPillarHourglass = DensityFunctions.add(
-                DensityFunctions.yClampedGradient(-54, -42, 0.15, 0.0),
-                DensityFunctions.yClampedGradient(-26, -14, 0.0, 0.15)
-        );
-        DensityFunction rawMagmaPillars = DensityFunctions.add(
-                DensityFunctions.mul(magmaPillarNoise, DensityFunctions.constant(2.2)),
-                DensityFunctions.add(magmaPillarRareness, magmaPillarHourglass)
-        );
-        DensityFunction magmaPillarYRange = DensityFunctions.mul(
-                DensityFunctions.yClampedGradient(-54, -48, 0.0, 1.0),
-                DensityFunctions.yClampedGradient(-20, -12, 1.0, 0.0)
-        );
-        DensityFunction magmaPillars = DensityFunctions.mul(rawMagmaPillars, magmaPillarYRange);
 
         // Subterranean height bounds: active from bedrock (Y = -54) up to Y = 68
         DensityFunction subterraneanYBounds = DensityFunctions.mul(
@@ -791,16 +774,13 @@ public class GCDensityFunctions {
                 DensityFunctions.mul(subterraneanYBounds, crustSafetyTaper)
         );
 
-        // Combined pillar field: general cave columns + massive basal magma columns
-        DensityFunction combinedPillars = DensityFunctions.max(boundedCavePillars, magmaPillars);
-
         // Range choice: if < 0.03 set to -1000000.0 (negative infinity), else retain positive pillar density
         DensityFunction clampedPillars = DensityFunctions.rangeChoice(
-                combinedPillars,
+                boundedCavePillars,
                 -1000000.0,
                 0.03,
                 DensityFunctions.constant(-1000000.0),
-                combinedPillars
+                boundedCavePillars
         );
 
         // Merge pillars with terrain and caves using MAX (Vanilla 1.21 pattern):
