@@ -196,13 +196,10 @@ public class MercurySurfaceRules {
                 // 1. Bedrock at world floor (Y = -64)
                 SurfaceRules.ifTrue(SurfaceRules.verticalGradient("bedrock_floor", VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(5)), BEDROCK),
 
-                // 2. Surface regolith layers (strictly for exterior planetary surface Y >= 95, never inside deep caves)
+                // 2. Surface regolith layers (strictly for exterior planetary surface, never inside deep caves)
                 SurfaceRules.ifTrue(
                         SurfaceRules.abovePreliminarySurface(),
-                        SurfaceRules.ifTrue(
-                                SurfaceRules.yBlockCheck(VerticalAnchor.absolute(95), 0),
-                                SURFACE_GENERATION
-                        )
+                        SURFACE_GENERATION
                 ),
 
                 // 3. Underground cavern floor and feature decoration (NO regolith, NO solid ore blankets)

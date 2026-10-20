@@ -70,6 +70,7 @@ public class GCDensityFunctions {
     }
 
     public static final class Mercury {
+        public static final ResourceKey<DensityFunction> CONTINENTS = createKey("mercury/continents");
         public static final ResourceKey<DensityFunction> BASE_HEIGHT = createKey("mercury/base_height");
         public static final ResourceKey<DensityFunction> OFFSET = createKey("mercury/offset");
         public static final ResourceKey<DensityFunction> FACTOR = createKey("mercury/factor");
@@ -402,17 +403,28 @@ public class GCDensityFunctions {
                 DensityFunctions.yClampedGradient(128, -64, 0.0, 1.5)
         );
 
+        // 1. Continuous coordinate displacement & continuous continentalness
+        // Eliminates 4x4 flat_cache stepping, chunk-border lines, and orthogonal 90-degree cliff staircases
+        DensityFunction mercuryShiftX = DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.SHIFT), 0.25, 0.0);
+        DensityFunction mercuryShiftZ = DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.SHIFT), 0.0, 0.25);
+        DensityFunction mercuryContinents = registerAndWrap(context, Mercury.CONTINENTS,
+                DensityFunctions.shiftedNoise2d(mercuryShiftX, mercuryShiftZ, 0.25, noiseRegistry.getOrThrow(Noises.CONTINENTALNESS))
+        );
+        var mercuryContinentsCoord = new DensityFunctions.Spline.Coordinate(
+                context.lookup(Registries.DENSITY_FUNCTION).getOrThrow(Mercury.CONTINENTS)
+        );
+
         // 2. Base surface elevation gradient: crosses 0 at Y = 128 (linear midpoint between Y = -64 and Y = 320)
         DensityFunction mercuryBaseHeight = registerAndWrap(context, Mercury.BASE_HEIGHT,
                 DensityFunctions.yClampedGradient(-64, 320, 1.5, -1.5)
         );
 
-        // 3. Offset spline for macro regional elevation:
+        // 3. Offset spline for macro regional elevation (evaluated continuously without flat_cache):
         // - Caloris Basin [-1.0 to -0.4]: depression down to Y = 70 to 85, surrounded by lobate scarp peaks (up to Y = 220)
         // - Smooth Lava Plains [-0.35 to 0.0]: level basalt floors at Y = 115
         // - Inter-Crater Plains [0.0 to 0.45]: base undulating plains around Y = 120
         // - Chaotic Terrain [0.45 to 1.0]: rugged fractured peaks (Y = 160 to 220)
-        var mercuryOffsetSpline = CubicSpline.builder(continentsCoord)
+        var mercuryOffsetSpline = CubicSpline.builder(mercuryContinentsCoord)
                 .addPoint(-1.00F, -0.38F, 0.05F)
                 .addPoint(-0.65F, -0.32F, 0.15F)
                 .addPoint(-0.35F, -0.04F, 0.20F)
@@ -425,7 +437,7 @@ public class GCDensityFunctions {
         DensityFunction mercuryOffset = registerAndWrap(context, Mercury.OFFSET, DensityFunctions.spline(mercuryOffsetSpline));
 
         // 4. Factor spline for relief amplitude scaling
-        var mercuryFactorSpline = CubicSpline.builder(continentsCoord)
+        var mercuryFactorSpline = CubicSpline.builder(mercuryContinentsCoord)
                 .addPoint(-1.00F, 0.30F, 0.0F)
                 .addPoint(-0.35F, 0.22F, 0.10F)
                 .addPoint(0.00F, 0.35F, 0.20F)
@@ -435,11 +447,11 @@ public class GCDensityFunctions {
                 .build();
         DensityFunction mercuryFactor = registerAndWrap(context, Mercury.FACTOR, DensityFunctions.spline(mercuryFactorSpline));
 
-        // 5. Multi-generator surface relief
-        DensityFunction mercuryBasePlainsNoise = DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.80, noiseRegistry.getOrThrow(GCNoiseData.MERCURY_BASE_NOISE));
-        DensityFunction mercuryScarpNoise = DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.45, noiseRegistry.getOrThrow(GCNoiseData.MERCURY_SCARP_NOISE)).abs();
-        DensityFunction mercuryCalorisNoise = DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.55, noiseRegistry.getOrThrow(GCNoiseData.MERCURY_CALORIS_NOISE));
-        DensityFunction mercuryChaoticNoise = DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 1.10, noiseRegistry.getOrThrow(GCNoiseData.MERCURY_CHAOTIC_NOISE));
+        // 5. Multi-generator surface relief using continuous coordinate displacement
+        DensityFunction mercuryBasePlainsNoise = DensityFunctions.shiftedNoise2d(mercuryShiftX, mercuryShiftZ, 0.80, noiseRegistry.getOrThrow(GCNoiseData.MERCURY_BASE_NOISE));
+        DensityFunction mercuryScarpNoise = DensityFunctions.shiftedNoise2d(mercuryShiftX, mercuryShiftZ, 0.45, noiseRegistry.getOrThrow(GCNoiseData.MERCURY_SCARP_NOISE)).abs();
+        DensityFunction mercuryCalorisNoise = DensityFunctions.shiftedNoise2d(mercuryShiftX, mercuryShiftZ, 0.55, noiseRegistry.getOrThrow(GCNoiseData.MERCURY_CALORIS_NOISE));
+        DensityFunction mercuryChaoticNoise = DensityFunctions.shiftedNoise2d(mercuryShiftX, mercuryShiftZ, 1.10, noiseRegistry.getOrThrow(GCNoiseData.MERCURY_CHAOTIC_NOISE));
 
         DensityFunction mercurySmoothRelief = registerAndWrap(context, Mercury.SMOOTH_RELIEF,
                 DensityFunctions.mul(
@@ -447,7 +459,7 @@ public class GCDensityFunctions {
                         DensityFunctions.add(
                                 DensityFunctions.mul(DensityFunctions.constant(0.18), mercuryBasePlainsNoise),
                                 DensityFunctions.add(
-                                        DensityFunctions.mul(DensityFunctions.constant(0.25), mercuryScarpNoise),
+                                         DensityFunctions.mul(DensityFunctions.constant(0.25), mercuryScarpNoise),
                                         DensityFunctions.add(
                                                 DensityFunctions.mul(DensityFunctions.constant(0.12), mercuryCalorisNoise),
                                                 DensityFunctions.mul(DensityFunctions.constant(0.15), mercuryChaoticNoise)
@@ -457,13 +469,15 @@ public class GCDensityFunctions {
                 )
         );
 
+        // 3D Organic Roughness: Active across all surface elevations (Y = 60 to 260)
+        // High 3D amplitude (0.28) completely shatters flat cliff faces and rectilinear step artifacts into natural rugged terrain
         DensityFunction mercury3dRoughness = DensityFunctions.mul(
-                DensityFunctions.yClampedGradient(140, 240, 1.0, 0.0),
+                DensityFunctions.yClampedGradient(60, 260, 1.0, 0.0),
                 DensityFunctions.mul(
                         mercuryFactor,
                         DensityFunctions.mul(
-                                DensityFunctions.constant(0.08),
-                                BlendedNoise.createUnseeded(0.25, 0.125, 80.0, 160.0, 8.0)
+                                DensityFunctions.constant(0.28),
+                                BlendedNoise.createUnseeded(0.25, 0.25, 80.0, 160.0, 8.0)
                         )
                 )
         );
@@ -487,9 +501,9 @@ public class GCDensityFunctions {
         // Bedrock shield: guarantees 100% solid floor at Y = -64 to -50, preventing any void leaks
         DensityFunction bedrockShield = DensityFunctions.yClampedGradient(-64, -50, 6.0, 0.0);
 
-        // Regional geological selectors: partitions Mercury into subterranean provinces
-        DensityFunction caveSelector = DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.35, noiseRegistry.getOrThrow(GCNoiseData.MERCURY_CAVE_SELECTOR));
-        DensityFunction caveRarity = DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.50, noiseRegistry.getOrThrow(GCNoiseData.MERCURY_CAVE_RARITY));
+        // Regional geological selectors: partitions Mercury into subterranean provinces using continuous noise
+        DensityFunction caveSelector = DensityFunctions.shiftedNoise2d(mercuryShiftX, mercuryShiftZ, 0.35, noiseRegistry.getOrThrow(GCNoiseData.MERCURY_CAVE_SELECTOR));
+        DensityFunction caveRarity = DensityFunctions.shiftedNoise2d(mercuryShiftX, mercuryShiftZ, 0.50, noiseRegistry.getOrThrow(GCNoiseData.MERCURY_CAVE_RARITY));
 
         // (A) Tubos de Lava Monumentais (Mercury Colossal Lava Tubes) [Y = 30 to 80]
         // Continuous horizontal conduits with smooth elliptical/vaulted cross-section (~40-50 wide by ~20-25 tall)
@@ -497,7 +511,7 @@ public class GCDensityFunctions {
                 DensityFunctions.yClampedGradient(30, 55, 1.2, 0.0),
                 DensityFunctions.yClampedGradient(55, 80, 0.0, 1.2)
         );
-        DensityFunction tube2d = DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.22, noiseRegistry.getOrThrow(GCNoiseData.MERCURY_LAVA_TUBES)).abs();
+        DensityFunction tube2d = DensityFunctions.shiftedNoise2d(mercuryShiftX, mercuryShiftZ, 0.22, noiseRegistry.getOrThrow(GCNoiseData.MERCURY_LAVA_TUBES)).abs();
         DensityFunction tubeSelectorDist = caveSelector.abs();
         DensityFunction tubeMetric = DensityFunctions.add(
                 DensityFunctions.mul(DensityFunctions.constant(4.5), tube2d),
@@ -547,8 +561,8 @@ public class GCDensityFunctions {
                 DensityFunctions.yClampedGradient(75, 100, 0.0, 1.2)
         );
         DensityFunction chasm2d = DensityFunctions.shiftedNoise2d(
-                DensityFunctions.mul(shiftX, DensityFunctions.constant(2.5)),
-                DensityFunctions.mul(shiftZ, DensityFunctions.constant(0.35)),
+                DensityFunctions.mul(mercuryShiftX, DensityFunctions.constant(2.5)),
+                DensityFunctions.mul(mercuryShiftZ, DensityFunctions.constant(0.35)),
                 0.25,
                 noiseRegistry.getOrThrow(GCNoiseData.MERCURY_TECTONIC_FISSURE)
         ).abs();
@@ -585,9 +599,9 @@ public class GCDensityFunctions {
         );
         // Low-frequency 3D chamber noise for colossal rooms (60-120 blocks wide)
         DensityFunction chamber3d = DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.MERCURY_MAGMA_CHAMBERS), 0.65, 0.55);
-        // Structural basalt spines and pillars within the chambers
+        // Structural basalt spines and massifs within the chambers (high amplitude prevents empty hollow voids)
         DensityFunction basaltSpines = DensityFunctions.mul(
-                DensityFunctions.constant(0.40),
+                DensityFunctions.constant(0.85),
                 DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.MERCURY_BASAL_PILLARS), 1.2, 0.8)
         );
         DensityFunction magmaMetric = DensityFunctions.add(
@@ -605,7 +619,7 @@ public class GCDensityFunctions {
                         DensityFunctions.zero(),
                         DensityFunctions.mul(
                                 DensityFunctions.constant(2.8),
-                                DensityFunctions.add(magmaMetric, DensityFunctions.constant(-0.15))
+                                DensityFunctions.add(magmaMetric, DensityFunctions.constant(0.18))
                         )
                 )
         );
@@ -642,20 +656,14 @@ public class GCDensityFunctions {
                 DensityFunctions.yClampedGradient(-48, -36, 0.35, 0.0),
                 DensityFunctions.yClampedGradient(96, 114, 0.0, 0.35)
         );
-        DensityFunction noodleRidgeA = DensityFunctions.interpolated(
-                DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.NOODLE_RIDGE_A), 2.0, 2.0)
-        ).abs();
-        DensityFunction noodleRidgeB = DensityFunctions.interpolated(
-                DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.NOODLE_RIDGE_B), 2.0, 2.0)
-        ).abs();
+        DensityFunction noodleRidgeA = DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.NOODLE_RIDGE_A), 2.0, 2.0).abs();
+        DensityFunction noodleRidgeB = DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.NOODLE_RIDGE_B), 2.0, 2.0).abs();
         DensityFunction noodleDist = DensityFunctions.max(noodleRidgeA, noodleRidgeB);
-        DensityFunction noodleThickness = DensityFunctions.interpolated(
-                DensityFunctions.add(
-                        DensityFunctions.constant(-0.145),
-                        DensityFunctions.mul(
-                                DensityFunctions.constant(-0.035),
-                                DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.NOODLE_THICKNESS), 1.0, 1.0)
-                        )
+        DensityFunction noodleThickness = DensityFunctions.add(
+                DensityFunctions.constant(-0.145),
+                DensityFunctions.mul(
+                        DensityFunctions.constant(-0.035),
+                        DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.NOODLE_THICKNESS), 1.0, 1.0)
                 )
         );
         DensityFunction noodleMetric = DensityFunctions.add(
@@ -682,12 +690,8 @@ public class GCDensityFunctions {
                 DensityFunctions.yClampedGradient(-45, -32, 0.25, 0.0),
                 DensityFunctions.yClampedGradient(104, 116, 0.0, 0.25)
         );
-        DensityFunction crawlRidgeA = DensityFunctions.interpolated(
-                DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.MERCURY_CRAWLWAY_A), 2.2, 7.5)
-        ).abs();
-        DensityFunction crawlRidgeB = DensityFunctions.interpolated(
-                DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.MERCURY_CRAWLWAY_B), 2.2, 7.5)
-        ).abs();
+        DensityFunction crawlRidgeA = DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.MERCURY_CRAWLWAY_A), 2.2, 7.5).abs();
+        DensityFunction crawlRidgeB = DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.MERCURY_CRAWLWAY_B), 2.2, 7.5).abs();
         DensityFunction crawlDist = DensityFunctions.max(crawlRidgeA, crawlRidgeB);
         DensityFunction crawlMetric = DensityFunctions.add(
                 crawlDist,
@@ -739,56 +743,79 @@ public class GCDensityFunctions {
                 DensityFunctions.add(totalCaveCarve, surfaceCeilingTaper)
         );
 
-        // (H) Pilares Naturais de Sustentação Geológica (Mercury Subterranean Noise Pillars) [Y = -48 to 70]
-        // Massive monolithic stone columns spanning floor to ceiling in vast subterranean cavities (vanilla/YUNG's inspired)
-        // Strictly masked by caveMask & pillarYFalloff to guarantee ZERO floating blocks in open air or above surface!
-        DensityFunction pillarA = DensityFunctions.interpolated(
-                DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.MERCURY_CAVE_PILLARS), 0.8, 0.8)
-        ).abs();
-        DensityFunction pillarB = DensityFunctions.interpolated(
-                DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.MERCURY_CAVE_PILLARS), 1.6, 1.6)
-        ).abs();
-        DensityFunction pillarGrid = DensityFunctions.max(pillarA, pillarB);
-        // Pillar thickness tapers towards mid-height (hourglass shape)
-        DensityFunction pillarHourglass = DensityFunctions.add(
-                DensityFunctions.yClampedGradient(-40, 15, 0.08, 0.0),
-                DensityFunctions.yClampedGradient(15, 65, 0.0, 0.08)
-        );
-        DensityFunction rawPillars = DensityFunctions.rangeChoice(
-                DensityFunctions.add(pillarGrid, pillarHourglass),
-                0.0,
-                0.14,
-                DensityFunctions.mul(
-                        DensityFunctions.constant(4.5),
-                        DensityFunctions.add(
-                                DensityFunctions.constant(0.14),
-                                DensityFunctions.mul(DensityFunctions.constant(-1.0), DensityFunctions.add(pillarGrid, pillarHourglass))
-                        )
+        // (H) Pilares Naturais de Sustentação Geológica e Magmática (Mercury Geological & Basal Pillars)
+        // 1. General subterranean cave pillars (Mojang 1.21 vanilla cave pillars math)
+        // Vertically stretched fluted columns (XZ frequency 24.0, Y scale 0.3) spanning ceiling to floor
+        DensityFunction pillarNoise = DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.PILLAR), 24.0, 0.3);
+        DensityFunction pillarRareness = DensityFunctions.mappedNoise(noiseRegistry.getOrThrow(Noises.PILLAR_RARENESS), 0.0, -2.0);
+        DensityFunction pillarThickness = DensityFunctions.mappedNoise(noiseRegistry.getOrThrow(Noises.PILLAR_THICKNESS), 0.0, 1.1);
+        DensityFunction rawCavePillars = DensityFunctions.mul(
+                DensityFunctions.add(
+                        DensityFunctions.mul(pillarNoise, DensityFunctions.constant(2.0)),
+                        pillarRareness
                 ),
-                DensityFunctions.zero()
-        );
-        DensityFunction pillarYFalloff = DensityFunctions.mul(
-                DensityFunctions.yClampedGradient(-50, -38, 0.0, 1.0),
-                DensityFunctions.yClampedGradient(55, 70, 1.0, 0.0)
-        );
-        DensityFunction caveMask = DensityFunctions.rangeChoice(
-                boundedCaveCarve,
-                -100.0,
-                -0.10,
-                DensityFunctions.constant(1.0),
-                DensityFunctions.zero()
-        );
-        DensityFunction pillarDensity = registerAndWrap(context, Mercury.PILLARS,
-                DensityFunctions.mul(rawPillars, DensityFunctions.mul(pillarYFalloff, caveMask))
+                pillarThickness.cube()
         );
 
-        // Final density: solid terrain + bounded cave carve + structural pillars + impenetrable bedrock protection
+        // 2. Colossal Basalt Pillars in Magma Depths (Y = -54 to -14):
+        // Massive monolithic volcanic basalt columns rising from bedrock through lava oceans into the vaulted ceiling
+        DensityFunction magmaPillarNoise = DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.MERCURY_BASAL_PILLARS), 16.0, 0.25);
+        DensityFunction magmaPillarRareness = DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.MERCURY_CAVE_RARITY), 1.5, 1.5);
+        DensityFunction magmaPillarHourglass = DensityFunctions.add(
+                DensityFunctions.yClampedGradient(-54, -42, 0.15, 0.0),
+                DensityFunctions.yClampedGradient(-26, -14, 0.0, 0.15)
+        );
+        DensityFunction rawMagmaPillars = DensityFunctions.add(
+                DensityFunctions.mul(magmaPillarNoise, DensityFunctions.constant(2.2)),
+                DensityFunctions.add(magmaPillarRareness, magmaPillarHourglass)
+        );
+        DensityFunction magmaPillarYRange = DensityFunctions.mul(
+                DensityFunctions.yClampedGradient(-54, -48, 0.0, 1.0),
+                DensityFunctions.yClampedGradient(-20, -12, 1.0, 0.0)
+        );
+        DensityFunction magmaPillars = DensityFunctions.mul(rawMagmaPillars, magmaPillarYRange);
+
+        // Subterranean height bounds: active from bedrock (Y = -54) up to Y = 68
+        DensityFunction subterraneanYBounds = DensityFunctions.mul(
+                DensityFunctions.yClampedGradient(-54, -46, 0.0, 1.0),
+                DensityFunctions.yClampedGradient(55, 68, 1.0, 0.0)
+        );
+        // Safety taper: stops pillars from breaking the surface crust
+        DensityFunction crustSafetyTaper = DensityFunctions.add(
+                DensityFunctions.constant(1.0),
+                DensityFunctions.mul(DensityFunctions.constant(-4.0), surfaceCeilingTaper)
+        ).clamp(0.0, 1.0);
+
+        DensityFunction boundedCavePillars = DensityFunctions.mul(
+                rawCavePillars,
+                DensityFunctions.mul(subterraneanYBounds, crustSafetyTaper)
+        );
+
+        // Combined pillar field: general cave columns + massive basal magma columns
+        DensityFunction combinedPillars = DensityFunctions.max(boundedCavePillars, magmaPillars);
+
+        // Range choice: if < 0.03 set to -1000000.0 (negative infinity), else retain positive pillar density
+        DensityFunction clampedPillars = DensityFunctions.rangeChoice(
+                combinedPillars,
+                -1000000.0,
+                0.03,
+                DensityFunctions.constant(-1000000.0),
+                combinedPillars
+        );
+
+        // Merge pillars with terrain and caves using MAX (Vanilla 1.21 pattern):
+        // Inside cave (negative terrain) + pillar (positive) -> solid pillar!
+        // Inside cave (negative terrain) + no pillar (-1000000.0) -> carved cave!
+        // Ceiling/floor (positive terrain) + pillar -> smoothly welded into rock with ZERO gaps or disconnection!
+        DensityFunction terrainWithCaves = DensityFunctions.add(mercurySolidTerrain, boundedCaveCarve);
+        DensityFunction terrainWithPillars = registerAndWrap(context, Mercury.PILLARS,
+                DensityFunctions.max(terrainWithCaves, clampedPillars)
+        );
+
+        // Final density: terrain with caves and pillars + impenetrable bedrock protection
         context.register(Mercury.FINAL_DENSITY, DensityFunctions.add(
-                mercurySolidTerrain,
-                DensityFunctions.add(
-                        DensityFunctions.add(boundedCaveCarve, pillarDensity),
-                        bedrockShield
-                )
+                terrainWithPillars,
+                bedrockShield
         ));
     }
 

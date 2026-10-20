@@ -120,7 +120,7 @@ public class GCNoiseGeneratorSettings {
                 DensityFunctions.zero(), // lavaNoise
                 DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.25, noiseLookup.getOrThrow(Noises.TEMPERATURE)),
                 DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.25, noiseLookup.getOrThrow(Noises.VEGETATION)),
-                GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.CONTINENTS),
+                GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Mercury.CONTINENTS),
                 GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.EROSION),
                 GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Mercury.DEPTH),
                 GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.RIDGES),
