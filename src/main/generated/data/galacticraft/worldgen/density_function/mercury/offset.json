@@ -1,7 +1,7 @@
 {
   "type": "minecraft:spline",
   "spline": {
-    "coordinate": "minecraft:overworld/continents",
+    "coordinate": "galacticraft:mercury/continents",
     "points": [
       {
         "derivative": 0.05,
