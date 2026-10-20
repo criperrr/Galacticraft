@@ -1,6 +1,9 @@
 {
   "carvers": {
-    "air": "galacticraft:mercury_sublimation_funnel_carver"
+    "air": [
+      "galacticraft:mercury_cave_carver",
+      "galacticraft:mercury_sublimation_funnel_carver"
+    ]
   },
   "downfall": 0.0,
   "effects": {

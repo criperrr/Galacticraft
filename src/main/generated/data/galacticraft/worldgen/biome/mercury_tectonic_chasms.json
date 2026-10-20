@@ -1,6 +1,9 @@
 {
   "carvers": {
-    "air": "galacticraft:mercury_tectonic_fissure_carver"
+    "air": [
+      "galacticraft:mercury_cave_carver",
+      "galacticraft:mercury_tectonic_fissure_carver"
+    ]
   },
   "downfall": 0.0,
   "effects": {

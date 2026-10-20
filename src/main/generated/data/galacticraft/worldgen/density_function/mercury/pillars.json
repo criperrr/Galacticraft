@@ -3,31 +3,7 @@
   "argument1": {
     "type": "minecraft:add",
     "argument1": "galacticraft:mercury/solid_terrain",
-    "argument2": {
-      "type": "minecraft:min",
-      "argument1": 0.0,
-      "argument2": {
-        "type": "minecraft:add",
-        "argument1": "galacticraft:mercury/caves",
-        "argument2": {
-          "type": "minecraft:cache_once",
-          "argument": {
-            "type": "minecraft:clamp",
-            "input": {
-              "type": "minecraft:add",
-              "argument1": 3.5,
-              "argument2": {
-                "type": "minecraft:mul",
-                "argument1": -25.0,
-                "argument2": "galacticraft:mercury/solid_terrain"
-              }
-            },
-            "max": 3.5,
-            "min": 0.0
-          }
-        }
-      }
-    }
+    "argument2": "galacticraft:mercury/caves"
   },
   "argument2": {
     "type": "minecraft:range_choice",

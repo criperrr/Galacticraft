@@ -76,6 +76,7 @@ public class MercuryBiomes {
 
     public static Biome createInterCraterPlains(HolderGetter<PlacedFeature> featureLookup, HolderGetter<ConfiguredWorldCarver<?>> carverLookup) {
         var generation = new BiomeGenerationSettings.Builder(featureLookup, carverLookup);
+        generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MERCURY_CAVE_CARVER);
         generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MERCURY_COLLAPSED_RILLES_CARVER);
         generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MERCURY_SKYLIGHT_CARVER);
         generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MERCURY_TECTONIC_FISSURE_CARVER);
@@ -85,6 +86,7 @@ public class MercuryBiomes {
 
     public static Biome createSmoothLavaPlains(HolderGetter<PlacedFeature> featureLookup, HolderGetter<ConfiguredWorldCarver<?>> carverLookup) {
         var generation = new BiomeGenerationSettings.Builder(featureLookup, carverLookup);
+        generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MERCURY_CAVE_CARVER);
         generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MERCURY_COLLAPSED_RILLES_CARVER);
         generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MERCURY_SKYLIGHT_CARVER);
         generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MERCURY_SUBLIMATION_FUNNEL_CARVER);
@@ -94,6 +96,7 @@ public class MercuryBiomes {
 
     public static Biome createCalorisBasin(HolderGetter<PlacedFeature> featureLookup, HolderGetter<ConfiguredWorldCarver<?>> carverLookup) {
         var generation = new BiomeGenerationSettings.Builder(featureLookup, carverLookup);
+        generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MERCURY_CAVE_CARVER);
         generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MERCURY_SCARP_PORTAL_CARVER);
         generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MERCURY_TECTONIC_FISSURE_CARVER);
         generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MERCURY_SKYLIGHT_CARVER);
@@ -103,6 +106,7 @@ public class MercuryBiomes {
 
     public static Biome createChaoticTerrain(HolderGetter<PlacedFeature> featureLookup, HolderGetter<ConfiguredWorldCarver<?>> carverLookup) {
         var generation = new BiomeGenerationSettings.Builder(featureLookup, carverLookup);
+        generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MERCURY_CAVE_CARVER);
         generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MERCURY_SCARP_PORTAL_CARVER);
         generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MERCURY_TECTONIC_FISSURE_CARVER);
         addStandardMercuryOres(generation);
@@ -111,7 +115,9 @@ public class MercuryBiomes {
 
     public static Biome createPolarDarkCraters(HolderGetter<PlacedFeature> featureLookup, HolderGetter<ConfiguredWorldCarver<?>> carverLookup) {
         var generation = new BiomeGenerationSettings.Builder(featureLookup, carverLookup);
+        generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MERCURY_CAVE_CARVER);
         generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MERCURY_SCARP_PORTAL_CARVER);
+        generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MERCURY_SKYLIGHT_CARVER);
         addStandardMercuryOres(generation);
         return mercury(featureLookup, carverLookup, generation, -0.5F); // Extreme cold in permanent shadow
     }
@@ -126,6 +132,7 @@ public class MercuryBiomes {
      */
     public static Biome createColossalLavaTubes(HolderGetter<PlacedFeature> featureLookup, HolderGetter<ConfiguredWorldCarver<?>> carverLookup) {
         var generation = new BiomeGenerationSettings.Builder(featureLookup, carverLookup);
+        generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MERCURY_CAVE_CARVER);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_ALUMINUM_MERCURY);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_COPPER_MERCURY);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_TITANIUM_MERCURY);
@@ -139,6 +146,7 @@ public class MercuryBiomes {
      */
     public static Biome createMegabrecciaCaverns(HolderGetter<PlacedFeature> featureLookup, HolderGetter<ConfiguredWorldCarver<?>> carverLookup) {
         var generation = new BiomeGenerationSettings.Builder(featureLookup, carverLookup);
+        generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MERCURY_CAVE_CARVER);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, GCPlacedFeatures.MERCURY_MEGABRECCIA_SPELEOTHEM);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_TITANIUM_MERCURY);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_NATIVE_IRON_MERCURY);
@@ -152,6 +160,7 @@ public class MercuryBiomes {
      */
     public static Biome createTectonicChasms(HolderGetter<PlacedFeature> featureLookup, HolderGetter<ConfiguredWorldCarver<?>> carverLookup) {
         var generation = new BiomeGenerationSettings.Builder(featureLookup, carverLookup);
+        generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MERCURY_CAVE_CARVER);
         generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MERCURY_TECTONIC_FISSURE_CARVER);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_COPPER_MERCURY);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_TITANIUM_MERCURY);
@@ -164,6 +173,7 @@ public class MercuryBiomes {
      */
     public static Biome createMagmaDepths(HolderGetter<PlacedFeature> featureLookup, HolderGetter<ConfiguredWorldCarver<?>> carverLookup) {
         var generation = new BiomeGenerationSettings.Builder(featureLookup, carverLookup);
+        generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MERCURY_CAVE_CARVER);
         generation.addFeature(GenerationStep.Decoration.LAKES, GCPlacedFeatures.MERCURY_LAVA_LAKE);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.MAGMA_PATCH_MERCURY);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_NATIVE_IRON_MERCURY);
@@ -176,6 +186,7 @@ public class MercuryBiomes {
      */
     public static Biome createHollowLabyrinth(HolderGetter<PlacedFeature> featureLookup, HolderGetter<ConfiguredWorldCarver<?>> carverLookup) {
         var generation = new BiomeGenerationSettings.Builder(featureLookup, carverLookup);
+        generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MERCURY_CAVE_CARVER);
         generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MERCURY_SUBLIMATION_FUNNEL_CARVER);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_ALUMINUM_MERCURY);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_GRAPHITE_MERCURY);

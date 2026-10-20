@@ -1,5 +1,5 @@
 {
-  "type": "galacticraft:lunar_cave",
+  "type": "minecraft:cave",
   "config": {
     "floor_level": {
       "type": "minecraft:uniform",
@@ -8,23 +8,23 @@
     },
     "horizontal_radius_multiplier": {
       "type": "minecraft:uniform",
-      "max_exclusive": 1.8,
-      "min_inclusive": 0.9
+      "max_exclusive": 2.2,
+      "min_inclusive": 1.0
     },
     "lava_level": {
       "above_bottom": 8
     },
-    "probability": 0.16,
+    "probability": 0.15,
     "replaceable": "#galacticraft:mercury_carver_replaceables",
     "vertical_radius_multiplier": {
       "type": "minecraft:uniform",
-      "max_exclusive": 1.5,
-      "min_inclusive": 0.8
+      "max_exclusive": 1.8,
+      "min_inclusive": 0.9
     },
     "y": {
       "type": "minecraft:uniform",
       "max_inclusive": {
-        "absolute": 140
+        "absolute": 200
       },
       "min_inclusive": {
         "above_bottom": 8

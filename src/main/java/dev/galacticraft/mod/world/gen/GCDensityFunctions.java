@@ -649,10 +649,10 @@ public class GCDensityFunctions {
                 )
         );
 
-        // (F) Cavernas Tubulares Conectoras Menores (Mercury Connecting Noodle Caves) [Y = -45 to 112]
+        // (F) Cavernas Tubulares Conectoras Menores (Mercury Connecting Noodle Caves) [Y = -45 to 210]
         DensityFunction noodleYDist = DensityFunctions.add(
                 DensityFunctions.yClampedGradient(-48, -36, 0.35, 0.0),
-                DensityFunctions.yClampedGradient(96, 114, 0.0, 0.35)
+                DensityFunctions.yClampedGradient(170, 210, 0.0, 0.35)
         );
         DensityFunction noodleRidgeA = DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.NOODLE_RIDGE_A), 2.0, 2.0).abs();
         DensityFunction noodleRidgeB = DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.NOODLE_RIDGE_B), 2.0, 2.0).abs();
@@ -706,36 +706,42 @@ public class GCDensityFunctions {
                 )
         );
 
-        // Combined cave carve offset: negative inside caves, 0.0 everywhere else in solid rock
-        DensityFunction totalCaveCarve = registerAndWrap(context, Mercury.CAVES,
+        // Large cavern halls: massive halls, lava tubes, breccia domes, chasms, and hollows
+        DensityFunction largeCaves = DensityFunctions.min(
+                mercuryCrawlways,
                 DensityFunctions.min(
-                        mercuryCrawlways,
+                        lavaTubes,
                         DensityFunctions.min(
-                                mercuryNoodles,
+                                megabrecciaDomes,
                                 DensityFunctions.min(
-                                        lavaTubes,
-                                        DensityFunctions.min(
-                                                megabrecciaDomes,
-                                                DensityFunctions.min(
-                                                         tectonicChasms,
-                                                        DensityFunctions.min(magmaDepths, hollowLabyrinth)
-                                                )
-                                        )
+                                        tectonicChasms,
+                                        DensityFunctions.min(magmaDepths, hollowLabyrinth)
                                 )
                         )
                 )
         );
 
-        // Dynamic Crust Surface Ceiling Taper: prevents caves from breaching the planetary crust
+        // Dynamic Crust Surface Ceiling Taper: prevents massive cavern halls from breaching the planetary crust
         DensityFunction surfaceCeilingTaper = DensityFunctions.cacheOnce(DensityFunctions.add(
                 DensityFunctions.mul(DensityFunctions.constant(-25.0), mercurySolidTerrain),
                 DensityFunctions.constant(3.5)
         ).clamp(0.0, 3.5));
 
-        DensityFunction boundedCaveCarve = DensityFunctions.min(
+        DensityFunction boundedLargeCaves = DensityFunctions.min(
                 DensityFunctions.zero(),
-                DensityFunctions.add(totalCaveCarve, surfaceCeilingTaper)
+                DensityFunctions.add(largeCaves, surfaceCeilingTaper)
         );
+
+        // Combined cave carve offset: large cavern halls remain underground, while sinuous 3D noodle caves (4-8 blocks)
+        // are allowed to punch through the crust to the surface, creating natural walkable cave entrances!
+        DensityFunction totalCaveCarve = registerAndWrap(context, Mercury.CAVES,
+                DensityFunctions.min(
+                        boundedLargeCaves,
+                        mercuryNoodles
+                )
+        );
+
+        DensityFunction boundedCaveCarve = totalCaveCarve;
 
         // (H) Pilares Naturais de Sustentação Geológica (Mercury Geological Pillars)
         DensityFunction pillarNoise = DensityFunctions.cacheOnce(DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.PILLAR), 25.0, 0.3));

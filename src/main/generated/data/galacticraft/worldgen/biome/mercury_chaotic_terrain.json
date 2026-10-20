@@ -1,6 +1,7 @@
 {
   "carvers": {
     "air": [
+      "galacticraft:mercury_cave_carver",
       "galacticraft:mercury_scarp_portal_carver",
       "galacticraft:mercury_tectonic_fissure_carver"
     ]

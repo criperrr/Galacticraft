@@ -185,95 +185,96 @@ public class GCConfiguredCarvers {
 
         // ==========================================
         // MERCURY SURFACE ENTRANCES & NATURAL CONNECTIONS
-        // Base surface level at Y = 120
+        // Elevation spans from Caloris Basin (Y = 70) to Chaotic Mountain Ridges (Y = 200+)
         // ==========================================
 
         // 1. Collapsed Lava Rilles (Trincheiras de Rilles Desabadas):
-        // Sinuous open trenches 20-35 blocks wide, 100-300 long at Y = 120, tapering down to Y = 80-90
+        // Sinuous open trenches cutting across plains and basins down into underground conduits
         context.register(MERCURY_COLLAPSED_RILLES_CARVER, WorldCarver.CANYON.configured(new CanyonCarverConfiguration(
-                0.04f,
-                UniformHeight.of(VerticalAnchor.absolute(85), VerticalAnchor.absolute(120)),
-                ConstantFloat.of(2.8f),
+                0.06f,
+                UniformHeight.of(VerticalAnchor.absolute(60), VerticalAnchor.absolute(185)),
+                ConstantFloat.of(3.5f),
                 VerticalAnchor.aboveBottom(8),
                 CarverDebugSettings.DEFAULT,
                 BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.MERCURY_CARVER_REPLACEABLES),
                 UniformFloat.of(-0.10f, 0.10f),
                 new CanyonCarverConfiguration.CanyonShapeConfiguration(
-                        UniformFloat.of(1.5f, 2.5f),
-                        TrapezoidFloat.of(0, 15, 3),
+                        UniformFloat.of(1.8f, 3.0f),
+                        TrapezoidFloat.of(0, 18, 4),
                         4,
-                        UniformFloat.of(1.2f, 1.8f),
+                        UniformFloat.of(1.4f, 2.2f),
                         1.0f,
                         0.0f)
         )));
 
         // 2. Horizontal Portals and Scarp Mouths (Portais Horizontais e Bocas de Escarpa):
-        // Giant arches 15-30 wide by 15-25 tall in lobate scarps and crater rims (Y = 130 to 160)
+        // Giant arched entrances cut into cliff walls, crater rims, and lobate scarps (Y = 80 to 200)
         context.register(MERCURY_SCARP_PORTAL_CARVER, WorldCarver.CAVE.configured(new CaveCarverConfiguration(
-                0.05f,
-                UniformHeight.of(VerticalAnchor.absolute(130), VerticalAnchor.absolute(160)),
+                0.07f,
+                UniformHeight.of(VerticalAnchor.absolute(80), VerticalAnchor.absolute(200)),
                 UniformFloat.of(0.8f, 1.4f),
                 VerticalAnchor.aboveBottom(8),
                 BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.MERCURY_CARVER_REPLACEABLES),
-                UniformFloat.of(2.0f, 3.5f),
-                UniformFloat.of(1.8f, 2.8f),
+                UniformFloat.of(2.2f, 3.8f),
+                UniformFloat.of(1.8f, 3.0f),
                 UniformFloat.of(-0.4f, 0.2f)
         )));
 
         // 3. Open Tectonic Chasms (Gargantas e Fissuras Tectônicas Abertas):
-        // Straight rifts cutting flat ground at Y = 120 (8-15 wide), vertical drop down to Y = -30
+        // Deep linear fault rifts plunging from the surface down into the tectonic underworld (Y = 20 to 200)
         context.register(MERCURY_TECTONIC_FISSURE_CARVER, WorldCarver.CANYON.configured(new CanyonCarverConfiguration(
-                0.035f,
-                UniformHeight.of(VerticalAnchor.absolute(20), VerticalAnchor.absolute(120)),
-                ConstantFloat.of(4.2f),
+                0.05f,
+                UniformHeight.of(VerticalAnchor.absolute(20), VerticalAnchor.absolute(200)),
+                ConstantFloat.of(4.5f),
                 VerticalAnchor.aboveBottom(8),
                 CarverDebugSettings.DEFAULT,
                 BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.MERCURY_CARVER_REPLACEABLES),
                 UniformFloat.of(-0.02f, 0.02f),
                 new CanyonCarverConfiguration.CanyonShapeConfiguration(
-                        UniformFloat.of(0.6f, 1.1f),
-                        TrapezoidFloat.of(0, 10, 2),
-                        2,
-                        UniformFloat.of(0.8f, 1.2f),
+                        UniformFloat.of(0.8f, 1.4f),
+                        TrapezoidFloat.of(0, 15, 3),
+                        3,
+                        UniformFloat.of(1.0f, 1.6f),
                         1.0f,
                         0.0f)
         )));
 
         // 4. Collapse Skylights (Claraboias de Colapso):
-        // Cylindrical vertical shafts 12-22 diameter from Y = 120 down to Y = 70-85
+        // Cylindrical vertical pit shafts (12-22 diameter) connecting surface directly into deep caverns
         context.register(MERCURY_SKYLIGHT_CARVER, WorldCarver.CAVE.configured(new CaveCarverConfiguration(
-                0.03f,
-                UniformHeight.of(VerticalAnchor.absolute(75), VerticalAnchor.absolute(120)),
+                0.05f,
+                UniformHeight.of(VerticalAnchor.absolute(65), VerticalAnchor.absolute(180)),
                 ConstantFloat.of(1.0f),
                 VerticalAnchor.aboveBottom(8),
                 BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.MERCURY_CARVER_REPLACEABLES),
-                UniformFloat.of(1.8f, 2.8f),
-                UniformFloat.of(1.8f, 2.8f),
+                UniformFloat.of(2.2f, 3.5f),
+                UniformFloat.of(2.0f, 3.2f),
                 UniformFloat.of(-1.0f, -0.6f)
         )));
 
         // 5. Sublimation Funnels in Hollows (Funis de Sublimação nos Hollows):
-        // Small conical sinkholes 4-8 diameter connecting surface to hollow labyrinth (Y = 90-110)
+        // Conical sinkholes connecting depression surfaces to hollow labyrinths (Y = 75 to 180)
         context.register(MERCURY_SUBLIMATION_FUNNEL_CARVER, WorldCarver.CAVE.configured(new CaveCarverConfiguration(
                 0.08f,
-                UniformHeight.of(VerticalAnchor.absolute(90), VerticalAnchor.absolute(118)),
+                UniformHeight.of(VerticalAnchor.absolute(75), VerticalAnchor.absolute(180)),
                 ConstantFloat.of(1.0f),
                 VerticalAnchor.aboveBottom(8),
                 BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.MERCURY_CARVER_REPLACEABLES),
-                UniformFloat.of(0.6f, 1.2f),
-                UniformFloat.of(0.6f, 1.2f),
+                UniformFloat.of(0.8f, 1.6f),
+                UniformFloat.of(0.8f, 1.6f),
                 UniformFloat.of(-0.8f, -0.3f)
         )));
 
-        // 6. Deep Cave Network:
-        context.register(MERCURY_CAVE_CARVER, GCCarvers.LUNAR_CAVE.configured(new CaveCarverConfiguration(
-                0.16f,
-                UniformHeight.of(VerticalAnchor.aboveBottom(8), VerticalAnchor.absolute(140)),
+        // 6. Deep Cave Network (Standard WorldCarver.CAVE):
+        // Winding organic caves with frequent surface entrances connecting mountains, plains and the underworld
+        context.register(MERCURY_CAVE_CARVER, WorldCarver.CAVE.configured(new CaveCarverConfiguration(
+                0.15f,
+                UniformHeight.of(VerticalAnchor.aboveBottom(8), VerticalAnchor.absolute(200)),
                 UniformFloat.of(0.1f, 0.9f),
                 VerticalAnchor.aboveBottom(8),
                 BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.MERCURY_CARVER_REPLACEABLES),
+                UniformFloat.of(1.0f, 2.2f),
                 UniformFloat.of(0.9f, 1.8f),
-                UniformFloat.of(0.8f, 1.5f),
                 UniformFloat.of(-1.0f, -0.4f)
         )));
     }
