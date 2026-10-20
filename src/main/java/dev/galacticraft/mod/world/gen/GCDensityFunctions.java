@@ -391,12 +391,11 @@ public class GCDensityFunctions {
                 DensityFunctions.yClampedGradient(128, -64, 0.0, 1.5)
         );
 
-        // 1. Continuous coordinate displacement & continuous continentalness
-        // Eliminates 4x4 flat_cache stepping, chunk-border lines, and orthogonal 90-degree cliff staircases
-        DensityFunction mercuryShiftX = DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.SHIFT), 0.25, 0.0);
-        DensityFunction mercuryShiftZ = DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.SHIFT), 0.0, 0.25);
+        // 1. Coordinate displacement & continuous continentalness with flatCache for column-wise vectorization
+        DensityFunction mercuryShiftX = DensityFunctions.flatCache(DensityFunctions.cache2d(DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.SHIFT), 0.25, 0.0)));
+        DensityFunction mercuryShiftZ = DensityFunctions.flatCache(DensityFunctions.cache2d(DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.SHIFT), 0.0, 0.25)));
         DensityFunction mercuryContinents = registerAndWrap(context, Mercury.CONTINENTS,
-                DensityFunctions.shiftedNoise2d(mercuryShiftX, mercuryShiftZ, 0.25, noiseRegistry.getOrThrow(Noises.CONTINENTALNESS))
+                DensityFunctions.flatCache(DensityFunctions.shiftedNoise2d(mercuryShiftX, mercuryShiftZ, 0.25, noiseRegistry.getOrThrow(Noises.CONTINENTALNESS)))
         );
         var mercuryContinentsCoord = new DensityFunctions.Spline.Coordinate(
                 context.lookup(Registries.DENSITY_FUNCTION).getOrThrow(Mercury.CONTINENTS)
@@ -407,7 +406,7 @@ public class GCDensityFunctions {
                 DensityFunctions.yClampedGradient(-64, 320, 1.5, -1.5)
         );
 
-        // 3. Offset spline for macro regional elevation (evaluated continuously without flat_cache):
+        // 3. Offset spline for macro regional elevation:
         // - Caloris Basin [-1.0 to -0.4]: depression down to Y = 70 to 85, surrounded by lobate scarp peaks (up to Y = 220)
         // - Smooth Lava Plains [-0.35 to 0.0]: level basalt floors at Y = 115
         // - Inter-Crater Plains [0.0 to 0.45]: base undulating plains around Y = 120
@@ -422,7 +421,7 @@ public class GCDensityFunctions {
                 .addPoint(0.80F, 0.55F, 0.50F)
                 .addPoint(1.00F, 0.72F, 0.30F)
                 .build();
-        DensityFunction mercuryOffset = registerAndWrap(context, Mercury.OFFSET, DensityFunctions.spline(mercuryOffsetSpline));
+        DensityFunction mercuryOffset = registerAndWrap(context, Mercury.OFFSET, DensityFunctions.flatCache(DensityFunctions.spline(mercuryOffsetSpline)));
 
         // 4. Factor spline for relief amplitude scaling
         var mercuryFactorSpline = CubicSpline.builder(mercuryContinentsCoord)
@@ -433,15 +432,15 @@ public class GCDensityFunctions {
                 .addPoint(0.80F, 1.15F, 0.60F)
                 .addPoint(1.00F, 1.35F, 0.40F)
                 .build();
-        DensityFunction mercuryFactor = registerAndWrap(context, Mercury.FACTOR, DensityFunctions.spline(mercuryFactorSpline));
+        DensityFunction mercuryFactor = registerAndWrap(context, Mercury.FACTOR, DensityFunctions.flatCache(DensityFunctions.spline(mercuryFactorSpline)));
 
-        // 5. Multi-generator surface relief using continuous coordinate displacement
+        // 5. Multi-generator surface relief
         DensityFunction mercuryBasePlainsNoise = DensityFunctions.shiftedNoise2d(mercuryShiftX, mercuryShiftZ, 0.80, noiseRegistry.getOrThrow(GCNoiseData.MERCURY_BASE_NOISE));
         DensityFunction mercuryScarpNoise = DensityFunctions.shiftedNoise2d(mercuryShiftX, mercuryShiftZ, 0.45, noiseRegistry.getOrThrow(GCNoiseData.MERCURY_SCARP_NOISE)).abs();
         DensityFunction mercuryCalorisNoise = DensityFunctions.shiftedNoise2d(mercuryShiftX, mercuryShiftZ, 0.55, noiseRegistry.getOrThrow(GCNoiseData.MERCURY_CALORIS_NOISE));
         DensityFunction mercuryChaoticNoise = DensityFunctions.shiftedNoise2d(mercuryShiftX, mercuryShiftZ, 1.10, noiseRegistry.getOrThrow(GCNoiseData.MERCURY_CHAOTIC_NOISE));
 
-        DensityFunction mercurySmoothRelief = registerAndWrap(context, Mercury.SMOOTH_RELIEF,
+        DensityFunction mercurySmoothRelief = registerAndWrap(context, Mercury.SMOOTH_RELIEF, DensityFunctions.flatCache(
                 DensityFunctions.mul(
                         mercuryFactor,
                         DensityFunctions.add(
@@ -455,7 +454,7 @@ public class GCDensityFunctions {
                                 )
                         )
                 )
-        );
+        ));
 
         // 3D Organic Roughness: Active across all surface elevations (Y = 60 to 260)
         // High 3D amplitude (0.28) completely shatters flat cliff faces and rectilinear step artifacts into natural rugged terrain

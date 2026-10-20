@@ -15,17 +15,20 @@
     "size_vertical": 2
   },
   "noise_router": {
-    "barrier": 1.0,
+    "barrier": 0.0,
     "continents": "minecraft:overworld/continents",
     "depth": "minecraft:overworld/depth",
     "erosion": "galacticraft:moon/erosion",
     "final_density": {
-      "type": "minecraft:blend_density",
-      "argument": "galacticraft:moon/final_density"
+      "type": "minecraft:interpolated",
+      "argument": {
+        "type": "minecraft:blend_density",
+        "argument": "galacticraft:moon/final_density"
+      }
     },
     "fluid_level_floodedness": 0.0,
     "fluid_level_spread": 0.0,
-    "initial_density_without_jaggedness": "galacticraft:moon/smooth_relief",
+    "initial_density_without_jaggedness": "galacticraft:moon/final_density",
     "lava": 0.0,
     "ridges": "minecraft:overworld/ridges",
     "temperature": {

@@ -15,17 +15,20 @@
     "size_vertical": 2
   },
   "noise_router": {
-    "barrier": 1.0,
+    "barrier": 0.0,
     "continents": "galacticraft:mercury/continents",
     "depth": "galacticraft:mercury/depth",
     "erosion": "minecraft:overworld/erosion",
     "final_density": {
-      "type": "minecraft:blend_density",
-      "argument": "galacticraft:mercury/final_density"
+      "type": "minecraft:interpolated",
+      "argument": {
+        "type": "minecraft:blend_density",
+        "argument": "galacticraft:mercury/final_density"
+      }
     },
     "fluid_level_floodedness": 0.0,
     "fluid_level_spread": 0.0,
-    "initial_density_without_jaggedness": "galacticraft:mercury/smooth_relief",
+    "initial_density_without_jaggedness": "galacticraft:mercury/final_density",
     "lava": 0.0,
     "ridges": "minecraft:overworld/ridges",
     "temperature": {

@@ -20,8 +20,11 @@
     "depth": "minecraft:overworld/depth",
     "erosion": "minecraft:overworld/erosion",
     "final_density": {
-      "type": "minecraft:blend_density",
-      "argument": "galacticraft:venus/final_density"
+      "type": "minecraft:interpolated",
+      "argument": {
+        "type": "minecraft:blend_density",
+        "argument": "galacticraft:venus/final_density"
+      }
     },
     "fluid_level_floodedness": 0.0,
     "fluid_level_spread": 0.0,
