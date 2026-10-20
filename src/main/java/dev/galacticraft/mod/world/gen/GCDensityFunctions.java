@@ -743,6 +743,25 @@ public class GCDensityFunctions {
                 DensityFunctions.add(totalCaveCarve, surfaceCeilingTaper)
         );
 
+        // Range Choice Optimization (Vanilla Overworld pattern):
+        // 1. Altitude Culling: Above Y = 120 (mercuryBaseHeight <= 0.05), caves do not exist. Bypass all 7 cave networks!
+        DensityFunction altitudeCaves = DensityFunctions.rangeChoice(
+                mercuryBaseHeight,
+                0.05,
+                1.6,
+                boundedCaveCarve,
+                DensityFunctions.zero()
+        );
+
+        // 2. Open Sky Culling: In the open air far above terrain, do not evaluate cave density.
+        DensityFunction activeCaves = DensityFunctions.rangeChoice(
+                mercurySolidTerrain,
+                -0.70,
+                10.0,
+                altitudeCaves,
+                DensityFunctions.zero()
+        );
+
         // (H) Pilares Naturais de Sustentação Geológica (Mercury Geological Pillars)
         // Optimized Vanilla 1.21 pillar formula with cached column and thickness noises
         DensityFunction pillarNoise = DensityFunctions.cacheOnce(DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.PILLAR), 25.0, 0.3));
@@ -783,13 +802,23 @@ public class GCDensityFunctions {
                 boundedCavePillars
         );
 
+        // 3. Pillar Cavity Culling: Pillars are only evaluated where a cave has actually carved open a void (activeCaves < -0.05).
+        // In 90% of the world (solid rock or open sky), pillar noise evaluation is skipped entirely!
+        DensityFunction activePillars = DensityFunctions.rangeChoice(
+                activeCaves,
+                -1000.0,
+                -0.05,
+                clampedPillars,
+                DensityFunctions.constant(-1000000.0)
+        );
+
         // Merge pillars with terrain and caves using MAX (Vanilla 1.21 pattern):
         // Inside cave (negative terrain) + pillar (positive) -> solid pillar!
         // Inside cave (negative terrain) + no pillar (-1000000.0) -> carved cave!
         // Ceiling/floor (positive terrain) + pillar -> smoothly welded into rock with ZERO gaps or disconnection!
-        DensityFunction terrainWithCaves = DensityFunctions.add(mercurySolidTerrain, boundedCaveCarve);
+        DensityFunction terrainWithCaves = DensityFunctions.add(mercurySolidTerrain, activeCaves);
         DensityFunction terrainWithPillars = registerAndWrap(context, Mercury.PILLARS,
-                DensityFunctions.max(terrainWithCaves, clampedPillars)
+                DensityFunctions.max(terrainWithCaves, activePillars)
         );
 
         // Final density: terrain with caves and pillars + impenetrable bedrock protection
