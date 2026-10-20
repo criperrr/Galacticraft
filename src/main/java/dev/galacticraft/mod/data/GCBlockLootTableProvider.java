@@ -178,6 +178,23 @@ public class GCBlockLootTableProvider extends FabricBlockLootTableProvider {
         this.dropSelf(GCBlocks.HARD_VENUS_ROCK);
         this.dropSelf(GCBlocks.SCORCHED_VENUS_ROCK);
         this.add(GCBlocks.VOLCANIC_ROCK, this.createSilkTouchOnlyTable(GCBlocks.VOLCANIC_ROCK));
+
+        // MERCURY
+        this.dropSelf(GCBlocks.MERCURY_REGOLITH);
+        this.dropSelf(GCBlocks.MERCURY_COMPACTED_REGOLITH);
+        this.dropSelf(GCBlocks.MERCURY_FROST_REGOLITH);
+        this.dropSelf(GCBlocks.MERCURY_HOLLOW_DEPOSIT);
+        this.dropSelf(GCBlocks.MERCURY_BASALT);
+        this.dropSelf(GCBlocks.MERCURY_SHOCK_BRECCIA);
+        this.dropSelf(GCBlocks.MERCURY_GRAPHITE_ROCK);
+        this.dropSelf(GCBlocks.MERCURY_BASALT_BRICK);
+
+        this.dropSelf(GCBlocks.MERCURY_ALUMINUM_ORE);
+        this.dropSelf(GCBlocks.MERCURY_COPPER_ORE);
+        this.dropSelf(GCBlocks.MERCURY_TITANIUM_ORE);
+        this.dropSelf(GCBlocks.MERCURY_NATIVE_IRON_ORE);
+        this.dropSelf(GCBlocks.MERCURY_GRAPHITE_ORE);
+        this.dropSelf(GCBlocks.MERCURY_SULFIDE_ORE);
         this.dropSelf(GCBlocks.PUMICE);
         this.add(GCBlocks.VAPOR_SPOUT, this.createSingleItemTableWithSilkTouch(GCBlocks.VAPOR_SPOUT, GCBlocks.SOFT_VENUS_ROCK));
         this.add(GCBlocks.CRASHED_PROBE, this.createSilkTouchOnlyTable(GCBlocks.CRASHED_PROBE));

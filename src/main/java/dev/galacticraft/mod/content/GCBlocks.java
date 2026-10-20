@@ -196,6 +196,24 @@ public class GCBlocks {
     public static final Block PUMICE = BLOCKS.registerWithItem(Constant.Block.PUMICE, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_YELLOW).instrument(NoteBlockInstrument.BASEDRUM).strength(1.5F, 6.0F).requiresCorrectToolForDrops()));
     public static final Block VAPOR_SPOUT = BLOCKS.registerWithItem(Constant.Block.VAPOR_SPOUT, new VaporSpoutBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.BASEDRUM).strength(1.5F, 2.0F).requiresCorrectToolForDrops()));
 
+    // MERCURY NATURAL
+    public static final Block MERCURY_REGOLITH = BLOCKS.registerWithItem(Constant.Block.MERCURY_REGOLITH, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).instrument(NoteBlockInstrument.BASEDRUM).strength(1.8F, 3.0F).sound(SoundType.SAND)));
+    public static final Block MERCURY_COMPACTED_REGOLITH = BLOCKS.registerWithItem(Constant.Block.MERCURY_COMPACTED_REGOLITH, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).instrument(NoteBlockInstrument.BASEDRUM).strength(2.4F, 4.0F).requiresCorrectToolForDrops()));
+    public static final Block MERCURY_FROST_REGOLITH = BLOCKS.registerWithItem(Constant.Block.MERCURY_FROST_REGOLITH, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_BLUE).instrument(NoteBlockInstrument.BASEDRUM).strength(1.8F, 3.0F).sound(SoundType.SNOW)));
+    public static final Block MERCURY_HOLLOW_DEPOSIT = BLOCKS.registerWithItem(Constant.Block.MERCURY_HOLLOW_DEPOSIT, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).instrument(NoteBlockInstrument.BASEDRUM).strength(2.0F, 3.5F).requiresCorrectToolForDrops()));
+    public static final Block MERCURY_BASALT = BLOCKS.registerWithItem(Constant.Block.MERCURY_BASALT, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASEDRUM).strength(3.2F, 6.0F).sound(SoundType.BASALT).requiresCorrectToolForDrops()));
+    public static final Block MERCURY_SHOCK_BRECCIA = BLOCKS.registerWithItem(Constant.Block.MERCURY_SHOCK_BRECCIA, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).instrument(NoteBlockInstrument.BASEDRUM).strength(4.5F, 7.5F).sound(SoundType.DEEPSLATE).requiresCorrectToolForDrops()));
+    public static final Block MERCURY_GRAPHITE_ROCK = BLOCKS.registerWithItem(Constant.Block.MERCURY_GRAPHITE_ROCK, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASEDRUM).strength(3.0F, 5.0F).requiresCorrectToolForDrops()));
+    public static final Block MERCURY_BASALT_BRICK = BLOCKS.registerWithItem(Constant.Block.MERCURY_BASALT_BRICK, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASEDRUM).strength(3.5F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops()));
+
+    // MERCURY ORES
+    public static final Block MERCURY_ALUMINUM_ORE = BLOCKS.registerWithItem(Constant.Block.MERCURY_ALUMINUM_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(MERCURY_BASALT, 3.5F, 3.0F)));
+    public static final Block MERCURY_COPPER_ORE = BLOCKS.registerWithItem(Constant.Block.MERCURY_COPPER_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(MERCURY_BASALT, 3.5F, 3.0F)));
+    public static final Block MERCURY_TITANIUM_ORE = BLOCKS.registerWithItem(Constant.Block.MERCURY_TITANIUM_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(MERCURY_BASALT, 4.0F, 4.0F)));
+    public static final Block MERCURY_NATIVE_IRON_ORE = BLOCKS.registerWithItem(Constant.Block.MERCURY_NATIVE_IRON_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(MERCURY_SHOCK_BRECCIA, 5.0F, 5.0F)));
+    public static final Block MERCURY_GRAPHITE_ORE = BLOCKS.registerWithItem(Constant.Block.MERCURY_GRAPHITE_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(MERCURY_BASALT, 3.0F, 3.0F)));
+    public static final Block MERCURY_SULFIDE_ORE = BLOCKS.registerWithItem(Constant.Block.MERCURY_SULFIDE_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(MERCURY_SHOCK_BRECCIA, 4.5F, 4.5F)));
+
     // ORES
     public static final Block SILICON_ORE = BLOCKS.registerWithItem(Constant.Block.SILICON_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(Blocks.STONE, 3.0F, 3.0F)));
     public static final Block DEEPSLATE_SILICON_ORE = BLOCKS.registerWithItem(Constant.Block.DEEPSLATE_SILICON_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(Blocks.DEEPSLATE, 4.5F, 3.0F)));

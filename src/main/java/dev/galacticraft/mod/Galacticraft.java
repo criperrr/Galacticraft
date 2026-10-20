@@ -56,6 +56,7 @@ import dev.galacticraft.mod.world.gen.feature.GCFeatures;
 import dev.galacticraft.mod.world.gen.feature.GCOrePlacedFeatures;
 import dev.galacticraft.mod.world.gen.feature.GCPlacedFeatures;
 import dev.galacticraft.mod.world.gen.structure.GCStructureTypes;
+import dev.galacticraft.mod.world.gen.surfacerule.MercurySurfaceRules;
 import dev.galacticraft.mod.world.gen.surfacerule.MoonSurfaceRules;
 import dev.galacticraft.mod.world.poi.GCPointOfInterestTypes;
 import net.fabricmc.api.ModInitializer;
@@ -98,6 +99,7 @@ public class Galacticraft implements ModInitializer {
         GCStructureTypes.register();
         GCCarvers.register();
         MoonSurfaceRules.register();
+        MercurySurfaceRules.register();
         GCMultiNoiseBiomeSourceParameterLists.register();
         GCAccessorySlots.register();
         GCMenuTypes.register();

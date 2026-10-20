@@ -929,6 +929,18 @@ public class GCTranslationProvider extends TranslationProvider {
         this.add(GCBiomes.Venus.VENUS_FLAT, "Venus Flat");
         this.add(GCBiomes.Venus.VENUS_MOUNTAIN, "Venus Mountain");
         this.add(GCBiomes.Venus.VENUS_VALLEY, "Venus Valley");
+
+        this.add(GCBiomes.Mercury.INTER_CRATER_PLAINS, "Inter-Crater Plains");
+        this.add(GCBiomes.Mercury.SMOOTH_LAVA_PLAINS, "Smooth Lava Plains");
+        this.add(GCBiomes.Mercury.CALORIS_BASIN, "Caloris Basin");
+        this.add(GCBiomes.Mercury.CHAOTIC_TERRAIN, "Chaotic Terrain");
+        this.add(GCBiomes.Mercury.POLAR_DARK_CRATERS, "Permanently Shadowed Polar Craters");
+
+        this.add(GCBiomes.Mercury.COLOSSAL_LAVA_TUBES, "Colossal Lava Tubes");
+        this.add(GCBiomes.Mercury.MEGABRECCIA_CAVERNS, "Megabreccia Caverns");
+        this.add(GCBiomes.Mercury.TECTONIC_CHASMS, "Tectonic Chasms");
+        this.add(GCBiomes.Mercury.MAGMA_DEPTHS, "Magma Depths");
+        this.add(GCBiomes.Mercury.HOLLOW_LABYRINTH, "Volatile Hollow Labyrinth");
     }
 
     protected void generateChatTranslations() {

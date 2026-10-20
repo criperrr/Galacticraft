@@ -41,6 +41,21 @@ public class GCNoiseData {
     public static final ResourceKey<NormalNoise.NoiseParameters> MARS_WE_TERRAIN_NOISE = createKey("mars/we_terrain_noise");
     public static final ResourceKey<NormalNoise.NoiseParameters> VENUS_SMOOTH_NOISE = createKey("venus/smooth_noise");
     public static final ResourceKey<NormalNoise.NoiseParameters> VENUS_VOLCANIC_NOISE = createKey("venus/volcanic_noise");
+    public static final ResourceKey<NormalNoise.NoiseParameters> MERCURY_BASE_NOISE = createKey("mercury/base_noise");
+    public static final ResourceKey<NormalNoise.NoiseParameters> MERCURY_SCARP_NOISE = createKey("mercury/scarp_noise");
+    public static final ResourceKey<NormalNoise.NoiseParameters> MERCURY_CALORIS_NOISE = createKey("mercury/caloris_noise");
+    public static final ResourceKey<NormalNoise.NoiseParameters> MERCURY_CHAOTIC_NOISE = createKey("mercury/chaotic_noise");
+    public static final ResourceKey<NormalNoise.NoiseParameters> MERCURY_LAVA_TUBES = createKey("mercury/lava_tubes");
+    public static final ResourceKey<NormalNoise.NoiseParameters> MERCURY_MEGABRECCIA_CHEESE = createKey("mercury/megabreccia_cheese");
+    public static final ResourceKey<NormalNoise.NoiseParameters> MERCURY_TECTONIC_FISSURE = createKey("mercury/tectonic_fissure");
+    public static final ResourceKey<NormalNoise.NoiseParameters> MERCURY_BASAL_PILLARS = createKey("mercury/basal_pillars");
+    public static final ResourceKey<NormalNoise.NoiseParameters> MERCURY_HOLLOW_SPONGE = createKey("mercury/hollow_sponge");
+    public static final ResourceKey<NormalNoise.NoiseParameters> MERCURY_CAVE_SELECTOR = createKey("mercury/cave_selector");
+    public static final ResourceKey<NormalNoise.NoiseParameters> MERCURY_CAVE_RARITY = createKey("mercury/cave_rarity");
+    public static final ResourceKey<NormalNoise.NoiseParameters> MERCURY_CRAWLWAY_A = createKey("mercury/crawlway_a");
+    public static final ResourceKey<NormalNoise.NoiseParameters> MERCURY_CRAWLWAY_B = createKey("mercury/crawlway_b");
+    public static final ResourceKey<NormalNoise.NoiseParameters> MERCURY_CAVE_PILLARS = createKey("mercury/cave_pillars");
+    public static final ResourceKey<NormalNoise.NoiseParameters> MERCURY_MAGMA_CHAMBERS = createKey("mercury/magma_chambers");
 
     private static ResourceKey<NormalNoise.NoiseParameters> createKey(String id) {
         return ResourceKey.create(Registries.NOISE, Constant.id(id));
@@ -68,6 +83,23 @@ public class GCNoiseData {
         register(context, VENUS_SMOOTH_NOISE, -6, 1.0, 0.25, 0.0625, 0.015625);
         // GalaxySpace WE_Biome volcanic terrain layer: 5 octaves, persistence 0.6
         register(context, VENUS_VOLCANIC_NOISE, -7, 1.0, 0.6, 0.36, 0.216, 0.1296);
+
+        // Mercury surface & monumental subterranean noise parameters
+        register(context, MERCURY_BASE_NOISE, -6, 1.0, 0.35, 0.12, 0.04);
+        register(context, MERCURY_SCARP_NOISE, -8, 1.0, 0.5, 0.25);
+        register(context, MERCURY_CALORIS_NOISE, -7, 1.0, 0.4, 0.15);
+        register(context, MERCURY_CHAOTIC_NOISE, -6, 1.0, 0.6, 0.36, 0.21);
+        register(context, MERCURY_LAVA_TUBES, -8, 1.0, 0.25);
+        register(context, MERCURY_MEGABRECCIA_CHEESE, -8, 1.0, 0.5, 0.25);
+        register(context, MERCURY_TECTONIC_FISSURE, -8, 1.0, 0.35);
+        register(context, MERCURY_BASAL_PILLARS, -7, 1.0, 0.5);
+        register(context, MERCURY_HOLLOW_SPONGE, -6, 1.0, 0.4, 0.15);
+        register(context, MERCURY_CAVE_SELECTOR, -9, 1.0, 0.4, 0.1);
+        register(context, MERCURY_CAVE_RARITY, -8, 1.0, 0.35);
+        register(context, MERCURY_CRAWLWAY_A, -6, 1.0, 0.4, 0.1);
+        register(context, MERCURY_CRAWLWAY_B, -6, 1.0, 0.4, 0.1);
+        register(context, MERCURY_CAVE_PILLARS, -6, 1.0, 0.5, 0.25);
+        register(context, MERCURY_MAGMA_CHAMBERS, -8, 1.0, 0.5, 0.25);
     }
 
     private static void register(

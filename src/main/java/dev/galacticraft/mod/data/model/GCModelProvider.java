@@ -145,6 +145,24 @@ public class GCModelProvider extends FabricModelProvider {
         generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(GCBlocks.CRASHED_PROBE, Constant.id("block/crashed_probe")));
         generator.skipAutoItemBlock(GCBlocks.CRASHED_PROBE);
 
+        // MERCURY NATURAL
+        generator.createTrivialCube(GCBlocks.MERCURY_REGOLITH);
+        generator.createTrivialCube(GCBlocks.MERCURY_COMPACTED_REGOLITH);
+        generator.createTrivialCube(GCBlocks.MERCURY_FROST_REGOLITH);
+        generator.createTrivialCube(GCBlocks.MERCURY_HOLLOW_DEPOSIT);
+        generator.createTrivialCube(GCBlocks.MERCURY_BASALT);
+        generator.createTrivialCube(GCBlocks.MERCURY_SHOCK_BRECCIA);
+        generator.createTrivialCube(GCBlocks.MERCURY_GRAPHITE_ROCK);
+        generator.createTrivialCube(GCBlocks.MERCURY_BASALT_BRICK);
+
+        // MERCURY ORES
+        generator.createTrivialCube(GCBlocks.MERCURY_ALUMINUM_ORE);
+        generator.createTrivialCube(GCBlocks.MERCURY_COPPER_ORE);
+        generator.createTrivialCube(GCBlocks.MERCURY_TITANIUM_ORE);
+        generator.createTrivialCube(GCBlocks.MERCURY_NATIVE_IRON_ORE);
+        generator.createTrivialCube(GCBlocks.MERCURY_GRAPHITE_ORE);
+        generator.createTrivialCube(GCBlocks.MERCURY_SULFIDE_ORE);
+
         // MISC DECOR
         generator.createNonTemplateHorizontalBlock(GCBlocks.TIN_LADDER);
         generator.createSimpleFlatItemModel(GCBlocks.TIN_LADDER);

@@ -174,6 +174,24 @@ public interface Constant {
         String PUMICE = "pumice";
         String VAPOR_SPOUT = "vapor_spout";
 
+        // Mercury Natural
+        String MERCURY_REGOLITH = "mercury_regolith";
+        String MERCURY_COMPACTED_REGOLITH = "mercury_compacted_regolith";
+        String MERCURY_FROST_REGOLITH = "mercury_frost_regolith";
+        String MERCURY_HOLLOW_DEPOSIT = "mercury_hollow_deposit";
+        String MERCURY_BASALT = "mercury_basalt";
+        String MERCURY_SHOCK_BRECCIA = "mercury_shock_breccia";
+        String MERCURY_GRAPHITE_ROCK = "mercury_graphite_rock";
+        String MERCURY_BASALT_BRICK = "mercury_basalt_brick";
+
+        // Mercury Ore
+        String MERCURY_ALUMINUM_ORE = "mercury_aluminum_ore";
+        String MERCURY_COPPER_ORE = "mercury_copper_ore";
+        String MERCURY_TITANIUM_ORE = "mercury_titanium_ore";
+        String MERCURY_NATIVE_IRON_ORE = "mercury_native_iron_ore";
+        String MERCURY_GRAPHITE_ORE = "mercury_graphite_ore";
+        String MERCURY_SULFIDE_ORE = "mercury_sulfide_ore";
+
         // Ore
         String MARS_IRON_ORE = "mars_iron_ore";
         String MARS_TIN_ORE = "mars_tin_ore";
@@ -1049,7 +1067,6 @@ public interface Constant {
         ResourceLocation SOL = id("textures/gui/celestialbodies/sol.png");
         ResourceLocation SOL_OVERCAST = id("textures/gui/celestialbodies/sol_overcast.png");
         ResourceLocation SOL_FROM_MOON = id("textures/gui/celestialbodies/sol_from_moon.png");
-        ResourceLocation SUN = id("textures/gui/celestialbodies/sun.png");
         ResourceLocation MERCURY = id("textures/gui/celestialbodies/mercury.png");
         ResourceLocation VENUS = id("textures/gui/celestialbodies/venus.png");
         ResourceLocation EARTH = id("textures/gui/celestialbodies/earth.png");
@@ -1461,6 +1478,12 @@ public interface Constant {
         String MARS_CAVERN_CARVER = "mars_cavern_carver";
         String VENUS_CAVE_CARVER = "venus_cave_carver";
         String VENUS_CANYON_CARVER = "venus_canyon_carver";
+        String MERCURY_COLLAPSED_RILLES_CARVER = "mercury_collapsed_rilles_carver";
+        String MERCURY_SCARP_PORTAL_CARVER = "mercury_scarp_portal_carver";
+        String MERCURY_TECTONIC_FISSURE_CARVER = "mercury_tectonic_fissure_carver";
+        String MERCURY_SKYLIGHT_CARVER = "mercury_skylight_carver";
+        String MERCURY_SUBLIMATION_FUNNEL_CARVER = "mercury_sublimation_funnel_carver";
+        String MERCURY_CAVE_CARVER = "mercury_cave_carver";
     }
 
     interface Packet {

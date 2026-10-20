@@ -51,6 +51,8 @@ public class GCConfiguredFeature {
     public static final ResourceKey<ConfiguredFeature<?, ?>> MOON_SURFACE_OUTCROP = ResourceKey.create(Registries.CONFIGURED_FEATURE, Constant.id("moon_surface_outcrop"));
     public static final ResourceKey<ConfiguredFeature<?, ?>> MOON_OLIVINE_SPIKE = ResourceKey.create(Registries.CONFIGURED_FEATURE, Constant.id("moon_olivine_spike"));
     public static final ResourceKey<ConfiguredFeature<?, ?>> MOON_CAVE_FLORA = ResourceKey.create(Registries.CONFIGURED_FEATURE, Constant.id("moon_cave_flora"));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> MERCURY_MEGABRECCIA_SPELEOTHEM = ResourceKey.create(Registries.CONFIGURED_FEATURE, Constant.id("mercury_megabreccia_speleothem"));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> MERCURY_LAVA_LAKE = ResourceKey.create(Registries.CONFIGURED_FEATURE, Constant.id("mercury_lava_lake"));
 
     public static void bootstrapRegistries(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         context.register(OIL_LAKE, new ConfiguredFeature<>(Feature.LAKE,
@@ -149,6 +151,9 @@ public class GCConfiguredFeature {
         context.register(MOON_SURFACE_OUTCROP, new ConfiguredFeature<>(GCFeatures.MOON_SURFACE_OUTCROP, FeatureConfiguration.NONE));
         context.register(MOON_OLIVINE_SPIKE, new ConfiguredFeature<>(GCFeatures.MOON_OLIVINE_SPIKE, FeatureConfiguration.NONE));
         context.register(MOON_CAVE_FLORA, new ConfiguredFeature<>(GCFeatures.MOON_CAVE_FLORA, FeatureConfiguration.NONE));
+        context.register(MERCURY_MEGABRECCIA_SPELEOTHEM, new ConfiguredFeature<>(GCFeatures.MERCURY_SPELEOTHEM, FeatureConfiguration.NONE));
+        context.register(MERCURY_LAVA_LAKE, new ConfiguredFeature<>(Feature.LAKE,
+                new LakeFeature.Configuration(BlockStateProvider.simple(Blocks.LAVA), BlockStateProvider.simple(Blocks.MAGMA_BLOCK))));
     }
 
     /**

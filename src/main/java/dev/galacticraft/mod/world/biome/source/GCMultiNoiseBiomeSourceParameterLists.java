@@ -88,6 +88,7 @@ public class GCMultiNoiseBiomeSourceParameterLists {
     public static final ResourceLocation MARS_PRESET_ID = Constant.id("mars");
     public static final ResourceLocation VENUS_PRESET_ID = Constant.id("venus");
     public static final ResourceLocation ASTEROID_PRESET_ID = Constant.id("asteroid");
+    public static final ResourceLocation MERCURY_PRESET_ID = Constant.id("mercury");
     public static final MultiNoiseBiomeSourceParameterList.Preset MOON_PRESET = new MultiNoiseBiomeSourceParameterList.Preset(
             MOON_PRESET_ID, GCMultiNoiseBiomeSourceParameterLists::generateMoon
     );
@@ -100,11 +101,15 @@ public class GCMultiNoiseBiomeSourceParameterLists {
     public static final MultiNoiseBiomeSourceParameterList.Preset ASTEROID_PRESET = new MultiNoiseBiomeSourceParameterList.Preset(
             ASTEROID_PRESET_ID, GCMultiNoiseBiomeSourceParameterLists::generateAsteroid
     );
+    public static final MultiNoiseBiomeSourceParameterList.Preset MERCURY_PRESET = new MultiNoiseBiomeSourceParameterList.Preset(
+            MERCURY_PRESET_ID, GCMultiNoiseBiomeSourceParameterLists::generateMercury
+    );
 
     public static final ResourceKey<MultiNoiseBiomeSourceParameterList> MOON = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "moon");
     public static final ResourceKey<MultiNoiseBiomeSourceParameterList> MARS = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "mars");
     public static final ResourceKey<MultiNoiseBiomeSourceParameterList> VENUS = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "venus");
     public static final ResourceKey<MultiNoiseBiomeSourceParameterList> ASTEROID = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "asteroid");
+    public static final ResourceKey<MultiNoiseBiomeSourceParameterList> MERCURY = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "mercury");
 
     @Contract("_ -> new")
     private static <T> Climate.@NotNull ParameterList<T> generateMoon(Function<ResourceKey<Biome>, T> biomeRegistry) {
@@ -245,6 +250,184 @@ public class GCMultiNoiseBiomeSourceParameterLists {
         return new Climate.ParameterList<>(builder.build());
     }
 
+    @Contract("_ -> new")
+    private static <T> Climate.@NotNull ParameterList<T> generateMercury(Function<ResourceKey<Biome>, T> biomeRegistry) {
+        ImmutableList.Builder<Pair<Climate.ParameterPoint, T>> builder = ImmutableList.builder();
+
+        Parameter surfaceDepth = Parameter.span(-1.0F, 0.18F);
+
+        // ==========================================
+        // 1. SURFACE BIOMES (depth <= 0.18, Y >= 115)
+        // ==========================================
+
+        // Polar Dark Craters: Cold and Polar shadows
+        writeMercury3dBiome(
+                builder::add,
+                COLD,
+                FULL_RANGE,
+                FULL_RANGE,
+                ERODED,
+                surfaceDepth,
+                FULL_RANGE,
+                0.0F,
+                biomeRegistry.apply(GCBiomes.Mercury.POLAR_DARK_CRATERS)
+        );
+
+        // Caloris Basin: Deep impact depression, low continentalness (-1.0 to -0.15), elevated daytime temp
+        writeMercury3dBiome(
+                builder::add,
+                WARM,
+                DRY,
+                Parameter.span(-1.0F, -0.15F),
+                SOMEWHAT_ERODED,
+                surfaceDepth,
+                Parameter.span(-0.6F, 0.4F),
+                0.0F,
+                biomeRegistry.apply(GCBiomes.Mercury.CALORIS_BASIN)
+        );
+
+        // Smooth Lava Plains: Low-relief volcanic smooth plains, transition lowlands (-0.35 to 0.05)
+        writeMercury3dBiome(
+                builder::add,
+                Parameter.span(-0.2F, 0.5F),
+                SOMEWHAT_DRY,
+                Parameter.span(-0.35F, 0.05F),
+                Parameter.span(0.1F, 1.0F),
+                surfaceDepth,
+                Parameter.span(-0.7F, -0.1F),
+                0.0F,
+                biomeRegistry.apply(GCBiomes.Mercury.SMOOTH_LAVA_PLAINS)
+        );
+
+        // Chaotic Terrain: Antipodal jagged broken blocks, high continentalness (0.35 to 1.0), high weirdness
+        writeMercury3dBiome(
+                builder::add,
+                HOT,
+                DRY,
+                Parameter.span(0.35F, 1.0F),
+                NOT_VERY_ERODED,
+                surfaceDepth,
+                Parameter.span(0.30F, 1.0F),
+                0.0F,
+                biomeRegistry.apply(GCBiomes.Mercury.CHAOTIC_TERRAIN)
+        );
+
+        // Inter-Crater Plains: Primary base undulating cratered terrain, bridging the entire mid-crust
+        writeMercury3dBiome(
+                builder::add,
+                Parameter.span(-0.2F, 0.6F),
+                FULL_RANGE,
+                Parameter.span(-0.15F, 0.45F),
+                FULL_RANGE,
+                surfaceDepth,
+                FULL_RANGE,
+                0.0F,
+                biomeRegistry.apply(GCBiomes.Mercury.INTER_CRATER_PLAINS)
+        );
+
+        // ==========================================
+        // 2. MONUMENTAL SUBTERRANEAN 3D BIOMES (depth > 0.18, Y < 115)
+        // ==========================================
+
+        // (A) Volatile Hollow Labyrinth: Shallow subsurface (Y = 65 to 115 -> depth 0.15 to 0.45)
+        writeMercury3dBiome(
+                builder::add,
+                FULL_RANGE,
+                FULL_RANGE,
+                Parameter.span(-0.3F, 1.0F),
+                FULL_RANGE,
+                Parameter.span(0.18F, 0.45F),
+                Parameter.span(-0.4F, 0.4F),
+                0.0F,
+                biomeRegistry.apply(GCBiomes.Mercury.HOLLOW_LABYRINTH)
+        );
+
+        // (B) Colossal Lava Tubes: Horizontal conduits (Y = 20 to 95 -> depth 0.40 to 0.85)
+        writeMercury3dBiome(
+                builder::add,
+                FULL_RANGE,
+                FULL_RANGE,
+                Parameter.span(-1.0F, 0.3F),
+                FULL_RANGE,
+                Parameter.span(0.40F, 0.85F),
+                Parameter.span(-0.4F, 0.4F),
+                0.0F,
+                biomeRegistry.apply(GCBiomes.Mercury.COLOSSAL_LAVA_TUBES)
+        );
+
+        // (C) Tectonic Chasms: Deep vertical canyons (Y = -30 to 110 -> depth 0.25 to 1.10)
+        // High weirdness fault zones
+        writeMercury3dBiome(
+                builder::add,
+                FULL_RANGE,
+                FULL_RANGE,
+                FULL_RANGE,
+                FULL_RANGE,
+                Parameter.span(0.25F, 1.10F),
+                Parameter.span(0.40F, 1.0F),
+                0.0F,
+                biomeRegistry.apply(GCBiomes.Mercury.TECTONIC_CHASMS)
+        );
+        writeMercury3dBiome(
+                builder::add,
+                FULL_RANGE,
+                FULL_RANGE,
+                FULL_RANGE,
+                FULL_RANGE,
+                Parameter.span(0.25F, 1.10F),
+                Parameter.span(-1.0F, -0.40F),
+                0.0F,
+                biomeRegistry.apply(GCBiomes.Mercury.TECTONIC_CHASMS)
+        );
+
+        // (D) Megabreccia Caverns: Domed halls (Y = -30 to 50 -> depth 0.70 to 1.20)
+        writeMercury3dBiome(
+                builder::add,
+                FULL_RANGE,
+                FULL_RANGE,
+                FULL_RANGE,
+                FULL_RANGE,
+                Parameter.span(0.70F, 1.20F),
+                Parameter.span(-0.40F, 0.40F),
+                0.0F,
+                biomeRegistry.apply(GCBiomes.Mercury.MEGABRECCIA_CAVERNS)
+        );
+
+        // (E) Magma Depths: Basal gallery (Y = -64 to -10 -> depth 1.15 to 1.60)
+        writeMercury3dBiome(
+                builder::add,
+                FULL_RANGE,
+                FULL_RANGE,
+                FULL_RANGE,
+                FULL_RANGE,
+                Parameter.span(1.15F, 1.60F),
+                FULL_RANGE,
+                0.0F,
+                biomeRegistry.apply(GCBiomes.Mercury.MAGMA_DEPTHS)
+        );
+
+        return new Climate.ParameterList<>(builder.build());
+    }
+
+    private static <T> void writeMercury3dBiome(
+            Consumer<Pair<Climate.ParameterPoint, T>> parameters,
+            Parameter temperature,
+            Parameter humidity,
+            Parameter continentalness,
+            Parameter erosion,
+            Parameter depth,
+            Parameter weirdness,
+            float offset,
+            T biome
+    ) {
+        parameters.accept(
+                Pair.of(
+                        Climate.parameters(temperature, humidity, continentalness, erosion, depth, weirdness, offset),
+                        biome
+                )
+        );
+    }
+
     private static <T> void writeBiomeParameters(
             Consumer<Pair<Climate.ParameterPoint, T>> parameters,
             Parameter temperature,
@@ -274,6 +457,7 @@ public class GCMultiNoiseBiomeSourceParameterLists {
         MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(MARS_PRESET_ID, MARS_PRESET);
         MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(VENUS_PRESET_ID, VENUS_PRESET);
         MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(ASTEROID_PRESET_ID, ASTEROID_PRESET);
+        MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(MERCURY_PRESET_ID, MERCURY_PRESET);
     }
 
     public static void bootstrapRegistries(BootstrapContext<MultiNoiseBiomeSourceParameterList> context) {
@@ -282,5 +466,6 @@ public class GCMultiNoiseBiomeSourceParameterLists {
         context.register(MARS, new MultiNoiseBiomeSourceParameterList(MARS_PRESET, lookup));
         context.register(VENUS, new MultiNoiseBiomeSourceParameterList(VENUS_PRESET, lookup));
         context.register(ASTEROID, new MultiNoiseBiomeSourceParameterList(ASTEROID_PRESET, lookup));
+        context.register(MERCURY, new MultiNoiseBiomeSourceParameterList(MERCURY_PRESET, lookup));
     }
 }

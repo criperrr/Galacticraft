@@ -45,6 +45,7 @@ public class GCLevelStems {
     public static final ResourceKey<LevelStem> MARS = key("mars");
     public static final ResourceKey<LevelStem> VENUS = key("venus");
     public static final ResourceKey<LevelStem> ASTEROID = key("asteroid");
+    public static final ResourceKey<LevelStem> MERCURY = key("mercury");
 
     public static void bootstrapRegistries(@NotNull BootstrapContext<LevelStem> context) {
         HolderGetter<DimensionType> typeLookup = context.lookup(Registries.DIMENSION_TYPE);
@@ -57,6 +58,7 @@ public class GCLevelStems {
         context.register(MARS, new LevelStem(typeLookup.getOrThrow(GCDimensionTypes.MARS), new NoiseBasedChunkGenerator(MultiNoiseBiomeSource.createFromPreset(biomeNoiseLookup.getOrThrow(GCMultiNoiseBiomeSourceParameterLists.MARS)), noiseLookup.getOrThrow(GCNoiseGeneratorSettings.MARS))));
         context.register(VENUS, new LevelStem(typeLookup.getOrThrow(GCDimensionTypes.VENUS), new NoiseBasedChunkGenerator(MultiNoiseBiomeSource.createFromPreset(biomeNoiseLookup.getOrThrow(GCMultiNoiseBiomeSourceParameterLists.VENUS)), noiseLookup.getOrThrow(GCNoiseGeneratorSettings.VENUS))));
         context.register(ASTEROID, new LevelStem(typeLookup.getOrThrow(GCDimensionTypes.ASTEROID), new AsteroidChunkGenerator(MultiNoiseBiomeSource.createFromPreset(biomeNoiseLookup.getOrThrow(GCMultiNoiseBiomeSourceParameterLists.ASTEROID)), ResourceKey.create(Registries.DIMENSION, Constant.id("asteroid")), 1000)));
+        context.register(MERCURY, new LevelStem(typeLookup.getOrThrow(GCDimensionTypes.MERCURY), new NoiseBasedChunkGenerator(MultiNoiseBiomeSource.createFromPreset(biomeNoiseLookup.getOrThrow(GCMultiNoiseBiomeSourceParameterLists.MERCURY)), noiseLookup.getOrThrow(GCNoiseGeneratorSettings.MERCURY))));
     }
 
     @Contract(value = "_ -> new", pure = true)

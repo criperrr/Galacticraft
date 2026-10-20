@@ -92,6 +92,15 @@ public class GCOrePlacedFeatures {
     public static final ResourceKey<PlacedFeature> ORE_GALENA_VENUS = key("ore_galena_venus");
     public static final ResourceKey<PlacedFeature> ORE_SOLAR_VENUS = key("ore_solar_venus");
 
+    // MERCURY
+    public static final ResourceKey<PlacedFeature> ORE_ALUMINUM_MERCURY = key("ore_aluminum_mercury");
+    public static final ResourceKey<PlacedFeature> ORE_COPPER_MERCURY = key("ore_copper_mercury");
+    public static final ResourceKey<PlacedFeature> ORE_TITANIUM_MERCURY = key("ore_titanium_mercury");
+    public static final ResourceKey<PlacedFeature> ORE_NATIVE_IRON_MERCURY = key("ore_native_iron_mercury");
+    public static final ResourceKey<PlacedFeature> ORE_GRAPHITE_MERCURY = key("ore_graphite_mercury");
+    public static final ResourceKey<PlacedFeature> ORE_SULFIDE_MERCURY = key("ore_sulfide_mercury");
+    public static final ResourceKey<PlacedFeature> MAGMA_PATCH_MERCURY = key("magma_patch_mercury");
+
     public static void register() {
         BiomeModifications.create(Constant.id("ores")).add(ModificationPhase.ADDITIONS, BiomeSelectors.foundInOverworld(), context -> {
             context.getGenerationSettings().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ORE_SILICON);
@@ -151,6 +160,21 @@ public class GCOrePlacedFeatures {
         context.register(ORE_ALUMINUM_VENUS, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_ALUMINUM_VENUS), modifiersWithCount(18, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.absolute(60)))));
         context.register(ORE_GALENA_VENUS, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_GALENA_VENUS), modifiersWithCount(18, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.absolute(60)))));
         context.register(ORE_SOLAR_VENUS, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_SOLAR_VENUS), modifiersWithCount(6, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.absolute(50)))));
+
+        // MERCURY (Strictly according to prompt parameters)
+        // Alumínio & Cobre: Y = 80 a 160
+        context.register(ORE_ALUMINUM_MERCURY, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_ALUMINUM_MERCURY), modifiersWithCount(14, HeightRangePlacement.uniform(VerticalAnchor.absolute(80), VerticalAnchor.absolute(160)))));
+        context.register(ORE_COPPER_MERCURY, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_COPPER_MERCURY), modifiersWithCount(12, HeightRangePlacement.uniform(VerticalAnchor.absolute(80), VerticalAnchor.absolute(160)))));
+        // Titânio: Y = -20 a 70
+        context.register(ORE_TITANIUM_MERCURY, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_TITANIUM_MERCURY), modifiersWithCount(10, HeightRangePlacement.triangle(VerticalAnchor.absolute(-20), VerticalAnchor.absolute(70)))));
+        // Ferro Nativo metálico em veios densos nas profundezas: Y = -64 a 10
+        context.register(ORE_NATIVE_IRON_MERCURY, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_NATIVE_IRON_MERCURY), modifiersWithCount(18, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.absolute(10)))));
+        // Grafite Primordial / Carbono: Y = 0 a 90
+        context.register(ORE_GRAPHITE_MERCURY, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_GRAPHITE_MERCURY), modifiersWithCount(10, HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(90)))));
+        // Sulfetos Exóticos de Oldhamita e Niningerita no subsolo profundo: Y = -64 a 30
+        context.register(ORE_SULFIDE_MERCURY, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_SULFIDE_MERCURY), modifiersWithCount(8, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.absolute(30)))));
+        // Bolsões massivos de Magma no abismo basal profundo: Y = -56 a -16
+        context.register(MAGMA_PATCH_MERCURY, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.MAGMA_PATCH_MERCURY), modifiersWithCount(14, HeightRangePlacement.uniform(VerticalAnchor.absolute(-56), VerticalAnchor.absolute(-16)))));
     }
 
     @Contract(pure = true)

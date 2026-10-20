@@ -39,6 +39,7 @@ public class GCDimensionTypes {
     public static final ResourceKey<DimensionType> MARS = key("mars");
     public static final ResourceKey<DimensionType> VENUS = key("venus");
     public static final ResourceKey<DimensionType> ASTEROID = key("asteroid");
+    public static final ResourceKey<DimensionType> MERCURY = key("mercury");
 
     public static void bootstrapRegistries(BootstrapContext<DimensionType> context) {
         context.register(MOON, new DimensionType(
@@ -110,6 +111,24 @@ public class GCDimensionTypes {
                 Constant.id("asteroid"), // effectsLocation // fixme
                 0.05F, // ambientLight
                 new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 7), 0)
+        ));
+
+        context.register(MERCURY, new DimensionType(
+                OptionalLong.empty(), // fixedTime (has long day/night cycle)
+                true, // hasSkyLight
+                false, // hasCeiling
+                false, // ultraWarm
+                false, // natural
+                1.0, // coordinateScale
+                true, // bedWorks
+                false, // respawnAnchorWorks
+                -64, // minY
+                384, // height (total height from -64 to 320 = 384)
+                384, // logicalHeight
+                GCBlockTags.INFINIBURN_MERCURY, // infiniburn
+                Constant.id("mercury"), // effectsLocation
+                0.05F, // ambientLight (dark space sky)
+                new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 0), 0) // No monster spawning as requested!
         ));
     }
 

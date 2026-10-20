@@ -58,6 +58,8 @@ public class GCPlacedFeatures {
     public static final ResourceKey<PlacedFeature> MOON_OLIVINE_SPIKE_SURFACE = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("moon_olivine_spike_surface"));
     public static final ResourceKey<PlacedFeature> MOON_OLIVINE_SPIKE_CAVE = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("moon_olivine_spike_cave"));
     public static final ResourceKey<PlacedFeature> MOON_CAVE_FLORA = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("moon_cave_flora"));
+    public static final ResourceKey<PlacedFeature> MERCURY_MEGABRECCIA_SPELEOTHEM = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("mercury_megabreccia_speleothem"));
+    public static final ResourceKey<PlacedFeature> MERCURY_LAVA_LAKE = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("mercury_lava_lake"));
 
     public static void bootstrapRegistries(BootstrapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatureLookup = context.lookup(Registries.CONFIGURED_FEATURE);
@@ -150,6 +152,20 @@ public class GCPlacedFeatures {
                 CountPlacement.of(5),
                 InSquarePlacement.spread(),
                 HeightRangePlacement.uniform(VerticalAnchor.absolute(-32), VerticalAnchor.absolute(52)),
+                BiomeFilter.biome()
+        )));
+        // Subterranean monumental speleothems in Mercury's deep megabreccia caverns
+        context.register(MERCURY_MEGABRECCIA_SPELEOTHEM, new PlacedFeature(configuredFeatureLookup.getOrThrow(GCConfiguredFeature.MERCURY_MEGABRECCIA_SPELEOTHEM), List.of(
+                CountPlacement.of(4),
+                InSquarePlacement.spread(),
+                HeightRangePlacement.uniform(VerticalAnchor.absolute(-25), VerticalAnchor.absolute(45)),
+                BiomeFilter.biome()
+        )));
+        // Subterranean lava lakes in deep basal magma depths
+        context.register(MERCURY_LAVA_LAKE, new PlacedFeature(configuredFeatureLookup.getOrThrow(GCConfiguredFeature.MERCURY_LAVA_LAKE), List.of(
+                RarityFilter.onAverageOnceEvery(3),
+                InSquarePlacement.spread(),
+                HeightRangePlacement.uniform(VerticalAnchor.absolute(-52), VerticalAnchor.absolute(-24)),
                 BiomeFilter.biome()
         )));
     }
