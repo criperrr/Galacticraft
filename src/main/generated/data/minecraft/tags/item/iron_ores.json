@@ -1,6 +1,7 @@
 {
   "values": [
     "galacticraft:mars_iron_ore",
-    "galacticraft:asteroid_iron_ore"
+    "galacticraft:asteroid_iron_ore",
+    "galacticraft:mercury_native_iron_ore"
   ]
 }

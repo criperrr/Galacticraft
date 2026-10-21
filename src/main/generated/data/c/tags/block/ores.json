@@ -10,6 +10,8 @@
     "#c:ores/desh",
     "#c:ores/titanium",
     "#c:ores/lead",
-    "#c:ores/solar_dust"
+    "#c:ores/solar_dust",
+    "#c:ores/graphite",
+    "#c:ores/sulfur"
   ]
 }

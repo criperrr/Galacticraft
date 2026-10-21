@@ -176,10 +176,12 @@ public interface Constant {
 
         // Mercury Natural
         String MERCURY_REGOLITH = "mercury_regolith";
+        String MERCURY_DARK_REGOLITH = "mercury_dark_regolith";
         String MERCURY_COMPACTED_REGOLITH = "mercury_compacted_regolith";
         String MERCURY_FROST_REGOLITH = "mercury_frost_regolith";
         String MERCURY_HOLLOW_DEPOSIT = "mercury_hollow_deposit";
         String MERCURY_BASALT = "mercury_basalt";
+        String MERCURY_COLUMNAR_BASALT = "mercury_columnar_basalt";
         String MERCURY_SHOCK_BRECCIA = "mercury_shock_breccia";
         String MERCURY_GRAPHITE_ROCK = "mercury_graphite_rock";
         String MERCURY_BASALT_BRICK = "mercury_basalt_brick";

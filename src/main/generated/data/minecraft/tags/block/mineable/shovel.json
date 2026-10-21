@@ -2,6 +2,9 @@
   "values": [
     "galacticraft:moon_turf",
     "galacticraft:moon_dirt",
-    "galacticraft:moon_dirt_path"
+    "galacticraft:moon_dirt_path",
+    "galacticraft:mercury_regolith",
+    "galacticraft:mercury_dark_regolith",
+    "galacticraft:mercury_frost_regolith"
   ]
 }

@@ -181,10 +181,12 @@ public class GCBlockLootTableProvider extends FabricBlockLootTableProvider {
 
         // MERCURY
         this.dropSelf(GCBlocks.MERCURY_REGOLITH);
+        this.dropSelf(GCBlocks.MERCURY_DARK_REGOLITH);
         this.dropSelf(GCBlocks.MERCURY_COMPACTED_REGOLITH);
         this.dropSelf(GCBlocks.MERCURY_FROST_REGOLITH);
         this.dropSelf(GCBlocks.MERCURY_HOLLOW_DEPOSIT);
         this.dropSelf(GCBlocks.MERCURY_BASALT);
+        this.dropSelf(GCBlocks.MERCURY_COLUMNAR_BASALT);
         this.dropSelf(GCBlocks.MERCURY_SHOCK_BRECCIA);
         this.dropSelf(GCBlocks.MERCURY_GRAPHITE_ROCK);
         this.dropSelf(GCBlocks.MERCURY_BASALT_BRICK);

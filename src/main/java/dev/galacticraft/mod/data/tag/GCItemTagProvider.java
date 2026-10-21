@@ -219,6 +219,8 @@ public class GCItemTagProvider extends FabricTagProvider.ItemTagProvider {
         this.copy(GCBlockTags.ORE_BEARING_GROUND_ASTEROID_ROCK, GCItemTags.ORE_BEARING_GROUND_ASTEROID_ROCK);
         this.copy(GCBlockTags.ORE_BEARING_GROUND_SOFT_VENUS_ROCK, GCItemTags.ORE_BEARING_GROUND_SOFT_VENUS_ROCK);
         this.copy(GCBlockTags.ORE_BEARING_GROUND_HARD_VENUS_ROCK, GCItemTags.ORE_BEARING_GROUND_HARD_VENUS_ROCK);
+        this.copy(GCBlockTags.ORE_BEARING_GROUND_MERCURY_BASALT, GCItemTags.ORE_BEARING_GROUND_MERCURY_BASALT);
+        this.copy(GCBlockTags.ORE_BEARING_GROUND_MERCURY_SHOCK_BRECCIA, GCItemTags.ORE_BEARING_GROUND_MERCURY_SHOCK_BRECCIA);
 
         this.copy(ConventionalBlockTags.ORES_IN_GROUND_STONE, ConventionalItemTags.ORES_IN_GROUND_STONE);
         this.copy(ConventionalBlockTags.ORES_IN_GROUND_DEEPSLATE, ConventionalItemTags.ORES_IN_GROUND_DEEPSLATE);
@@ -229,6 +231,8 @@ public class GCItemTagProvider extends FabricTagProvider.ItemTagProvider {
         this.copy(GCBlockTags.ORES_IN_GROUND_ASTEROID_ROCK, GCItemTags.ORES_IN_GROUND_ASTEROID_ROCK);
         this.copy(GCBlockTags.ORES_IN_GROUND_SOFT_VENUS_ROCK, GCItemTags.ORES_IN_GROUND_SOFT_VENUS_ROCK);
         this.copy(GCBlockTags.ORES_IN_GROUND_HARD_VENUS_ROCK, GCItemTags.ORES_IN_GROUND_HARD_VENUS_ROCK);
+        this.copy(GCBlockTags.ORES_IN_GROUND_MERCURY_BASALT, GCItemTags.ORES_IN_GROUND_MERCURY_BASALT);
+        this.copy(GCBlockTags.ORES_IN_GROUND_MERCURY_SHOCK_BRECCIA, GCItemTags.ORES_IN_GROUND_MERCURY_SHOCK_BRECCIA);
 
         this.copy(ConventionalBlockTags.ORE_RATES_DENSE, ConventionalItemTags.ORE_RATES_DENSE);
         this.copy(ConventionalBlockTags.ORE_RATES_SINGULAR, ConventionalItemTags.ORE_RATES_SINGULAR);
@@ -244,6 +248,8 @@ public class GCItemTagProvider extends FabricTagProvider.ItemTagProvider {
         this.copy(GCBlockTags.METEORIC_IRON_ORES, GCItemTags.METEORIC_IRON_ORES);
         this.copy(GCBlockTags.DESH_ORES, GCItemTags.DESH_ORES);
         this.copy(GCBlockTags.TITANIUM_ORES, GCItemTags.TITANIUM_ORES);
+        this.copy(GCBlockTags.GRAPHITE_ORES, GCItemTags.GRAPHITE_ORES);
+        this.copy(GCBlockTags.SULFUR_ORES, GCItemTags.SULFUR_ORES);
         this.copy(GCBlockTags.LEAD_ORES, GCItemTags.LEAD_ORES);
         this.copy(GCBlockTags.SOLAR_ORES, GCItemTags.SOLAR_ORES);
 

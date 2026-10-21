@@ -187,6 +187,19 @@
     "galacticraft:moon_basalt_brick",
     "galacticraft:cracked_moon_basalt_brick",
     "galacticraft:mars_stone",
-    "galacticraft:mars_cobblestone"
+    "galacticraft:mars_cobblestone",
+    "galacticraft:mercury_compacted_regolith",
+    "galacticraft:mercury_hollow_deposit",
+    "galacticraft:mercury_basalt",
+    "galacticraft:mercury_columnar_basalt",
+    "galacticraft:mercury_shock_breccia",
+    "galacticraft:mercury_graphite_rock",
+    "galacticraft:mercury_basalt_brick",
+    "galacticraft:mercury_aluminum_ore",
+    "galacticraft:mercury_copper_ore",
+    "galacticraft:mercury_titanium_ore",
+    "galacticraft:mercury_native_iron_ore",
+    "galacticraft:mercury_graphite_ore",
+    "galacticraft:mercury_sulfide_ore"
   ]
 }

@@ -1,6 +1,9 @@
 {
   "values": [
     "galacticraft:moon_turf",
-    "galacticraft:mars_surface_rock"
+    "galacticraft:mars_surface_rock",
+    "galacticraft:mercury_regolith",
+    "galacticraft:mercury_dark_regolith",
+    "galacticraft:mercury_frost_regolith"
   ]
 }

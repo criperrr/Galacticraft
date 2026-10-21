@@ -147,10 +147,12 @@ public class GCModelProvider extends FabricModelProvider {
 
         // MERCURY NATURAL
         generator.createTrivialCube(GCBlocks.MERCURY_REGOLITH);
+        generator.createTrivialCube(GCBlocks.MERCURY_DARK_REGOLITH);
         generator.createTrivialCube(GCBlocks.MERCURY_COMPACTED_REGOLITH);
         generator.createTrivialCube(GCBlocks.MERCURY_FROST_REGOLITH);
         generator.createTrivialCube(GCBlocks.MERCURY_HOLLOW_DEPOSIT);
         generator.createTrivialCube(GCBlocks.MERCURY_BASALT);
+        generator.createTrivialCube(GCBlocks.MERCURY_COLUMNAR_BASALT);
         generator.createTrivialCube(GCBlocks.MERCURY_SHOCK_BRECCIA);
         generator.createTrivialCube(GCBlocks.MERCURY_GRAPHITE_ROCK);
         generator.createTrivialCube(GCBlocks.MERCURY_BASALT_BRICK);

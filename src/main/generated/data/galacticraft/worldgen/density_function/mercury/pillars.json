@@ -17,14 +17,14 @@
             "type": "minecraft:add",
             "argument1": {
               "type": "minecraft:mul",
-              "argument1": 2.0,
+              "argument1": 2.4,
               "argument2": {
                 "type": "minecraft:cache_once",
                 "argument": {
                   "type": "minecraft:noise",
                   "noise": "minecraft:pillar",
-                  "xz_scale": 25.0,
-                  "y_scale": 0.3
+                  "xz_scale": 16.0,
+                  "y_scale": 0.4
                 }
               }
             },
@@ -34,10 +34,10 @@
                 "type": "minecraft:cache_2d",
                 "argument": {
                   "type": "minecraft:add",
-                  "argument1": -1.0,
+                  "argument1": -0.9,
                   "argument2": {
                     "type": "minecraft:mul",
-                    "argument1": -1.0,
+                    "argument1": -0.9,
                     "argument2": {
                       "type": "minecraft:noise",
                       "noise": "minecraft:pillar_rareness",
@@ -57,10 +57,10 @@
                 "type": "minecraft:cache_2d",
                 "argument": {
                   "type": "minecraft:add",
-                  "argument1": 0.55,
+                  "argument1": 0.75,
                   "argument2": {
                     "type": "minecraft:mul",
-                    "argument1": 0.55,
+                    "argument1": 0.6499999999999999,
                     "argument2": {
                       "type": "minecraft:noise",
                       "noise": "minecraft:pillar_thickness",
@@ -138,14 +138,14 @@
             "type": "minecraft:add",
             "argument1": {
               "type": "minecraft:mul",
-              "argument1": 2.0,
+              "argument1": 2.4,
               "argument2": {
                 "type": "minecraft:cache_once",
                 "argument": {
                   "type": "minecraft:noise",
                   "noise": "minecraft:pillar",
-                  "xz_scale": 25.0,
-                  "y_scale": 0.3
+                  "xz_scale": 16.0,
+                  "y_scale": 0.4
                 }
               }
             },
@@ -155,10 +155,10 @@
                 "type": "minecraft:cache_2d",
                 "argument": {
                   "type": "minecraft:add",
-                  "argument1": -1.0,
+                  "argument1": -0.9,
                   "argument2": {
                     "type": "minecraft:mul",
-                    "argument1": -1.0,
+                    "argument1": -0.9,
                     "argument2": {
                       "type": "minecraft:noise",
                       "noise": "minecraft:pillar_rareness",
@@ -178,10 +178,10 @@
                 "type": "minecraft:cache_2d",
                 "argument": {
                   "type": "minecraft:add",
-                  "argument1": 0.55,
+                  "argument1": 0.75,
                   "argument2": {
                     "type": "minecraft:mul",
-                    "argument1": 0.55,
+                    "argument1": 0.6499999999999999,
                     "argument2": {
                       "type": "minecraft:noise",
                       "noise": "minecraft:pillar_thickness",

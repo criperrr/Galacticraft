@@ -229,6 +229,24 @@ public class GCTranslationProvider extends TranslationProvider {
         this.block(GCBlocks.VAPOR_SPOUT, "Vapor Spout");
         this.block(GCBlocks.CRASHED_PROBE, "Crashed Probe");
 
+        // MERCURY NATURAL
+        this.block(GCBlocks.MERCURY_REGOLITH, "Mercury Regolith");
+        this.block(GCBlocks.MERCURY_DARK_REGOLITH, "Mercury Dark Regolith");
+        this.block(GCBlocks.MERCURY_COMPACTED_REGOLITH, "Mercury Compacted Regolith");
+        this.block(GCBlocks.MERCURY_FROST_REGOLITH, "Mercury Frost Regolith");
+        this.block(GCBlocks.MERCURY_HOLLOW_DEPOSIT, "Mercury Hollow Deposit");
+        this.block(GCBlocks.MERCURY_BASALT, "Mercury Basalt");
+        this.block(GCBlocks.MERCURY_COLUMNAR_BASALT, "Mercury Columnar Basalt");
+        this.block(GCBlocks.MERCURY_SHOCK_BRECCIA, "Mercury Shock Breccia");
+        this.block(GCBlocks.MERCURY_GRAPHITE_ROCK, "Mercury Graphite Rock");
+        this.block(GCBlocks.MERCURY_BASALT_BRICK, "Mercury Basalt Brick");
+        this.block(GCBlocks.MERCURY_ALUMINUM_ORE, "Mercury Aluminum Ore");
+        this.block(GCBlocks.MERCURY_COPPER_ORE, "Mercury Copper Ore");
+        this.block(GCBlocks.MERCURY_TITANIUM_ORE, "Mercury Titanium Ore");
+        this.block(GCBlocks.MERCURY_NATIVE_IRON_ORE, "Mercury Native Iron Ore");
+        this.block(GCBlocks.MERCURY_GRAPHITE_ORE, "Mercury Graphite Ore");
+        this.block(GCBlocks.MERCURY_SULFIDE_ORE, "Mercury Sulfide Ore");
+
         // MISC DECOR
         this.block(GCBlocks.WALKWAY, "Walkway");
         this.block(GCBlocks.FLUID_PIPE_WALKWAY, "Fluid Pipe Walkway");

@@ -161,11 +161,11 @@ public class GCPlacedFeatures {
                 HeightRangePlacement.uniform(VerticalAnchor.absolute(-25), VerticalAnchor.absolute(45)),
                 BiomeFilter.biome()
         )));
-        // Subterranean lava lakes in deep basal magma depths
+        // Subterranean lava lakes in deep basal magma depths (chance 1:1 toda chunk para garantir presena constante de lagos)
         context.register(MERCURY_LAVA_LAKE, new PlacedFeature(configuredFeatureLookup.getOrThrow(GCConfiguredFeature.MERCURY_LAVA_LAKE), List.of(
-                RarityFilter.onAverageOnceEvery(3),
+                CountPlacement.of(2),
                 InSquarePlacement.spread(),
-                HeightRangePlacement.uniform(VerticalAnchor.absolute(-52), VerticalAnchor.absolute(-24)),
+                HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(-28)),
                 BiomeFilter.biome()
         )));
     }

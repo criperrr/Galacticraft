@@ -1,10 +1,12 @@
 {
   "values": [
     "galacticraft:mercury_regolith",
+    "galacticraft:mercury_dark_regolith",
     "galacticraft:mercury_compacted_regolith",
     "galacticraft:mercury_frost_regolith",
     "galacticraft:mercury_hollow_deposit",
     "galacticraft:mercury_basalt",
+    "galacticraft:mercury_columnar_basalt",
     "galacticraft:mercury_shock_breccia",
     "galacticraft:mercury_graphite_rock",
     "galacticraft:mercury_aluminum_ore",

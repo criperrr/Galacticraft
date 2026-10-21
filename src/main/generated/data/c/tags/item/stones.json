@@ -7,6 +7,10 @@
     "galacticraft:mars_sub_surface_rock",
     "galacticraft:mars_stone",
     "galacticraft:soft_venus_rock",
-    "galacticraft:hard_venus_rock"
+    "galacticraft:hard_venus_rock",
+    "galacticraft:mercury_basalt",
+    "galacticraft:mercury_columnar_basalt",
+    "galacticraft:mercury_shock_breccia",
+    "galacticraft:mercury_graphite_rock"
   ]
 }

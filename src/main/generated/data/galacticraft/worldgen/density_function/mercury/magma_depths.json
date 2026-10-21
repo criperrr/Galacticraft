@@ -51,12 +51,12 @@
             "type": "minecraft:add",
             "argument1": {
               "type": "minecraft:mul",
-              "argument1": 0.85,
+              "argument1": 1.15,
               "argument2": {
                 "type": "minecraft:noise",
                 "noise": "galacticraft:mercury/basal_pillars",
-                "xz_scale": 1.2,
-                "y_scale": 0.8
+                "xz_scale": 0.65,
+                "y_scale": 0.5
               }
             },
             "argument2": {

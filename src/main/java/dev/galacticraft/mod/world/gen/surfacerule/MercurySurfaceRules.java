@@ -61,10 +61,12 @@ public class MercurySurfaceRules {
     private static final RuleSource PACKED_ICE = block(Blocks.PACKED_ICE);
 
     private static final RuleSource MERCURY_REGOLITH = block(GCBlocks.MERCURY_REGOLITH);
+    private static final RuleSource MERCURY_DARK_REGOLITH = block(GCBlocks.MERCURY_DARK_REGOLITH);
     private static final RuleSource MERCURY_COMPACTED_REGOLITH = block(GCBlocks.MERCURY_COMPACTED_REGOLITH);
     private static final RuleSource MERCURY_FROST_REGOLITH = block(GCBlocks.MERCURY_FROST_REGOLITH);
     private static final RuleSource MERCURY_HOLLOW_DEPOSIT = block(GCBlocks.MERCURY_HOLLOW_DEPOSIT);
     private static final RuleSource MERCURY_BASALT = block(GCBlocks.MERCURY_BASALT);
+    private static final RuleSource MERCURY_COLUMNAR_BASALT = block(GCBlocks.MERCURY_COLUMNAR_BASALT);
     private static final RuleSource MERCURY_BASALT_BRICK = block(GCBlocks.MERCURY_BASALT_BRICK);
     private static final RuleSource MERCURY_SHOCK_BRECCIA = block(GCBlocks.MERCURY_SHOCK_BRECCIA);
     private static final RuleSource MERCURY_GRAPHITE_ROCK = block(GCBlocks.MERCURY_GRAPHITE_ROCK);
@@ -128,7 +130,7 @@ public class MercurySurfaceRules {
                             SurfaceRules.ifTrue(SurfaceRules.not(SurfaceRules.yBlockCheck(VerticalAnchor.absolute(-48), 0)), LAVA),
                             // Magma shores and volcanic scoria crusts in lower basin (Y <= -40)
                             SurfaceRules.ifTrue(
-                                    SurfaceRules.not(SurfaceRules.yBlockCheck(VerticalAnchor.absolute(-40), 0)),
+                                     SurfaceRules.not(SurfaceRules.yBlockCheck(VerticalAnchor.absolute(-40), 0)),
                                     SurfaceRules.ifTrue(SurfaceRules.noiseCondition(GCNoiseData.MERCURY_BASE_NOISE, -0.05, 1.0), MAGMA_BLOCK)
                             ),
                             // Magma veins and crusts on higher floor (Y > -40)
@@ -162,13 +164,13 @@ public class MercurySurfaceRules {
                             MERCURY_SHOCK_BRECCIA
                     )
             ),
-            // Colossal Lava Tubes: Polished basalt floor and cooling terrace basalt bricks
+            // Colossal Lava Tubes: Polished basalt floor and cooling terrace columnar basalt
             SurfaceRules.ifTrue(
                     IS_LAVA_TUBES,
                     SurfaceRules.sequence(
                             SurfaceRules.ifTrue(
                                     SurfaceRules.noiseCondition(GCNoiseData.MERCURY_LAVA_TUBES, 0.35, 1.0),
-                                    MERCURY_BASALT_BRICK
+                                    MERCURY_COLUMNAR_BASALT
                             ),
                             MERCURY_BASALT
                     )
@@ -199,11 +201,23 @@ public class MercurySurfaceRules {
                 // 2. Surface regolith layers (strictly for exterior planetary surface, never inside deep caves)
                 SurfaceRules.ifTrue(
                         SurfaceRules.abovePreliminarySurface(),
-                        SURFACE_GENERATION
+                        SurfaceRules.sequence(
+                                SurfaceRules.ifTrue(SurfaceRules.hole(), SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, MERCURY_DARK_REGOLITH)),
+                                SURFACE_GENERATION
+                        )
                 ),
 
-                // 3. Underground cavern floor and feature decoration (NO regolith, NO solid ore blankets)
-                SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, UNDERGROUND_DECORATION),
+                // 3. Subterranean cavern floor replaced by dark regolith on upper cave reaches or dedicated geological rock
+                SurfaceRules.ifTrue(
+                        SurfaceRules.ON_FLOOR,
+                        SurfaceRules.sequence(
+                                SurfaceRules.ifTrue(
+                                        SurfaceRules.yBlockCheck(VerticalAnchor.absolute(50), 0),
+                                        SurfaceRules.ifTrue(SurfaceRules.noiseCondition(GCNoiseData.MERCURY_BASE_NOISE, 0.15, 1.0), MERCURY_DARK_REGOLITH)
+                                ),
+                                UNDERGROUND_DECORATION
+                        )
+                ),
 
                 // 4. Underground cavern ceiling decoration (sublimation crusts and graphite veins in hollows/megabreccia)
                 SurfaceRules.ifTrue(

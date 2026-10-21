@@ -602,9 +602,10 @@ public class GCDensityFunctions {
                 )
         );
         DensityFunction chamber3d = DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.MERCURY_MAGMA_CHAMBERS), 0.65, 0.55);
+        // Basalt pillars / spines na caverna de magma: escala de frequência reduzida de 1.2 para 0.65 e espessura reforçada para pilares grossos e imponentes
         DensityFunction basaltSpines = DensityFunctions.mul(
-                DensityFunctions.constant(0.85),
-                DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.MERCURY_BASAL_PILLARS), 1.2, 0.8)
+                DensityFunctions.constant(1.15),
+                DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.MERCURY_BASAL_PILLARS), 0.65, 0.5)
         );
         DensityFunction magmaMetric = DensityFunctions.add(
                 magmaYDist,
@@ -739,13 +740,14 @@ public class GCDensityFunctions {
         );
 
         // (H) Pilares Naturais de Sustentação Geológica (Mercury Geological Pillars)
-        DensityFunction pillarNoise = DensityFunctions.cacheOnce(DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.PILLAR), 25.0, 0.3));
-        DensityFunction pillarRareness = DensityFunctions.flatCache(DensityFunctions.cache2d(DensityFunctions.mappedNoise(noiseRegistry.getOrThrow(Noises.PILLAR_RARENESS), 0.0, -2.0)));
-        DensityFunction pillarThickness = DensityFunctions.flatCache(DensityFunctions.cache2d(DensityFunctions.mappedNoise(noiseRegistry.getOrThrow(Noises.PILLAR_THICKNESS), 0.0, 1.1)));
+        // Reduzido o multiplicador de frequência de 25.0 para 16.0 para gerar pilares substancialmente mais largos/robustos (não de 1 bloco)
+        DensityFunction pillarNoise = DensityFunctions.cacheOnce(DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.PILLAR), 16.0, 0.4));
+        DensityFunction pillarRareness = DensityFunctions.flatCache(DensityFunctions.cache2d(DensityFunctions.mappedNoise(noiseRegistry.getOrThrow(Noises.PILLAR_RARENESS), 0.0, -1.8)));
+        DensityFunction pillarThickness = DensityFunctions.flatCache(DensityFunctions.cache2d(DensityFunctions.mappedNoise(noiseRegistry.getOrThrow(Noises.PILLAR_THICKNESS), 0.1, 1.4)));
         DensityFunction rawCavePillars = DensityFunctions.cacheOnce(
                 DensityFunctions.mul(
                         DensityFunctions.add(
-                                DensityFunctions.mul(pillarNoise, DensityFunctions.constant(2.0)),
+                                DensityFunctions.mul(pillarNoise, DensityFunctions.constant(2.4)),
                                 pillarRareness
                         ),
                         pillarThickness.cube()

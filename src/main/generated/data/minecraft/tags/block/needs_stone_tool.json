@@ -32,6 +32,14 @@
     "galacticraft:raw_lead_block",
     "galacticraft:lead_block",
     "galacticraft:raw_meteoric_iron_block",
-    "galacticraft:meteoric_iron_block"
+    "galacticraft:meteoric_iron_block",
+    "galacticraft:mercury_compacted_regolith",
+    "galacticraft:mercury_hollow_deposit",
+    "galacticraft:mercury_basalt",
+    "galacticraft:mercury_columnar_basalt",
+    "galacticraft:mercury_basalt_brick",
+    "galacticraft:mercury_graphite_rock",
+    "galacticraft:mercury_aluminum_ore",
+    "galacticraft:mercury_copper_ore"
   ]
 }
