@@ -1,32 +1,5 @@
 {
   "type": "minecraft:min",
-  "argument1": {
-    "type": "minecraft:add",
-    "argument1": "galacticraft:moon/base_height",
-    "argument2": {
-      "type": "minecraft:add",
-      "argument1": "galacticraft:moon/offset",
-      "argument2": {
-        "type": "minecraft:add",
-        "argument1": "galacticraft:moon/smooth_relief",
-        "argument2": {
-          "type": "minecraft:mul",
-          "argument1": "galacticraft:moon/factor",
-          "argument2": {
-            "type": "minecraft:mul",
-            "argument1": 0.038,
-            "argument2": {
-              "type": "minecraft:old_blended_noise",
-              "smear_scale_multiplier": 8.0,
-              "xz_factor": 80.0,
-              "xz_scale": 0.25,
-              "y_factor": 160.0,
-              "y_scale": 0.125
-            }
-          }
-        }
-      }
-    }
-  },
+  "argument1": "galacticraft:moon/solid_terrain",
   "argument2": "galacticraft:caves/noodles"
 }

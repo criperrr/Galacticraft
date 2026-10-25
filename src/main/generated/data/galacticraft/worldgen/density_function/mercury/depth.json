@@ -1,7 +1,5 @@
 {
-  "type": "minecraft:y_clamped_gradient",
-  "from_value": 0.0,
-  "from_y": 128,
-  "to_value": 1.5,
-  "to_y": -64
+  "type": "minecraft:add",
+  "argument1": "galacticraft:mercury/base_height",
+  "argument2": "galacticraft:mercury/offset"
 }
