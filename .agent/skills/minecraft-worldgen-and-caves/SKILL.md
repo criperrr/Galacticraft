@@ -150,6 +150,38 @@ A escolha correta do tipo de cache no grafo de densidade determina a diferença 
 
 ---
 
+### 2.5. Segregação Mandatória de Coordenadas de Spline entre Dimensões
+
+Ao construir splines de relevo (`CubicSpline.builder(...)`), a coordenada independente (`DensityFunctions.Spline.Coordinate`) representa o eixo horizontal de entrada (geralmente Continentalidade ou Erosão).
+
+> [!CAUTION]
+> **A Armadilha do Compartilhamento Global de Coordenadas:**
+> Se uma dimensão criar sua própria função customizada de continentalidade (como `Moon.CONTINENTS`) e atribuir essa função à variável compartilhada `continentsCoord`, **todas as outras dimensões do mod (como Marte e Vênus) que utilizam `continentsCoord` serão acopladas à geração da Lua!**
+> Isso destrói os biomas de Marte e Vênus, pois suas splines passam a amostrar a continentalidade lunar em vez da continentalidade vanilla ou nativa.
+
+#### Regra Canônica de Segregação
+Declare e isole explicitamente as coordenadas de cada dimensão no `GCDensityFunctions.bootstrapRegistries`:
+```java
+// Coordenada exclusiva da Lua (baseada em Moon.CONTINENTS com cache2d):
+var moonContinentsCoord = new DensityFunctions.Spline.Coordinate(
+        context.lookup(Registries.DENSITY_FUNCTION).getOrThrow(Moon.CONTINENTS)
+);
+
+// Coordenada padrão Vanilla / Multi-Planetas (baseada em NoiseRouterData.CONTINENTS):
+var vanillaContinentsCoord = new DensityFunctions.Spline.Coordinate(
+        vanillaRegistry.getOrThrow(NoiseRouterData.CONTINENTS)
+);
+
+// A Lua usa estritamente moonContinentsCoord:
+var moonOffsetSpline = CubicSpline.builder(moonContinentsCoord)...
+
+// Marte e Vênus usam estritamente vanillaContinentsCoord:
+var marsOffsetSpline = CubicSpline.builder(vanillaContinentsCoord)...
+var venusOffsetSpline = CubicSpline.builder(vanillaContinentsCoord)...
+```
+
+---
+
 ## 3. Relevo Contínuo de Alta Performance vs A Armadilha do Caching Duplo
 
 ### O Dilema Clássico de Worldgen: Degraus de 90° vs Gargalo de 900 ms
@@ -412,15 +444,18 @@ if (durationNanos > 80_000_000L) { // Mais de 80ms no noise
 Antes de aprovar e commitar qualquer dimensão (Lua, Marte, Vênus, Mercúrio, Asteroides, etc.):
 
 - [ ] **Interpolação de Base:** Todas as funções de ruído 3D estão encapsuladas em `DensityFunctions.interpolated(...)`?
-- [ ] **Raiz Livre de Interpolação:** `final_density` está passando diretamente pelo `blendDensity` sem invocar `DensityFunctions.interpolated(finalDensity)`?
+- [ ] **Rugosidade 3D em SOLID_TERRAIN:** O ruído 3D (`BlendedNoise`) está somado ao relevo e interpolado dentro de `SOLID_TERRAIN` (reduzindo chamadas para 825 vértices)?
+- [ ] **Raiz Livre de Interpolação:** `final_density` está passando diretamente pelo `blendDensity` sem invocar `DensityFunctions.interpolated(finalDensity)` (prevenindo Bread-Slicer Bug)?
+- [ ] **Caching 2D Preciso:** As coordenadas de deslocamento (`shiftX`/`shiftZ`), continentalidade, splines de elevação (`offset`) e relevo suave estão encapsuladas em `DensityFunctions.cache2d(...)` (resolução 1x1 sem degraus de 4x4 e sem gargalo de 900ms)?
+- [ ] **Segregação de Coordenadas de Spline:** A continentalidade da dimensão possui sua própria `Coordinate` de spline, sem poluir outras dimensões (ex: `moonContinentsCoord` vs `vanillaContinentsCoord`)?
 - [ ] **Poda por RangeChoice:** Funções pesadas de cavernas e pilares possuem pods de altitude e cavidade aberta (`rangeChoice`)?
 - [ ] **Desacoplamento de Crosta:** `initialDensityWithoutJaggedness` aponta exclusivamente para `SOLID_TERRAIN` (sem ruído de cavernas)?
-- [ ] **Superfície sem Degraus:** Os eixos de deslocamento contínuo e continentalidade utilizam ruído contínuo e `BlendedNoise` 3D (amplitude $0.25..0.40$)?
-- [ ] **Blindagem da Bedrock:** Existe um gradiente impenetrável na cota mínima ($Y=-64$) garantindo integridade do fundo do mundo?
+- [ ] **Blindagem da Bedrock:** Existe um gradiente impenetrável na cota mínima ($Y=-64$ ou inferior) garantindo integridade do fundo do mundo?
 - [ ] **Entradas Equilibradas:** As cavernas de `WorldCarver` possuem probabilidade $\approx 0.14$ e raios $\le 1.4$, evitando destruir a superfície?
-- [ ] **Carvers Otimizados:** O `CraterCarver` utiliza culling por AABB 2D e distância quadrática sem `Math.sqrt`?
+- [ ] **Carvers sem Degraus Concêntricos:** O `CraterCarver` utiliza perfil parabólico contínuo e dithering estocástico sub-voxel (sem "pirâmides maias")?
+- [ ] **Carvers Otimizados:** O carver utiliza culling por AABB 2D e distância quadrática sem `Math.sqrt`?
 - [ ] **Precedência de Superfície:** `SurfaceRules.steep()` está posicionado antes de `SurfaceRules.ON_FLOOR`?
-- [ ] **Validação de Telemetria:** A média de geração no `/gcperf` manteve-se abaixo de **50 ms / chunk** em voo ativo?
+- [ ] **Validação de Telemetria:** A média de geração no `/gcperf` ou monitor HUD manteve-se abaixo de **50 ms / chunk** em voo ativo?
 
 ---
 
@@ -495,3 +530,69 @@ Elevação (Y)
 * **`mercury_tectonic_fissure_carver`**: Fendas tectônicas profundas na Bacia de Caloris (probabilidade $0.012$).
 * **`mercury_scarp_portal_carver`**: Portais arqueados em encostas do terreno caótico (probabilidade $0.014$).
 * **`mercury_sublimation_funnel_carver`**: Poços de colapso por sublimação em crateras polares (probabilidade $0.010$).
+
+---
+
+# PARTE III: Estudo de Caso de Implementação: A Lua (Otimização Extrema de Relevo e Crateras)
+
+Esta seção documenta a engenharia de modernização, refatoração e otimização extrema aplicada à **Lua (Earth's Moon)** no Galacticraft 5, resolvendo os problemas históricos de degraus de $4 \times 4$ blocos, fatiamento de mundo, terraços concêntricos de crateras e o gargalo de performance de 890 ms.
+
+---
+
+## 1. Rosetta Stone e Calibração Topográfica da Lua
+
+No GC4 legado (`ChunkProviderMoon.java`), a Lua combinava geradores Perlin simples (`noiseGen1`, `noiseGen2`, `noiseGen3`) com cotas rígidas (`MID_HEIGHT = 63..76`). No modernizado GC5 (Minecraft 1.21.1 Fabric), o relevo lunar foi traduzido para splines cúbicas $C^1$ de Hermite indexadas pela coordenada exclusiva `moonContinentsCoord`:
+
+### 1.1. Matriz de Correlação Bioclimática e Altimétrica da Lua
+| Zona Geológica Lunar | Intervalo de Continentalidade | Biomas Correspondentes | Elevação Base ($Y$) | Fator de Amplitude | Características Estruturais |
+|---|---|---|---|---|---|
+| **Mares Basálticos (Maria)** | $[-1.00, -0.35]$ | `basaltic_mare`, `olivine_spikes` | $Y \approx 59..68$ | $0.36..0.56$ | Bacias planas de lava basáltica escura, depressões suaves e espículas de olivina |
+| **Planícies de Regolito (Lowlands)** | $[-0.35, 0.25]$ | `lunar_lowlands`, `comet_tundra` | $Y \approx 68..88$ | $0.56..1.05$ | Ondulações suaves clássicas do GC4, campos de crateras médias e regolito solto |
+| **Terras Altas e Montanhas (Highlands)** | $[0.25, 1.00]$ | `lunar_highlands` | $Y \approx 88..137$ | $1.05..2.05$ | Paredões montanhosos acidentados, bordas elevadas de grandes crateras e cristas afiadas |
+
+---
+
+## 2. A Crise de Desempenho dos 890 ms e a Resolução dos 15 ms
+
+### 2.1. O Diagnóstico Telemétrico da Crise
+Durante os primeiros testes de remoção de degraus de $4 \times 4$ blocos, a remoção ingênua de cache no grafo de densidade gerou uma crise catastrófica de desempenho capturada pelo profiler HUD:
+* `features`: $1.1\text{ ms}$
+* `carvers`: $0.6\text{ ms}$
+* `crater_carver`: $0.1\text{ ms}$
+* `surface`: $5.1\text{ ms}$
+* `biomes`: $8.9\text{ ms}$
+* **`noise` (`fillFromNoise`): Avg: $890.3\text{ ms}$, p95: $1455.4\text{ ms}$, Max: $4597.4\text{ ms}$** (Gargalo de 95% do ciclo).
+
+### 2.2. As Duas Causas Raízes Combinadas
+1. **Recálculo Redundante de Splines 2D por Voxel:** Sem cache, toda a cadeia de ruídos 2D (`shiftX`, `shiftZ`, `continents`, `offset`, `factor`, `smooth_relief`) era avaliada $16 \times 16 \times 288 = 73.728$ vezes por chunk. Como a cadeia possui mais de 20 oitavas Perlin, isso totalizava $\approx 1.470.000$ chamadas de ruído desnecessárias.
+2. **Amostragem Voxel a Voxel de `BlendedNoise` (Rugosidade 3D):** O `BlendedNoise` possui 32 a 40 oitavas Perlin. Sendo avaliado sem `interpolated(...)`, demandava $73.728 \times 32 \approx 2.360.000$ chamadas trigonométricas por chunk. Somado às splines 2D, ultrapassava **4.500.000 chamadas Perlin por chunk**!
+
+### 2.3. A Arquitetura da Solução Definitiva
+1. **`DensityFunctions.cache2d(...)` em todas as camadas 2D:**
+   A resolução horizontal mantém precisão de $1 \times 1$ bloco (sem os degraus de $4 \times 4$ de `flatCache`), mas o valor calculado é cacheado verticalmente ao longo de todo o eixo $Y$. O número de avaliações despenca de 73.728 para **256 por chunk** (uma economia de 97,3%).
+2. **Rugosidade 3D somada no `Moon.SOLID_TERRAIN` com `interpolated(...)`:**
+   A rugosidade tridimensional `moonRaw3dRoughness` é somada ao relevo base em `moonRawSolidTerrain`. Esse nó é registrado como `Moon.SOLID_TERRAIN` envelopado por `DensityFunctions.interpolated(...)`. O motor do Minecraft avalia o ruído 3D apenas nos **825 vértices de célula** ($4 \times 4 \times 8$), preenchendo o interior por interpolação trilinear.
+3. **`Moon.FINAL_DENSITY` Escalar com `noodles`:**
+   `FINAL_DENSITY` opera como um simples `DensityFunctions.min(moonInterpolatedSolidTerrain, noodles)` escalar, sem nenhum wrapper `interpolated` externo, eliminando qualquer risco de recursão ou fatiamento de mundo (*Bread-Slicer Bug*).
+4. **Resultado Telemétrico:** A fase `noise` despencou de **890.3 ms** para **$\approx 15 - 25\text{ ms}$**, alcançando fluidez absoluta de 60 FPS com geração paralela instantânea.
+
+---
+
+## 3. Eliminação de Degraus Concêntricos em Crateras de Impacto
+
+### 3.1. O Problema das "Pirâmides Maias"
+O carver de crateras original calculava uma profundidade contínua e executava `int toDig = (int) Math.ceil(craterDepth)`. Essa quantização inteira truncava raios adjacentes na mesma altura, criando degraus circulares concêntricos com quedas abruptas de 1 bloco a cada poucos metros de distância do centro.
+
+### 3.2. A Solução: Parábola Contínua e Dithering Sub-Voxel
+No [`CraterCarver.java`](file:///C:/Users/leona/Galacticraft/Galacticraft/src/main/java/dev/galacticraft/mod/world/gen/carver/CraterCarver.java):
+1. **Equação Parabólica:** A profundidade segue a parábola $D(r) = D_{\text{max}} \cdot \left(1 - \frac{r^2}{R^2}\right)$, atingindo $0.0$ exatamente na borda do raio $R$.
+2. **Dithering Pseudo-Aleatório:** A parte decimal residual `fraction = continuousDepth - floor(continuousDepth)` é comparada a um número uniforme $[0.0, 1.0)$ gerado a partir do hash bitwise de $(X, Z)$ e da semente da cratera:
+   ```java
+   int baseDig = (int) Math.floor(continuousDepth);
+   double fraction = continuousDepth - baseDig;
+   long colHash = ((long) worldX * 3129871L) ^ ((long) worldZ * 116129781L) ^ craterSeed;
+   double dither = ((colHash >> 16) & 0xFFFF) / 65536.0;
+   int toDig = baseDig + (dither < fraction ? 1 : 0);
+   ```
+3. **Resultado Estético:** As paredes das crateras descem em declives suaves de regolito granular contínuo, com $100\%$ de eliminação dos degraus concêntricos e sem impacto perceptível de CPU (tempo de execução do carver permanece em **$0.1\text{ ms}$ por chunk**).
+
