@@ -16,7 +16,7 @@
   },
   "noise_router": {
     "barrier": 0.0,
-    "continents": "minecraft:overworld/continents",
+    "continents": "galacticraft:venus/continents",
     "depth": "minecraft:overworld/depth",
     "erosion": "minecraft:overworld/erosion",
     "final_density": {
@@ -25,7 +25,7 @@
     },
     "fluid_level_floodedness": 0.0,
     "fluid_level_spread": 0.0,
-    "initial_density_without_jaggedness": "galacticraft:venus/final_density",
+    "initial_density_without_jaggedness": "galacticraft:venus/solid_terrain",
     "lava": 0.0,
     "ridges": "minecraft:overworld/ridges",
     "temperature": {
@@ -132,6 +132,18 @@
         "then_run": {
           "type": "minecraft:sequence",
           "sequence": [
+            {
+              "type": "minecraft:condition",
+              "if_true": {
+                "type": "minecraft:steep"
+              },
+              "then_run": {
+                "type": "minecraft:block",
+                "result_state": {
+                  "Name": "galacticraft:hard_venus_rock"
+                }
+              }
+            },
             {
               "type": "minecraft:condition",
               "if_true": {
