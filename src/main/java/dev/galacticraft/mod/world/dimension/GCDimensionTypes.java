@@ -40,6 +40,10 @@ public class GCDimensionTypes {
     public static final ResourceKey<DimensionType> VENUS = key("venus");
     public static final ResourceKey<DimensionType> ASTEROID = key("asteroid");
     public static final ResourceKey<DimensionType> MERCURY = key("mercury");
+    public static final ResourceKey<DimensionType> JUPITER = key("jupiter");
+    public static final ResourceKey<DimensionType> SATURN = key("saturn");
+    public static final ResourceKey<DimensionType> URANUS = key("uranus");
+    public static final ResourceKey<DimensionType> NEPTUNE = key("neptune");
 
     public static void bootstrapRegistries(BootstrapContext<DimensionType> context) {
         context.register(MOON, new DimensionType(
@@ -129,6 +133,78 @@ public class GCDimensionTypes {
                 Constant.id("mercury"), // effectsLocation
                 0.05F, // ambientLight (dark space sky)
                 new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 0), 0) // No monster spawning as requested!
+        ));
+
+        context.register(JUPITER, new DimensionType(
+                OptionalLong.empty(), // fixedTime (rapid 9.925h rotation)
+                true, // hasSkyLight
+                false, // hasCeiling
+                false, // ultraWarm
+                false, // natural
+                1.0, // coordinateScale
+                true, // bedWorks
+                false, // respawnAnchorWorks
+                -64, // minY
+                384, // height
+                384, // logicalHeight
+                GCBlockTags.INFINIBURN_JUPITER, // infiniburn
+                Constant.id("jupiter"), // effectsLocation
+                0.08F, // ambientLight
+                new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 0), 0)
+        ));
+
+        context.register(SATURN, new DimensionType(
+                OptionalLong.empty(), // fixedTime (rapid 10.656h rotation)
+                true, // hasSkyLight
+                false, // hasCeiling
+                false, // ultraWarm
+                false, // natural
+                1.0, // coordinateScale
+                true, // bedWorks
+                false, // respawnAnchorWorks
+                -64, // minY
+                384, // height
+                384, // logicalHeight
+                GCBlockTags.INFINIBURN_SATURN, // infiniburn
+                Constant.id("saturn"), // effectsLocation
+                0.08F, // ambientLight
+                new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 0), 0)
+        ));
+
+        context.register(URANUS, new DimensionType(
+                OptionalLong.empty(), // fixedTime (17.24h rotation)
+                true, // hasSkyLight
+                false, // hasCeiling
+                false, // ultraWarm
+                false, // natural
+                1.0, // coordinateScale
+                true, // bedWorks
+                false, // respawnAnchorWorks
+                -64, // minY
+                384, // height
+                384, // logicalHeight
+                GCBlockTags.INFINIBURN_URANUS, // infiniburn
+                Constant.id("uranus"), // effectsLocation
+                0.06F, // ambientLight
+                new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 0), 0)
+        ));
+
+        context.register(NEPTUNE, new DimensionType(
+                OptionalLong.empty(), // fixedTime (16.11h rotation)
+                true, // hasSkyLight
+                false, // hasCeiling
+                false, // ultraWarm
+                false, // natural
+                1.0, // coordinateScale
+                true, // bedWorks
+                false, // respawnAnchorWorks
+                -64, // minY
+                384, // height
+                384, // logicalHeight
+                GCBlockTags.INFINIBURN_NEPTUNE, // infiniburn
+                Constant.id("neptune"), // effectsLocation
+                0.05F, // ambientLight
+                new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 0), 0)
         ));
     }
 

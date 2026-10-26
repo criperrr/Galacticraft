@@ -24,6 +24,7 @@ package dev.galacticraft.mod.world.gen.feature;
 
 import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.content.GCRegistry;
+import dev.galacticraft.mod.world.gen.feature.config.OuterPlanetStructureConfig;
 import dev.galacticraft.mod.world.gen.feature.config.PlanetaryMeteorConfig;
 import dev.galacticraft.mod.world.gen.feature.config.PlanetaryVolcanoConfig;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -76,6 +77,10 @@ public class GCFeatures {
     public static final Feature<NoneFeatureConfiguration> MERCURY_SPELEOTHEM = FEATURES.register(
             "mercury_speleothem",
             new MercurySpeleothemFeature(NoneFeatureConfiguration.CODEC)
+    );
+    public static final Feature<OuterPlanetStructureConfig> OUTER_PLANET_STRUCTURE = FEATURES.register(
+            "outer_planet_structure",
+            new OuterPlanetStructureFeature(OuterPlanetStructureConfig.CODEC)
     );
 
     public static void register() {

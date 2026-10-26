@@ -101,6 +101,30 @@ public class GCOrePlacedFeatures {
     public static final ResourceKey<PlacedFeature> ORE_SULFIDE_MERCURY = key("ore_sulfide_mercury");
     public static final ResourceKey<PlacedFeature> MAGMA_PATCH_MERCURY = key("magma_patch_mercury");
 
+    // JUPITER
+    public static final ResourceKey<PlacedFeature> ORE_COPPER_JUPITER = key("ore_copper_jupiter");
+    public static final ResourceKey<PlacedFeature> ORE_TIN_JUPITER = key("ore_tin_jupiter");
+    public static final ResourceKey<PlacedFeature> ORE_IRON_JUPITER = key("ore_iron_jupiter");
+    public static final ResourceKey<PlacedFeature> ORE_ALUMINUM_JUPITER = key("ore_aluminum_jupiter");
+
+    // SATURN
+    public static final ResourceKey<PlacedFeature> ORE_COPPER_SATURN = key("ore_copper_saturn");
+    public static final ResourceKey<PlacedFeature> ORE_TIN_SATURN = key("ore_tin_saturn");
+    public static final ResourceKey<PlacedFeature> ORE_IRON_SATURN = key("ore_iron_saturn");
+    public static final ResourceKey<PlacedFeature> ORE_TITANIUM_SATURN = key("ore_titanium_saturn");
+
+    // URANUS
+    public static final ResourceKey<PlacedFeature> ORE_COPPER_URANUS = key("ore_copper_uranus");
+    public static final ResourceKey<PlacedFeature> ORE_TIN_URANUS = key("ore_tin_uranus");
+    public static final ResourceKey<PlacedFeature> ORE_ALUMINUM_URANUS = key("ore_aluminum_uranus");
+    public static final ResourceKey<PlacedFeature> ORE_TITANIUM_URANUS = key("ore_titanium_uranus");
+
+    // NEPTUNE
+    public static final ResourceKey<PlacedFeature> ORE_COPPER_NEPTUNE = key("ore_copper_neptune");
+    public static final ResourceKey<PlacedFeature> ORE_TIN_NEPTUNE = key("ore_tin_neptune");
+    public static final ResourceKey<PlacedFeature> ORE_IRON_NEPTUNE = key("ore_iron_neptune");
+    public static final ResourceKey<PlacedFeature> ORE_TITANIUM_NEPTUNE = key("ore_titanium_neptune");
+
     public static void register() {
         BiomeModifications.create(Constant.id("ores")).add(ModificationPhase.ADDITIONS, BiomeSelectors.foundInOverworld(), context -> {
             context.getGenerationSettings().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ORE_SILICON);
@@ -175,6 +199,30 @@ public class GCOrePlacedFeatures {
         context.register(ORE_SULFIDE_MERCURY, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_SULFIDE_MERCURY), modifiersWithCount(8, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.absolute(30)))));
         // Bolsões massivos de Magma no abismo basal profundo: Y = -56 a -16
         context.register(MAGMA_PATCH_MERCURY, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.MAGMA_PATCH_MERCURY), modifiersWithCount(14, HeightRangePlacement.uniform(VerticalAnchor.absolute(-56), VerticalAnchor.absolute(-16)))));
+
+        // JUPITER (base terrain ~80)
+        context.register(ORE_COPPER_JUPITER, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_COPPER_JUPITER), modifiersWithCount(8, HeightRangePlacement.triangle(VerticalAnchor.absolute(-16), VerticalAnchor.absolute(85)))));
+        context.register(ORE_TIN_JUPITER, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_TIN_JUPITER), modifiersWithCount(7, HeightRangePlacement.triangle(VerticalAnchor.absolute(-24), VerticalAnchor.absolute(80)))));
+        context.register(ORE_IRON_JUPITER, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_IRON_JUPITER), modifiersWithCount(8, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.absolute(75)))));
+        context.register(ORE_ALUMINUM_JUPITER, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_ALUMINUM_JUPITER), modifiersWithCount(6, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(65)))));
+
+        // SATURN (base terrain ~80)
+        context.register(ORE_COPPER_SATURN, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_COPPER_SATURN), modifiersWithCount(7, HeightRangePlacement.triangle(VerticalAnchor.absolute(-16), VerticalAnchor.absolute(85)))));
+        context.register(ORE_TIN_SATURN, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_TIN_SATURN), modifiersWithCount(7, HeightRangePlacement.triangle(VerticalAnchor.absolute(-24), VerticalAnchor.absolute(80)))));
+        context.register(ORE_IRON_SATURN, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_IRON_SATURN), modifiersWithCount(8, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.absolute(75)))));
+        context.register(ORE_TITANIUM_SATURN, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_TITANIUM_SATURN), modifiersWithCount(4, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.absolute(45)))));
+
+        // URANUS (base terrain ~105)
+        context.register(ORE_COPPER_URANUS, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_COPPER_URANUS), modifiersWithCount(7, HeightRangePlacement.triangle(VerticalAnchor.absolute(0), VerticalAnchor.absolute(110)))));
+        context.register(ORE_TIN_URANUS, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_TIN_URANUS), modifiersWithCount(6, HeightRangePlacement.triangle(VerticalAnchor.absolute(-16), VerticalAnchor.absolute(105)))));
+        context.register(ORE_ALUMINUM_URANUS, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_ALUMINUM_URANUS), modifiersWithCount(6, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(85)))));
+        context.register(ORE_TITANIUM_URANUS, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_TITANIUM_URANUS), modifiersWithCount(4, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.absolute(55)))));
+
+        // NEPTUNE (base terrain ~105)
+        context.register(ORE_COPPER_NEPTUNE, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_COPPER_NEPTUNE), modifiersWithCount(7, HeightRangePlacement.triangle(VerticalAnchor.absolute(0), VerticalAnchor.absolute(110)))));
+        context.register(ORE_TIN_NEPTUNE, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_TIN_NEPTUNE), modifiersWithCount(6, HeightRangePlacement.triangle(VerticalAnchor.absolute(-16), VerticalAnchor.absolute(105)))));
+        context.register(ORE_IRON_NEPTUNE, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_IRON_NEPTUNE), modifiersWithCount(8, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.absolute(90)))));
+        context.register(ORE_TITANIUM_NEPTUNE, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_TITANIUM_NEPTUNE), modifiersWithCount(4, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.absolute(60)))));
     }
 
     @Contract(pure = true)

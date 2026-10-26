@@ -76,6 +76,96 @@ public final class GCBiomes {
         public static final ResourceKey<Biome> HOLLOW_LABYRINTH = key("mercury_hollow_labyrinth");
     }
 
+    public static final class Jupiter {
+        // Surface Biomes
+        public static final ResourceKey<Biome> AMMONIA_PLAINS = key("jupiter_ammonia_plains");
+        public static final ResourceKey<Biome> GREAT_RED_SPOT = key("jupiter_great_red_spot");
+        public static final ResourceKey<Biome> SULFURIC_BELTS = key("jupiter_sulfuric_belts");
+        public static final ResourceKey<Biome> METALLIC_RIDGES = key("jupiter_metallic_ridges");
+        public static final ResourceKey<Biome> POLAR_AURORA_CRATERS = key("jupiter_polar_aurora_craters");
+
+        // Subterranean 3D Biomes
+        public static final ResourceKey<Biome> METALLIC_HYDROGEN_CAVERNS = key("jupiter_metallic_hydrogen_caverns");
+        public static final ResourceKey<Biome> CYCLONIC_RIFTS = key("jupiter_cyclonic_rifts");
+        public static final ResourceKey<Biome> CORE_MAGMA_DEPTHS = key("jupiter_core_magma_depths");
+
+        // Aliases used by JupiterBiomes & JupiterSurfaceRules
+        public static final ResourceKey<Biome> RED_STORM_VORTEX = GREAT_RED_SPOT;
+        public static final ResourceKey<Biome> OCHRE_BAND_PLATEAU = SULFURIC_BELTS;
+        public static final ResourceKey<Biome> AMMONIA_CLOUD_BASIN = AMMONIA_PLAINS;
+        public static final ResourceKey<Biome> JOVIAN_BADLANDS = METALLIC_RIDGES;
+        public static final ResourceKey<Biome> FULGURITE_SHATTERLANDS = POLAR_AURORA_CRATERS;
+        public static final ResourceKey<Biome> METALLIC_HYDROGEN_OCEAN = METALLIC_HYDROGEN_CAVERNS;
+        public static final ResourceKey<Biome> HYPERBARIC_CORE_DEPTHS = CORE_MAGMA_DEPTHS;
+        public static final ResourceKey<Biome> THUNDERHEAD_CAVERNS = CYCLONIC_RIFTS;
+    }
+
+    public static final class Saturn {
+        // Surface Biomes
+        public static final ResourceKey<Biome> GOLDEN_HAZE_PLAINS = key("saturn_golden_haze_plains");
+        public static final ResourceKey<Biome> HYDROCARBON_SEAS = key("saturn_hydrocarbon_seas");
+        public static final ResourceKey<Biome> RING_SHADOW_HIGHLANDS = key("saturn_ring_shadow_highlands");
+        public static final ResourceKey<Biome> AMMONIA_STORM_BANDS = key("saturn_ammonia_storm_bands");
+        public static final ResourceKey<Biome> HEXAGON_POLAR_VORTEX = key("saturn_hexagon_polar_vortex");
+
+        // Subterranean 3D Biomes
+        public static final ResourceKey<Biome> HELIUM_RAIN_CAVERNS = key("saturn_helium_rain_caverns");
+        public static final ResourceKey<Biome> CRYSTALLINE_RING_TUBES = key("saturn_crystalline_ring_tubes");
+        public static final ResourceKey<Biome> MANTLE_CORE_ABYSS = key("saturn_mantle_core_abyss");
+
+        // Aliases used by SaturnBiomes & SaturnSurfaceRules
+        public static final ResourceKey<Biome> HEXAGON_POLAR_PLATEAU = HEXAGON_POLAR_VORTEX;
+        public static final ResourceKey<Biome> RING_SHADOW_SHATTERLANDS = RING_SHADOW_HIGHLANDS;
+        public static final ResourceKey<Biome> AMMONIA_DUNES = AMMONIA_STORM_BANDS;
+        public static final ResourceKey<Biome> HYDROCARBON_BASIN = HYDROCARBON_SEAS;
+        public static final ResourceKey<Biome> RING_ICE_GLACIERS = CRYSTALLINE_RING_TUBES;
+        public static final ResourceKey<Biome> METALLIC_MANTLE_TRENCH = MANTLE_CORE_ABYSS;
+    }
+
+    public static final class Uranus {
+        // Surface Biomes
+        public static final ResourceKey<Biome> FROZEN_METHANE_PLAINS = key("uranus_frozen_methane_plains");
+        public static final ResourceKey<Biome> MIRANDA_VERONA_CLIFFS = key("uranus_miranda_verona_cliffs");
+        public static final ResourceKey<Biome> CRYO_GEYSER_BASIN = key("uranus_cryo_geyser_basin");
+        public static final ResourceKey<Biome> TILTED_POLAR_CAPS = key("uranus_tilted_polar_caps");
+        public static final ResourceKey<Biome> RING_DEBRIS_BADLANDS = key("uranus_ring_debris_badlands");
+
+        // Subterranean 3D Biomes
+        public static final ResourceKey<Biome> DIAMOND_MANTLE_CAVERNS = key("uranus_diamond_mantle_caverns");
+        public static final ResourceKey<Biome> GLACIAL_FAULT_CHASMS = key("uranus_glacial_fault_chasms");
+        public static final ResourceKey<Biome> SUPERIONIC_ICE_DEPTHS = key("uranus_superionic_ice_depths");
+
+        // Aliases used by UranusBiomes & UranusSurfaceRules
+        public static final ResourceKey<Biome> MIRANDA_CLIFFSCARPS = MIRANDA_VERONA_CLIFFS;
+        public static final ResourceKey<Biome> CYAN_METHANE_GLACIERS = FROZEN_METHANE_PLAINS;
+        public static final ResourceKey<Biome> TILTED_POLAR_WASTES = TILTED_POLAR_CAPS;
+        public static final ResourceKey<Biome> RIME_ICE_PLAINS = RING_DEBRIS_BADLANDS;
+        public static final ResourceKey<Biome> CRYOVOLCANIC_RIFT = CRYO_GEYSER_BASIN;
+        public static final ResourceKey<Biome> SUPERIONIC_ICE_OCEAN = SUPERIONIC_ICE_DEPTHS;
+        public static final ResourceKey<Biome> SUBGLACIAL_AMMONIA_SEA = GLACIAL_FAULT_CHASMS;
+    }
+
+    public static final class Neptune {
+        // Surface Biomes
+        public static final ResourceKey<Biome> AZURE_METHANE_PLAINS = key("neptune_azure_methane_plains");
+        public static final ResourceKey<Biome> GREAT_DARK_SPOT = key("neptune_great_dark_spot");
+        public static final ResourceKey<Biome> TRITON_NITROGEN_GEYSERS = key("neptune_triton_nitrogen_geysers");
+        public static final ResourceKey<Biome> SUPERSONIC_WIND_RIDGES = key("neptune_supersonic_wind_ridges");
+        public static final ResourceKey<Biome> CRYOGENIC_POLAR_ABYSS = key("neptune_cryogenic_polar_abyss");
+
+        // Subterranean 3D Biomes
+        public static final ResourceKey<Biome> DIAMOND_RAIN_CAVERNS = key("neptune_diamond_rain_caverns");
+        public static final ResourceKey<Biome> CRYO_MAGMA_TUBES = key("neptune_cryo_magma_tubes");
+        public static final ResourceKey<Biome> ABYSSAL_MANTLE_DEPTHS = key("neptune_abyssal_mantle_depths");
+
+        // Aliases used by NeptuneBiomes & NeptuneSurfaceRules
+        public static final ResourceKey<Biome> DARK_SPOT_VORTEX = GREAT_DARK_SPOT;
+        public static final ResourceKey<Biome> SUPERSONIC_WIND_PLAINS = AZURE_METHANE_PLAINS;
+        public static final ResourceKey<Biome> TRITON_GEYSER_FIELDS = TRITON_NITROGEN_GEYSERS;
+        public static final ResourceKey<Biome> NITROGEN_ICE_SHELVES = CRYOGENIC_POLAR_ABYSS;
+        public static final ResourceKey<Biome> COBALT_STORM_HIGHLANDS = SUPERSONIC_WIND_RIDGES;
+    }
+
     public static final ResourceKey<Biome> SPACE = ResourceKey.create(Registries.BIOME, Constant.id("space"));
 
     public static Biome createSpaceBiome(HolderGetter<PlacedFeature> holderGetter, HolderGetter<ConfiguredWorldCarver<?>> holderGetter2) {
@@ -128,6 +218,11 @@ public final class GCBiomes {
         context.register(Mercury.TECTONIC_CHASMS, MercuryBiomes.createTectonicChasms(featureLookup, carverLookup));
         context.register(Mercury.MAGMA_DEPTHS, MercuryBiomes.createMagmaDepths(featureLookup, carverLookup));
         context.register(Mercury.HOLLOW_LABYRINTH, MercuryBiomes.createHollowLabyrinth(featureLookup, carverLookup));
+
+        JupiterBiomes.bootstrapRegistries(context);
+        SaturnBiomes.bootstrapRegistries(context);
+        UranusBiomes.bootstrapRegistries(context);
+        NeptuneBiomes.bootstrapRegistries(context);
     }
 
     @Contract(pure = true)

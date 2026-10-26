@@ -123,6 +123,18 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(GCBlocks.ASTEROID_ROCK);
         this.tag(GCBlockTags.INFINIBURN_MERCURY)
                 .add(GCBlocks.MERCURY_BASALT_BRICK);
+        this.tag(GCBlockTags.INFINIBURN_JUPITER)
+                .add(GCBlocks.JUPITER_STONE_BRICKS)
+                .add(Blocks.MAGMA_BLOCK);
+        this.tag(GCBlockTags.INFINIBURN_SATURN)
+                .add(GCBlocks.SATURN_STONE_BRICKS)
+                .add(Blocks.MAGMA_BLOCK);
+        this.tag(GCBlockTags.INFINIBURN_URANUS)
+                .add(GCBlocks.URANUS_STONE_BRICKS)
+                .add(GCBlocks.DENSE_ICE);
+        this.tag(GCBlockTags.INFINIBURN_NEPTUNE)
+                .add(GCBlocks.NEPTUNE_STONE_BRICKS)
+                .add(GCBlocks.DENSE_ICE);
         this.tag(GCBlockTags.BASE_STONE_MOON)
                 .add(GCBlocks.MOON_ROCK);
         this.tag(GCBlockTags.BASE_STONE_MARS)
@@ -163,6 +175,61 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(GCBlocks.MERCURY_GRAPHITE_ORE)
                 .add(GCBlocks.MERCURY_SULFIDE_ORE)
                 .add(net.minecraft.world.level.block.Blocks.PACKED_ICE);
+        this.tag(GCBlockTags.JUPITER_CARVER_REPLACEABLES)
+                .add(GCBlocks.JUPITER_SURFACE)
+                .add(GCBlocks.JUPITER_SUB_SURFACE)
+                .add(GCBlocks.JUPITER_STONE)
+                .add(GCBlocks.JUPITER_RED_STORM_ROCK)
+                .add(GCBlocks.JUPITER_BANDED_OCHRE_ROCK)
+                .add(GCBlocks.JUPITER_METALLIC_HYDROGEN_ROCK)
+                .add(GCBlocks.JUPITER_CORE_BRECCIA)
+                .add(GCBlocks.JUPITER_COPPER_ORE)
+                .add(GCBlocks.JUPITER_TIN_ORE)
+                .add(GCBlocks.JUPITER_IRON_ORE)
+                .add(GCBlocks.JUPITER_ALUMINUM_ORE);
+        this.tag(GCBlockTags.SATURN_CARVER_REPLACEABLES)
+                .add(GCBlocks.SATURN_SURFACE)
+                .add(GCBlocks.SATURN_SUB_SURFACE)
+                .add(GCBlocks.SATURN_STONE)
+                .add(GCBlocks.SATURN_GOLDEN_BAND_ROCK)
+                .add(GCBlocks.SATURN_RING_ICE_ROCK)
+                .add(GCBlocks.SATURN_HYDROCARBON_SLATE)
+                .add(GCBlocks.SATURN_HELIUM_MANTLE_ROCK)
+                .add(GCBlocks.SATURN_COPPER_ORE)
+                .add(GCBlocks.SATURN_TIN_ORE)
+                .add(GCBlocks.SATURN_IRON_ORE)
+                .add(GCBlocks.SATURN_TITANIUM_ORE)
+                .add(GCBlocks.DENSE_ICE);
+        this.tag(GCBlockTags.URANUS_CARVER_REPLACEABLES)
+                .add(GCBlocks.URANUS_SURFACE)
+                .add(GCBlocks.URANUS_SUB_SURFACE)
+                .add(GCBlocks.URANUS_STONE)
+                .add(GCBlocks.URANUS_METHANE_ICE)
+                .add(GCBlocks.URANUS_VERONA_SCARP_ROCK)
+                .add(GCBlocks.URANUS_SUPERIONIC_MANTLE_ROCK)
+                .add(GCBlocks.URANUS_DIAMOND_BEARING_ROCK)
+                .add(GCBlocks.URANUS_COPPER_ORE)
+                .add(GCBlocks.URANUS_TIN_ORE)
+                .add(GCBlocks.URANUS_ALUMINUM_ORE)
+                .add(GCBlocks.URANUS_TITANIUM_ORE)
+                .add(GCBlocks.DENSE_ICE)
+                .add(Blocks.PACKED_ICE)
+                .add(Blocks.BLUE_ICE);
+        this.tag(GCBlockTags.NEPTUNE_CARVER_REPLACEABLES)
+                .add(GCBlocks.NEPTUNE_SURFACE)
+                .add(GCBlocks.NEPTUNE_SUB_SURFACE)
+                .add(GCBlocks.NEPTUNE_STONE)
+                .add(GCBlocks.NEPTUNE_NITROGEN_ICE)
+                .add(GCBlocks.NEPTUNE_DARK_VORTEX_ROCK)
+                .add(GCBlocks.NEPTUNE_CRYO_SLATE)
+                .add(GCBlocks.NEPTUNE_ABYSSAL_MANTLE_ROCK)
+                .add(GCBlocks.NEPTUNE_COPPER_ORE)
+                .add(GCBlocks.NEPTUNE_TIN_ORE)
+                .add(GCBlocks.NEPTUNE_IRON_ORE)
+                .add(GCBlocks.NEPTUNE_TITANIUM_ORE)
+                .add(GCBlocks.DENSE_ICE)
+                .add(Blocks.PACKED_ICE)
+                .add(Blocks.BLUE_ICE);
         this.tag(GCBlockTags.OLIVINE_CAVE_REPLACEABLES)
                 .add(GCBlocks.LUNASLATE)
                 .add(GCBlocks.MOON_ROCK);
@@ -203,6 +270,34 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(GCBlocks.SOFT_VENUS_ROCK);
         this.tag(GCBlockTags.HARD_VENUS_ROCK_ORE_REPLACEABLES)
                 .add(GCBlocks.HARD_VENUS_ROCK);
+        this.tag(GCBlockTags.JUPITER_ROCK_ORE_REPLACEABLES)
+                .add(GCBlocks.JUPITER_STONE)
+                .add(GCBlocks.JUPITER_SUB_SURFACE)
+                .add(GCBlocks.JUPITER_RED_STORM_ROCK)
+                .add(GCBlocks.JUPITER_BANDED_OCHRE_ROCK)
+                .add(GCBlocks.JUPITER_METALLIC_HYDROGEN_ROCK)
+                .add(GCBlocks.JUPITER_CORE_BRECCIA);
+        this.tag(GCBlockTags.SATURN_ROCK_ORE_REPLACEABLES)
+                .add(GCBlocks.SATURN_STONE)
+                .add(GCBlocks.SATURN_SUB_SURFACE)
+                .add(GCBlocks.SATURN_GOLDEN_BAND_ROCK)
+                .add(GCBlocks.SATURN_RING_ICE_ROCK)
+                .add(GCBlocks.SATURN_HYDROCARBON_SLATE)
+                .add(GCBlocks.SATURN_HELIUM_MANTLE_ROCK);
+        this.tag(GCBlockTags.URANUS_ROCK_ORE_REPLACEABLES)
+                .add(GCBlocks.URANUS_STONE)
+                .add(GCBlocks.URANUS_SUB_SURFACE)
+                .add(GCBlocks.URANUS_METHANE_ICE)
+                .add(GCBlocks.URANUS_VERONA_SCARP_ROCK)
+                .add(GCBlocks.URANUS_SUPERIONIC_MANTLE_ROCK)
+                .add(GCBlocks.URANUS_DIAMOND_BEARING_ROCK);
+        this.tag(GCBlockTags.NEPTUNE_ROCK_ORE_REPLACEABLES)
+                .add(GCBlocks.NEPTUNE_STONE)
+                .add(GCBlocks.NEPTUNE_SUB_SURFACE)
+                .add(GCBlocks.NEPTUNE_NITROGEN_ICE)
+                .add(GCBlocks.NEPTUNE_DARK_VORTEX_ROCK)
+                .add(GCBlocks.NEPTUNE_CRYO_SLATE)
+                .add(GCBlocks.NEPTUNE_ABYSSAL_MANTLE_ROCK);
 
         this.tag(GCBlockTags.ORE_BEARING_GROUND_MOON_ROCK)
                 .add(GCBlocks.MOON_ROCK);
@@ -293,12 +388,19 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         // ORE TAGS
         this.tag(BlockTags.IRON_ORES)
                 .add(GCBlocks.MARS_IRON_ORE)
-                .add(GCBlocks.ASTEROID_IRON_ORE);
+                .add(GCBlocks.ASTEROID_IRON_ORE)
+                .add(GCBlocks.JUPITER_IRON_ORE)
+                .add(GCBlocks.SATURN_IRON_ORE)
+                .add(GCBlocks.NEPTUNE_IRON_ORE);
         this.tag(BlockTags.COPPER_ORES)
                 .add(GCBlocks.MOON_COPPER_ORE)
                 .add(GCBlocks.LUNASLATE_COPPER_ORE)
                 .add(GCBlocks.MARS_COPPER_ORE)
-                .add(GCBlocks.VENUS_COPPER_ORE);
+                .add(GCBlocks.VENUS_COPPER_ORE)
+                .add(GCBlocks.JUPITER_COPPER_ORE)
+                .add(GCBlocks.SATURN_COPPER_ORE)
+                .add(GCBlocks.URANUS_COPPER_ORE)
+                .add(GCBlocks.NEPTUNE_COPPER_ORE);
         this.tag(GCBlockTags.SILICON_ORES)
                 .add(GCBlocks.SILICON_ORE)
                 .add(GCBlocks.DEEPSLATE_SILICON_ORE)
@@ -309,12 +411,18 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(GCBlocks.MOON_TIN_ORE)
                 .add(GCBlocks.LUNASLATE_TIN_ORE)
                 .add(GCBlocks.MARS_TIN_ORE)
-                .add(GCBlocks.VENUS_TIN_ORE);
+                .add(GCBlocks.VENUS_TIN_ORE)
+                .add(GCBlocks.JUPITER_TIN_ORE)
+                .add(GCBlocks.SATURN_TIN_ORE)
+                .add(GCBlocks.URANUS_TIN_ORE)
+                .add(GCBlocks.NEPTUNE_TIN_ORE);
         this.tag(GCBlockTags.ALUMINUM_ORES)
                 .add(GCBlocks.ALUMINUM_ORE)
                 .add(GCBlocks.DEEPSLATE_ALUMINUM_ORE)
                 .add(GCBlocks.ASTEROID_ALUMINUM_ORE)
-                .add(GCBlocks.VENUS_ALUMINUM_ORE);
+                .add(GCBlocks.VENUS_ALUMINUM_ORE)
+                .add(GCBlocks.JUPITER_ALUMINUM_ORE)
+                .add(GCBlocks.URANUS_ALUMINUM_ORE);
         this.tag(GCBlockTags.CHEESE_ORES)
                 .add(GCBlocks.MOON_CHEESE_ORE);
         this.tag(GCBlockTags.LUNAR_SAPPHIRE_ORES)
@@ -327,7 +435,10 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         this.tag(GCBlockTags.DESH_ORES)
                 .add(GCBlocks.DESH_ORE);
         this.tag(GCBlockTags.TITANIUM_ORES)
-                .add(GCBlocks.ILMENITE_ORE);
+                .add(GCBlocks.ILMENITE_ORE)
+                .add(GCBlocks.SATURN_TITANIUM_ORE)
+                .add(GCBlocks.URANUS_TITANIUM_ORE)
+                .add(GCBlocks.NEPTUNE_TITANIUM_ORE);
         this.tag(GCBlockTags.LEAD_ORES)
                 .add(GCBlocks.GALENA_ORE);
         this.tag(GCBlockTags.SOLAR_ORES)
@@ -735,7 +846,59 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                         GCBlocks.MOON_BASALT_BRICK,
                         GCBlocks.CRACKED_MOON_BASALT_BRICK,
                         GCBlocks.MARS_STONE,
-                        GCBlocks.MARS_COBBLESTONE
+                        GCBlocks.MARS_COBBLESTONE,
+
+                        GCBlocks.JUPITER_SURFACE,
+                        GCBlocks.JUPITER_SUB_SURFACE,
+                        GCBlocks.JUPITER_STONE,
+                        GCBlocks.JUPITER_RED_STORM_ROCK,
+                        GCBlocks.JUPITER_BANDED_OCHRE_ROCK,
+                        GCBlocks.JUPITER_METALLIC_HYDROGEN_ROCK,
+                        GCBlocks.JUPITER_CORE_BRECCIA,
+                        GCBlocks.JUPITER_STONE_BRICKS,
+                        GCBlocks.JUPITER_COPPER_ORE,
+                        GCBlocks.JUPITER_TIN_ORE,
+                        GCBlocks.JUPITER_IRON_ORE,
+                        GCBlocks.JUPITER_ALUMINUM_ORE,
+
+                        GCBlocks.SATURN_SURFACE,
+                        GCBlocks.SATURN_SUB_SURFACE,
+                        GCBlocks.SATURN_STONE,
+                        GCBlocks.SATURN_GOLDEN_BAND_ROCK,
+                        GCBlocks.SATURN_RING_ICE_ROCK,
+                        GCBlocks.SATURN_HYDROCARBON_SLATE,
+                        GCBlocks.SATURN_HELIUM_MANTLE_ROCK,
+                        GCBlocks.SATURN_STONE_BRICKS,
+                        GCBlocks.SATURN_COPPER_ORE,
+                        GCBlocks.SATURN_TIN_ORE,
+                        GCBlocks.SATURN_IRON_ORE,
+                        GCBlocks.SATURN_TITANIUM_ORE,
+
+                        GCBlocks.URANUS_SURFACE,
+                        GCBlocks.URANUS_SUB_SURFACE,
+                        GCBlocks.URANUS_STONE,
+                        GCBlocks.URANUS_METHANE_ICE,
+                        GCBlocks.URANUS_VERONA_SCARP_ROCK,
+                        GCBlocks.URANUS_SUPERIONIC_MANTLE_ROCK,
+                        GCBlocks.URANUS_DIAMOND_BEARING_ROCK,
+                        GCBlocks.URANUS_STONE_BRICKS,
+                        GCBlocks.URANUS_COPPER_ORE,
+                        GCBlocks.URANUS_TIN_ORE,
+                        GCBlocks.URANUS_ALUMINUM_ORE,
+                        GCBlocks.URANUS_TITANIUM_ORE,
+
+                        GCBlocks.NEPTUNE_SURFACE,
+                        GCBlocks.NEPTUNE_SUB_SURFACE,
+                        GCBlocks.NEPTUNE_STONE,
+                        GCBlocks.NEPTUNE_NITROGEN_ICE,
+                        GCBlocks.NEPTUNE_DARK_VORTEX_ROCK,
+                        GCBlocks.NEPTUNE_CRYO_SLATE,
+                        GCBlocks.NEPTUNE_ABYSSAL_MANTLE_ROCK,
+                        GCBlocks.NEPTUNE_STONE_BRICKS,
+                        GCBlocks.NEPTUNE_COPPER_ORE,
+                        GCBlocks.NEPTUNE_TIN_ORE,
+                        GCBlocks.NEPTUNE_IRON_ORE,
+                        GCBlocks.NEPTUNE_TITANIUM_ORE
                 );
 
         this.tag(BlockTags.MINEABLE_WITH_AXE)
@@ -792,7 +955,20 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                         GCBlocks.RAW_LEAD_BLOCK,
                         GCBlocks.LEAD_BLOCK,
                         GCBlocks.RAW_METEORIC_IRON_BLOCK,
-                        GCBlocks.METEORIC_IRON_BLOCK
+                        GCBlocks.METEORIC_IRON_BLOCK,
+                        GCBlocks.JUPITER_COPPER_ORE,
+                        GCBlocks.JUPITER_TIN_ORE,
+                        GCBlocks.JUPITER_IRON_ORE,
+                        GCBlocks.JUPITER_ALUMINUM_ORE,
+                        GCBlocks.SATURN_COPPER_ORE,
+                        GCBlocks.SATURN_TIN_ORE,
+                        GCBlocks.SATURN_IRON_ORE,
+                        GCBlocks.URANUS_COPPER_ORE,
+                        GCBlocks.URANUS_TIN_ORE,
+                        GCBlocks.URANUS_ALUMINUM_ORE,
+                        GCBlocks.NEPTUNE_COPPER_ORE,
+                        GCBlocks.NEPTUNE_TIN_ORE,
+                        GCBlocks.NEPTUNE_IRON_ORE
                 );
 
         this.tag(BlockTags.NEEDS_IRON_TOOL).add(
@@ -801,12 +977,21 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 GCBlocks.ASTEROID_SILICON_ORE,
                 GCBlocks.FALLEN_METEOR,
                 GCBlocks.LUNAR_SAPPHIRE_ORE,
-                GCBlocks.SILICON_BLOCK
+                GCBlocks.SILICON_BLOCK,
+                GCBlocks.JUPITER_METALLIC_HYDROGEN_ROCK,
+                GCBlocks.JUPITER_CORE_BRECCIA,
+                GCBlocks.SATURN_HELIUM_MANTLE_ROCK,
+                GCBlocks.URANUS_SUPERIONIC_MANTLE_ROCK,
+                GCBlocks.URANUS_DIAMOND_BEARING_ROCK,
+                GCBlocks.NEPTUNE_ABYSSAL_MANTLE_ROCK
         );
 
         this.tag(BlockTags.NEEDS_DIAMOND_TOOL).add(
                 GCBlocks.DESH_ORE,
                 GCBlocks.ILMENITE_ORE,
+                GCBlocks.SATURN_TITANIUM_ORE,
+                GCBlocks.URANUS_TITANIUM_ORE,
+                GCBlocks.NEPTUNE_TITANIUM_ORE,
                 GCBlocks.RAW_DESH_BLOCK,
                 GCBlocks.DESH_BLOCK,
                 GCBlocks.RAW_TITANIUM_BLOCK,

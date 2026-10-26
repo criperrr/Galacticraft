@@ -151,6 +151,46 @@ public class GCCreativeModeTabs {
                 output.accept(PUMICE);
                 output.accept(VAPOR_SPOUT);
 
+                // JUPITER NATURAL
+                output.accept(JUPITER_SURFACE);
+                output.accept(JUPITER_SUB_SURFACE);
+                output.accept(JUPITER_STONE);
+                output.accept(JUPITER_RED_STORM_ROCK);
+                output.accept(JUPITER_BANDED_OCHRE_ROCK);
+                output.accept(JUPITER_METALLIC_HYDROGEN_ROCK);
+                output.accept(JUPITER_CORE_BRECCIA);
+                output.accept(JUPITER_STONE_BRICKS);
+
+                // SATURN NATURAL
+                output.accept(SATURN_SURFACE);
+                output.accept(SATURN_SUB_SURFACE);
+                output.accept(SATURN_STONE);
+                output.accept(SATURN_GOLDEN_BAND_ROCK);
+                output.accept(SATURN_RING_ICE_ROCK);
+                output.accept(SATURN_HYDROCARBON_SLATE);
+                output.accept(SATURN_HELIUM_MANTLE_ROCK);
+                output.accept(SATURN_STONE_BRICKS);
+
+                // URANUS NATURAL
+                output.accept(URANUS_SURFACE);
+                output.accept(URANUS_SUB_SURFACE);
+                output.accept(URANUS_STONE);
+                output.accept(URANUS_METHANE_ICE);
+                output.accept(URANUS_VERONA_SCARP_ROCK);
+                output.accept(URANUS_SUPERIONIC_MANTLE_ROCK);
+                output.accept(URANUS_DIAMOND_BEARING_ROCK);
+                output.accept(URANUS_STONE_BRICKS);
+
+                // NEPTUNE NATURAL
+                output.accept(NEPTUNE_SURFACE);
+                output.accept(NEPTUNE_SUB_SURFACE);
+                output.accept(NEPTUNE_STONE);
+                output.accept(NEPTUNE_NITROGEN_ICE);
+                output.accept(NEPTUNE_DARK_VORTEX_ROCK);
+                output.accept(NEPTUNE_CRYO_SLATE);
+                output.accept(NEPTUNE_ABYSSAL_MANTLE_ROCK);
+                output.accept(NEPTUNE_STONE_BRICKS);
+
                 // ORES
                 output.accept(SILICON_ORE);
                 output.accept(DEEPSLATE_SILICON_ORE);
@@ -184,6 +224,26 @@ public class GCCreativeModeTabs {
                 output.accept(VENUS_ALUMINUM_ORE);
                 output.accept(GALENA_ORE);
                 output.accept(SOLAR_ORE);
+
+                output.accept(JUPITER_COPPER_ORE);
+                output.accept(JUPITER_TIN_ORE);
+                output.accept(JUPITER_IRON_ORE);
+                output.accept(JUPITER_ALUMINUM_ORE);
+
+                output.accept(SATURN_COPPER_ORE);
+                output.accept(SATURN_TIN_ORE);
+                output.accept(SATURN_IRON_ORE);
+                output.accept(SATURN_TITANIUM_ORE);
+
+                output.accept(URANUS_COPPER_ORE);
+                output.accept(URANUS_TIN_ORE);
+                output.accept(URANUS_ALUMINUM_ORE);
+                output.accept(URANUS_TITANIUM_ORE);
+
+                output.accept(NEPTUNE_COPPER_ORE);
+                output.accept(NEPTUNE_TIN_ORE);
+                output.accept(NEPTUNE_IRON_ORE);
+                output.accept(NEPTUNE_TITANIUM_ORE);
 
                 // COMPACT MINERAL BLOCKS
                 output.accept(RAW_TIN_BLOCK);

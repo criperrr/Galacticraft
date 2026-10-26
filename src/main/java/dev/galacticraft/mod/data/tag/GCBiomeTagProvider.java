@@ -59,6 +59,46 @@ public class GCBiomeTagProvider extends FabricTagProvider<Biome> {
         this.tag(GCBiomeTags.ASTEROID)
                 .add(GCBiomes.Asteroid.ASTEROID_FIELD);
 
+        this.tag(GCBiomeTags.JUPITER)
+                .add(GCBiomes.Jupiter.AMMONIA_PLAINS)
+                .add(GCBiomes.Jupiter.GREAT_RED_SPOT)
+                .add(GCBiomes.Jupiter.SULFURIC_BELTS)
+                .add(GCBiomes.Jupiter.METALLIC_RIDGES)
+                .add(GCBiomes.Jupiter.POLAR_AURORA_CRATERS)
+                .add(GCBiomes.Jupiter.METALLIC_HYDROGEN_CAVERNS)
+                .add(GCBiomes.Jupiter.CYCLONIC_RIFTS)
+                .add(GCBiomes.Jupiter.CORE_MAGMA_DEPTHS);
+
+        this.tag(GCBiomeTags.SATURN)
+                .add(GCBiomes.Saturn.GOLDEN_HAZE_PLAINS)
+                .add(GCBiomes.Saturn.HYDROCARBON_SEAS)
+                .add(GCBiomes.Saturn.RING_SHADOW_HIGHLANDS)
+                .add(GCBiomes.Saturn.AMMONIA_STORM_BANDS)
+                .add(GCBiomes.Saturn.HEXAGON_POLAR_VORTEX)
+                .add(GCBiomes.Saturn.HELIUM_RAIN_CAVERNS)
+                .add(GCBiomes.Saturn.CRYSTALLINE_RING_TUBES)
+                .add(GCBiomes.Saturn.MANTLE_CORE_ABYSS);
+
+        this.tag(GCBiomeTags.URANUS)
+                .add(GCBiomes.Uranus.FROZEN_METHANE_PLAINS)
+                .add(GCBiomes.Uranus.MIRANDA_VERONA_CLIFFS)
+                .add(GCBiomes.Uranus.CRYO_GEYSER_BASIN)
+                .add(GCBiomes.Uranus.TILTED_POLAR_CAPS)
+                .add(GCBiomes.Uranus.RING_DEBRIS_BADLANDS)
+                .add(GCBiomes.Uranus.DIAMOND_MANTLE_CAVERNS)
+                .add(GCBiomes.Uranus.GLACIAL_FAULT_CHASMS)
+                .add(GCBiomes.Uranus.SUPERIONIC_ICE_DEPTHS);
+
+        this.tag(GCBiomeTags.NEPTUNE)
+                .add(GCBiomes.Neptune.AZURE_METHANE_PLAINS)
+                .add(GCBiomes.Neptune.GREAT_DARK_SPOT)
+                .add(GCBiomes.Neptune.TRITON_NITROGEN_GEYSERS)
+                .add(GCBiomes.Neptune.SUPERSONIC_WIND_RIDGES)
+                .add(GCBiomes.Neptune.CRYOGENIC_POLAR_ABYSS)
+                .add(GCBiomes.Neptune.DIAMOND_RAIN_CAVERNS)
+                .add(GCBiomes.Neptune.CRYO_MAGMA_TUBES)
+                .add(GCBiomes.Neptune.ABYSSAL_MANTLE_DEPTHS);
+
         this.tag(GCBiomeTags.MOON_RUINS_HAS_STRUCTURE)
                 .add(GCBiomes.Moon.BASALTIC_MARE);
         this.tag(GCBiomeTags.MOON_BOSS_HAS_STRUCTURE)
