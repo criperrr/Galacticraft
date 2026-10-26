@@ -1,0 +1,12 @@
+{
+  "feature": "galacticraft:uranus_comet_impact",
+  "placement": [
+    {
+      "type": "minecraft:count",
+      "count": 1
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

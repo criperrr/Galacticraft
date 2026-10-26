@@ -1,12 +1,23 @@
 {
-  "type": "galacticraft:decorative_planet",
+  "type": "galacticraft:planet",
   "config": {
     "parent": "galacticraft:sol",
+    "access_weight": 5,
     "atmosphere": {
-      "composition": {},
-      "pressure": 3.0E-15,
-      "temperature": 23.0
+      "composition": {
+        "galacticraft:carbon_monoxide": 1.0,
+        "galacticraft:helium": 32500.0,
+        "galacticraft:hydrogen": 963000.0,
+        "galacticraft:hydrogen_deuterium_oxide": 110.0,
+        "galacticraft:methane": 4500.0,
+        "galacticraft:water_vapor": 20.0
+      },
+      "pressure": 8.5,
+      "temperature": -140.0
     },
+    "celestial_handler": "galacticraft:default",
+    "day_length": 10656,
+    "day_temperature": -135,
     "description": {
       "translate": "planet.galacticraft.saturn.description"
     },
@@ -25,6 +36,7 @@
           "yScale": -1.75
         },
         "height": 16,
+        "rocket_overlay": "galacticraft:textures/gui/rocket/venus_rocket_gui.png",
         "scale": 1.0,
         "texture": "galacticraft:textures/gui/celestialbodies/saturn.png",
         "u": 0,
@@ -32,10 +44,11 @@
         "width": 16
       }
     },
-    "gravity": 0.166,
+    "gravity": 0.916,
     "name": {
       "translate": "planet.galacticraft.saturn"
     },
+    "night_temperature": -150,
     "position": {
       "type": "galacticraft:orbital",
       "config": {
@@ -48,6 +61,8 @@
     "ring": {
       "type": "galacticraft:default",
       "config": {}
-    }
+    },
+    "teleporter": "galacticraft:lander",
+    "world": "galacticraft:saturn"
   }
 }

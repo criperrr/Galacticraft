@@ -1,0 +1,49 @@
+{
+  "type": "galacticraft:planetary_meteor",
+  "config": {
+    "crater_floor_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:uranus_methane_ice"
+      }
+    },
+    "ejecta_ores": [
+      {
+        "Name": "galacticraft:uranus_titanium_ore"
+      },
+      {
+        "Name": "galacticraft:uranus_aluminum_ore"
+      }
+    ],
+    "max_crater_radius": 24,
+    "max_meteor_radius": 4,
+    "meteor_core_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:uranus_diamond_bearing_rock"
+      }
+    },
+    "meteor_shell_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:fallen_meteor",
+        "Properties": {
+          "heat": "0",
+          "waterlogged": "false"
+        }
+      }
+    },
+    "min_crater_radius": 14,
+    "min_meteor_radius": 2,
+    "ore_chance": 5,
+    "region_size": 640.0,
+    "scorched_rim_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:uranus_verona_scarp_rock"
+      }
+    },
+    "spawn_probability": 0.2,
+    "spread": 0.75
+  }
+}

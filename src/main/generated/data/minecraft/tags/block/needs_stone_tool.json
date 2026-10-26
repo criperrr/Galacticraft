@@ -32,6 +32,19 @@
     "galacticraft:raw_lead_block",
     "galacticraft:lead_block",
     "galacticraft:raw_meteoric_iron_block",
-    "galacticraft:meteoric_iron_block"
+    "galacticraft:meteoric_iron_block",
+    "galacticraft:jupiter_copper_ore",
+    "galacticraft:jupiter_tin_ore",
+    "galacticraft:jupiter_iron_ore",
+    "galacticraft:jupiter_aluminum_ore",
+    "galacticraft:saturn_copper_ore",
+    "galacticraft:saturn_tin_ore",
+    "galacticraft:saturn_iron_ore",
+    "galacticraft:uranus_copper_ore",
+    "galacticraft:uranus_tin_ore",
+    "galacticraft:uranus_aluminum_ore",
+    "galacticraft:neptune_copper_ore",
+    "galacticraft:neptune_tin_ore",
+    "galacticraft:neptune_iron_ore"
   ]
 }

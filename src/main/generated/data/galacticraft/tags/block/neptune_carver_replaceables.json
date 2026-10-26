@@ -1,0 +1,18 @@
+{
+  "values": [
+    "galacticraft:neptune_surface",
+    "galacticraft:neptune_sub_surface",
+    "galacticraft:neptune_stone",
+    "galacticraft:neptune_nitrogen_ice",
+    "galacticraft:neptune_dark_vortex_rock",
+    "galacticraft:neptune_cryo_slate",
+    "galacticraft:neptune_abyssal_mantle_rock",
+    "galacticraft:neptune_copper_ore",
+    "galacticraft:neptune_tin_ore",
+    "galacticraft:neptune_iron_ore",
+    "galacticraft:neptune_titanium_ore",
+    "galacticraft:dense_ice",
+    "minecraft:packed_ice",
+    "minecraft:blue_ice"
+  ]
+}

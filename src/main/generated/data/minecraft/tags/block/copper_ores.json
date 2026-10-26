@@ -3,6 +3,10 @@
     "galacticraft:moon_copper_ore",
     "galacticraft:lunaslate_copper_ore",
     "galacticraft:mars_copper_ore",
-    "galacticraft:venus_copper_ore"
+    "galacticraft:venus_copper_ore",
+    "galacticraft:jupiter_copper_ore",
+    "galacticraft:saturn_copper_ore",
+    "galacticraft:uranus_copper_ore",
+    "galacticraft:neptune_copper_ore"
   ]
 }

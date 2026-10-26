@@ -1,0 +1,35 @@
+{
+  "type": "galacticraft:outer_planet_structure",
+  "config": {
+    "accent_or_crown_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:magma_block"
+      }
+    },
+    "core_or_fluid_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:jupiter_red_storm_rock"
+      }
+    },
+    "kind": "fulgurite",
+    "max_height": 16,
+    "max_radius": 4,
+    "min_height": 8,
+    "min_radius": 2,
+    "primary_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:jupiter_core_breccia"
+      }
+    },
+    "secondary_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:jupiter_metallic_hydrogen_rock"
+      }
+    },
+    "tilt_strength": 0.35
+  }
+}

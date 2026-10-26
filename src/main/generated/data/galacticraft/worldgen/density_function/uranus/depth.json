@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:add",
+  "argument1": {
+    "type": "minecraft:add",
+    "argument1": "galacticraft:uranus/base_height",
+    "argument2": "galacticraft:uranus/offset"
+  },
+  "argument2": {
+    "type": "minecraft:y_clamped_gradient",
+    "from_value": 0.0,
+    "from_y": -20,
+    "to_value": 0.48,
+    "to_y": -56
+  }
+}
