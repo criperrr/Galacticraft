@@ -62,17 +62,17 @@ public class GCConfiguredFeature {
         context.register(VENUS_VAPOR_POOL, new ConfiguredFeature<>(GCFeatures.VENUS_VAPOR_POOL, FeatureConfiguration.NONE));
 
         // TFCVolcanoes-based customizable volcano system for Venus:
-        // Large Voronoi regionSize (560 blocks) with per-biome frequency map so volcanoes are monumental, rare, and natural
+        // Large Voronoi regionSize (560 blocks) with elevated mountain placement and monumental scales
         registerPlanetVolcano(context, VENUS_VOLCANO, PlanetaryVolcanoConfig.builder()
                 .regionSize(560.0)
                 .spread(0.75)
                 .defaultFrequency(0.0F)
-                .biomeFrequency(GCBiomes.Venus.VENUS_MOUNTAIN, 0.34F)
-                .biomeFrequency(GCBiomes.Venus.VENUS_VALLEY, 0.18F)
-                .biomeFrequency(GCBiomes.Venus.VENUS_FLAT, 0.04F)
-                .radiusRange(36, 62)
-                .heightRange(24, 46)
-                .craterRadiusRange(8, 15)
+                .biomeFrequency(GCBiomes.Venus.VENUS_MOUNTAIN, 0.52F)
+                .biomeFrequency(GCBiomes.Venus.VENUS_FLAT, 0.08F)
+                .biomeFrequency(GCBiomes.Venus.VENUS_VALLEY, 0.0F)
+                .radiusRange(52, 88)
+                .heightRange(34, 62)
+                .craterRadiusRange(12, 22)
                 .volcanoType(PlanetaryVolcanoConfig.VolcanoType.MIXED)
                 .rocks(
                         Blocks.BASALT.defaultBlockState(),
