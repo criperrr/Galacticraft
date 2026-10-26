@@ -114,17 +114,17 @@ public class GCNoiseGeneratorSettings {
         DensityFunction finalDensity = GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Mercury.FINAL_DENSITY);
 
         return new NoiseRouter(
-                DensityFunctions.constant(1), // barrierNoise
+                DensityFunctions.zero(), // barrierNoise (disabled aquifer barrier checks for celestial bodies without water)
                 DensityFunctions.zero(), // fluidLevelFloodednessNoise
                 DensityFunctions.zero(), // fluidLevelSpreadNoise
                 DensityFunctions.zero(), // lavaNoise
-                DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.25, noiseLookup.getOrThrow(Noises.TEMPERATURE)),
-                DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.25, noiseLookup.getOrThrow(Noises.VEGETATION)),
+                DensityFunctions.flatCache(DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.25, noiseLookup.getOrThrow(Noises.TEMPERATURE))),
+                DensityFunctions.flatCache(DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.25, noiseLookup.getOrThrow(Noises.VEGETATION))),
                 GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Mercury.CONTINENTS),
                 GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.EROSION),
                 GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Mercury.DEPTH),
                 GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.RIDGES),
-                finalDensity,
+                GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Mercury.SOLID_TERRAIN),
                 DensityFunctions.blendDensity(finalDensity),
                 DensityFunctions.zero(),
                 DensityFunctions.zero(),
