@@ -248,8 +248,8 @@ public class GCNoiseGeneratorSettings {
                 GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.EROSION),
                 GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Mercury.DEPTH),
                 GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.RIDGES),
-                GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Mercury.SOLID_TERRAIN),
-                DensityFunctions.blendDensity(finalDensity),
+                GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Mercury.SOLID_TERRAIN), // initialDensityWithoutJaggedness (true planetary surface for preliminarySurfaceLevel)
+                DensityFunctions.interpolated(DensityFunctions.blendDensity(finalDensity)),
                 DensityFunctions.zero(),
                 DensityFunctions.zero(),
                 DensityFunctions.zero()
@@ -259,8 +259,9 @@ public class GCNoiseGeneratorSettings {
     public static NoiseRouter moon(HolderGetter<DensityFunction> densityLookup, HolderGetter<NormalNoise.NoiseParameters> noiseLookup) {
         DensityFunction shiftX = GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.SHIFT_X);
         DensityFunction shiftZ = GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.SHIFT_Z);
+        DensityFunction finalDensity = GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Moon.FINAL_DENSITY);
         return new NoiseRouter(
-                DensityFunctions.constant(1), // barrierNoise
+                DensityFunctions.zero(), // barrierNoise
                 DensityFunctions.zero(), // fluidLevelFloodednessNoise
                 DensityFunctions.zero(), // fluidLevelSpreadNoise
                 DensityFunctions.zero(), // lavaNoise
@@ -270,12 +271,12 @@ public class GCNoiseGeneratorSettings {
                 DensityFunctions.shiftedNoise2d(
                         shiftX, shiftZ, 0.25, noiseLookup.getOrThrow(Noises.VEGETATION)
                 ), // vegetation
-                GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.CONTINENTS), // continents
+                GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Moon.CONTINENTS), // continents
                 GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Moon.EROSION), // erosion
                 GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.DEPTH), // depth
                 GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.RIDGES), // ridges
-                GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Moon.FINAL_DENSITY), // initialDensityWithoutJaggedness
-                DensityFunctions.blendDensity(GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Moon.FINAL_DENSITY)), // finalDensity
+                GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Moon.SOLID_TERRAIN), // initialDensityWithoutJaggedness
+                DensityFunctions.blendDensity(finalDensity), // finalDensity
                 DensityFunctions.zero(), // veinToggle
                 DensityFunctions.zero(), // veinRidged
                 DensityFunctions.zero()  // veinGap
@@ -285,6 +286,7 @@ public class GCNoiseGeneratorSettings {
     public static NoiseRouter mars(HolderGetter<DensityFunction> densityLookup, HolderGetter<NormalNoise.NoiseParameters> noiseLookup) {
         DensityFunction shiftX = GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.SHIFT_X);
         DensityFunction shiftZ = GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.SHIFT_Z);
+        DensityFunction finalDensity = GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Mars.FINAL_DENSITY);
         return new NoiseRouter(
                 DensityFunctions.zero(), // barrierNoise
                 DensityFunctions.zero(), // fluidLevelFloodednessNoise
@@ -300,8 +302,8 @@ public class GCNoiseGeneratorSettings {
                 GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.EROSION), // erosion
                 GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.DEPTH), // depth
                 GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.RIDGES), // ridges
-                GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Mars.FINAL_DENSITY), // initialDensityWithoutJaggedness
-                DensityFunctions.blendDensity(GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Mars.FINAL_DENSITY)), // finalDensity
+                finalDensity, // initialDensityWithoutJaggedness
+                DensityFunctions.blendDensity(finalDensity), // finalDensity
                 DensityFunctions.zero(), // veinToggle
                 DensityFunctions.zero(), // veinRidged
                 DensityFunctions.zero()  // veinGap
@@ -311,6 +313,7 @@ public class GCNoiseGeneratorSettings {
     public static NoiseRouter venus(HolderGetter<DensityFunction> densityLookup, HolderGetter<NormalNoise.NoiseParameters> noiseLookup) {
         DensityFunction shiftX = GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.SHIFT_X);
         DensityFunction shiftZ = GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.SHIFT_Z);
+        DensityFunction finalDensity = GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Venus.FINAL_DENSITY);
         return new NoiseRouter(
                 DensityFunctions.zero(), // barrierNoise
                 DensityFunctions.zero(), // fluidLevelFloodednessNoise
@@ -326,8 +329,8 @@ public class GCNoiseGeneratorSettings {
                 GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.EROSION), // erosion
                 GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.DEPTH), // depth
                 GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.RIDGES), // ridges
-                GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Venus.FINAL_DENSITY), // initialDensityWithoutJaggedness
-                DensityFunctions.blendDensity(GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Venus.FINAL_DENSITY)), // finalDensity
+                finalDensity, // initialDensityWithoutJaggedness
+                DensityFunctions.blendDensity(finalDensity), // finalDensity
                 DensityFunctions.zero(), // veinToggle
                 DensityFunctions.zero(), // veinRidged
                 DensityFunctions.zero()  // veinGap
