@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:lake",
+  "config": {
+    "barrier": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:jupiter_core_breccia"
+      }
+    },
+    "fluid": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:crude_oil",
+        "Properties": {
+          "level": "0"
+        }
+      }
+    }
+  }
+}

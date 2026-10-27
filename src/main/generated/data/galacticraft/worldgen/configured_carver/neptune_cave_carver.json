@@ -1,0 +1,39 @@
+{
+  "type": "minecraft:cave",
+  "config": {
+    "floor_level": {
+      "type": "minecraft:uniform",
+      "max_exclusive": -0.35,
+      "min_inclusive": -0.75
+    },
+    "horizontal_radius_multiplier": {
+      "type": "minecraft:uniform",
+      "max_exclusive": 2.1,
+      "min_inclusive": 1.2
+    },
+    "lava_level": {
+      "above_bottom": 12
+    },
+    "probability": 0.09,
+    "replaceable": "#galacticraft:neptune_carver_replaceables",
+    "vertical_radius_multiplier": {
+      "type": "minecraft:uniform",
+      "max_exclusive": 1.15,
+      "min_inclusive": 0.75
+    },
+    "y": {
+      "type": "minecraft:uniform",
+      "max_inclusive": {
+        "absolute": 98
+      },
+      "min_inclusive": {
+        "above_bottom": 16
+      }
+    },
+    "yScale": {
+      "type": "minecraft:uniform",
+      "max_exclusive": 0.55,
+      "min_inclusive": 0.2
+    }
+  }
+}

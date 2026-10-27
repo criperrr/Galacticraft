@@ -230,6 +230,62 @@ public class GCTranslationProvider extends TranslationProvider {
         this.block(GCBlocks.VAPOR_SPOUT, "Vapor Spout");
         this.block(GCBlocks.CRASHED_PROBE, "Crashed Probe");
 
+        // JUPITER NATURAL & ORES
+        this.block(GCBlocks.JUPITER_SURFACE, "Jupiter Surface Rock");
+        this.block(GCBlocks.JUPITER_SUB_SURFACE, "Jupiter Sub-Surface Rock");
+        this.block(GCBlocks.JUPITER_STONE, "Jupiter Stone");
+        this.block(GCBlocks.JUPITER_RED_STORM_ROCK, "Jupiter Red Storm Rock");
+        this.block(GCBlocks.JUPITER_BANDED_OCHRE_ROCK, "Jupiter Banded Ochre Rock");
+        this.block(GCBlocks.JUPITER_METALLIC_HYDROGEN_ROCK, "Jupiter Metallic Hydrogen Rock");
+        this.block(GCBlocks.JUPITER_CORE_BRECCIA, "Jupiter Core Breccia");
+        this.block(GCBlocks.JUPITER_STONE_BRICKS, "Jupiter Stone Bricks");
+        this.block(GCBlocks.JUPITER_COPPER_ORE, "Jupiter Copper Ore");
+        this.block(GCBlocks.JUPITER_TIN_ORE, "Jupiter Tin Ore");
+        this.block(GCBlocks.JUPITER_IRON_ORE, "Jupiter Iron Ore");
+        this.block(GCBlocks.JUPITER_ALUMINUM_ORE, "Jupiter Aluminum Ore");
+
+        // SATURN NATURAL & ORES
+        this.block(GCBlocks.SATURN_SURFACE, "Saturn Surface Rock");
+        this.block(GCBlocks.SATURN_SUB_SURFACE, "Saturn Sub-Surface Rock");
+        this.block(GCBlocks.SATURN_STONE, "Saturn Stone");
+        this.block(GCBlocks.SATURN_GOLDEN_BAND_ROCK, "Saturn Golden Band Rock");
+        this.block(GCBlocks.SATURN_RING_ICE_ROCK, "Saturn Ring Ice Rock");
+        this.block(GCBlocks.SATURN_HYDROCARBON_SLATE, "Saturn Hydrocarbon Slate");
+        this.block(GCBlocks.SATURN_HELIUM_MANTLE_ROCK, "Saturn Helium Mantle Rock");
+        this.block(GCBlocks.SATURN_STONE_BRICKS, "Saturn Stone Bricks");
+        this.block(GCBlocks.SATURN_COPPER_ORE, "Saturn Copper Ore");
+        this.block(GCBlocks.SATURN_TIN_ORE, "Saturn Tin Ore");
+        this.block(GCBlocks.SATURN_IRON_ORE, "Saturn Iron Ore");
+        this.block(GCBlocks.SATURN_TITANIUM_ORE, "Saturn Titanium Ore");
+
+        // URANUS NATURAL & ORES
+        this.block(GCBlocks.URANUS_SURFACE, "Uranus Surface Rock");
+        this.block(GCBlocks.URANUS_SUB_SURFACE, "Uranus Sub-Surface Rock");
+        this.block(GCBlocks.URANUS_STONE, "Uranus Stone");
+        this.block(GCBlocks.URANUS_METHANE_ICE, "Uranus Methane Ice");
+        this.block(GCBlocks.URANUS_VERONA_SCARP_ROCK, "Uranus Verona Scarp Rock");
+        this.block(GCBlocks.URANUS_SUPERIONIC_MANTLE_ROCK, "Uranus Superionic Mantle Rock");
+        this.block(GCBlocks.URANUS_DIAMOND_BEARING_ROCK, "Uranus Diamond-Bearing Rock");
+        this.block(GCBlocks.URANUS_STONE_BRICKS, "Uranus Stone Bricks");
+        this.block(GCBlocks.URANUS_COPPER_ORE, "Uranus Copper Ore");
+        this.block(GCBlocks.URANUS_TIN_ORE, "Uranus Tin Ore");
+        this.block(GCBlocks.URANUS_ALUMINUM_ORE, "Uranus Aluminum Ore");
+        this.block(GCBlocks.URANUS_TITANIUM_ORE, "Uranus Titanium Ore");
+
+        // NEPTUNE NATURAL & ORES
+        this.block(GCBlocks.NEPTUNE_SURFACE, "Neptune Surface Rock");
+        this.block(GCBlocks.NEPTUNE_SUB_SURFACE, "Neptune Sub-Surface Rock");
+        this.block(GCBlocks.NEPTUNE_STONE, "Neptune Stone");
+        this.block(GCBlocks.NEPTUNE_NITROGEN_ICE, "Neptune Nitrogen Ice");
+        this.block(GCBlocks.NEPTUNE_DARK_VORTEX_ROCK, "Neptune Dark Vortex Rock");
+        this.block(GCBlocks.NEPTUNE_CRYO_SLATE, "Neptune Cryo-Slate");
+        this.block(GCBlocks.NEPTUNE_ABYSSAL_MANTLE_ROCK, "Neptune Abyssal Mantle Rock");
+        this.block(GCBlocks.NEPTUNE_STONE_BRICKS, "Neptune Stone Bricks");
+        this.block(GCBlocks.NEPTUNE_COPPER_ORE, "Neptune Copper Ore");
+        this.block(GCBlocks.NEPTUNE_TIN_ORE, "Neptune Tin Ore");
+        this.block(GCBlocks.NEPTUNE_IRON_ORE, "Neptune Iron Ore");
+        this.block(GCBlocks.NEPTUNE_TITANIUM_ORE, "Neptune Titanium Ore");
+
         // MISC DECOR
         this.block(GCBlocks.WALKWAY, "Walkway");
         this.block(GCBlocks.FLUID_PIPE_WALKWAY, "Fluid Pipe Walkway");
@@ -948,6 +1004,42 @@ public class GCTranslationProvider extends TranslationProvider {
         this.add(GCBiomes.Mercury.TECTONIC_CHASMS, "Tectonic Chasms");
         this.add(GCBiomes.Mercury.MAGMA_DEPTHS, "Magma Depths");
         this.add(GCBiomes.Mercury.HOLLOW_LABYRINTH, "Volatile Hollow Labyrinth");
+
+        this.add(GCBiomes.Jupiter.AMMONIA_PLAINS, "Ammonia Cloud Plains");
+        this.add(GCBiomes.Jupiter.GREAT_RED_SPOT, "Great Red Spot Vortex");
+        this.add(GCBiomes.Jupiter.SULFURIC_BELTS, "Sulfuric Storm Belts");
+        this.add(GCBiomes.Jupiter.METALLIC_RIDGES, "Metallic Hydrogen Ridges");
+        this.add(GCBiomes.Jupiter.POLAR_AURORA_CRATERS, "Polar Aurora Craters");
+        this.add(GCBiomes.Jupiter.METALLIC_HYDROGEN_CAVERNS, "Metallic Hydrogen Caverns");
+        this.add(GCBiomes.Jupiter.CYCLONIC_RIFTS, "Cyclonic Rifts");
+        this.add(GCBiomes.Jupiter.CORE_MAGMA_DEPTHS, "Core Magma Depths");
+
+        this.add(GCBiomes.Saturn.GOLDEN_HAZE_PLAINS, "Golden Haze Plains");
+        this.add(GCBiomes.Saturn.HYDROCARBON_SEAS, "Hydrocarbon Seas");
+        this.add(GCBiomes.Saturn.RING_SHADOW_HIGHLANDS, "Ring Shadow Highlands");
+        this.add(GCBiomes.Saturn.AMMONIA_STORM_BANDS, "Ammonia Storm Bands");
+        this.add(GCBiomes.Saturn.HEXAGON_POLAR_VORTEX, "Hexagon Polar Vortex");
+        this.add(GCBiomes.Saturn.HELIUM_RAIN_CAVERNS, "Helium Rain Caverns");
+        this.add(GCBiomes.Saturn.CRYSTALLINE_RING_TUBES, "Crystalline Ring Tubes");
+        this.add(GCBiomes.Saturn.MANTLE_CORE_ABYSS, "Mantle Core Abyss");
+
+        this.add(GCBiomes.Uranus.FROZEN_METHANE_PLAINS, "Frozen Methane Plains");
+        this.add(GCBiomes.Uranus.MIRANDA_VERONA_CLIFFS, "Miranda Verona Cliffs");
+        this.add(GCBiomes.Uranus.CRYO_GEYSER_BASIN, "Cryo-Geyser Basin");
+        this.add(GCBiomes.Uranus.TILTED_POLAR_CAPS, "Tilted Polar Caps");
+        this.add(GCBiomes.Uranus.RING_DEBRIS_BADLANDS, "Ring Debris Badlands");
+        this.add(GCBiomes.Uranus.DIAMOND_MANTLE_CAVERNS, "Diamond Mantle Caverns");
+        this.add(GCBiomes.Uranus.GLACIAL_FAULT_CHASMS, "Glacial Fault Chasms");
+        this.add(GCBiomes.Uranus.SUPERIONIC_ICE_DEPTHS, "Superionic Ice Depths");
+
+        this.add(GCBiomes.Neptune.AZURE_METHANE_PLAINS, "Azure Methane Plains");
+        this.add(GCBiomes.Neptune.GREAT_DARK_SPOT, "Great Dark Spot");
+        this.add(GCBiomes.Neptune.TRITON_NITROGEN_GEYSERS, "Triton Nitrogen Geysers");
+        this.add(GCBiomes.Neptune.SUPERSONIC_WIND_RIDGES, "Supersonic Wind Ridges");
+        this.add(GCBiomes.Neptune.CRYOGENIC_POLAR_ABYSS, "Cryogenic Polar Abyss");
+        this.add(GCBiomes.Neptune.DIAMOND_RAIN_CAVERNS, "Diamond Rain Caverns");
+        this.add(GCBiomes.Neptune.CRYO_MAGMA_TUBES, "Cryo-Magma Tubes");
+        this.add(GCBiomes.Neptune.ABYSSAL_MANTLE_DEPTHS, "Abyssal Mantle Depths");
     }
 
     protected void generateChatTranslations() {

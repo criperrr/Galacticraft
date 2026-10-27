@@ -1,0 +1,12 @@
+{
+  "feature": "galacticraft:neptune_great_dark_vortex",
+  "placement": [
+    {
+      "type": "minecraft:count",
+      "count": 1
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

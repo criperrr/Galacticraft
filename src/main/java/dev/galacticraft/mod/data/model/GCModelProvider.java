@@ -163,6 +163,62 @@ public class GCModelProvider extends FabricModelProvider {
         generator.createTrivialCube(GCBlocks.MERCURY_GRAPHITE_ORE);
         generator.createTrivialCube(GCBlocks.MERCURY_SULFIDE_ORE);
 
+        // JUPITER NATURAL & ORES
+        generator.createTrivialCube(GCBlocks.JUPITER_SURFACE);
+        generator.createTrivialCube(GCBlocks.JUPITER_SUB_SURFACE);
+        generator.createTrivialCube(GCBlocks.JUPITER_STONE);
+        generator.createTrivialCube(GCBlocks.JUPITER_RED_STORM_ROCK);
+        generator.createTrivialCube(GCBlocks.JUPITER_BANDED_OCHRE_ROCK);
+        generator.createTrivialCube(GCBlocks.JUPITER_METALLIC_HYDROGEN_ROCK);
+        generator.createTrivialCube(GCBlocks.JUPITER_CORE_BRECCIA);
+        generator.createTrivialCube(GCBlocks.JUPITER_STONE_BRICKS);
+        generator.createTrivialCube(GCBlocks.JUPITER_COPPER_ORE);
+        generator.createTrivialCube(GCBlocks.JUPITER_TIN_ORE);
+        generator.createTrivialCube(GCBlocks.JUPITER_IRON_ORE);
+        generator.createTrivialCube(GCBlocks.JUPITER_ALUMINUM_ORE);
+
+        // SATURN NATURAL & ORES
+        generator.createTrivialCube(GCBlocks.SATURN_SURFACE);
+        generator.createTrivialCube(GCBlocks.SATURN_SUB_SURFACE);
+        generator.createTrivialCube(GCBlocks.SATURN_STONE);
+        generator.createTrivialCube(GCBlocks.SATURN_GOLDEN_BAND_ROCK);
+        generator.createTrivialCube(GCBlocks.SATURN_RING_ICE_ROCK);
+        generator.createTrivialCube(GCBlocks.SATURN_HYDROCARBON_SLATE);
+        generator.createTrivialCube(GCBlocks.SATURN_HELIUM_MANTLE_ROCK);
+        generator.createTrivialCube(GCBlocks.SATURN_STONE_BRICKS);
+        generator.createTrivialCube(GCBlocks.SATURN_COPPER_ORE);
+        generator.createTrivialCube(GCBlocks.SATURN_TIN_ORE);
+        generator.createTrivialCube(GCBlocks.SATURN_IRON_ORE);
+        generator.createTrivialCube(GCBlocks.SATURN_TITANIUM_ORE);
+
+        // URANUS NATURAL & ORES
+        generator.createTrivialCube(GCBlocks.URANUS_SURFACE);
+        generator.createTrivialCube(GCBlocks.URANUS_SUB_SURFACE);
+        generator.createTrivialCube(GCBlocks.URANUS_STONE);
+        generator.createTrivialCube(GCBlocks.URANUS_METHANE_ICE);
+        generator.createTrivialCube(GCBlocks.URANUS_VERONA_SCARP_ROCK);
+        generator.createTrivialCube(GCBlocks.URANUS_SUPERIONIC_MANTLE_ROCK);
+        generator.createTrivialCube(GCBlocks.URANUS_DIAMOND_BEARING_ROCK);
+        generator.createTrivialCube(GCBlocks.URANUS_STONE_BRICKS);
+        generator.createTrivialCube(GCBlocks.URANUS_COPPER_ORE);
+        generator.createTrivialCube(GCBlocks.URANUS_TIN_ORE);
+        generator.createTrivialCube(GCBlocks.URANUS_ALUMINUM_ORE);
+        generator.createTrivialCube(GCBlocks.URANUS_TITANIUM_ORE);
+
+        // NEPTUNE NATURAL & ORES
+        generator.createTrivialCube(GCBlocks.NEPTUNE_SURFACE);
+        generator.createTrivialCube(GCBlocks.NEPTUNE_SUB_SURFACE);
+        generator.createTrivialCube(GCBlocks.NEPTUNE_STONE);
+        generator.createTrivialCube(GCBlocks.NEPTUNE_NITROGEN_ICE);
+        generator.createTrivialCube(GCBlocks.NEPTUNE_DARK_VORTEX_ROCK);
+        generator.createTrivialCube(GCBlocks.NEPTUNE_CRYO_SLATE);
+        generator.createTrivialCube(GCBlocks.NEPTUNE_ABYSSAL_MANTLE_ROCK);
+        generator.createTrivialCube(GCBlocks.NEPTUNE_STONE_BRICKS);
+        generator.createTrivialCube(GCBlocks.NEPTUNE_COPPER_ORE);
+        generator.createTrivialCube(GCBlocks.NEPTUNE_TIN_ORE);
+        generator.createTrivialCube(GCBlocks.NEPTUNE_IRON_ORE);
+        generator.createTrivialCube(GCBlocks.NEPTUNE_TITANIUM_ORE);
+
         // MISC DECOR
         generator.createNonTemplateHorizontalBlock(GCBlocks.TIN_LADDER);
         generator.createSimpleFlatItemModel(GCBlocks.TIN_LADDER);

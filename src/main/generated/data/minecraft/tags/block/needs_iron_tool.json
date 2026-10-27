@@ -5,6 +5,12 @@
     "galacticraft:asteroid_silicon_ore",
     "galacticraft:fallen_meteor",
     "galacticraft:lunar_sapphire_ore",
-    "galacticraft:silicon_block"
+    "galacticraft:silicon_block",
+    "galacticraft:jupiter_metallic_hydrogen_rock",
+    "galacticraft:jupiter_core_breccia",
+    "galacticraft:saturn_helium_mantle_rock",
+    "galacticraft:uranus_superionic_mantle_rock",
+    "galacticraft:uranus_diamond_bearing_rock",
+    "galacticraft:neptune_abyssal_mantle_rock"
   ]
 }

@@ -40,6 +40,10 @@ public class GCBlockTags {
     public static final TagKey<Block> INFINIBURN_ASTEROID = galacticraftTag("infiniburn_asteroid");
     public static final TagKey<Block> INFINIBURN_SATELLITE = galacticraftTag("infiniburn_satellite");
     public static final TagKey<Block> INFINIBURN_MERCURY = galacticraftTag("infiniburn_mercury");
+    public static final TagKey<Block> INFINIBURN_JUPITER = galacticraftTag("infiniburn_jupiter");
+    public static final TagKey<Block> INFINIBURN_SATURN = galacticraftTag("infiniburn_saturn");
+    public static final TagKey<Block> INFINIBURN_URANUS = galacticraftTag("infiniburn_uranus");
+    public static final TagKey<Block> INFINIBURN_NEPTUNE = galacticraftTag("infiniburn_neptune");
 
     public static final TagKey<Block> BASE_STONE_MOON = galacticraftTag("base_stone_moon");
     public static final TagKey<Block> BASE_STONE_MARS = galacticraftTag("base_stone_mars");
@@ -49,6 +53,10 @@ public class GCBlockTags {
     public static final TagKey<Block> MARS_CRATER_CARVER_REPLACEABLES = galacticraftTag("mars_crater_carver_replaceables");
     public static final TagKey<Block> VENUS_CARVER_REPLACEABLES = galacticraftTag("venus_carver_replaceables");
     public static final TagKey<Block> MERCURY_CARVER_REPLACEABLES = galacticraftTag("mercury_carver_replaceables");
+    public static final TagKey<Block> JUPITER_CARVER_REPLACEABLES = galacticraftTag("jupiter_carver_replaceables");
+    public static final TagKey<Block> SATURN_CARVER_REPLACEABLES = galacticraftTag("saturn_carver_replaceables");
+    public static final TagKey<Block> URANUS_CARVER_REPLACEABLES = galacticraftTag("uranus_carver_replaceables");
+    public static final TagKey<Block> NEPTUNE_CARVER_REPLACEABLES = galacticraftTag("neptune_carver_replaceables");
 
     public static final TagKey<Block> MOON_ROCK_ORE_REPLACEABLES = galacticraftTag("moon_rock_ore_replaceables");
     public static final TagKey<Block> MOON_BASALT_ORE_REPLACEABLES = galacticraftTag("moon_basalt_ore_replaceables");
@@ -57,6 +65,10 @@ public class GCBlockTags {
     public static final TagKey<Block> ASTEROID_ROCK_ORE_REPLACEABLES = galacticraftTag("asteroid_rock_ore_replaceables");
     public static final TagKey<Block> SOFT_VENUS_ROCK_ORE_REPLACEABLES = galacticraftTag("soft_venus_rock_ore_replaceables");
     public static final TagKey<Block> HARD_VENUS_ROCK_ORE_REPLACEABLES = galacticraftTag("hard_venus_rock_ore_replaceables");
+    public static final TagKey<Block> JUPITER_ROCK_ORE_REPLACEABLES = galacticraftTag("jupiter_rock_ore_replaceables");
+    public static final TagKey<Block> SATURN_ROCK_ORE_REPLACEABLES = galacticraftTag("saturn_rock_ore_replaceables");
+    public static final TagKey<Block> URANUS_ROCK_ORE_REPLACEABLES = galacticraftTag("uranus_rock_ore_replaceables");
+    public static final TagKey<Block> NEPTUNE_ROCK_ORE_REPLACEABLES = galacticraftTag("neptune_rock_ore_replaceables");
 
     public static final TagKey<Block> ORE_BEARING_GROUND_MOON_ROCK = commonTag("ore_bearing_ground/moon_rock");
     public static final TagKey<Block> ORE_BEARING_GROUND_MOON_BASALT = commonTag("ore_bearing_ground/moon_basalt");

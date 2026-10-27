@@ -56,6 +56,14 @@ public class GCConfiguredCarvers {
     public static final ResourceKey<ConfiguredWorldCarver<?>> MERCURY_SKYLIGHT_CARVER = key(Constant.Carver.MERCURY_SKYLIGHT_CARVER);
     public static final ResourceKey<ConfiguredWorldCarver<?>> MERCURY_SUBLIMATION_FUNNEL_CARVER = key(Constant.Carver.MERCURY_SUBLIMATION_FUNNEL_CARVER);
     public static final ResourceKey<ConfiguredWorldCarver<?>> MERCURY_CAVE_CARVER = key(Constant.Carver.MERCURY_CAVE_CARVER);
+    public static final ResourceKey<ConfiguredWorldCarver<?>> JUPITER_CAVE_CARVER = key(Constant.Carver.JUPITER_CAVE_CARVER);
+    public static final ResourceKey<ConfiguredWorldCarver<?>> JUPITER_CANYON_CARVER = key(Constant.Carver.JUPITER_CANYON_CARVER);
+    public static final ResourceKey<ConfiguredWorldCarver<?>> SATURN_CAVE_CARVER = key(Constant.Carver.SATURN_CAVE_CARVER);
+    public static final ResourceKey<ConfiguredWorldCarver<?>> SATURN_CANYON_CARVER = key(Constant.Carver.SATURN_CANYON_CARVER);
+    public static final ResourceKey<ConfiguredWorldCarver<?>> URANUS_CAVE_CARVER = key(Constant.Carver.URANUS_CAVE_CARVER);
+    public static final ResourceKey<ConfiguredWorldCarver<?>> URANUS_CANYON_CARVER = key(Constant.Carver.URANUS_CANYON_CARVER);
+    public static final ResourceKey<ConfiguredWorldCarver<?>> NEPTUNE_CAVE_CARVER = key(Constant.Carver.NEPTUNE_CAVE_CARVER);
+    public static final ResourceKey<ConfiguredWorldCarver<?>> NEPTUNE_CANYON_CARVER = key(Constant.Carver.NEPTUNE_CANYON_CARVER);
 
     @Contract(pure = true)
     private static @NotNull ResourceKey<ConfiguredWorldCarver<?>> key(String s) {
@@ -275,6 +283,118 @@ public class GCConfiguredCarvers {
                 UniformFloat.of(0.9f, 1.8f),
                 UniformFloat.of(0.8f, 1.5f),
                 UniformFloat.of(-1.0f, -0.4f)
+        )));
+
+        // ==========================================
+        // OUTER SOLAR SYSTEM PLANETS (JUPITER, SATURN, URANUS, NEPTUNE)
+        // ==========================================
+        context.register(JUPITER_CAVE_CARVER, WorldCarver.CAVE.configured(new CaveCarverConfiguration(
+                0.15f,
+                UniformHeight.of(VerticalAnchor.aboveBottom(8), VerticalAnchor.absolute(140)),
+                UniformFloat.of(0.15f, 0.85f),
+                VerticalAnchor.aboveBottom(16),
+                BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.JUPITER_CARVER_REPLACEABLES),
+                UniformFloat.of(1.0f, 2.0f),
+                UniformFloat.of(0.85f, 1.4f),
+                UniformFloat.of(-0.9f, -0.4f)
+        )));
+        context.register(JUPITER_CANYON_CARVER, WorldCarver.CANYON.configured(new CanyonCarverConfiguration(
+                0.05f,
+                UniformHeight.of(VerticalAnchor.absolute(16), VerticalAnchor.absolute(85)),
+                ConstantFloat.of(3.2f),
+                VerticalAnchor.aboveBottom(16),
+                CarverDebugSettings.DEFAULT,
+                BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.JUPITER_CARVER_REPLACEABLES),
+                UniformFloat.of(-0.10f, 0.10f),
+                new CanyonCarverConfiguration.CanyonShapeConfiguration(
+                        UniformFloat.of(0.8f, 1.2f),
+                        TrapezoidFloat.of(0, 7, 2),
+                        3,
+                        UniformFloat.of(0.8f, 1.1f),
+                        1.0f,
+                        0.0f)
+        )));
+
+        context.register(SATURN_CAVE_CARVER, WorldCarver.CAVE.configured(new CaveCarverConfiguration(
+                0.14f,
+                UniformHeight.of(VerticalAnchor.aboveBottom(8), VerticalAnchor.absolute(135)),
+                UniformFloat.of(0.15f, 0.80f),
+                VerticalAnchor.aboveBottom(12),
+                BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.SATURN_CARVER_REPLACEABLES),
+                UniformFloat.of(0.95f, 1.85f),
+                UniformFloat.of(0.8f, 1.35f),
+                UniformFloat.of(-0.9f, -0.4f)
+        )));
+        context.register(SATURN_CANYON_CARVER, WorldCarver.CANYON.configured(new CanyonCarverConfiguration(
+                0.045f,
+                UniformHeight.of(VerticalAnchor.absolute(16), VerticalAnchor.absolute(85)),
+                ConstantFloat.of(3.0f),
+                VerticalAnchor.aboveBottom(12),
+                CarverDebugSettings.DEFAULT,
+                BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.SATURN_CARVER_REPLACEABLES),
+                UniformFloat.of(-0.10f, 0.10f),
+                new CanyonCarverConfiguration.CanyonShapeConfiguration(
+                        UniformFloat.of(0.8f, 1.15f),
+                        TrapezoidFloat.of(0, 7, 2),
+                        3,
+                        UniformFloat.of(0.8f, 1.1f),
+                        1.0f,
+                        0.0f)
+        )));
+
+        context.register(URANUS_CAVE_CARVER, WorldCarver.CAVE.configured(new CaveCarverConfiguration(
+                0.12f,
+                UniformHeight.of(VerticalAnchor.aboveBottom(8), VerticalAnchor.absolute(145)),
+                UniformFloat.of(0.15f, 0.75f),
+                VerticalAnchor.aboveBottom(10),
+                BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.URANUS_CARVER_REPLACEABLES),
+                UniformFloat.of(1.0f, 1.9f),
+                UniformFloat.of(0.85f, 1.4f),
+                UniformFloat.of(-0.85f, -0.35f)
+        )));
+        context.register(URANUS_CANYON_CARVER, WorldCarver.CANYON.configured(new CanyonCarverConfiguration(
+                0.05f,
+                UniformHeight.of(VerticalAnchor.absolute(25), VerticalAnchor.absolute(110)),
+                ConstantFloat.of(3.5f),
+                VerticalAnchor.aboveBottom(10),
+                CarverDebugSettings.DEFAULT,
+                BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.URANUS_CARVER_REPLACEABLES),
+                UniformFloat.of(-0.08f, 0.08f),
+                new CanyonCarverConfiguration.CanyonShapeConfiguration(
+                        UniformFloat.of(0.8f, 1.25f),
+                        TrapezoidFloat.of(0, 9, 2),
+                        3,
+                        UniformFloat.of(0.85f, 1.15f),
+                        1.0f,
+                        0.0f)
+        )));
+
+        // Neptune: Smooth sub-glacial cryo-conduits & linear tectonic grabens
+        context.register(NEPTUNE_CAVE_CARVER, WorldCarver.CAVE.configured(new CaveCarverConfiguration(
+                0.09f,
+                UniformHeight.of(VerticalAnchor.aboveBottom(16), VerticalAnchor.absolute(98)),
+                UniformFloat.of(0.20f, 0.55f),
+                VerticalAnchor.aboveBottom(12),
+                BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.NEPTUNE_CARVER_REPLACEABLES),
+                UniformFloat.of(1.2f, 2.1f),
+                UniformFloat.of(0.75f, 1.15f),
+                UniformFloat.of(-0.75f, -0.35f)
+        )));
+        context.register(NEPTUNE_CANYON_CARVER, WorldCarver.CANYON.configured(new CanyonCarverConfiguration(
+                0.035f,
+                UniformHeight.of(VerticalAnchor.absolute(35), VerticalAnchor.absolute(104)),
+                ConstantFloat.of(3.0f),
+                VerticalAnchor.aboveBottom(12),
+                CarverDebugSettings.DEFAULT,
+                BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.NEPTUNE_CARVER_REPLACEABLES),
+                UniformFloat.of(-0.05f, 0.05f),
+                new CanyonCarverConfiguration.CanyonShapeConfiguration(
+                        UniformFloat.of(0.9f, 1.3f),
+                        TrapezoidFloat.of(0, 8, 2),
+                        3,
+                        UniformFloat.of(0.85f, 1.1f),
+                        1.0f,
+                        0.0f)
         )));
     }
 }

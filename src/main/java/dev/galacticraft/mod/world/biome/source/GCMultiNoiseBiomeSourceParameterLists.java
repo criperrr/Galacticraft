@@ -89,6 +89,10 @@ public class GCMultiNoiseBiomeSourceParameterLists {
     public static final ResourceLocation VENUS_PRESET_ID = Constant.id("venus");
     public static final ResourceLocation ASTEROID_PRESET_ID = Constant.id("asteroid");
     public static final ResourceLocation MERCURY_PRESET_ID = Constant.id("mercury");
+    public static final ResourceLocation JUPITER_PRESET_ID = Constant.id("jupiter");
+    public static final ResourceLocation SATURN_PRESET_ID = Constant.id("saturn");
+    public static final ResourceLocation URANUS_PRESET_ID = Constant.id("uranus");
+    public static final ResourceLocation NEPTUNE_PRESET_ID = Constant.id("neptune");
     public static final MultiNoiseBiomeSourceParameterList.Preset MOON_PRESET = new MultiNoiseBiomeSourceParameterList.Preset(
             MOON_PRESET_ID, GCMultiNoiseBiomeSourceParameterLists::generateMoon
     );
@@ -104,12 +108,28 @@ public class GCMultiNoiseBiomeSourceParameterLists {
     public static final MultiNoiseBiomeSourceParameterList.Preset MERCURY_PRESET = new MultiNoiseBiomeSourceParameterList.Preset(
             MERCURY_PRESET_ID, GCMultiNoiseBiomeSourceParameterLists::generateMercury
     );
+    public static final MultiNoiseBiomeSourceParameterList.Preset JUPITER_PRESET = new MultiNoiseBiomeSourceParameterList.Preset(
+            JUPITER_PRESET_ID, GCMultiNoiseBiomeSourceParameterLists::generateJupiter
+    );
+    public static final MultiNoiseBiomeSourceParameterList.Preset SATURN_PRESET = new MultiNoiseBiomeSourceParameterList.Preset(
+            SATURN_PRESET_ID, GCMultiNoiseBiomeSourceParameterLists::generateSaturn
+    );
+    public static final MultiNoiseBiomeSourceParameterList.Preset URANUS_PRESET = new MultiNoiseBiomeSourceParameterList.Preset(
+            URANUS_PRESET_ID, GCMultiNoiseBiomeSourceParameterLists::generateUranus
+    );
+    public static final MultiNoiseBiomeSourceParameterList.Preset NEPTUNE_PRESET = new MultiNoiseBiomeSourceParameterList.Preset(
+            NEPTUNE_PRESET_ID, GCMultiNoiseBiomeSourceParameterLists::generateNeptune
+    );
 
     public static final ResourceKey<MultiNoiseBiomeSourceParameterList> MOON = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "moon");
     public static final ResourceKey<MultiNoiseBiomeSourceParameterList> MARS = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "mars");
     public static final ResourceKey<MultiNoiseBiomeSourceParameterList> VENUS = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "venus");
     public static final ResourceKey<MultiNoiseBiomeSourceParameterList> ASTEROID = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "asteroid");
     public static final ResourceKey<MultiNoiseBiomeSourceParameterList> MERCURY = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "mercury");
+    public static final ResourceKey<MultiNoiseBiomeSourceParameterList> JUPITER = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "jupiter");
+    public static final ResourceKey<MultiNoiseBiomeSourceParameterList> SATURN = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "saturn");
+    public static final ResourceKey<MultiNoiseBiomeSourceParameterList> URANUS = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "uranus");
+    public static final ResourceKey<MultiNoiseBiomeSourceParameterList> NEPTUNE = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "neptune");
 
     @Contract("_ -> new")
     private static <T> Climate.@NotNull ParameterList<T> generateMoon(Function<ResourceKey<Biome>, T> biomeRegistry) {
@@ -409,6 +429,250 @@ public class GCMultiNoiseBiomeSourceParameterLists {
         return new Climate.ParameterList<>(builder.build());
     }
 
+    /**
+     * Generates a 100%-complete, zero-gap 6D Multi-Noise parameter list for an outer planet
+     * with 5 surface biomes (aligned with continentalness splines & temperature) and 3 subterranean 3D biomes.
+     *
+     * <p>Strictly enforces SKILL.md Section 7:
+     * <ul>
+     *   <li>Surface biomes cover {@code depth in [-1.0F, 0.18F]} across 100% of {@code continentalness} and {@code temperature}
+     *       with {@code FULL_RANGE} on {@code humidity}, {@code erosion}, and {@code weirdness}, preventing any 3D cave biome
+     *       from leaking onto the surface.</li>
+     *   <li>Subterranean biomes cover {@code depth in [0.18F, 2.0F]} across 100% of the 5 horizontal axes, preventing
+     *       surface biomes from leaking into deep caverns.</li>
+     * </ul>
+     */
+    private static <T> Climate.@NotNull ParameterList<T> buildOuterPlanet3dBiomes(
+            Function<ResourceKey<Biome>, T> biomeRegistry,
+            ResourceKey<Biome> polarBasinBiome,
+            ResourceKey<Biome> deepVortexBasinBiome,
+            ResourceKey<Biome> stormLowlandBiome,
+            ResourceKey<Biome> mainPlainsBiome,
+            ResourceKey<Biome> highRidgeBiome,
+            ResourceKey<Biome> midCavernBiome,
+            ResourceKey<Biome> riftTubeBiome,
+            ResourceKey<Biome> basalCoreDepthsBiome
+    ) {
+        ImmutableList.Builder<Pair<Climate.ParameterPoint, T>> builder = ImmutableList.builder();
+        Parameter surfaceDepth = Parameter.span(-1.0F, 0.18F);
+
+        // =====================================================================
+        // 1. SURFACE BIOMES (depth <= 0.18, 100% 2D Temperature x Continentalness Grid)
+        // Strict alignment with Temperature (T) and Continentalness (C) with wide,
+        // balanced regions so biomes are expansive and transition naturally:
+        //   * Low Continentalness Basins (C in [-1.0, -0.22]):
+        //     - Cold Polar (T in [-1.0, -0.15]) -> polarBasinBiome
+        //     - Temperate & Warm (T in [-0.15, 1.0]) -> deepVortexBasinBiome
+        //   * Mid Continentalness Plains & Belts (C in [-0.22, 0.32]):
+        //     - Cold Polar Extension (T in [-1.0, -0.35]) -> polarBasinBiome
+        //     - Temperate Plains (T in [-0.35, 0.25]) -> mainPlainsBiome
+        //     - Warm Storm Belts (T in [0.25, 1.0]) -> stormLowlandBiome
+        //   * High Continentalness Plateaus & Ridges (C in [0.32, 1.0]):
+        //     - Cold to Temperate Ridges (T in [-1.0, 0.45]) -> highRidgeBiome
+        //     - Hot Cyclonic Highlands (T in [0.45, 1.0]) -> stormLowlandBiome
+        // =====================================================================
+        // (1a) Low-continentalness basins [-1.0, -0.22]:
+        writeMercury3dBiome(
+                builder::add,
+                Parameter.span(-1.0F, -0.15F),
+                FULL_RANGE,
+                Parameter.span(-1.0F, -0.22F),
+                FULL_RANGE,
+                surfaceDepth,
+                FULL_RANGE,
+                0.0F,
+                biomeRegistry.apply(polarBasinBiome)
+        );
+        writeMercury3dBiome(
+                builder::add,
+                Parameter.span(-0.15F, 1.0F),
+                FULL_RANGE,
+                Parameter.span(-1.0F, -0.22F),
+                FULL_RANGE,
+                surfaceDepth,
+                FULL_RANGE,
+                0.0F,
+                biomeRegistry.apply(deepVortexBasinBiome)
+        );
+
+        // (1b) Mid-continentalness plains & storm bands [-0.22, 0.32]:
+        writeMercury3dBiome(
+                builder::add,
+                Parameter.span(-1.0F, -0.35F),
+                FULL_RANGE,
+                Parameter.span(-0.22F, 0.32F),
+                FULL_RANGE,
+                surfaceDepth,
+                FULL_RANGE,
+                0.0F,
+                biomeRegistry.apply(polarBasinBiome)
+        );
+        writeMercury3dBiome(
+                builder::add,
+                Parameter.span(-0.35F, 0.25F),
+                FULL_RANGE,
+                Parameter.span(-0.22F, 0.32F),
+                FULL_RANGE,
+                surfaceDepth,
+                FULL_RANGE,
+                0.0F,
+                biomeRegistry.apply(mainPlainsBiome)
+        );
+        writeMercury3dBiome(
+                builder::add,
+                Parameter.span(0.25F, 1.0F),
+                FULL_RANGE,
+                Parameter.span(-0.22F, 0.32F),
+                FULL_RANGE,
+                surfaceDepth,
+                FULL_RANGE,
+                0.0F,
+                biomeRegistry.apply(stormLowlandBiome)
+        );
+
+        // (1c) High-continentalness plateaus, scarps & ridges [0.32, 1.0]:
+        writeMercury3dBiome(
+                builder::add,
+                Parameter.span(-1.0F, 0.45F),
+                FULL_RANGE,
+                Parameter.span(0.32F, 1.0F),
+                FULL_RANGE,
+                surfaceDepth,
+                FULL_RANGE,
+                0.0F,
+                biomeRegistry.apply(highRidgeBiome)
+        );
+        writeMercury3dBiome(
+                builder::add,
+                Parameter.span(0.45F, 1.0F),
+                FULL_RANGE,
+                Parameter.span(0.32F, 1.0F),
+                FULL_RANGE,
+                surfaceDepth,
+                FULL_RANGE,
+                0.0F,
+                biomeRegistry.apply(stormLowlandBiome)
+        );
+
+        // =====================================================================
+        // 2. SUBTERRANEAN 3D BIOMES (depth > 0.18, 100% 5D partition)
+        // =====================================================================
+        Parameter midSubterraneanDepth = Parameter.span(0.18F, 1.05F);
+        Parameter deepBasalDepth = Parameter.span(1.05F, 2.0F);
+
+        // (2a) Main mantle caverns (weirdness in [-0.45, 0.45])
+        writeMercury3dBiome(
+                builder::add,
+                FULL_RANGE,
+                FULL_RANGE,
+                FULL_RANGE,
+                FULL_RANGE,
+                midSubterraneanDepth,
+                Parameter.span(-0.45F, 0.45F),
+                0.0F,
+                biomeRegistry.apply(midCavernBiome)
+        );
+
+        // (2b) Tectonic rifts, glacial fault chasms & conduits (weirdness in [-1.0, -0.45] U [0.45, 1.0])
+        writeMercury3dBiome(
+                builder::add,
+                FULL_RANGE,
+                FULL_RANGE,
+                FULL_RANGE,
+                FULL_RANGE,
+                midSubterraneanDepth,
+                Parameter.span(-1.0F, -0.45F),
+                0.0F,
+                biomeRegistry.apply(riftTubeBiome)
+        );
+        writeMercury3dBiome(
+                builder::add,
+                FULL_RANGE,
+                FULL_RANGE,
+                FULL_RANGE,
+                FULL_RANGE,
+                midSubterraneanDepth,
+                Parameter.span(0.45F, 1.0F),
+                0.0F,
+                biomeRegistry.apply(riftTubeBiome)
+        );
+
+        // (2c) Basal core / superionic / abyssal mantle depths (depth in [1.05, 2.0])
+        writeMercury3dBiome(
+                builder::add,
+                FULL_RANGE,
+                FULL_RANGE,
+                FULL_RANGE,
+                FULL_RANGE,
+                deepBasalDepth,
+                FULL_RANGE,
+                0.0F,
+                biomeRegistry.apply(basalCoreDepthsBiome)
+        );
+
+        return new Climate.ParameterList<>(builder.build());
+    }
+
+    @Contract("_ -> new")
+    private static <T> Climate.@NotNull ParameterList<T> generateJupiter(Function<ResourceKey<Biome>, T> biomeRegistry) {
+        return buildOuterPlanet3dBiomes(
+                biomeRegistry,
+                GCBiomes.Jupiter.POLAR_AURORA_CRATERS,
+                GCBiomes.Jupiter.GREAT_RED_SPOT,
+                GCBiomes.Jupiter.SULFURIC_BELTS,
+                GCBiomes.Jupiter.AMMONIA_PLAINS,
+                GCBiomes.Jupiter.METALLIC_RIDGES,
+                GCBiomes.Jupiter.METALLIC_HYDROGEN_CAVERNS,
+                GCBiomes.Jupiter.CYCLONIC_RIFTS,
+                GCBiomes.Jupiter.CORE_MAGMA_DEPTHS
+        );
+    }
+
+    @Contract("_ -> new")
+    private static <T> Climate.@NotNull ParameterList<T> generateSaturn(Function<ResourceKey<Biome>, T> biomeRegistry) {
+        return buildOuterPlanet3dBiomes(
+                biomeRegistry,
+                GCBiomes.Saturn.HEXAGON_POLAR_VORTEX,
+                GCBiomes.Saturn.HYDROCARBON_SEAS,
+                GCBiomes.Saturn.AMMONIA_STORM_BANDS,
+                GCBiomes.Saturn.GOLDEN_HAZE_PLAINS,
+                GCBiomes.Saturn.RING_SHADOW_HIGHLANDS,
+                GCBiomes.Saturn.HELIUM_RAIN_CAVERNS,
+                GCBiomes.Saturn.CRYSTALLINE_RING_TUBES,
+                GCBiomes.Saturn.MANTLE_CORE_ABYSS
+        );
+    }
+
+    @Contract("_ -> new")
+    private static <T> Climate.@NotNull ParameterList<T> generateUranus(Function<ResourceKey<Biome>, T> biomeRegistry) {
+        return buildOuterPlanet3dBiomes(
+                biomeRegistry,
+                GCBiomes.Uranus.TILTED_POLAR_CAPS,
+                GCBiomes.Uranus.CRYO_GEYSER_BASIN,
+                GCBiomes.Uranus.RING_DEBRIS_BADLANDS,
+                GCBiomes.Uranus.FROZEN_METHANE_PLAINS,
+                GCBiomes.Uranus.MIRANDA_VERONA_CLIFFS,
+                GCBiomes.Uranus.DIAMOND_MANTLE_CAVERNS,
+                GCBiomes.Uranus.GLACIAL_FAULT_CHASMS,
+                GCBiomes.Uranus.SUPERIONIC_ICE_DEPTHS
+        );
+    }
+
+    @Contract("_ -> new")
+    private static <T> Climate.@NotNull ParameterList<T> generateNeptune(Function<ResourceKey<Biome>, T> biomeRegistry) {
+        return buildOuterPlanet3dBiomes(
+                biomeRegistry,
+                GCBiomes.Neptune.CRYOGENIC_POLAR_ABYSS,
+                GCBiomes.Neptune.GREAT_DARK_SPOT,
+                GCBiomes.Neptune.TRITON_NITROGEN_GEYSERS,
+                GCBiomes.Neptune.AZURE_METHANE_PLAINS,
+                GCBiomes.Neptune.SUPERSONIC_WIND_RIDGES,
+                GCBiomes.Neptune.DIAMOND_RAIN_CAVERNS,
+                GCBiomes.Neptune.CRYO_MAGMA_TUBES,
+                GCBiomes.Neptune.ABYSSAL_MANTLE_DEPTHS
+        );
+    }
+
     private static <T> void writeMercury3dBiome(
             Consumer<Pair<Climate.ParameterPoint, T>> parameters,
             Parameter temperature,
@@ -458,6 +722,10 @@ public class GCMultiNoiseBiomeSourceParameterLists {
         MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(VENUS_PRESET_ID, VENUS_PRESET);
         MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(ASTEROID_PRESET_ID, ASTEROID_PRESET);
         MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(MERCURY_PRESET_ID, MERCURY_PRESET);
+        MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(JUPITER_PRESET_ID, JUPITER_PRESET);
+        MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(SATURN_PRESET_ID, SATURN_PRESET);
+        MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(URANUS_PRESET_ID, URANUS_PRESET);
+        MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(NEPTUNE_PRESET_ID, NEPTUNE_PRESET);
     }
 
     public static void bootstrapRegistries(BootstrapContext<MultiNoiseBiomeSourceParameterList> context) {
@@ -467,5 +735,9 @@ public class GCMultiNoiseBiomeSourceParameterLists {
         context.register(VENUS, new MultiNoiseBiomeSourceParameterList(VENUS_PRESET, lookup));
         context.register(ASTEROID, new MultiNoiseBiomeSourceParameterList(ASTEROID_PRESET, lookup));
         context.register(MERCURY, new MultiNoiseBiomeSourceParameterList(MERCURY_PRESET, lookup));
+        context.register(JUPITER, new MultiNoiseBiomeSourceParameterList(JUPITER_PRESET, lookup));
+        context.register(SATURN, new MultiNoiseBiomeSourceParameterList(SATURN_PRESET, lookup));
+        context.register(URANUS, new MultiNoiseBiomeSourceParameterList(URANUS_PRESET, lookup));
+        context.register(NEPTUNE, new MultiNoiseBiomeSourceParameterList(NEPTUNE_PRESET, lookup));
     }
 }

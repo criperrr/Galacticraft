@@ -1,12 +1,23 @@
 {
-  "type": "galacticraft:decorative_planet",
+  "type": "galacticraft:planet",
   "config": {
     "parent": "galacticraft:sol",
+    "access_weight": 7,
     "atmosphere": {
-      "composition": {},
-      "pressure": 3.0E-15,
-      "temperature": 23.0
+      "composition": {
+        "galacticraft:carbon_monoxide": 1.5,
+        "galacticraft:helium": 190000.0,
+        "galacticraft:hydrogen": 800000.0,
+        "galacticraft:hydrogen_deuterium_oxide": 192.0,
+        "galacticraft:methane": 15000.0,
+        "galacticraft:nitrogen": 300.0
+      },
+      "pressure": 7.5,
+      "temperature": -200.0
     },
+    "celestial_handler": "galacticraft:default",
+    "day_length": 16110,
+    "day_temperature": -198,
     "description": {
       "translate": "planet.galacticraft.neptune.description"
     },
@@ -14,6 +25,7 @@
       "type": "galacticraft:icon",
       "config": {
         "height": 16,
+        "rocket_overlay": "galacticraft:textures/gui/rocket/mars_rocket_gui.png",
         "scale": 1.0,
         "texture": "galacticraft:textures/gui/celestialbodies/neptune.png",
         "u": 0,
@@ -21,10 +33,11 @@
         "width": 16
       }
     },
-    "gravity": 0.166,
+    "gravity": 1.14,
     "name": {
       "translate": "planet.galacticraft.neptune"
     },
+    "night_temperature": -215,
     "position": {
       "type": "galacticraft:orbital",
       "config": {
@@ -37,6 +50,8 @@
     "ring": {
       "type": "galacticraft:default",
       "config": {}
-    }
+    },
+    "teleporter": "galacticraft:lander",
+    "world": "galacticraft:neptune"
   }
 }

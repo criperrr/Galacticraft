@@ -1,0 +1,48 @@
+{
+  "type": "galacticraft:planetary_meteor",
+  "config": {
+    "crater_floor_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:saturn_hydrocarbon_slate"
+      }
+    },
+    "ejecta_ores": [
+      {
+        "Name": "galacticraft:saturn_titanium_ore"
+      },
+      {
+        "Name": "galacticraft:saturn_iron_ore"
+      },
+      {
+        "Name": "galacticraft:saturn_tin_ore"
+      }
+    ],
+    "max_crater_radius": 22,
+    "max_meteor_radius": 4,
+    "meteor_core_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:saturn_helium_mantle_rock"
+      }
+    },
+    "meteor_shell_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:saturn_ring_ice_rock"
+      }
+    },
+    "min_crater_radius": 12,
+    "min_meteor_radius": 2,
+    "ore_chance": 4,
+    "region_size": 600.0,
+    "scorched_rim_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:saturn_sub_surface"
+      }
+    },
+    "spawn_probability": 0.24,
+    "spread": 0.75
+  }
+}

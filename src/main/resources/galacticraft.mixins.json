@@ -15,6 +15,7 @@
     "BucketItemMixin",
     "CakeBlockMixin",
     "ChangeOverTimeBlockMixin",
+    "ChunkGeneratorPerfMixin",
     "DimensionTransitionMixin",
     "DimensionTypeMixin",
     "EntityMixin",
@@ -28,12 +29,16 @@
     "MapBannerMixin",
     "MapItemMixin",
     "MinecraftServerDimensionMixin",
+    "MobMixin",
     "ModelProviderMixin",
     "MultiNoiseBiomeSourceParameterListPresetAccessor",
+    "NaturalSpawnerMixin",
+    "NoiseBasedChunkGeneratorPerfMixin",
     "PlayerMixin",
     "ServerLevelMixin",
     "ServerPlayerMixin",
-    "SpiderMixin"
+    "SpiderMixin",
+    "StructureManagerAccessor"
   ],
   "client": [
     "client.AbstractClientPlayerMixin",
@@ -54,6 +59,7 @@
     "client.HumanoidModelMixin",
     "client.ItemInHandRendererMixin",
     "client.LevelRendererMixin",
+    "client.LevelRendererPerfMixin",
     "client.LightningBoltMixin",
     "client.LivingEntityRendererMixin",
     "client.LocalPlayerMixin",

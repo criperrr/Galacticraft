@@ -1,0 +1,35 @@
+{
+  "type": "galacticraft:outer_planet_structure",
+  "config": {
+    "accent_or_crown_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:neptune_abyssal_mantle_rock"
+      }
+    },
+    "core_or_fluid_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:neptune_titanium_ore"
+      }
+    },
+    "kind": "diamondberg",
+    "max_height": 22,
+    "max_radius": 7,
+    "min_height": 10,
+    "min_radius": 4,
+    "primary_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:neptune_nitrogen_ice"
+      }
+    },
+    "secondary_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:neptune_cryo_slate"
+      }
+    },
+    "tilt_strength": 0.15
+  }
+}

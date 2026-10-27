@@ -3,6 +3,8 @@
     "galacticraft:aluminum_ore",
     "galacticraft:deepslate_aluminum_ore",
     "galacticraft:asteroid_aluminum_ore",
-    "galacticraft:venus_aluminum_ore"
+    "galacticraft:venus_aluminum_ore",
+    "galacticraft:jupiter_aluminum_ore",
+    "galacticraft:uranus_aluminum_ore"
   ]
 }

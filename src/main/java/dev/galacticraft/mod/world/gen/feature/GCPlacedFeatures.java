@@ -61,6 +61,34 @@ public class GCPlacedFeatures {
     public static final ResourceKey<PlacedFeature> MERCURY_MEGABRECCIA_SPELEOTHEM = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("mercury_megabreccia_speleothem"));
     public static final ResourceKey<PlacedFeature> MERCURY_LAVA_LAKE = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("mercury_lava_lake"));
 
+    // JUPITER (Base Y ~ 80)
+    public static final ResourceKey<PlacedFeature> JUPITER_CYCLONE_VOLCANO = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("jupiter_cyclone_volcano"));
+    public static final ResourceKey<PlacedFeature> JUPITER_LIGHTNING_FULGURITE = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("jupiter_lightning_fulgurite"));
+    public static final ResourceKey<PlacedFeature> JUPITER_AMMONIA_SPIRE = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("jupiter_ammonia_spire"));
+    public static final ResourceKey<PlacedFeature> JUPITER_HYDROCARBON_POOL = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("jupiter_hydrocarbon_pool"));
+    public static final ResourceKey<PlacedFeature> JUPITER_METALLIC_HYDROGEN_COLUMN = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("jupiter_metallic_hydrogen_column"));
+
+    // SATURN (Base Y ~ 80)
+    public static final ResourceKey<PlacedFeature> SATURN_HEXAGON_TERRACE = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("saturn_hexagon_terrace"));
+    public static final ResourceKey<PlacedFeature> SATURN_RING_RAIN_MONOLITH = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("saturn_ring_rain_monolith"));
+    public static final ResourceKey<PlacedFeature> SATURN_RING_ICE_IMPACT = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("saturn_ring_ice_impact"));
+    public static final ResourceKey<PlacedFeature> SATURN_HELIUM_RAIN_SPELEOTHEM = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("saturn_helium_rain_speleothem"));
+    public static final ResourceKey<PlacedFeature> SATURN_AMMONIA_HYDROCARBON_LAKE = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("saturn_ammonia_hydrocarbon_lake"));
+
+    // URANUS (High Base Y ~ 105)
+    public static final ResourceKey<PlacedFeature> URANUS_METHANE_ICE_SPIRE = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("uranus_methane_ice_spire"));
+    public static final ResourceKey<PlacedFeature> URANUS_FROZEN_SULFIDE_OUTCROP = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("uranus_frozen_sulfide_outcrop"));
+    public static final ResourceKey<PlacedFeature> URANUS_DIAMOND_RAIN_GEODE = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("uranus_diamond_rain_geode"));
+    public static final ResourceKey<PlacedFeature> URANUS_SUPERIONIC_ICE_PILLAR = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("uranus_superionic_ice_pillar"));
+    public static final ResourceKey<PlacedFeature> URANUS_COMET_IMPACT = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("uranus_comet_impact"));
+
+    // NEPTUNE (High Base Y ~ 105)
+    public static final ResourceKey<PlacedFeature> NEPTUNE_NITROGEN_CRYOGEYSER = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("neptune_nitrogen_cryogeyser"));
+    public static final ResourceKey<PlacedFeature> NEPTUNE_SUPERSONIC_WIND_RIDGE = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("neptune_supersonic_wind_ridge"));
+    public static final ResourceKey<PlacedFeature> NEPTUNE_GREAT_DARK_VORTEX = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("neptune_great_dark_vortex"));
+    public static final ResourceKey<PlacedFeature> NEPTUNE_DIAMONDBERG = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("neptune_diamondberg"));
+    public static final ResourceKey<PlacedFeature> NEPTUNE_CRYO_SPELEOTHEM = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("neptune_cryo_speleothem"));
+
     public static void bootstrapRegistries(BootstrapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatureLookup = context.lookup(Registries.CONFIGURED_FEATURE);
         context.register(OIL_LAKE, new PlacedFeature(configuredFeatureLookup.getOrThrow(GCConfiguredFeature.OIL_LAKE), List.of(
@@ -166,6 +194,122 @@ public class GCPlacedFeatures {
                 RarityFilter.onAverageOnceEvery(3),
                 InSquarePlacement.spread(),
                 HeightRangePlacement.uniform(VerticalAnchor.absolute(-52), VerticalAnchor.absolute(-24)),
+                BiomeFilter.biome()
+        )));
+
+        // =====================================================================
+        // 1. JUPITER PLACED FEATURES (Surface Y ~ 80 | Underground Y = -55..35)
+        // =====================================================================
+        registerPlanetVolcanoPlacement(context, configuredFeatureLookup, JUPITER_CYCLONE_VOLCANO, GCConfiguredFeature.JUPITER_CYCLONE_VOLCANO);
+        context.register(JUPITER_LIGHTNING_FULGURITE, new PlacedFeature(configuredFeatureLookup.getOrThrow(GCConfiguredFeature.JUPITER_LIGHTNING_FULGURITE), List.of(
+                RarityFilter.onAverageOnceEvery(4),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                BiomeFilter.biome()
+        )));
+        context.register(JUPITER_AMMONIA_SPIRE, new PlacedFeature(configuredFeatureLookup.getOrThrow(GCConfiguredFeature.JUPITER_AMMONIA_SPIRE), List.of(
+                RarityFilter.onAverageOnceEvery(3),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                BiomeFilter.biome()
+        )));
+        context.register(JUPITER_HYDROCARBON_POOL, new PlacedFeature(configuredFeatureLookup.getOrThrow(GCConfiguredFeature.JUPITER_HYDROCARBON_POOL), List.of(
+                RarityFilter.onAverageOnceEvery(8),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                BiomeFilter.biome()
+        )));
+        context.register(JUPITER_METALLIC_HYDROGEN_COLUMN, new PlacedFeature(configuredFeatureLookup.getOrThrow(GCConfiguredFeature.JUPITER_METALLIC_HYDROGEN_COLUMN), List.of(
+                CountPlacement.of(3),
+                InSquarePlacement.spread(),
+                HeightRangePlacement.uniform(VerticalAnchor.absolute(-55), VerticalAnchor.absolute(35)),
+                BiomeFilter.biome()
+        )));
+
+        // =====================================================================
+        // 2. SATURN PLACED FEATURES (Surface Y ~ 80 | Underground Y = -50..40)
+        // =====================================================================
+        context.register(SATURN_HEXAGON_TERRACE, new PlacedFeature(configuredFeatureLookup.getOrThrow(GCConfiguredFeature.SATURN_HEXAGON_TERRACE), List.of(
+                RarityFilter.onAverageOnceEvery(4),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                BiomeFilter.biome()
+        )));
+        context.register(SATURN_RING_RAIN_MONOLITH, new PlacedFeature(configuredFeatureLookup.getOrThrow(GCConfiguredFeature.SATURN_RING_RAIN_MONOLITH), List.of(
+                RarityFilter.onAverageOnceEvery(3),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                BiomeFilter.biome()
+        )));
+        registerPlanetMeteorPlacement(context, configuredFeatureLookup, SATURN_RING_ICE_IMPACT, GCConfiguredFeature.SATURN_RING_ICE_IMPACT);
+        context.register(SATURN_HELIUM_RAIN_SPELEOTHEM, new PlacedFeature(configuredFeatureLookup.getOrThrow(GCConfiguredFeature.SATURN_HELIUM_RAIN_SPELEOTHEM), List.of(
+                CountPlacement.of(4),
+                InSquarePlacement.spread(),
+                HeightRangePlacement.uniform(VerticalAnchor.absolute(-50), VerticalAnchor.absolute(40)),
+                BiomeFilter.biome()
+        )));
+        context.register(SATURN_AMMONIA_HYDROCARBON_LAKE, new PlacedFeature(configuredFeatureLookup.getOrThrow(GCConfiguredFeature.SATURN_AMMONIA_HYDROCARBON_LAKE), List.of(
+                RarityFilter.onAverageOnceEvery(9),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                BiomeFilter.biome()
+        )));
+
+        // =====================================================================
+        // 3. URANUS PLACED FEATURES (High Surface Y ~ 105 | Deep Mantle -54..68)
+        // =====================================================================
+        context.register(URANUS_METHANE_ICE_SPIRE, new PlacedFeature(configuredFeatureLookup.getOrThrow(GCConfiguredFeature.URANUS_METHANE_ICE_SPIRE), List.of(
+                RarityFilter.onAverageOnceEvery(2),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                BiomeFilter.biome()
+        )));
+        context.register(URANUS_FROZEN_SULFIDE_OUTCROP, new PlacedFeature(configuredFeatureLookup.getOrThrow(GCConfiguredFeature.URANUS_FROZEN_SULFIDE_OUTCROP), List.of(
+                RarityFilter.onAverageOnceEvery(5),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                BiomeFilter.biome()
+        )));
+        context.register(URANUS_DIAMOND_RAIN_GEODE, new PlacedFeature(configuredFeatureLookup.getOrThrow(GCConfiguredFeature.URANUS_DIAMOND_RAIN_GEODE), List.of(
+                RarityFilter.onAverageOnceEvery(16),
+                InSquarePlacement.spread(),
+                HeightRangePlacement.uniform(VerticalAnchor.absolute(-48), VerticalAnchor.absolute(58)),
+                BiomeFilter.biome()
+        )));
+        context.register(URANUS_SUPERIONIC_ICE_PILLAR, new PlacedFeature(configuredFeatureLookup.getOrThrow(GCConfiguredFeature.URANUS_SUPERIONIC_ICE_PILLAR), List.of(
+                CountPlacement.of(4),
+                InSquarePlacement.spread(),
+                HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(68)),
+                BiomeFilter.biome()
+        )));
+        registerPlanetMeteorPlacement(context, configuredFeatureLookup, URANUS_COMET_IMPACT, GCConfiguredFeature.URANUS_COMET_IMPACT);
+
+        // =====================================================================
+        // 4. NEPTUNE PLACED FEATURES (High Surface Y ~ 105 | Deep Mantle -58..70)
+        // =====================================================================
+        context.register(NEPTUNE_NITROGEN_CRYOGEYSER, new PlacedFeature(configuredFeatureLookup.getOrThrow(GCConfiguredFeature.NEPTUNE_NITROGEN_CRYOGEYSER), List.of(
+                RarityFilter.onAverageOnceEvery(5),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                BiomeFilter.biome()
+        )));
+        context.register(NEPTUNE_SUPERSONIC_WIND_RIDGE, new PlacedFeature(configuredFeatureLookup.getOrThrow(GCConfiguredFeature.NEPTUNE_SUPERSONIC_WIND_RIDGE), List.of(
+                RarityFilter.onAverageOnceEvery(3),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                BiomeFilter.biome()
+        )));
+        registerPlanetVolcanoPlacement(context, configuredFeatureLookup, NEPTUNE_GREAT_DARK_VORTEX, GCConfiguredFeature.NEPTUNE_GREAT_DARK_VORTEX);
+        context.register(NEPTUNE_DIAMONDBERG, new PlacedFeature(configuredFeatureLookup.getOrThrow(GCConfiguredFeature.NEPTUNE_DIAMONDBERG), List.of(
+                RarityFilter.onAverageOnceEvery(3),
+                InSquarePlacement.spread(),
+                HeightRangePlacement.uniform(VerticalAnchor.absolute(-58), VerticalAnchor.absolute(-12)),
+                BiomeFilter.biome()
+        )));
+        context.register(NEPTUNE_CRYO_SPELEOTHEM, new PlacedFeature(configuredFeatureLookup.getOrThrow(GCConfiguredFeature.NEPTUNE_CRYO_SPELEOTHEM), List.of(
+                CountPlacement.of(4),
+                InSquarePlacement.spread(),
+                HeightRangePlacement.uniform(VerticalAnchor.absolute(-45), VerticalAnchor.absolute(70)),
                 BiomeFilter.biome()
         )));
     }

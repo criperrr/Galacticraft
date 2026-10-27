@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:cache_2d",
+  "argument": {
+    "type": "minecraft:spline",
+    "spline": {
+      "coordinate": "galacticraft:saturn/continents",
+      "points": [
+        {
+          "derivative": 0.0,
+          "location": -1.0,
+          "value": 0.2
+        },
+        {
+          "derivative": 0.08,
+          "location": -0.22,
+          "value": 0.24
+        },
+        {
+          "derivative": 0.18,
+          "location": 0.32,
+          "value": 0.36
+        },
+        {
+          "derivative": 0.28,
+          "location": 0.7,
+          "value": 0.62
+        },
+        {
+          "derivative": 0.18,
+          "location": 1.0,
+          "value": 0.8
+        }
+      ]
+    }
+  }
+}

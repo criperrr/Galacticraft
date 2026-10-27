@@ -1,0 +1,65 @@
+{
+  "type": "galacticraft:venus_volcano",
+  "config": {
+    "biome_frequencies": {},
+    "default_frequency": 0.22,
+    "max_crater_radius": 16,
+    "max_height": 42,
+    "max_radius": 64,
+    "min_crater_radius": 9,
+    "min_height": 22,
+    "min_radius": 38,
+    "pyroclastic_ore_chance": 4,
+    "pyroclastic_ores": [
+      {
+        "Name": "galacticraft:jupiter_iron_ore"
+      },
+      {
+        "Name": "galacticraft:jupiter_copper_ore"
+      },
+      {
+        "Name": "galacticraft:jupiter_aluminum_ore"
+      }
+    ],
+    "region_size": 540.0,
+    "rock_palette": {
+      "extrusive_rock": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "galacticraft:jupiter_red_storm_rock"
+        }
+      },
+      "fluid_block": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "minecraft:lava",
+          "Properties": {
+            "level": "0"
+          }
+        }
+      },
+      "intrusive_rock": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "galacticraft:jupiter_stone"
+        }
+      },
+      "magma_rock": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "minecraft:magma_block"
+        }
+      },
+      "scorched_rock": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "galacticraft:jupiter_core_breccia"
+        }
+      }
+    },
+    "spawn_fumaroles": true,
+    "spawn_pyroclastic_scoria": true,
+    "spread": 0.75,
+    "volcano_type": "shield"
+  }
+}

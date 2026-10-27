@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:lake",
+  "config": {
+    "barrier": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:saturn_hydrocarbon_slate"
+      }
+    },
+    "fluid": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:fuel",
+        "Properties": {
+          "level": "0"
+        }
+      }
+    }
+  }
+}
