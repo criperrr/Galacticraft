@@ -50,6 +50,9 @@
       "dev.galacticraft.mod.gametest.WireTestSuite"
     ]
   },
+  "custom": {
+    "galacticraft:fluidloggable": ["galacticraft-test:test_fluid", 5, "Not a fluid!"]
+  },
   "mixins": [],
   "depends": {
     "galacticraft": "*"
