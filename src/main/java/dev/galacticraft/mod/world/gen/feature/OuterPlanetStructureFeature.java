@@ -39,7 +39,7 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
  * High-performance parameterized terrain structure generator for the outer Solar System planets
  * (Jupiter, Saturn, Uranus, and Neptune).
  *
- * <p>Operates strictly within the safe 3x3 chunk neighborhood (maximum horizontal radius <= 12 blocks),
+ * <p>Operates strictly within the safe 3x3 chunk neighborhood (maximum horizontal radius at most 12 blocks),
  * reuses a single {@link BlockPos.MutableBlockPos} per placement, uses quadratic distance comparisons
  * instead of {@code Math.sqrt} in inner loops, and places blocks with {@link Block#UPDATE_CLIENTS}
  * to avoid expensive neighbor shape/lighting cascades during world generation.
