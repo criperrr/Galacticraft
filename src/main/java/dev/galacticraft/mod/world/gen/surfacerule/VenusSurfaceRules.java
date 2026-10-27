@@ -121,6 +121,7 @@ public class VenusSurfaceRules {
     );
 
     private static final SurfaceRules.RuleSource SURFACE_GENERATION = SurfaceRules.sequence(
+            SurfaceRules.ifTrue(SurfaceRules.steep(), HARD_ROCK),
             PEAK_METALLIC_SNOW,
             SurfaceRules.ifTrue(
                     SurfaceRules.isBiome(GCBiomes.Venus.VENUS_VALLEY),

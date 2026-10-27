@@ -45,6 +45,7 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.RandomState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.world.level.material.Fluids;
 
 import java.util.List;
 import java.util.Map;
@@ -145,7 +146,7 @@ public class PlanetaryVolcanoFeature extends Feature<PlanetaryVolcanoConfig> {
         ChunkGenerator generator = context.chunkGenerator();
         RandomState randomState = level.getLevel().getChunkSource().randomState();
         int centerGroundY = generator.getBaseHeight(centerX, centerZ, Heightmap.Types.OCEAN_FLOOR_WG, level, randomState) - 1;
-        if (centerGroundY <= 46 || centerGroundY >= 165) {
+        if (centerGroundY < 82 || centerGroundY >= 170) {
             return false;
         }
 
@@ -208,7 +209,23 @@ public class PlanetaryVolcanoFeature extends Feature<PlanetaryVolcanoConfig> {
                     // Inside the central volcanic caldera (bubbling lava lake, obsidian/magma walls, deep magma conduit)
                     double craterNorm = rawDist / Math.max(1.0, effectiveCraterRadius);
                     double bowlFactor = craterNorm * craterNorm * craterNorm;
-                    int wallTopY = Mth. floor(Mth.lerp(bowlFactor, craterFloorY, rimPeakY));
+                    int wallTopY = Mth.floor(Mth.lerp(bowlFactor, craterFloorY, rimPeakY));
+
+                    // Check if this column is aligned with a radial lava spillway breach to the outer flanks
+                    boolean inCalderaSpillway = false;
+                    double meanderCaldera = Math.sin(rawDist * 0.18 + DensityCellular2D.jitter(cellHash) * 5.0) * 0.14;
+                    for (double flowAngle : flowAngles) {
+                        double angleDiff = Math.abs(Mth.wrapDegrees((float) Math.toDegrees(angle - (flowAngle + meanderCaldera))));
+                        if (angleDiff <= 14.0) {
+                            inCalderaSpillway = true;
+                            break;
+                        }
+                    }
+
+                    if (inCalderaSpillway && craterNorm > 0.65) {
+                        wallTopY = Math.min(wallTopY, lavaSurfaceY - 1);
+                    }
+
                     int startY = Math.min(localGroundY - 6, craterFloorY - 12);
 
                     for (int y = startY; y <= Math.max(localGroundY + 4, rimPeakY + 3); y++) {
@@ -216,7 +233,11 @@ public class PlanetaryVolcanoFeature extends Feature<PlanetaryVolcanoConfig> {
                         if (y < craterFloorY) {
                             // Deep magma throat & intrusive rock beneath caldera
                             if (craterNorm < 0.45) {
-                                level.setBlock(cursor, config.fluidBlock().getState(colRand, cursor), 2);
+                                BlockState fluidState = config.fluidBlock().getState(colRand, cursor);
+                                level.setBlock(cursor, fluidState, 2);
+                                if (fluidState.is(Blocks.LAVA) || !fluidState.getFluidState().isEmpty()) {
+                                    level.scheduleTick(cursor, Fluids.LAVA, Fluids.LAVA.getTickDelay(level));
+                                }
                             } else if (craterNorm < 0.72) {
                                 level.setBlock(cursor, colRand.nextInt(3) == 0 ? config.magmaRock().getState(colRand, cursor) : Blocks.OBSIDIAN.defaultBlockState(), 2);
                             } else {
@@ -227,7 +248,11 @@ public class PlanetaryVolcanoFeature extends Feature<PlanetaryVolcanoConfig> {
                             level.setBlock(cursor, pickCalderaWallBlock(config, colRand, cursor, y, lavaSurfaceY), 2);
                         } else if (y <= lavaSurfaceY) {
                             // Caldera lava lake
-                            level.setBlock(cursor, config.fluidBlock().getState(colRand, cursor), 2);
+                            BlockState fluidState = config.fluidBlock().getState(colRand, cursor);
+                            level.setBlock(cursor, fluidState, 2);
+                            if (fluidState.is(Blocks.LAVA) || !fluidState.getFluidState().isEmpty()) {
+                                level.scheduleTick(cursor, Fluids.LAVA, Fluids.LAVA.getTickDelay(level));
+                            }
                         } else {
                             // Clear air above caldera lava lake
                             if (!level.getBlockState(cursor).isAir()) {
@@ -247,43 +272,51 @@ public class PlanetaryVolcanoFeature extends Feature<PlanetaryVolcanoConfig> {
                     double rimAnchorBlend = Math.pow(1.0 - u, 1.65);
                     double baseRefY = Mth.lerp(rimAnchorBlend, localGroundY, centerGroundY);
 
-                    double ridgeDetail = (1.0 - u) * u * (angularRidge * 14.0 + spatialNoise * 10.0);
-                    int targetSurfaceY = Mth.floor(baseRefY + easing * volcanoHeight + ridgeDetail);
+                    // Organic Hermite cubic smoothstep transition at the volcano apron (u in [0.72, 1.0])
+                    double skirtFade = u >= 0.72 ? (1.0 - (u - 0.72) / 0.28) : 1.0;
+                    skirtFade = skirtFade * skirtFade * (3.0 - 2.0 * skirtFade);
 
-                    if (targetSurfaceY <= localGroundY && u > 0.78) {
+                    double ridgeDetail = (1.0 - u) * u * (angularRidge * 14.0 + spatialNoise * 10.0);
+                    int targetSurfaceY = Mth.floor(baseRefY + easing * volcanoHeight * skirtFade + ridgeDetail * skirtFade);
+
+                    if (targetSurfaceY <= localGroundY && u > 0.88) {
                         continue;
                     }
 
                     // Check if this column lies along a radial lava flow channel
                     boolean inLavaChannel = false;
                     boolean onChannelBank = false;
-                    if (u < 0.72) {
+                    if (u < 0.88) {
                         double meander = Math.sin(rawDist * 0.18 + DensityCellular2D.jitter(cellHash) * 5.0) * 0.14;
                         for (double flowAngle : flowAngles) {
                             double angleDiff = Math.abs(Mth.wrapDegrees((float) Math.toDegrees(angle - (flowAngle + meander))));
-                            double channelHalfWidthDeg = Mth.lerp(u, 11.0, 4.5);
+                            double channelHalfWidthDeg = Mth.lerp(u, 13.0, 4.5);
                             if (angleDiff <= channelHalfWidthDeg) {
                                 inLavaChannel = true;
                                 break;
-                            } else if (angleDiff <= channelHalfWidthDeg + 5.0) {
+                            } else if (angleDiff <= channelHalfWidthDeg + 6.0) {
                                 onChannelBank = true;
                             }
                         }
                     }
 
                     int fillStartY = Math.min(localGroundY - 3, centerGroundY - 2);
-                    int finalTopY = inLavaChannel ? Math.max(localGroundY, targetSurfaceY - 1) : targetSurfaceY;
+                    // The channel begins at lavaSurfaceY at the caldera rim (u = 0) and cascades down to localGroundY
+                    double channelGradientY = Mth.lerp(u / 0.88, (double) lavaSurfaceY, (double) localGroundY);
+                    int finalTopY = inLavaChannel
+                            ? Math.max(localGroundY, (int) Math.min(targetSurfaceY - 2, Math.round(channelGradientY)))
+                            : targetSurfaceY;
 
                     for (int y = fillStartY; y <= finalTopY; y++) {
                         cursor.set(worldX, y, worldZ);
                         int depthFromTop = finalTopY - y;
                         BlockState stateToPlace;
 
-                        if (inLavaChannel && depthFromTop == 0 && u < 0.58) {
+                        if (inLavaChannel && depthFromTop == 0 && u < 0.88) {
                             stateToPlace = config.fluidBlock().getState(colRand, cursor);
-                        } else if (inLavaChannel && depthFromTop <= 1) {
+                        } else if (inLavaChannel && depthFromTop <= 2) {
                             stateToPlace = config.magmaRock().getState(colRand, cursor);
-                        } else if (onChannelBank && depthFromTop <= 1) {
+                        } else if (onChannelBank && depthFromTop <= 2) {
                             stateToPlace = colRand.nextInt(3) == 0
                                     ? config.magmaRock().getState(colRand, cursor)
                                     : config.scorchedRock().getState(colRand, cursor);
@@ -292,6 +325,9 @@ public class PlanetaryVolcanoFeature extends Feature<PlanetaryVolcanoConfig> {
                         }
 
                         level.setBlock(cursor, stateToPlace, 2);
+                        if (stateToPlace.is(Blocks.LAVA) || !stateToPlace.getFluidState().isEmpty()) {
+                            level.scheduleTick(cursor, Fluids.LAVA, Fluids.LAVA.getTickDelay(level));
+                        }
                     }
 
                     // Optional fumarole vapor spouts on upper-middle flanks

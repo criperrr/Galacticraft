@@ -201,12 +201,12 @@ public class GCNoiseGeneratorSettings {
                 DensityFunctions.shiftedNoise2d(
                         shiftX, shiftZ, 0.25, noiseLookup.getOrThrow(Noises.VEGETATION)
                 ), // vegetation
-                GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.CONTINENTS), // continents
+                GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Venus.CONTINENTS), // continents
                 GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.EROSION), // erosion
                 GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.DEPTH), // depth
                 GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.RIDGES), // ridges
-                finalDensity, // initialDensityWithoutJaggedness
-                DensityFunctions.blendDensity(finalDensity), // finalDensity
+                GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Venus.SOLID_TERRAIN), // initialDensityWithoutJaggedness
+                DensityFunctions.blendDensity(GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Venus.FINAL_DENSITY)), // finalDensity
                 DensityFunctions.zero(), // veinToggle
                 DensityFunctions.zero(), // veinRidged
                 DensityFunctions.zero()  // veinGap

@@ -2,17 +2,17 @@
   "type": "galacticraft:venus_volcano",
   "config": {
     "biome_frequencies": {
-      "galacticraft:venus_flat": 0.04,
-      "galacticraft:venus_mountain": 0.34,
-      "galacticraft:venus_valley": 0.18
+      "galacticraft:venus_flat": 0.08,
+      "galacticraft:venus_mountain": 0.52,
+      "galacticraft:venus_valley": 0.0
     },
     "default_frequency": 0.0,
-    "max_crater_radius": 15,
-    "max_height": 46,
-    "max_radius": 62,
-    "min_crater_radius": 8,
-    "min_height": 24,
-    "min_radius": 36,
+    "max_crater_radius": 22,
+    "max_height": 62,
+    "max_radius": 88,
+    "min_crater_radius": 12,
+    "min_height": 34,
+    "min_radius": 52,
     "pyroclastic_ore_chance": 5,
     "pyroclastic_ores": [
       {
