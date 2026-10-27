@@ -29,8 +29,7 @@ import dev.galacticraft.mod.accessor.GCLevelAccessor;
 import dev.galacticraft.mod.misc.footprint.FootprintManager;
 import dev.galacticraft.mod.misc.footprint.ServerFootprintManager;
 import dev.galacticraft.mod.tag.GCDimensionTypeTags;
-import dev.galacticraft.mod.world.dimension.GCDimensions;
-import dev.galacticraft.mod.world.gen.spawner.EvolvedPillagerSpawner;
+import dev.galacticraft.mod.world.dimension.GCDimensionTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
@@ -83,8 +82,8 @@ public abstract class ServerLevelMixin extends Level implements GCLevelAccessor 
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void setSpawnersGC(MinecraftServer server, Executor workerExecutor, LevelStorageSource.LevelStorageAccess session, ServerLevelData properties, ResourceKey<Level> worldKey, LevelStem dimensionOptions, ChunkProgressListener worldGenerationProgressListener, boolean debugWorld, long seed, List spawners, boolean shouldTickTime, @Nullable RandomSequences randomSequences, CallbackInfo ci) {
-        if (worldKey.equals(GCDimensions.MOON)) {
-            this.customSpawners = ImmutableList.<CustomSpawner>builder().add(new EvolvedPillagerSpawner()).build();
+        if (!GCDimensionTypes.canMobsSpawnNaturally((ServerLevel) (Object) this)) {
+            this.customSpawners = ImmutableList.of();
         }
     }
 

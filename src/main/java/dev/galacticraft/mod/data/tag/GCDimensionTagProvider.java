@@ -60,5 +60,6 @@ public class GCDimensionTagProvider extends FabricTagProvider<DimensionType> {
                 .add(GCDimensionTypes.SATURN)
                 .add(GCDimensionTypes.URANUS)
                 .add(GCDimensionTypes.NEPTUNE);
+        this.tag(GCDimensionTypeTags.ALLOWS_MOB_SPAWNING);
     }
 }

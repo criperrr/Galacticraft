@@ -28,6 +28,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.biome.Biome;
 
 import java.util.concurrent.CompletableFuture;
@@ -50,6 +51,18 @@ public class GCBiomeTagProvider extends FabricTagProvider<Biome> {
                 .add(GCBiomes.Mars.MARS_FLAT)
                 .add(GCBiomes.Mars.MARS_CANYON)
                 .add(GCBiomes.Mars.MARS_HIGHLANDS);
+
+        this.tag(GCBiomeTags.MERCURY)
+                .add(GCBiomes.Mercury.CALORIS_BASIN)
+                .add(GCBiomes.Mercury.INTER_CRATER_PLAINS)
+                .add(GCBiomes.Mercury.SMOOTH_LAVA_PLAINS)
+                .add(GCBiomes.Mercury.CHAOTIC_TERRAIN)
+                .add(GCBiomes.Mercury.POLAR_DARK_CRATERS)
+                .add(GCBiomes.Mercury.HOLLOW_LABYRINTH)
+                .add(GCBiomes.Mercury.MEGABRECCIA_CAVERNS)
+                .add(GCBiomes.Mercury.COLOSSAL_LAVA_TUBES)
+                .add(GCBiomes.Mercury.MAGMA_DEPTHS)
+                .add(GCBiomes.Mercury.TECTONIC_CHASMS);
 
         this.tag(GCBiomeTags.VENUS)
                 .add(GCBiomes.Venus.VENUS_VALLEY)
@@ -103,5 +116,41 @@ public class GCBiomeTagProvider extends FabricTagProvider<Biome> {
                 .add(GCBiomes.Moon.BASALTIC_MARE);
         this.tag(GCBiomeTags.MOON_BOSS_HAS_STRUCTURE)
                 .addTag(GCBiomeTags.MOON);
+
+        this.tag(BiomeTags.WITHOUT_PATROL_SPAWNS)
+                .addTag(GCBiomeTags.MOON)
+                .addTag(GCBiomeTags.MARS)
+                .addTag(GCBiomeTags.MERCURY)
+                .addTag(GCBiomeTags.VENUS)
+                .addTag(GCBiomeTags.ASTEROID)
+                .addTag(GCBiomeTags.JUPITER)
+                .addTag(GCBiomeTags.SATURN)
+                .addTag(GCBiomeTags.URANUS)
+                .addTag(GCBiomeTags.NEPTUNE)
+                .add(GCBiomes.SPACE);
+
+        this.tag(BiomeTags.WITHOUT_WANDERING_TRADER_SPAWNS)
+                .addTag(GCBiomeTags.MOON)
+                .addTag(GCBiomeTags.MARS)
+                .addTag(GCBiomeTags.MERCURY)
+                .addTag(GCBiomeTags.VENUS)
+                .addTag(GCBiomeTags.ASTEROID)
+                .addTag(GCBiomeTags.JUPITER)
+                .addTag(GCBiomeTags.SATURN)
+                .addTag(GCBiomeTags.URANUS)
+                .addTag(GCBiomeTags.NEPTUNE)
+                .add(GCBiomes.SPACE);
+
+        this.tag(BiomeTags.WITHOUT_ZOMBIE_SIEGES)
+                .addTag(GCBiomeTags.MOON)
+                .addTag(GCBiomeTags.MARS)
+                .addTag(GCBiomeTags.MERCURY)
+                .addTag(GCBiomeTags.VENUS)
+                .addTag(GCBiomeTags.ASTEROID)
+                .addTag(GCBiomeTags.JUPITER)
+                .addTag(GCBiomeTags.SATURN)
+                .addTag(GCBiomeTags.URANUS)
+                .addTag(GCBiomeTags.NEPTUNE)
+                .add(GCBiomes.SPACE);
     }
 }
