@@ -29,7 +29,6 @@ import net.minecraft.world.phys.Vec3;
 
 @Environment(EnvType.CLIENT)
 public class AsteroidDimensionEffects extends DimensionSpecialEffects {
-    private static final float[] FOG_COLOR = {0.0F, 0.0F, 0.0F, 0.0F};
     public static final AsteroidDimensionEffects INSTANCE = new AsteroidDimensionEffects();
 
     private AsteroidDimensionEffects() {
@@ -48,6 +47,6 @@ public class AsteroidDimensionEffects extends DimensionSpecialEffects {
 
     @Override
     public float[] getSunriseColor(float skyAngle, float tickDelta) {
-        return FOG_COLOR;
+        return null;
     }
 }

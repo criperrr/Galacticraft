@@ -24,37 +24,41 @@ package dev.galacticraft.mod.client.render.dimension;
 
 import dev.galacticraft.mod.api.dimension.GalacticDimensionEffects;
 import dev.galacticraft.mod.content.GCBlocks;
-import dev.galacticraft.mod.particle.GCParticleTypes;
 import dev.galacticraft.mod.world.gen.noise.DensityCellular2D;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.ParticleStatus;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.CubicSampler;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Dimension effects for Venus, faithfully restoring its authentic dense sulfuric atmosphere:
+ * rich warm golden-yellow atmospheric fog by day, warm glowing amber by night,
+ * Geoffrey Landis cloud layer transition above Y=200 into space, and volcanic geothermal ground effects.
+ */
+@Environment(EnvType.CLIENT)
 public class VenusDimensionEffects extends GalacticDimensionEffects {
-    public static final VenusDimensionEffects INSTANCE = new VenusDimensionEffects(240.0F, true, SkyType.NORMAL, true, true);
+    public static final VenusDimensionEffects INSTANCE = new VenusDimensionEffects();
     private final Minecraft minecraft = Minecraft.getInstance();
-    private int rainSoundTime;
+
+    public VenusDimensionEffects() {
+        super(Float.NaN, false, SkyType.NORMAL, false, false);
+    }
 
     public VenusDimensionEffects(float cloudLevel, boolean hasGround, SkyType skyType, boolean forceBrightLightmap, boolean constantAmbientLight) {
         super(cloudLevel, hasGround, skyType, forceBrightLightmap, constantAmbientLight);
@@ -62,98 +66,55 @@ public class VenusDimensionEffects extends GalacticDimensionEffects {
 
     @Override
     public Vec3 getFogColor(ClientLevel level, float partialTicks, Vec3 cameraPos, CubicSampler.Vec3Fetcher fetcher) {
-        float night = getStarBrightness(level, 1.0F);
+        float night = getStarBrightness(level, partialTicks);
         float day = 1.0F - night;
-        float dayColR = 203.0F / 255.0F;
-        float dayColG = 147.0F / 255.0F;
-        float dayColB = 0.0F / 255.0F;
-        float nightColR = 131.0F / 255.0F;
-        float nightColG = 108.0F / 255.0F;
-        float nightColB = 46.0F / 255.0F;
-        return new Vec3(dayColR * day + nightColR * night, dayColG * day + nightColG * night, dayColB * day + nightColB * night);
-    }
+        float r = (203.0F / 255.0F) * day + (131.0F / 255.0F) * night;
+        float g = (147.0F / 255.0F) * day + (108.0F / 255.0F) * night;
+        float b = (0.0F / 255.0F) * day + (46.0F / 255.0F) * night;
 
-    @Override
-    public boolean isFoggyAt(int x, int y) {
-        return false;
+        // Geoffrey Landis cloud layer transition: above Y=200, dense sulfuric fog fades into space
+        if (cameraPos.y() > 200.0D) {
+            float spaceProgress = Mth.clamp((float) ((cameraPos.y() - 200.0D) / 250.0D), 0.0F, 1.0F);
+            float atmosphereAlpha = 1.0F - spaceProgress;
+            return new Vec3(r * atmosphereAlpha, g * atmosphereAlpha, b * atmosphereAlpha);
+        }
+
+        return new Vec3(r, g, b);
     }
 
     @Override
     public Vec3 getSkyColor(ClientLevel level, float partialTicks) {
-        float night = getStarBrightness(level, 1.0F);
+        float night = getStarBrightness(level, partialTicks);
         float day = 1.0F - night;
-        float dayColR = 255.0F / 255.0F;
-        float dayColG = 207.0F / 255.0F;
-        float dayColB = 81.0F / 255.0F;
-        float nightColR = 118.0F / 255.0F;
-        float nightColG = 89.0F / 255.0F;
-        float nightColB = 21.0F / 255.0F;
-        return new Vec3(dayColR * day + nightColR * night, dayColG * day + nightColG * night, dayColB * day + nightColB * night);
+        float r = (255.0F / 255.0F) * day + (118.0F / 255.0F) * night;
+        float g = (207.0F / 255.0F) * day + (89.0F / 255.0F) * night;
+        float b = (81.0F / 255.0F) * day + (21.0F / 255.0F) * night;
+        return new Vec3(r, g, b);
+    }
+
+    @Override
+    public Vec3 getBrightnessDependentFogColor(Vec3 fogColor, float brightness) {
+        return fogColor;
+    }
+
+    @Override
+    public boolean isFoggyAt(int camX, int camY) {
+        return false;
+    }
+
+    @Override
+    public float[] getSunriseColor(float skyAngle, float tickDelta) {
+        return null;
     }
 
     @Override
     public boolean tickRain(@NotNull ClientLevel level, Camera camera, int ticks) {
-        // 1. GC4 TickHandlerClientVenus: tick ambient Venus sky lightning & thunder every client tick
-        VenusWeatherRenderer.INSTANCE.tickLightning(level, camera);
-
-        // 2. TFCVolcanoes (TFCVHelpers.spawnSmoke & TremorEvent.trySpawnSurfaceSmoke):
-        // Emit rising smoke, embers, and charring particles from hotter geothermal zones and volcanic blocks on the ground
         tickGeothermalGroundEffects(level, camera, ticks);
-
-        float rainLevel = level.getRainLevel(1.0F);
-        float rainStrength = rainLevel / (Minecraft.useFancyGraphics() ? 1.0F : 2.0F);
-        if (!(rainStrength <= 0.0F)) {
-            RandomSource random = RandomSource.create((long) ticks * 312987231L);
-            BlockPos cameraPos = BlockPos.containing(camera.getPosition());
-            BlockPos below = null;
-            int particleAmount = (int) (100.0F * rainStrength * rainStrength) / (this.minecraft.options.particles().get() == ParticleStatus.DECREASED ? 2 : 1);
-
-            for (int j = 0; j < particleAmount; ++j) {
-                int localX = random.nextInt(LevelRenderer.RAIN_DIAMETER) - LevelRenderer.RAIN_RADIUS;
-                int localZ = random.nextInt(LevelRenderer.RAIN_DIAMETER) - LevelRenderer.RAIN_RADIUS;
-                BlockPos height = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, cameraPos.offset(localX, 0, localZ));
-                if (height.getY() > level.getMinBuildHeight() && height.getY() <= cameraPos.getY() + 10 && height.getY() >= cameraPos.getY() - 10) {
-                    Biome biome = level.getBiome(height).value();
-                    if (biome.getPrecipitationAt(height) == Biome.Precipitation.RAIN) {
-                        below = height.below();
-                        if (this.minecraft.options.particles().get() == ParticleStatus.MINIMAL) {
-                            break;
-                        }
-
-                        double xOffset = random.nextDouble();
-                        double zOffset = random.nextDouble();
-                        BlockState blockState = level.getBlockState(below);
-                        FluidState fluidState = level.getFluidState(below);
-                        VoxelShape shape = blockState.getCollisionShape(level, below);
-                        double baseYOff = shape.max(Direction.Axis.Y, xOffset, zOffset);
-                        double fluidHeight = fluidState.getHeight(level, below);
-                        double yOffset = Math.max(baseYOff, fluidHeight);
-                        SimpleParticleType simpleParticleType = fluidState.is(FluidTags.LAVA)
-                                || blockState.is(Blocks.MAGMA_BLOCK)
-                                || blockState.is(GCBlocks.SCORCHED_VENUS_ROCK)
-                                || blockState.is(GCBlocks.VOLCANIC_ROCK)
-                                || CampfireBlock.isLitCampfire(blockState)
-                                ? ParticleTypes.SMOKE
-                                : GCParticleTypes.SPLASH_VENUS;
-                        this.minecraft.level.addParticle(simpleParticleType, (double) below.getX() + xOffset, (double) below.getY() + yOffset, (double) below.getZ() + zOffset, 0.0, 0.0, 0.0);
-                    }
-                }
-            }
-
-            if (getSoundInterval(rainLevel) > 0) {
-                if (below != null && random.nextInt(getSoundInterval(rainLevel)) < this.rainSoundTime++) {
-                    playWeatherSounds(level, below, cameraPos, random);
-                }
-            } else if (below != null && 0 < rainSoundTime++) {
-                playWeatherSounds(level, below, cameraPos, random);
-            }
-        }
-
+        VenusWeatherRenderer.INSTANCE.tickLightning(level, camera);
         return true;
     }
 
     /**
-     * Ported from {@code TFCVHelpers.spawnSmoke}, {@code TFCVHelpers.sendCharringParticles}, and {@code TremorEvent.trySpawnSurfaceSmoke}:
      * Makes hotter regions of Venus (geothermal hotspots, volcano slopes, magma/scorched rock patches, and fallen meteors)
      * visibly vent rising smoke plumes, embers, and lava sparks directly out of the ground.
      */
@@ -188,7 +149,6 @@ public class VenusDimensionEffects extends GalacticDimensionEffects {
                     || state.is(GCBlocks.FALLEN_METEOR);
             boolean isBasaltPatch = state.is(Blocks.BASALT) || state.is(Blocks.SMOOTH_BASALT);
 
-            // Sample regional geothermal intensity so some regions of the planet are visibly much hotter than others
             double regionalHeat = DensityCellular2D.sampleThermalHotspot(1337L, wx, wz);
             boolean inHotZone = regionalHeat > 0.56;
 
@@ -200,7 +160,6 @@ public class VenusDimensionEffects extends GalacticDimensionEffects {
             double py = groundPos.getY() + 1.02;
             double pz = groundPos.getZ() + 0.15 + random.nextDouble() * 0.7;
 
-            // TFCVHelpers.spawnSmoke: upward velocity with subtle horizontal drift
             double vx = (random.nextDouble() - 0.5) * 0.02;
             double vy = 0.04 + random.nextDouble() * 0.08;
             double vz = (random.nextDouble() - 0.5) * 0.02;
@@ -228,20 +187,5 @@ public class VenusDimensionEffects extends GalacticDimensionEffects {
                 level.addParticle(ParticleTypes.SMOKE, px, py, pz, vx * 0.7, vy * 0.75, vz * 0.7);
             }
         }
-    }
-
-    public void playWeatherSounds(ClientLevel level, BlockPos below, BlockPos cameraPos, RandomSource random) {
-        this.rainSoundTime = 0;
-        if (below.getY() > cameraPos.getY() + 1
-                && level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, cameraPos).getY() > Mth.floor((float) cameraPos.getY())) {
-            this.minecraft.level.playLocalSound(below, SoundEvents.LAVA_EXTINGUISH, SoundSource.WEATHER, 0.025F, 0.6F + random.nextFloat() * 0.2F, false);
-        } else {
-            this.minecraft.level.playLocalSound(below, SoundEvents.LAVA_EXTINGUISH, SoundSource.WEATHER, 0.04F, 0.8F + random.nextFloat() * 0.06F + random.nextFloat() * 0.06F, false);
-        }
-    }
-
-    public int getSoundInterval(float rainStrength) {
-        int result = 80 - (int) (rainStrength * 88F);
-        return result > 0 ? result : 0;
     }
 }
