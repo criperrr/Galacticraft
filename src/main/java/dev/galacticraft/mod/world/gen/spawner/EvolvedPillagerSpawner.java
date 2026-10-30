@@ -24,6 +24,7 @@ package dev.galacticraft.mod.world.gen.spawner;
 
 import dev.galacticraft.api.universe.celestialbody.CelestialBody;
 import dev.galacticraft.mod.content.GCEntityTypes;
+import dev.galacticraft.mod.world.dimension.GCDimensionTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
@@ -46,6 +47,8 @@ public class EvolvedPillagerSpawner implements CustomSpawner {
         if (!spawnMonsters) {
             return 0;
         } else if (!level.getGameRules().getBoolean(GameRules.RULE_DO_PATROL_SPAWNING)) {
+            return 0;
+        } else if (!GCDimensionTypes.canMobsSpawnNaturally(level)) {
             return 0;
         } else {
             RandomSource random = level.random;

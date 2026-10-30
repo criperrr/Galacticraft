@@ -30,8 +30,13 @@ import net.minecraft.world.level.biome.Biome;
 public class GCBiomeTags {
     public static final TagKey<Biome> MOON = TagKey.create(Registries.BIOME, Constant.id("moon"));
     public static final TagKey<Biome> MARS = TagKey.create(Registries.BIOME, Constant.id("mars"));
+    public static final TagKey<Biome> MERCURY = TagKey.create(Registries.BIOME, Constant.id("mercury"));
     public static final TagKey<Biome> VENUS = TagKey.create(Registries.BIOME, Constant.id("venus"));
     public static final TagKey<Biome> ASTEROID = TagKey.create(Registries.BIOME, Constant.id("asteroid"));
+    public static final TagKey<Biome> JUPITER = TagKey.create(Registries.BIOME, Constant.id("jupiter"));
+    public static final TagKey<Biome> SATURN = TagKey.create(Registries.BIOME, Constant.id("saturn"));
+    public static final TagKey<Biome> URANUS = TagKey.create(Registries.BIOME, Constant.id("uranus"));
+    public static final TagKey<Biome> NEPTUNE = TagKey.create(Registries.BIOME, Constant.id("neptune"));
 
     public static final TagKey<Biome> MOON_PILLAGER_BASE_HAS_STRUCTURE = TagKey.create(Registries.BIOME, Constant.id("has_structure/moon_pillager_base"));
     public static final TagKey<Biome> MOON_VILLAGE_HIGHLANDS_HAS_STRUCTURE = TagKey.create(Registries.BIOME, Constant.id("has_structure/moon_village_highlands"));

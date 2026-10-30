@@ -1,0 +1,59 @@
+{
+  "type": "galacticraft:venus_volcano",
+  "config": {
+    "biome_frequencies": {},
+    "default_frequency": 0.18,
+    "max_crater_radius": 20,
+    "max_height": 28,
+    "max_radius": 56,
+    "min_crater_radius": 12,
+    "min_height": 16,
+    "min_radius": 34,
+    "pyroclastic_ore_chance": 5,
+    "pyroclastic_ores": [
+      {
+        "Name": "galacticraft:neptune_titanium_ore"
+      },
+      {
+        "Name": "galacticraft:neptune_iron_ore"
+      }
+    ],
+    "region_size": 620.0,
+    "rock_palette": {
+      "extrusive_rock": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "galacticraft:neptune_dark_vortex_rock"
+        }
+      },
+      "fluid_block": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "galacticraft:neptune_nitrogen_ice"
+        }
+      },
+      "intrusive_rock": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "galacticraft:neptune_cryo_slate"
+        }
+      },
+      "magma_rock": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "galacticraft:neptune_abyssal_mantle_rock"
+        }
+      },
+      "scorched_rock": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "galacticraft:neptune_stone"
+        }
+      }
+    },
+    "spawn_fumaroles": true,
+    "spawn_pyroclastic_scoria": true,
+    "spread": 0.75,
+    "volcano_type": "tuff"
+  }
+}

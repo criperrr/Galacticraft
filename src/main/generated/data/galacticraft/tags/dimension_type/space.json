@@ -2,6 +2,10 @@
   "values": [
     "galacticraft:moon",
     "galacticraft:venus",
-    "galacticraft:asteroid"
+    "galacticraft:asteroid",
+    "galacticraft:jupiter",
+    "galacticraft:saturn",
+    "galacticraft:uranus",
+    "galacticraft:neptune"
   ]
 }

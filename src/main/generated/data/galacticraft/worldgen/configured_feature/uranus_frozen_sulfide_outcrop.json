@@ -1,0 +1,35 @@
+{
+  "type": "galacticraft:outer_planet_structure",
+  "config": {
+    "accent_or_crown_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:uranus_titanium_ore"
+      }
+    },
+    "core_or_fluid_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:uranus_methane_ice"
+      }
+    },
+    "kind": "wind_ridge",
+    "max_height": 5,
+    "max_radius": 7,
+    "min_height": 2,
+    "min_radius": 4,
+    "primary_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:uranus_verona_scarp_rock"
+      }
+    },
+    "secondary_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:uranus_sub_surface"
+      }
+    },
+    "tilt_strength": 0.25
+  }
+}

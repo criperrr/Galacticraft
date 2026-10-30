@@ -1,0 +1,105 @@
+{
+  "carvers": {
+    "air": [
+      "galacticraft:neptune_cave_carver",
+      "galacticraft:neptune_canyon_carver"
+    ]
+  },
+  "downfall": 0.0,
+  "effects": {
+    "fog_color": 1718374,
+    "foliage_color": 2245496,
+    "grass_color": 2839700,
+    "music": {
+      "max_delay": 24000,
+      "min_delay": 12000,
+      "replace_current_music": true,
+      "sound": "galacticraft:music.orbit"
+    },
+    "sky_color": 2245756,
+    "water_color": 1387858,
+    "water_fog_color": 925499
+  },
+  "features": [
+    [],
+    [],
+    [
+      "minecraft:amethyst_geode",
+      "galacticraft:neptune_supersonic_wind_ridge"
+    ],
+    [],
+    [],
+    [],
+    [
+      "galacticraft:ore_copper_neptune",
+      "galacticraft:ore_tin_neptune",
+      "galacticraft:ore_iron_neptune",
+      "galacticraft:ore_titanium_neptune"
+    ],
+    [
+      "galacticraft:neptune_cryo_speleothem"
+    ]
+  ],
+  "has_precipitation": false,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": [
+      {
+        "type": "minecraft:spider",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 100
+      },
+      {
+        "type": "minecraft:zombie",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 95
+      },
+      {
+        "type": "minecraft:zombie_villager",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 5
+      },
+      {
+        "type": "minecraft:skeleton",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 100
+      },
+      {
+        "type": "minecraft:creeper",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 100
+      },
+      {
+        "type": "minecraft:slime",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 100
+      },
+      {
+        "type": "minecraft:enderman",
+        "maxCount": 4,
+        "minCount": 1,
+        "weight": 10
+      },
+      {
+        "type": "minecraft:witch",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 5
+      }
+    ],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": -0.6
+}

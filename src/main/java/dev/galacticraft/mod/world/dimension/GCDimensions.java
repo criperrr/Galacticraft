@@ -35,6 +35,10 @@ public class GCDimensions {
     public static final ResourceKey<Level> VENUS = key("venus");
     public static final ResourceKey<Level> ASTEROID = key("asteroid");
     public static final ResourceKey<Level> MERCURY = key("mercury");
+    public static final ResourceKey<Level> JUPITER = key("jupiter");
+    public static final ResourceKey<Level> SATURN = key("saturn");
+    public static final ResourceKey<Level> URANUS = key("uranus");
+    public static final ResourceKey<Level> NEPTUNE = key("neptune");
 
     @Contract(pure = true)
     private static @NotNull ResourceKey<Level> key(@NotNull String id) {

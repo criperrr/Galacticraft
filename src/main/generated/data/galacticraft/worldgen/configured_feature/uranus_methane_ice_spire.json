@@ -1,0 +1,35 @@
+{
+  "type": "galacticraft:outer_planet_structure",
+  "config": {
+    "accent_or_crown_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:uranus_superionic_mantle_rock"
+      }
+    },
+    "core_or_fluid_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:uranus_sub_surface"
+      }
+    },
+    "kind": "tilted_spire",
+    "max_height": 19,
+    "max_radius": 4,
+    "min_height": 9,
+    "min_radius": 2,
+    "primary_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:uranus_methane_ice"
+      }
+    },
+    "secondary_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:uranus_surface"
+      }
+    },
+    "tilt_strength": 0.85
+  }
+}

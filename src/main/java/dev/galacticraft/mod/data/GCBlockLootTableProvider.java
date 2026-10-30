@@ -195,6 +195,62 @@ public class GCBlockLootTableProvider extends FabricBlockLootTableProvider {
         this.dropSelf(GCBlocks.MERCURY_NATIVE_IRON_ORE);
         this.dropSelf(GCBlocks.MERCURY_GRAPHITE_ORE);
         this.dropSelf(GCBlocks.MERCURY_SULFIDE_ORE);
+
+        // JUPITER
+        this.dropSelf(GCBlocks.JUPITER_SURFACE);
+        this.dropSelf(GCBlocks.JUPITER_SUB_SURFACE);
+        this.dropSelf(GCBlocks.JUPITER_STONE);
+        this.dropSelf(GCBlocks.JUPITER_RED_STORM_ROCK);
+        this.dropSelf(GCBlocks.JUPITER_BANDED_OCHRE_ROCK);
+        this.dropSelf(GCBlocks.JUPITER_METALLIC_HYDROGEN_ROCK);
+        this.dropSelf(GCBlocks.JUPITER_CORE_BRECCIA);
+        this.dropSelf(GCBlocks.JUPITER_STONE_BRICKS);
+        this.add(GCBlocks.JUPITER_COPPER_ORE, this.createCopperOreDrops(GCBlocks.JUPITER_COPPER_ORE));
+        this.add(GCBlocks.JUPITER_TIN_ORE, this.createOreDrop(GCBlocks.JUPITER_TIN_ORE, GCItems.RAW_TIN, 2.0F, 5.0F));
+        this.add(GCBlocks.JUPITER_IRON_ORE, this.createOreDrop(GCBlocks.JUPITER_IRON_ORE, Items.RAW_IRON));
+        this.add(GCBlocks.JUPITER_ALUMINUM_ORE, this.createOreDrop(GCBlocks.JUPITER_ALUMINUM_ORE, GCItems.RAW_ALUMINUM));
+
+        // SATURN
+        this.dropSelf(GCBlocks.SATURN_SURFACE);
+        this.dropSelf(GCBlocks.SATURN_SUB_SURFACE);
+        this.dropSelf(GCBlocks.SATURN_STONE);
+        this.dropSelf(GCBlocks.SATURN_GOLDEN_BAND_ROCK);
+        this.dropSelf(GCBlocks.SATURN_RING_ICE_ROCK);
+        this.dropSelf(GCBlocks.SATURN_HYDROCARBON_SLATE);
+        this.dropSelf(GCBlocks.SATURN_HELIUM_MANTLE_ROCK);
+        this.dropSelf(GCBlocks.SATURN_STONE_BRICKS);
+        this.add(GCBlocks.SATURN_COPPER_ORE, this.createCopperOreDrops(GCBlocks.SATURN_COPPER_ORE));
+        this.add(GCBlocks.SATURN_TIN_ORE, this.createOreDrop(GCBlocks.SATURN_TIN_ORE, GCItems.RAW_TIN, 2.0F, 5.0F));
+        this.add(GCBlocks.SATURN_IRON_ORE, this.createOreDrop(GCBlocks.SATURN_IRON_ORE, Items.RAW_IRON));
+        this.add(GCBlocks.SATURN_TITANIUM_ORE, this.createOreDrop(GCBlocks.SATURN_TITANIUM_ORE, GCItems.RAW_TITANIUM));
+
+        // URANUS
+        this.dropSelf(GCBlocks.URANUS_SURFACE);
+        this.dropSelf(GCBlocks.URANUS_SUB_SURFACE);
+        this.dropSelf(GCBlocks.URANUS_STONE);
+        this.dropSelf(GCBlocks.URANUS_METHANE_ICE);
+        this.dropSelf(GCBlocks.URANUS_VERONA_SCARP_ROCK);
+        this.dropSelf(GCBlocks.URANUS_SUPERIONIC_MANTLE_ROCK);
+        this.dropSelf(GCBlocks.URANUS_DIAMOND_BEARING_ROCK);
+        this.dropSelf(GCBlocks.URANUS_STONE_BRICKS);
+        this.add(GCBlocks.URANUS_COPPER_ORE, this.createCopperOreDrops(GCBlocks.URANUS_COPPER_ORE));
+        this.add(GCBlocks.URANUS_TIN_ORE, this.createOreDrop(GCBlocks.URANUS_TIN_ORE, GCItems.RAW_TIN, 2.0F, 5.0F));
+        this.add(GCBlocks.URANUS_ALUMINUM_ORE, this.createOreDrop(GCBlocks.URANUS_ALUMINUM_ORE, GCItems.RAW_ALUMINUM));
+        this.add(GCBlocks.URANUS_TITANIUM_ORE, this.createOreDrop(GCBlocks.URANUS_TITANIUM_ORE, GCItems.RAW_TITANIUM));
+
+        // NEPTUNE
+        this.dropSelf(GCBlocks.NEPTUNE_SURFACE);
+        this.dropSelf(GCBlocks.NEPTUNE_SUB_SURFACE);
+        this.dropSelf(GCBlocks.NEPTUNE_STONE);
+        this.dropSelf(GCBlocks.NEPTUNE_NITROGEN_ICE);
+        this.dropSelf(GCBlocks.NEPTUNE_DARK_VORTEX_ROCK);
+        this.dropSelf(GCBlocks.NEPTUNE_CRYO_SLATE);
+        this.dropSelf(GCBlocks.NEPTUNE_ABYSSAL_MANTLE_ROCK);
+        this.dropSelf(GCBlocks.NEPTUNE_STONE_BRICKS);
+        this.add(GCBlocks.NEPTUNE_COPPER_ORE, this.createCopperOreDrops(GCBlocks.NEPTUNE_COPPER_ORE));
+        this.add(GCBlocks.NEPTUNE_TIN_ORE, this.createOreDrop(GCBlocks.NEPTUNE_TIN_ORE, GCItems.RAW_TIN, 2.0F, 5.0F));
+        this.add(GCBlocks.NEPTUNE_IRON_ORE, this.createOreDrop(GCBlocks.NEPTUNE_IRON_ORE, Items.RAW_IRON));
+        this.add(GCBlocks.NEPTUNE_TITANIUM_ORE, this.createOreDrop(GCBlocks.NEPTUNE_TITANIUM_ORE, GCItems.RAW_TITANIUM));
         this.dropSelf(GCBlocks.PUMICE);
         this.add(GCBlocks.VAPOR_SPOUT, this.createSingleItemTableWithSilkTouch(GCBlocks.VAPOR_SPOUT, GCBlocks.SOFT_VENUS_ROCK));
         this.add(GCBlocks.CRASHED_PROBE, this.createSilkTouchOnlyTable(GCBlocks.CRASHED_PROBE));

@@ -1,0 +1,35 @@
+{
+  "type": "galacticraft:outer_planet_structure",
+  "config": {
+    "accent_or_crown_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:saturn_sub_surface"
+      }
+    },
+    "core_or_fluid_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:saturn_golden_band_rock"
+      }
+    },
+    "kind": "tilted_spire",
+    "max_height": 15,
+    "max_radius": 4,
+    "min_height": 7,
+    "min_radius": 2,
+    "primary_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:saturn_ring_ice_rock"
+      }
+    },
+    "secondary_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:saturn_surface"
+      }
+    },
+    "tilt_strength": 0.55
+  }
+}

@@ -192,6 +192,62 @@ public interface Constant {
         String MERCURY_GRAPHITE_ORE = "mercury_graphite_ore";
         String MERCURY_SULFIDE_ORE = "mercury_sulfide_ore";
 
+        // Jupiter Natural & Ores
+        String JUPITER_SURFACE = "jupiter_surface";
+        String JUPITER_SUB_SURFACE = "jupiter_sub_surface";
+        String JUPITER_STONE = "jupiter_stone";
+        String JUPITER_RED_STORM_ROCK = "jupiter_red_storm_rock";
+        String JUPITER_BANDED_OCHRE_ROCK = "jupiter_banded_ochre_rock";
+        String JUPITER_METALLIC_HYDROGEN_ROCK = "jupiter_metallic_hydrogen_rock";
+        String JUPITER_CORE_BRECCIA = "jupiter_core_breccia";
+        String JUPITER_STONE_BRICKS = "jupiter_stone_bricks";
+        String JUPITER_COPPER_ORE = "jupiter_copper_ore";
+        String JUPITER_TIN_ORE = "jupiter_tin_ore";
+        String JUPITER_IRON_ORE = "jupiter_iron_ore";
+        String JUPITER_ALUMINUM_ORE = "jupiter_aluminum_ore";
+
+        // Saturn Natural & Ores
+        String SATURN_SURFACE = "saturn_surface";
+        String SATURN_SUB_SURFACE = "saturn_sub_surface";
+        String SATURN_STONE = "saturn_stone";
+        String SATURN_GOLDEN_BAND_ROCK = "saturn_golden_band_rock";
+        String SATURN_RING_ICE_ROCK = "saturn_ring_ice_rock";
+        String SATURN_HYDROCARBON_SLATE = "saturn_hydrocarbon_slate";
+        String SATURN_HELIUM_MANTLE_ROCK = "saturn_helium_mantle_rock";
+        String SATURN_STONE_BRICKS = "saturn_stone_bricks";
+        String SATURN_COPPER_ORE = "saturn_copper_ore";
+        String SATURN_TIN_ORE = "saturn_tin_ore";
+        String SATURN_IRON_ORE = "saturn_iron_ore";
+        String SATURN_TITANIUM_ORE = "saturn_titanium_ore";
+
+        // Uranus Natural & Ores
+        String URANUS_SURFACE = "uranus_surface";
+        String URANUS_SUB_SURFACE = "uranus_sub_surface";
+        String URANUS_STONE = "uranus_stone";
+        String URANUS_METHANE_ICE = "uranus_methane_ice";
+        String URANUS_VERONA_SCARP_ROCK = "uranus_verona_scarp_rock";
+        String URANUS_SUPERIONIC_MANTLE_ROCK = "uranus_superionic_mantle_rock";
+        String URANUS_DIAMOND_BEARING_ROCK = "uranus_diamond_bearing_rock";
+        String URANUS_STONE_BRICKS = "uranus_stone_bricks";
+        String URANUS_COPPER_ORE = "uranus_copper_ore";
+        String URANUS_TIN_ORE = "uranus_tin_ore";
+        String URANUS_ALUMINUM_ORE = "uranus_aluminum_ore";
+        String URANUS_TITANIUM_ORE = "uranus_titanium_ore";
+
+        // Neptune Natural & Ores
+        String NEPTUNE_SURFACE = "neptune_surface";
+        String NEPTUNE_SUB_SURFACE = "neptune_sub_surface";
+        String NEPTUNE_STONE = "neptune_stone";
+        String NEPTUNE_NITROGEN_ICE = "neptune_nitrogen_ice";
+        String NEPTUNE_DARK_VORTEX_ROCK = "neptune_dark_vortex_rock";
+        String NEPTUNE_CRYO_SLATE = "neptune_cryo_slate";
+        String NEPTUNE_ABYSSAL_MANTLE_ROCK = "neptune_abyssal_mantle_rock";
+        String NEPTUNE_STONE_BRICKS = "neptune_stone_bricks";
+        String NEPTUNE_COPPER_ORE = "neptune_copper_ore";
+        String NEPTUNE_TIN_ORE = "neptune_tin_ore";
+        String NEPTUNE_IRON_ORE = "neptune_iron_ore";
+        String NEPTUNE_TITANIUM_ORE = "neptune_titanium_ore";
+
         // Ore
         String MARS_IRON_ORE = "mars_iron_ore";
         String MARS_TIN_ORE = "mars_tin_ore";
@@ -1502,6 +1558,14 @@ public interface Constant {
         String MERCURY_SKYLIGHT_CARVER = "mercury_skylight_carver";
         String MERCURY_SUBLIMATION_FUNNEL_CARVER = "mercury_sublimation_funnel_carver";
         String MERCURY_CAVE_CARVER = "mercury_cave_carver";
+        String JUPITER_CAVE_CARVER = "jupiter_cave_carver";
+        String JUPITER_CANYON_CARVER = "jupiter_canyon_carver";
+        String SATURN_CAVE_CARVER = "saturn_cave_carver";
+        String SATURN_CANYON_CARVER = "saturn_canyon_carver";
+        String URANUS_CAVE_CARVER = "uranus_cave_carver";
+        String URANUS_CANYON_CARVER = "uranus_canyon_carver";
+        String NEPTUNE_CAVE_CARVER = "neptune_cave_carver";
+        String NEPTUNE_CANYON_CARVER = "neptune_canyon_carver";
     }
 
     interface Packet {

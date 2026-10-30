@@ -1,0 +1,11 @@
+{
+  "type": "galacticraft:neptune",
+  "generator": {
+    "type": "minecraft:noise",
+    "biome_source": {
+      "type": "minecraft:multi_noise",
+      "preset": "galacticraft:neptune"
+    },
+    "settings": "galacticraft:neptune"
+  }
+}

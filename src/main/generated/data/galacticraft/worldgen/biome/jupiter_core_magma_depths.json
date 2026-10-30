@@ -1,0 +1,108 @@
+{
+  "carvers": {
+    "air": [
+      "galacticraft:jupiter_cave_carver",
+      "galacticraft:jupiter_canyon_carver"
+    ]
+  },
+  "downfall": 0.0,
+  "effects": {
+    "fog_color": 7878175,
+    "foliage_color": 9194027,
+    "grass_color": 10377784,
+    "music": {
+      "max_delay": 24000,
+      "min_delay": 12000,
+      "replace_current_music": true,
+      "sound": "galacticraft:music.orbit"
+    },
+    "sky_color": 9191462,
+    "water_color": 6696474,
+    "water_fog_color": 4858388
+  },
+  "features": [
+    [],
+    [
+      "galacticraft:jupiter_hydrocarbon_pool"
+    ],
+    [
+      "minecraft:amethyst_geode"
+    ],
+    [],
+    [
+      "galacticraft:jupiter_cyclone_volcano"
+    ],
+    [],
+    [
+      "galacticraft:ore_copper_jupiter",
+      "galacticraft:ore_tin_jupiter",
+      "galacticraft:ore_iron_jupiter",
+      "galacticraft:ore_aluminum_jupiter"
+    ],
+    [
+      "galacticraft:jupiter_metallic_hydrogen_column"
+    ]
+  ],
+  "has_precipitation": false,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": [
+      {
+        "type": "minecraft:spider",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 100
+      },
+      {
+        "type": "minecraft:zombie",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 95
+      },
+      {
+        "type": "minecraft:zombie_villager",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 5
+      },
+      {
+        "type": "minecraft:skeleton",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 100
+      },
+      {
+        "type": "minecraft:creeper",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 100
+      },
+      {
+        "type": "minecraft:slime",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 100
+      },
+      {
+        "type": "minecraft:enderman",
+        "maxCount": 4,
+        "minCount": 1,
+        "weight": 10
+      },
+      {
+        "type": "minecraft:witch",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 5
+      }
+    ],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 3.8
+}

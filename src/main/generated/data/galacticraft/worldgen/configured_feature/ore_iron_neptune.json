@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:ore",
+  "config": {
+    "discard_chance_on_air_exposure": 0.0,
+    "size": 7,
+    "targets": [
+      {
+        "state": {
+          "Name": "galacticraft:neptune_iron_ore"
+        },
+        "target": {
+          "predicate_type": "minecraft:tag_match",
+          "tag": "galacticraft:neptune_carver_replaceables"
+        }
+      }
+    ]
+  }
+}

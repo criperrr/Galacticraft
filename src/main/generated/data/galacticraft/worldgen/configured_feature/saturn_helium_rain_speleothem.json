@@ -1,0 +1,35 @@
+{
+  "type": "galacticraft:outer_planet_structure",
+  "config": {
+    "accent_or_crown_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:saturn_titanium_ore"
+      }
+    },
+    "core_or_fluid_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:saturn_golden_band_rock"
+      }
+    },
+    "kind": "speleothem",
+    "max_height": 44,
+    "max_radius": 5,
+    "min_height": 10,
+    "min_radius": 2,
+    "primary_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:saturn_helium_mantle_rock"
+      }
+    },
+    "secondary_block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "galacticraft:saturn_stone"
+      }
+    },
+    "tilt_strength": 0.0
+  }
+}

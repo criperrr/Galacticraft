@@ -45,12 +45,21 @@ public class GCDimensionTagProvider extends FabricTagProvider<DimensionType> {
         this.tag(GCDimensionTypeTags.SPACE)
                 .add(GCDimensionTypes.MOON)
                 .add(GCDimensionTypes.VENUS)
-                .add(GCDimensionTypes.ASTEROID);
+                .add(GCDimensionTypes.ASTEROID)
+                .add(GCDimensionTypes.JUPITER)
+                .add(GCDimensionTypes.SATURN)
+                .add(GCDimensionTypes.URANUS)
+                .add(GCDimensionTypes.NEPTUNE);
         this.tag(GCDimensionTypeTags.VACUUM)
                 .add(GCDimensionTypes.MOON)
                 .add(GCDimensionTypes.ASTEROID);
         this.tag(GCDimensionTypeTags.NO_WEATHER)
                 .add(GCDimensionTypes.MOON)
-                .add(GCDimensionTypes.ASTEROID);
+                .add(GCDimensionTypes.ASTEROID)
+                .add(GCDimensionTypes.JUPITER)
+                .add(GCDimensionTypes.SATURN)
+                .add(GCDimensionTypes.URANUS)
+                .add(GCDimensionTypes.NEPTUNE);
+        this.tag(GCDimensionTypeTags.ALLOWS_MOB_SPAWNING);
     }
 }

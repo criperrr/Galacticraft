@@ -30,10 +30,8 @@ import dev.galacticraft.api.satellite.SatelliteRecipe;
 import dev.galacticraft.api.universe.celestialbody.CelestialBody;
 import dev.galacticraft.api.universe.celestialbody.landable.teleporter.CelestialTeleporter;
 import dev.galacticraft.impl.universe.BuiltinObjects;
-import dev.galacticraft.impl.universe.celestialbody.config.DecorativePlanetConfig;
 import dev.galacticraft.impl.universe.celestialbody.config.PlanetConfig;
 import dev.galacticraft.impl.universe.celestialbody.config.StarConfig;
-import dev.galacticraft.impl.universe.celestialbody.type.DecorativePlanetType;
 import dev.galacticraft.impl.universe.celestialbody.type.PlanetType;
 import dev.galacticraft.impl.universe.celestialbody.type.StarType;
 import dev.galacticraft.impl.universe.display.config.IconCelestialDisplayConfig;
@@ -268,69 +266,125 @@ public class GCCelestialBodies {
                 null
         )));
 
-        context.register(JUPITER, DecorativePlanetType.INSTANCE.configure(new DecorativePlanetConfig(
+        context.register(JUPITER, PlanetType.INSTANCE.configure(new PlanetConfig(
                 Component.translatable(Translations.CelestialBody.JUPITER),
                 Component.translatable(Translations.CelestialBody.JUPITER_DESC),
                 Optional.of(SOL),
                 OrbitalCelestialPositionType.INSTANCE.configure(new OrbitalCelestialPositionConfig(11.861993428258488499452354874042F, 1.5F, Mth.PI, true)),
-                IconCelestialDisplayType.INSTANCE.configure(new IconCelestialDisplayConfig(Constant.CelestialBody.JUPITER, 0, 0, 16, 16)),
+                IconCelestialDisplayType.INSTANCE.configure(new IconCelestialDisplayConfig(Constant.CelestialBody.JUPITER, 0, 0, 16, 16, Constant.CelestialOverlay.VENUS)),
                 DefaultCelestialRingDisplayType.INSTANCE.configure(new DefaultCelestialRingDisplayConfig()),
+                GCDimensions.JUPITER,
+                teleporters.getOrThrow(GCTeleporterTypes.LANDER_CELESTIAL_TELEPORTER),
                 new GasComposition.Builder()
-                        .temperature(23.0)
-                        .pressure(3.0E-15F)
+                        .temperature(-110.0)
+                        .pressure(12.0F)
+                        .gas(Gases.HYDROGEN_ID, 898000.000)
+                        .gas(Gases.HELIUM_ID, 102000.000)
+                        .gas(Gases.METHANE_ID, 3000.000)
+                        .gas(Gases.WATER_VAPOR_ID, 40.000)
+                        .gas(Gases.HYDROGEN_DEUTERIUM_OXIDE_ID, 28.000)
+                        .gas(Gases.NEON_ID, 20.000)
+                        .gas(Gases.ARGON_ID, 9.100)
+                        .gas(Gases.CARBON_MONOXIDE_ID, 1.600)
                         .build(),
-                0.166F,
+                2.36F,
+                GCCelestialHandlers.DEFAULT,
+                4,
+                -105,
+                -120,
+                9925L,
                 null
         )));
 
-        context.register(SATURN, DecorativePlanetType.INSTANCE.configure(new DecorativePlanetConfig(
+        context.register(SATURN, PlanetType.INSTANCE.configure(new PlanetConfig(
                 Component.translatable(Translations.CelestialBody.SATURN),
                 Component.translatable(Translations.CelestialBody.SATURN_DESC),
                 Optional.of(SOL),
                 OrbitalCelestialPositionType.INSTANCE.configure(new OrbitalCelestialPositionConfig(29.463307776560788608981380065717F, 1.75F, 5.45F, true)),
                 IconCelestialDisplayType.INSTANCE.configure(new IconCelestialDisplayConfig(
-                        Constant.CelestialBody.SATURN, 0, 0, 16, 16, 1,
-                        Optional.of(new IconCelestialDisplayConfig.Decoration(Constant.CelestialBody.SATURN_RINGS, -7.5F, -1.75F, 15.0F, 3.5F, 0, 0, 30, 7))
+                        Constant.CelestialBody.SATURN, 0, 0, 16, 16, 1.0F,
+                        Optional.of(new IconCelestialDisplayConfig.Decoration(Constant.CelestialBody.SATURN_RINGS, -7.5F, -1.75F, 15.0F, 3.5F, 0, 0, 30, 7)),
+                        Optional.of(Constant.CelestialOverlay.VENUS)
                 )),
                 DefaultCelestialRingDisplayType.INSTANCE.configure(new DefaultCelestialRingDisplayConfig()),
+                GCDimensions.SATURN,
+                teleporters.getOrThrow(GCTeleporterTypes.LANDER_CELESTIAL_TELEPORTER),
                 new GasComposition.Builder()
-                        .temperature(23.0)
-                        .pressure(3.0E-15F)
+                        .temperature(-140.0)
+                        .pressure(8.5F)
+                        .gas(Gases.HYDROGEN_ID, 963000.000)
+                        .gas(Gases.HELIUM_ID, 32500.000)
+                        .gas(Gases.METHANE_ID, 4500.000)
+                        .gas(Gases.HYDROGEN_DEUTERIUM_OXIDE_ID, 110.000)
+                        .gas(Gases.WATER_VAPOR_ID, 20.000)
+                        .gas(Gases.CARBON_MONOXIDE_ID, 1.000)
                         .build(),
-                0.166F,
+                0.916F,
+                GCCelestialHandlers.DEFAULT,
+                5,
+                -135,
+                -150,
+                10656L,
                 null
         )));
 
-        context.register(URANUS, DecorativePlanetType.INSTANCE.configure(new DecorativePlanetConfig(
+        context.register(URANUS, PlanetType.INSTANCE.configure(new PlanetConfig(
                 Component.translatable(Translations.CelestialBody.URANUS),
                 Component.translatable(Translations.CelestialBody.URANUS_DESC),
                 Optional.of(SOL),
                 OrbitalCelestialPositionType.INSTANCE.configure(new OrbitalCelestialPositionConfig(84.063526834611171960569550930997F, 2.0F, 1.38F, true)),
                 IconCelestialDisplayType.INSTANCE.configure(new IconCelestialDisplayConfig(
-                        Constant.CelestialBody.URANUS, 0, 0, 16, 16, 1,
-                        Optional.of(new IconCelestialDisplayConfig.Decoration(Constant.CelestialBody.URANUS_RINGS, -1.75F, -7.0F, 3.5F, 14.0F, 0, 0, 7, 28))
+                        Constant.CelestialBody.URANUS, 0, 0, 16, 16, 1.0F,
+                        Optional.of(new IconCelestialDisplayConfig.Decoration(Constant.CelestialBody.URANUS_RINGS, -1.75F, -7.0F, 3.5F, 14.0F, 0, 0, 7, 28)),
+                        Optional.of(Constant.CelestialOverlay.MARS)
                 )),
                 DefaultCelestialRingDisplayType.INSTANCE.configure(new DefaultCelestialRingDisplayConfig()),
+                GCDimensions.URANUS,
+                teleporters.getOrThrow(GCTeleporterTypes.LANDER_CELESTIAL_TELEPORTER),
                 new GasComposition.Builder()
-                        .temperature(23.0)
-                        .pressure(3.0E-15F)
+                        .temperature(-195.0)
+                        .pressure(5.0F)
+                        .gas(Gases.HYDROGEN_ID, 825000.000)
+                        .gas(Gases.HELIUM_ID, 152000.000)
+                        .gas(Gases.METHANE_ID, 23000.000)
+                        .gas(Gases.HYDROGEN_DEUTERIUM_OXIDE_ID, 148.000)
+                        .gas(Gases.WATER_VAPOR_ID, 15.000)
+                        .gas(Gases.CARBON_MONOXIDE_ID, 0.500)
                         .build(),
-                0.166F,
+                0.886F,
+                GCCelestialHandlers.DEFAULT,
+                6,
+                -190,
+                -224,
+                17240L,
                 null
         )));
 
-        context.register(NEPTUNE, DecorativePlanetType.INSTANCE.configure(new DecorativePlanetConfig(
+        context.register(NEPTUNE, PlanetType.INSTANCE.configure(new PlanetConfig(
                 Component.translatable(Translations.CelestialBody.NEPTUNE),
                 Component.translatable(Translations.CelestialBody.NEPTUNE_DESC),
                 Optional.of(SOL),
                 OrbitalCelestialPositionType.INSTANCE.configure(new OrbitalCelestialPositionConfig(164.84118291347207009857612267251F, 2.25F, 1.0F, true)),
-                IconCelestialDisplayType.INSTANCE.configure(new IconCelestialDisplayConfig(Constant.CelestialBody.NEPTUNE, 0, 0, 16, 16)),
+                IconCelestialDisplayType.INSTANCE.configure(new IconCelestialDisplayConfig(Constant.CelestialBody.NEPTUNE, 0, 0, 16, 16, Constant.CelestialOverlay.MARS)),
                 DefaultCelestialRingDisplayType.INSTANCE.configure(new DefaultCelestialRingDisplayConfig()),
+                GCDimensions.NEPTUNE,
+                teleporters.getOrThrow(GCTeleporterTypes.LANDER_CELESTIAL_TELEPORTER),
                 new GasComposition.Builder()
-                        .temperature(23.0)
-                        .pressure(3.0E-15F)
+                        .temperature(-200.0)
+                        .pressure(7.5F)
+                        .gas(Gases.HYDROGEN_ID, 800000.000)
+                        .gas(Gases.HELIUM_ID, 190000.000)
+                        .gas(Gases.METHANE_ID, 15000.000)
+                        .gas(Gases.NITROGEN_ID, 300.000)
+                        .gas(Gases.HYDROGEN_DEUTERIUM_OXIDE_ID, 192.000)
+                        .gas(Gases.CARBON_MONOXIDE_ID, 1.500)
                         .build(),
-                0.166F,
+                1.14F,
+                GCCelestialHandlers.DEFAULT,
+                7,
+                -198,
+                -215,
+                16110L,
                 null
         )));
     }
