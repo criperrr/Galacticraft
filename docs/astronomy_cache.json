@@ -1,0 +1,308 @@
+{
+  "mars": {
+    "id": "mars",
+    "name": "Mars",
+    "parent": "galacticraft:sol",
+    "type": "planet",
+    "astronomy": {
+      "radius_km": 3389.92,
+      "mass_kg": 6.4171,
+      "GM_km3_s2": 42828.375662,
+      "gravity_ms2": 3.71,
+      "rotation_period_hours": 24.622962,
+      "temperature_kelvin": 210.0,
+      "escape_speed_km_s": 5.027
+    },
+    "minecraft_gc5": {
+      "gravity_relative": 0.3783,
+      "gravity_ms2": 3.71,
+      "day_length_ticks": 24623,
+      "rotation_period_hours": 24.622962,
+      "distance_au": 1.524,
+      "solar_energy_multiplier": 0.4306,
+      "atmosphere_pressure_kpa": 0.636,
+      "atmosphere_breathable": false,
+      "atmosphere_composition": {
+        "CO2": 0.951,
+        "N2": 0.026,
+        "Ar": 0.019,
+        "O2": 0.0016
+      }
+    }
+  },
+  "mercury": {
+    "id": "mercury",
+    "name": "Mercury",
+    "parent": "galacticraft:sol",
+    "type": "planet",
+    "astronomy": {
+      "radius_km": 2439.4,
+      "mass_kg": 3.302,
+      "GM_km3_s2": 22031.86855,
+      "gravity_ms2": 3.701,
+      "rotation_period_hours": 1407.5112,
+      "temperature_kelvin": 440.0
+    },
+    "minecraft_gc5": {
+      "gravity_relative": 0.3774,
+      "gravity_ms2": 3.701,
+      "day_length_ticks": 1407511,
+      "rotation_period_hours": 1407.5112,
+      "distance_au": 0.387,
+      "solar_energy_multiplier": 6.6769,
+      "atmosphere_pressure_kpa": 1e-09,
+      "atmosphere_breathable": false,
+      "atmosphere_composition": {
+        "Trace_Na_He": 1.0
+      }
+    }
+  },
+  "venus": {
+    "id": "venus",
+    "name": "Venus",
+    "parent": "galacticraft:sol",
+    "type": "planet",
+    "astronomy": {
+      "radius_km": 6051.84,
+      "mass_kg": 48.685,
+      "GM_km3_s2": 324858.592,
+      "gravity_ms2": 8.87,
+      "rotation_period_hours": 5832.4436160000005,
+      "temperature_kelvin": 735.0,
+      "escape_speed_km_s": 10.361
+    },
+    "minecraft_gc5": {
+      "gravity_relative": 0.9045,
+      "gravity_ms2": 8.87,
+      "day_length_ticks": 5832444,
+      "rotation_period_hours": 5832.4436160000005,
+      "distance_au": 0.723,
+      "solar_energy_multiplier": 1.913,
+      "atmosphere_pressure_kpa": 9300.0,
+      "atmosphere_breathable": false,
+      "atmosphere_composition": {
+        "CO2": 0.965,
+        "N2": 0.035,
+        "SO2": 0.00015
+      }
+    }
+  },
+  "earth": {
+    "id": "earth",
+    "name": "Earth",
+    "parent": "galacticraft:sol",
+    "type": "planet",
+    "astronomy": {
+      "radius_km": 6371.01,
+      "mass_kg": 5.97219,
+      "GM_km3_s2": 398600.435436,
+      "gravity_ms2": 9.8202,
+      "rotation_period_hours": 24.000000555555555
+    },
+    "minecraft_gc5": {
+      "gravity_relative": 1.0014,
+      "gravity_ms2": 9.8202,
+      "day_length_ticks": 24000,
+      "rotation_period_hours": 24.000000555555555,
+      "distance_au": 1.0,
+      "solar_energy_multiplier": 1.0,
+      "atmosphere_pressure_kpa": 101.325,
+      "atmosphere_breathable": true,
+      "atmosphere_composition": {
+        "N2": 0.7808,
+        "O2": 0.2095,
+        "Ar": 0.0093,
+        "CO2": 0.0004
+      }
+    }
+  },
+  "moon": {
+    "id": "moon",
+    "name": "Moon",
+    "parent": "minecraft:overworld",
+    "type": "moon",
+    "astronomy": {
+      "radius_km": 1737.53,
+      "GM_km3_s2": 4902.800066,
+      "gravity_ms2": 1.62,
+      "rotation_period_hours": 708.7344
+    },
+    "minecraft_gc5": {
+      "gravity_relative": 0.1652,
+      "gravity_ms2": 1.62,
+      "day_length_ticks": 708734,
+      "rotation_period_hours": 708.7344,
+      "distance_au": 1.0,
+      "solar_energy_multiplier": 1.0,
+      "atmosphere_pressure_kpa": 0.0,
+      "atmosphere_breathable": false,
+      "atmosphere_composition": {
+        "Vacuum": 1.0
+      }
+    }
+  },
+  "jupiter": {
+    "id": "jupiter",
+    "name": "Jupiter",
+    "parent": "galacticraft:sol",
+    "type": "planet",
+    "astronomy": {
+      "radius_km": 69911.0,
+      "GM_km3_s2": 126686531.9,
+      "gravity_ms2": 24.79,
+      "rotation_period_hours": 9.92491972222222,
+      "escape_speed_km_s": 59.5
+    },
+    "minecraft_gc5": {
+      "gravity_relative": 2.5279,
+      "gravity_ms2": 24.79,
+      "day_length_ticks": 9925,
+      "rotation_period_hours": 9.92491972222222,
+      "distance_au": 5.204,
+      "solar_energy_multiplier": 0.0369,
+      "atmosphere_pressure_kpa": 20000.0,
+      "atmosphere_breathable": false,
+      "atmosphere_composition": {
+        "H2": 0.898,
+        "He": 0.102
+      }
+    }
+  },
+  "saturn": {
+    "id": "saturn",
+    "name": "Saturn",
+    "parent": "galacticraft:sol",
+    "type": "planet",
+    "astronomy": {
+      "radius_km": 58232.0,
+      "mass_kg": 5.6834,
+      "GM_km3_s2": 37931206.234,
+      "gravity_ms2": 10.44,
+      "rotation_period_hours": 10.656222222222222,
+      "escape_speed_km_s": 35.5
+    },
+    "minecraft_gc5": {
+      "gravity_relative": 1.0646,
+      "gravity_ms2": 10.44,
+      "day_length_ticks": 10656,
+      "rotation_period_hours": 10.656222222222222,
+      "distance_au": 9.582,
+      "solar_energy_multiplier": 0.0109,
+      "atmosphere_pressure_kpa": 14000.0,
+      "atmosphere_breathable": false,
+      "atmosphere_composition": {
+        "H2": 0.963,
+        "He": 0.033
+      }
+    }
+  },
+  "uranus": {
+    "id": "uranus",
+    "name": "Uranus",
+    "parent": "galacticraft:sol",
+    "type": "planet",
+    "astronomy": {
+      "radius_km": 25362.0,
+      "mass_kg": 86.813,
+      "GM_km3_s2": 5793950.6103,
+      "gravity_ms2": 8.87,
+      "rotation_period_hours": 413.76,
+      "escape_speed_km_s": 21.3
+    },
+    "minecraft_gc5": {
+      "gravity_relative": 0.9045,
+      "gravity_ms2": 8.87,
+      "day_length_ticks": 413760,
+      "rotation_period_hours": 413.76,
+      "distance_au": 19.2,
+      "solar_energy_multiplier": 0.0027,
+      "atmosphere_pressure_kpa": 10000.0,
+      "atmosphere_breathable": false,
+      "atmosphere_composition": {
+        "H2": 0.825,
+        "He": 0.152,
+        "CH4": 0.023
+      }
+    }
+  },
+  "neptune": {
+    "id": "neptune",
+    "name": "Neptune",
+    "parent": "galacticraft:sol",
+    "type": "planet",
+    "astronomy": {
+      "radius_km": 24624.0,
+      "mass_kg": 102.409,
+      "GM_km3_s2": 6835099.97,
+      "gravity_ms2": 11.15,
+      "rotation_period_hours": 16.11
+    },
+    "minecraft_gc5": {
+      "gravity_relative": 1.137,
+      "gravity_ms2": 11.15,
+      "day_length_ticks": 16110,
+      "rotation_period_hours": 16.11,
+      "distance_au": 30.05,
+      "solar_energy_multiplier": 0.0011,
+      "atmosphere_pressure_kpa": 10000.0,
+      "atmosphere_breathable": false,
+      "atmosphere_composition": {
+        "H2": 0.8,
+        "He": 0.19,
+        "CH4": 0.015
+      }
+    }
+  },
+  "ceres": {
+    "id": "ceres",
+    "name": "Ceres",
+    "parent": "galacticraft:sol",
+    "type": "asteroid",
+    "astronomy": {
+      "radius_km": 469.7,
+      "gravity_ms2": 0.2839,
+      "rotation_period_hours": 9.07417,
+      "spectral_type": "C"
+    },
+    "minecraft_gc5": {
+      "gravity_relative": 0.0289,
+      "gravity_ms2": 0.2839,
+      "day_length_ticks": 9074,
+      "rotation_period_hours": 9.07417,
+      "distance_au": 2.767,
+      "solar_energy_multiplier": 0.1306,
+      "atmosphere_pressure_kpa": 0.0,
+      "atmosphere_breathable": false,
+      "atmosphere_composition": {
+        "Vacuum": 1.0
+      }
+    }
+  },
+  "titan": {
+    "id": "titan",
+    "name": "Titan",
+    "parent": "galacticraft:saturn",
+    "type": "moon",
+    "astronomy": {
+      "radius_km": 2575.5,
+      "GM_km3_s2": 8978.14,
+      "gravity_ms2": 1.3535,
+      "rotation_period_hours": 382.690104
+    },
+    "minecraft_gc5": {
+      "gravity_relative": 0.138,
+      "gravity_ms2": 1.3535,
+      "day_length_ticks": 382690,
+      "rotation_period_hours": 382.690104,
+      "distance_au": 9.582,
+      "solar_energy_multiplier": 0.0109,
+      "atmosphere_pressure_kpa": 146.7,
+      "atmosphere_breathable": false,
+      "atmosphere_composition": {
+        "N2": 0.942,
+        "CH4": 0.0565,
+        "H2": 0.001
+      }
+    }
+  }
+}
