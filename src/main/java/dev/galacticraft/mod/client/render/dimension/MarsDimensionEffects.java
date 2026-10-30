@@ -23,14 +23,26 @@
 package dev.galacticraft.mod.client.render.dimension;
 
 import dev.galacticraft.mod.api.dimension.GalacticDimensionEffects;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.util.CubicSampler;
+import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 
+/**
+ * Dimension effects for Mars, faithfully restoring its authentic thin terracotta atmosphere:
+ * subtle reddish-orange horizon atmospheric fog, daylight scattering, and sunset glow.
+ */
+@Environment(EnvType.CLIENT)
 public class MarsDimensionEffects extends GalacticDimensionEffects {
-    public static final MarsDimensionEffects INSTANCE = new MarsDimensionEffects(Float.NaN, true, SkyType.NORMAL, true, true);
+    public static final MarsDimensionEffects INSTANCE = new MarsDimensionEffects();
+    private final float[] sunriseColor = new float[4];
+
+    public MarsDimensionEffects() {
+        super(Float.NaN, false, SkyType.NORMAL, false, false);
+    }
 
     public MarsDimensionEffects(float cloudLevel, boolean hasGround, SkyType skyType, boolean forceBrightLightmap, boolean constantAmbientLight) {
         super(cloudLevel, hasGround, skyType, forceBrightLightmap, constantAmbientLight);
@@ -38,39 +50,52 @@ public class MarsDimensionEffects extends GalacticDimensionEffects {
 
     @Override
     public Vec3 getFogColor(ClientLevel level, float partialTicks, Vec3 cameraPos, CubicSampler.Vec3Fetcher fetcher) {
-        float night = getStarBrightness(level, 1.0F);
-        float day = 1.0F - night;
-        // GC4 WorldProviderMars fog RGB (210, 120, 59) during day, darker reddish-brown at night
-        float dayColR = 210.0F / 255.0F;
-        float dayColG = 120.0F / 255.0F;
-        float dayColB = 59.0F / 255.0F;
-        float nightColR = 42.0F / 255.0F;
-        float nightColG = 24.0F / 255.0F;
-        float nightColB = 12.0F / 255.0F;
-        return new Vec3(dayColR * day + nightColR * night, dayColG * day + nightColG * night, dayColB * day + nightColB * night);
-    }
-
-    @Override
-    public boolean isFoggyAt(int x, int y) {
-        return false;
+        float daylightFactor = 1.0F - getStarBrightness(level, partialTicks);
+        return new Vec3(
+                (210.0 / 255.0) * daylightFactor,
+                (120.0 / 255.0) * daylightFactor,
+                (59.0 / 255.0) * daylightFactor
+        );
     }
 
     @Override
     public Vec3 getSkyColor(ClientLevel level, float partialTicks) {
-        float night = getStarBrightness(level, 1.0F);
-        float day = 1.0F - night;
-        // GC4 WorldProviderMars sky RGB (154, 114, 66)
-        float dayColR = 154.0F / 255.0F;
-        float dayColG = 114.0F / 255.0F;
-        float dayColB = 66.0F / 255.0F;
-        float nightColR = 15.0F / 255.0F;
-        float nightColG = 11.0F / 255.0F;
-        float nightColB = 6.0F / 255.0F;
-        return new Vec3(dayColR * day + nightColR * night, dayColG * day + nightColG * night, dayColB * day + nightColB * night);
+        float daylightFactor = 1.0F - getStarBrightness(level, partialTicks);
+        return new Vec3(
+                (154.0 / 255.0) * daylightFactor,
+                (114.0 / 255.0) * daylightFactor,
+                (66.0 / 255.0) * daylightFactor
+        );
     }
 
     @Override
-    public boolean tickRain(@NotNull ClientLevel level, Camera camera, int ticks) {
+    public Vec3 getBrightnessDependentFogColor(Vec3 fogColor, float brightness) {
+        return fogColor;
+    }
+
+    @Override
+    public boolean isFoggyAt(int camX, int camY) {
         return false;
+    }
+
+    @Override
+    public boolean tickRain(ClientLevel level, Camera camera, int ticks) {
+        return false;
+    }
+
+    @Override
+    public float[] getSunriseColor(float skyAngle, float tickDelta) {
+        float f = Mth.cos(skyAngle * Mth.TWO_PI);
+        if (f >= -0.4F && f <= 0.4F) {
+            float f1 = (f - -0.0F) / 0.4F * 0.5F + 0.5F;
+            float f2 = 1.0F - (1.0F - Mth.sin(f1 * (float) Math.PI)) * 0.99F;
+            f2 *= f2;
+            this.sunriseColor[0] = 255.0F / 255.0F;
+            this.sunriseColor[1] = 194.0F / 255.0F;
+            this.sunriseColor[2] = 180.0F / 255.0F;
+            this.sunriseColor[3] = 0.30F * f2;
+            return this.sunriseColor;
+        }
+        return null;
     }
 }
