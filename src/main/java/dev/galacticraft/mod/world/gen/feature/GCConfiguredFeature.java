@@ -318,7 +318,7 @@ public class GCConfiguredFeature {
 
         context.register(SATURN_AMMONIA_HYDROCARBON_LAKE, new ConfiguredFeature<>(Feature.LAKE,
                 new LakeFeature.Configuration(
-                        BlockStateProvider.simple(GCBlocks.FUEL.defaultBlockState()),
+                        BlockStateProvider.simple(GCBlocks.CRUDE_OIL.defaultBlockState()),
                         BlockStateProvider.simple(GCBlocks.SATURN_HYDROCARBON_SLATE.defaultBlockState())
                 )));
 

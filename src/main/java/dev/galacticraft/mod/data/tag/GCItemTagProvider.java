@@ -210,7 +210,8 @@ public class GCItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         this.tag(GCItemTags.BATTERIES)
                 .add(GCItems.BATTERY)
-                .add(GCItems.INFINITE_BATTERY);
+                .add(GCItems.INFINITE_BATTERY)
+                .add(GCItems.ATOMIC_BATTERY);
 
         // ORE TAGS
         this.copy(GCBlockTags.ORE_BEARING_GROUND_MOON_ROCK, GCItemTags.ORE_BEARING_GROUND_MOON_ROCK);
@@ -220,6 +221,11 @@ public class GCItemTagProvider extends FabricTagProvider.ItemTagProvider {
         this.copy(GCBlockTags.ORE_BEARING_GROUND_ASTEROID_ROCK, GCItemTags.ORE_BEARING_GROUND_ASTEROID_ROCK);
         this.copy(GCBlockTags.ORE_BEARING_GROUND_SOFT_VENUS_ROCK, GCItemTags.ORE_BEARING_GROUND_SOFT_VENUS_ROCK);
         this.copy(GCBlockTags.ORE_BEARING_GROUND_HARD_VENUS_ROCK, GCItemTags.ORE_BEARING_GROUND_HARD_VENUS_ROCK);
+        this.copy(GCBlockTags.ORE_BEARING_GROUND_MERCURY_BASALT, GCItemTags.ORE_BEARING_GROUND_MERCURY_BASALT);
+        this.copy(GCBlockTags.ORE_BEARING_GROUND_JUPITER_STONE, GCItemTags.ORE_BEARING_GROUND_JUPITER_STONE);
+        this.copy(GCBlockTags.ORE_BEARING_GROUND_SATURN_STONE, GCItemTags.ORE_BEARING_GROUND_SATURN_STONE);
+        this.copy(GCBlockTags.ORE_BEARING_GROUND_URANUS_STONE, GCItemTags.ORE_BEARING_GROUND_URANUS_STONE);
+        this.copy(GCBlockTags.ORE_BEARING_GROUND_NEPTUNE_STONE, GCItemTags.ORE_BEARING_GROUND_NEPTUNE_STONE);
 
         this.copy(ConventionalBlockTags.ORES_IN_GROUND_STONE, ConventionalItemTags.ORES_IN_GROUND_STONE);
         this.copy(ConventionalBlockTags.ORES_IN_GROUND_DEEPSLATE, ConventionalItemTags.ORES_IN_GROUND_DEEPSLATE);
@@ -230,6 +236,11 @@ public class GCItemTagProvider extends FabricTagProvider.ItemTagProvider {
         this.copy(GCBlockTags.ORES_IN_GROUND_ASTEROID_ROCK, GCItemTags.ORES_IN_GROUND_ASTEROID_ROCK);
         this.copy(GCBlockTags.ORES_IN_GROUND_SOFT_VENUS_ROCK, GCItemTags.ORES_IN_GROUND_SOFT_VENUS_ROCK);
         this.copy(GCBlockTags.ORES_IN_GROUND_HARD_VENUS_ROCK, GCItemTags.ORES_IN_GROUND_HARD_VENUS_ROCK);
+        this.copy(GCBlockTags.ORES_IN_GROUND_MERCURY_BASALT, GCItemTags.ORES_IN_GROUND_MERCURY_BASALT);
+        this.copy(GCBlockTags.ORES_IN_GROUND_JUPITER_STONE, GCItemTags.ORES_IN_GROUND_JUPITER_STONE);
+        this.copy(GCBlockTags.ORES_IN_GROUND_SATURN_STONE, GCItemTags.ORES_IN_GROUND_SATURN_STONE);
+        this.copy(GCBlockTags.ORES_IN_GROUND_URANUS_STONE, GCItemTags.ORES_IN_GROUND_URANUS_STONE);
+        this.copy(GCBlockTags.ORES_IN_GROUND_NEPTUNE_STONE, GCItemTags.ORES_IN_GROUND_NEPTUNE_STONE);
 
         this.copy(ConventionalBlockTags.ORE_RATES_DENSE, ConventionalItemTags.ORE_RATES_DENSE);
         this.copy(ConventionalBlockTags.ORE_RATES_SINGULAR, ConventionalItemTags.ORE_RATES_SINGULAR);
@@ -399,15 +410,43 @@ public class GCItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(GCItems.COPPER_CANISTER);
         this.tag(GCItemTags.CANISTERS)
                 .addTag(GCItemTags.TIN_CANISTERS)
-                .addTag(GCItemTags.COPPER_CANISTERS);
+                .addTag(GCItemTags.COPPER_CANISTERS)
+                .add(GCItems.FLUID_CANISTER);
 
         this.tag(GCItemTags.SOLAR_DUSTS)
                 .add(GCItems.SOLAR_DUST);
         this.tag(ConventionalItemTags.DUSTS)
                 .addTag(GCItemTags.SOLAR_DUSTS);
 
+        this.tag(ItemTags.COALS)
+                .add(GCItems.CARBON_FRAGMENTS);
+        this.tag(ConventionalItemTags.COAL)
+                .add(GCItems.CARBON_FRAGMENTS);
+
+        this.tag(GCItemTags.WAFERS)
+                .add(GCItems.BASIC_WAFER)
+                .add(GCItems.ADVANCED_WAFER)
+                .add(GCItems.BLUE_SOLAR_WAFER)
+                .add(GCItems.SOLAR_ARRAY_WAFER);
+
+        this.tag(GCItemTags.SCHEMATICS)
+                .add(GCItems.BASIC_ROCKET_CONE_SCHEMATIC)
+                .add(GCItems.BASIC_ROCKET_BODY_SCHEMATIC)
+                .add(GCItems.BASIC_ROCKET_FINS_SCHEMATIC)
+                .add(GCItems.BASIC_ROCKET_ENGINE_SCHEMATIC)
+                .add(GCItems.TIER_2_ROCKET_SCHEMATIC)
+                .add(GCItems.CARGO_ROCKET_SCHEMATIC)
+                .add(GCItems.MOON_BUGGY_SCHEMATIC)
+                .add(GCItems.TIER_3_ROCKET_SCHEMATIC)
+                .add(GCItems.ASTRO_MINER_SCHEMATIC);
+
         this.tag(ConventionalItemTags.BREAD_FOODS)
-                .add(GCItems.BURGER_BUN);
+                .add(GCItems.BURGER_BUN)
+                .add(GCItems.CRACKER)
+                .add(GCItems.CHEESE_CRACKER);
+        this.tag(ConventionalItemTags.COOKIE_FOODS)
+                .add(GCItems.CRACKER)
+                .add(GCItems.CHEESE_CRACKER);
         this.tag(ItemTags.MEAT)
                 .add(GCItems.GROUND_BEEF)
                 .add(GCItems.BEEF_PATTY);
@@ -420,12 +459,17 @@ public class GCItemTagProvider extends FabricTagProvider.ItemTagProvider {
         this.tag(GCItemTags.CHEESE_FOODS)
                 .add(GCItems.MOON_CHEESE_CURD)
                 .add(GCItems.MOON_CHEESE_SLICE)
+                .add(GCItems.CHEESE_CRACKER)
                 .add(GCBlocks.MOON_CHEESE_WHEEL.asItem());
+        this.tag(ConventionalItemTags.FRUITS_FOODS)
+                .add(GCItems.MOON_TANGLE_FRUIT);
         this.tag(ConventionalItemTags.FOODS)
                 .addTag(GCItemTags.CHEESE_FOODS)
                 .addTag(GCItemTags.CANNED_FOODS)
                 .add(GCItems.CHEESEBURGER)
-                .add(GCItems.MOON_TANGLE_FRUIT);
+                .add(GCItems.MOON_TANGLE_FRUIT)
+                .add(GCItems.CRACKER)
+                .add(GCItems.CHEESE_CRACKER);
 
         this.tag(GCItemTags.CANNED_FOODS)
                 .add(GCItems.CANNED_FOOD);
@@ -446,7 +490,8 @@ public class GCItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         this.tag(GCItemTags.ROCKET_STORAGE_UPGRADE_ITEMS)
                 .forceAddTag(ConventionalItemTags.WOODEN_CHESTS)
-                .forceAddTag(ConventionalItemTags.WOODEN_BARRELS);
+                .forceAddTag(ConventionalItemTags.WOODEN_BARRELS)
+                .add(GCBlocks.PARACHEST.asItem());
 
         this.tag(ConventionalItemTags.MUSIC_DISCS)
                 .add(GCItems.LEGACY_MUSIC_DISC_MARS)
@@ -500,16 +545,58 @@ public class GCItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(GCBlocks.MARS_COBBLESTONE.asItem())
                 .add(GCBlocks.ASTEROID_ROCK.asItem())
                 .add(GCBlocks.ASTEROID_ROCK_1.asItem())
-                .add(GCBlocks.ASTEROID_ROCK_2.asItem());
+                .add(GCBlocks.ASTEROID_ROCK_2.asItem())
+                .add(GCBlocks.MERCURY_BASALT.asItem())
+                .add(GCBlocks.JUPITER_STONE.asItem())
+                .add(GCBlocks.SATURN_STONE.asItem())
+                .add(GCBlocks.URANUS_STONE.asItem())
+                .add(GCBlocks.NEPTUNE_STONE.asItem());
         this.tag(ItemTags.STONE_CRAFTING_MATERIALS)
                 .add(GCBlocks.COBBLED_MOON_ROCK.asItem())
                 .add(GCBlocks.COBBLED_LUNASLATE.asItem())
                 .add(GCBlocks.MARS_COBBLESTONE.asItem())
                 .add(GCBlocks.ASTEROID_ROCK.asItem())
                 .add(GCBlocks.ASTEROID_ROCK_1.asItem())
-                .add(GCBlocks.ASTEROID_ROCK_2.asItem());
+                .add(GCBlocks.ASTEROID_ROCK_2.asItem())
+                .add(GCBlocks.MERCURY_BASALT.asItem())
+                .add(GCBlocks.JUPITER_STONE.asItem())
+                .add(GCBlocks.SATURN_STONE.asItem())
+                .add(GCBlocks.URANUS_STONE.asItem())
+                .add(GCBlocks.NEPTUNE_STONE.asItem());
+
+        this.tag(ItemTags.BEACON_PAYMENT_ITEMS)
+                .add(GCItems.TIN_INGOT)
+                .add(GCItems.ALUMINUM_INGOT)
+                .add(GCItems.METEORIC_IRON_INGOT)
+                .add(GCItems.DESH_INGOT)
+                .add(GCItems.TITANIUM_INGOT)
+                .add(GCItems.LEAD_INGOT)
+                .add(GCItems.LUNAR_SAPPHIRE);
 
         this.copy(ConventionalBlockTags.VILLAGER_JOB_SITES, ConventionalItemTags.VILLAGER_JOB_SITES);
+        this.copy(BlockTags.DOORS, ItemTags.DOORS);
+        this.copy(ConventionalBlockTags.GLASS_BLOCKS, ConventionalItemTags.GLASS_BLOCKS);
+        this.copy(ConventionalBlockTags.GLASS_BLOCKS_COLORLESS, ConventionalItemTags.GLASS_BLOCKS_COLORLESS);
+        this.copy(ConventionalBlockTags.GLASS_BLOCKS_TINTED, ConventionalItemTags.GLASS_BLOCKS_TINTED);
+        this.copy(ConventionalBlockTags.GLASS_PANES, ConventionalItemTags.GLASS_PANES);
+        this.copy(ConventionalBlockTags.GLASS_PANES_COLORLESS, ConventionalItemTags.GLASS_PANES_COLORLESS);
+        this.copy(BlockTags.DIRT, ItemTags.DIRT);
+        this.copy(BlockTags.SAND, ItemTags.SAND);
+        this.copy(BlockTags.SMELTS_TO_GLASS, ItemTags.SMELTS_TO_GLASS);
+        this.copy(BlockTags.LEAVES, ItemTags.LEAVES);
+        this.copy(BlockTags.LOGS, ItemTags.LOGS);
+        this.copy(BlockTags.STONE_BRICKS, ItemTags.STONE_BRICKS);
+        this.copy(ConventionalBlockTags.BUDDING_BLOCKS, ConventionalItemTags.BUDDING_BLOCKS);
+        this.copy(ConventionalBlockTags.BUDS, ConventionalItemTags.BUDS);
+        this.copy(ConventionalBlockTags.CHESTS, ConventionalItemTags.CHESTS);
+        this.copy(ConventionalBlockTags.WOODEN_CHESTS, ConventionalItemTags.WOODEN_CHESTS);
+        this.copy(ConventionalBlockTags.PLAYER_WORKSTATIONS_FURNACES, ConventionalItemTags.PLAYER_WORKSTATIONS_FURNACES);
+        this.copy(ConventionalBlockTags.PLAYER_WORKSTATIONS_CRAFTING_TABLES, ConventionalItemTags.PLAYER_WORKSTATIONS_CRAFTING_TABLES);
+        this.tag(GCItemTags.TORCHES)
+                .add(GCBlocks.GLOWSTONE_TORCH.asItem())
+                .add(GCBlocks.UNLIT_TORCH.asItem())
+                .add(GCBlocks.UNLIT_SOUL_TORCH.asItem());
+        this.copy(GCBlockTags.LANTERNS, GCItemTags.LANTERNS);
     }
 
     protected FabricTagProvider<Item>.@NotNull FabricTagBuilder tag(TagKey<Item> tag) {

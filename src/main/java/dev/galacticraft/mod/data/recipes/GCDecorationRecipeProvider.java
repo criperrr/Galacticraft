@@ -68,6 +68,7 @@ public class GCDecorationRecipeProvider extends FabricRecipeProvider {
         baseDecorationBlocks(output, GCItems.COMPRESSED_STEEL, GCBlockFamilies.STEEL_DECORATIONS);
         baseDecorationBlocks(output, GCItems.COMPRESSED_TIN, GCBlockFamilies.TIN_DECORATIONS);
         baseDecorationBlocks(output, GCItems.COMPRESSED_TITANIUM, GCBlockFamilies.TITANIUM_DECORATIONS);
+        baseDecorationBlocks(output, GCItems.COMPRESSED_DESH, GCBlockFamilies.DARK_DECORATIONS);
 
         smeltBuildingBlock(output, GCBlocks.MOON_ROCK, GCBlocks.COBBLED_MOON_ROCK, true);
         smeltBuildingBlock(output, GCBlocks.CRACKED_MOON_ROCK_BRICK, GCBlocks.MOON_ROCK_BRICK, true);
@@ -82,6 +83,12 @@ public class GCDecorationRecipeProvider extends FabricRecipeProvider {
         smeltBuildingBlock(output, GCBlocks.CRACKED_MOON_BASALT_BRICK, GCBlocks.MOON_BASALT_BRICK, true);
 
         smeltBuildingBlock(output, GCBlocks.MARS_STONE, GCBlocks.MARS_COBBLESTONE, true);
+
+        squareStone(output, GCBlocks.MERCURY_BASALT_BRICK, GCBlocks.MERCURY_BASALT);
+        squareStone(output, GCBlocks.JUPITER_STONE_BRICKS, GCBlocks.JUPITER_STONE);
+        squareStone(output, GCBlocks.SATURN_STONE_BRICKS, GCBlocks.SATURN_STONE);
+        squareStone(output, GCBlocks.URANUS_STONE_BRICKS, GCBlocks.URANUS_STONE);
+        squareStone(output, GCBlocks.NEPTUNE_STONE_BRICKS, GCBlocks.NEPTUNE_STONE);
 
         GCShapedRecipeBuilder.crafting(RecipeCategory.DECORATIONS, GCItems.GLOWSTONE_TORCH, 4)
                 .define('G', ConventionalItemTags.GLOWSTONE_DUSTS)
@@ -146,6 +153,39 @@ public class GCDecorationRecipeProvider extends FabricRecipeProvider {
                 .pattern("T T")
                 .unlockedBy(getHasName(GCItems.TIN_INGOT), has(GCItemTags.TIN_INGOTS))
                 .emiDefaultRecipe(true)
+                .save(output);
+
+        GCShapedRecipeBuilder.crafting(RecipeCategory.REDSTONE, GCBlocks.METEORIC_IRON_DOOR, 3)
+                .define('I', GCItems.METEORIC_IRON_INGOT)
+                .pattern("II")
+                .pattern("II")
+                .pattern("II")
+                .unlockedBy(getHasName(GCItems.METEORIC_IRON_INGOT), has(GCItems.METEORIC_IRON_INGOT))
+                .save(output);
+
+        GCShapedRecipeBuilder.crafting(RecipeCategory.DECORATIONS, GCBlocks.LUNAR_CARTOGRAPHY_TABLE)
+                .define('P', Items.PAPER)
+                .define('M', GCBlocks.COBBLED_MOON_ROCK)
+                .pattern("PP")
+                .pattern("MM")
+                .pattern("MM")
+                .unlockedBy(getHasName(GCBlocks.COBBLED_MOON_ROCK), has(GCBlocks.COBBLED_MOON_ROCK))
+                .save(output);
+
+        smeltBuildingBlock(output, GCBlocks.MOON_GLASS, GCBlocks.MOON_TURF, false);
+
+        GCShapedRecipeBuilder.crafting(RecipeCategory.DECORATIONS, GCBlocks.MOON_GLASS_PANE, 16)
+                .define('G', GCBlocks.MOON_GLASS)
+                .pattern("GGG")
+                .pattern("GGG")
+                .unlockedBy(getHasName(GCBlocks.MOON_GLASS), has(GCBlocks.MOON_GLASS))
+                .save(output);
+
+        GCShapedRecipeBuilder.crafting(RecipeCategory.DECORATIONS, GCBlocks.OLIVINE_GLASS_PANE, 16)
+                .define('G', GCBlocks.OLIVINE_GLASS)
+                .pattern("GGG")
+                .pattern("GGG")
+                .unlockedBy(getHasName(GCBlocks.OLIVINE_GLASS), has(GCBlocks.OLIVINE_GLASS))
                 .save(output);
 
         SpecialRecipeBuilder.special(FlagRecipe::new).save(output, Constant.Block.FLAG);

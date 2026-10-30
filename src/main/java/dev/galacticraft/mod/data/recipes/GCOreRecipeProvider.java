@@ -53,18 +53,20 @@ public class GCOreRecipeProvider extends FabricRecipeProvider {
     @Override
     public void buildRecipes(RecipeOutput output) {
         // Ore Smelting and Blasting
-        oreSmeltingAndBlasting(output, List.of(GCBlocks.MARS_IRON_ORE, GCBlocks.ASTEROID_IRON_ORE), Items.IRON_INGOT, 0.7f, 100);
-        oreSmeltingAndBlasting(output, List.of(GCBlocks.MOON_COPPER_ORE, GCBlocks.LUNASLATE_COPPER_ORE, GCBlocks.MARS_COPPER_ORE, GCBlocks.VENUS_COPPER_ORE), Items.COPPER_INGOT, 0.7f, 100);
-        oreSmeltingAndBlasting(output, List.of(GCBlocks.SILICON_ORE, GCBlocks.DEEPSLATE_SILICON_ORE), GCItems.SILICON, 0.2f, 100);
-        oreSmeltingAndBlasting(output, List.of(GCItems.RAW_ALUMINUM, GCBlocks.ALUMINUM_ORE, GCBlocks.DEEPSLATE_ALUMINUM_ORE, GCBlocks.ASTEROID_ALUMINUM_ORE, GCBlocks.VENUS_ALUMINUM_ORE), GCItems.ALUMINUM_INGOT, 0.7f, 100);
-        oreSmeltingAndBlasting(output, List.of(GCItems.RAW_TIN, GCBlocks.TIN_ORE, GCBlocks.DEEPSLATE_TIN_ORE, GCBlocks.MOON_TIN_ORE, GCBlocks.MARS_TIN_ORE, GCBlocks.VENUS_TIN_ORE), GCItems.TIN_INGOT, 0.35f, 100);
-        oreSmeltingAndBlasting(output, List.of(GCItems.RAW_METEORIC_IRON), GCItems.METEORIC_IRON_INGOT, 0.85f, 100);
+        oreSmeltingAndBlasting(output, List.of(GCBlocks.MARS_IRON_ORE, GCBlocks.ASTEROID_IRON_ORE, GCBlocks.MERCURY_NATIVE_IRON_ORE, GCBlocks.JUPITER_IRON_ORE, GCBlocks.SATURN_IRON_ORE, GCBlocks.NEPTUNE_IRON_ORE), Items.IRON_INGOT, 0.7f, 100);
+        oreSmeltingAndBlasting(output, List.of(GCBlocks.MOON_COPPER_ORE, GCBlocks.LUNASLATE_COPPER_ORE, GCBlocks.MARS_COPPER_ORE, GCBlocks.VENUS_COPPER_ORE, GCBlocks.MERCURY_COPPER_ORE, GCBlocks.JUPITER_COPPER_ORE, GCBlocks.SATURN_COPPER_ORE, GCBlocks.URANUS_COPPER_ORE, GCBlocks.NEPTUNE_COPPER_ORE), Items.COPPER_INGOT, 0.7f, 100);
+        oreSmeltingAndBlasting(output, List.of(GCBlocks.SILICON_ORE, GCBlocks.DEEPSLATE_SILICON_ORE, GCBlocks.ASTEROID_SILICON_ORE), GCItems.SILICON, 0.2f, 100);
+        oreSmeltingAndBlasting(output, List.of(GCItems.RAW_ALUMINUM, GCBlocks.ALUMINUM_ORE, GCBlocks.DEEPSLATE_ALUMINUM_ORE, GCBlocks.ASTEROID_ALUMINUM_ORE, GCBlocks.VENUS_ALUMINUM_ORE, GCBlocks.MERCURY_ALUMINUM_ORE, GCBlocks.JUPITER_ALUMINUM_ORE, GCBlocks.URANUS_ALUMINUM_ORE), GCItems.ALUMINUM_INGOT, 0.7f, 100);
+        oreSmeltingAndBlasting(output, List.of(GCItems.RAW_TIN, GCBlocks.TIN_ORE, GCBlocks.DEEPSLATE_TIN_ORE, GCBlocks.MOON_TIN_ORE, GCBlocks.LUNASLATE_TIN_ORE, GCBlocks.MARS_TIN_ORE, GCBlocks.VENUS_TIN_ORE, GCBlocks.JUPITER_TIN_ORE, GCBlocks.SATURN_TIN_ORE, GCBlocks.URANUS_TIN_ORE, GCBlocks.NEPTUNE_TIN_ORE), GCItems.TIN_INGOT, 0.35f, 100);
+        oreSmeltingAndBlasting(output, List.of(GCItems.RAW_METEORIC_IRON, GCBlocks.FALLEN_METEOR), GCItems.METEORIC_IRON_INGOT, 0.85f, 100);
         oreSmeltingAndBlasting(output, List.of(GCBlocks.MOON_CHEESE_ORE), GCItems.MOON_CHEESE_CURD, 0.2f, 100);
         oreSmeltingAndBlasting(output, List.of(GCBlocks.LUNAR_SAPPHIRE_ORE), GCItems.LUNAR_SAPPHIRE, 1.0f, 100);
         oreSmeltingAndBlasting(output, List.of(GCItems.RAW_DESH, GCBlocks.DESH_ORE), GCItems.DESH_INGOT, 0.85f, 100);
-        oreSmeltingAndBlasting(output, List.of(GCItems.RAW_TITANIUM, GCBlocks.ILMENITE_ORE), GCItems.TITANIUM_INGOT, 1.0f, 100);
+        oreSmeltingAndBlasting(output, List.of(GCItems.RAW_TITANIUM, GCBlocks.ILMENITE_ORE, GCBlocks.MERCURY_TITANIUM_ORE, GCBlocks.SATURN_TITANIUM_ORE, GCBlocks.URANUS_TITANIUM_ORE, GCBlocks.NEPTUNE_TITANIUM_ORE), GCItems.TITANIUM_INGOT, 1.0f, 100);
         oreSmeltingAndBlasting(output, List.of(GCItems.RAW_LEAD, GCBlocks.GALENA_ORE), GCItems.LEAD_INGOT, 0.85f, 100);
         oreSmeltingAndBlasting(output, List.of(GCBlocks.SOLAR_ORE), GCItems.SOLAR_DUST, 0.7f, 100);
+        oreSmeltingAndBlasting(output, List.of(GCBlocks.OLIVINE_BASALT, GCBlocks.RICH_OLIVINE_BASALT), GCItems.OLIVINE_SHARD, 0.5f, 100);
+        oreSmeltingAndBlasting(output, List.of(GCBlocks.MERCURY_GRAPHITE_ORE), GCItems.CARBON_FRAGMENTS, 0.2f, 100);
 
         // Nuggets <-> Ingots
         nineBlockStoragePackingRecipe(output, RecipeCategory.MISC, GCItems.TIN_NUGGET, RecipeCategory.MISC, GCItems.TIN_INGOT, "tin_ingot_from_nuggets", "tin_ingot");
@@ -92,6 +94,10 @@ public class GCOreRecipeProvider extends FabricRecipeProvider {
         nineBlockStorageUnpackingRecipe(output, RecipeCategory.MISC, GCItems.RAW_LEAD, RecipeCategory.BUILDING_BLOCKS, GCBlocks.RAW_LEAD_BLOCK, "raw_lead_from_block", "raw_lead");
 
         crystalBlockStorageRecipe(output, GCItems.OLIVINE_SHARD, RecipeCategory.MISC, GCBlocks.OLIVINE_BLOCK, "olivine_block_from_shards", null, true);
+        GCShapelessRecipeBuilder.crafting(RecipeCategory.MISC, GCItems.OLIVINE_SHARD, 4)
+                .requires(GCBlocks.OLIVINE_BLOCK)
+                .unlockedBy(getHasName(GCBlocks.OLIVINE_BLOCK), has(GCBlocks.OLIVINE_BLOCK))
+                .save(output, Constant.id("olivine_shard_from_block"));
     }
 
     @Override
