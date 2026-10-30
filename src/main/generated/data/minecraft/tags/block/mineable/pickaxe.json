@@ -1,6 +1,9 @@
 {
   "values": [
     "#galacticraft:machines",
+    "#galacticraft:stairs",
+    "#galacticraft:slabs",
+    "#galacticraft:walls",
     "galacticraft:moon_surface_rock_stairs",
     "galacticraft:moon_rock_stairs",
     "galacticraft:moon_rock_brick_stairs",
@@ -252,6 +255,26 @@
     "galacticraft:neptune_copper_ore",
     "galacticraft:neptune_tin_ore",
     "galacticraft:neptune_iron_ore",
-    "galacticraft:neptune_titanium_ore"
+    "galacticraft:neptune_titanium_ore",
+    "galacticraft:mercury_compacted_regolith",
+    "galacticraft:mercury_hollow_deposit",
+    "galacticraft:mercury_basalt",
+    "galacticraft:mercury_shock_breccia",
+    "galacticraft:mercury_graphite_rock",
+    "galacticraft:mercury_basalt_brick",
+    "galacticraft:mercury_aluminum_ore",
+    "galacticraft:mercury_copper_ore",
+    "galacticraft:mercury_titanium_ore",
+    "galacticraft:mercury_native_iron_ore",
+    "galacticraft:mercury_graphite_ore",
+    "galacticraft:mercury_sulfide_ore",
+    "galacticraft:crashed_probe",
+    "galacticraft:meteoric_iron_door",
+    "galacticraft:player_transport_tube",
+    "galacticraft:canned_food",
+    "galacticraft:vacuum_glass_strong",
+    "galacticraft:olivine_glass",
+    "galacticraft:olivine_glass_pane",
+    "galacticraft:boss_spawner"
   ]
 }

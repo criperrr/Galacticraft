@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_mercury_native_iron_ore": {
+      "conditions": {
+        "items": [
+          {
+            "items": "galacticraft:mercury_native_iron_ore"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "galacticraft:iron_ingot_from_smelting_mercury_native_iron_ore"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_mercury_native_iron_ore"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "galacticraft:iron_ingot_from_smelting_mercury_native_iron_ore"
+    ]
+  }
+}

@@ -1,6 +1,7 @@
 {
   "values": [
     "#c:canisters/tin",
-    "#c:canisters/copper"
+    "#c:canisters/copper",
+    "galacticraft:fluid_canister"
   ]
 }

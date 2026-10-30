@@ -10,7 +10,7 @@
     "fluid": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "galacticraft:fuel",
+        "Name": "galacticraft:crude_oil",
         "Properties": {
           "level": "0"
         }

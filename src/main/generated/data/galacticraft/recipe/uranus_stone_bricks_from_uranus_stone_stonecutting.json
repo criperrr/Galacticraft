@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "galacticraft:uranus_stone"
+  },
+  "result": {
+    "count": 1,
+    "id": "galacticraft:uranus_stone_bricks"
+  }
+}

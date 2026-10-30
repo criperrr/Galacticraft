@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_rich_olivine_basalt": {
+      "conditions": {
+        "items": [
+          {
+            "items": "galacticraft:rich_olivine_basalt"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "galacticraft:olivine_shard_from_smelting_rich_olivine_basalt"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_rich_olivine_basalt"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "galacticraft:olivine_shard_from_smelting_rich_olivine_basalt"
+    ]
+  }
+}

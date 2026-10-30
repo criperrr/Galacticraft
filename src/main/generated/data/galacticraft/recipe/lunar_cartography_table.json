@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "M": {
+      "item": "galacticraft:cobbled_moon_rock"
+    },
+    "P": {
+      "item": "minecraft:paper"
+    }
+  },
+  "pattern": [
+    "PP",
+    "MM",
+    "MM"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:lunar_cartography_table"
+  }
+}

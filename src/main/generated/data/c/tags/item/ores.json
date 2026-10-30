@@ -1,5 +1,7 @@
 {
   "values": [
+    "#minecraft:iron_ores",
+    "#minecraft:copper_ores",
     "#c:ores/silicon",
     "#c:ores/tin",
     "#c:ores/aluminum",
@@ -10,6 +12,8 @@
     "#c:ores/desh",
     "#c:ores/titanium",
     "#c:ores/lead",
-    "#c:ores/solar_dust"
+    "#c:ores/solar_dust",
+    "galacticraft:mercury_graphite_ore",
+    "galacticraft:mercury_sulfide_ore"
   ]
 }
