@@ -33,6 +33,7 @@ public class GCDimensionEffects {
     public static final ResourceLocation VENUS = Constant.id("venus");
     public static final ResourceLocation ASTEROID = Constant.id("asteroid");
     public static final ResourceLocation SATELLITE = Constant.id("satellite");
+    public static final ResourceLocation MERCURY = Constant.id("mercury");
     public static final ResourceLocation JUPITER = Constant.id("jupiter");
     public static final ResourceLocation SATURN = Constant.id("saturn");
     public static final ResourceLocation URANUS = Constant.id("uranus");
@@ -61,24 +62,29 @@ public class GCDimensionEffects {
 
         DimensionRenderingRegistry.registerDimensionEffects(SATELLITE, AsteroidDimensionEffects.INSTANCE);
 
+        DimensionRenderingRegistry.registerDimensionEffects(MERCURY, SpaceDimensionEffects.INSTANCE);
+        DimensionRenderingRegistry.registerCloudRenderer(GCDimensions.MERCURY, EmptyCloudRenderer.INSTANCE);
+        DimensionRenderingRegistry.registerWeatherRenderer(GCDimensions.MERCURY, EmptyWeatherRenderer.INSTANCE);
+        DimensionRenderingRegistry.registerSkyRenderer(GCDimensions.MERCURY, MercurySkyRenderer.INSTANCE);
+
         DimensionRenderingRegistry.registerDimensionEffects(JUPITER, OuterPlanetDimensionEffects.JUPITER);
         DimensionRenderingRegistry.registerCloudRenderer(GCDimensions.JUPITER, EmptyCloudRenderer.INSTANCE);
         DimensionRenderingRegistry.registerWeatherRenderer(GCDimensions.JUPITER, EmptyWeatherRenderer.INSTANCE);
-        DimensionRenderingRegistry.registerSkyRenderer(GCDimensions.JUPITER, VenusSkyRenderer.INSTANCE);
+        DimensionRenderingRegistry.registerSkyRenderer(GCDimensions.JUPITER, OuterPlanetSkyRenderer.JUPITER);
 
         DimensionRenderingRegistry.registerDimensionEffects(SATURN, OuterPlanetDimensionEffects.SATURN);
         DimensionRenderingRegistry.registerCloudRenderer(GCDimensions.SATURN, EmptyCloudRenderer.INSTANCE);
         DimensionRenderingRegistry.registerWeatherRenderer(GCDimensions.SATURN, EmptyWeatherRenderer.INSTANCE);
-        DimensionRenderingRegistry.registerSkyRenderer(GCDimensions.SATURN, VenusSkyRenderer.INSTANCE);
+        DimensionRenderingRegistry.registerSkyRenderer(GCDimensions.SATURN, OuterPlanetSkyRenderer.SATURN);
 
         DimensionRenderingRegistry.registerDimensionEffects(URANUS, OuterPlanetDimensionEffects.URANUS);
         DimensionRenderingRegistry.registerCloudRenderer(GCDimensions.URANUS, EmptyCloudRenderer.INSTANCE);
         DimensionRenderingRegistry.registerWeatherRenderer(GCDimensions.URANUS, EmptyWeatherRenderer.INSTANCE);
-        DimensionRenderingRegistry.registerSkyRenderer(GCDimensions.URANUS, MarsSkyRenderer.INSTANCE);
+        DimensionRenderingRegistry.registerSkyRenderer(GCDimensions.URANUS, OuterPlanetSkyRenderer.URANUS);
 
         DimensionRenderingRegistry.registerDimensionEffects(NEPTUNE, OuterPlanetDimensionEffects.NEPTUNE);
         DimensionRenderingRegistry.registerCloudRenderer(GCDimensions.NEPTUNE, EmptyCloudRenderer.INSTANCE);
         DimensionRenderingRegistry.registerWeatherRenderer(GCDimensions.NEPTUNE, EmptyWeatherRenderer.INSTANCE);
-        DimensionRenderingRegistry.registerSkyRenderer(GCDimensions.NEPTUNE, MarsSkyRenderer.INSTANCE);
+        DimensionRenderingRegistry.registerSkyRenderer(GCDimensions.NEPTUNE, OuterPlanetSkyRenderer.NEPTUNE);
     }
 }

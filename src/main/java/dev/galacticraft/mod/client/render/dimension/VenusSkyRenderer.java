@@ -40,9 +40,10 @@ import org.joml.Matrix4f;
 
 /**
  * Authoritative sky renderer for Venus, faithfully restored from Galacticraft 4 legacy
- * (micdoodle8). Features a 360-degree atmospheric sky enclosure (no cut-off horizon or black void),
- * retrograde celestial movement, rich sulfuric solar corona, distant Earth, and pixel-art
- * Venus planet body rendered underneath the player at high altitudes.
+ * (micdoodle8) with its dense sulfuric atmosphere:
+ * 360-degree atmospheric sky enclosure below Y=200, rich sulfuric solar corona, distant Earth,
+ * retrograde celestial movement, smooth Geoffrey Landis cloud layer transition to space,
+ * and Venus planet body rendered underneath the player at high altitudes.
  */
 public class VenusSkyRenderer implements DimensionRenderingRegistry.SkyRenderer {
     public static final VenusSkyRenderer INSTANCE = new VenusSkyRenderer();
@@ -103,7 +104,7 @@ public class VenusSkyRenderer implements DimensionRenderingRegistry.SkyRenderer 
     }
 
     public static void renderCoronaFan(Matrix4f matrix, float radius, float r, float g, float b, float centerAlpha) {
-        float[][] rim = new float[][] {
+        float[][] rim = new float[][]{
                 {-radius, -radius},
                 {0.0F, -radius * 1.5F},
                 {radius, -radius},
@@ -135,8 +136,9 @@ public class VenusSkyRenderer implements DimensionRenderingRegistry.SkyRenderer 
         Player player = Minecraft.getInstance().player;
         double playerY = player != null ? (player.getVehicle() != null ? player.getVehicle().getY() : player.getY()) : 64.0D;
 
-        // As the player ascends past Y=180 into space (up to Y=450), the yellow atmosphere fades away
-        float spaceProgress = Mth.clamp((float) ((playerY - 180.0D) / 270.0D), 0.0F, 1.0F);
+        // Geoffrey Landis cloud layer transition: as player ascends past Y=200 into space (up to Y=450),
+        // the golden sulfurous atmosphere fades smoothly into space
+        float spaceProgress = Mth.clamp((float) ((playerY - 200.0D) / 250.0D), 0.0F, 1.0F);
         float atmosphereAlpha = 1.0F - spaceProgress;
 
         // Authentic GC4 WorldProviderVenus celestial color model:
@@ -148,13 +150,16 @@ public class VenusSkyRenderer implements DimensionRenderingRegistry.SkyRenderer 
         float gSky = (207.0F / 255.0F) * dayFactor + (89.0F / 255.0F) * nightFactor;
         float bSky = (81.0F / 255.0F) * dayFactor + (21.0F / 255.0F) * nightFactor;
 
-        // 1. Full 360-degree Atmospheric Sky Enclosure (NO black void or cutoff!)
+        // 1. Full 360-degree Atmospheric Sky Enclosure (Envelops player below cloud top)
         if (atmosphereAlpha > 0.0F) {
             RenderSystem.depthMask(false);
             RenderSystem.disableCull();
             FogRenderer.levelFogColor();
             RenderSystem.enableBlend();
-            RenderSystem.blendFuncSeparate(770, 771, 1, 0);
+            RenderSystem.blendFuncSeparate(
+                    GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
+                    GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO
+            );
             RenderSystem.setShader(GameRenderer::getPositionShader);
             RenderSystem.setShaderColor(rSky, gSky, bSky, atmosphereAlpha);
             VertexBuffer buffer = getSkyBuffer();
@@ -162,47 +167,69 @@ public class VenusSkyRenderer implements DimensionRenderingRegistry.SkyRenderer 
             buffer.drawWithShader(poseStack.last().pose(), context.projectionMatrix(), GameRenderer.getPositionShader());
             VertexBuffer.unbind();
             RenderSystem.enableCull();
+            RenderSystem.disableBlend();
         }
 
-        // 2. Stars (Retrograde rotation for Venus - rises in west, sets in east)
-        float starBrightness = Math.max(level.getStarBrightness(partialTicks) * 0.3F, spaceProgress);
-        if (starBrightness > 0.0F) {
+        RenderSystem.disableBlend();
+        RenderSystem.depthMask(false);
+
+        // 2. Stars (Retrograde celestial rotation - rise in west, set in east)
+        // Obscured on the ground during day by dense clouds, emerging brilliantly at night or in space
+        float starAlpha = Math.max(spaceProgress, nightFactor * 0.75F);
+        if (starAlpha > 0.01F) {
+            context.profiler().push("stars");
             poseStack.pushPose();
             StarManager.rotateForRetrogradeCelestialAngle(poseStack, celestialAngle);
+
+            float starBrightness = Mth.clamp(1.0F - (Mth.cos(celestialAngle * (float) (Math.PI * 2)) * 2.0F + 0.25F), 0.0F, 1.0F);
+            starBrightness = (starBrightness * starBrightness * 0.5F + 0.3F) * starAlpha;
             this.starManager.render(poseStack, context.projectionMatrix(), level, partialTicks, starBrightness);
+
             poseStack.popPose();
+            context.profiler().pop();
         }
 
-        // 3. Venusian Sun Aura (Smooth sulfuric corona in the atmosphere)
-        float auraFactor = (1.0F - level.getStarBrightness(partialTicks)) * atmosphereAlpha;
-        if (auraFactor > 0.0F) {
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+
+        // 3. Solar Corona / Aura around the Sun (Rich golden sulfurous aura in atmosphere)
+        if (atmosphereAlpha > 0.0F && dayFactor > 0.0F) {
             poseStack.pushPose();
             poseStack.mulPose(Axis.YN.rotationDegrees(90.0F));
-            poseStack.mulPose(Axis.XN.rotationDegrees(celestialAngle * 360.0F));
+            poseStack.mulPose(Axis.XP.rotationDegrees(-celestialAngle * 360.0F));
 
-            float auraR = 255.0F / 255.0F * auraFactor;
-            float auraG = 210.0F / 255.0F * auraFactor;
-            float auraB = 140.0F / 255.0F * auraFactor;
-            float auraAlpha = 0.35F * auraFactor;
+            RenderSystem.enableBlend();
+            RenderSystem.blendFuncSeparate(
+                    GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE,
+                    GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO
+            );
 
             Matrix4f auraMatrix = poseStack.last().pose();
+            float auraAlpha = 0.35F * dayFactor * atmosphereAlpha;
+            float auraR = 1.0F;
+            float auraG = 0.85F;
+            float auraB = 0.35F;
+
             renderCoronaFan(auraMatrix, 24.0F, auraR, auraG, auraB, auraAlpha * 2.0F);
             renderCoronaFan(auraMatrix, 48.0F, auraR, auraG, auraB, auraAlpha);
 
+            RenderSystem.disableBlend();
             poseStack.popPose();
         }
 
-        // 4. Sun Disk (Atmospheric in clouds, Orbital in space)
+        // 4. Sun Disk (Atmospheric diffuse sun in clouds, Radiant orbital sun in space)
+        context.profiler().push("sun");
         poseStack.pushPose();
         poseStack.mulPose(Axis.YN.rotationDegrees(90.0F));
-        poseStack.mulPose(Axis.XN.rotationDegrees(celestialAngle * 360.0F));
+        poseStack.mulPose(Axis.XP.rotationDegrees(-celestialAngle * 360.0F));
+
+        Matrix4f sunMatrix = poseStack.last().pose();
 
         // Occulting black quad
+        RenderSystem.enableBlend();
         RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
         RenderSystem.setShaderColor(0.0F, 0.0F, 0.0F, 1.0F);
         RenderSystem.setShader(GameRenderer::getPositionShader);
         float blackSize = this.sunSize / 3.5F;
-        Matrix4f sunMatrix = poseStack.last().pose();
         BufferBuilder quadBuffer = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION);
         quadBuffer.addVertex(sunMatrix, -blackSize, 99.9F, -blackSize)
                 .addVertex(sunMatrix, blackSize, 99.9F, -blackSize)
@@ -210,9 +237,10 @@ public class VenusSkyRenderer implements DimensionRenderingRegistry.SkyRenderer 
                 .addVertex(sunMatrix, -blackSize, 99.9F, blackSize);
         BufferUploader.drawWithShader(quadBuffer.buildOrThrow());
 
-        // Sun Texture (Atmospheric sun when in atmosphere, Orbital sun when in space)
+        // Sun Texture (Atmospheric sun in clouds, Orbital sun in space)
         RenderSystem.blendFuncSeparate(
-                GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO
+                GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE,
+                GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO
         );
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
@@ -225,9 +253,12 @@ public class VenusSkyRenderer implements DimensionRenderingRegistry.SkyRenderer 
                 .addVertex(sunMatrix, -this.sunSize, 100.0F, this.sunSize).setUv(0.0F, 1.0F);
         BufferUploader.drawWithShader(quadBuffer.buildOrThrow());
 
+        RenderSystem.disableBlend();
         poseStack.popPose();
+        context.profiler().pop();
 
         // 5. Earth in the Venusian sky (morning / evening star)
+        context.profiler().push("earth");
         poseStack.pushPose();
         poseStack.scale(0.6F, 0.6F, 0.6F);
         poseStack.mulPose(Axis.ZP.rotationDegrees(40.0F));
@@ -235,8 +266,10 @@ public class VenusSkyRenderer implements DimensionRenderingRegistry.SkyRenderer 
 
         Matrix4f earthMatrix = poseStack.last().pose();
         float earthSize = 0.5F;
+        RenderSystem.enableBlend();
         RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, Constant.CelestialBody.EARTH);
         quadBuffer = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
         quadBuffer.addVertex(earthMatrix, -earthSize, -100.0F, earthSize).setUv(0.0F, 1.0F)
@@ -245,9 +278,11 @@ public class VenusSkyRenderer implements DimensionRenderingRegistry.SkyRenderer 
                 .addVertex(earthMatrix, -earthSize, -100.0F, -earthSize).setUv(0.0F, 0.0F);
         BufferUploader.drawWithShader(quadBuffer.buildOrThrow());
 
+        RenderSystem.disableBlend();
         poseStack.popPose();
+        context.profiler().pop();
 
-        // 6. Venus Planet Below Player (Pixel art rendered below at high altitudes)
+        // 6. Venus Planet Below Player (Pixel art rendered below with glowing sulfuric atmosphere at high altitudes)
         PlanetUnderPlayerRenderer.renderPlanetBelow(
                 poseStack,
                 level,
@@ -262,8 +297,6 @@ public class VenusSkyRenderer implements DimensionRenderingRegistry.SkyRenderer 
                 0.35F
         );
 
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.depthMask(true);
-        RenderSystem.disableBlend();
     }
 }

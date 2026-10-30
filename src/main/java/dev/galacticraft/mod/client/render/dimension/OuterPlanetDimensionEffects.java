@@ -23,43 +23,50 @@
 package dev.galacticraft.mod.client.render.dimension;
 
 import dev.galacticraft.mod.api.dimension.GalacticDimensionEffects;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.util.CubicSampler;
+import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 
+/**
+ * Dimension effects for outer gas and ice giants (Jupiter, Saturn, Uranus, Neptune),
+ * capturing their deep, rich atmospheric gas colors, day/night cycles, and smooth transition to orbital space.
+ */
+@Environment(EnvType.CLIENT)
 public class OuterPlanetDimensionEffects extends GalacticDimensionEffects {
     public static final OuterPlanetDimensionEffects JUPITER = new OuterPlanetDimensionEffects(
-            230.0F,
-            212.0F / 255.0F, 122.0F / 255.0F, 68.0F / 255.0F,
-            45.0F / 255.0F, 24.0F / 255.0F, 14.0F / 255.0F,
-            190.0F / 255.0F, 100.0F / 255.0F, 52.0F / 255.0F,
-            25.0F / 255.0F, 12.0F / 255.0F, 7.0F / 255.0F
+            Float.NaN,
+            185.0F / 255.0F, 95.0F / 255.0F, 35.0F / 255.0F,
+            60.0F / 255.0F, 25.0F / 255.0F, 10.0F / 255.0F,
+            215.0F / 255.0F, 125.0F / 255.0F, 55.0F / 255.0F,
+            40.0F / 255.0F, 15.0F / 255.0F, 8.0F / 255.0F
     );
 
     public static final OuterPlanetDimensionEffects SATURN = new OuterPlanetDimensionEffects(
-            235.0F,
-            230.0F / 255.0F, 198.0F / 255.0F, 132.0F / 255.0F,
-            50.0F / 255.0F, 42.0F / 255.0F, 26.0F / 255.0F,
-            205.0F / 255.0F, 175.0F / 255.0F, 110.0F / 255.0F,
-            28.0F / 255.0F, 22.0F / 255.0F, 12.0F / 255.0F
+            Float.NaN,
+            210.0F / 255.0F, 175.0F / 255.0F, 105.0F / 255.0F,
+            75.0F / 255.0F, 55.0F / 255.0F, 30.0F / 255.0F,
+            230.0F / 255.0F, 195.0F / 255.0F, 125.0F / 255.0F,
+            50.0F / 255.0F, 38.0F / 255.0F, 20.0F / 255.0F
     );
 
     public static final OuterPlanetDimensionEffects URANUS = new OuterPlanetDimensionEffects(
-            245.0F,
-            115.0F / 255.0F, 214.0F / 255.0F, 226.0F / 255.0F,
-            20.0F / 255.0F, 45.0F / 255.0F, 52.0F / 255.0F,
-            82.0F / 255.0F, 178.0F / 255.0F, 196.0F / 255.0F,
-            10.0F / 255.0F, 24.0F / 255.0F, 30.0F / 255.0F
+            Float.NaN,
+            75.0F / 255.0F, 175.0F / 255.0F, 185.0F / 255.0F,
+            18.0F / 255.0F, 50.0F / 255.0F, 60.0F / 255.0F,
+            95.0F / 255.0F, 200.0F / 255.0F, 210.0F / 255.0F,
+            15.0F / 255.0F, 40.0F / 255.0F, 48.0F / 255.0F
     );
 
     public static final OuterPlanetDimensionEffects NEPTUNE = new OuterPlanetDimensionEffects(
-            245.0F,
-            40.0F / 255.0F, 92.0F / 255.0F, 212.0F / 255.0F,
-            8.0F / 255.0F, 18.0F / 255.0F, 48.0F / 255.0F,
-            24.0F / 255.0F, 64.0F / 255.0F, 168.0F / 255.0F,
-            4.0F / 255.0F, 10.0F / 255.0F, 28.0F / 255.0F
+            Float.NaN,
+            35.0F / 255.0F, 75.0F / 255.0F, 175.0F / 255.0F,
+            8.0F / 255.0F, 20.0F / 255.0F, 55.0F / 255.0F,
+            45.0F / 255.0F, 95.0F / 255.0F, 210.0F / 255.0F,
+            10.0F / 255.0F, 22.0F / 255.0F, 65.0F / 255.0F
     );
 
     private final float dayFogR, dayFogG, dayFogB;
@@ -74,7 +81,7 @@ public class OuterPlanetDimensionEffects extends GalacticDimensionEffects {
             float daySkyR, float daySkyG, float daySkyB,
             float nightSkyR, float nightSkyG, float nightSkyB
     ) {
-        super(cloudLevel, true, SkyType.NORMAL, true, true);
+        super(cloudLevel, false, SkyType.NORMAL, false, false);
         this.dayFogR = dayFogR;
         this.dayFogG = dayFogG;
         this.dayFogB = dayFogB;
@@ -91,24 +98,27 @@ public class OuterPlanetDimensionEffects extends GalacticDimensionEffects {
 
     @Override
     public Vec3 getFogColor(ClientLevel level, float partialTicks, Vec3 cameraPos, CubicSampler.Vec3Fetcher fetcher) {
-        float night = getStarBrightness(level, 1.0F);
-        float day = 1.0F - night;
-        return new Vec3(
-                this.dayFogR * day + this.nightFogR * night,
-                this.dayFogG * day + this.nightFogG * night,
-                this.dayFogB * day + this.nightFogB * night
-        );
-    }
+        float starBrightness = getStarBrightness(level, partialTicks);
+        float day = 1.0F - starBrightness;
+        float night = starBrightness;
+        float r = this.dayFogR * day + this.nightFogR * night;
+        float g = this.dayFogG * day + this.nightFogG * night;
+        float b = this.dayFogB * day + this.nightFogB * night;
 
-    @Override
-    public boolean isFoggyAt(int x, int y) {
-        return false;
+        if (cameraPos.y() > 200.0D) {
+            float spaceProgress = Mth.clamp((float) ((cameraPos.y() - 200.0D) / 250.0D), 0.0F, 1.0F);
+            float atmosphereAlpha = 1.0F - spaceProgress;
+            return new Vec3(r * atmosphereAlpha, g * atmosphereAlpha, b * atmosphereAlpha);
+        }
+
+        return new Vec3(r, g, b);
     }
 
     @Override
     public Vec3 getSkyColor(ClientLevel level, float partialTicks) {
-        float night = getStarBrightness(level, 1.0F);
-        float day = 1.0F - night;
+        float starBrightness = getStarBrightness(level, partialTicks);
+        float day = 1.0F - starBrightness;
+        float night = starBrightness;
         return new Vec3(
                 this.daySkyR * day + this.nightSkyR * night,
                 this.daySkyG * day + this.nightSkyG * night,
@@ -117,7 +127,22 @@ public class OuterPlanetDimensionEffects extends GalacticDimensionEffects {
     }
 
     @Override
-    public boolean tickRain(@NotNull ClientLevel level, Camera camera, int ticks) {
+    public Vec3 getBrightnessDependentFogColor(Vec3 fogColor, float brightness) {
+        return fogColor;
+    }
+
+    @Override
+    public boolean tickRain(ClientLevel level, Camera camera, int ticks) {
         return false;
+    }
+
+    @Override
+    public boolean isFoggyAt(int camX, int camY) {
+        return false;
+    }
+
+    @Override
+    public float[] getSunriseColor(float skyAngle, float tickDelta) {
+        return null;
     }
 }
