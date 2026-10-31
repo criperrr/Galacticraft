@@ -22,8 +22,12 @@
 
 package dev.galacticraft.mod.world.gen.surfacerule;
 
+import com.mojang.serialization.MapCodec;
+import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.content.GCBlocks;
 import dev.galacticraft.mod.world.biome.GCBiomes;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
@@ -324,5 +328,6 @@ public class SaturnSurfaceRules {
     }
 
     public static void register() {
+        Registry.register(BuiltInRegistries.MATERIAL_RULE, Constant.id("saturn"), MapCodec.unit(SATURN));
     }
 }
