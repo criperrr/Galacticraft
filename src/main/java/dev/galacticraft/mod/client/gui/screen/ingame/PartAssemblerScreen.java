@@ -1,0 +1,66 @@
+/*
+ * Copyright (c) 2019-2026 Team Galacticraft
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+package dev.galacticraft.mod.client.gui.screen.ingame;
+
+import com.mojang.blaze3d.systems.RenderSystem;
+import dev.galacticraft.machinelib.api.menu.RecipeMachineMenu;
+import dev.galacticraft.machinelib.client.api.screen.MachineScreen;
+import dev.galacticraft.mod.content.block.entity.RocketWorkbenchBlockEntity;
+import dev.galacticraft.mod.recipe.PartAssemblerRecipe;
+import dev.galacticraft.mod.recipe.PartAssemblerRecipeInput;
+import dev.galacticraft.mod.util.DrawableUtil;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.player.Inventory;
+
+import static dev.galacticraft.mod.Constant.ElectricCompressor.*;
+
+@Environment(EnvType.CLIENT)
+public class PartAssemblerScreen extends MachineScreen<RocketWorkbenchBlockEntity, RecipeMachineMenu<PartAssemblerRecipeInput, PartAssemblerRecipe, RocketWorkbenchBlockEntity>> {
+    public PartAssemblerScreen(RecipeMachineMenu<PartAssemblerRecipeInput, PartAssemblerRecipe, RocketWorkbenchBlockEntity> handler, Inventory inv, Component title) {
+        super(handler, title, SCREEN_TEXTURE);
+    }
+
+    @Override
+    protected void renderMachineBackground(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
+        super.renderMachineBackground(graphics, mouseX, mouseY, delta);
+        // Blit 18x18 slot border for Slot 1 (Schematic slot at 104, 53)
+        graphics.blit(SCREEN_TEXTURE, this.leftPos + 103, this.topPos + 52, 29, 16, 18, 18);
+        this.drawCraftProgressBar(graphics);
+    }
+
+    protected void drawCraftProgressBar(GuiGraphics graphics) {
+        if (this.menu.be != null) {
+            this.menu.be.setClientProgress(this.menu.getProgress(), this.menu.getMaxProgress());
+        }
+        if (this.menu.getMaxProgress() > 0 && this.menu.getProgress() > 0) {
+            float progressScale = (float) this.menu.getProgress() / (float) this.menu.getMaxProgress();
+            int width = Mth.ceil(PROGRESS_WIDTH * progressScale);
+            RenderSystem.setShaderTexture(0, SCREEN_TEXTURE);
+            DrawableUtil.drawProgressTexture(graphics.pose(), this.leftPos + PROGRESS_X, this.topPos + PROGRESS_Y, PROGRESS_U, PROGRESS_V, width, PROGRESS_HEIGHT);
+        }
+    }
+}

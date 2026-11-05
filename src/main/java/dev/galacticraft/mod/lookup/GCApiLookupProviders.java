@@ -57,7 +57,8 @@ public class GCApiLookupProviders {
             GCBlockEntityTypes.OXYGEN_BUBBLE_DISTRIBUTOR,
             GCBlockEntityTypes.ENERGY_STORAGE_MODULE,
             GCBlockEntityTypes.FOOD_CANNER,
-            GCBlockEntityTypes.OXYGEN_STORAGE_MODULE
+            GCBlockEntityTypes.OXYGEN_STORAGE_MODULE,
+            GCBlockEntityTypes.ROCKET_WORKBENCH
     };
     @SuppressWarnings("rawtypes")
     private static final BlockEntityType[] WIRE_TYPES = new BlockEntityType[]{

@@ -365,6 +365,7 @@ public class GCCreativeModeTabs {
                 output.accept(FOOD_CANNER);
                 output.accept(AIR_LOCK_FRAME);
                 output.accept(AIR_LOCK_CONTROLLER);
+                output.accept(ROCKET_WORKBENCH);
             }).build();
 
     public static final CreativeModeTab ITEMS_GROUP = FabricItemGroup
@@ -517,6 +518,10 @@ public class GCCreativeModeTabs {
                 output.accept(creativeRocket);
 
                 // SCHEMATICS
+                output.accept(BASIC_ROCKET_CONE_SCHEMATIC);
+                output.accept(BASIC_ROCKET_BODY_SCHEMATIC);
+                output.accept(BASIC_ROCKET_FINS_SCHEMATIC);
+                output.accept(BASIC_ROCKET_ENGINE_SCHEMATIC);
                 output.accept(TIER_2_ROCKET_SCHEMATIC);
                 output.accept(CARGO_ROCKET_SCHEMATIC);
                 output.accept(MOON_BUGGY_SCHEMATIC);
