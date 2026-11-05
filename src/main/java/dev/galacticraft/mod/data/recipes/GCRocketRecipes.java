@@ -23,7 +23,9 @@
 package dev.galacticraft.mod.data.recipes;
 
 import dev.galacticraft.api.rocket.RocketPrefabs;
+import dev.galacticraft.api.rocket.part.data.RocketPartStats;
 import dev.galacticraft.mod.api.data.recipe.GCShapedRecipeBuilder;
+import dev.galacticraft.mod.api.data.recipe.PartAssemblerRecipeBuilder;
 import dev.galacticraft.mod.api.data.recipe.RocketRecipeBuilder;
 import dev.galacticraft.mod.content.GCBlocks;
 import dev.galacticraft.mod.content.item.GCItems;
@@ -146,6 +148,127 @@ public class GCRocketRecipes extends FabricRecipeProvider {
                 .pattern("PVP")
                 .unlockedBy(getHasName(GCItems.COMPRESSED_METEORIC_IRON), has(GCItems.COMPRESSED_METEORIC_IRON))
                 .emiDefaultRecipe(true)
+                .save(output);
+
+        // Part Assembler Recipes
+        PartAssemblerRecipeBuilder.create(GCItems.NOSE_CONE)
+                .schematic(GCItems.BASIC_ROCKET_CONE_SCHEMATIC)
+                .define('R', Items.REDSTONE_TORCH)
+                .define('P', GCItems.TIER_1_HEAVY_DUTY_PLATE)
+                .pattern(" R ")
+                .pattern(" P ")
+                .pattern("P P")
+                .assemblyTime(200)
+                .partStats(new RocketPartStats(0.0, 250.0, 0L, 2.0, 1200.0))
+                .unlockedBy(getHasName(GCItems.BASIC_ROCKET_CONE_SCHEMATIC), has(GCItems.BASIC_ROCKET_CONE_SCHEMATIC))
+                .unlockedBy(getHasName(GCItems.TIER_1_HEAVY_DUTY_PLATE), has(GCItems.TIER_1_HEAVY_DUTY_PLATE))
+                .save(output);
+
+        PartAssemblerRecipeBuilder.create(GCItems.HEAVY_NOSE_CONE)
+                .schematic(GCItems.BASIC_ROCKET_CONE_SCHEMATIC)
+                .define('R', Items.REDSTONE_TORCH)
+                .define('P', GCItems.TIER_3_HEAVY_DUTY_PLATE)
+                .pattern(" R ")
+                .pattern(" P ")
+                .pattern("P P")
+                .scrapByproduct(GCItems.COMPRESSED_TITANIUM, 1)
+                .assemblyTime(250)
+                .partStats(new RocketPartStats(0.0, 450.0, 0L, 5.0, 2500.0))
+                .unlockedBy(getHasName(GCItems.BASIC_ROCKET_CONE_SCHEMATIC), has(GCItems.BASIC_ROCKET_CONE_SCHEMATIC))
+                .unlockedBy(getHasName(GCItems.TIER_3_HEAVY_DUTY_PLATE), has(GCItems.TIER_3_HEAVY_DUTY_PLATE))
+                .save(output);
+
+        PartAssemblerRecipeBuilder.create(GCItems.ROCKET_FIN)
+                .schematic(GCItems.BASIC_ROCKET_FINS_SCHEMATIC)
+                .define('S', GCItems.COMPRESSED_STEEL)
+                .define('P', GCItems.TIER_1_HEAVY_DUTY_PLATE)
+                .pattern(" S ")
+                .pattern("PSP")
+                .pattern("P P")
+                .scrapByproduct(GCItems.COMPRESSED_STEEL, 1)
+                .assemblyTime(200)
+                .partStats(new RocketPartStats(0.0, 150.0, 0L, 2.5, 1100.0))
+                .unlockedBy(getHasName(GCItems.BASIC_ROCKET_FINS_SCHEMATIC), has(GCItems.BASIC_ROCKET_FINS_SCHEMATIC))
+                .unlockedBy(getHasName(GCItems.TIER_1_HEAVY_DUTY_PLATE), has(GCItems.TIER_1_HEAVY_DUTY_PLATE))
+                .save(output);
+
+        PartAssemblerRecipeBuilder.create(GCItems.HEAVY_ROCKET_FIN)
+                .schematic(GCItems.BASIC_ROCKET_FINS_SCHEMATIC)
+                .define('T', GCItems.TIER_2_HEAVY_DUTY_PLATE)
+                .define('P', GCItems.TIER_3_HEAVY_DUTY_PLATE)
+                .pattern(" T ")
+                .pattern("PTP")
+                .pattern("P P")
+                .scrapByproduct(GCItems.COMPRESSED_TITANIUM, 1)
+                .assemblyTime(250)
+                .partStats(new RocketPartStats(0.0, 300.0, 0L, 6.0, 2200.0))
+                .unlockedBy(getHasName(GCItems.BASIC_ROCKET_FINS_SCHEMATIC), has(GCItems.BASIC_ROCKET_FINS_SCHEMATIC))
+                .unlockedBy(getHasName(GCItems.TIER_3_HEAVY_DUTY_PLATE), has(GCItems.TIER_3_HEAVY_DUTY_PLATE))
+                .save(output);
+
+        PartAssemblerRecipeBuilder.create(GCItems.HEAVY_ROCKET_FIN)
+                .schematic(GCItems.BASIC_ROCKET_FINS_SCHEMATIC)
+                .define('T', GCItems.COMPRESSED_TITANIUM)
+                .define('P', GCItems.TIER_3_HEAVY_DUTY_PLATE)
+                .pattern(" T ")
+                .pattern("PTP")
+                .pattern("P P")
+                .scrapByproduct(GCItems.COMPRESSED_TITANIUM, 1)
+                .assemblyTime(250)
+                .partStats(new RocketPartStats(0.0, 300.0, 0L, 6.0, 2200.0))
+                .unlockedBy(getHasName(GCItems.BASIC_ROCKET_FINS_SCHEMATIC), has(GCItems.BASIC_ROCKET_FINS_SCHEMATIC))
+                .unlockedBy(getHasName(GCItems.TIER_3_HEAVY_DUTY_PLATE), has(GCItems.TIER_3_HEAVY_DUTY_PLATE))
+                .save(output, getItemName(GCItems.HEAVY_ROCKET_FIN) + "_alt");
+
+        PartAssemblerRecipeBuilder.create(GCItems.ROCKET_ENGINE)
+                .schematic(GCItems.BASIC_ROCKET_ENGINE_SCHEMATIC)
+                .define('F', Items.FLINT_AND_STEEL)
+                .define('B', ItemTags.STONE_BUTTONS)
+                .define('V', GCItems.OXYGEN_VENT)
+                .define('P', GCItems.TIER_1_HEAVY_DUTY_PLATE)
+                .define('T', GCItemTags.TIN_CANISTERS)
+                .pattern(" FB")
+                .pattern("PTP")
+                .pattern("PVP")
+                .scrapByproduct(GCItems.COMPRESSED_TIN, 1)
+                .assemblyTime(300)
+                .partStats(new RocketPartStats(1200.0, 850.0, 0L, 3.5, 2200.0))
+                .unlockedBy(getHasName(GCItems.BASIC_ROCKET_ENGINE_SCHEMATIC), has(GCItems.BASIC_ROCKET_ENGINE_SCHEMATIC))
+                .unlockedBy(getHasName(GCItems.TIER_1_HEAVY_DUTY_PLATE), has(GCItems.TIER_1_HEAVY_DUTY_PLATE))
+                .save(output);
+
+        PartAssemblerRecipeBuilder.create(GCItems.HEAVY_ROCKET_ENGINE)
+                .schematic(GCItems.BASIC_ROCKET_ENGINE_SCHEMATIC)
+                .define('F', Items.FLINT_AND_STEEL)
+                .define('B', ItemTags.STONE_BUTTONS)
+                .define('V', GCItems.OXYGEN_VENT)
+                .define('P', GCItems.TIER_3_HEAVY_DUTY_PLATE)
+                .define('T', GCItemTags.TIN_CANISTERS)
+                .pattern(" FB")
+                .pattern("PTP")
+                .pattern("PVP")
+                .scrapByproduct(GCItems.COMPRESSED_METEORIC_IRON, 1)
+                .assemblyTime(400)
+                .partStats(new RocketPartStats(2800.0, 1600.0, 0L, 7.0, 3200.0))
+                .unlockedBy(getHasName(GCItems.BASIC_ROCKET_ENGINE_SCHEMATIC), has(GCItems.BASIC_ROCKET_ENGINE_SCHEMATIC))
+                .unlockedBy(getHasName(GCItems.TIER_3_HEAVY_DUTY_PLATE), has(GCItems.TIER_3_HEAVY_DUTY_PLATE))
+                .save(output);
+
+        PartAssemblerRecipeBuilder.create(GCItems.ROCKET_BOOSTER)
+                .schematic(GCItems.BASIC_ROCKET_ENGINE_SCHEMATIC)
+                .define('M', GCItems.COMPRESSED_METEORIC_IRON)
+                .define('Y', Items.YELLOW_WOOL)
+                .define('F', GCItemTags.FUEL_BUCKETS)
+                .define('P', GCItems.TIER_1_HEAVY_DUTY_PLATE)
+                .define('V', GCItems.OXYGEN_VENT)
+                .pattern("MYM")
+                .pattern("MFM")
+                .pattern("PVP")
+                .scrapByproduct(GCItems.COMPRESSED_IRON, 2)
+                .assemblyTime(350)
+                .partStats(new RocketPartStats(1800.0, 1100.0, 405000L, 4.0, 2600.0))
+                .unlockedBy(getHasName(GCItems.BASIC_ROCKET_ENGINE_SCHEMATIC), has(GCItems.BASIC_ROCKET_ENGINE_SCHEMATIC))
+                .unlockedBy(getHasName(GCItems.COMPRESSED_METEORIC_IRON), has(GCItems.COMPRESSED_METEORIC_IRON))
                 .save(output);
 
         RocketRecipeBuilder.create(GCItems.ROCKET)
