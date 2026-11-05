@@ -40,6 +40,7 @@
       "dev.galacticraft.mod.gametest.machine.FuelLoaderTestSuite",
       "dev.galacticraft.mod.gametest.machine.OxygenCollectorTestSuite",
       "dev.galacticraft.mod.gametest.machine.OxygenSealerTestSuite",
+      "dev.galacticraft.mod.gametest.machine.PartAssemblerTestSuite",
       "dev.galacticraft.mod.gametest.machine.RefineryTestSuite",
       "dev.galacticraft.mod.gametest.ExtinguishableTestSuite",
       "dev.galacticraft.mod.gametest.MarsTestSuite",
