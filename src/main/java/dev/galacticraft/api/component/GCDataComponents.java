@@ -27,6 +27,8 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.galacticraft.api.APIConstants;
 import dev.galacticraft.api.fluid.FluidData;
 import dev.galacticraft.api.rocket.RocketData;
+import dev.galacticraft.api.rocket.part.data.PartIntegrity;
+import dev.galacticraft.api.rocket.part.data.RocketPartStats;
 import dev.galacticraft.api.util.StreamCodecs;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
@@ -79,6 +81,12 @@ public class GCDataComponents {
                     .networkSynchronized(FluidData.STREAM_CODEC)
                     .build()
     );
+    public static final DataComponentType<RocketPartStats> ROCKET_PART_STATS = register("rocket_part_stats", b -> b
+            .persistent(RocketPartStats.CODEC)
+            .networkSynchronized(RocketPartStats.STREAM_CODEC));
+    public static final DataComponentType<PartIntegrity> PART_INTEGRITY = register("part_integrity", b -> b
+            .persistent(PartIntegrity.CODEC)
+            .networkSynchronized(PartIntegrity.STREAM_CODEC));
 
     private static <T> DataComponentType<T> register(String id, UnaryOperator<DataComponentType.Builder<T>> op) {
         return Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, APIConstants.id(id), op.apply(DataComponentType.builder()).build());
