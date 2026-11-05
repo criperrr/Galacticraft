@@ -1,0 +1,13 @@
+{
+  "values": [
+    "galacticraft:basic_rocket_cone_schematic",
+    "galacticraft:basic_rocket_body_schematic",
+    "galacticraft:basic_rocket_fins_schematic",
+    "galacticraft:basic_rocket_engine_schematic",
+    "galacticraft:tier_2_rocket_schematic",
+    "galacticraft:tier_3_rocket_schematic",
+    "galacticraft:cargo_rocket_schematic",
+    "galacticraft:moon_buggy_schematic",
+    "galacticraft:astro_miner_schematic"
+  ]
+}

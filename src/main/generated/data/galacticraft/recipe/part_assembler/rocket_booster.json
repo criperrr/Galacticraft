@@ -1,0 +1,44 @@
+{
+  "type": "galacticraft:part_assembler",
+  "assembly_time": 350,
+  "key": {
+    "F": {
+      "tag": "c:buckets/fuel"
+    },
+    "M": {
+      "item": "galacticraft:compressed_meteoric_iron"
+    },
+    "P": {
+      "item": "galacticraft:heavy_plating"
+    },
+    "V": {
+      "item": "galacticraft:oxygen_vent"
+    },
+    "Y": {
+      "item": "minecraft:yellow_wool"
+    }
+  },
+  "part_stats": {
+    "dry_weight_kg": 1100.0,
+    "fuel_capacity_droplets": 405000,
+    "pressure_tolerance_atm": 4.0,
+    "thermal_tolerance_kelvin": 2600.0,
+    "thrust_kn": 1800.0
+  },
+  "pattern": [
+    "MYM",
+    "MFM",
+    "PVP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:rocket_booster"
+  },
+  "schematic": {
+    "item": "galacticraft:basic_rocket_engine_schematic"
+  },
+  "scrap_byproduct": {
+    "count": 2,
+    "id": "galacticraft:compressed_iron"
+  }
+}

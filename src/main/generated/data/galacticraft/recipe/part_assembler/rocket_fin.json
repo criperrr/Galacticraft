@@ -1,0 +1,34 @@
+{
+  "type": "galacticraft:part_assembler",
+  "key": {
+    "P": {
+      "item": "galacticraft:heavy_plating"
+    },
+    "S": {
+      "item": "galacticraft:compressed_steel"
+    }
+  },
+  "part_stats": {
+    "dry_weight_kg": 150.0,
+    "fuel_capacity_droplets": 0,
+    "pressure_tolerance_atm": 2.5,
+    "thermal_tolerance_kelvin": 1100.0,
+    "thrust_kn": 0.0
+  },
+  "pattern": [
+    " S ",
+    "PSP",
+    "P P"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:rocket_fin"
+  },
+  "schematic": {
+    "item": "galacticraft:basic_rocket_fins_schematic"
+  },
+  "scrap_byproduct": {
+    "count": 1,
+    "id": "galacticraft:compressed_steel"
+  }
+}

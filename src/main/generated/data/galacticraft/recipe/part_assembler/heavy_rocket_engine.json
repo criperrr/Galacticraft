@@ -1,0 +1,44 @@
+{
+  "type": "galacticraft:part_assembler",
+  "assembly_time": 400,
+  "key": {
+    "B": {
+      "tag": "minecraft:stone_buttons"
+    },
+    "F": {
+      "item": "minecraft:flint_and_steel"
+    },
+    "P": {
+      "item": "galacticraft:heavy_plating_t3"
+    },
+    "T": {
+      "tag": "c:canisters/tin"
+    },
+    "V": {
+      "item": "galacticraft:oxygen_vent"
+    }
+  },
+  "part_stats": {
+    "dry_weight_kg": 1600.0,
+    "fuel_capacity_droplets": 0,
+    "pressure_tolerance_atm": 7.0,
+    "thermal_tolerance_kelvin": 3200.0,
+    "thrust_kn": 2800.0
+  },
+  "pattern": [
+    " FB",
+    "PTP",
+    "PVP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:heavy_rocket_engine"
+  },
+  "schematic": {
+    "item": "galacticraft:basic_rocket_engine_schematic"
+  },
+  "scrap_byproduct": {
+    "count": 1,
+    "id": "galacticraft:compressed_meteoric_iron"
+  }
+}
