@@ -1479,6 +1479,7 @@ public interface Constant {
         String ELECTRIC_BLASTING = "electric_blasting";
         String CANNING = "canning";
         String ROCKET = "rocket";
+        String PART_ASSEMBLER = "part_assembler";
 
         interface Serializer {
             String FABRICATION = "fabrication";
@@ -1487,6 +1488,7 @@ public interface Constant {
             String COMPRESSING_SHAPED = "compressing_shaped";
             String CANNING = "canning";
             String ROCKET = "rocket";
+            String PART_ASSEMBLER = "part_assembler";
             String EMERGENCY_KIT = "crafting_special_emergencykit";
         }
     }
