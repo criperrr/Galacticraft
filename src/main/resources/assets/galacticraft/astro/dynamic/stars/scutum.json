@@ -1,0 +1,103 @@
+[
+    {
+        "type": "star",
+        "id": "hip-91117",
+        "primary": "star",
+        "aliases": [
+            "alf-sct",
+            "alpha-scuti"
+        ],
+        "M": 0.22,
+        "B": -0.8,
+        "temp": 4003,
+        "diameter": 24218357,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 278.801781,
+            "de": -8.244071,
+            "plx": 18.79,
+            "pmra": -17.68,
+            "pmde": -313.66
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-92175",
+        "primary": "star",
+        "aliases": [
+            "bet-sct",
+            "beta-scuti"
+        ],
+        "M": -2.65,
+        "B": -0.8,
+        "temp": 4569,
+        "diameter": 69547722,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 281.79364,
+            "de": -4.747868,
+            "plx": 4.23
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-90595",
+        "primary": "star",
+        "aliases": [
+            "gam-sct",
+            "gamma-scuti"
+        ],
+        "M": -0.11,
+        "B": -0.8,
+        "temp": 9175,
+        "diameter": 5357242,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 277.29939,
+            "de": -14.565812,
+            "plx": 11.03
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-92814",
+        "primary": "star",
+        "aliases": [],
+        "M": -3.77,
+        "B": -0.8,
+        "temp": 8579,
+        "diameter": 33107997,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 283.67964,
+            "de": -15.603038,
+            "plx": 1.69
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-92202",
+        "primary": "star",
+        "aliases": [],
+        "M": -2.88,
+        "B": -0.8,
+        "temp": 4044,
+        "diameter": 98589790,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 281.870625,
+            "de": -5.705145,
+            "plx": 2.17
+        },
+        "variability": {
+            "type": "scatter",
+            "period": 146.5,
+            "amplitude": 2.2
+        }
+    }
+]

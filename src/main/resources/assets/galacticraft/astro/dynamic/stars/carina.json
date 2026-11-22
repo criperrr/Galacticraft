@@ -1,0 +1,305 @@
+[
+    {
+        "type": "star",
+        "id": "hip-30438",
+        "primary": "star",
+        "aliases": [
+            "canopus",
+            "alf-car",
+            "alpha-carinae"
+        ],
+        "M": -5.64,
+        "B": -0.8,
+        "temp": 8139,
+        "diameter": 86901389,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 95.987959,
+            "de": -52.695663,
+            "plx": 10.47
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-45238",
+        "primary": "star",
+        "aliases": [
+            "bet-car",
+            "beta-carinae"
+        ],
+        "M": -1.01,
+        "B": -0.8,
+        "temp": 9276,
+        "diameter": 7939512,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 138.299874,
+            "de": -69.717208,
+            "plx": 29.2,
+            "pmra": -161.13,
+            "pmde": 108.8
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-41037",
+        "primary": "star",
+        "aliases": [
+            "eps-car",
+            "epsilon-carinae"
+        ],
+        "M": -4.47,
+        "B": -0.8,
+        "temp": 4419,
+        "diameter": 172324606,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 125.628476,
+            "de": -59.509488,
+            "plx": 5.05
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-39429",
+        "primary": "star",
+        "aliases": [
+            "zet-pup",
+            "zeta-puppis"
+        ],
+        "M": -5.89,
+        "B": -0.8,
+        "temp": 13536,
+        "diameter": 35268225,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 120.89603,
+            "de": -40.003157,
+            "plx": 2.39
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-45556",
+        "primary": "star",
+        "aliases": [
+            "iot-car",
+            "iota-carinae"
+        ],
+        "M": -4.3,
+        "B": -0.8,
+        "temp": 8003,
+        "diameter": 48379009,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 139.272525,
+            "de": -59.275232,
+            "plx": 4.94
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-52419",
+        "primary": "star",
+        "aliases": [
+            "the-car",
+            "the-carinae"
+        ],
+        "M": -2.97,
+        "B": -0.8,
+        "temp": 13371,
+        "diameter": 9394520,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 160.73916,
+            "de": -64.394451,
+            "plx": 7.26
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-31685",
+        "primary": "star",
+        "aliases": [
+            "nu-pup",
+            "nu-puppis"
+        ],
+        "M": -2.35,
+        "B": -0.8,
+        "temp": 11456,
+        "diameter": 9623889,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 99.440299,
+            "de": -43.195936,
+            "plx": 7.88
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-50099",
+        "primary": "star",
+        "aliases": [
+            "ome-car",
+            "omega-carinae"
+        ],
+        "M": -2.01,
+        "B": -0.8,
+        "temp": 10985,
+        "diameter": 8982219,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 153.434233,
+            "de": -70.037902,
+            "plx": 8.68
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-50371",
+        "primary": "star",
+        "aliases": [
+            "q-car",
+            "q-carinae"
+        ],
+        "M": -3.34,
+        "B": -0.8,
+        "temp": 3685,
+        "diameter": 147021952,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 154.270731,
+            "de": -61.332305,
+            "plx": 4.55
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-45080",
+        "primary": "star",
+        "aliases": [
+            "a-car",
+            "a-carinae"
+        ],
+        "M": -2.19,
+        "B": -0.8,
+        "temp": 12796,
+        "diameter": 7184996,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 137.742027,
+            "de": -58.966896,
+            "plx": 7.53
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-53253",
+        "primary": "star",
+        "aliases": [
+            "u-car",
+            "u-carinae"
+        ],
+        "M": 1.43,
+        "B": -0.8,
+        "temp": 4889,
+        "diameter": 9293263,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 163.373564,
+            "de": -58.853173,
+            "plx": 33.91
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-51232",
+        "primary": "star",
+        "aliases": [
+            "s-car",
+            "s-carinae"
+        ],
+        "M": -3.91,
+        "B": -0.8,
+        "temp": 7300,
+        "diameter": 48644883,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 156.969711,
+            "de": -58.739405,
+            "plx": 2.85
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-54463",
+        "primary": "star",
+        "aliases": [
+            "x-car",
+            "x-carinae"
+        ],
+        "M": -6.09,
+        "B": -0.8,
+        "temp": 4220,
+        "diameter": 397469015,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 167.147457,
+            "de": -58.975038,
+            "plx": 1
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-42568",
+        "primary": "star",
+        "aliases": [
+            "d-car",
+            "d-carinae"
+        ],
+        "M": -3.96,
+        "B": -0.8,
+        "temp": 11902,
+        "diameter": 18720529,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 130.15428,
+            "de": -59.761002,
+            "plx": 2.21
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-52468",
+        "primary": "star",
+        "aliases": [
+            "w-car",
+            "w-carinae"
+        ],
+        "M": -3.24,
+        "B": -0.8,
+        "temp": 3533,
+        "diameter": 152620085,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 160.884542,
+            "de": -60.56662,
+            "plx": 2.75
+        }
+    }
+]

@@ -1,0 +1,49 @@
+[
+    {
+        "type": "star",
+        "id": "hip-37279",
+        "primary": "star",
+        "aliases": [
+            "procyon",
+            "alf-cmi",
+            "alpha-canis-minoris",
+            "10-cmi",
+            "10-canis-minoris"
+        ],
+        "M": 2.73,
+        "B": -0.8,
+        "temp": 6966,
+        "diameter": 2515582,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 114.825507,
+            "de": 5.225006,
+            "plx": 285.92,
+            "pmra": -710.86,
+            "pmde": -1029.18
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-36188",
+        "primary": "star",
+        "aliases": [
+            "bet-cmi",
+            "beta-canis-minoris",
+            "3-cmi",
+            "3-canis-minoris"
+        ],
+        "M": -0.68,
+        "B": -0.8,
+        "temp": 11061,
+        "diameter": 4792331,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 111.787674,
+            "de": 8.289316,
+            "plx": 19.4
+        }
+    }
+]

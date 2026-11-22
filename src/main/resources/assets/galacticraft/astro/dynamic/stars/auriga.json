@@ -1,0 +1,148 @@
+[
+    {
+        "type": "star",
+        "id": "hip-24608",
+        "primary": "star",
+        "aliases": [
+            "capella",
+            "alf-aur",
+            "alpha-aurigae",
+            "13-aur",
+            "13-aurigae"
+        ],
+        "M": -0.46,
+        "B": -0.8,
+        "temp": 5397,
+        "diameter": 18154191,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 79.172333,
+            "de": 45.997996,
+            "plx": 77.29,
+            "pmra": 76.43,
+            "pmde": -425.26
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-25428",
+        "primary": "star",
+        "aliases": [
+            "alnath",
+            "bet-tau",
+            "beta-tauri",
+            "112-tau",
+            "112-tauri"
+        ],
+        "M": -1.35,
+        "B": -0.8,
+        "temp": 11184,
+        "diameter": 6393190,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 81.57297,
+            "de": 28.60745,
+            "plx": 24.89,
+            "pmra": 22.43,
+            "pmde": -174.39
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-28360",
+        "primary": "star",
+        "aliases": [
+            "bet-aur",
+            "beta-aurigae",
+            "34-aur",
+            "34-aurigae"
+        ],
+        "M": -0.12,
+        "B": -0.8,
+        "temp": 9155,
+        "diameter": 5397851,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 89.882176,
+            "de": 44.947434,
+            "plx": 39.7
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-28380",
+        "primary": "star",
+        "aliases": [
+            "the-aur",
+            "the-aurigae",
+            "37-aur",
+            "37-aurigae"
+        ],
+        "M": -0.99,
+        "B": -0.8,
+        "temp": 10737,
+        "diameter": 5876767,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 89.930288,
+            "de": 37.212585,
+            "plx": 18.81
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-23015",
+        "primary": "star",
+        "aliases": [
+            "iot-aur",
+            "iota-aurigae",
+            "3-aur",
+            "3-aurigae"
+        ],
+        "M": -3.31,
+        "B": -0.8,
+        "temp": 3694,
+        "diameter": 143989420,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 74.248412,
+            "de": 33.166091,
+            "plx": 6.36
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-23453",
+        "primary": "star",
+        "aliases": [
+            "zet-aur",
+            "zeta-aurigae",
+            "8-aur",
+            "8-aurigae"
+        ],
+        "M": -3.21,
+        "B": -0.8,
+        "temp": 4378,
+        "diameter": 97873278,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 75.61953,
+            "de": 41.075836,
+            "plx": 4.05
+        },
+        "variability": {
+            "type": "eclipse",
+            "duration": 4.0,
+            "period": 972.150912,
+            "epoch": 2452968.794,
+            "secondary": 0.25,
+            "amplitude": 0.27
+        }
+    }
+]

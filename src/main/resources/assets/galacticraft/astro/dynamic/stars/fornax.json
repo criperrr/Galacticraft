@@ -1,0 +1,46 @@
+[
+    {
+        "type": "star",
+        "id": "hip-14879",
+        "primary": "star",
+        "aliases": [
+            "alf-for",
+            "alpha-fornacis"
+        ],
+        "M": 3.15,
+        "B": -0.8,
+        "temp": 6286,
+        "diameter": 2540495,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 48.018866,
+            "de": -28.987618,
+            "plx": 70.86,
+            "pmra": 371.48,
+            "pmde": 612.32
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-13147",
+        "primary": "star",
+        "aliases": [
+            "bet-for",
+            "beta-fornacis"
+        ],
+        "M": 0.89,
+        "B": -0.8,
+        "temp": 4791,
+        "diameter": 12370625,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 42.272583,
+            "de": -32.405899,
+            "plx": 19.42,
+            "pmra": 87.52,
+            "pmde": 158.21
+        }
+    }
+]

@@ -1,0 +1,126 @@
+[
+    {
+        "type": "star",
+        "id": "hip-34481",
+        "primary": "star",
+        "aliases": [
+            "gam02-vol",
+            "gamma2-volantis"
+        ],
+        "M": 0.64,
+        "B": -0.8,
+        "temp": 4678,
+        "diameter": 14554596,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 107.186933,
+            "de": -70.498929,
+            "plx": 23.86,
+            "pmra": 22.61,
+            "pmde": 109.01
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-41312",
+        "primary": "star",
+        "aliases": [
+            "bet-vol",
+            "beta-volantis"
+        ],
+        "M": 1.16,
+        "B": -0.8,
+        "temp": 4429,
+        "diameter": 12824380,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 126.434145,
+            "de": -66.136891,
+            "plx": 30.11,
+            "pmra": -35.7,
+            "pmde": -152.3
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-37504",
+        "primary": "star",
+        "aliases": [
+            "zet-vol",
+            "zeta-volantis"
+        ],
+        "M": 0.91,
+        "B": -0.8,
+        "temp": 4667,
+        "diameter": 12945226,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 115.455253,
+            "de": -72.606097,
+            "plx": 24.69
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-35228",
+        "primary": "star",
+        "aliases": [
+            "del-vol",
+            "delta-volantis"
+        ],
+        "M": -2.6,
+        "B": -0.8,
+        "temp": 5344,
+        "diameter": 49759778,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 109.207597,
+            "de": -67.957152,
+            "plx": 4.86
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-44382",
+        "primary": "star",
+        "aliases": [
+            "alf-vol",
+            "alpha-volantis"
+        ],
+        "M": 1.09,
+        "B": -0.8,
+        "temp": 8345,
+        "diameter": 3722398,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 135.61165,
+            "de": -66.396073,
+            "plx": 26.28
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-39794",
+        "primary": "star",
+        "aliases": [
+            "eps-vol",
+            "epsilon-volantis"
+        ],
+        "M": -2.12,
+        "B": -0.8,
+        "temp": 11796,
+        "diameter": 8160574,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 121.982479,
+            "de": -68.617062,
+            "plx": 5.0
+        }
+    }
+]

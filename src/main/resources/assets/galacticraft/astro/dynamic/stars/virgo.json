@@ -1,0 +1,289 @@
+[
+    {
+        "type": "star",
+        "id": "hip-65474",
+        "primary": "star",
+        "aliases": [
+            "spica",
+            "alf-vir",
+            "alpha-virginis",
+            "67-vir",
+            "67-virginis"
+        ],
+        "M": -3.51,
+        "B": -0.8,
+        "temp": 13211,
+        "diameter": 12395021,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 201.29825,
+            "de": -11.161316,
+            "plx": 12.35
+        },
+        "variability": {
+            "type": "scatter",
+            "period": 4.014604,
+            "amplitude": 0.42
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-63608",
+        "primary": "star",
+        "aliases": [
+            "vindemiatrix",
+            "eps-vir",
+            "epsilon-virginis",
+            "47-vir",
+            "47-virginis"
+        ],
+        "M": 0.33,
+        "B": -0.8,
+        "temp": 4891,
+        "diameter": 15383404,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 195.544159,
+            "de": 10.959149,
+            "plx": 31.55,
+            "pmra": -273.32,
+            "pmde": 19.5
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-61941",
+        "primary": "star",
+        "aliases": [
+            "gam-vir",
+            "gamma-virginis",
+            "29-vir",
+            "29-virginis"
+        ],
+        "M": 2.79,
+        "B": -0.8,
+        "temp": 8304,
+        "diameter": 1716087,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 190.415176,
+            "de": -1.449375,
+            "plx": 84.51,
+            "pmra": -616.64,
+            "pmde": 60.65
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-66249",
+        "primary": "star",
+        "aliases": [
+            "zet-vir",
+            "zeta-virginis",
+            "79-vir",
+            "79-virginis"
+        ],
+        "M": 1.59,
+        "B": -0.8,
+        "temp": 8597,
+        "diameter": 2793611,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 203.673287,
+            "de": -0.595832,
+            "plx": 44.02,
+            "pmra": -284.48,
+            "pmde": 43.61
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-63090",
+        "primary": "star",
+        "aliases": [
+            "del-vir",
+            "delta-virginis",
+            "43-vir",
+            "43-virginis"
+        ],
+        "M": -0.56,
+        "B": -0.8,
+        "temp": 3695,
+        "diameter": 40618238,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 193.900869,
+            "de": 3.39747,
+            "plx": 15.97,
+            "pmra": -470.01,
+            "pmde": -52.83
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-72220",
+        "primary": "star",
+        "aliases": [
+            "109-vir",
+            "109-virginis"
+        ],
+        "M": 0.71,
+        "B": -0.8,
+        "temp": 9990,
+        "diameter": 3095550,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 221.562185,
+            "de": 1.89288,
+            "plx": 24.95,
+            "pmra": -115.36,
+            "pmde": -23.82
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-71957",
+        "primary": "star",
+        "aliases": [
+            "mu-vir",
+            "mu-virginis",
+            "107-vir",
+            "107-virginis"
+        ],
+        "M": 2.51,
+        "B": -0.8,
+        "temp": 6827,
+        "diameter": 2888270,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 220.765107,
+            "de": -5.658199,
+            "plx": 53.7,
+            "pmra": 108.2,
+            "pmde": -316.57
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-60129",
+        "primary": "star",
+        "aliases": [
+            "eta-vir",
+            "eta-virginis",
+            "15-vir",
+            "15-virginis"
+        ],
+        "M": -0.65,
+        "B": -0.8,
+        "temp": 9487,
+        "diameter": 6412262,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 184.976477,
+            "de": -0.666794,
+            "plx": 12.43
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-57380",
+        "primary": "star",
+        "aliases": [
+            "nu-vir",
+            "nu-virginis",
+            "3-vir",
+            "3-virginis"
+        ],
+        "M": -0.87,
+        "B": -0.8,
+        "temp": 3699,
+        "diameter": 46767019,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 176.464832,
+            "de": 6.52937,
+            "plx": 10.43,
+            "pmra": -18.63,
+            "pmde": -182.5
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-69701",
+        "primary": "star",
+        "aliases": [
+            "iot-vir",
+            "iota-virginis",
+            "99-vir",
+            "99-virginis"
+        ],
+        "M": 2.4,
+        "B": -0.8,
+        "temp": 6247,
+        "diameter": 3637666,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 214.003664,
+            "de": -6.000563,
+            "plx": 46.38,
+            "pmra": -9.42,
+            "pmde": -426.42
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-69427",
+        "primary": "star",
+        "aliases": [
+            "kap-vir",
+            "kappa-virginis",
+            "98-vir",
+            "98-virginis"
+        ],
+        "M": 0.02,
+        "B": -0.8,
+        "temp": 4003,
+        "diameter": 26531732,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 213.22394,
+            "de": -10.273702,
+            "plx": 14.72,
+            "pmra": 7.63,
+            "pmde": 140.75
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-68520",
+        "primary": "star",
+        "aliases": [
+            "tau-vir",
+            "tau-virginis",
+            "93-vir",
+            "93-virginis"
+        ],
+        "M": 0.08,
+        "B": -0.8,
+        "temp": 8885,
+        "diameter": 5229235,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 210.411638,
+            "de": 1.544532,
+            "plx": 14.77
+        }
+    }
+]

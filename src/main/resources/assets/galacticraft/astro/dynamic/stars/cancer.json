@@ -1,0 +1,140 @@
+[
+    {
+        "type": "star",
+        "id": "hip-40526",
+        "primary": "star",
+        "aliases": [
+            "bet-cnc",
+            "beta-cancri",
+            "17-cnc",
+            "17-cancri"
+        ],
+        "M": -1.28,
+        "B": -0.8,
+        "temp": 3734,
+        "diameter": 55478523,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 124.128839,
+            "de": 9.185544,
+            "plx": 10.94
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-42911",
+        "primary": "star",
+        "aliases": [
+            "del-cnc",
+            "delta-cancri",
+            "47-cnc",
+            "47-cancri"
+        ],
+        "M": 0.86,
+        "B": -0.8,
+        "temp": 4532,
+        "diameter": 14071646,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 131.171247,
+            "de": 18.15431,
+            "plx": 24.31,
+            "pmra": -17.53,
+            "pmde": -227.86
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-43103",
+        "primary": "star",
+        "aliases": [
+            "iot-cnc-a",
+            "iota-cancri-a",
+            "48-cnc-a",
+            "48-cancri-a"
+        ],
+        "M": -0.83,
+        "B": -0.8,
+        "temp": 4762,
+        "diameter": 27745134,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 131.674242,
+            "de": 28.759902,
+            "plx": 10.71
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-44066",
+        "primary": "star",
+        "aliases": [
+            "alf-cnc",
+            "alpha-cancri",
+            "65-cnc",
+            "65-cancri"
+        ],
+        "M": 0.61,
+        "B": -0.8,
+        "temp": 8452,
+        "diameter": 4539733,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 134.62174,
+            "de": 11.857691,
+            "plx": 18.67
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-42806",
+        "primary": "star",
+        "aliases": [
+            "gam-cnc",
+            "gamma-cancri",
+            "43-cnc",
+            "43-cancri"
+        ],
+        "M": 1.19,
+        "B": -0.8,
+        "temp": 9765,
+        "diameter": 2601286,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 130.821444,
+            "de": 21.4685,
+            "plx": 20.19,
+            "pmra": -106.19,
+            "pmde": -39.36
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-40843",
+        "primary": "star",
+        "aliases": [
+            "chi-cnc",
+            "chi-cancri",
+            "18-cnc",
+            "18-cancri"
+        ],
+        "M": 3.84,
+        "B": -0.8,
+        "temp": 6439,
+        "diameter": 1767652,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 125.016084,
+            "de": 27.217705,
+            "plx": 55.24,
+            "pmra": -18.35,
+            "pmde": -377.04
+        }
+    }
+]

@@ -1,0 +1,10 @@
+{
+    "id": "eagle",
+    "type": "nebula",
+    "texture": "galacticraft:astro/deepsky/eagle",
+    "right_ascension": {"h": 18, "m": 19},
+    "declination": {"d": -13, "m": 50, "s": 24},
+    "width": {"m": 30},
+    "height": {"m": 30},
+    "magnitude": 6.4
+}

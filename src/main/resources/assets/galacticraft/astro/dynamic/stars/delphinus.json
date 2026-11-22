@@ -1,0 +1,116 @@
+[
+    {
+        "type": "star",
+        "id": "hip-101769",
+        "primary": "star",
+        "aliases": [
+            "bet-del",
+            "beta-delphini",
+            "6-del",
+            "6-delphini"
+        ],
+        "M": 1.18,
+        "B": -0.8,
+        "temp": 6532,
+        "diameter": 5821603,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 309.387237,
+            "de": 14.595105,
+            "plx": 32.56,
+            "pmra": 111.37,
+            "pmde": -40.25
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-101958",
+        "primary": "star",
+        "aliases": [
+            "alf-del",
+            "alpha-delphini",
+            "9-del",
+            "9-delphini"
+        ],
+        "M": -0.58,
+        "B": -0.8,
+        "temp": 10653,
+        "diameter": 4928747,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 309.909552,
+            "de": 15.912055,
+            "plx": 13.51
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-101421",
+        "primary": "star",
+        "aliases": [
+            "eps-del",
+            "epsilon-delphini",
+            "2-del",
+            "2-delphini"
+        ],
+        "M": -1.13,
+        "B": -0.8,
+        "temp": 11743,
+        "diameter": 5234415,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 308.303217,
+            "de": 11.303274,
+            "plx": 9.27
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-102532",
+        "primary": "star",
+        "aliases": [
+            "gam02-del",
+            "gamma2-delphini",
+            "12-del-a",
+            "12-delphini-a"
+        ],
+        "M": 1.71,
+        "B": -0.8,
+        "temp": 4646,
+        "diameter": 9019845,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 311.66458,
+            "de": 16.124295,
+            "plx": 31.01,
+            "pmra": -31.01,
+            "pmde": -196.77
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-102281",
+        "primary": "star",
+        "aliases": [
+            "del-del",
+            "delta-delphini",
+            "11-del",
+            "11-delphini"
+        ],
+        "M": 0.38,
+        "B": -0.8,
+        "temp": 7361,
+        "diameter": 6651260,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 310.864725,
+            "de": 15.07458,
+            "plx": 15.52
+        }
+    }
+]

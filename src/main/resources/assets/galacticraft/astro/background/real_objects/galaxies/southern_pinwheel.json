@@ -1,0 +1,10 @@
+{
+    "id": "southern_pinwheel",
+    "type": "galaxy",
+    "texture": "galacticraft:astro/deepsky/southern_pinwheel",
+    "right_ascension": {"h": 13, "m": 37, "s": 1},
+    "declination": {"d": -29, "m": 51, "s": 57},
+    "magnitude": 7.6,
+    "width": {"m": 12},
+    "height": {"m": 12}
+}

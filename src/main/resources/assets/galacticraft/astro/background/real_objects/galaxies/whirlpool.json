@@ -1,0 +1,10 @@
+{
+    "id": "whirlpool",
+    "type": "galaxy",
+    "texture": "galacticraft:astro/deepsky/whirlpool",
+    "right_ascension": {"h": 13, "m": 29, "s": 51},
+    "declination": {"d": 47, "m": 11, "s": 48},
+    "magnitude": 8.1,
+    "width": {"m": 16},
+    "height": {"m": 16}
+}

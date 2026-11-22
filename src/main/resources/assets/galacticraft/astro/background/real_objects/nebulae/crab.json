@@ -1,0 +1,10 @@
+{
+    "id": "crab",
+    "type": "nebula",
+    "texture": "galacticraft:astro/deepsky/crab",
+    "right_ascension": {"h": 5, "m": 34, "s": 32},
+    "declination": {"d": 22, "m": 0, "s": 52},
+    "magnitude": 8.4,
+    "width": {"m": 6},
+    "height": {"m": 6}
+}

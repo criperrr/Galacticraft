@@ -1,0 +1,169 @@
+[
+    {
+        "type": "star",
+        "id": "hip-86032",
+        "primary": "star",
+        "aliases": [
+            "rasalhague",
+            "alf-oph",
+            "alpha-ophiuchi",
+            "55-oph",
+            "55-ophiuchi"
+        ],
+        "M": 1.29,
+        "B": -0.8,
+        "temp": 8124,
+        "diameter": 3591991,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 263.733648,
+            "de": 12.560028,
+            "plx": 69.44,
+            "pmra": 118.56,
+            "pmde": -225.41
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-84012",
+        "primary": "star",
+        "aliases": [
+            "eta-oph",
+            "eta-ophiuchi",
+            "35-oph",
+            "35-ophiuchi"
+        ],
+        "M": 0.39,
+        "B": -0.8,
+        "temp": 8951,
+        "diameter": 4472363,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 257.594519,
+            "de": -15.724916,
+            "plx": 39.18,
+            "pmra": 36.72,
+            "pmde": 95.19
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-81377",
+        "primary": "star",
+        "aliases": [
+            "zet-oph",
+            "zeta-ophiuchi",
+            "13-oph",
+            "13-ophiuchi"
+        ],
+        "M": -3.21,
+        "B": -0.8,
+        "temp": 9777,
+        "diameter": 19626604,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 249.289741,
+            "de": -10.567089,
+            "plx": 7.0
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-86742",
+        "primary": "star",
+        "aliases": [
+            "bet-oph",
+            "beta-ophiuchi",
+            "60-oph",
+            "60-ophiuchi"
+        ],
+        "M": 0.76,
+        "B": -0.8,
+        "temp": 4298,
+        "diameter": 16333700,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 265.868137,
+            "de": 4.567302,
+            "plx": 39.86,
+            "pmra": -40.93,
+            "pmde": 158.44
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-83000",
+        "primary": "star",
+        "aliases": [
+            "kap-oph",
+            "kappa-ophiuchi",
+            "27-oph",
+            "27-ophiuchi"
+        ],
+        "M": 1.07,
+        "B": -0.8,
+        "temp": 4364,
+        "diameter": 13732299,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 254.417073,
+            "de": 9.375032,
+            "plx": 37.77,
+            "pmra": -292.76,
+            "pmde": -10.0
+        },
+        "variability": {
+            "type": "scatter",
+            "amplitude": 0.45
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-79882",
+        "primary": "star",
+        "aliases": [
+            "eps-oph",
+            "epsilon-ophiuchi",
+            "2-oph",
+            "2-ophiuchi"
+        ],
+        "M": 0.61,
+        "B": -0.8,
+        "temp": 4803,
+        "diameter": 14041713,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 244.580376,
+            "de": -4.692507,
+            "plx": 29.95
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-85755",
+        "primary": "star",
+        "aliases": [
+            "c-oph",
+            "c-ophiuchi",
+            "51-oph",
+            "51-ophiuchi"
+        ],
+        "M": -0.81,
+        "B": -0.8,
+        "temp": 9835,
+        "diameter": 6434781,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 262.85397,
+            "de": -23.962644,
+            "plx": 7.59
+        }
+    }
+]

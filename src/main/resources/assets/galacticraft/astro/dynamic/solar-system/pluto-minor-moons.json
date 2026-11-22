@@ -1,0 +1,94 @@
+[
+    {
+        "type": "asteroid",
+        "id": "styx",
+        "primary": "sun.pluto",
+        "aliases": [
+            "styx",
+            "pluto ii"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.000288774288,
+            "T": 0.05519622430227661,
+            "e": 0.025,
+            "i": 0.0,
+            "n": 0.0,
+            "w": 322.5,
+            "M": 358.1
+        },
+        "H": 11.0,
+        "G": 0.15,
+        "bvi": 0.77
+    },
+    {
+        "type": "asteroid",
+        "id": "nix",
+        "primary": "sun.pluto",
+        "aliases": [
+            "nix",
+            "pluto iii"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.000329550287,
+            "T": 0.06803701259482013,
+            "e": 0.015,
+            "i": 0.0,
+            "n": 0.0,
+            "w": 31.4,
+            "M": 338.2
+        },
+        "H": 7.5,
+        "G": 0.15,
+        "bvi": 0.77
+    },
+    {
+        "type": "asteroid",
+        "id": "kerberos",
+        "primary": "sun.pluto",
+        "aliases": [
+            "kerberos",
+            "pluto iv"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.000389711597,
+            "T": 0.08807849879981342,
+            "e": 0.01,
+            "i": 0.4,
+            "n": 314.3,
+            "w": 32.1,
+            "M": 276.1
+        },
+        "H": 10.100000000000001,
+        "G": 0.15,
+        "bvi": 0.77
+    },
+    {
+        "type": "asteroid",
+        "id": "hydra",
+        "primary": "sun.pluto",
+        "aliases": [
+            "hydra",
+            "pluto v"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.000435835268,
+            "T": 0.10458808374736937,
+            "e": 0.009,
+            "i": 0.3,
+            "n": 114.2,
+            "w": 139.3,
+            "M": 335.0
+        },
+        "H": 6.0,
+        "G": 0.15,
+        "bvi": 0.77
+    }
+]

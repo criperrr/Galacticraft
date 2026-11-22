@@ -1,0 +1,119 @@
+[
+    {
+        "type": "star",
+        "id": "hip-105199",
+        "primary": "star",
+        "aliases": [
+            "alderamin",
+            "alf-cep",
+            "alpha-cephei",
+            "5-cep",
+            "5-cephei"
+        ],
+        "M": 1.57,
+        "B": -0.8,
+        "temp": 7678,
+        "diameter": 3527444,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 319.644887,
+            "de": 62.585575,
+            "plx": 66.52,
+            "pmra": 150.97,
+            "pmde": 49.2
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-116727",
+        "primary": "star",
+        "aliases": [
+            "gam-cep",
+            "gamma-cephei",
+            "35-cep",
+            "35-cephei"
+        ],
+        "M": 2.5,
+        "B": -0.8,
+        "temp": 4651,
+        "diameter": 6263239,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 354.836695,
+            "de": 77.632307,
+            "plx": 72.05,
+            "pmra": -64.3,
+            "pmde": 140.16
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-106032",
+        "primary": "star",
+        "aliases": [
+            "bet-cep",
+            "beta-cephei",
+            "8-cep",
+            "8-cephei"
+        ],
+        "M": -3.11,
+        "B": -0.8,
+        "temp": 13584,
+        "diameter": 9729251,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 322.164975,
+            "de": 70.560715,
+            "plx": 5.42
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-109492",
+        "primary": "star",
+        "aliases": [
+            "zet-cep",
+            "zeta-cephei",
+            "21-cep",
+            "21-cephei"
+        ],
+        "M": -3.56,
+        "B": -0.8,
+        "temp": 3682,
+        "diameter": 163235678,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 332.713655,
+            "de": 58.201261,
+            "plx": 4.15
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-112724",
+        "primary": "star",
+        "aliases": [
+            "iot-cep",
+            "iota-cephei",
+            "32-cep",
+            "32-cephei"
+        ],
+        "M": 0.73,
+        "B": -0.8,
+        "temp": 4607,
+        "diameter": 14405751,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 342.420067,
+            "de": 66.200409,
+            "plx": 27.98,
+            "pmra": -66.4,
+            "pmde": -124.08
+        }
+    }
+]

@@ -1,0 +1,2225 @@
+[
+    {
+        "id": "omegaCen",
+        "type": "globular",
+        "right_ascension": {
+            "h": "13",
+            "m": "26",
+            "s": "45.9"
+        },
+        "declination": {
+            "d": "-47",
+            "m": "28",
+            "s": "37"
+        },
+        "magnitude": 3.68,
+        "bvindex": 0.78,
+        "hmradius": {
+            "m": 4.18
+        }
+    },
+    {
+        "id": "47Tuc",
+        "type": "globular",
+        "right_ascension": {
+            "h": "00",
+            "m": "24",
+            "s": "05.2"
+        },
+        "declination": {
+            "d": "-72",
+            "m": "04",
+            "s": "51"
+        },
+        "magnitude": 3.95,
+        "bvindex": 0.88,
+        "hmradius": {
+            "m": 2.79
+        }
+    },
+    {
+        "id": "M22",
+        "type": "globular",
+        "right_ascension": {
+            "h": "18",
+            "m": "36",
+            "s": "24.2"
+        },
+        "declination": {
+            "d": "-23",
+            "m": "54",
+            "s": "12"
+        },
+        "magnitude": 5.1,
+        "bvindex": 0.98,
+        "hmradius": {
+            "m": 3.26
+        }
+    },
+    {
+        "id": "NGC6752",
+        "type": "globular",
+        "right_ascension": {
+            "h": "19",
+            "m": "10",
+            "s": "51.8"
+        },
+        "declination": {
+            "d": "-59",
+            "m": "58",
+            "s": "55"
+        },
+        "magnitude": 5.4,
+        "bvindex": 0.66,
+        "hmradius": {
+            "m": 2.34
+        }
+    },
+    {
+        "id": "M4",
+        "type": "globular",
+        "right_ascension": {
+            "h": "16",
+            "m": "23",
+            "s": "35.5"
+        },
+        "declination": {
+            "d": "-26",
+            "m": "31",
+            "s": "31"
+        },
+        "magnitude": 5.63,
+        "bvindex": 1.03,
+        "hmradius": {
+            "m": 3.65
+        }
+    },
+    {
+        "id": "M5",
+        "type": "globular",
+        "right_ascension": {
+            "h": "15",
+            "m": "18",
+            "s": "33.8"
+        },
+        "declination": {
+            "d": "+02",
+            "m": "04",
+            "s": "58"
+        },
+        "magnitude": 5.65,
+        "bvindex": 0.72,
+        "hmradius": {
+            "m": 2.11
+        }
+    },
+    {
+        "id": "NGC6397",
+        "type": "globular",
+        "right_ascension": {
+            "h": "17",
+            "m": "40",
+            "s": "41.3"
+        },
+        "declination": {
+            "d": "-53",
+            "m": "40",
+            "s": "25"
+        },
+        "magnitude": 5.73,
+        "bvindex": 0.73,
+        "hmradius": {
+            "m": 2.33
+        }
+    },
+    {
+        "id": "M13",
+        "type": "globular",
+        "right_ascension": {
+            "h": "16",
+            "m": "41",
+            "s": "41.5"
+        },
+        "declination": {
+            "d": "+36",
+            "m": "27",
+            "s": "37"
+        },
+        "magnitude": 5.78,
+        "bvindex": 0.68,
+        "hmradius": {
+            "m": 1.49
+        }
+    },
+    {
+        "id": "M3",
+        "type": "globular",
+        "right_ascension": {
+            "h": "13",
+            "m": "42",
+            "s": "11.2"
+        },
+        "declination": {
+            "d": "+28",
+            "m": "22",
+            "s": "32"
+        },
+        "magnitude": 6.19,
+        "bvindex": 0.69,
+        "hmradius": {
+            "m": 1.12
+        }
+    },
+    {
+        "id": "NGC2808",
+        "type": "globular",
+        "right_ascension": {
+            "h": "09",
+            "m": "12",
+            "s": "02.6"
+        },
+        "declination": {
+            "d": "-64",
+            "m": "51",
+            "s": "47"
+        },
+        "magnitude": 6.2,
+        "bvindex": 0.92,
+        "hmradius": {
+            "m": 0.76
+        }
+    },
+    {
+        "id": "M15",
+        "type": "globular",
+        "right_ascension": {
+            "h": "21",
+            "m": "29",
+            "s": "58.3"
+        },
+        "declination": {
+            "d": "+12",
+            "m": "10",
+            "s": "01"
+        },
+        "magnitude": 6.2,
+        "bvindex": 0.68,
+        "hmradius": {
+            "m": 1.06
+        }
+    },
+    {
+        "id": "NGC6541",
+        "type": "globular",
+        "right_ascension": {
+            "h": "18",
+            "m": "08",
+            "s": "02.2"
+        },
+        "declination": {
+            "d": "-43",
+            "m": "42",
+            "s": "20"
+        },
+        "magnitude": 6.3,
+        "bvindex": 0.76,
+        "hmradius": {
+            "m": 1.19
+        }
+    },
+    {
+        "id": "M55",
+        "type": "globular",
+        "right_ascension": {
+            "h": "19",
+            "m": "39",
+            "s": "59.4"
+        },
+        "declination": {
+            "d": "-30",
+            "m": "57",
+            "s": "44"
+        },
+        "magnitude": 6.32,
+        "bvindex": 0.72,
+        "hmradius": {
+            "m": 2.89
+        }
+    },
+    {
+        "id": "NGC362",
+        "type": "globular",
+        "right_ascension": {
+            "h": "01",
+            "m": "03",
+            "s": "14.3"
+        },
+        "declination": {
+            "d": "-70",
+            "m": "50",
+            "s": "54"
+        },
+        "magnitude": 6.4,
+        "bvindex": 0.77,
+        "hmradius": {
+            "m": 0.81
+        }
+    },
+    {
+        "id": "M92",
+        "type": "globular",
+        "right_ascension": {
+            "h": "17",
+            "m": "17",
+            "s": "07.3"
+        },
+        "declination": {
+            "d": "+43",
+            "m": "08",
+            "s": "11"
+        },
+        "magnitude": 6.44,
+        "bvindex": 0.63,
+        "hmradius": {
+            "m": 1.09
+        }
+    },
+    {
+        "id": "M62",
+        "type": "globular",
+        "right_ascension": {
+            "h": "17",
+            "m": "01",
+            "s": "12.6"
+        },
+        "declination": {
+            "d": "-30",
+            "m": "06",
+            "s": "44"
+        },
+        "magnitude": 6.45,
+        "bvindex": 1.19,
+        "hmradius": {
+            "m": 1.23
+        }
+    },
+    {
+        "id": "M2",
+        "type": "globular",
+        "right_ascension": {
+            "h": "21",
+            "m": "33",
+            "s": "29.3"
+        },
+        "declination": {
+            "d": "-00",
+            "m": "49",
+            "s": "23"
+        },
+        "magnitude": 6.47,
+        "bvindex": 0.66,
+        "hmradius": {
+            "m": 0.93
+        }
+    },
+    {
+        "id": "M10",
+        "type": "globular",
+        "right_ascension": {
+            "h": "16",
+            "m": "57",
+            "s": "08.9"
+        },
+        "declination": {
+            "d": "-04",
+            "m": "05",
+            "s": "58"
+        },
+        "magnitude": 6.6,
+        "bvindex": 0.9,
+        "hmradius": {
+            "m": 1.81
+        }
+    },
+    {
+        "id": "M12",
+        "type": "globular",
+        "right_ascension": {
+            "h": "16",
+            "m": "47",
+            "s": "14.5"
+        },
+        "declination": {
+            "d": "-01",
+            "m": "56",
+            "s": "52"
+        },
+        "magnitude": 6.7,
+        "bvindex": 0.83,
+        "hmradius": {
+            "m": 2.16
+        }
+    },
+    {
+        "id": "NGC6388",
+        "type": "globular",
+        "right_ascension": {
+            "h": "17",
+            "m": "36",
+            "s": "17.0"
+        },
+        "declination": {
+            "d": "-44",
+            "m": "44",
+            "s": "06"
+        },
+        "magnitude": 6.72,
+        "bvindex": 1.17,
+        "hmradius": {
+            "m": 0.67
+        }
+    },
+    {
+        "id": "NGC3201",
+        "type": "globular",
+        "right_ascension": {
+            "h": "10",
+            "m": "17",
+            "s": "36.8"
+        },
+        "declination": {
+            "d": "-46",
+            "m": "24",
+            "s": "40"
+        },
+        "magnitude": 6.75,
+        "bvindex": 0.96,
+        "hmradius": {
+            "m": 2.68
+        }
+    },
+    {
+        "id": "M19",
+        "type": "globular",
+        "right_ascension": {
+            "h": "17",
+            "m": "02",
+            "s": "37.7"
+        },
+        "declination": {
+            "d": "-26",
+            "m": "16",
+            "s": "05"
+        },
+        "magnitude": 6.77,
+        "bvindex": 1.03,
+        "hmradius": {
+            "m": 1.25
+        }
+    },
+    {
+        "id": "M28",
+        "type": "globular",
+        "right_ascension": {
+            "h": "18",
+            "m": "24",
+            "s": "32.9"
+        },
+        "declination": {
+            "d": "-24",
+            "m": "52",
+            "s": "12"
+        },
+        "magnitude": 6.79,
+        "bvindex": 1.08,
+        "hmradius": {
+            "m": 1.56
+        }
+    },
+    {
+        "id": "NGC4833",
+        "type": "globular",
+        "right_ascension": {
+            "h": "12",
+            "m": "59",
+            "s": "35.0"
+        },
+        "declination": {
+            "d": "-70",
+            "m": "52",
+            "s": "29"
+        },
+        "magnitude": 6.91,
+        "bvindex": 0.93,
+        "hmradius": {
+            "m": 2.41
+        }
+    },
+    {
+        "id": "NGC6723",
+        "type": "globular",
+        "right_ascension": {
+            "h": "18",
+            "m": "59",
+            "s": "33.2"
+        },
+        "declination": {
+            "d": "-36",
+            "m": "37",
+            "s": "54"
+        },
+        "magnitude": 7.01,
+        "bvindex": 0.75,
+        "hmradius": {
+            "m": 1.61
+        }
+    },
+    {
+        "id": "NGC1851",
+        "type": "globular",
+        "right_ascension": {
+            "h": "05",
+            "m": "14",
+            "s": "06.3"
+        },
+        "declination": {
+            "d": "-40",
+            "m": "02",
+            "s": "50"
+        },
+        "magnitude": 7.14,
+        "bvindex": 0.76,
+        "hmradius": {
+            "m": 0.52
+        }
+    },
+    {
+        "id": "NGC6441",
+        "type": "globular",
+        "right_ascension": {
+            "h": "17",
+            "m": "50",
+            "s": "12.9"
+        },
+        "declination": {
+            "d": "-37",
+            "m": "03",
+            "s": "04"
+        },
+        "magnitude": 7.15,
+        "bvindex": 1.27,
+        "hmradius": {
+            "m": 0.64
+        }
+    },
+    {
+        "id": "M30",
+        "type": "globular",
+        "right_ascension": {
+            "h": "21",
+            "m": "40",
+            "s": "22.0"
+        },
+        "declination": {
+            "d": "-23",
+            "m": "10",
+            "s": "45"
+        },
+        "magnitude": 7.19,
+        "bvindex": 0.6,
+        "hmradius": {
+            "m": 1.15
+        }
+    },
+    {
+        "id": "NGC4372",
+        "type": "globular",
+        "right_ascension": {
+            "h": "12",
+            "m": "25",
+            "s": "45.4"
+        },
+        "declination": {
+            "d": "-72",
+            "m": "39",
+            "s": "33"
+        },
+        "magnitude": 7.24,
+        "bvindex": 1.1,
+        "hmradius": {
+            "m": 3.9
+        }
+    },
+    {
+        "id": "M80",
+        "type": "globular",
+        "right_ascension": {
+            "h": "16",
+            "m": "17",
+            "s": "02.5"
+        },
+        "declination": {
+            "d": "-22",
+            "m": "58",
+            "s": "30"
+        },
+        "magnitude": 7.33,
+        "bvindex": 0.84,
+        "hmradius": {
+            "m": 0.65
+        }
+    },
+    {
+        "id": "NGC5286",
+        "type": "globular",
+        "right_ascension": {
+            "h": "13",
+            "m": "46",
+            "s": "26.5"
+        },
+        "declination": {
+            "d": "-51",
+            "m": "22",
+            "s": "24"
+        },
+        "magnitude": 7.34,
+        "bvindex": 0.88,
+        "hmradius": {
+            "m": 0.69
+        }
+    },
+    {
+        "id": "NGC5986",
+        "type": "globular",
+        "right_ascension": {
+            "h": "15",
+            "m": "46",
+            "s": "03.5"
+        },
+        "declination": {
+            "d": "-37",
+            "m": "47",
+            "s": "10"
+        },
+        "magnitude": 7.52,
+        "bvindex": 0.9,
+        "hmradius": {
+            "m": 1.05
+        }
+    },
+    {
+        "id": "M14",
+        "type": "globular",
+        "right_ascension": {
+            "h": "17",
+            "m": "37",
+            "s": "36.1"
+        },
+        "declination": {
+            "d": "-03",
+            "m": "14",
+            "s": "45"
+        },
+        "magnitude": 7.59,
+        "bvindex": 1.25,
+        "hmradius": {
+            "m": 1.29
+        }
+    },
+    {
+        "id": "M54",
+        "type": "globular",
+        "right_ascension": {
+            "h": "18",
+            "m": "55",
+            "s": "03.3"
+        },
+        "declination": {
+            "d": "-30",
+            "m": "28",
+            "s": "42"
+        },
+        "magnitude": 7.6,
+        "bvindex": 0.85,
+        "hmradius": {
+            "m": 0.49
+        }
+    },
+    {
+        "id": "M53",
+        "type": "globular",
+        "right_ascension": {
+            "h": "13",
+            "m": "12",
+            "s": "55.3"
+        },
+        "declination": {
+            "d": "+18",
+            "m": "10",
+            "s": "09"
+        },
+        "magnitude": 7.61,
+        "bvindex": 0.64,
+        "hmradius": {
+            "m": 1.11
+        }
+    },
+    {
+        "id": "M69",
+        "type": "globular",
+        "right_ascension": {
+            "h": "18",
+            "m": "31",
+            "s": "23.2"
+        },
+        "declination": {
+            "d": "-32",
+            "m": "20",
+            "s": "53"
+        },
+        "magnitude": 7.64,
+        "bvindex": 1.01,
+        "hmradius": {
+            "m": 0.83
+        }
+    },
+    {
+        "id": "M9",
+        "type": "globular",
+        "right_ascension": {
+            "h": "17",
+            "m": "19",
+            "s": "11.8"
+        },
+        "declination": {
+            "d": "-18",
+            "m": "30",
+            "s": "59"
+        },
+        "magnitude": 7.72,
+        "bvindex": 0.97,
+        "hmradius": {
+            "m": 0.95
+        }
+    },
+    {
+        "id": "M79",
+        "type": "globular",
+        "right_ascension": {
+            "h": "05",
+            "m": "24",
+            "s": "10.6"
+        },
+        "declination": {
+            "d": "-24",
+            "m": "31",
+            "s": "27"
+        },
+        "magnitude": 7.73,
+        "bvindex": 0.65,
+        "hmradius": {
+            "m": 0.8
+        }
+    },
+    {
+        "id": "NGC6362",
+        "type": "globular",
+        "right_ascension": {
+            "h": "17",
+            "m": "31",
+            "s": "54.8"
+        },
+        "declination": {
+            "d": "-67",
+            "m": "02",
+            "s": "53"
+        },
+        "magnitude": 7.73,
+        "bvindex": 0.85,
+        "hmradius": {
+            "m": 2.18
+        }
+    },
+    {
+        "id": "NGC6544",
+        "type": "globular",
+        "right_ascension": {
+            "h": "18",
+            "m": "07",
+            "s": "20.6"
+        },
+        "declination": {
+            "d": "-24",
+            "m": "59",
+            "s": "51"
+        },
+        "magnitude": 7.77,
+        "bvindex": 1.46,
+        "hmradius": {
+            "m": 1.77
+        }
+    },
+    {
+        "id": "M68",
+        "type": "globular",
+        "right_ascension": {
+            "h": "12",
+            "m": "39",
+            "s": "28.0"
+        },
+        "declination": {
+            "d": "-26",
+            "m": "44",
+            "s": "34"
+        },
+        "magnitude": 7.84,
+        "bvindex": 0.63,
+        "hmradius": {
+            "m": 1.55
+        }
+    },
+    {
+        "id": "NGC6624",
+        "type": "globular",
+        "right_ascension": {
+            "h": "18",
+            "m": "23",
+            "s": "40.5"
+        },
+        "declination": {
+            "d": "-30",
+            "m": "21",
+            "s": "40"
+        },
+        "magnitude": 7.87,
+        "bvindex": 1.11,
+        "hmradius": {
+            "m": 0.82
+        }
+    },
+    {
+        "id": "M70",
+        "type": "globular",
+        "right_ascension": {
+            "h": "18",
+            "m": "43",
+            "s": "12.7"
+        },
+        "declination": {
+            "d": "-32",
+            "m": "17",
+            "s": "31"
+        },
+        "magnitude": 7.87,
+        "bvindex": 0.72,
+        "hmradius": {
+            "m": 0.93
+        }
+    },
+    {
+        "id": "M107",
+        "type": "globular",
+        "right_ascension": {
+            "h": "16",
+            "m": "32",
+            "s": "31.9"
+        },
+        "declination": {
+            "d": "-13",
+            "m": "03",
+            "s": "13"
+        },
+        "magnitude": 7.93,
+        "bvindex": 1.1,
+        "hmradius": {
+            "m": 2.7
+        }
+    },
+    {
+        "id": "NGC6352",
+        "type": "globular",
+        "right_ascension": {
+            "h": "17",
+            "m": "25",
+            "s": "29.2"
+        },
+        "declination": {
+            "d": "-48",
+            "m": "25",
+            "s": "22"
+        },
+        "magnitude": 7.96,
+        "bvindex": 1.06,
+        "hmradius": {
+            "m": 2.0
+        }
+    },
+    {
+        "id": "NGC5927",
+        "type": "globular",
+        "right_ascension": {
+            "h": "15",
+            "m": "28",
+            "s": "00.5"
+        },
+        "declination": {
+            "d": "-50",
+            "m": "40",
+            "s": "22"
+        },
+        "magnitude": 8.01,
+        "bvindex": 1.31,
+        "hmradius": {
+            "m": 1.15
+        }
+    },
+    {
+        "id": "NGC6553",
+        "type": "globular",
+        "right_ascension": {
+            "h": "18",
+            "m": "09",
+            "s": "15.6"
+        },
+        "declination": {
+            "d": "-25",
+            "m": "54",
+            "s": "28"
+        },
+        "magnitude": 8.06,
+        "bvindex": 1.73,
+        "hmradius": {
+            "m": 1.55
+        }
+    },
+    {
+        "id": "NGC288",
+        "type": "globular",
+        "right_ascension": {
+            "h": "00",
+            "m": "52",
+            "s": "47.5"
+        },
+        "declination": {
+            "d": "-26",
+            "m": "35",
+            "s": "24"
+        },
+        "magnitude": 8.09,
+        "bvindex": 0.65,
+        "hmradius": {
+            "m": 2.22
+        }
+    },
+    {
+        "id": "NGC6712",
+        "type": "globular",
+        "right_ascension": {
+            "h": "18",
+            "m": "53",
+            "s": "04.3"
+        },
+        "declination": {
+            "d": "-08",
+            "m": "42",
+            "s": "22"
+        },
+        "magnitude": 8.1,
+        "bvindex": 1.17,
+        "hmradius": {
+            "m": 1.37
+        }
+    },
+    {
+        "id": "M71",
+        "type": "globular",
+        "right_ascension": {
+            "h": "19",
+            "m": "53",
+            "s": "46.1"
+        },
+        "declination": {
+            "d": "+18",
+            "m": "46",
+            "s": "42"
+        },
+        "magnitude": 8.19,
+        "bvindex": 1.09,
+        "hmradius": {
+            "m": 1.65
+        }
+    },
+    {
+        "id": "NGC6293",
+        "type": "globular",
+        "right_ascension": {
+            "h": "17",
+            "m": "10",
+            "s": "10.4"
+        },
+        "declination": {
+            "d": "-26",
+            "m": "34",
+            "s": "54"
+        },
+        "magnitude": 8.22,
+        "bvindex": 0.96,
+        "hmradius": {
+            "m": 0.91
+        }
+    },
+    {
+        "id": "NGC6304",
+        "type": "globular",
+        "right_ascension": {
+            "h": "17",
+            "m": "14",
+            "s": "32.5"
+        },
+        "declination": {
+            "d": "-29",
+            "m": "27",
+            "s": "44"
+        },
+        "magnitude": 8.22,
+        "bvindex": 1.31,
+        "hmradius": {
+            "m": 1.41
+        }
+    },
+    {
+        "id": "NGC6356",
+        "type": "globular",
+        "right_ascension": {
+            "h": "17",
+            "m": "23",
+            "s": "35.0"
+        },
+        "declination": {
+            "d": "-17",
+            "m": "48",
+            "s": "47"
+        },
+        "magnitude": 8.25,
+        "bvindex": 1.13,
+        "hmradius": {
+            "m": 0.74
+        }
+    },
+    {
+        "id": "NGC6522",
+        "type": "globular",
+        "right_ascension": {
+            "h": "18",
+            "m": "03",
+            "s": "34.1"
+        },
+        "declination": {
+            "d": "-30",
+            "m": "02",
+            "s": "02"
+        },
+        "magnitude": 8.27,
+        "bvindex": 1.21,
+        "hmradius": {
+            "m": 1.04
+        }
+    },
+    {
+        "id": "NGC6584",
+        "type": "globular",
+        "right_ascension": {
+            "h": "18",
+            "m": "18",
+            "s": "37.7"
+        },
+        "declination": {
+            "d": "-52",
+            "m": "12",
+            "s": "54"
+        },
+        "magnitude": 8.27,
+        "bvindex": 0.76,
+        "hmradius": {
+            "m": 0.8
+        }
+    },
+    {
+        "id": "M56",
+        "type": "globular",
+        "right_ascension": {
+            "h": "19",
+            "m": "16",
+            "s": "35.5"
+        },
+        "declination": {
+            "d": "+30",
+            "m": "11",
+            "s": "05"
+        },
+        "magnitude": 8.27,
+        "bvindex": 0.86,
+        "hmradius": {
+            "m": 1.16
+        }
+    },
+    {
+        "id": "NGC1261",
+        "type": "globular",
+        "right_ascension": {
+            "h": "03",
+            "m": "12",
+            "s": "15.3"
+        },
+        "declination": {
+            "d": "-55",
+            "m": "13",
+            "s": "01"
+        },
+        "magnitude": 8.29,
+        "bvindex": 0.72,
+        "hmradius": {
+            "m": 0.75
+        }
+    },
+    {
+        "id": "NGC6316",
+        "type": "globular",
+        "right_ascension": {
+            "h": "17",
+            "m": "16",
+            "s": "37.4"
+        },
+        "declination": {
+            "d": "-28",
+            "m": "08",
+            "s": "24"
+        },
+        "magnitude": 8.43,
+        "bvindex": 1.39,
+        "hmradius": {
+            "m": 0.71
+        }
+    },
+    {
+        "id": "M75",
+        "type": "globular",
+        "right_ascension": {
+            "h": "20",
+            "m": "06",
+            "s": "04.8"
+        },
+        "declination": {
+            "d": "-21",
+            "m": "55",
+            "s": "17"
+        },
+        "magnitude": 8.52,
+        "bvindex": 0.87,
+        "hmradius": {
+            "m": 0.47
+        }
+    },
+    {
+        "id": "NGC5897",
+        "type": "globular",
+        "right_ascension": {
+            "h": "15",
+            "m": "17",
+            "s": "24.5"
+        },
+        "declination": {
+            "d": "-21",
+            "m": "00",
+            "s": "37"
+        },
+        "magnitude": 8.53,
+        "bvindex": 0.74,
+        "hmradius": {
+            "m": 2.11
+        }
+    },
+    {
+        "id": "NGC6496",
+        "type": "globular",
+        "right_ascension": {
+            "h": "17",
+            "m": "59",
+            "s": "02.0"
+        },
+        "declination": {
+            "d": "-44",
+            "m": "15",
+            "s": "54"
+        },
+        "magnitude": 8.54,
+        "bvindex": 0.98,
+        "hmradius": {
+            "m": 1.87
+        }
+    },
+    {
+        "id": "NGC6569",
+        "type": "globular",
+        "right_ascension": {
+            "h": "18",
+            "m": "13",
+            "s": "38.9"
+        },
+        "declination": {
+            "d": "-31",
+            "m": "49",
+            "s": "35"
+        },
+        "magnitude": 8.55,
+        "bvindex": 1.34,
+        "hmradius": {
+            "m": 1.33
+        }
+    },
+    {
+        "id": "NGC6652",
+        "type": "globular",
+        "right_ascension": {
+            "h": "18",
+            "m": "35",
+            "s": "45.7"
+        },
+        "declination": {
+            "d": "-32",
+            "m": "59",
+            "s": "25"
+        },
+        "magnitude": 8.62,
+        "bvindex": 0.94,
+        "hmradius": {
+            "m": 0.65
+        }
+    },
+    {
+        "id": "NGC6284",
+        "type": "globular",
+        "right_ascension": {
+            "h": "17",
+            "m": "04",
+            "s": "28.8"
+        },
+        "declination": {
+            "d": "-24",
+            "m": "45",
+            "s": "53"
+        },
+        "magnitude": 8.83,
+        "bvindex": 0.99,
+        "hmradius": {
+            "m": 0.78
+        }
+    },
+    {
+        "id": "NGC6934",
+        "type": "globular",
+        "right_ascension": {
+            "h": "20",
+            "m": "34",
+            "s": "11.6"
+        },
+        "declination": {
+            "d": "+07",
+            "m": "24",
+            "s": "15"
+        },
+        "magnitude": 8.83,
+        "bvindex": 0.77,
+        "hmradius": {
+            "m": 0.6
+        }
+    },
+    {
+        "id": "NGC6760",
+        "type": "globular",
+        "right_ascension": {
+            "h": "19",
+            "m": "11",
+            "s": "12.1"
+        },
+        "declination": {
+            "d": "+01",
+            "m": "01",
+            "s": "50"
+        },
+        "magnitude": 8.88,
+        "bvindex": 1.66,
+        "hmradius": {
+            "m": 2.18
+        }
+    },
+    {
+        "id": "NGC6139",
+        "type": "globular",
+        "right_ascension": {
+            "h": "16",
+            "m": "27",
+            "s": "40.4"
+        },
+        "declination": {
+            "d": "-38",
+            "m": "50",
+            "s": "56"
+        },
+        "magnitude": 8.99,
+        "bvindex": 1.4,
+        "hmradius": {
+            "m": 0.82
+        }
+    },
+    {
+        "id": "NGC6144",
+        "type": "globular",
+        "right_ascension": {
+            "h": "16",
+            "m": "27",
+            "s": "14.1"
+        },
+        "declination": {
+            "d": "-26",
+            "m": "01",
+            "s": "29"
+        },
+        "magnitude": 9.01,
+        "bvindex": 0.96,
+        "hmradius": {
+            "m": 1.62
+        }
+    },
+    {
+        "id": "NGC6638",
+        "type": "globular",
+        "right_ascension": {
+            "h": "18",
+            "m": "30",
+            "s": "56.2"
+        },
+        "declination": {
+            "d": "-25",
+            "m": "29",
+            "s": "47"
+        },
+        "magnitude": 9.02,
+        "bvindex": 1.15,
+        "hmradius": {
+            "m": 0.66
+        }
+    },
+    {
+        "id": "NGC5466",
+        "type": "globular",
+        "right_ascension": {
+            "h": "14",
+            "m": "05",
+            "s": "27.3"
+        },
+        "declination": {
+            "d": "+28",
+            "m": "32",
+            "s": "04"
+        },
+        "magnitude": 9.04,
+        "bvindex": 0.67,
+        "hmradius": {
+            "m": 2.25
+        }
+    },
+    {
+        "id": "NGC5824",
+        "type": "globular",
+        "right_ascension": {
+            "h": "15",
+            "m": "03",
+            "s": "58.5"
+        },
+        "declination": {
+            "d": "-33",
+            "m": "04",
+            "s": "04"
+        },
+        "magnitude": 9.09,
+        "bvindex": 0.75,
+        "hmradius": {
+            "m": 0.36
+        }
+    },
+    {
+        "id": "NGC6642",
+        "type": "globular",
+        "right_ascension": {
+            "h": "18",
+            "m": "31",
+            "s": "54.3"
+        },
+        "declination": {
+            "d": "-23",
+            "m": "28",
+            "s": "35"
+        },
+        "magnitude": 9.13,
+        "bvindex": 1.11,
+        "hmradius": {
+            "m": 0.73
+        }
+    },
+    {
+        "id": "NGC6355",
+        "type": "globular",
+        "right_ascension": {
+            "h": "17",
+            "m": "23",
+            "s": "58.6"
+        },
+        "declination": {
+            "d": "-26",
+            "m": "21",
+            "s": "13"
+        },
+        "magnitude": 9.14,
+        "bvindex": 1.48,
+        "hmradius": {
+            "m": 0.87
+        }
+    },
+    {
+        "id": "NGC6101",
+        "type": "globular",
+        "right_ascension": {
+            "h": "16",
+            "m": "25",
+            "s": "48.6"
+        },
+        "declination": {
+            "d": "-72",
+            "m": "12",
+            "s": "06"
+        },
+        "magnitude": 9.16,
+        "bvindex": 0.68,
+        "hmradius": {
+            "m": 1.71
+        }
+    },
+    {
+        "id": "NGC6366",
+        "type": "globular",
+        "right_ascension": {
+            "h": "17",
+            "m": "27",
+            "s": "44.3"
+        },
+        "declination": {
+            "d": "-05",
+            "m": "04",
+            "s": "36"
+        },
+        "magnitude": 9.2,
+        "bvindex": 1.44,
+        "hmradius": {
+            "m": 2.63
+        }
+    },
+    {
+        "id": "NGC6440",
+        "type": "globular",
+        "right_ascension": {
+            "h": "17",
+            "m": "48",
+            "s": "52.6"
+        },
+        "declination": {
+            "d": "-20",
+            "m": "21",
+            "s": "34"
+        },
+        "magnitude": 9.2,
+        "bvindex": 1.97,
+        "hmradius": {
+            "m": 0.58
+        }
+    },
+    {
+        "id": "NGC6558",
+        "type": "globular",
+        "right_ascension": {
+            "h": "18",
+            "m": "10",
+            "s": "18.4"
+        },
+        "declination": {
+            "d": "-31",
+            "m": "45",
+            "s": "49"
+        },
+        "magnitude": 9.26,
+        "bvindex": 1.11,
+        "hmradius": {
+            "m": 1.61
+        }
+    },
+    {
+        "id": "M72",
+        "type": "globular",
+        "right_ascension": {
+            "h": "20",
+            "m": "53",
+            "s": "27.9"
+        },
+        "declination": {
+            "d": "-12",
+            "m": "32",
+            "s": "13"
+        },
+        "magnitude": 9.27,
+        "bvindex": 0.72,
+        "hmradius": {
+            "m": 0.88
+        }
+    },
+    {
+        "id": "Pal9",
+        "type": "globular",
+        "right_ascension": {
+            "h": "18",
+            "m": "55",
+            "s": "06.2"
+        },
+        "declination": {
+            "d": "-22",
+            "m": "42",
+            "s": "03"
+        },
+        "magnitude": 9.28,
+        "bvindex": 1.0,
+        "hmradius": {
+            "m": 0.68
+        }
+    },
+    {
+        "id": "NGC2298",
+        "type": "globular",
+        "right_ascension": {
+            "h": "06",
+            "m": "48",
+            "s": "59.2"
+        },
+        "declination": {
+            "d": "-36",
+            "m": "00",
+            "s": "19"
+        },
+        "magnitude": 9.29,
+        "bvindex": 0.75,
+        "hmradius": {
+            "m": 0.78
+        }
+    },
+    {
+        "id": "Djorg3",
+        "type": "globular",
+        "right_ascension": {
+            "h": "18",
+            "m": "06",
+            "s": "08.6"
+        },
+        "declination": {
+            "d": "-27",
+            "m": "45",
+            "s": "55"
+        },
+        "magnitude": 9.3,
+        "bvindex": 0.8,
+        "hmradius": {
+            "m": 0.24
+        }
+    },
+    {
+        "id": "NGC6539",
+        "type": "globular",
+        "right_ascension": {
+            "h": "18",
+            "m": "04",
+            "s": "49.8"
+        },
+        "declination": {
+            "d": "-07",
+            "m": "35",
+            "s": "09"
+        },
+        "magnitude": 9.33,
+        "bvindex": 1.83,
+        "hmradius": {
+            "m": 1.67
+        }
+    },
+    {
+        "id": "NGC6287",
+        "type": "globular",
+        "right_ascension": {
+            "h": "17",
+            "m": "05",
+            "s": "09.4"
+        },
+        "declination": {
+            "d": "-22",
+            "m": "42",
+            "s": "29"
+        },
+        "magnitude": 9.35,
+        "bvindex": 1.2,
+        "hmradius": {
+            "m": 0.75
+        }
+    },
+    {
+        "id": "NGC6229",
+        "type": "globular",
+        "right_ascension": {
+            "h": "16",
+            "m": "46",
+            "s": "58.9"
+        },
+        "declination": {
+            "d": "+47",
+            "m": "31",
+            "s": "40"
+        },
+        "magnitude": 9.39,
+        "bvindex": 0.7,
+        "hmradius": {
+            "m": 0.37
+        }
+    },
+    {
+        "id": "NGC6401",
+        "type": "globular",
+        "right_ascension": {
+            "h": "17",
+            "m": "38",
+            "s": "36.9"
+        },
+        "declination": {
+            "d": "-23",
+            "m": "54",
+            "s": "32"
+        },
+        "magnitude": 9.45,
+        "bvindex": 1.58,
+        "hmradius": {
+            "m": 1.91
+        }
+    },
+    {
+        "id": "NGC5053",
+        "type": "globular",
+        "right_ascension": {
+            "h": "13",
+            "m": "16",
+            "s": "27.0"
+        },
+        "declination": {
+            "d": "+17",
+            "m": "41",
+            "s": "53"
+        },
+        "magnitude": 9.47,
+        "bvindex": 0.65,
+        "hmradius": {
+            "m": 3.5
+        }
+    },
+    {
+        "id": "NGC5634",
+        "type": "globular",
+        "right_ascension": {
+            "h": "14",
+            "m": "29",
+            "s": "37.3"
+        },
+        "declination": {
+            "d": "-05",
+            "m": "58",
+            "s": "35"
+        },
+        "magnitude": 9.47,
+        "bvindex": 0.67,
+        "hmradius": {
+            "m": 0.54
+        }
+    },
+    {
+        "id": "NGC6528",
+        "type": "globular",
+        "right_ascension": {
+            "h": "18",
+            "m": "04",
+            "s": "49.6"
+        },
+        "declination": {
+            "d": "-30",
+            "m": "03",
+            "s": "21"
+        },
+        "magnitude": 9.6,
+        "bvindex": 1.53,
+        "hmradius": {
+            "m": 0.43
+        }
+    },
+    {
+        "id": "NGC5946",
+        "type": "globular",
+        "right_ascension": {
+            "h": "15",
+            "m": "35",
+            "s": "28.5"
+        },
+        "declination": {
+            "d": "-50",
+            "m": "39",
+            "s": "34"
+        },
+        "magnitude": 9.61,
+        "bvindex": 1.29,
+        "hmradius": {
+            "m": 0.69
+        }
+    },
+    {
+        "id": "NGC6342",
+        "type": "globular",
+        "right_ascension": {
+            "h": "17",
+            "m": "21",
+            "s": "10.2"
+        },
+        "declination": {
+            "d": "-19",
+            "m": "35",
+            "s": "14"
+        },
+        "magnitude": 9.66,
+        "bvindex": 1.26,
+        "hmradius": {
+            "m": 0.88
+        }
+    },
+    {
+        "id": "IC4499",
+        "type": "globular",
+        "right_ascension": {
+            "h": "15",
+            "m": "00",
+            "s": "18.5"
+        },
+        "declination": {
+            "d": "-82",
+            "m": "12",
+            "s": "49"
+        },
+        "magnitude": 9.76,
+        "bvindex": 0.91,
+        "hmradius": {
+            "m": 1.5
+        }
+    },
+    {
+        "id": "Pal11",
+        "type": "globular",
+        "right_ascension": {
+            "h": "19",
+            "m": "45",
+            "s": "14.4"
+        },
+        "declination": {
+            "d": "-08",
+            "m": "00",
+            "s": "26"
+        },
+        "magnitude": 9.8,
+        "bvindex": 1.27,
+        "hmradius": {
+            "m": 1.49
+        }
+    },
+    {
+        "id": "E456-SC38",
+        "type": "globular",
+        "right_ascension": {
+            "h": "18",
+            "m": "01",
+            "s": "49.1"
+        },
+        "declination": {
+            "d": "-27",
+            "m": "49",
+            "s": "33"
+        },
+        "magnitude": 9.9,
+        "bvindex": 0.8,
+        "hmradius": {
+            "m": 0.83
+        }
+    },
+    {
+        "id": "NGC6235",
+        "type": "globular",
+        "right_ascension": {
+            "h": "16",
+            "m": "53",
+            "s": "25.4"
+        },
+        "declination": {
+            "d": "-22",
+            "m": "10",
+            "s": "38"
+        },
+        "magnitude": 9.97,
+        "bvindex": 1.05,
+        "hmradius": {
+            "m": 0.84
+        }
+    },
+    {
+        "id": "NGC6453",
+        "type": "globular",
+        "right_ascension": {
+            "h": "17",
+            "m": "50",
+            "s": "51.8"
+        },
+        "declination": {
+            "d": "-34",
+            "m": "35",
+            "s": "55"
+        },
+        "magnitude": 10.08,
+        "bvindex": 1.31,
+        "hmradius": {
+            "m": 0.37
+        }
+    },
+    {
+        "id": "NGC5694",
+        "type": "globular",
+        "right_ascension": {
+            "h": "14",
+            "m": "39",
+            "s": "36.5"
+        },
+        "declination": {
+            "d": "-26",
+            "m": "32",
+            "s": "18"
+        },
+        "magnitude": 10.17,
+        "bvindex": 0.69,
+        "hmradius": {
+            "m": 0.33
+        }
+    },
+    {
+        "id": "NGC6517",
+        "type": "globular",
+        "right_ascension": {
+            "h": "18",
+            "m": "01",
+            "s": "50.6"
+        },
+        "declination": {
+            "d": "-08",
+            "m": "57",
+            "s": "32"
+        },
+        "magnitude": 10.23,
+        "bvindex": 1.75,
+        "hmradius": {
+            "m": 0.62
+        }
+    },
+    {
+        "id": "NGC4147",
+        "type": "globular",
+        "right_ascension": {
+            "h": "12",
+            "m": "10",
+            "s": "06.2"
+        },
+        "declination": {
+            "d": "+18",
+            "m": "32",
+            "s": "31"
+        },
+        "magnitude": 10.32,
+        "bvindex": 0.59,
+        "hmradius": {
+            "m": 0.43
+        }
+    },
+    {
+        "id": "NGC6325",
+        "type": "globular",
+        "right_ascension": {
+            "h": "17",
+            "m": "17",
+            "s": "59.2"
+        },
+        "declination": {
+            "d": "-23",
+            "m": "45",
+            "s": "57"
+        },
+        "magnitude": 10.33,
+        "bvindex": 1.66,
+        "hmradius": {
+            "m": 0.94
+        }
+    },
+    {
+        "id": "Pal7",
+        "type": "globular",
+        "right_ascension": {
+            "h": "18",
+            "m": "10",
+            "s": "44.2"
+        },
+        "declination": {
+            "d": "-07",
+            "m": "12",
+            "s": "27"
+        },
+        "magnitude": 10.34,
+        "bvindex": 1.76,
+        "hmradius": {
+            "m": 2.35
+        }
+    },
+    {
+        "id": "NGC2419",
+        "type": "globular",
+        "right_ascension": {
+            "h": "07",
+            "m": "38",
+            "s": "08.5"
+        },
+        "declination": {
+            "d": "+38",
+            "m": "52",
+            "s": "55"
+        },
+        "magnitude": 10.39,
+        "bvindex": 0.66,
+        "hmradius": {
+            "m": 0.73
+        }
+    },
+    {
+        "id": "NGC6535",
+        "type": "globular",
+        "right_ascension": {
+            "h": "18",
+            "m": "03",
+            "s": "50.7"
+        },
+        "declination": {
+            "d": "-00",
+            "m": "17",
+            "s": "49"
+        },
+        "magnitude": 10.47,
+        "bvindex": 0.94,
+        "hmradius": {
+            "m": 0.77
+        }
+    },
+    {
+        "id": "NGC7006",
+        "type": "globular",
+        "right_ascension": {
+            "h": "21",
+            "m": "01",
+            "s": "29.5"
+        },
+        "declination": {
+            "d": "+16",
+            "m": "11",
+            "s": "15"
+        },
+        "magnitude": 10.56,
+        "bvindex": 0.75,
+        "hmradius": {
+            "m": 0.38
+        }
+    },
+    {
+        "id": "Rup106",
+        "type": "globular",
+        "right_ascension": {
+            "h": "12",
+            "m": "38",
+            "s": "40.2"
+        },
+        "declination": {
+            "d": "-51",
+            "m": "09",
+            "s": "01"
+        },
+        "magnitude": 10.9,
+        "bvindex": 0.8,
+        "hmradius": {
+            "m": 1.1
+        }
+    },
+    {
+        "id": "NGC6426",
+        "type": "globular",
+        "right_ascension": {
+            "h": "17",
+            "m": "44",
+            "s": "54.7"
+        },
+        "declination": {
+            "d": "+03",
+            "m": "10",
+            "s": "13"
+        },
+        "magnitude": 11.01,
+        "bvindex": 1.02,
+        "hmradius": {
+            "m": 0.96
+        }
+    },
+    {
+        "id": "Pal8",
+        "type": "globular",
+        "right_ascension": {
+            "h": "18",
+            "m": "41",
+            "s": "29.9"
+        },
+        "declination": {
+            "d": "-19",
+            "m": "49",
+            "s": "33"
+        },
+        "magnitude": 11.02,
+        "bvindex": 1.22,
+        "hmradius": {
+            "m": 0.57
+        }
+    },
+    {
+        "id": "NGC6256",
+        "type": "globular",
+        "right_ascension": {
+            "h": "16",
+            "m": "59",
+            "s": "32.6"
+        },
+        "declination": {
+            "d": "-37",
+            "m": "07",
+            "s": "17"
+        },
+        "magnitude": 11.29,
+        "bvindex": 1.69,
+        "hmradius": {
+            "m": 0.85
+        }
+    },
+    {
+        "id": "NGC7492",
+        "type": "globular",
+        "right_ascension": {
+            "h": "23",
+            "m": "08",
+            "s": "26.7"
+        },
+        "declination": {
+            "d": "-15",
+            "m": "36",
+            "s": "41"
+        },
+        "magnitude": 11.29,
+        "bvindex": 0.42,
+        "hmradius": {
+            "m": 1.22
+        }
+    },
+    {
+        "id": "Ton1",
+        "type": "globular",
+        "right_ascension": {
+            "h": "17",
+            "m": "34",
+            "s": "28.0"
+        },
+        "declination": {
+            "d": "-39",
+            "m": "04",
+            "s": "09"
+        },
+        "magnitude": 11.31,
+        "bvindex": 2.01,
+        "hmradius": {
+            "m": 0.75
+        }
+    },
+    {
+        "id": "E3",
+        "type": "globular",
+        "right_ascension": {
+            "h": "09",
+            "m": "20",
+            "s": "59.3"
+        },
+        "declination": {
+            "d": "-77",
+            "m": "16",
+            "s": "57"
+        },
+        "magnitude": 11.35,
+        "bvindex": 0.8,
+        "hmradius": {
+            "m": 2.06
+        }
+    },
+    {
+        "id": "Pal6",
+        "type": "globular",
+        "right_ascension": {
+            "h": "17",
+            "m": "43",
+            "s": "42.2"
+        },
+        "declination": {
+            "d": "-26",
+            "m": "13",
+            "s": "21"
+        },
+        "magnitude": 11.55,
+        "bvindex": 2.83,
+        "hmradius": {
+            "m": 1.06
+        }
+    },
+    {
+        "id": "BH229",
+        "type": "globular",
+        "right_ascension": {
+            "h": "17",
+            "m": "31",
+            "s": "05.2"
+        },
+        "declination": {
+            "d": "-29",
+            "m": "58",
+            "s": "54"
+        },
+        "magnitude": 11.59,
+        "bvindex": 0.8,
+        "hmradius": {
+            "m": 3.1
+        }
+    },
+    {
+        "id": "Pal5",
+        "type": "globular",
+        "right_ascension": {
+            "h": "15",
+            "m": "16",
+            "s": "05.3"
+        },
+        "declination": {
+            "d": "-00",
+            "m": "06",
+            "s": "41"
+        },
+        "magnitude": 11.75,
+        "bvindex": 0.8,
+        "hmradius": {
+            "m": 2.96
+        }
+    },
+    {
+        "id": "Pal12",
+        "type": "globular",
+        "right_ascension": {
+            "h": "21",
+            "m": "46",
+            "s": "38.8"
+        },
+        "declination": {
+            "d": "-21",
+            "m": "15",
+            "s": "03"
+        },
+        "magnitude": 11.99,
+        "bvindex": 1.07,
+        "hmradius": {
+            "m": 1.28
+        }
+    },
+    {
+        "id": "Terzan3",
+        "type": "globular",
+        "right_ascension": {
+            "h": "16",
+            "m": "28",
+            "s": "40.1"
+        },
+        "declination": {
+            "d": "-35",
+            "m": "21",
+            "s": "13"
+        },
+        "magnitude": 12.0,
+        "bvindex": 0.8,
+        "hmradius": {
+            "m": 1.3
+        }
+    },
+    {
+        "id": "ESO452-SC11",
+        "type": "globular",
+        "right_ascension": {
+            "h": "16",
+            "m": "39",
+            "s": "25.5"
+        },
+        "declination": {
+            "d": "-28",
+            "m": "23",
+            "s": "52"
+        },
+        "magnitude": 12.0,
+        "bvindex": 0.8,
+        "hmradius": {
+            "m": 1
+        }
+    },
+    {
+        "id": "Terzan7",
+        "type": "globular",
+        "right_ascension": {
+            "h": "19",
+            "m": "17",
+            "s": "43.7"
+        },
+        "declination": {
+            "d": "-34",
+            "m": "39",
+            "s": "27"
+        },
+        "magnitude": 12.0,
+        "bvindex": 0.8,
+        "hmradius": {
+            "m": 0.97
+        }
+    }
+]

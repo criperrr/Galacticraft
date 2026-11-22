@@ -1,0 +1,2133 @@
+[
+    {
+        "type": "asteroid",
+        "id": "metis",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "metis",
+            "jupiter xvi"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.00085562752,
+            "T": 0.0008213723854505446,
+            "e": 0.001,
+            "i": 0.019,
+            "n": 138.1,
+            "w": 40.7,
+            "M": 181.6
+        },
+        "H": 10.79185846472,
+        "G": 0.15,
+        "bvi": 1.0
+    },
+    {
+        "type": "asteroid",
+        "id": "adrastea",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "adrastea",
+            "jupiter xv"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.00086231211,
+            "T": 0.0008213723854505446,
+            "e": 0.002,
+            "i": 0.054,
+            "n": 167.4,
+            "w": 21.2,
+            "M": 143.5
+        },
+        "H": 11.99185846472,
+        "G": 0.15,
+        "bvi": 1.0
+    },
+    {
+        "type": "asteroid",
+        "id": "amalthea",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "amalthea",
+            "jupiter v"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.001212584626,
+            "T": 0.0013689539757509078,
+            "e": 0.003,
+            "i": 0.38,
+            "n": 112.3,
+            "w": 147.8,
+            "M": 189.8
+        },
+        "H": 7.391858464719999,
+        "G": 0.15,
+        "bvi": 1.2
+    },
+    {
+        "type": "asteroid",
+        "id": "thebe",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "thebe",
+            "jupiter xiv"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.001483310521,
+            "T": 0.0018617774070212349,
+            "e": 0.018,
+            "i": 1.08,
+            "n": 235.9,
+            "w": 233.5,
+            "M": 136.4
+        },
+        "H": 9.29185846472,
+        "G": 0.15,
+        "bvi": 1.0
+    },
+    {
+        "type": "asteroid",
+        "id": "themisto",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "themisto",
+            "s/2000 j1",
+            "jupiter xviii"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.05018121713,
+            "T": 0.35592803369523607,
+            "e": 0.242,
+            "i": 43.08,
+            "n": 201.5,
+            "w": 240.7,
+            "M": 134.2
+        },
+        "H": 14.29185846472,
+        "G": 0.15,
+        "bvi": 0.68
+    },
+    {
+        "type": "asteroid",
+        "id": "leda",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "leda",
+            "jupiter xiii"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.07463344734999999,
+            "T": 0.6595620255167874,
+            "e": 0.164,
+            "i": 27.46,
+            "n": 217.1,
+            "w": 272.3,
+            "M": 228.1
+        },
+        "H": 13.49185846472,
+        "G": 0.15,
+        "bvi": 0.68
+    },
+    {
+        "type": "asteroid",
+        "id": "himalia",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "himalia",
+            "jupiter vi"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.07661208599,
+            "T": 0.6861197326463551,
+            "e": 0.162,
+            "i": 27.5,
+            "n": 57.2,
+            "w": 332.0,
+            "M": 68.7
+        },
+        "H": 8.091858464720001,
+        "G": 0.15,
+        "bvi": 0.68
+    },
+    {
+        "type": "asteroid",
+        "id": "ersa",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "ersa",
+            "s/2018 j1",
+            "jupiter lxxi"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.07675914697,
+            "T": 0.6899528037784576,
+            "e": 0.094,
+            "i": 30.61,
+            "n": 93.3,
+            "w": 346.7,
+            "M": 356.6
+        },
+        "H": 16.19185846472,
+        "G": 0.15,
+        "bvi": 0.68
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2018-j2",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "s/2018 j2",
+            "jupiter l??"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.0768059391,
+            "T": 0.6899528037784576,
+            "e": 0.118,
+            "i": 29.4,
+            "n": 66.1,
+            "w": 342.1,
+            "M": 99.2
+        },
+        "H": 16.59185846472,
+        "G": 0.15,
+        "bvi": 0.68
+    },
+    {
+        "type": "asteroid",
+        "id": "pandia",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "pandia",
+            "s/2017 j4",
+            "jupiter lxv"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.07703989975,
+            "T": 0.6902265945736077,
+            "e": 0.18,
+            "i": 28.15,
+            "n": 228.4,
+            "w": 238.8,
+            "M": 282.4
+        },
+        "H": 16.29185846472,
+        "G": 0.15,
+        "bvi": 0.68
+    },
+    {
+        "type": "asteroid",
+        "id": "lysithea",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "lysithea",
+            "jupiter x"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.07832334103,
+            "T": 0.7096657410292706,
+            "e": 0.112,
+            "i": 28.3,
+            "n": 5.5,
+            "w": 49.5,
+            "M": 329.1
+        },
+        "H": 11.49185846472,
+        "G": 0.15,
+        "bvi": 0.68
+    },
+    {
+        "type": "asteroid",
+        "id": "elara",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "elara",
+            "jupiter vii"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.07848377119,
+            "T": 0.7107609042098715,
+            "e": 0.217,
+            "i": 26.63,
+            "n": 109.4,
+            "w": 143.6,
+            "M": 333.0
+        },
+        "H": 9.891858464720002,
+        "G": 0.15,
+        "bvi": 0.68
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2011-j3",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "s/2011 j3",
+            "jupiter l??"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.07907201511,
+            "T": 0.7200697912449775,
+            "e": 0.176,
+            "i": 28.66,
+            "n": 97.7,
+            "w": 222.1,
+            "M": 215.6
+        },
+        "H": 16.391858464720002,
+        "G": 0.15,
+        "bvi": 0.68
+    },
+    {
+        "type": "asteroid",
+        "id": "dia",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "dia",
+            "s/2000 j11",
+            "jupiter liii"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.08100386162,
+            "T": 0.7857795820810212,
+            "e": 0.211,
+            "i": 28.23,
+            "n": 290.9,
+            "w": 178.0,
+            "M": 169.9
+        },
+        "H": 15.69185846472,
+        "G": 0.15,
+        "bvi": 0.68
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2018-j4",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "s/2018 j4",
+            "jupiter l??"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.110620606074,
+            "T": 1.1901685865178393,
+            "e": 0.057,
+            "i": 53.2,
+            "n": 20.7,
+            "w": 293.0,
+            "M": 84.6
+        },
+        "H": 16.79185846472,
+        "G": 0.15,
+        "bvi": 0.68
+    },
+    {
+        "type": "asteroid",
+        "id": "carpo",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "carpo",
+            "s/2003 j20",
+            "jupiter xlvi"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.11356449951,
+            "T": 1.2487598166799783,
+            "e": 0.43,
+            "i": 51.4,
+            "n": 60.9,
+            "w": 90.0,
+            "M": 242.8
+        },
+        "H": 16.29185846472,
+        "G": 0.15,
+        "bvi": 0.68
+    },
+    {
+        "type": "asteroid",
+        "id": "valetudo",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "valetudo",
+            "s/2016 j2",
+            "jupiter lxii"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.1268735182,
+            "T": 1.4601263105359181,
+            "e": 0.222,
+            "i": 34.0,
+            "n": 240.3,
+            "w": 116.8,
+            "M": 160.3
+        },
+        "H": 17.29185846472,
+        "G": 0.15,
+        "bvi": 0.68
+    },
+    {
+        "type": "asteroid",
+        "id": "euporie",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "euporie",
+            "s/2001 j10",
+            "jupiter xxxiv"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.12902595618,
+            "T": 1.50776590889205,
+            "e": 0.144,
+            "i": 145.8,
+            "n": 64.9,
+            "w": 74.6,
+            "M": 293.0
+        },
+        "H": 16.391858464720002,
+        "G": 0.15,
+        "bvi": 0.7
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2003-j18",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "s/2003 j18",
+            "jupiter lv"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.13552337766,
+            "T": 1.6098898754830677,
+            "e": 0.105,
+            "i": 146.4,
+            "n": 215.5,
+            "w": 98.15,
+            "M": 220.7
+        },
+        "H": 16.69185846472,
+        "G": 0.15,
+        "bvi": 0.7
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2010-j2",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "s/2010 j2",
+            "jupiter lii"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.1357449718185,
+            "T": 1.610163666278218,
+            "e": 0.307,
+            "i": 150.4,
+            "n": 0.0,
+            "w": 0.0,
+            "M": 0.0
+        },
+        "H": 17.19185846472,
+        "G": 0.15,
+        "bvi": 0.7
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2003-j16",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "s/2003 j16",
+            "jupiter l??"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.13748196253,
+            "T": 1.638911699768987,
+            "e": 0.333,
+            "i": 151.1,
+            "n": 0.0,
+            "w": 0.0,
+            "M": 0.0
+        },
+        "H": 16.59185846472,
+        "G": 0.15,
+        "bvi": 0.7
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2003-j2",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "s/2003 j2",
+            "jupiter l??"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.1377693999,
+            "T": 1.6490419591895435,
+            "e": 0.278,
+            "i": 149.2,
+            "n": 50.5,
+            "w": 225.0,
+            "M": 114.4
+        },
+        "H": 16.99185846472,
+        "G": 0.15,
+        "bvi": 0.7
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2017-j7",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "s/2017 j7",
+            "jupiter lxviii"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.13788303793,
+            "T": 1.6498633315749942,
+            "e": 0.215,
+            "i": 143.4,
+            "n": 321.5,
+            "w": 323.5,
+            "M": 236.9
+        },
+        "H": 16.891858464720002,
+        "G": 0.15,
+        "bvi": 0.7
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2016-j1",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "s/2016 j1",
+            "jupiter liv"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.13804243197855,
+            "T": 1.6501371223701444,
+            "e": 0.141,
+            "i": 139.8,
+            "n": 293.8,
+            "w": 328.2,
+            "M": 25.53
+        },
+        "H": 17.29185846472,
+        "G": 0.15,
+        "bvi": 0.7
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2017-j3",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "s/2017 j3",
+            "jupiter lxiv"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.13833090546,
+            "T": 1.6599935909955508,
+            "e": 0.148,
+            "i": 147.9,
+            "n": 82.5,
+            "w": 171.6,
+            "M": 91.2
+        },
+        "H": 16.69185846472,
+        "G": 0.15,
+        "bvi": 0.7
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2021-j1",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "s/2021 j1",
+            "jupiter l??"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.13852475857,
+            "T": 1.660267381790701,
+            "e": 0.246,
+            "i": 149.8,
+            "n": 311.0,
+            "w": 73.1,
+            "M": 312.9
+        },
+        "H": 17.19185846472,
+        "G": 0.15,
+        "bvi": 0.7
+    },
+    {
+        "type": "asteroid",
+        "id": "euanthe",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "euanthe",
+            "s/2001 j7",
+            "jupiter xxxiii"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.13903278741,
+            "T": 1.6991456747020268,
+            "e": 0.232,
+            "i": 148.9,
+            "n": 271.0,
+            "w": 316.0,
+            "M": 130.5
+        },
+        "H": 16.09185846472,
+        "G": 0.15,
+        "bvi": 0.7
+    },
+    {
+        "type": "asteroid",
+        "id": "orthosie",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "orthosie",
+            "s/2001 j9",
+            "jupiter xxxv"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.13851138939,
+            "T": 1.7046214906050305,
+            "e": 0.281,
+            "i": 145.9,
+            "n": 223.6,
+            "w": 230.5,
+            "M": 326.8
+        },
+        "H": 16.391858464720002,
+        "G": 0.15,
+        "bvi": 0.7
+    },
+    {
+        "type": "asteroid",
+        "id": "thyone",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "thyone",
+            "s/2001 j2",
+            "jupiter xxix"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.1399753146,
+            "T": 1.7174896579770889,
+            "e": 0.229,
+            "i": 148.5,
+            "n": 243.0,
+            "w": 89.1,
+            "M": 26.6
+        },
+        "H": 15.591858464720001,
+        "G": 0.15,
+        "bvi": 0.7
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2022-j3",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "s/2022 j3"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.14016248312,
+            "T": 1.6901105784620707,
+            "e": 0.272,
+            "i": 144.5,
+            "n": 294.0,
+            "w": 45.2,
+            "M": 77.9
+        },
+        "H": 17.29185846472,
+        "G": 0.15,
+        "bvi": 0.7
+    },
+    {
+        "type": "asteroid",
+        "id": "mneme",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "mneme",
+            "s/2003 j21",
+            "jupiter xl"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.14083762671,
+            "T": 1.6975029299311257,
+            "e": 0.227,
+            "i": 148.6,
+            "n": 18.1,
+            "w": 41.7,
+            "M": 338.9
+        },
+        "H": 16.59185846472,
+        "G": 0.15,
+        "bvi": 0.7
+    },
+    {
+        "type": "asteroid",
+        "id": "harpalyke",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "harpalyke",
+            "s/2000 j5",
+            "jupiter xxii"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.14107827195,
+            "T": 1.7065380261710816,
+            "e": 0.226,
+            "i": 148.6,
+            "n": 40.0,
+            "w": 129.9,
+            "M": 120.4
+        },
+        "H": 15.49185846472,
+        "G": 0.15,
+        "bvi": 0.7
+    },
+    {
+        "type": "asteroid",
+        "id": "hermippe",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "hermippe",
+            "s/2001 j3",
+            "jupiter xxx"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.14125207129,
+            "T": 1.735559850457001,
+            "e": 0.21,
+            "i": 150.7,
+            "n": 347.2,
+            "w": 298.7,
+            "M": 276.4
+        },
+        "H": 15.391858464720002,
+        "G": 0.15,
+        "bvi": 0.7
+    },
+    {
+        "type": "asteroid",
+        "id": "praxidike",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "praxidike",
+            "s/2000 j7",
+            "jupiter xxvii"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.14135902473,
+            "T": 1.7120138420740854,
+            "e": 0.23,
+            "i": 149.0,
+            "n": 285.2,
+            "w": 209.7,
+            "M": 21.8
+        },
+        "H": 14.49185846472,
+        "G": 0.15,
+        "bvi": 0.7
+    },
+    {
+        "type": "asteroid",
+        "id": "thelxinoe",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "thelxinoe",
+            "s/2003 j22",
+            "jupiter xlii"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.14145929358,
+            "T": 1.7196799843382906,
+            "e": 0.221,
+            "i": 151.4,
+            "n": 206.2,
+            "w": 179.8,
+            "M": 194.0
+        },
+        "H": 16.79185846472,
+        "G": 0.15,
+        "bvi": 0.7
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2021-j2",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "s/2021 j2",
+            "jupiter l??"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.141696596525,
+            "T": 1.7188586119528397,
+            "e": 0.341,
+            "i": 150.1,
+            "n": 341.0,
+            "w": 71.7,
+            "M": 320.1
+        },
+        "H": 17.29185846472,
+        "G": 0.15,
+        "bvi": 0.7
+    },
+    {
+        "type": "asteroid",
+        "id": "eupheme",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "eupheme",
+            "s/2003 j3",
+            "jupiter lx"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.1417113694689,
+            "T": 1.7188586119528397,
+            "e": 0.253,
+            "i": 148.0,
+            "n": 292.0,
+            "w": 109.0,
+            "M": 168.7
+        },
+        "H": 16.69185846472,
+        "G": 0.15,
+        "bvi": 0.7
+    },
+    {
+        "type": "asteroid",
+        "id": "helike",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "helike",
+            "s/2003 j6",
+            "jupiter xlv"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.14213443717,
+            "T": 1.7380239676133524,
+            "e": 0.156,
+            "i": 154.8,
+            "n": 100.3,
+            "w": 314.7,
+            "M": 36.2
+        },
+        "H": 15.891858464720002,
+        "G": 0.15,
+        "bvi": 0.7
+    },
+    {
+        "type": "asteroid",
+        "id": "iocaste",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "iocaste",
+            "s/2000 j3",
+            "jupiter xxiv"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.14217454471,
+            "T": 1.7289888713733967,
+            "e": 0.216,
+            "i": 149.4,
+            "n": 271.3,
+            "w": 80.0,
+            "M": 129.8
+        },
+        "H": 15.091858464720001,
+        "G": 0.15,
+        "bvi": 0.7
+    },
+    {
+        "type": "asteroid",
+        "id": "ananke",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "ananke",
+            "jupiter xii"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.14222133684,
+            "T": 1.6714928043918584,
+            "e": 0.244,
+            "i": 148.9,
+            "n": 7.6,
+            "w": 100.6,
+            "M": 248.8
+        },
+        "H": 12.19185846472,
+        "G": 0.15,
+        "bvi": 0.7
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2017-j9",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "s/2017 j9",
+            "jupiter lxx"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.14363178533,
+            "T": 1.7500707625999607,
+            "e": 0.229,
+            "i": 152.7,
+            "n": 306.4,
+            "w": 317.7,
+            "M": 259.5
+        },
+        "H": 16.09185846472,
+        "G": 0.15,
+        "bvi": 0.7
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2021-j3",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "s/2021 j3",
+            "jupiter l??"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.14407296827,
+            "T": 1.759927231225367,
+            "e": 0.356,
+            "i": 150.1,
+            "n": 230.8,
+            "w": 291.1,
+            "M": 64.7
+        },
+        "H": 17.09185846472,
+        "G": 0.15,
+        "bvi": 0.7
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2003-j12",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "s/2003 j12",
+            "jupiter l??"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.14448741285,
+            "T": 1.768688536670173,
+            "e": 0.365,
+            "i": 154.7,
+            "n": 127.5,
+            "w": 86.8,
+            "M": 295.4
+        },
+        "H": 17.29185846472,
+        "G": 0.15,
+        "bvi": 0.7
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2022-j1",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "s/2022 j1"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.14755563966,
+            "T": 1.8300176747838135,
+            "e": 0.192,
+            "i": 165.4,
+            "n": 50.7,
+            "w": 343.4,
+            "M": 330.0
+        },
+        "H": 17.09185846472,
+        "G": 0.15,
+        "bvi": 0.75
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2016-j3",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "s/2016 j3",
+            "jupiter l??"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.14888587307,
+            "T": 1.850004402829777,
+            "e": 0.236,
+            "i": 164.1,
+            "n": 130.1,
+            "w": 192.0,
+            "M": 1.4
+        },
+        "H": 16.891858464720002,
+        "G": 0.15,
+        "bvi": 0.75
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2011-j1",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "s/2011 j1",
+            "jupiter lxxii"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.15014926058,
+            "T": 1.8798475995011468,
+            "e": 0.233,
+            "i": 163.3,
+            "n": 323.9,
+            "w": 127.2,
+            "M": 249.8
+        },
+        "H": 16.99185846472,
+        "G": 0.15,
+        "bvi": 0.75
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2022-j2",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "s/2022 j2"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.15022279107,
+            "T": 1.880121390296297,
+            "e": 0.182,
+            "i": 165.4,
+            "n": 148.7,
+            "w": 135.2,
+            "M": 257.9
+        },
+        "H": 17.29185846472,
+        "G": 0.15,
+        "bvi": 0.75
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2003-j19",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "s/2003 j19",
+            "jupiter lxi"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.15212121463,
+            "T": 1.9099645869676667,
+            "e": 0.257,
+            "i": 166.7,
+            "n": 105.7,
+            "w": 284.1,
+            "M": 205.7
+        },
+        "H": 16.99185846472,
+        "G": 0.15,
+        "bvi": 0.75
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2018-j3",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "s/2018 j3",
+            "jupiter l??"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.15299689592,
+            "T": 1.9299513150136298,
+            "e": 0.273,
+            "i": 164.9,
+            "n": 240.0,
+            "w": 296.5,
+            "M": 16.6
+        },
+        "H": 17.19185846472,
+        "G": 0.15,
+        "bvi": 0.75
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2021-j5",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "s/2021 j5",
+            "jupiter l??"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.153030987329,
+            "T": 1.9299513150136298,
+            "e": 0.2,
+            "i": 163.2,
+            "n": 250.0,
+            "w": 32.0,
+            "M": 329.7
+        },
+        "H": 16.891858464720002,
+        "G": 0.15,
+        "bvi": 0.75
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2003-j10",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "s/2003 j10",
+            "jupiter l??"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.153199438997,
+            "T": 1.9299513150136298,
+            "e": 0.27,
+            "i": 163.0,
+            "n": 255.2,
+            "w": 302.3,
+            "M": 279.4
+        },
+        "H": 17.09185846472,
+        "G": 0.15,
+        "bvi": 0.75
+    },
+    {
+        "type": "asteroid",
+        "id": "arche",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "arche",
+            "s/2002 j1",
+            "jupiter xliii"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.15328433329,
+            "T": 1.9819715660921644,
+            "e": 0.259,
+            "i": 165.0,
+            "n": 350.7,
+            "w": 161.1,
+            "M": 126.7
+        },
+        "H": 16.09185846472,
+        "G": 0.15,
+        "bvi": 0.75
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2021-j4",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "s/2021 j4",
+            "jupiter l??"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.1534113405,
+            "T": 1.9400815744341866,
+            "e": 0.159,
+            "i": 164.5,
+            "n": 218.9,
+            "w": 217.3,
+            "M": 102.8
+        },
+        "H": 17.29185846472,
+        "G": 0.15,
+        "bvi": 0.75
+    },
+    {
+        "type": "asteroid",
+        "id": "pasithee",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "pasithee",
+            "s/2001 j6",
+            "jupiter xxxviii"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.15438729064,
+            "T": 1.9699247711055565,
+            "e": 0.267,
+            "i": 165.1,
+            "n": 338.7,
+            "w": 253.3,
+            "M": 272.7
+        },
+        "H": 16.49185846472,
+        "G": 0.15,
+        "bvi": 0.75
+    },
+    {
+        "type": "asteroid",
+        "id": "herse",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "herse",
+            "s/2003 j17",
+            "jupiter l"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.15439397523,
+            "T": 1.9586993485043989,
+            "e": 0.2,
+            "i": 164.2,
+            "n": 329.0,
+            "w": 355.7,
+            "M": 41.9
+        },
+        "H": 16.69185846472,
+        "G": 0.15,
+        "bvi": 0.75
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2003-j24",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "s/2003 j24",
+            "jupiter l??"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.15474825849999999,
+            "T": 1.9600683024801497,
+            "e": 0.255,
+            "i": 162.1,
+            "n": 292.2,
+            "w": 194.6,
+            "M": 152.2
+        },
+        "H": 17.09185846472,
+        "G": 0.15,
+        "bvi": 0.75
+    },
+    {
+        "type": "asteroid",
+        "id": "chaldene",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "chaldene",
+            "s/2000 j10",
+            "jupiter xxi"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.15494211161,
+            "T": 1.9816977752970142,
+            "e": 0.251,
+            "i": 165.2,
+            "n": 148.7,
+            "w": 282.5,
+            "M": 131.6
+        },
+        "H": 15.79185846472,
+        "G": 0.15,
+        "bvi": 0.75
+    },
+    {
+        "type": "asteroid",
+        "id": "kale",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "kale",
+            "s/2001 j8",
+            "jupiter xxxvii"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.15519612603,
+            "T": 1.9973038506205745,
+            "e": 0.26,
+            "i": 165.0,
+            "n": 56.4,
+            "w": 44.4,
+            "M": 286.4
+        },
+        "H": 16.29185846472,
+        "G": 0.15,
+        "bvi": 0.75
+    },
+    {
+        "type": "asteroid",
+        "id": "isonoe",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "isonoe",
+            "s/2000 j6",
+            "jupiter xxvi"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.15519612603,
+            "T": 1.9863522188145672,
+            "e": 0.246,
+            "i": 165.2,
+            "n": 149.8,
+            "w": 145.6,
+            "M": 345.4
+        },
+        "H": 15.79185846472,
+        "G": 0.15,
+        "bvi": 0.75
+    },
+    {
+        "type": "asteroid",
+        "id": "aitne",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "aitne",
+            "s/2001 j11",
+            "jupiter xxxi"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.15528971029,
+            "T": 1.999220386186626,
+            "e": 0.264,
+            "i": 165.1,
+            "n": 24.5,
+            "w": 122.2,
+            "M": 153.9
+        },
+        "H": 15.99185846472,
+        "G": 0.15,
+        "bvi": 0.75
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2017-j5",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "s/2017 j5",
+            "jupiter lxvi"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.15529639488,
+            "T": 1.9699247711055565,
+            "e": 0.284,
+            "i": 164.3,
+            "n": 118.2,
+            "w": 11.9,
+            "M": 77.5
+        },
+        "H": 16.79185846472,
+        "G": 0.15,
+        "bvi": 0.75
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2017-j8",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "s/2017 j8",
+            "jupiter lxix"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.155301074093,
+            "T": 1.9701985619007067,
+            "e": 0.312,
+            "i": 164.7,
+            "n": 160.3,
+            "w": 45.1,
+            "M": 70.8
+        },
+        "H": 17.29185846472,
+        "G": 0.15,
+        "bvi": 0.75
+    },
+    {
+        "type": "asteroid",
+        "id": "erinome",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "erinome",
+            "s/2000 j4",
+            "jupiter xxv"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.15561057061,
+            "T": 1.9940183610787723,
+            "e": 0.266,
+            "i": 164.9,
+            "n": 321.7,
+            "w": 356.0,
+            "M": 131.1
+        },
+        "H": 16.09185846472,
+        "G": 0.15,
+        "bvi": 0.75
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2017-j2",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "s/2017 j2",
+            "jupiter lxiii"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.15577100077,
+            "T": 1.979781239730963,
+            "e": 0.236,
+            "i": 166.4,
+            "n": 74.7,
+            "w": 231.9,
+            "M": 344.4
+        },
+        "H": 16.79185846472,
+        "G": 0.15,
+        "bvi": 0.75
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2010-j1",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "s/2010 j1",
+            "jupiter li"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.15584677059765,
+            "T": 1.9800550305261133,
+            "e": 0.32,
+            "i": 163.2,
+            "n": 0.0,
+            "w": 0.0,
+            "M": 0.0
+        },
+        "H": 16.59185846472,
+        "G": 0.15,
+        "bvi": 0.75
+    },
+    {
+        "type": "asteroid",
+        "id": "taygete",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "taygete",
+            "s/2000 j9",
+            "jupiter xx"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.1561520224,
+            "T": 2.0046962020896295,
+            "e": 0.252,
+            "i": 165.2,
+            "n": 313.3,
+            "w": 241.1,
+            "M": 317.9
+        },
+        "H": 15.19185846472,
+        "G": 0.15,
+        "bvi": 0.75
+    },
+    {
+        "type": "asteroid",
+        "id": "carme",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "carme",
+            "jupiter xi"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.15644614436,
+            "T": 1.922832754339725,
+            "e": 0.253,
+            "i": 164.9,
+            "n": 113.7,
+            "w": 28.2,
+            "M": 234.0
+        },
+        "H": 11.19185846472,
+        "G": 0.15,
+        "bvi": 0.75
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2021-j6",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "s/2021 j6",
+            "jupiter l??"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.1570210191,
+            "T": 2.009898227197483,
+            "e": 0.363,
+            "i": 166.5,
+            "n": 172.6,
+            "w": 254.9,
+            "M": 77.4
+        },
+        "H": 17.19185846472,
+        "G": 0.15,
+        "bvi": 0.75
+    },
+    {
+        "type": "asteroid",
+        "id": "kalyke",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "kalyke",
+            "s/2000 j2",
+            "jupiter xxiii"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.15764268597,
+            "T": 2.034265607965849,
+            "e": 0.245,
+            "i": 165.2,
+            "n": 38.7,
+            "w": 216.6,
+            "M": 116.3
+        },
+        "H": 15.091858464720001,
+        "G": 0.15,
+        "bvi": 0.75
+    },
+    {
+        "type": "asteroid",
+        "id": "eukelade",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "eukelade",
+            "s/2003 j1",
+            "jupiter xlvii"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.15816408399,
+            "T": 2.0435744950009553,
+            "e": 0.272,
+            "i": 165.5,
+            "n": 206.3,
+            "w": 325.6,
+            "M": 98.4
+        },
+        "H": 15.891858464720002,
+        "G": 0.15,
+        "bvi": 0.75
+    },
+    {
+        "type": "asteroid",
+        "id": "eirene",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "eirene",
+            "s/2003 j5",
+            "jupiter lvii"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.1586371524243,
+            "T": 2.0799886707559296,
+            "e": 0.22,
+            "i": 163.1,
+            "n": 256.3,
+            "w": 160.0,
+            "M": 284.4
+        },
+        "H": 15.79185846472,
+        "G": 0.15,
+        "bvi": 0.75
+    },
+    {
+        "type": "asteroid",
+        "id": "kallichore",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "kallichore",
+            "s/2003 j11",
+            "jupiter xliv"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.16071759737,
+            "T": 2.093678210513439,
+            "e": 0.264,
+            "i": 165.5,
+            "n": 41.5,
+            "w": 18.5,
+            "M": 319.4
+        },
+        "H": 16.99185846472,
+        "G": 0.15,
+        "bvi": 0.75
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2003-j9",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "s/2003 j9",
+            "jupiter l??"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.16199184733875,
+            "T": 2.098606444826142,
+            "e": 0.17,
+            "i": 166.3,
+            "n": 0.0,
+            "w": 0.0,
+            "M": 0.0
+        },
+        "H": 16.99185846472,
+        "G": 0.15,
+        "bvi": 0.75
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2003-j4",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "s/2003 j4",
+            "jupiter l??"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.1477962849,
+            "T": 1.8289225116032128,
+            "e": 0.497,
+            "i": 149.4,
+            "n": 249.9,
+            "w": 240.5,
+            "M": 146.3
+        },
+        "H": 16.79185846472,
+        "G": 0.15,
+        "bvi": 0.8
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2017-j6",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "s/2017 j6",
+            "jupiter lxvii"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.15010246845,
+            "T": 1.8699911308757402,
+            "e": 0.557,
+            "i": 155.2,
+            "n": 26.3,
+            "w": 77.3,
+            "M": 184.5
+        },
+        "H": 16.79185846472,
+        "G": 0.15,
+        "bvi": 0.8
+    },
+    {
+        "type": "asteroid",
+        "id": "hilophrosyne",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "hilophrosyne",
+            "s/2003 j15",
+            "jupiter lviii p"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.1525420095705,
+            "T": 1.9200948463882233,
+            "e": 0.194,
+            "i": 143.6,
+            "n": 286.5,
+            "w": 52.08,
+            "M": 161.6
+        },
+        "H": 16.79185846472,
+        "G": 0.15,
+        "bvi": 0.8
+    },
+    {
+        "type": "asteroid",
+        "id": "eurydome",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "eurydome",
+            "s/2001 j4",
+            "jupiter xxxii"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.15284315035,
+            "T": 1.9639013736122524,
+            "e": 0.276,
+            "i": 150.3,
+            "n": 307.4,
+            "w": 241.6,
+            "M": 340.7
+        },
+        "H": 15.99185846472,
+        "G": 0.15,
+        "bvi": 0.8
+    },
+    {
+        "type": "asteroid",
+        "id": "autonoe",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "autonoe",
+            "s/2001 j1",
+            "jupiter xxviii"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.15400626901,
+            "T": 2.088202394610435,
+            "e": 0.334,
+            "i": 152.9,
+            "n": 275.6,
+            "w": 60.2,
+            "M": 182.7
+        },
+        "H": 15.29185846472,
+        "G": 0.15,
+        "bvi": 0.8
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2011-j2",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "s/2011 j2",
+            "jupiter lvi"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.15684645103215,
+            "T": 2.0000417585720762,
+            "e": 0.332,
+            "i": 148.8,
+            "n": 105.2,
+            "w": 341.9,
+            "M": 292.5
+        },
+        "H": 16.891858464720002,
+        "G": 0.15,
+        "bvi": 0.8
+    },
+    {
+        "type": "asteroid",
+        "id": "sponde",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "sponde",
+            "s/2001 j5",
+            "jupiter xxxvi"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.15700096533,
+            "T": 2.0487765201088086,
+            "e": 0.312,
+            "i": 151.0,
+            "n": 129.1,
+            "w": 79.1,
+            "M": 216.8
+        },
+        "H": 16.29185846472,
+        "G": 0.15,
+        "bvi": 0.8
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2017-j1",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "s/2017 j1",
+            "jupiter lix"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.15740274261195,
+            "T": 2.0101720179926335,
+            "e": 0.397,
+            "i": 149.2,
+            "n": 326.8,
+            "w": 79.73,
+            "M": 161.3
+        },
+        "H": 17.09185846472,
+        "G": 0.15,
+        "bvi": 0.8
+    },
+    {
+        "type": "asteroid",
+        "id": "pasiphae",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "pasiphae",
+            "jupiter viii"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.15791675416,
+            "T": 1.9384388296632855,
+            "e": 0.409,
+            "i": 151.4,
+            "n": 313.0,
+            "w": 170.5,
+            "M": 280.2
+        },
+        "H": 10.19185846472,
+        "G": 0.15,
+        "bvi": 0.8
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2016-j4",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "s/2016 j4",
+            "jupiter l??"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.15861195152,
+            "T": 2.0361821435319003,
+            "e": 0.199,
+            "i": 146.3,
+            "n": 309.1,
+            "w": 302.8,
+            "M": 138.3
+        },
+        "H": 17.29185846472,
+        "G": 0.15,
+        "bvi": 0.8
+    },
+    {
+        "type": "asteroid",
+        "id": "megaclite",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "megaclite",
+            "s/2000 j8",
+            "jupiter xix"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.15913334954,
+            "T": 2.0610971058905667,
+            "e": 0.421,
+            "i": 152.8,
+            "n": 304.6,
+            "w": 302.3,
+            "M": 352.5
+        },
+        "H": 14.99185846472,
+        "G": 0.15,
+        "bvi": 0.8
+    },
+    {
+        "type": "asteroid",
+        "id": "sinope",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "sinope",
+            "jupiter ix"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.16002240001,
+            "T": 1.9836143108630655,
+            "e": 0.25,
+            "i": 158.1,
+            "n": 303.1,
+            "w": 346.4,
+            "M": 168.4
+        },
+        "H": 11.591858464720001,
+        "G": 0.15,
+        "bvi": 0.8
+    },
+    {
+        "type": "asteroid",
+        "id": "hegemone",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "hegemone",
+            "s/2003 j8",
+            "jupiter xxxix"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.16007587673,
+            "T": 2.024956720930743,
+            "e": 0.328,
+            "i": 155.2,
+            "n": 327.6,
+            "w": 235.4,
+            "M": 98.73
+        },
+        "H": 16.09185846472,
+        "G": 0.15,
+        "bvi": 0.8
+    },
+    {
+        "type": "asteroid",
+        "id": "aoede",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "aoede",
+            "s/2003 j7",
+            "jupiter xli"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.16030315279,
+            "T": 2.0849169050686327,
+            "e": 0.432,
+            "i": 158.3,
+            "n": 187.1,
+            "w": 74.5,
+            "M": 74.0
+        },
+        "H": 15.79185846472,
+        "G": 0.15,
+        "bvi": 0.8
+    },
+    {
+        "type": "asteroid",
+        "id": "callirrhoe",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "callirrhoe",
+            "s/1999 j1",
+            "jupiter xvii"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.16111198818,
+            "T": 2.0775245535995777,
+            "e": 0.283,
+            "i": 147.1,
+            "n": 281.1,
+            "w": 49.3,
+            "M": 321.7
+        },
+        "H": 14.091858464720001,
+        "G": 0.15,
+        "bvi": 0.8
+    },
+    {
+        "type": "asteroid",
+        "id": "cyllene",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "cyllene",
+            "s/2003 j13",
+            "jupiter xlviii"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.16276308191,
+            "T": 2.0200284866180396,
+            "e": 0.319,
+            "i": 149.3,
+            "n": 266.4,
+            "w": 214.0,
+            "M": 0.4
+        },
+        "H": 16.49185846472,
+        "G": 0.15,
+        "bvi": 0.8
+    },
+    {
+        "type": "asteroid",
+        "id": "kore",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "kore",
+            "s/2003 j14",
+            "jupiter xlix"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.16405989237,
+            "T": 2.133377875810215,
+            "e": 0.325,
+            "i": 145.0,
+            "n": 324.7,
+            "w": 152.4,
+            "M": 247.1
+        },
+        "H": 16.891858464720002,
+        "G": 0.15,
+        "bvi": 0.8
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2003-j23",
+        "primary": "sun.jupiter",
+        "aliases": [
+            "s/2003 j23",
+            "jupiter l??"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.1654436025,
+            "T": 2.0799886707559296,
+            "e": 0.321,
+            "i": 146.1,
+            "n": 142.4,
+            "w": 295.7,
+            "M": 257.1
+        },
+        "H": 17.19185846472,
+        "G": 0.15,
+        "bvi": 0.8
+    }
+]

@@ -1,0 +1,62 @@
+[
+    {
+        "type": "star",
+        "id": "hip-103738",
+        "primary": "star",
+        "aliases": [
+            "gam-mic",
+            "gamma-microscopii"
+        ],
+        "M": 0.46,
+        "B": -0.8,
+        "temp": 5036,
+        "diameter": 13653420,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 315.322749,
+            "de": -32.257762,
+            "plx": 14.44
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-105140",
+        "primary": "star",
+        "aliases": [
+            "eps-mic",
+            "epsilon-microscopii"
+        ],
+        "M": 1.13,
+        "B": -0.8,
+        "temp": 9155,
+        "diameter": 3038225,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 319.484524,
+            "de": -32.172542,
+            "plx": 19.23
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-102831",
+        "primary": "star",
+        "aliases": [
+            "alf-mic",
+            "alpha-microscopii"
+        ],
+        "M": -0.51,
+        "B": -0.8,
+        "temp": 4723,
+        "diameter": 24257303,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 312.492019,
+            "de": -33.779722,
+            "plx": 8.34
+        }
+    }
+]

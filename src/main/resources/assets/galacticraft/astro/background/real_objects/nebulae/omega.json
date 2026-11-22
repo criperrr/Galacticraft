@@ -1,0 +1,11 @@
+{
+    "id": "omega",
+    "type": "nebula",
+    "texture": "galacticraft:astro/deepsky/omega",
+    "right_ascension": {"h": 18, "m": 20, "s": 26},
+    "declination": {"d": -16, "m": 10, "s": 36},
+    "orientation": -35,
+    "magnitude": 6.0,
+    "width": {"m": 11},
+    "height": {"m": 11}
+}

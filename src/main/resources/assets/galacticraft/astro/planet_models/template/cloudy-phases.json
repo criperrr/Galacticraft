@@ -1,0 +1,4 @@
+{
+    "phases": "galacticraft:textures/astro/planets/cloudy-phases.png",
+    "phaseCurveCoefficients": [0.0, -0.001044, 0.0003687, -0.000002814, 0.000000008938]
+}

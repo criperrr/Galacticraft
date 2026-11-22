@@ -1,0 +1,2666 @@
+[
+    {
+        "type": "comet",
+        "id": "halley",
+        "primary": "sun",
+        "aliases": [
+            "halley",
+            "1p/halley",
+            "1p"
+        ],
+        "M1": 0.5,
+        "K1": 16.0,
+        "position": {
+            "type": "orbit",
+            "epoch": 2439907.5,
+            "q": 0.575,
+            "e": 0.9679,
+            "T": 75.9,
+            "i": 162.2,
+            "n": 59.07,
+            "w": 112.21,
+            "M": 274.81
+        }
+    },
+    {
+        "type": "comet",
+        "id": "encke",
+        "primary": "sun",
+        "aliases": [
+            "encke",
+            "2p/encke",
+            "2p"
+        ],
+        "M1": 15.6,
+        "K1": 4.5,
+        "position": {
+            "type": "orbit",
+            "epoch": 2459778.5,
+            "q": 0.337,
+            "e": 0.8483,
+            "T": 3.31,
+            "i": 11.47,
+            "n": 334.28,
+            "w": 187.05,
+            "M": 222.67
+        }
+    },
+    {
+        "type": "comet",
+        "id": "biela",
+        "primary": "sun",
+        "aliases": [
+            "biela",
+            "3d/biela",
+            "3d"
+        ],
+        "M1": 7.1,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2390520.5,
+            "q": 0.879,
+            "e": 0.7513,
+            "T": 6.65,
+            "i": 13.22,
+            "n": 250.67,
+            "w": 221.66,
+            "M": 0.95
+        }
+    },
+    {
+        "type": "comet",
+        "id": "faye",
+        "primary": "sun",
+        "aliases": [
+            "faye",
+            "4p/faye",
+            "4p"
+        ],
+        "M1": 11.0,
+        "K1": 9.5,
+        "position": {
+            "type": "orbit",
+            "epoch": 2458522.5,
+            "q": 1.578,
+            "e": 0.5845,
+            "T": 7.4,
+            "i": 8.16,
+            "n": 194.8,
+            "w": 205.99,
+            "M": 234.73
+        }
+    },
+    {
+        "type": "comet",
+        "id": "brorsen",
+        "primary": "sun",
+        "aliases": [
+            "brorsen",
+            "5d/brorsen",
+            "5d"
+        ],
+        "M1": 8.3,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2407440.5,
+            "q": 0.59,
+            "e": 0.8098,
+            "T": 5.46,
+            "i": 29.38,
+            "n": 102.97,
+            "w": 14.95,
+            "M": 0.17
+        }
+    },
+    {
+        "type": "comet",
+        "id": "d'arrest",
+        "primary": "sun",
+        "aliases": [
+            "d'arrest",
+            "6p/d'arrest",
+            "6p"
+        ],
+        "M1": 15.9,
+        "K1": 8.5,
+        "position": {
+            "type": "orbit",
+            "epoch": 2459302.5,
+            "q": 1.355,
+            "e": 0.6127,
+            "T": 6.54,
+            "i": 19.51,
+            "n": 138.94,
+            "w": 178.11,
+            "M": 333.96
+        }
+    },
+    {
+        "type": "comet",
+        "id": "pons-winnecke",
+        "primary": "sun",
+        "aliases": [
+            "pons-winnecke",
+            "7p/pons-winnecke",
+            "7p",
+            "pons winnecke"
+        ],
+        "M1": 16.0,
+        "K1": 4.5,
+        "position": {
+            "type": "orbit",
+            "epoch": 2457137.5,
+            "q": 1.239,
+            "e": 0.6376,
+            "T": 6.32,
+            "i": 22.33,
+            "n": 93.42,
+            "w": 172.51,
+            "M": 13.17
+        }
+    },
+    {
+        "type": "comet",
+        "id": "tuttle",
+        "primary": "sun",
+        "aliases": [
+            "tuttle",
+            "8p/tuttle",
+            "8p"
+        ],
+        "M1": 14.6,
+        "K1": 4.5,
+        "position": {
+            "type": "orbit",
+            "epoch": 2454701.5,
+            "q": 1.027,
+            "e": 0.8198,
+            "T": 13.6,
+            "i": 54.98,
+            "n": 270.34,
+            "w": 207.51,
+            "M": 15.13
+        }
+    },
+    {
+        "type": "comet",
+        "id": "tempel-1",
+        "primary": "sun",
+        "aliases": [
+            "tempel-1",
+            "9p/tempel 1",
+            "9p",
+            "tempel 1"
+        ],
+        "M1": 12.9,
+        "K1": 9.0,
+        "position": {
+            "type": "orbit",
+            "epoch": 2457461.5,
+            "q": 1.543,
+            "e": 0.5097,
+            "T": 5.58,
+            "i": 10.47,
+            "n": 68.75,
+            "w": 179.2,
+            "M": 335.0
+        }
+    },
+    {
+        "type": "comet",
+        "id": "tempel-2",
+        "primary": "sun",
+        "aliases": [
+            "tempel-2",
+            "10p/tempel 2",
+            "10p",
+            "tempel 2"
+        ],
+        "M1": 14.3,
+        "K1": 5.0,
+        "position": {
+            "type": "orbit",
+            "epoch": 2456422.5,
+            "q": 1.421,
+            "e": 0.5364,
+            "T": 5.37,
+            "i": 12.03,
+            "n": 117.8,
+            "w": 195.54,
+            "M": 191.17
+        }
+    },
+    {
+        "type": "comet",
+        "id": "tempel-swift-linear",
+        "primary": "sun",
+        "aliases": [
+            "tempel-swift-linear",
+            "11p/tempel-swift-linear",
+            "11p",
+            "tempel swift linear"
+        ],
+        "M1": 15.2,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2458789.5,
+            "q": 1.39,
+            "e": 0.5774,
+            "T": 5.96,
+            "i": 14.44,
+            "n": 238.99,
+            "w": 167.77,
+            "M": 295.54
+        }
+    },
+    {
+        "type": "comet",
+        "id": "pons-brooks",
+        "primary": "sun",
+        "aliases": [
+            "pons-brooks",
+            "12p/pons-brooks",
+            "12p",
+            "pons brooks"
+        ],
+        "M1": 5.0,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2460209.5,
+            "q": 0.781,
+            "e": 0.9546,
+            "T": 71.2,
+            "i": 74.19,
+            "n": 255.86,
+            "w": 198.99,
+            "M": 357.07
+        }
+    },
+    {
+        "type": "comet",
+        "id": "olbers",
+        "primary": "sun",
+        "aliases": [
+            "olbers",
+            "13p/olbers",
+            "13p"
+        ],
+        "M1": 6.7,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2459022.5,
+            "q": 1.172,
+            "e": 0.9297,
+            "T": 68.1,
+            "i": 44.63,
+            "n": 85.85,
+            "w": 64.56,
+            "M": 338.72
+        }
+    },
+    {
+        "type": "comet",
+        "id": "finlay",
+        "primary": "sun",
+        "aliases": [
+            "finlay",
+            "15p/finlay",
+            "15p"
+        ],
+        "M1": 14.9,
+        "K1": 8.5,
+        "position": {
+            "type": "orbit",
+            "epoch": 2457327.5,
+            "q": 0.977,
+            "e": 0.7202,
+            "T": 6.52,
+            "i": 6.8,
+            "n": 13.75,
+            "w": 347.63,
+            "M": 46.69
+        }
+    },
+    {
+        "type": "comet",
+        "id": "brooks-2",
+        "primary": "sun",
+        "aliases": [
+            "brooks-2",
+            "16p/brooks 2",
+            "16p",
+            "brooks 2"
+        ],
+        "M1": 12.2,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2457551.5,
+            "q": 1.455,
+            "e": 0.569,
+            "T": 6.2,
+            "i": 4.31,
+            "n": 159.34,
+            "w": 220.17,
+            "M": 115.79
+        }
+    },
+    {
+        "type": "comet",
+        "id": "perrine-mrkos",
+        "primary": "sun",
+        "aliases": [
+            "perrine-mrkos",
+            "18d/perrine-mrkos",
+            "18d",
+            "perrine mrkos"
+        ],
+        "M1": 11.5,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2440240.5,
+            "q": 1.272,
+            "e": 0.6426,
+            "T": 6.72,
+            "i": 17.76,
+            "n": 240.88,
+            "w": 166.05,
+            "M": 11.51
+        }
+    },
+    {
+        "type": "comet",
+        "id": "borrelly",
+        "primary": "sun",
+        "aliases": [
+            "borrelly",
+            "19p/borrelly",
+            "19p"
+        ],
+        "M1": 9.8,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2459279.5,
+            "q": 1.306,
+            "e": 0.6379,
+            "T": 6.85,
+            "i": 29.32,
+            "n": 74.3,
+            "w": 351.86,
+            "M": 312.12
+        }
+    },
+    {
+        "type": "comet",
+        "id": "westphal",
+        "primary": "sun",
+        "aliases": [
+            "westphal",
+            "20d/westphal",
+            "20d"
+        ],
+        "M1": 8.8,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2420080.5,
+            "q": 1.254,
+            "e": 0.9198,
+            "T": 61.9,
+            "i": 40.89,
+            "n": 348.01,
+            "w": 57.08,
+            "M": 359.72
+        }
+    },
+    {
+        "type": "comet",
+        "id": "giacobini-zinner",
+        "primary": "sun",
+        "aliases": [
+            "giacobini-zinner",
+            "21p/giacobini-zinner",
+            "21p",
+            "giacobini zinner"
+        ],
+        "M1": 13.2,
+        "K1": 8.25,
+        "position": {
+            "type": "orbit",
+            "epoch": 2458070.5,
+            "q": 1.013,
+            "e": 0.7105,
+            "T": 6.55,
+            "i": 32.0,
+            "n": 195.4,
+            "w": 172.81,
+            "M": 314.66
+        }
+    },
+    {
+        "type": "comet",
+        "id": "kopff",
+        "primary": "sun",
+        "aliases": [
+            "kopff",
+            "22p/kopff",
+            "22p"
+        ],
+        "M1": 11.9,
+        "K1": 9.75,
+        "position": {
+            "type": "orbit",
+            "epoch": 2458540.5,
+            "q": 1.555,
+            "e": 0.5486,
+            "T": 6.39,
+            "i": 4.74,
+            "n": 120.84,
+            "w": 162.91,
+            "M": 187.95
+        }
+    },
+    {
+        "type": "comet",
+        "id": "brorsen-metcalf",
+        "primary": "sun",
+        "aliases": [
+            "brorsen-metcalf",
+            "23p/brorsen-metcalf",
+            "23p",
+            "brorsen metcalf"
+        ],
+        "M1": 7.8,
+        "K1": 8.0,
+        "position": {
+            "type": "orbit",
+            "epoch": 2447800.5,
+            "q": 0.479,
+            "e": 0.972,
+            "T": 70.5,
+            "i": 19.33,
+            "n": 311.59,
+            "w": 129.61,
+            "M": 0.27
+        }
+    },
+    {
+        "type": "comet",
+        "id": "schaumasse",
+        "primary": "sun",
+        "aliases": [
+            "schaumasse",
+            "24p/schaumasse",
+            "24p"
+        ],
+        "M1": 12.0,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2457350.5,
+            "q": 1.206,
+            "e": 0.7048,
+            "T": 8.26,
+            "i": 11.73,
+            "n": 79.67,
+            "w": 58.0,
+            "M": 273.65
+        }
+    },
+    {
+        "type": "comet",
+        "id": "neujmin-2",
+        "primary": "sun",
+        "aliases": [
+            "neujmin-2",
+            "25d/neujmin 2",
+            "25d",
+            "neujmin 2"
+        ],
+        "M1": 12.5,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2424960.5,
+            "q": 1.338,
+            "e": 0.5668,
+            "T": 5.43,
+            "i": 10.64,
+            "n": 328.72,
+            "w": 193.7,
+            "M": 11.58
+        }
+    },
+    {
+        "type": "comet",
+        "id": "grigg-skjellerup",
+        "primary": "sun",
+        "aliases": [
+            "grigg-skjellerup",
+            "26p/grigg-skjellerup",
+            "26p",
+            "grigg skjellerup"
+        ],
+        "M1": 16.5,
+        "K1": 5.5,
+        "position": {
+            "type": "orbit",
+            "epoch": 2456017.5,
+            "q": 1.09,
+            "e": 0.6397,
+            "T": 5.26,
+            "i": 22.46,
+            "n": 211.63,
+            "w": 1.9,
+            "M": 273.42
+        }
+    },
+    {
+        "type": "comet",
+        "id": "crommelin",
+        "primary": "sun",
+        "aliases": [
+            "crommelin",
+            "27p/crommelin",
+            "27p"
+        ],
+        "M1": 12.7,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2452489.5,
+            "q": 0.734,
+            "e": 0.9193,
+            "T": 27.4,
+            "i": 29.22,
+            "n": 250.96,
+            "w": 195.96,
+            "M": 241.87
+        }
+    },
+    {
+        "type": "comet",
+        "id": "neujmin-1",
+        "primary": "sun",
+        "aliases": [
+            "neujmin-1",
+            "28p/neujmin 1",
+            "28p",
+            "neujmin 1"
+        ],
+        "M1": 13.2,
+        "K1": 4.5,
+        "position": {
+            "type": "orbit",
+            "epoch": 2460047.5,
+            "q": 1.581,
+            "e": 0.7736,
+            "T": 18.4,
+            "i": 14.31,
+            "n": 346.34,
+            "w": 347.47,
+            "M": 40.72
+        }
+    },
+    {
+        "type": "comet",
+        "id": "reinmuth-1",
+        "primary": "sun",
+        "aliases": [
+            "reinmuth-1",
+            "30p/reinmuth 1",
+            "30p",
+            "reinmuth 1"
+        ],
+        "M1": 13.7,
+        "K1": 6.5,
+        "position": {
+            "type": "orbit",
+            "epoch": 2457115.5,
+            "q": 1.877,
+            "e": 0.5023,
+            "T": 7.33,
+            "i": 8.13,
+            "n": 119.73,
+            "w": 13.2,
+            "M": 243.1
+        }
+    },
+    {
+        "type": "comet",
+        "id": "comas-sola",
+        "primary": "sun",
+        "aliases": [
+            "comas-sola",
+            "32p/comas sola",
+            "32p",
+            "comas sola"
+        ],
+        "M1": 10.4,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2458766.5,
+            "q": 1.996,
+            "e": 0.5564,
+            "T": 9.54,
+            "i": 9.95,
+            "n": 57.7,
+            "w": 53.29,
+            "M": 187.92
+        }
+    },
+    {
+        "type": "comet",
+        "id": "gale",
+        "primary": "sun",
+        "aliases": [
+            "gale",
+            "34d/gale",
+            "34d"
+        ],
+        "M1": 10.5,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2429080.5,
+            "q": 1.183,
+            "e": 0.7607,
+            "T": 11.0,
+            "i": 11.73,
+            "n": 67.92,
+            "w": 209.16,
+            "M": 1.12
+        }
+    },
+    {
+        "type": "comet",
+        "id": "herschel-rigollet",
+        "primary": "sun",
+        "aliases": [
+            "herschel-rigollet",
+            "35p/herschel-rigollet",
+            "35p",
+            "herschel rigollet"
+        ],
+        "M1": 8.3,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2429480.5,
+            "q": 0.748,
+            "e": 0.974,
+            "T": 155.0,
+            "i": 64.21,
+            "n": 355.98,
+            "w": 29.3,
+            "M": 359.97
+        }
+    },
+    {
+        "type": "comet",
+        "id": "forbes",
+        "primary": "sun",
+        "aliases": [
+            "forbes",
+            "37p/forbes",
+            "37p"
+        ],
+        "M1": 9.6,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2458660.5,
+            "q": 1.611,
+            "e": 0.5342,
+            "T": 6.43,
+            "i": 8.96,
+            "n": 314.58,
+            "w": 330.02,
+            "M": 64.05
+        }
+    },
+    {
+        "type": "comet",
+        "id": "stephan-oterma",
+        "primary": "sun",
+        "aliases": [
+            "stephan-oterma",
+            "38p/stephan-oterma",
+            "38p",
+            "stephan oterma"
+        ],
+        "M1": 11.6,
+        "K1": 9.5,
+        "position": {
+            "type": "orbit",
+            "epoch": 2458266.5,
+            "q": 1.589,
+            "e": 0.8593,
+            "T": 37.9,
+            "i": 18.35,
+            "n": 78.0,
+            "w": 359.59,
+            "M": 355.66
+        }
+    },
+    {
+        "type": "comet",
+        "id": "vaisala-1",
+        "primary": "sun",
+        "aliases": [
+            "vaisala-1",
+            "40p/vaisala 1",
+            "40p",
+            "vaisala 1"
+        ],
+        "M1": 11.6,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2452679.5,
+            "q": 1.795,
+            "e": 0.6329,
+            "T": 10.8,
+            "i": 11.54,
+            "n": 134.74,
+            "w": 47.24,
+            "M": 328.29
+        }
+    },
+    {
+        "type": "comet",
+        "id": "tuttle-giacobini-kresak",
+        "primary": "sun",
+        "aliases": [
+            "tuttle-giacobini-kresak",
+            "41p/tuttle-giacobini-kresak",
+            "41p",
+            "tuttle giacobini kresak"
+        ],
+        "M1": 16.9,
+        "K1": 4.5,
+        "position": {
+            "type": "orbit",
+            "epoch": 2457857.5,
+            "q": 1.045,
+            "e": 0.6613,
+            "T": 5.42,
+            "i": 9.23,
+            "n": 141.06,
+            "w": 62.17,
+            "M": 0.23
+        }
+    },
+    {
+        "type": "comet",
+        "id": "wolf-harrington",
+        "primary": "sun",
+        "aliases": [
+            "wolf-harrington",
+            "43p/wolf-harrington",
+            "43p",
+            "wolf harrington"
+        ],
+        "M1": 10.2,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2458103.5,
+            "q": 1.357,
+            "e": 0.5955,
+            "T": 6.14,
+            "i": 16.01,
+            "n": 249.69,
+            "w": 191.8,
+            "M": 77.45
+        }
+    },
+    {
+        "type": "comet",
+        "id": "honda-mrkos-pajdusakova",
+        "primary": "sun",
+        "aliases": [
+            "honda-mrkos-pajdusakova",
+            "45p/honda-mrkos-pajdusakova",
+            "45p",
+            "honda mrkos pajdusakova"
+        ],
+        "M1": 13.7,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2457979.5,
+            "q": 0.533,
+            "e": 0.824,
+            "T": 5.26,
+            "i": 4.25,
+            "n": 88.93,
+            "w": 326.34,
+            "M": 42.26
+        }
+    },
+    {
+        "type": "comet",
+        "id": "wirtanen",
+        "primary": "sun",
+        "aliases": [
+            "wirtanen",
+            "46p/wirtanen",
+            "46p"
+        ],
+        "M1": 16.6,
+        "K1": 4.75,
+        "position": {
+            "type": "orbit",
+            "epoch": 2458465.5,
+            "q": 1.055,
+            "e": 0.6588,
+            "T": 5.44,
+            "i": 11.75,
+            "n": 82.16,
+            "w": 356.34,
+            "M": 0.01
+        }
+    },
+    {
+        "type": "comet",
+        "id": "arend-rigaux",
+        "primary": "sun",
+        "aliases": [
+            "arend-rigaux",
+            "49p/arend-rigaux",
+            "49p",
+            "arend rigaux"
+        ],
+        "M1": 14.6,
+        "K1": 5.0,
+        "position": {
+            "type": "orbit",
+            "epoch": 2456553.5,
+            "q": 1.425,
+            "e": 0.6004,
+            "T": 6.73,
+            "i": 19.05,
+            "n": 118.84,
+            "w": 332.88,
+            "M": 102.44
+        }
+    },
+    {
+        "type": "comet",
+        "id": "arend",
+        "primary": "sun",
+        "aliases": [
+            "arend",
+            "50p/arend",
+            "50p"
+        ],
+        "M1": 13.5,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2455487.5,
+            "q": 1.92,
+            "e": 0.5303,
+            "T": 8.26,
+            "i": 19.16,
+            "n": 355.32,
+            "w": 49.01,
+            "M": 128.91
+        }
+    },
+    {
+        "type": "comet",
+        "id": "harrington",
+        "primary": "sun",
+        "aliases": [
+            "harrington",
+            "51p/harrington",
+            "51p"
+        ],
+        "M1": 18.6,
+        "K1": 4.5,
+        "position": {
+            "type": "orbit",
+            "epoch": 2457925.5,
+            "q": 1.699,
+            "e": 0.542,
+            "T": 7.15,
+            "i": 5.42,
+            "n": 83.72,
+            "w": 269.16,
+            "M": 93.59
+        }
+    },
+    {
+        "type": "comet",
+        "id": "harrington-abell",
+        "primary": "sun",
+        "aliases": [
+            "harrington-abell",
+            "52p/harrington-abell",
+            "52p",
+            "harrington abell"
+        ],
+        "M1": 11.8,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2457578.5,
+            "q": 1.775,
+            "e": 0.54,
+            "T": 7.58,
+            "i": 10.23,
+            "n": 336.84,
+            "w": 139.66,
+            "M": 111.11
+        }
+    },
+    {
+        "type": "comet",
+        "id": "tempel-tuttle",
+        "primary": "sun",
+        "aliases": [
+            "tempel-tuttle",
+            "55p/tempel-tuttle",
+            "55p",
+            "tempel tuttle"
+        ],
+        "M1": 10.0,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2451040.5,
+            "q": 0.976,
+            "e": 0.9056,
+            "T": 33.2,
+            "i": 162.49,
+            "n": 235.27,
+            "w": 172.5,
+            "M": 4.98
+        }
+    },
+    {
+        "type": "comet",
+        "id": "dutoit-neujmin-delporte",
+        "primary": "sun",
+        "aliases": [
+            "dutoit-neujmin-delporte",
+            "57p/dutoit-neujmin-delporte",
+            "57p",
+            "dutoit neujmin delporte"
+        ],
+        "M1": 15.8,
+        "K1": 4.5,
+        "position": {
+            "type": "orbit",
+            "epoch": 2458178.5,
+            "q": 1.726,
+            "e": 0.4998,
+            "T": 6.41,
+            "i": 2.85,
+            "n": 188.81,
+            "w": 115.13,
+            "M": 155.88
+        }
+    },
+    {
+        "type": "comet",
+        "id": "jackson-neujmin",
+        "primary": "sun",
+        "aliases": [
+            "jackson-neujmin",
+            "58p/jackson-neujmin",
+            "58p",
+            "jackson neujmin"
+        ],
+        "M1": 9.1,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2459043.5,
+            "q": 1.377,
+            "e": 0.6626,
+            "T": 8.25,
+            "i": 13.11,
+            "n": 159.08,
+            "w": 200.44,
+            "M": 5.57
+        }
+    },
+    {
+        "type": "comet",
+        "id": "tsuchinshan-2",
+        "primary": "sun",
+        "aliases": [
+            "tsuchinshan-2",
+            "60p/tsuchinshan 2",
+            "60p",
+            "tsuchinshan 2"
+        ],
+        "M1": 9.6,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2457227.5,
+            "q": 1.62,
+            "e": 0.5385,
+            "T": 6.58,
+            "i": 3.61,
+            "n": 267.66,
+            "w": 216.49,
+            "M": 174.8
+        }
+    },
+    {
+        "type": "comet",
+        "id": "tsuchinshan-1",
+        "primary": "sun",
+        "aliases": [
+            "tsuchinshan-1",
+            "62p/tsuchinshan 1",
+            "62p",
+            "tsuchinshan 1"
+        ],
+        "M1": 13.3,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2458046.5,
+            "q": 1.384,
+            "e": 0.5975,
+            "T": 6.37,
+            "i": 9.71,
+            "n": 90.24,
+            "w": 30.35,
+            "M": 355.81
+        }
+    },
+    {
+        "type": "comet",
+        "id": "wild-1",
+        "primary": "sun",
+        "aliases": [
+            "wild-1",
+            "63p/wild 1",
+            "63p",
+            "wild 1"
+        ],
+        "M1": 6.5,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2456717.5,
+            "q": 1.951,
+            "e": 0.6509,
+            "T": 13.2,
+            "i": 19.78,
+            "n": 358.0,
+            "w": 169.03,
+            "M": 24.19
+        }
+    },
+    {
+        "type": "comet",
+        "id": "swift-gehrels",
+        "primary": "sun",
+        "aliases": [
+            "swift-gehrels",
+            "64p/swift-gehrels",
+            "64p",
+            "swift gehrels"
+        ],
+        "M1": 14.5,
+        "K1": 6.0,
+        "position": {
+            "type": "orbit",
+            "epoch": 2458096.5,
+            "q": 1.393,
+            "e": 0.6873,
+            "T": 9.41,
+            "i": 8.95,
+            "n": 300.0,
+            "w": 97.14,
+            "M": 325.43
+        }
+    },
+    {
+        "type": "comet",
+        "id": "du-toit",
+        "primary": "sun",
+        "aliases": [
+            "du-toit",
+            "66p/du toit",
+            "66p",
+            "du toit"
+        ],
+        "M1": 15.7,
+        "K1": 7.0,
+        "position": {
+            "type": "orbit",
+            "epoch": 2456961.5,
+            "q": 1.285,
+            "e": 0.7866,
+            "T": 14.8,
+            "i": 18.67,
+            "n": 22.0,
+            "w": 257.34,
+            "M": 273.48
+        }
+    },
+    {
+        "type": "comet",
+        "id": "churyumov-gerasimenko",
+        "primary": "sun",
+        "aliases": [
+            "churyumov-gerasimenko",
+            "67p/churyumov-gerasimenko",
+            "67p",
+            "churyumov gerasimenko"
+        ],
+        "M1": 12.9,
+        "K1": 7.5,
+        "position": {
+            "type": "orbit",
+            "epoch": 2457305.5,
+            "q": 1.243,
+            "e": 0.6409,
+            "T": 6.44,
+            "i": 7.04,
+            "n": 50.14,
+            "w": 12.8,
+            "M": 8.86
+        }
+    },
+    {
+        "type": "comet",
+        "id": "klemola",
+        "primary": "sun",
+        "aliases": [
+            "klemola",
+            "68p/klemola",
+            "68p"
+        ],
+        "M1": 11.2,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2457453.5,
+            "q": 1.762,
+            "e": 0.6403,
+            "T": 10.8,
+            "i": 11.18,
+            "n": 175.3,
+            "w": 153.84,
+            "M": 237.68
+        }
+    },
+    {
+        "type": "comet",
+        "id": "clark",
+        "primary": "sun",
+        "aliases": [
+            "clark",
+            "71p/clark",
+            "71p"
+        ],
+        "M1": 11.1,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2458635.5,
+            "q": 1.587,
+            "e": 0.4945,
+            "T": 5.56,
+            "i": 9.44,
+            "n": 59.44,
+            "w": 208.97,
+            "M": 124.18
+        }
+    },
+    {
+        "type": "comet",
+        "id": "denning-fujikawa",
+        "primary": "sun",
+        "aliases": [
+            "denning-fujikawa",
+            "72p/denning-fujikawa",
+            "72p",
+            "denning fujikawa"
+        ],
+        "M1": 17.5,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2457286.5,
+            "q": 0.781,
+            "e": 0.8205,
+            "T": 9.06,
+            "i": 9.23,
+            "n": 35.44,
+            "w": 338.47,
+            "M": 47.38
+        }
+    },
+    {
+        "type": "comet",
+        "id": "schwassmann-wachmann-3",
+        "primary": "sun",
+        "aliases": [
+            "schwassmann-wachmann-3",
+            "73p/schwassmann-wachmann 3",
+            "73p",
+            "schwassmann wachmann 3"
+        ],
+        "M1": 14.3,
+        "K1": 8.0,
+        "position": {
+            "type": "orbit",
+            "epoch": 2457800.5,
+            "q": 0.972,
+            "e": 0.6855,
+            "T": 5.44,
+            "i": 11.24,
+            "n": 69.66,
+            "w": 199.39,
+            "M": 354.77
+        }
+    },
+    {
+        "type": "comet",
+        "id": "kohoutek",
+        "primary": "sun",
+        "aliases": [
+            "kohoutek",
+            "75d/kohoutek",
+            "75d"
+        ],
+        "M1": 10.5,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2449520.5,
+            "q": 1.785,
+            "e": 0.4963,
+            "T": 6.67,
+            "i": 5.91,
+            "n": 269.69,
+            "w": 175.8,
+            "M": 358.09
+        }
+    },
+    {
+        "type": "comet",
+        "id": "west-kohoutek-ikemura",
+        "primary": "sun",
+        "aliases": [
+            "west-kohoutek-ikemura",
+            "76p/west-kohoutek-ikemura",
+            "76p",
+            "west kohoutek ikemura"
+        ],
+        "M1": 15.4,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2455628.5,
+            "q": 1.602,
+            "e": 0.5384,
+            "T": 6.47,
+            "i": 30.48,
+            "n": 84.11,
+            "w": 0.05,
+            "M": 239.28
+        }
+    },
+    {
+        "type": "comet",
+        "id": "du-toit-hartley",
+        "primary": "sun",
+        "aliases": [
+            "du-toit-hartley",
+            "79p/du toit-hartley",
+            "79p",
+            "du toit hartley"
+        ],
+        "M1": 17.4,
+        "K1": 4.5,
+        "position": {
+            "type": "orbit",
+            "epoch": 2454391.5,
+            "q": 1.231,
+            "e": 0.5941,
+            "T": 5.28,
+            "i": 2.89,
+            "n": 307.84,
+            "w": 253.27,
+            "M": 318.28
+        }
+    },
+    {
+        "type": "comet",
+        "id": "peters-hartley",
+        "primary": "sun",
+        "aliases": [
+            "peters-hartley",
+            "80p/peters-hartley",
+            "80p",
+            "peters hartley"
+        ],
+        "M1": 11.8,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2457856.5,
+            "q": 1.612,
+            "e": 0.5994,
+            "T": 8.07,
+            "i": 29.93,
+            "n": 259.84,
+            "w": 339.17,
+            "M": 108.05
+        }
+    },
+    {
+        "type": "comet",
+        "id": "wild-2",
+        "primary": "sun",
+        "aliases": [
+            "wild-2",
+            "81p/wild 2",
+            "81p",
+            "wild 2"
+        ],
+        "M1": 9.8,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2458808.5,
+            "q": 1.596,
+            "e": 0.5374,
+            "T": 6.41,
+            "i": 3.24,
+            "n": 136.11,
+            "w": 41.73,
+            "M": 187.6
+        }
+    },
+    {
+        "type": "comet",
+        "id": "russell-1",
+        "primary": "sun",
+        "aliases": [
+            "russell-1",
+            "83d/russell 1",
+            "83d",
+            "russell 1"
+        ],
+        "M1": 14.0,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2446240.5,
+            "q": 1.612,
+            "e": 0.5172,
+            "T": 6.1,
+            "i": 22.66,
+            "n": 230.84,
+            "w": 0.38,
+            "M": 358.19
+        }
+    },
+    {
+        "type": "comet",
+        "id": "giclas",
+        "primary": "sun",
+        "aliases": [
+            "giclas",
+            "84p/giclas",
+            "84p"
+        ],
+        "M1": 14.2,
+        "K1": 6.5,
+        "position": {
+            "type": "orbit",
+            "epoch": 2455894.5,
+            "q": 1.84,
+            "e": 0.4945,
+            "T": 6.95,
+            "i": 7.28,
+            "n": 112.39,
+            "w": 276.4,
+            "M": 274.58
+        }
+    },
+    {
+        "type": "comet",
+        "id": "boethin",
+        "primary": "sun",
+        "aliases": [
+            "boethin",
+            "85d/boethin",
+            "85d"
+        ],
+        "M1": 20.0,
+        "K1": 8.0,
+        "position": {
+            "type": "orbit",
+            "epoch": 2454252.5,
+            "q": 1.135,
+            "e": 0.7812,
+            "T": 11.8,
+            "i": 4.3,
+            "n": 359.4,
+            "w": 37.62,
+            "M": 313.19
+        }
+    },
+    {
+        "type": "comet",
+        "id": "howell",
+        "primary": "sun",
+        "aliases": [
+            "howell",
+            "88p/howell",
+            "88p"
+        ],
+        "M1": 12.1,
+        "K1": 9.25,
+        "position": {
+            "type": "orbit",
+            "epoch": 2458274.5,
+            "q": 1.355,
+            "e": 0.5638,
+            "T": 5.48,
+            "i": 4.38,
+            "n": 56.7,
+            "w": 235.85,
+            "M": 207.94
+        }
+    },
+    {
+        "type": "comet",
+        "id": "sanguin",
+        "primary": "sun",
+        "aliases": [
+            "sanguin",
+            "92p/sanguin",
+            "92p"
+        ],
+        "M1": 11.1,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2457375.5,
+            "q": 1.825,
+            "e": 0.6593,
+            "T": 12.4,
+            "i": 19.44,
+            "n": 181.46,
+            "w": 163.79,
+            "M": 23.27
+        }
+    },
+    {
+        "type": "comet",
+        "id": "lovas-1",
+        "primary": "sun",
+        "aliases": [
+            "lovas-1",
+            "93p/lovas 1",
+            "93p",
+            "lovas 1"
+        ],
+        "M1": 12.6,
+        "K1": 9.75,
+        "position": {
+            "type": "orbit",
+            "epoch": 2457800.5,
+            "q": 1.7,
+            "e": 0.6127,
+            "T": 9.2,
+            "i": 12.2,
+            "n": 339.63,
+            "w": 74.9,
+            "M": 358.56
+        }
+    },
+    {
+        "type": "comet",
+        "id": "machholz-1",
+        "primary": "sun",
+        "aliases": [
+            "machholz-1",
+            "96p/machholz 1",
+            "96p",
+            "machholz 1"
+        ],
+        "M1": 13.6,
+        "K1": 9.0,
+        "position": {
+            "type": "orbit",
+            "epoch": 2457952.5,
+            "q": 0.124,
+            "e": 0.9592,
+            "T": 5.29,
+            "i": 58.14,
+            "n": 94.25,
+            "w": 14.79,
+            "M": 340.99
+        }
+    },
+    {
+        "type": "comet",
+        "id": "takamizawa",
+        "primary": "sun",
+        "aliases": [
+            "takamizawa",
+            "98p/takamizawa",
+            "98p"
+        ],
+        "M1": 14.6,
+        "K1": 8.75,
+        "position": {
+            "type": "orbit",
+            "epoch": 2455915.5,
+            "q": 1.672,
+            "e": 0.5606,
+            "T": 7.42,
+            "i": 10.55,
+            "n": 114.75,
+            "w": 157.95,
+            "M": 281.08
+        }
+    },
+    {
+        "type": "comet",
+        "id": "shoemaker-1",
+        "primary": "sun",
+        "aliases": [
+            "shoemaker-1",
+            "102p/shoemaker 1",
+            "102p",
+            "shoemaker 1"
+        ],
+        "M1": 16.2,
+        "K1": 5.5,
+        "position": {
+            "type": "orbit",
+            "epoch": 2456078.5,
+            "q": 1.969,
+            "e": 0.4732,
+            "T": 7.22,
+            "i": 26.24,
+            "n": 339.87,
+            "w": 18.74,
+            "M": 297.48
+        }
+    },
+    {
+        "type": "comet",
+        "id": "hartley-2",
+        "primary": "sun",
+        "aliases": [
+            "hartley-2",
+            "103p/hartley 2",
+            "103p",
+            "hartley 2"
+        ],
+        "M1": 16.0,
+        "K1": 4.5,
+        "position": {
+            "type": "orbit",
+            "epoch": 2460146.5,
+            "q": 1.064,
+            "e": 0.6938,
+            "T": 6.48,
+            "i": 13.61,
+            "n": 219.75,
+            "w": 181.3,
+            "M": 347.29
+        }
+    },
+    {
+        "type": "comet",
+        "id": "kowal-2",
+        "primary": "sun",
+        "aliases": [
+            "kowal-2",
+            "104p/kowal 2",
+            "104p",
+            "kowal 2"
+        ],
+        "M1": 14.6,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2459486.5,
+            "q": 1.073,
+            "e": 0.6655,
+            "T": 5.74,
+            "i": 5.7,
+            "n": 207.21,
+            "w": 227.25,
+            "M": 342.05
+        }
+    },
+    {
+        "type": "comet",
+        "id": "schuster",
+        "primary": "sun",
+        "aliases": [
+            "schuster",
+            "106p/schuster",
+            "106p"
+        ],
+        "M1": 11.1,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2457493.5,
+            "q": 1.541,
+            "e": 0.5895,
+            "T": 7.27,
+            "i": 20.2,
+            "n": 50.33,
+            "w": 355.98,
+            "M": 86.0
+        }
+    },
+    {
+        "type": "comet",
+        "id": "ciffreo",
+        "primary": "sun",
+        "aliases": [
+            "ciffreo",
+            "108p/ciffreo",
+            "108p"
+        ],
+        "M1": 10.9,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2458257.5,
+            "q": 1.526,
+            "e": 0.581,
+            "T": 6.95,
+            "i": 13.98,
+            "n": 52.4,
+            "w": 356.86,
+            "M": 184.02
+        }
+    },
+    {
+        "type": "comet",
+        "id": "swift-tuttle",
+        "primary": "sun",
+        "aliases": [
+            "swift-tuttle",
+            "109p/swift-tuttle",
+            "109p",
+            "swift tuttle"
+        ],
+        "M1": 4.5,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2450000.5,
+            "q": 0.96,
+            "e": 0.9632,
+            "T": 133.0,
+            "i": 113.45,
+            "n": 139.38,
+            "w": 152.98,
+            "M": 7.63
+        }
+    },
+    {
+        "type": "comet",
+        "id": "urata-niijima",
+        "primary": "sun",
+        "aliases": [
+            "urata-niijima",
+            "112p/urata-niijima",
+            "112p",
+            "urata niijima"
+        ],
+        "M1": 14.5,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2455471.5,
+            "q": 1.459,
+            "e": 0.5875,
+            "T": 6.65,
+            "i": 24.2,
+            "n": 31.93,
+            "w": 21.35,
+            "M": 212.31
+        }
+    },
+    {
+        "type": "comet",
+        "id": "wiseman-skiff",
+        "primary": "sun",
+        "aliases": [
+            "wiseman-skiff",
+            "114p/wiseman-skiff",
+            "114p",
+            "wiseman skiff"
+        ],
+        "M1": 13.9,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2458217.5,
+            "q": 1.579,
+            "e": 0.5545,
+            "T": 6.67,
+            "i": 18.27,
+            "n": 271.06,
+            "w": 172.84,
+            "M": 264.72
+        }
+    },
+    {
+        "type": "comet",
+        "id": "shoemaker-levy-4",
+        "primary": "sun",
+        "aliases": [
+            "shoemaker-levy-4",
+            "118p/shoemaker-levy 4",
+            "118p",
+            "shoemaker levy 4"
+        ],
+        "M1": 12.4,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2459387.5,
+            "q": 1.831,
+            "e": 0.4551,
+            "T": 6.16,
+            "i": 10.09,
+            "n": 142.11,
+            "w": 314.44,
+            "M": 276.99
+        }
+    },
+    {
+        "type": "comet",
+        "id": "de-vico",
+        "primary": "sun",
+        "aliases": [
+            "de-vico",
+            "122p/de vico",
+            "122p",
+            "de vico"
+        ],
+        "M1": 7.5,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2450280.5,
+            "q": 0.659,
+            "e": 0.9627,
+            "T": 74.3,
+            "i": 85.38,
+            "n": 79.62,
+            "w": 13.0,
+            "M": 3.77
+        }
+    },
+    {
+        "type": "comet",
+        "id": "mrkos",
+        "primary": "sun",
+        "aliases": [
+            "mrkos",
+            "124p/mrkos",
+            "124p"
+        ],
+        "M1": 16.4,
+        "K1": 4.5,
+        "position": {
+            "type": "orbit",
+            "epoch": 2456826.5,
+            "q": 1.645,
+            "e": 0.5039,
+            "T": 6.04,
+            "i": 31.53,
+            "n": 0.41,
+            "w": 183.71,
+            "M": 11.32
+        }
+    },
+    {
+        "type": "comet",
+        "id": "spacewatch",
+        "primary": "sun",
+        "aliases": [
+            "spacewatch",
+            "125p/spacewatch",
+            "125p"
+        ],
+        "M1": 12.9,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2457245.5,
+            "q": 1.523,
+            "e": 0.5127,
+            "T": 5.53,
+            "i": 9.99,
+            "n": 153.2,
+            "w": 87.15,
+            "M": 161.39
+        }
+    },
+    {
+        "type": "comet",
+        "id": "iras",
+        "primary": "sun",
+        "aliases": [
+            "iras",
+            "126p/iras",
+            "126p"
+        ],
+        "M1": 11.8,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2459361.5,
+            "q": 1.713,
+            "e": 0.6963,
+            "T": 13.4,
+            "i": 45.87,
+            "n": 357.86,
+            "w": 356.52,
+            "M": 303.39
+        }
+    },
+    {
+        "type": "comet",
+        "id": "mcnaught-hughes",
+        "primary": "sun",
+        "aliases": [
+            "mcnaught-hughes",
+            "130p/mcnaught-hughes",
+            "130p",
+            "mcnaught hughes"
+        ],
+        "M1": 10.4,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2458076.5,
+            "q": 1.824,
+            "e": 0.4608,
+            "T": 6.22,
+            "i": 6.07,
+            "n": 70.26,
+            "w": 245.91,
+            "M": 349.9
+        }
+    },
+    {
+        "type": "comet",
+        "id": "helin-roman-alu-2",
+        "primary": "sun",
+        "aliases": [
+            "helin-roman-alu-2",
+            "132p/helin-roman-alu 2",
+            "132p",
+            "helin roman alu 2"
+        ],
+        "M1": 10.2,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2459491.5,
+            "q": 1.692,
+            "e": 0.5647,
+            "T": 7.66,
+            "i": 5.38,
+            "n": 174.0,
+            "w": 216.35,
+            "M": 354.84
+        }
+    },
+    {
+        "type": "comet",
+        "id": "shoemaker-levy-2",
+        "primary": "sun",
+        "aliases": [
+            "shoemaker-levy-2",
+            "137p/shoemaker-levy 2",
+            "137p",
+            "shoemaker levy 2"
+        ],
+        "M1": 15.4,
+        "K1": 4.5,
+        "position": {
+            "type": "orbit",
+            "epoch": 2457359.5,
+            "q": 1.933,
+            "e": 0.5721,
+            "T": 9.6,
+            "i": 4.85,
+            "n": 233.07,
+            "w": 140.99,
+            "M": 246.37
+        }
+    },
+    {
+        "type": "comet",
+        "id": "shoemaker-levy-7",
+        "primary": "sun",
+        "aliases": [
+            "shoemaker-levy-7",
+            "138p/shoemaker-levy 7",
+            "138p",
+            "shoemaker levy 7"
+        ],
+        "M1": 16.7,
+        "K1": 8.0,
+        "position": {
+            "type": "orbit",
+            "epoch": 2453612.5,
+            "q": 1.707,
+            "e": 0.5295,
+            "T": 6.91,
+            "i": 10.08,
+            "n": 309.44,
+            "w": 95.65,
+            "M": 5.86
+        }
+    },
+    {
+        "type": "comet",
+        "id": "bowell-skiff",
+        "primary": "sun",
+        "aliases": [
+            "bowell-skiff",
+            "140p/bowell-skiff",
+            "140p",
+            "bowell skiff"
+        ],
+        "M1": 11.5,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2451320.5,
+            "q": 1.972,
+            "e": 0.6918,
+            "T": 16.2,
+            "i": 3.84,
+            "n": 343.46,
+            "w": 173.09,
+            "M": 0.44
+        }
+    },
+    {
+        "type": "comet",
+        "id": "machholz-2",
+        "primary": "sun",
+        "aliases": [
+            "machholz-2",
+            "141p/machholz 2",
+            "141p",
+            "machholz 2"
+        ],
+        "M1": 17.3,
+        "K1": 4.5,
+        "position": {
+            "type": "orbit",
+            "epoch": 2458696.5,
+            "q": 0.804,
+            "e": 0.7367,
+            "T": 5.34,
+            "i": 13.98,
+            "n": 241.88,
+            "w": 153.62,
+            "M": 267.16
+        }
+    },
+    {
+        "type": "comet",
+        "id": "kushida",
+        "primary": "sun",
+        "aliases": [
+            "kushida",
+            "144p/kushida",
+            "144p"
+        ],
+        "M1": 12.9,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2459962.5,
+            "q": 1.397,
+            "e": 0.6351,
+            "T": 7.49,
+            "i": 3.93,
+            "n": 242.98,
+            "w": 216.35,
+            "M": 310.97
+        }
+    },
+    {
+        "type": "comet",
+        "id": "shoemaker-levy-5",
+        "primary": "sun",
+        "aliases": [
+            "shoemaker-levy-5",
+            "145p/shoemaker-levy 5",
+            "145p",
+            "shoemaker levy 5"
+        ],
+        "M1": 13.4,
+        "K1": 8.25,
+        "position": {
+            "type": "orbit",
+            "epoch": 2457082.5,
+            "q": 1.902,
+            "e": 0.541,
+            "T": 8.43,
+            "i": 11.26,
+            "n": 26.84,
+            "w": 10.42,
+            "M": 253.07
+        }
+    },
+    {
+        "type": "comet",
+        "id": "shoemaker-linear",
+        "primary": "sun",
+        "aliases": [
+            "shoemaker-linear",
+            "146p/shoemaker-linear",
+            "146p",
+            "shoemaker linear"
+        ],
+        "M1": 12.1,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2459656.5,
+            "q": 1.422,
+            "e": 0.6473,
+            "T": 8.09,
+            "i": 23.11,
+            "n": 53.38,
+            "w": 316.99,
+            "M": 253.88
+        }
+    },
+    {
+        "type": "comet",
+        "id": "anderson-linear",
+        "primary": "sun",
+        "aliases": [
+            "anderson-linear",
+            "148p/anderson-linear",
+            "148p",
+            "anderson linear"
+        ],
+        "M1": 13.0,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2456236.5,
+            "q": 1.694,
+            "e": 0.5393,
+            "T": 7.05,
+            "i": 3.68,
+            "n": 89.79,
+            "w": 6.6,
+            "M": 227.15
+        }
+    },
+    {
+        "type": "comet",
+        "id": "loneos",
+        "primary": "sun",
+        "aliases": [
+            "loneos",
+            "150p/loneos",
+            "150p"
+        ],
+        "M1": 15.9,
+        "K1": 4.5,
+        "position": {
+            "type": "orbit",
+            "epoch": 2458688.5,
+            "q": 1.76,
+            "e": 0.5465,
+            "T": 7.64,
+            "i": 18.51,
+            "n": 272.41,
+            "w": 245.62,
+            "M": 141.14
+        }
+    },
+    {
+        "type": "comet",
+        "id": "brewington",
+        "primary": "sun",
+        "aliases": [
+            "brewington",
+            "154p/brewington",
+            "154p"
+        ],
+        "M1": 10.5,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2456991.5,
+            "q": 1.606,
+            "e": 0.6713,
+            "T": 10.8,
+            "i": 17.85,
+            "n": 343.45,
+            "w": 49.04,
+            "M": 32.16
+        }
+    },
+    {
+        "type": "comet",
+        "id": "shoemaker-3",
+        "primary": "sun",
+        "aliases": [
+            "shoemaker-3",
+            "155p/shoemaker 3",
+            "155p",
+            "shoemaker 3"
+        ],
+        "M1": 10.0,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2455702.5,
+            "q": 1.806,
+            "e": 0.7261,
+            "T": 16.9,
+            "i": 6.4,
+            "n": 97.28,
+            "w": 14.6,
+            "M": 179.61
+        }
+    },
+    {
+        "type": "comet",
+        "id": "russell-linear",
+        "primary": "sun",
+        "aliases": [
+            "russell-linear",
+            "156p/russell-linear",
+            "156p",
+            "russell linear"
+        ],
+        "M1": 12.7,
+        "K1": 9.0,
+        "position": {
+            "type": "orbit",
+            "epoch": 2458928.5,
+            "q": 1.333,
+            "e": 0.6149,
+            "T": 6.44,
+            "i": 17.26,
+            "n": 35.4,
+            "w": 0.38,
+            "M": 322.84
+        }
+    },
+    {
+        "type": "comet",
+        "id": "tritton",
+        "primary": "sun",
+        "aliases": [
+            "tritton",
+            "157p/tritton",
+            "157p"
+        ],
+        "M1": 15.2,
+        "K1": 4.5,
+        "position": {
+            "type": "orbit",
+            "epoch": 2458876.5,
+            "q": 1.255,
+            "e": 0.6275,
+            "T": 6.18,
+            "i": 11.18,
+            "n": 289.43,
+            "w": 157.44,
+            "M": 213.8
+        }
+    },
+    {
+        "type": "comet",
+        "id": "hartley-iras",
+        "primary": "sun",
+        "aliases": [
+            "hartley-iras",
+            "161p/hartley-iras",
+            "161p",
+            "hartley iras"
+        ],
+        "M1": 11.5,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2453190.5,
+            "q": 1.275,
+            "e": 0.8351,
+            "T": 21.5,
+            "i": 95.7,
+            "n": 1.4,
+            "w": 47.09,
+            "M": 343.87
+        }
+    },
+    {
+        "type": "comet",
+        "id": "siding-spring",
+        "primary": "sun",
+        "aliases": [
+            "siding-spring",
+            "162p/siding spring",
+            "162p",
+            "siding spring"
+        ],
+        "M1": 15.2,
+        "K1": 4.5,
+        "position": {
+            "type": "orbit",
+            "epoch": 2455498.5,
+            "q": 1.233,
+            "e": 0.5961,
+            "T": 5.33,
+            "i": 27.82,
+            "n": 31.24,
+            "w": 356.32,
+            "M": 43.34
+        }
+    },
+    {
+        "type": "comet",
+        "id": "neat",
+        "primary": "sun",
+        "aliases": [
+            "neat",
+            "163p/neat",
+            "163p"
+        ],
+        "M1": 11.8,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2454059.5,
+            "q": 1.928,
+            "e": 0.476,
+            "T": 7.06,
+            "i": 12.5,
+            "n": 103.35,
+            "w": 348.05,
+            "M": 91.67
+        }
+    },
+    {
+        "type": "comet",
+        "id": "christensen",
+        "primary": "sun",
+        "aliases": [
+            "christensen",
+            "164p/christensen",
+            "164p"
+        ],
+        "M1": 14.4,
+        "K1": 4.5,
+        "position": {
+            "type": "orbit",
+            "epoch": 2457041.5,
+            "q": 1.682,
+            "e": 0.5402,
+            "T": 7.0,
+            "i": 16.26,
+            "n": 88.31,
+            "w": 326.0,
+            "M": 186.98
+        }
+    },
+    {
+        "type": "comet",
+        "id": "hergenrother",
+        "primary": "sun",
+        "aliases": [
+            "hergenrother",
+            "168p/hergenrother",
+            "168p"
+        ],
+        "M1": 7.0,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2455838.5,
+            "q": 1.415,
+            "e": 0.6095,
+            "T": 6.9,
+            "i": 21.93,
+            "n": 356.48,
+            "w": 13.92,
+            "M": 308.01
+        }
+    },
+    {
+        "type": "comet",
+        "id": "neat",
+        "primary": "sun",
+        "aliases": [
+            "neat",
+            "169p/neat",
+            "169p"
+        ],
+        "M1": 16.8,
+        "K1": 4.5,
+        "position": {
+            "type": "orbit",
+            "epoch": 2455087.5,
+            "q": 0.608,
+            "e": 0.7668,
+            "T": 4.21,
+            "i": 11.3,
+            "n": 176.19,
+            "w": 217.96,
+            "M": 341.65
+        }
+    },
+    {
+        "type": "comet",
+        "id": "spahr",
+        "primary": "sun",
+        "aliases": [
+            "spahr",
+            "171p/spahr",
+            "171p"
+        ],
+        "M1": 12.2,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2457879.5,
+            "q": 1.771,
+            "e": 0.502,
+            "T": 6.71,
+            "i": 21.94,
+            "n": 101.71,
+            "w": 347.19,
+            "M": 269.24
+        }
+    },
+    {
+        "type": "comet",
+        "id": "barnard",
+        "primary": "sun",
+        "aliases": [
+            "barnard",
+            "177p/barnard",
+            "177p"
+        ],
+        "M1": 15.7,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2453849.5,
+            "q": 1.107,
+            "e": 0.9544,
+            "T": 120.0,
+            "i": 31.22,
+            "n": 272.07,
+            "w": 60.45,
+            "M": 358.96
+        }
+    },
+    {
+        "type": "comet",
+        "id": "hug-bell",
+        "primary": "sun",
+        "aliases": [
+            "hug-bell",
+            "178p/hug-bell",
+            "178p",
+            "hug bell"
+        ],
+        "M1": 13.2,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2456254.5,
+            "q": 1.934,
+            "e": 0.473,
+            "T": 7.03,
+            "i": 10.98,
+            "n": 103.57,
+            "w": 296.95,
+            "M": 326.07
+        }
+    },
+    {
+        "type": "comet",
+        "id": "shoemaker-levy-6",
+        "primary": "sun",
+        "aliases": [
+            "shoemaker-levy-6",
+            "181p/shoemaker-levy 6",
+            "181p",
+            "shoemaker levy 6"
+        ],
+        "M1": 16.3,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2456908.5,
+            "q": 1.124,
+            "e": 0.7073,
+            "T": 7.52,
+            "i": 16.98,
+            "n": 37.68,
+            "w": 333.8,
+            "M": 11.75
+        }
+    },
+    {
+        "type": "comet",
+        "id": "loneos",
+        "primary": "sun",
+        "aliases": [
+            "loneos",
+            "182p/loneos",
+            "182p"
+        ],
+        "M1": 20.8,
+        "K1": 4.5,
+        "position": {
+            "type": "orbit",
+            "epoch": 2453294.5,
+            "q": 0.978,
+            "e": 0.6663,
+            "T": 5.02,
+            "i": 16.91,
+            "n": 75.1,
+            "w": 51.44,
+            "M": 194.47
+        }
+    },
+    {
+        "type": "comet",
+        "id": "lovas-2",
+        "primary": "sun",
+        "aliases": [
+            "lovas-2",
+            "184p/lovas 2",
+            "184p",
+            "lovas 2"
+        ],
+        "M1": 18.4,
+        "K1": 5.5,
+        "position": {
+            "type": "orbit",
+            "epoch": 2456460.5,
+            "q": 1.394,
+            "e": 0.6043,
+            "T": 6.61,
+            "i": 1.55,
+            "n": 277.74,
+            "w": 78.06,
+            "M": 353.82
+        }
+    },
+    {
+        "type": "comet",
+        "id": "petriew",
+        "primary": "sun",
+        "aliases": [
+            "petriew",
+            "185p/petriew",
+            "185p"
+        ],
+        "M1": 13.6,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2457129.5,
+            "q": 0.934,
+            "e": 0.6988,
+            "T": 5.46,
+            "i": 14.0,
+            "n": 214.1,
+            "w": 181.94,
+            "M": 176.38
+        }
+    },
+    {
+        "type": "comet",
+        "id": "neat",
+        "primary": "sun",
+        "aliases": [
+            "neat",
+            "189p/neat",
+            "189p"
+        ],
+        "M1": 19.1,
+        "K1": 4.5,
+        "position": {
+            "type": "orbit",
+            "epoch": 2454804.5,
+            "q": 1.174,
+            "e": 0.5976,
+            "T": 4.98,
+            "i": 20.4,
+            "n": 282.2,
+            "w": 15.31,
+            "M": 98.3
+        }
+    },
+    {
+        "type": "comet",
+        "id": "shoemaker-levy-1",
+        "primary": "sun",
+        "aliases": [
+            "shoemaker-levy-1",
+            "192p/shoemaker-levy 1",
+            "192p",
+            "shoemaker levy 1"
+        ],
+        "M1": 11.4,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2456857.5,
+            "q": 1.476,
+            "e": 0.7721,
+            "T": 16.5,
+            "i": 24.55,
+            "n": 51.58,
+            "w": 313.09,
+            "M": 144.06
+        }
+    },
+    {
+        "type": "comet",
+        "id": "linear",
+        "primary": "sun",
+        "aliases": [
+            "linear",
+            "194p/linear",
+            "194p"
+        ],
+        "M1": 17.8,
+        "K1": 7.0,
+        "position": {
+            "type": "orbit",
+            "epoch": 2455839.5,
+            "q": 1.705,
+            "e": 0.5743,
+            "T": 8.02,
+            "i": 11.12,
+            "n": 352.05,
+            "w": 130.54,
+            "M": 161.9
+        }
+    },
+    {
+        "type": "comet",
+        "id": "linear",
+        "primary": "sun",
+        "aliases": [
+            "linear",
+            "197p/linear",
+            "197p"
+        ],
+        "M1": 18.2,
+        "K1": 5.75,
+        "position": {
+            "type": "orbit",
+            "epoch": 2454004.5,
+            "q": 1.061,
+            "e": 0.6299,
+            "T": 4.86,
+            "i": 25.56,
+            "n": 66.4,
+            "w": 188.75,
+            "M": 238.0
+        }
+    },
+    {
+        "type": "comet",
+        "id": "odas",
+        "primary": "sun",
+        "aliases": [
+            "odas",
+            "198p/odas",
+            "198p"
+        ],
+        "M1": 15.8,
+        "K1": 4.5,
+        "position": {
+            "type": "orbit",
+            "epoch": 2452729.5,
+            "q": 1.979,
+            "e": 0.4477,
+            "T": 6.78,
+            "i": 1.35,
+            "n": 358.74,
+            "w": 69.06,
+            "M": 248.98
+        }
+    }
+]

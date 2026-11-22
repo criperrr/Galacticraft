@@ -1,0 +1,161 @@
+[
+    {
+        "type": "star",
+        "id": "hip-113368",
+        "primary": "star",
+        "aliases": [
+            "fomalhaut",
+            "alf-psa",
+            "alpha-piscis-austrini",
+            "24-psa",
+            "24-piscis-austrini"
+        ],
+        "M": 1.77,
+        "B": -0.8,
+        "temp": 8394,
+        "diameter": 2688521,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 344.412703,
+            "de": -29.622236,
+            "plx": 129.49,
+            "pmra": 332.39,
+            "pmde": -164.19
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-111954",
+        "primary": "star",
+        "aliases": [
+            "eps-psa",
+            "epsilon-piscis-austrini",
+            "18-psa",
+            "18-piscis-austrini"
+        ],
+        "M": -2.59,
+        "B": -0.8,
+        "temp": 11456,
+        "diameter": 10771023,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 340.163933,
+            "de": -27.043616,
+            "plx": 4.42
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-113246",
+        "primary": "star",
+        "aliases": [
+            "del-psa",
+            "delta-piscis-austrini",
+            "23-psa",
+            "23-piscis-austrini"
+        ],
+        "M": 0.62,
+        "B": -0.8,
+        "temp": 4830,
+        "diameter": 13784165,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 343.987087,
+            "de": -32.53963,
+            "plx": 19.13
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-111188",
+        "primary": "star",
+        "aliases": [
+            "bet-psa",
+            "beta-piscis-austrini",
+            "17-psa",
+            "17-piscis-austrini"
+        ],
+        "M": 1.01,
+        "B": -0.8,
+        "temp": 9742,
+        "diameter": 2831478,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 337.876384,
+            "de": -32.346075,
+            "plx": 22.19
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-109422",
+        "primary": "star",
+        "aliases": [
+            "tau-psa",
+            "tau-piscis-austrini",
+            "15-psa",
+            "15-piscis-austrini"
+        ],
+        "M": 3.56,
+        "B": -0.8,
+        "temp": 6334,
+        "diameter": 2069075,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 332.536587,
+            "de": -32.548407,
+            "plx": 53.34,
+            "pmra": 429.72,
+            "pmde": 13.8
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-107608",
+        "primary": "star",
+        "aliases": [
+            "the-psa",
+            "the-piscis-austrini",
+            "10-psa",
+            "10-piscis-austrini"
+        ],
+        "M": -0.0,
+        "B": -0.8,
+        "temp": 9370,
+        "diameter": 4887374,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 326.933955,
+            "de": -30.898302,
+            "plx": 9.94
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-108661",
+        "primary": "star",
+        "aliases": [
+            "eta-psa",
+            "eta-piscis-austrini",
+            "12-psa",
+            "12-piscis-austrini"
+        ],
+        "M": -1.86,
+        "B": -0.8,
+        "temp": 12589,
+        "diameter": 6378529,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 330.209267,
+            "de": -28.453737,
+            "plx": 3.22
+        }
+    }
+]

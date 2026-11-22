@@ -1,0 +1,258 @@
+[
+    {
+        "type": "comet",
+        "id": "siding-spring",
+        "primary": "sun",
+        "aliases": [
+            "siding-spring",
+            "487p/siding spring",
+            "487p",
+            "siding spring"
+        ],
+        "M1": 8.4,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2460604.48,
+            "q": 1.819,
+            "e": 0.6479,
+            "T": 11.7,
+            "i": 39.36,
+            "n": 49.19,
+            "w": 0.81,
+            "M": 277.14
+        }
+    },
+    {
+        "type": "comet",
+        "id": "hill",
+        "primary": "sun",
+        "aliases": [
+            "hill",
+            "496p/hill",
+            "496p"
+        ],
+        "M1": 10.9,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2460753.85,
+            "q": 1.627,
+            "e": 0.7321,
+            "T": 15.0,
+            "i": 14.98,
+            "n": 64.67,
+            "w": 41.47,
+            "M": 185.22
+        }
+    },
+    {
+        "type": "comet",
+        "id": "2015-cd60-linear",
+        "primary": "sun",
+        "aliases": [
+            "2015-cd60-linear",
+            "p/2015 cd60 (linear)",
+            "p",
+            "2015 cd60 linear"
+        ],
+        "M1": 7.5,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2460663.78,
+            "q": 1.963,
+            "e": 0.5722,
+            "T": 9.83,
+            "i": 14.48,
+            "n": 279.27,
+            "w": 179.17,
+            "M": 299.7
+        }
+    },
+    {
+        "type": "comet",
+        "id": "2024-e1-wierzchos",
+        "primary": "sun",
+        "aliases": [
+            "2024-e1-wierzchos",
+            "c/2024 e1 (wierzchos)",
+            "2024 e1 wierzchos"
+        ],
+        "M1": 4.9,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2461061.22,
+            "q": 0.565,
+            "e": 0.999,
+            "T": 1000000,
+            "i": 75.23,
+            "n": 108.12,
+            "w": 243.66,
+            "M": -0.0
+        }
+    },
+    {
+        "type": "comet",
+        "id": "2024-j2-wierzchos",
+        "primary": "sun",
+        "aliases": [
+            "2024-j2-wierzchos",
+            "c/2024 j2 (wierzchos)",
+            "2024 j2 wierzchos"
+        ],
+        "M1": 10.5,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2460754.27,
+            "q": 1.811,
+            "e": 0.9878,
+            "T": 1810.0,
+            "i": 79.3,
+            "n": 189.06,
+            "w": 143.15,
+            "M": 359.89
+        }
+    },
+    {
+        "type": "comet",
+        "id": "2024-m1-atlas",
+        "primary": "sun",
+        "aliases": [
+            "2024-m1-atlas",
+            "c/2024 m1 (atlas)",
+            "2024 m1 atlas"
+        ],
+        "M1": 14.1,
+        "K1": 5.0,
+        "position": {
+            "type": "orbit",
+            "epoch": 2460634.53,
+            "q": 1.703,
+            "e": 0.9431,
+            "T": 164.0,
+            "i": 73.71,
+            "n": 76.22,
+            "w": 345.6,
+            "M": 359.9
+        }
+    },
+    {
+        "type": "comet",
+        "id": "2024-pn7-panstarrs",
+        "primary": "sun",
+        "aliases": [
+            "2024-pn7-panstarrs",
+            "c/2024 pn7 (panstarrs)",
+            "2024 pn7 panstarrs"
+        ],
+        "M1": 20.0,
+        "K1": 8.0,
+        "position": {
+            "type": "orbit",
+            "epoch": 2460650.94,
+            "q": 1.525,
+            "e": 0.9773,
+            "T": 552.0,
+            "i": 101.21,
+            "n": 358.58,
+            "w": 74.27,
+            "M": 359.91
+        }
+    },
+    {
+        "type": "comet",
+        "id": "2024-s1-atlas",
+        "primary": "sun",
+        "aliases": [
+            "2024-s1-atlas",
+            "c/2024 s1 (atlas)",
+            "2024 s1 atlas"
+        ],
+        "M1": 15.3,
+        "K1": 4.5,
+        "position": {
+            "type": "orbit",
+            "epoch": 2460611.99,
+            "q": 0.008,
+            "e": 0.999,
+            "T": 946.0,
+            "i": 141.9,
+            "n": 347.15,
+            "w": 69.16,
+            "M": 359.98
+        }
+    },
+    {
+        "type": "comet",
+        "id": "2024-t2-rankin",
+        "primary": "sun",
+        "aliases": [
+            "2024-t2-rankin",
+            "p/2024 t2 (rankin)",
+            "p",
+            "2024 t2 rankin"
+        ],
+        "M1": 7.5,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2460652.85,
+            "q": 1.972,
+            "e": 0.6807,
+            "T": 15.4,
+            "i": 12.93,
+            "n": 113.06,
+            "w": 343.83,
+            "M": 359.4
+        }
+    },
+    {
+        "type": "comet",
+        "id": "2024-v2-sarneczky",
+        "primary": "sun",
+        "aliases": [
+            "2024-v2-sarneczky",
+            "c/2024 v2 (sarneczky)",
+            "2024 v2 sarneczky"
+        ],
+        "M1": 15.1,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2460618.3,
+            "q": 1.243,
+            "e": 0.9668,
+            "T": 229.0,
+            "i": 95.97,
+            "n": 102.19,
+            "w": 13.69,
+            "M": 0.05
+        }
+    },
+    {
+        "type": "comet",
+        "id": "2024-y1-masek",
+        "primary": "sun",
+        "aliases": [
+            "2024-y1-masek",
+            "c/2024 y1 (masek)",
+            "2024 y1 masek"
+        ],
+        "M1": 17.5,
+        "K1": 10,
+        "position": {
+            "type": "orbit",
+            "epoch": 2460641.41,
+            "q": 0.823,
+            "e": 0.9905,
+            "T": 802.0,
+            "i": 64.79,
+            "n": 112.49,
+            "w": 238.2,
+            "M": 0.04
+        }
+    }
+]

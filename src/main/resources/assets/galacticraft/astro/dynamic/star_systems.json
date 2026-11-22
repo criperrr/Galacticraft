@@ -1,0 +1,27 @@
+[
+    {
+        "type": "star",
+        "id": "b",
+        "primary": "star.hip-32349",
+        "aliases": [
+            "sirius-b",
+            "alpha-canis-majoris-b"
+        ],
+        "M": 11.18,
+        "B": -2,
+        "temp": 25000,
+        "diameter": 12000,
+        "position": {
+            "type": "orbit",
+            "epoch": 1994,
+            "a": 19.79,
+            "T": 50.1284,
+            "e": 0.59,
+            "i": 134,
+            "n": 45.4,
+            "w": 194.561,
+            "M": 194.561,
+            "m": 11.18
+        }
+    }
+]

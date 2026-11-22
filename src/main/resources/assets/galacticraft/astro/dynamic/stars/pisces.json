@@ -1,0 +1,412 @@
+[
+    {
+        "type": "star",
+        "id": "hip-7097",
+        "primary": "star",
+        "aliases": [
+            "eta-psc",
+            "eta-piscium",
+            "99-psc",
+            "99-piscium"
+        ],
+        "M": -1.22,
+        "B": -0.8,
+        "temp": 4808,
+        "diameter": 32488275,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 22.870874,
+            "de": 15.345824,
+            "plx": 10.77
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-114971",
+        "primary": "star",
+        "aliases": [
+            "gam-psc",
+            "gamma-piscium",
+            "6-psc",
+            "6-piscium"
+        ],
+        "M": 0.68,
+        "B": -0.8,
+        "temp": 4969,
+        "diameter": 12697737,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 349.291408,
+            "de": 3.282288,
+            "plx": 24.92,
+            "pmra": 760.59,
+            "pmde": 17.76
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-118268",
+        "primary": "star",
+        "aliases": [
+            "ome-psc",
+            "omega-piscium",
+            "28-psc",
+            "28-piscium"
+        ],
+        "M": 1.46,
+        "B": -0.8,
+        "temp": 6734,
+        "diameter": 4836299,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 359.827877,
+            "de": 6.863319,
+            "plx": 30.62,
+            "pmra": 150.08,
+            "pmde": -113.15
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-9487",
+        "primary": "star",
+        "aliases": [
+            "alf-psc",
+            "alpha-piscium",
+            "113-psc",
+            "113-piscium"
+        ],
+        "M": 0.93,
+        "B": -0.8,
+        "temp": 10394,
+        "diameter": 2587934,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 30.511756,
+            "de": 2.763755,
+            "plx": 23.45
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-116771",
+        "primary": "star",
+        "aliases": [
+            "iot-psc",
+            "iota-piscium",
+            "17-psc",
+            "17-piscium"
+        ],
+        "M": 3.43,
+        "B": -0.8,
+        "temp": 6277,
+        "diameter": 2242274,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 354.987672,
+            "de": 5.626292,
+            "plx": 72.55,
+            "pmra": 376.95,
+            "pmde": -436.79
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-8198",
+        "primary": "star",
+        "aliases": [
+            "omi-psc",
+            "omicron-piscium",
+            "110-psc",
+            "110-piscium"
+        ],
+        "M": -0.15,
+        "B": -0.8,
+        "temp": 4840,
+        "diameter": 19626120,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 26.348464,
+            "de": 9.157748,
+            "plx": 13.1
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-4906",
+        "primary": "star",
+        "aliases": [
+            "eps-psc",
+            "epsilon-piscium",
+            "71-psc",
+            "71-piscium"
+        ],
+        "M": 0.46,
+        "B": -0.8,
+        "temp": 4838,
+        "diameter": 14830455,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 15.735871,
+            "de": 7.890133,
+            "plx": 17.29
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-115830",
+        "primary": "star",
+        "aliases": [
+            "the-psc",
+            "the-piscium",
+            "10-psc",
+            "10-piscium"
+        ],
+        "M": 0.84,
+        "B": -0.8,
+        "temp": 4574,
+        "diameter": 13907382,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 351.992065,
+            "de": 6.378991,
+            "plx": 20.63,
+            "pmra": -123.02,
+            "pmde": -43.56
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-7884",
+        "primary": "star",
+        "aliases": [
+            "nu-psc",
+            "nu-piscium",
+            "106-psc",
+            "106-piscium"
+        ],
+        "M": -0.87,
+        "B": -0.8,
+        "temp": 3940,
+        "diameter": 41258780,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 25.357893,
+            "de": 5.48761,
+            "plx": 8.68
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-116928",
+        "primary": "star",
+        "aliases": [
+            "lam-psc",
+            "lambda-piscium",
+            "18-psc",
+            "18-piscium"
+        ],
+        "M": 2.04,
+        "B": -0.8,
+        "temp": 8003,
+        "diameter": 2612431,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 355.511693,
+            "de": 1.78004,
+            "plx": 32.38,
+            "pmra": -129.39,
+            "pmde": -155.13
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-8833",
+        "primary": "star",
+        "aliases": [
+            "ksi-psc",
+            "ksi-piscium",
+            "111-psc",
+            "111-piscium"
+        ],
+        "M": 0.8,
+        "B": -0.8,
+        "temp": 4889,
+        "diameter": 12413870,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 28.388954,
+            "de": 3.187535,
+            "plx": 17.29
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-5742",
+        "primary": "star",
+        "aliases": [
+            "phi-psc",
+            "phi-piscium",
+            "85-psc",
+            "85-piscium"
+        ],
+        "M": -0.7,
+        "B": -0.8,
+        "temp": 4625,
+        "diameter": 27697527,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 18.437279,
+            "de": 24.583712,
+            "plx": 8.44
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-6193",
+        "primary": "star",
+        "aliases": [
+            "ups-psc",
+            "upsilon-piscium",
+            "90-psc",
+            "90-piscium"
+        ],
+        "M": -0.13,
+        "B": -0.8,
+        "temp": 9412,
+        "diameter": 5138827,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 19.866645,
+            "de": 27.264058,
+            "plx": 10.59
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-7007",
+        "primary": "star",
+        "aliases": [
+            "mu-psc",
+            "mu-piscium",
+            "98-psc",
+            "98-piscium"
+        ],
+        "M": -0.42,
+        "B": -0.8,
+        "temp": 3929,
+        "diameter": 33707518,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 22.54631,
+            "de": 6.143821,
+            "plx": 8.88,
+            "pmra": 292.16,
+            "pmde": -46.31
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-115738",
+        "primary": "star",
+        "aliases": [
+            "kap-psc",
+            "kappa-piscium",
+            "8-psc",
+            "8-piscium"
+        ],
+        "M": 1.44,
+        "B": -0.8,
+        "temp": 9422,
+        "diameter": 2488318,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 351.73315,
+            "de": 1.255606,
+            "plx": 20.14,
+            "pmra": 86.79,
+            "pmde": -95.22
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-1645",
+        "primary": "star",
+        "aliases": [
+            "d-psc",
+            "d-piscium",
+            "41-psc",
+            "41-piscium"
+        ],
+        "M": 0.08,
+        "B": -0.8,
+        "temp": 3953,
+        "diameter": 26468701,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 5.149427,
+            "de": 8.190271,
+            "plx": 8.71
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-4889",
+        "primary": "star",
+        "aliases": [
+            "sig-psc",
+            "sigma-piscium",
+            "69-psc",
+            "69-piscium"
+        ],
+        "M": -0.05,
+        "B": -0.8,
+        "temp": 10583,
+        "diameter": 3909896,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 15.70457,
+            "de": 31.804261,
+            "plx": 7.8
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-3760",
+        "primary": "star",
+        "aliases": [
+            "62-psc",
+            "62-piscium"
+        ],
+        "M": -0.62,
+        "B": -0.8,
+        "temp": 4493,
+        "diameter": 28216847,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 12.072542,
+            "de": 7.299928,
+            "plx": 4.94,
+            "pmra": 111.76,
+            "pmde": 3.54
+        }
+    }
+]
