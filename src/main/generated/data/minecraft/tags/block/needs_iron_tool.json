@@ -1,5 +1,6 @@
 {
   "values": [
+    "galacticraft:vacuum_glass_strong",
     "galacticraft:reinforced_launch_pad",
     "galacticraft:gantry_truss",
     "galacticraft:gantry_crane_rail",
@@ -11,6 +12,8 @@
     "galacticraft:fallen_meteor",
     "galacticraft:lunar_sapphire_ore",
     "galacticraft:silicon_block",
+    "galacticraft:lunar_sapphire_block",
+    "galacticraft:mercury_shock_breccia",
     "galacticraft:jupiter_metallic_hydrogen_rock",
     "galacticraft:jupiter_core_breccia",
     "galacticraft:saturn_helium_mantle_rock",
