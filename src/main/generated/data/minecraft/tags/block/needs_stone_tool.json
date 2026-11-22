@@ -45,6 +45,18 @@
     "galacticraft:uranus_aluminum_ore",
     "galacticraft:neptune_copper_ore",
     "galacticraft:neptune_tin_ore",
-    "galacticraft:neptune_iron_ore"
+    "galacticraft:neptune_iron_ore",
+    "galacticraft:mercury_compacted_regolith",
+    "galacticraft:mercury_hollow_deposit",
+    "galacticraft:mercury_basalt",
+    "galacticraft:mercury_graphite_rock",
+    "galacticraft:mercury_basalt_brick",
+    "galacticraft:mercury_aluminum_ore",
+    "galacticraft:mercury_copper_ore",
+    "galacticraft:mercury_native_iron_ore",
+    "galacticraft:mercury_graphite_ore",
+    "galacticraft:mercury_sulfide_ore",
+    "galacticraft:meteoric_iron_door",
+    "galacticraft:olivine_block"
   ]
 }

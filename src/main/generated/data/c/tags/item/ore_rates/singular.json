@@ -12,6 +12,17 @@
     "galacticraft:desh_ore",
     "galacticraft:ilmenite_ore",
     "galacticraft:galena_ore",
-    "galacticraft:solar_ore"
+    "galacticraft:solar_ore",
+    "galacticraft:mercury_aluminum_ore",
+    "galacticraft:mercury_titanium_ore",
+    "galacticraft:mercury_native_iron_ore",
+    "galacticraft:jupiter_iron_ore",
+    "galacticraft:jupiter_aluminum_ore",
+    "galacticraft:saturn_iron_ore",
+    "galacticraft:saturn_titanium_ore",
+    "galacticraft:uranus_aluminum_ore",
+    "galacticraft:uranus_titanium_ore",
+    "galacticraft:neptune_iron_ore",
+    "galacticraft:neptune_titanium_ore"
   ]
 }

@@ -496,6 +496,12 @@ public class GCMiscRecipeProvider extends FabricRecipeProvider {
                 .unlockedBy(getHasName(GCItems.MOON_CHEESE_WHEEL), has(GCItems.MOON_CHEESE_WHEEL))
                 .emiDefaultRecipe(true)
                 .save(output);
+
+        GCShapelessRecipeBuilder.crafting(RecipeCategory.MISC, GCBlocks.PARACHEST)
+                .requires(ConventionalItemTags.CHESTS)
+                .requires(GCItemTags.PARACHUTES)
+                .unlockedBy("has_parachute", has(GCItemTags.PARACHUTES))
+                .save(output);
     }
 
     @Override

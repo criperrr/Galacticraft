@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.5,
+  "group": "olivine_shard",
+  "ingredient": {
+    "item": "galacticraft:olivine_basalt"
+  },
+  "result": {
+    "id": "galacticraft:olivine_shard"
+  }
+}

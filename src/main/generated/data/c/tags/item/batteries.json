@@ -1,6 +1,7 @@
 {
   "values": [
     "galacticraft:battery",
-    "galacticraft:infinite_battery"
+    "galacticraft:infinite_battery",
+    "galacticraft:atomic_battery"
   ]
 }

@@ -389,6 +389,8 @@ public class GCModelProvider extends FabricModelProvider {
 
         // DUMMY
         generator.createAirLikeBlock(GCBlocks.SOLAR_PANEL_PART, GCItems.BLUE_SOLAR_WAFER);
+        generator.createAirLikeBlock(GCBlocks.BOSS_SPAWNER, Blocks.SPAWNER.asItem());
+        generator.delegateItemModel(GCBlocks.BOSS_SPAWNER, ModelLocationUtils.getModelLocation(Blocks.SPAWNER));
 
         // MISC MACHINES
 //        generator.createNonTemplateModelBlock(GCBlocks.CRYOGENIC_CHAMBER);

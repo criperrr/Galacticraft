@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_fallen_meteor": {
+      "conditions": {
+        "items": [
+          {
+            "items": "galacticraft:fallen_meteor"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "galacticraft:meteoric_iron_ingot_from_blasting_fallen_meteor"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_fallen_meteor"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "galacticraft:meteoric_iron_ingot_from_blasting_fallen_meteor"
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "galacticraft:copper_ingot_from_blasting_uranus_copper_ore"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_uranus_copper_ore": {
+      "conditions": {
+        "items": [
+          {
+            "items": "galacticraft:uranus_copper_ore"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_uranus_copper_ore"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "galacticraft:copper_ingot_from_blasting_uranus_copper_ore"
+    ]
+  }
+}

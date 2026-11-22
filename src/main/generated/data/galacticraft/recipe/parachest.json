@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "c:chests"
+    },
+    {
+      "tag": "galacticraft:parachutes"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:parachest"
+  }
+}

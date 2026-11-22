@@ -1,5 +1,8 @@
 {
   "values": [
-    "galacticraft:dense_ice"
+    "galacticraft:dense_ice",
+    "galacticraft:uranus_methane_ice",
+    "galacticraft:neptune_nitrogen_ice",
+    "galacticraft:saturn_ring_ice_rock"
   ]
 }

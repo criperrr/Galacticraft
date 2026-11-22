@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "galacticraft:mercury_basalt"
+  },
+  "result": {
+    "count": 1,
+    "id": "galacticraft:mercury_basalt_brick"
+  }
+}
