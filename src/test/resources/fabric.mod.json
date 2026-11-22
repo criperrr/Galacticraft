@@ -48,7 +48,9 @@
       "dev.galacticraft.mod.gametest.VenusTestSuite",
       "dev.galacticraft.mod.gametest.machine.GeothermalGeneratorTestSuite",
       "dev.galacticraft.mod.gametest.PipeTestSuite",
-      "dev.galacticraft.mod.gametest.WireTestSuite"
+      "dev.galacticraft.mod.gametest.WireTestSuite",
+      "dev.galacticraft.mod.gametest.MultiblockPlatformTestSuite",
+      "dev.galacticraft.mod.gametest.ModularRocketPartTestSuite"
     ]
   },
   "custom": {

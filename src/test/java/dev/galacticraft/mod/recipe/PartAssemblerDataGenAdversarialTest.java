@@ -352,8 +352,8 @@ class PartAssemblerDataGenAdversarialTest {
     class TagsAndStatsValidation {
 
         @Test
-        @DisplayName("rocket_schematics.json tag contains all 9 registered schematics")
-        void rocketSchematicsTag_containsAllNineSchematics() throws Exception {
+        @DisplayName("rocket_schematics.json tag contains all 15 registered schematics (9 legacy + 6 modular)")
+        void rocketSchematicsTag_containsAllSchematics() throws Exception {
             Path tagPath = GENERATED_TAGS_DIR.resolve("rocket_schematics.json");
             assertTrue(Files.exists(tagPath), "Missing rocket_schematics.json tag file at " + tagPath);
 
@@ -364,7 +364,7 @@ class PartAssemblerDataGenAdversarialTest {
             assertTrue(tagJson.isJsonObject());
             JsonArray values = tagJson.getAsJsonObject().getAsJsonArray("values");
             assertNotNull(values, "Tag must have 'values' array");
-            assertEquals(9, values.size(), "Tag must contain exactly 9 schematics");
+            assertEquals(15, values.size(), "Tag must contain all 15 schematics (9 legacy + 6 modular)");
 
             List<String> schematicIds = new ArrayList<>();
             values.forEach(v -> schematicIds.add(v.getAsString()));
@@ -378,6 +378,12 @@ class PartAssemblerDataGenAdversarialTest {
             assertTrue(schematicIds.contains("galacticraft:cargo_rocket_schematic"));
             assertTrue(schematicIds.contains("galacticraft:moon_buggy_schematic"));
             assertTrue(schematicIds.contains("galacticraft:astro_miner_schematic"));
+            assertTrue(schematicIds.contains("galacticraft:part_schematic_command"));
+            assertTrue(schematicIds.contains("galacticraft:part_schematic_engine"));
+            assertTrue(schematicIds.contains("galacticraft:part_schematic_tank"));
+            assertTrue(schematicIds.contains("galacticraft:part_schematic_adapter"));
+            assertTrue(schematicIds.contains("galacticraft:part_schematic_payload"));
+            assertTrue(schematicIds.contains("galacticraft:part_schematic_utility"));
         }
 
         @Test
