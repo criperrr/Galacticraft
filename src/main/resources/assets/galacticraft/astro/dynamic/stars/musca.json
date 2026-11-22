@@ -1,0 +1,84 @@
+[
+    {
+        "type": "star",
+        "id": "hip-61585",
+        "primary": "star",
+        "aliases": [
+            "alf-mus",
+            "alpha-muscae"
+        ],
+        "M": -2.16,
+        "B": -0.8,
+        "temp": 12859,
+        "diameter": 7009786,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 189.295906,
+            "de": -69.135565,
+            "plx": 10.76
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-62322",
+        "primary": "star",
+        "aliases": [
+            "bet-mus",
+            "beta-muscae"
+        ],
+        "M": -1.7,
+        "B": -0.8,
+        "temp": 16716,
+        "diameter": 3357851,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 191.570024,
+            "de": -68.10812,
+            "plx": 10.06
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-57363",
+        "primary": "star",
+        "aliases": [
+            "lam-mus",
+            "lambda-muscae"
+        ],
+        "M": 0.62,
+        "B": -0.8,
+        "temp": 8249,
+        "diameter": 4728064,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 176.401746,
+            "de": -66.72876,
+            "plx": 25.11,
+            "pmra": -100.48,
+            "pmde": 34.52
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-61199",
+        "primary": "star",
+        "aliases": [
+            "gam-mus",
+            "gamma-muscae"
+        ],
+        "M": -1.16,
+        "B": -0.8,
+        "temp": 12197,
+        "diameter": 4922856,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 188.116716,
+            "de": -72.132986,
+            "plx": 10.01
+        }
+    }
+]

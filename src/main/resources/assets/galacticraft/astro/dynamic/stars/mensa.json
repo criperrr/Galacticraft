@@ -1,0 +1,44 @@
+[
+    {
+        "type": "star",
+        "id": "hip-25918",
+        "primary": "star",
+        "aliases": [
+            "gam-men",
+            "gamma-mensae"
+        ],
+        "M": 2.67,
+        "B": -0.8,
+        "temp": 4417,
+        "diameter": 6435404,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 82.970648,
+            "de": -76.340973,
+            "plx": 31.55,
+            "pmra": 118.88,
+            "pmde": 284.14
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-21949",
+        "primary": "star",
+        "aliases": [
+            "mu-men",
+            "mu-mensae"
+        ],
+        "M": -0.31,
+        "B": -0.8,
+        "temp": 11743,
+        "diameter": 3581654,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 70.766511,
+            "de": -70.931028,
+            "plx": 6.84
+        }
+    }
+]

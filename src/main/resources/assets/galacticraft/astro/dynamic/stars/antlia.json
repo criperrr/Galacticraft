@@ -1,0 +1,42 @@
+[
+    {
+        "type": "star",
+        "id": "hip-51172",
+        "primary": "star",
+        "aliases": [
+            "alf-ant",
+            "alpha-antliae"
+        ],
+        "M": -1.01,
+        "B": -0.8,
+        "temp": 3784,
+        "diameter": 47595740,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 156.787925,
+            "de": -31.067777,
+            "plx": 8.81
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-48926",
+        "primary": "star",
+        "aliases": [
+            "eta-ant",
+            "eta-antliae"
+        ],
+        "M": 2.65,
+        "B": -0.8,
+        "temp": 7386,
+        "diameter": 2315805,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 149.717816,
+            "de": -35.890973,
+            "plx": 30.56
+        }
+    }
+]

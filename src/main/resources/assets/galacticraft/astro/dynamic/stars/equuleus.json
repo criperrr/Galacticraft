@@ -1,0 +1,96 @@
+[
+    {
+        "type": "star",
+        "id": "hip-104987",
+        "primary": "star",
+        "aliases": [
+            "alf-equ",
+            "alpha-equulei",
+            "8-equ",
+            "8-equulei"
+        ],
+        "M": 0.16,
+        "B": -0.8,
+        "temp": 6149,
+        "diameter": 10544807,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 318.955955,
+            "de": 5.247859,
+            "plx": 17.54,
+            "pmra": 55.47,
+            "pmde": -88.29
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-104858",
+        "primary": "star",
+        "aliases": [
+            "del-equ",
+            "delta-equulei",
+            "7-equ",
+            "7-equulei"
+        ],
+        "M": 3.13,
+        "B": -0.8,
+        "temp": 6299,
+        "diameter": 2554462,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 318.620059,
+            "de": 10.00698,
+            "plx": 53.58,
+            "pmra": 40.43,
+            "pmde": -303.76
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-104521",
+        "primary": "star",
+        "aliases": [
+            "gam-equ",
+            "gamma-equulei",
+            "5-equ",
+            "5-equulei"
+        ],
+        "M": 1.94,
+        "B": -0.8,
+        "temp": 7405,
+        "diameter": 3202019,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 317.585427,
+            "de": 10.131578,
+            "plx": 28.07,
+            "pmra": 52.86,
+            "pmde": -152.38
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-105570",
+        "primary": "star",
+        "aliases": [
+            "bet-equ",
+            "beta-equulei",
+            "10-equ",
+            "10-equulei"
+        ],
+        "M": -0.09,
+        "B": -0.8,
+        "temp": 9266,
+        "diameter": 5215271,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 320.723385,
+            "de": 6.81114,
+            "plx": 8.93
+        }
+    }
+]

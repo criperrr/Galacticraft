@@ -1,0 +1,100 @@
+[
+    {
+        "type": "star",
+        "id": "hip-9884",
+        "primary": "star",
+        "aliases": [
+            "hamal",
+            "alf-ari",
+            "alpha-arietis",
+            "13-ari",
+            "13-arietis"
+        ],
+        "M": 0.48,
+        "B": -0.8,
+        "temp": 4354,
+        "diameter": 18137287,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 31.793361,
+            "de": 23.46242,
+            "plx": 49.4,
+            "pmra": 189.99,
+            "pmde": -147.08
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-8903",
+        "primary": "star",
+        "aliases": [
+            "bet-ari",
+            "beta-arietis",
+            "6-ari",
+            "6-arietis"
+        ],
+        "M": 1.36,
+        "B": -0.8,
+        "temp": 8321,
+        "diameter": 3312393,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 28.660035,
+            "de": 20.808033,
+            "plx": 55.06,
+            "pmra": 95.01,
+            "pmde": -109.66
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-13209",
+        "primary": "star",
+        "aliases": [
+            "41-ari",
+            "41-arietis"
+        ],
+        "M": 0.17,
+        "B": -0.8,
+        "temp": 11391,
+        "diameter": 3054901,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 42.495973,
+            "de": 27.260508,
+            "plx": 20.56,
+            "pmra": 67.25,
+            "pmde": -116.19
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-8832",
+        "primary": "star",
+        "aliases": [
+            "gam01-ari",
+            "gamma1-arietis",
+            "gamma-arietis",
+            "gam02-ari",
+            "gamma2-arietis",
+            "5-ari",
+            "5-arietis"
+        ],
+        "M": 0.61,
+        "B": -0.8,
+        "temp": 10277,
+        "diameter": 3060159,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 28.38256,
+            "de": 19.293852,
+            "plx": 15.96,
+            "pmra": 79.41,
+            "pmde": -99.08
+        }
+    }
+]

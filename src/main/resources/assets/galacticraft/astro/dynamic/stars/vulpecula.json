@@ -1,0 +1,46 @@
+[
+    {
+        "type": "star",
+        "id": "hip-95771",
+        "primary": "star",
+        "aliases": [
+            "alf-vul",
+            "alpha-vulpeculae",
+            "6-vul",
+            "6-vulpeculae"
+        ],
+        "M": -0.4,
+        "B": -0.8,
+        "temp": 3728,
+        "diameter": 37057073,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 292.176373,
+            "de": 24.664907,
+            "plx": 10.77,
+            "pmra": -126.94,
+            "pmde": -106.04
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-98543",
+        "primary": "star",
+        "aliases": [
+            "15-vul",
+            "15-vulpeculae"
+        ],
+        "M": 0.45,
+        "B": -0.8,
+        "temp": 8132,
+        "diameter": 5258541,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 300.275202,
+            "de": 27.753574,
+            "plx": 14.47
+        }
+    }
+]

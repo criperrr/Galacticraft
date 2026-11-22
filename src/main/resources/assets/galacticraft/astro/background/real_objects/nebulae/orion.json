@@ -1,0 +1,10 @@
+{
+    "id": "orion",
+    "type": "nebula",
+    "texture": "galacticraft:astro/deepsky/orion",
+    "right_ascension": {"h": 5, "m": 35, "s": 16.8},
+    "declination": {"d": -5, "m": 23, "s": 24},
+    "width": {"m": 45},
+    "height": {"m": 60},
+    "magnitude": 3.0
+}

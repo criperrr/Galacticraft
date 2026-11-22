@@ -24,6 +24,8 @@ package dev.galacticraft.mod.client.render.dimension;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import dev.galacticraft.mod.client.render.astro.AstroSkyEngine;
+import dev.galacticraft.mod.client.render.astro.AstroSkyRenderer;
 import dev.galacticraft.mod.client.render.dimension.star.CelestialBodyRendererManager;
 import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
@@ -45,10 +47,14 @@ public class SpaceSkyRenderer implements DimensionRenderingRegistry.SkyRenderer 
         RenderSystem.depthMask(false);
 
         context.profiler().push("stars");
-        matrices.pushPose();
-        StarManager.rotateForCelestialAngle(matrices, celestialAngle);
-        this.starManager.render(matrices, context.projectionMatrix(), context.world(), partialTicks, 0.9F);
-        matrices.popPose();
+        if (AstroSkyEngine.isInitialized()) {
+            AstroSkyRenderer.renderSpaceDimensionSky(matrices, context.projectionMatrix(), 1.0F, false);
+        } else {
+            matrices.pushPose();
+            StarManager.rotateForCelestialAngle(matrices, celestialAngle);
+            this.starManager.render(matrices, context.projectionMatrix(), context.world(), partialTicks, 0.9F);
+            matrices.popPose();
+        }
         context.profiler().pop();
 
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);

@@ -1,0 +1,64 @@
+[
+    {
+        "type": "star",
+        "id": "hip-82273",
+        "primary": "star",
+        "aliases": [
+            "alf-tra",
+            "alpha-trianguli-australis"
+        ],
+        "M": -3.72,
+        "B": -0.8,
+        "temp": 3784,
+        "diameter": 165985070,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 252.166222,
+            "de": -69.027715,
+            "plx": 7.48
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-77952",
+        "primary": "star",
+        "aliases": [
+            "bet-tra",
+            "beta-trianguli-australis"
+        ],
+        "M": 2.38,
+        "B": -0.8,
+        "temp": 7252,
+        "diameter": 2727181,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 238.785669,
+            "de": -63.430724,
+            "plx": 81.33,
+            "pmra": -189.69,
+            "pmde": -400.94
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-74946",
+        "primary": "star",
+        "aliases": [
+            "gam-tra",
+            "gamma-trianguli-australis"
+        ],
+        "M": -0.88,
+        "B": -0.8,
+        "temp": 9674,
+        "diameter": 6873502,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 229.727422,
+            "de": -68.679544,
+            "plx": 17.73
+        }
+    }
+]

@@ -1,0 +1,10 @@
+{
+    "id": "bodes",
+    "type": "galaxy",
+    "texture": "galacticraft:astro/deepsky/bodes",
+    "right_ascension": {"h": 9, "m": 55, "s": 33},
+    "declination": {"d": 69, "m": 3, "s": 55},
+    "magnitude": 6.9,
+    "width": {"m": 27},
+    "height": {"m": 14}
+}

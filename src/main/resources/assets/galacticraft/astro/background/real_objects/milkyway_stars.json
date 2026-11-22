@@ -1,0 +1,15 @@
+{
+    "id": "milkyway_stars",
+    "type": "compact_star_file",
+    "data": "galacticraft:real_objects/milkyway_stars",
+    "magnitude": 5,
+    "magnitudeLimit": 12,
+
+    "color_palette": [
+        -0.5, 0.0, 0.2, 0.5, 0.75, 1.1, 1.7, 2.8
+    ],
+
+    "right_ascension_scatter": 0.01,
+    "declination_scatter": 0.01,
+    "magnitude_scatter": 0.1
+}

@@ -1,0 +1,214 @@
+[
+    {
+        "type": "star",
+        "id": "hip-69673",
+        "primary": "star",
+        "aliases": [
+            "arcturus",
+            "alf-boo",
+            "alpha-bo\u00f6tis",
+            "16-boo",
+            "16-bo\u00f6tis"
+        ],
+        "M": -0.3,
+        "B": -0.8,
+        "temp": 4396,
+        "diameter": 25492961,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 213.9153,
+            "de": 19.182413,
+            "plx": 89.01,
+            "pmra": -1093.45,
+            "pmde": -1998.4
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-72105",
+        "primary": "star",
+        "aliases": [
+            "izar",
+            "eps-boo",
+            "epsilon-bo\u00f6tis",
+            "36-boo",
+            "36-bo\u00f6tis"
+        ],
+        "M": -1.55,
+        "B": -0.8,
+        "temp": 4427,
+        "diameter": 44735369,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 221.246745,
+            "de": 27.074221,
+            "plx": 15.55
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-67927",
+        "primary": "star",
+        "aliases": [
+            "eta-boo",
+            "eta-bo\u00f6tis",
+            "8-boo",
+            "8-bo\u00f6tis"
+        ],
+        "M": 2.42,
+        "B": -0.8,
+        "temp": 5897,
+        "diameter": 4050090,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 208.671155,
+            "de": 18.397716,
+            "plx": 88.81,
+            "pmra": -63.49,
+            "pmde": -358.63
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-71075",
+        "primary": "star",
+        "aliases": [
+            "gam-boo",
+            "gamma-bo\u00f6tis",
+            "27-boo",
+            "27-bo\u00f6tis"
+        ],
+        "M": 0.93,
+        "B": -0.8,
+        "temp": 7967,
+        "diameter": 4404267,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 218.019466,
+            "de": 38.308254,
+            "plx": 37.99,
+            "pmra": -115.59,
+            "pmde": 152.36
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-74666",
+        "primary": "star",
+        "aliases": [
+            "del-boo",
+            "delta-bo\u00f6tis",
+            "49-boo",
+            "49-bo\u00f6tis"
+        ],
+        "M": 0.69,
+        "B": -0.8,
+        "temp": 4843,
+        "diameter": 13327816,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 228.875681,
+            "de": 33.314832,
+            "plx": 27.79,
+            "pmra": 85.34,
+            "pmde": -111.23
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-73555",
+        "primary": "star",
+        "aliases": [
+            "bet-boo",
+            "beta-bo\u00f6tis",
+            "42-boo",
+            "42-bo\u00f6tis"
+        ],
+        "M": -0.65,
+        "B": -0.8,
+        "temp": 4845,
+        "diameter": 24603030,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 225.486507,
+            "de": 40.390568,
+            "plx": 14.97
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-71053",
+        "primary": "star",
+        "aliases": [
+            "rho-boo",
+            "rho-bo\u00f6tis",
+            "25-boo",
+            "25-bo\u00f6tis"
+        ],
+        "M": 0.21,
+        "B": -0.8,
+        "temp": 4058,
+        "diameter": 23622796,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 217.957457,
+            "de": 30.371436,
+            "plx": 21.28,
+            "pmra": -100.94,
+            "pmde": 119.62
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-71795",
+        "primary": "star",
+        "aliases": [
+            "zet-boo",
+            "zeta-bo\u00f6tis",
+            "30-boo",
+            "30-bo\u00f6tis"
+        ],
+        "M": 0.15,
+        "B": -0.8,
+        "temp": 9685,
+        "diameter": 4268432,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 220.287103,
+            "de": 13.728417,
+            "plx": 18.03
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-67459",
+        "primary": "star",
+        "aliases": [
+            "ups-boo",
+            "upsilon-bo\u00f6tis",
+            "5-boo",
+            "5-bo\u00f6tis"
+        ],
+        "M": -0.34,
+        "B": -0.8,
+        "temp": 3702,
+        "diameter": 36540121,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 207.369338,
+            "de": 15.797906,
+            "plx": 13.31,
+            "pmra": -93.63,
+            "pmde": 41.38
+        }
+    }
+]

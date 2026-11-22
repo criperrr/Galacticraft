@@ -1,0 +1,122 @@
+[
+    {
+        "type": "star",
+        "id": "hip-4427",
+        "primary": "star",
+        "aliases": [
+            "gam-cas",
+            "gamma-cassiopeiae",
+            "27-cas",
+            "27-cassiopeiae"
+        ],
+        "M": -4.21,
+        "B": -0.8,
+        "temp": 10695,
+        "diameter": 26021102,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 14.177217,
+            "de": 60.71674,
+            "plx": 5.3
+        },
+        "variability": {
+            "type": "scatter",
+            "amplitude": 0.7
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-3179",
+        "primary": "star",
+        "aliases": [
+            "shedir",
+            "alf-cas",
+            "alpha-cassiopeiae",
+            "18-cas",
+            "18-cassiopeiae"
+        ],
+        "M": -2.07,
+        "B": -0.8,
+        "temp": 4326,
+        "diameter": 59461519,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 10.126842,
+            "de": 56.537332,
+            "plx": 13.73
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-746",
+        "primary": "star",
+        "aliases": [
+            "caph",
+            "bet-cas",
+            "beta-cassiopeiae",
+            "11-cas",
+            "11-cassiopeiae"
+        ],
+        "M": 1.15,
+        "B": -0.8,
+        "temp": 6906,
+        "diameter": 5289645,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 2.294538,
+            "de": 59.14978,
+            "plx": 59.75,
+            "pmra": 527.04,
+            "pmde": -180.39
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-6686",
+        "primary": "star",
+        "aliases": [
+            "del-cas",
+            "delta-cassiopeiae",
+            "37-cas",
+            "37-cassiopeiae"
+        ],
+        "M": 0.25,
+        "B": -0.8,
+        "temp": 8353,
+        "diameter": 5486986,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 21.453976,
+            "de": 60.235283,
+            "plx": 32.77,
+            "pmra": 298.92,
+            "pmde": -49.75
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-8886",
+        "primary": "star",
+        "aliases": [
+            "eps-cas",
+            "epsilon-cassiopeiae",
+            "45-cas",
+            "45-cassiopeiae"
+        ],
+        "M": -2.34,
+        "B": -0.8,
+        "temp": 11956,
+        "diameter": 8827365,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 28.598858,
+            "de": 63.6701,
+            "plx": 7.28
+        }
+    }
+]

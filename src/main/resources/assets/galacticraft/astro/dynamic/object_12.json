@@ -1,0 +1,20 @@
+[
+    {
+        "type": "artificial",
+        "id": "object-12",
+        "primary": "sun.earth",
+        "aliases": [
+            "object-12"
+        ],
+        "position": {
+            "type": "orbit",
+            "a": 0.0013586429175,
+            "T": 0.00748,
+            "e": 0.968,
+            "i": 5.12
+        },
+        "diameter": 0.01,
+        "albedo": 0.8,
+        "bvi": 0.936
+    }
+]

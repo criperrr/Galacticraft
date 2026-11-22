@@ -1,0 +1,136 @@
+[
+    {
+        "type": "planet",
+        "id": "d",
+        "primary": "star.hip-70890",
+        "aliases": [
+            "proxima-d",
+            "proxima-centauri-d",
+            "alpha-centauri-cd"
+        ],
+        "diameter": 10321,
+        "albedo": 0.1,
+        "bvi": 0.6,
+        "position": {
+            "type": "orbit",
+            "a": 0.02885,
+            "T": 0.01402,
+            "e": 0.05,
+            "w": 180
+        }
+    },
+    {
+        "type": "planet",
+        "id": "b",
+        "primary": "star.hip-70890",
+        "aliases": [
+            "proxima-b",
+            "proxima-centauri-b",
+            "alpha-centauri-cb"
+        ],
+        "diameter": 15290,
+        "albedo": 0.2,
+        "bvi": 1.0,
+        "position": {
+            "type": "orbit",
+            "a": 0.0486,
+            "T": 0.030627,
+            "e": 0.02,
+            "w": 0
+        }
+    },
+    {
+        "type": "planet",
+        "id": "c",
+        "primary": "star.hip-70890",
+        "aliases": [
+            "proxima-c",
+            "proxima-centauri-c",
+            "alpha-centauri-cc"
+        ],
+        "diameter": 33000,
+        "albedo": 0.6,
+        "bvi": -0.2,
+        "model": "smooth",
+        "position": {
+            "type": "orbit",
+            "a": 1.489,
+            "T": 5.278685,
+            "e": 0.04,
+            "w": 30
+        }
+    },
+
+    {
+        "type": "planet",
+        "id": "d",
+        "primary": "star.hip-87937",
+        "aliases": [
+            "barnard's-d",
+            "barnard's-star-d"
+        ],
+        "diameter": 8200,
+        "albedo": 0.12,
+        "bvi": 0.9,
+        "position": {
+            "type": "orbit",
+            "a": 0.0188,
+            "T": 0.00641,
+            "e": 0.04
+        }
+    },
+    {
+        "type": "planet",
+        "id": "b",
+        "primary": "star.hip-87937",
+        "aliases": [
+            "barnard's-b",
+            "barnard's-star-b"
+        ],
+        "diameter": 8530,
+        "albedo": 0.2,
+        "bvi": 0.2,
+        "position": {
+            "type": "orbit",
+            "a": 0.0229,
+            "T": 0.00864,
+            "e": 0.03
+        }
+    },
+    {
+        "type": "planet",
+        "id": "c",
+        "primary": "star.hip-87937",
+        "aliases": [
+            "barnard's-c",
+            "barnard's-star-c"
+        ],
+        "diameter": 8859,
+        "albedo": 0.26,
+        "bvi": 0.7,
+        "position": {
+            "type": "orbit",
+            "a": 0.0274,
+            "T": 0.01129,
+            "e": 0.08
+        }
+    },
+    {
+        "type": "planet",
+        "id": "e",
+        "primary": "star.hip-87937",
+        "aliases": [
+            "barnard's-e",
+            "barnard's-star-e"
+        ],
+        "diameter": 7371,
+        "albedo": 0.16,
+        "bvi": 1.2,
+        "position": {
+            "type": "orbit",
+            "a": 0.0381,
+            "T": 0.01845,
+            "e": 0.04
+        }
+    }
+]

@@ -1,0 +1,151 @@
+[
+    {
+        "type": "star",
+        "id": "hip-37447",
+        "primary": "star",
+        "aliases": [
+            "alf-mon",
+            "alpha-monocerotis",
+            "26-mon",
+            "26-monocerotis"
+        ],
+        "M": 0.71,
+        "B": -0.8,
+        "temp": 4660,
+        "diameter": 14237802,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 115.311804,
+            "de": -9.55113,
+            "plx": 22.63
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-29651",
+        "primary": "star",
+        "aliases": [
+            "gam-mon",
+            "gamma-monocerotis",
+            "5-mon",
+            "5-monocerotis"
+        ],
+        "M": -2.42,
+        "B": -0.8,
+        "temp": 4006,
+        "diameter": 81466889,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 93.713888,
+            "de": -6.274775,
+            "plx": 5.26
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-34769",
+        "primary": "star",
+        "aliases": [
+            "del-mon",
+            "delta-monocerotis",
+            "22-mon",
+            "22-monocerotis"
+        ],
+        "M": -1.17,
+        "B": -0.8,
+        "temp": 9965,
+        "diameter": 7409946,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 107.966083,
+            "de": -0.492766,
+            "plx": 8.64
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-39863",
+        "primary": "star",
+        "aliases": [
+            "zet-mon",
+            "zeta-monocerotis",
+            "29-mon",
+            "29-monocerotis"
+        ],
+        "M": -4.38,
+        "B": -0.8,
+        "temp": 4818,
+        "diameter": 138909629,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 122.148537,
+            "de": -2.983787,
+            "plx": 1.79
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-30419",
+        "primary": "star",
+        "aliases": [
+            "eps-mon-a",
+            "epsilon-monocerotis-a",
+            "8-mon-a",
+            "8-monocerotis-a"
+        ],
+        "M": 1.42,
+        "B": -0.8,
+        "temp": 8086,
+        "diameter": 3409841,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 95.942031,
+            "de": 4.592867,
+            "plx": 25.31
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-30867",
+        "primary": "star",
+        "aliases": [
+            "bet-mon",
+            "beta-monocerotis",
+            "11-mon",
+            "11-monocerotis"
+        ],
+        "M": -2.09,
+        "B": -0.8,
+        "temp": 11796,
+        "diameter": 8051541,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 97.204458,
+            "de": -7.033062,
+            "plx": 4.55
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-29151",
+        "primary": "star",
+        "aliases": [],
+        "M": -0.88,
+        "B": -0.8,
+        "temp": 9225,
+        "diameter": 7556941,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 92.24127,
+            "de": 2.499697,
+            "plx": 4.88
+        }
+    }
+]

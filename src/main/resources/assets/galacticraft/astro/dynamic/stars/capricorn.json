@@ -1,0 +1,211 @@
+[
+    {
+        "type": "star",
+        "id": "hip-107556",
+        "primary": "star",
+        "aliases": [
+            "del-cap",
+            "delta-capricorni",
+            "49-cap",
+            "49-capricorni"
+        ],
+        "M": 2.48,
+        "B": -0.8,
+        "temp": 7324,
+        "diameter": 2548370,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 326.760189,
+            "de": -16.127286,
+            "plx": 84.58,
+            "pmra": 263.82,
+            "pmde": -296.26
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-100345",
+        "primary": "star",
+        "aliases": [
+            "bet-cap",
+            "beta-capricorni",
+            "bet01-cap",
+            "beta1-capricorni",
+            "beta-capricorni",
+            "9-cap",
+            "9-capricorni"
+        ],
+        "M": -2.02,
+        "B": -0.8,
+        "temp": 5372,
+        "diameter": 37645546,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 305.252801,
+            "de": -14.7814,
+            "plx": 9.56
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-100064",
+        "primary": "star",
+        "aliases": [
+            "alf02-cap",
+            "alpha2-capricorni",
+            "6-cap",
+            "6-capricorni"
+        ],
+        "M": 0.99,
+        "B": -0.8,
+        "temp": 4858,
+        "diameter": 11534761,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 304.513569,
+            "de": -12.544849,
+            "plx": 30.39
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-106985",
+        "primary": "star",
+        "aliases": [
+            "gam-cap",
+            "gamma-capricorni",
+            "40-cap",
+            "40-capricorni"
+        ],
+        "M": 0.65,
+        "B": -0.8,
+        "temp": 7106,
+        "diameter": 6283830,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 325.022741,
+            "de": -16.662308,
+            "plx": 24.89,
+            "pmra": 189.8,
+            "pmde": -22.37
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-105881",
+        "primary": "star",
+        "aliases": [
+            "zet-cap",
+            "zeta-capricorni",
+            "34-cap",
+            "34-capricorni"
+        ],
+        "M": -1.65,
+        "B": -0.8,
+        "temp": 4735,
+        "diameter": 40815177,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 321.666781,
+            "de": -22.411333,
+            "plx": 8.36
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-104139",
+        "primary": "star",
+        "aliases": [
+            "the-cap",
+            "the-capricorni",
+            "23-cap",
+            "23-capricorni"
+        ],
+        "M": 0.62,
+        "B": -0.8,
+        "temp": 9788,
+        "diameter": 3368602,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 316.486791,
+            "de": -17.232857,
+            "plx": 20.4,
+            "pmra": 82.59,
+            "pmde": -60.22
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-102978",
+        "primary": "star",
+        "aliases": [
+            "ome-cap",
+            "omega-capricorni",
+            "18-cap",
+            "18-capricorni"
+        ],
+        "M": -2.43,
+        "B": -0.8,
+        "temp": 3610,
+        "diameter": 100704495,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 312.955384,
+            "de": -26.919131,
+            "plx": 4.92
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-102485",
+        "primary": "star",
+        "aliases": [
+            "psi-cap",
+            "psi-capricorni",
+            "16-cap",
+            "16-capricorni"
+        ],
+        "M": 3.3,
+        "B": -0.8,
+        "temp": 6644,
+        "diameter": 2120259,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 311.52389,
+            "de": -25.270897,
+            "plx": 68.08,
+            "pmra": -50.43,
+            "pmde": -156.5
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-105515",
+        "primary": "star",
+        "aliases": [
+            "iot-cap",
+            "iota-capricorni",
+            "32-cap",
+            "32-capricorni"
+        ],
+        "M": 0.2,
+        "B": -0.8,
+        "temp": 5007,
+        "diameter": 15590742,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 320.561653,
+            "de": -16.834543,
+            "plx": 15.23
+        }
+    }
+]

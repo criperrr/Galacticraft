@@ -1,0 +1,346 @@
+[
+    {
+        "type": "star",
+        "id": "hip-87833",
+        "primary": "star",
+        "aliases": [
+            "etamin",
+            "gam-dra",
+            "gamma-draconis",
+            "33-dra",
+            "33-draconis"
+        ],
+        "M": -1.06,
+        "B": -0.8,
+        "temp": 3684,
+        "diameter": 51460887,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 269.15154,
+            "de": 51.488901,
+            "plx": 21.98
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-80331",
+        "primary": "star",
+        "aliases": [
+            "eta-dra",
+            "eta-draconis",
+            "14-dra",
+            "14-draconis"
+        ],
+        "M": 0.57,
+        "B": -0.8,
+        "temp": 4946,
+        "diameter": 13486324,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 245.997858,
+            "de": 61.514214,
+            "plx": 37.08
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-85670",
+        "primary": "star",
+        "aliases": [
+            "bet-dra",
+            "beta-draconis",
+            "23-dra",
+            "23-draconis"
+        ],
+        "M": -2.52,
+        "B": -0.8,
+        "temp": 4833,
+        "diameter": 58527181,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 262.608172,
+            "de": 52.301392,
+            "plx": 8.68
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-94376",
+        "primary": "star",
+        "aliases": [
+            "del-dra",
+            "delta-draconis",
+            "57-dra",
+            "57-draconis"
+        ],
+        "M": 0.63,
+        "B": -0.8,
+        "temp": 4721,
+        "diameter": 14404074,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 288.138753,
+            "de": 67.661542,
+            "plx": 32.49,
+            "pmra": 94.97,
+            "pmde": 92.76
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-83895",
+        "primary": "star",
+        "aliases": [
+            "zet-dra",
+            "zeta-draconis",
+            "22-dra",
+            "22-draconis"
+        ],
+        "M": -1.89,
+        "B": -0.8,
+        "temp": 11589,
+        "diameter": 7620963,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 257.196649,
+            "de": 65.714687,
+            "plx": 9.71
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-75458",
+        "primary": "star",
+        "aliases": [
+            "iot-dra",
+            "iota-draconis",
+            "12-dra",
+            "12-draconis"
+        ],
+        "M": 0.81,
+        "B": -0.8,
+        "temp": 4330,
+        "diameter": 15707284,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 231.232392,
+            "de": 58.966065,
+            "plx": 31.87
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-89937",
+        "primary": "star",
+        "aliases": [
+            "chi-dra",
+            "chi-draconis",
+            "44-dra",
+            "44-draconis"
+        ],
+        "M": 4.03,
+        "B": -0.8,
+        "temp": 6295,
+        "diameter": 1688935,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 275.264149,
+            "de": 72.732847,
+            "plx": 124.19,
+            "pmra": 537.8,
+            "pmde": -350.07
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-68756",
+        "primary": "star",
+        "aliases": [
+            "thuban",
+            "alf-dra",
+            "alpha-draconis",
+            "11-dra",
+            "11-draconis"
+        ],
+        "M": -1.27,
+        "B": -0.8,
+        "temp": 10421,
+        "diameter": 7093950,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 211.097295,
+            "de": 64.375852,
+            "plx": 10.39
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-87585",
+        "primary": "star",
+        "aliases": [
+            "ksi-dra",
+            "ksi-draconis",
+            "32-dra",
+            "32-draconis"
+        ],
+        "M": 1.06,
+        "B": -0.8,
+        "temp": 4314,
+        "diameter": 14148964,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 268.382206,
+            "de": 56.872644,
+            "plx": 29.21,
+            "pmra": 93.66,
+            "pmde": 78.73
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-56211",
+        "primary": "star",
+        "aliases": [
+            "lam-dra",
+            "lambda-draconis",
+            "1-dra",
+            "1-draconis"
+        ],
+        "M": -1.19,
+        "B": -0.8,
+        "temp": 3635,
+        "diameter": 56066342,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 172.850926,
+            "de": 69.331078,
+            "plx": 10.0
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-97433",
+        "primary": "star",
+        "aliases": [
+            "eps-dra",
+            "epsilon-draconis",
+            "63-dra",
+            "63-draconis"
+        ],
+        "M": 0.63,
+        "B": -0.8,
+        "temp": 5012,
+        "diameter": 12786969,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 297.043129,
+            "de": 70.267931,
+            "plx": 22.38
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-61281",
+        "primary": "star",
+        "aliases": [
+            "kap-dra",
+            "kappa-draconis",
+            "5-dra",
+            "5-draconis"
+        ],
+        "M": -2.18,
+        "B": -0.8,
+        "temp": 11831,
+        "diameter": 8352973,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 188.370593,
+            "de": 69.788238,
+            "plx": 6.13
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-78527",
+        "primary": "star",
+        "aliases": [
+            "the-dra",
+            "the-draconis",
+            "13-dra",
+            "13-draconis"
+        ],
+        "M": 2.39,
+        "B": -0.8,
+        "temp": 6141,
+        "diameter": 3778391,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 240.472267,
+            "de": 58.565252,
+            "plx": 47.7,
+            "pmra": -321.63,
+            "pmde": 335.29
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-94648",
+        "primary": "star",
+        "aliases": [
+            "tau-dra",
+            "tau-draconis",
+            "60-dra",
+            "60-draconis"
+        ],
+        "M": 1.13,
+        "B": -0.8,
+        "temp": 4139,
+        "diameter": 14887009,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 288.887579,
+            "de": 73.355474,
+            "plx": 21.68,
+            "pmra": -134.86,
+            "pmde": 106.68
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-85829",
+        "primary": "star",
+        "aliases": [
+            "nu02-dra",
+            "nu2-draconis",
+            "25-dra",
+            "25-draconis"
+        ],
+        "M": 2.4,
+        "B": -0.8,
+        "temp": 7367,
+        "diameter": 2609579,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 263.066783,
+            "de": 55.172953,
+            "plx": 32.38,
+            "pmra": 145.89,
+            "pmde": 60.22
+        }
+    }
+]

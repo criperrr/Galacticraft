@@ -1,0 +1,51 @@
+[
+    {
+        "type": "star",
+        "id": "hip-63125",
+        "primary": "star",
+        "aliases": [
+            "cor-caroli",
+            "alf02-cvn",
+            "alpha2-canum-venaticorum",
+            "12-cvn-a",
+            "12-canum-venaticorum-a"
+        ],
+        "M": 0.19,
+        "B": -0.8,
+        "temp": 10823,
+        "diameter": 3345694,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 194.006942,
+            "de": 38.318383,
+            "plx": 29.1,
+            "pmra": -235.1,
+            "pmde": 56.31
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-61317",
+        "primary": "star",
+        "aliases": [
+            "bet-cvn",
+            "beta-canum-venaticorum",
+            "8-cvn",
+            "8-canum-venaticorum"
+        ],
+        "M": 4.63,
+        "B": -0.8,
+        "temp": 5944,
+        "diameter": 1440110,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 188.4356,
+            "de": 41.357479,
+            "plx": 119.38,
+            "pmra": -705.91,
+            "pmde": 292.73
+        }
+    }
+]

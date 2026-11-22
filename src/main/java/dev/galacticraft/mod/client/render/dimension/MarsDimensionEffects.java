@@ -51,11 +51,20 @@ public class MarsDimensionEffects extends GalacticDimensionEffects {
     @Override
     public Vec3 getFogColor(ClientLevel level, float partialTicks, Vec3 cameraPos, CubicSampler.Vec3Fetcher fetcher) {
         float daylightFactor = 1.0F - getStarBrightness(level, partialTicks);
-        return new Vec3(
-                (210.0 / 255.0) * daylightFactor,
-                (120.0 / 255.0) * daylightFactor,
-                (59.0 / 255.0) * daylightFactor
-        );
+        float r = (210.0F / 255.0F) * daylightFactor;
+        float g = (120.0F / 255.0F) * daylightFactor;
+        float b = (59.0F / 255.0F) * daylightFactor;
+        if (cameraPos.y() > dev.galacticraft.mod.Constant.ATMOSPHERE_FADE_START) {
+            float progress = Mth.clamp(
+                    (float) ((cameraPos.y() - dev.galacticraft.mod.Constant.ATMOSPHERE_FADE_START)
+                            / (double) (dev.galacticraft.mod.Constant.ATMOSPHERE_EXIT_END - dev.galacticraft.mod.Constant.ATMOSPHERE_FADE_START)),
+                    0.0F,
+                    1.0F
+            );
+            float alpha = 1.0F - progress * progress * (3.0F - 2.0F * progress);
+            return new Vec3(r * alpha, g * alpha, b * alpha);
+        }
+        return new Vec3(r, g, b);
     }
 
     @Override

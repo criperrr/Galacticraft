@@ -1,0 +1,165 @@
+[
+    {
+        "type": "star",
+        "id": "hip-76267",
+        "primary": "star",
+        "aliases": [
+            "alphekka",
+            "alf-crb",
+            "alpha-coronae-borealis",
+            "5-crb",
+            "5-coronae-borealis"
+        ],
+        "M": 0.4,
+        "B": -0.8,
+        "temp": 9652,
+        "diameter": 3829177,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 233.671953,
+            "de": 26.714694,
+            "plx": 43.43,
+            "pmra": 121.18,
+            "pmde": -89.08
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-75695",
+        "primary": "star",
+        "aliases": [
+            "bet-crb",
+            "beta-coronae-borealis",
+            "3-crb",
+            "3-coronae-borealis"
+        ],
+        "M": 0.9,
+        "B": -0.8,
+        "temp": 7306,
+        "diameter": 5307045,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 231.957214,
+            "de": 29.105701,
+            "plx": 28.11,
+            "pmra": -180.69,
+            "pmde": 86.23
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-76952",
+        "primary": "star",
+        "aliases": [
+            "gam-crb",
+            "gamma-coronae-borealis",
+            "8-crb",
+            "8-coronae-borealis"
+        ],
+        "M": 0.58,
+        "B": -0.8,
+        "temp": 9800,
+        "diameter": 3409860,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 235.685693,
+            "de": 26.295634,
+            "plx": 22.59,
+            "pmra": -110.55,
+            "pmde": 49.18
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-78159",
+        "primary": "star",
+        "aliases": [
+            "eps-crb",
+            "epsilon-coronae-borealis",
+            "13-crb",
+            "13-coronae-borealis"
+        ],
+        "M": -0.14,
+        "B": -0.8,
+        "temp": 4192,
+        "diameter": 26051191,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 239.396882,
+            "de": 26.877877,
+            "plx": 13.97
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-76127",
+        "primary": "star",
+        "aliases": [
+            "the-crb",
+            "the-coronae-borealis",
+            "4-crb",
+            "4-coronae-borealis"
+        ],
+        "M": -0.73,
+        "B": -0.8,
+        "temp": 11884,
+        "diameter": 4241623,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 233.232427,
+            "de": 31.359134,
+            "plx": 10.55
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-77512",
+        "primary": "star",
+        "aliases": [
+            "del-crb",
+            "delta-coronae-borealis",
+            "10-crb",
+            "10-coronae-borealis"
+        ],
+        "M": 1.09,
+        "B": -0.8,
+        "temp": 5323,
+        "diameter": 9163933,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 237.398529,
+            "de": 26.068394,
+            "plx": 19.93,
+            "pmra": -78.72,
+            "pmde": -63.86
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-78493",
+        "primary": "star",
+        "aliases": [
+            "iot-crb",
+            "iota-coronae-borealis",
+            "14-crb",
+            "14-coronae-borealis"
+        ],
+        "M": -0.2,
+        "B": -0.8,
+        "temp": 10737,
+        "diameter": 4085638,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 240.360688,
+            "de": 29.851061,
+            "plx": 9.21
+        }
+    }
+]

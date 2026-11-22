@@ -1,0 +1,299 @@
+[
+    {
+        "type": "star",
+        "id": "hip-80763",
+        "primary": "star",
+        "aliases": [
+            "antares",
+            "alf-sco",
+            "alpha-scorpii",
+            "21-sco",
+            "21-scorpii"
+        ],
+        "M": -4.7,
+        "B": -0.8,
+        "temp": 3348,
+        "diameter": 333788438,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 247.351924,
+            "de": -26.431997,
+            "plx": 7.0
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-85927",
+        "primary": "star",
+        "aliases": [
+            "shaula",
+            "lam-sco",
+            "lambda-scorpii",
+            "35-sco",
+            "35-scorpii"
+        ],
+        "M": -5.11,
+        "B": -0.8,
+        "temp": 12817,
+        "diameter": 27405756,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 263.402179,
+            "de": -37.103821,
+            "plx": 4.51
+        },
+        "variability": {
+            "type": "scatter",
+            "period": 0.2136966,
+            "amplitude": 0.78
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-86228",
+        "primary": "star",
+        "aliases": [
+            "the-sco",
+            "the-scorpii"
+        ],
+        "M": -2.7,
+        "B": -0.8,
+        "temp": 6605,
+        "diameter": 34148224,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 264.329731,
+            "de": -42.997826,
+            "plx": 12.27
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-82396",
+        "primary": "star",
+        "aliases": [
+            "eps-sco",
+            "epsilon-scorpii",
+            "26-sco",
+            "26-scorpii"
+        ],
+        "M": 0.75,
+        "B": -0.8,
+        "temp": 4352,
+        "diameter": 16044222,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 252.540886,
+            "de": -34.29323,
+            "plx": 49.84,
+            "pmra": -612.19,
+            "pmde": -255.32
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-78401",
+        "primary": "star",
+        "aliases": [
+            "del-sco",
+            "delta-scorpii",
+            "7-sco",
+            "7-scorpii"
+        ],
+        "M": -3.19,
+        "B": -0.8,
+        "temp": 11294,
+        "diameter": 14633561,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 240.083355,
+            "de": -22.621691,
+            "plx": 8.0
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-86670",
+        "primary": "star",
+        "aliases": [
+            "kap-sco",
+            "kappa-scorpii"
+        ],
+        "M": -3.37,
+        "B": -0.8,
+        "temp": 12838,
+        "diameter": 12255197,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 265.62198,
+            "de": -39.029984,
+            "plx": 7.09
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-78820",
+        "primary": "star",
+        "aliases": [
+            "bet01-sco",
+            "beta1-scorpii",
+            "beta-scorpii",
+            "8-sco-a",
+            "8-scorpii-a"
+        ],
+        "M": -3.61,
+        "B": -0.8,
+        "temp": 11015,
+        "diameter": 18591406,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 241.359297,
+            "de": -19.805441,
+            "plx": 5.71
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-81266",
+        "primary": "star",
+        "aliases": [
+            "tau-sco",
+            "tau-scorpii",
+            "23-sco",
+            "23-scorpii"
+        ],
+        "M": -2.8,
+        "B": -0.8,
+        "temp": 13584,
+        "diameter": 8423268,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 248.970639,
+            "de": -28.216014,
+            "plx": 7.53
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-78265",
+        "primary": "star",
+        "aliases": [
+            "pi-sco",
+            "pi-scorpii",
+            "6-sco",
+            "6-scorpii"
+        ],
+        "M": -2.92,
+        "B": -0.8,
+        "temp": 12508,
+        "diameter": 10492146,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 239.712972,
+            "de": -26.114104,
+            "plx": 6.92
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-82514",
+        "primary": "star",
+        "aliases": [
+            "mu01-sco",
+            "mu1-scorpii",
+            "mu-scorpii"
+        ],
+        "M": -3.39,
+        "B": -0.8,
+        "temp": 12859,
+        "diameter": 12326880,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 252.967631,
+            "de": -38.047382,
+            "plx": 5.3
+        },
+        "variability": {
+            "type": "eclipse",
+            "duration": 14,
+            "period": 1.44626907,
+            "epoch": 2432001.045,
+            "secondary": 0.5,
+            "amplitude": 0.28
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-87073",
+        "primary": "star",
+        "aliases": [
+            "iot01-sco",
+            "iota1-scorpii",
+            "iota-scorpii"
+        ],
+        "M": -5.66,
+        "B": -0.8,
+        "temp": 6282,
+        "diameter": 147176745,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 266.896171,
+            "de": -40.126998,
+            "plx": 1.85
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-84143",
+        "primary": "star",
+        "aliases": [
+            "eta-sco",
+            "eta-scorpii"
+        ],
+        "M": 1.62,
+        "B": -0.8,
+        "temp": 6669,
+        "diameter": 4575202,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 258.038307,
+            "de": -43.23919,
+            "plx": 45.77,
+            "pmra": 22.29,
+            "pmde": -287.67
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-82671",
+        "primary": "star",
+        "aliases": [
+            "zet01-sco",
+            "zeta1-scorpii",
+            "zeta-scorpii"
+        ],
+        "M": -5.24,
+        "B": -0.8,
+        "temp": 6595,
+        "diameter": 109981164,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 253.498867,
+            "de": -42.362025,
+            "plx": 1
+        }
+    }
+]

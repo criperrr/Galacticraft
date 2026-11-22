@@ -1,0 +1,165 @@
+[
+    {
+        "type": "star",
+        "id": "hip-11767",
+        "primary": "star",
+        "aliases": [
+            "polaris",
+            "alf-umi",
+            "alpha-ursae-minoris",
+            "1-umi",
+            "1-ursae-minoris"
+        ],
+        "M": -3.59,
+        "B": -1.8,
+        "temp": 5837,
+        "diameter": 65776033,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 37.957867,
+            "de": 89.264105,
+            "plx": 7.65
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-72607",
+        "primary": "star",
+        "aliases": [
+            "kocab",
+            "bet-umi",
+            "beta-ursae-minoris",
+            "7-umi",
+            "7-ursae-minoris"
+        ],
+        "M": -0.86,
+        "B": -0.8,
+        "temp": 3725,
+        "diameter": 45975666,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 222.676358,
+            "de": 74.155505,
+            "plx": 25.98
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-75097",
+        "primary": "star",
+        "aliases": [
+            "gam-umi",
+            "gamma-ursae-minoris",
+            "13-umi",
+            "13-ursae-minoris"
+        ],
+        "M": -2.78,
+        "B": -0.8,
+        "temp": 9266,
+        "diameter": 17990725,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 230.182139,
+            "de": 71.834019,
+            "plx": 6.92
+        },
+        "variability": {
+            "type": "scatter",
+            "period": 0.143009,
+            "amplitude": 1.49
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-82080",
+        "primary": "star",
+        "aliases": [
+            "eps-umi",
+            "epsilon-ursae-minoris",
+            "22-umi",
+            "22-ursae-minoris"
+        ],
+        "M": -0.92,
+        "B": -0.8,
+        "temp": 5009,
+        "diameter": 26061458,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 251.492671,
+            "de": 82.037258,
+            "plx": 9.43
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-77055",
+        "primary": "star",
+        "aliases": [
+            "zet-umi",
+            "zeta-ursae-minoris",
+            "16-umi",
+            "16-ursae-minoris"
+        ],
+        "M": -1.0,
+        "B": -0.8,
+        "temp": 9444,
+        "diameter": 7614669,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 236.014658,
+            "de": 77.794495,
+            "plx": 8.81
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-85822",
+        "primary": "star",
+        "aliases": [
+            "del-umi",
+            "delta-ursae-minoris",
+            "23-umi",
+            "23-ursae-minoris"
+        ],
+        "M": 0.61,
+        "B": -0.8,
+        "temp": 9585,
+        "diameter": 3531113,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 263.054127,
+            "de": 86.586462,
+            "plx": 17.89
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-79822",
+        "primary": "star",
+        "aliases": [
+            "eta-umi",
+            "eta-ursae-minoris",
+            "21-umi",
+            "21-ursae-minoris"
+        ],
+        "M": 2.58,
+        "B": -0.8,
+        "temp": 6906,
+        "diameter": 2733266,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 244.376209,
+            "de": 75.755325,
+            "plx": 33.61,
+            "pmra": -88.98,
+            "pmde": 255.42
+        }
+    }
+]

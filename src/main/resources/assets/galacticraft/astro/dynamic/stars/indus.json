@@ -1,0 +1,64 @@
+[
+    {
+        "type": "star",
+        "id": "hip-101772",
+        "primary": "star",
+        "aliases": [
+            "alf-ind",
+            "alpha-indii"
+        ],
+        "M": 0.63,
+        "B": -0.8,
+        "temp": 4730,
+        "diameter": 14306042,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 309.39181,
+            "de": -47.291502,
+            "plx": 32.06
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-103227",
+        "primary": "star",
+        "aliases": [
+            "bet-ind",
+            "beta-indii"
+        ],
+        "M": -2.71,
+        "B": -0.8,
+        "temp": 4164,
+        "diameter": 86064050,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 313.702508,
+            "de": -58.454156,
+            "plx": 5.36
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-105319",
+        "primary": "star",
+        "aliases": [
+            "the-ind",
+            "the-indii"
+        ],
+        "M": 2.11,
+        "B": -0.8,
+        "temp": 8257,
+        "diameter": 2376842,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 319.966618,
+            "de": -53.449427,
+            "plx": 33.58,
+            "pmra": 106.68,
+            "pmde": -67.04
+        }
+    }
+]

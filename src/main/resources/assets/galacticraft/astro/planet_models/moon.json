@@ -1,0 +1,6 @@
+{
+    "parent": "template/rocky-phases",
+    "renderer": "MOON",
+    "texture": "minecraft:textures/environment/moon_phases.png",
+    "refColor": 12832229
+}

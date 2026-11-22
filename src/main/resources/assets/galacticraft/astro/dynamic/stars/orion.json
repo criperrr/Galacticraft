@@ -1,0 +1,461 @@
+[
+    {
+        "type": "star",
+        "id": "hip-24436",
+        "primary": "star",
+        "aliases": [
+            "rigel",
+            "bet-ori",
+            "beta-orionis",
+            "19-ori",
+            "19-orionis"
+        ],
+        "M": -6.77,
+        "B": -0.8,
+        "temp": 9663,
+        "diameter": 103626243,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 78.634463,
+            "de": -8.201642,
+            "plx": 3.92
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-27989",
+        "primary": "star",
+        "aliases": [
+            "betelgeuse",
+            "alf-ori",
+            "alpha-orionis",
+            "58-ori",
+            "58-orionis"
+        ],
+        "M": -4.57,
+        "B": -1.0,
+        "temp": 3440,
+        "diameter": 2969297760,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 88.792932,
+            "de": 7.407059,
+            "plx": 9.51
+        },
+        "variability": {
+            "type": "scatter",
+            "period": 2335.0,
+            "amplitude": 0.8
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-25336",
+        "primary": "star",
+        "aliases": [
+            "bellatrix",
+            "gam-ori",
+            "gamma-orionis",
+            "24-ori",
+            "24-orionis"
+        ],
+        "M": -2.68,
+        "B": -0.8,
+        "temp": 13010,
+        "diameter": 8712845,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 81.282762,
+            "de": 6.349702,
+            "plx": 13.64
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-26311",
+        "primary": "star",
+        "aliases": [
+            "alnilam",
+            "eps-ori",
+            "epsilon-orionis",
+            "46-ori",
+            "46-orionis"
+        ],
+        "M": -6.18,
+        "B": -0.8,
+        "temp": 12197,
+        "diameter": 49551248,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 84.053388,
+            "de": -1.201921,
+            "plx": 2.65
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-26727",
+        "primary": "star",
+        "aliases": [
+            "alnitak",
+            "zet-ori",
+            "zeta-orionis",
+            "50-ori",
+            "50-orionis"
+        ],
+        "M": -5.1,
+        "B": -0.8,
+        "temp": 11589,
+        "diameter": 33380102,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 85.189696,
+            "de": -1.942572,
+            "plx": 3.99
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-27366",
+        "primary": "star",
+        "aliases": [
+            "saiph",
+            "kap-ori",
+            "kappa-orionis",
+            "53-ori",
+            "53-orionis"
+        ],
+        "M": -4.68,
+        "B": -0.8,
+        "temp": 11778,
+        "diameter": 26633647,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 86.939118,
+            "de": -9.669607,
+            "plx": 4.51
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-25930",
+        "primary": "star",
+        "aliases": [
+            "mintaka",
+            "del-ori",
+            "delta-orionis",
+            "34-ori",
+            "34-orionis"
+        ],
+        "M": -4.88,
+        "B": -0.8,
+        "temp": 14008,
+        "diameter": 20654562,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 83.001668,
+            "de": -0.299095,
+            "plx": 3.71
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-22449",
+        "primary": "star",
+        "aliases": [
+            "pi03-ori",
+            "pi3-orionis",
+            "1-ori",
+            "1-orionis"
+        ],
+        "M": 3.66,
+        "B": -0.8,
+        "temp": 6443,
+        "diameter": 1914829,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 72.460046,
+            "de": 6.961275,
+            "plx": 124.48,
+            "pmra": 464.16,
+            "pmde": 11.53
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-26207",
+        "primary": "star",
+        "aliases": [
+            "lam-ori",
+            "lambda-orionis",
+            "39-ori",
+            "39-orionis"
+        ],
+        "M": -4.03,
+        "B": -0.8,
+        "temp": 13054,
+        "diameter": 16111001,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 83.784487,
+            "de": 9.934158,
+            "plx": 3.07
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-22549",
+        "primary": "star",
+        "aliases": [
+            "pi04-ori",
+            "pi4-orionis",
+            "3-ori",
+            "3-orionis"
+        ],
+        "M": -4.01,
+        "B": -0.8,
+        "temp": 12568,
+        "diameter": 17234538,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 72.80152,
+            "de": 5.605104,
+            "plx": 2.9
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-28614",
+        "primary": "star",
+        "aliases": [
+            "mu-ori",
+            "mu-orionis",
+            "61-ori",
+            "61-orionis"
+        ],
+        "M": 0.78,
+        "B": -0.8,
+        "temp": 8875,
+        "diameter": 3807952,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 90.59587,
+            "de": 9.647392,
+            "plx": 21.47
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-22509",
+        "primary": "star",
+        "aliases": [
+            "pi02-ori",
+            "pi2-orionis",
+            "2-ori",
+            "2-orionis"
+        ],
+        "M": 0.47,
+        "B": -0.8,
+        "temp": 9777,
+        "diameter": 3604108,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 72.653006,
+            "de": 8.900172,
+            "plx": 16.8
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-27913",
+        "primary": "star",
+        "aliases": [
+            "chi01-ori",
+            "chi1-orionis",
+            "chi-orionis",
+            "54-ori",
+            "54-orionis"
+        ],
+        "M": 4.71,
+        "B": -0.8,
+        "temp": 5936,
+        "diameter": 1389358,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 88.59573,
+            "de": 20.276188,
+            "plx": 115.73,
+            "pmra": -174.8,
+            "pmde": -93.52
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-29038",
+        "primary": "star",
+        "aliases": [
+            "nu-ori",
+            "nu-orionis",
+            "67-ori",
+            "67-orionis"
+        ],
+        "M": -1.78,
+        "B": -0.8,
+        "temp": 12508,
+        "diameter": 6229188,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 91.893023,
+            "de": 14.768472,
+            "plx": 5.78
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-29426",
+        "primary": "star",
+        "aliases": [
+            "ksi-ori",
+            "ksi-orionis",
+            "70-ori",
+            "70-orionis"
+        ],
+        "M": -2.13,
+        "B": -0.8,
+        "temp": 12671,
+        "diameter": 7120408,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 92.984986,
+            "de": 14.208764,
+            "plx": 4.84
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-23123",
+        "primary": "star",
+        "aliases": [
+            "pi06-ori",
+            "pi6-orionis",
+            "10-ori",
+            "10-orionis"
+        ],
+        "M": -2.98,
+        "B": -0.8,
+        "temp": 3892,
+        "diameter": 111600844,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 74.637091,
+            "de": 1.714019,
+            "plx": 3.25
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-28716",
+        "primary": "star",
+        "aliases": [
+            "chi02-ori",
+            "chi2-orionis",
+            "62-ori",
+            "62-orionis"
+        ],
+        "M": -5.36,
+        "B": -0.8,
+        "temp": 7837,
+        "diameter": 82539387,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 90.979938,
+            "de": 20.13845,
+            "plx": 1
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-22845",
+        "primary": "star",
+        "aliases": [
+            "pi01-ori",
+            "pi1-orionis",
+            "pi-orionis",
+            "7-ori",
+            "7-orionis"
+        ],
+        "M": 1.83,
+        "B": -0.8,
+        "temp": 9056,
+        "diameter": 2251695,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 73.723866,
+            "de": 10.150833,
+            "plx": 27.32,
+            "pmra": 39.9,
+            "pmde": -128.44
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-29434",
+        "primary": "star",
+        "aliases": [
+            "f01-ori",
+            "f1-orionis",
+            "f-orionis",
+            "69-ori",
+            "69-orionis"
+        ],
+        "M": -2.13,
+        "B": -0.8,
+        "temp": 12159,
+        "diameter": 7743754,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 93.013664,
+            "de": 16.130404,
+            "plx": 3.83
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-22730",
+        "primary": "star",
+        "aliases": [
+            "5-ori",
+            "5-orionis"
+        ],
+        "M": -1.06,
+        "B": -0.8,
+        "temp": 3657,
+        "diameter": 52267875,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 73.344887,
+            "de": 2.508225,
+            "plx": 5.26
+        }
+    }
+]

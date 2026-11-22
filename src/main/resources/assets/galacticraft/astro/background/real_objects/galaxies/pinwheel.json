@@ -1,0 +1,10 @@
+{
+    "id": "pinwheel",
+    "type": "galaxy",
+    "texture": "galacticraft:astro/deepsky/pinwheel",
+    "right_ascension": {"h": 14, "m": 3, "s": 12.6},
+    "declination": {"d": 53, "m": 20, "s": 56},
+    "magnitude": 7.9,
+    "width": {"m": 28},
+    "height": {"m": 22}
+}

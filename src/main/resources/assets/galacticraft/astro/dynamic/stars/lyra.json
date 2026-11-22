@@ -1,0 +1,125 @@
+[
+    {
+        "type": "star",
+        "id": "hip-91262",
+        "primary": "star",
+        "aliases": [
+            "vega",
+            "alf-lyr",
+            "alpha-lyrae",
+            "3-lyr",
+            "3-lyrae"
+        ],
+        "M": 0.63,
+        "B": -0.8,
+        "temp": 10867,
+        "diameter": 2721412,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 279.234738,
+            "de": 38.78369,
+            "plx": 128.91,
+            "pmra": 201.91,
+            "pmde": 286.58
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-93194",
+        "primary": "star",
+        "aliases": [
+            "gam-lyr",
+            "gamma-lyrae",
+            "14-lyr",
+            "14-lyrae"
+        ],
+        "M": -3.4,
+        "B": -0.8,
+        "temp": 10461,
+        "diameter": 18759347,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 284.735928,
+            "de": 32.689558,
+            "plx": 4.69
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-92420",
+        "primary": "star",
+        "aliases": [
+            "sheliak",
+            "bet-lyr",
+            "beta-lyrae",
+            "10-lyr",
+            "10-lyrae"
+        ],
+        "M": -3.52,
+        "B": -0.8,
+        "temp": 9708,
+        "diameter": 23037702,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 282.519982,
+            "de": 33.362669,
+            "plx": 3.75
+        },
+        "variability": {
+            "type": "eclipse",
+            "duration": 14,
+            "period": 12.913834,
+            "epoch": 2408247.95,
+            "secondary": 0.5,
+            "amplitude": 1.11
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-92791",
+        "primary": "star",
+        "aliases": [
+            "del02-lyr",
+            "delta2-lyrae",
+            "12-lyr",
+            "12-lyrae"
+        ],
+        "M": -2.78,
+        "B": -0.8,
+        "temp": 3685,
+        "diameter": 113658204,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 283.626182,
+            "de": 36.898613,
+            "plx": 3.86
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-91971",
+        "primary": "star",
+        "aliases": [
+            "zet01-lyr",
+            "zeta1-lyrae",
+            "zeta-lyrae",
+            "6-lyr",
+            "6-lyrae"
+        ],
+        "M": 0.93,
+        "B": -0.8,
+        "temp": 7974,
+        "diameter": 4401698,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 281.193155,
+            "de": 37.605114,
+            "plx": 20.87
+        }
+    }
+]

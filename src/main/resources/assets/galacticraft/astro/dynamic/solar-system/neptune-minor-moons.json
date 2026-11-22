@@ -1,0 +1,380 @@
+[
+    {
+        "type": "asteroid",
+        "id": "naiad",
+        "primary": "sun.neptune",
+        "aliases": [
+            "naiad",
+            "s/1989 n6",
+            "neptune iii"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.000322197238,
+            "T": 0.0008049449377415338,
+            "e": 0.0,
+            "i": 4.74,
+            "n": 49.0,
+            "w": 36.7,
+            "M": 334.9
+        },
+        "H": 9.383310085000002,
+        "G": 0.15,
+        "bvi": 0.77
+    },
+    {
+        "type": "asteroid",
+        "id": "thalassa",
+        "primary": "sun.neptune",
+        "aliases": [
+            "thalassa",
+            "s/1989 n5",
+            "neptune iv"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.000334897959,
+            "T": 0.0008514893729170647,
+            "e": 0.0,
+            "i": 0.205,
+            "n": 90.2,
+            "w": 316.3,
+            "M": 193.6
+        },
+        "H": 8.683310084999999,
+        "G": 0.15,
+        "bvi": 0.77
+    },
+    {
+        "type": "asteroid",
+        "id": "despina",
+        "primary": "sun.neptune",
+        "aliases": [
+            "despina",
+            "s/1989 n3",
+            "neptune v"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.000350940975,
+            "T": 0.0009171991637531083,
+            "e": 0.0,
+            "i": 0.065,
+            "n": 154.9,
+            "w": 331.1,
+            "M": 319.6
+        },
+        "H": 7.283310085,
+        "G": 0.15,
+        "bvi": 0.77
+    },
+    {
+        "type": "asteroid",
+        "id": "galatea",
+        "primary": "sun.neptune",
+        "aliases": [
+            "galatea",
+            "s/1989 n4",
+            "neptune vi"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.00041444458,
+            "T": 0.0011745625111942788,
+            "e": 0.0,
+            "i": 0.054,
+            "n": 112.5,
+            "w": 107.4,
+            "M": 187.1
+        },
+        "H": 7.283310085,
+        "G": 0.15,
+        "bvi": 0.77
+    },
+    {
+        "type": "asteroid",
+        "id": "larissa",
+        "primary": "sun.neptune",
+        "aliases": [
+            "larissa",
+            "s/1989 n2",
+            "neptune vii"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.000491317365,
+            "T": 0.0015195389130835079,
+            "e": 0.001,
+            "i": 0.201,
+            "n": 10.3,
+            "w": 139.9,
+            "M": 34.9
+        },
+        "H": 6.783310085,
+        "G": 0.15,
+        "bvi": 0.77
+    },
+    {
+        "type": "asteroid",
+        "id": "hippocamp",
+        "primary": "sun.neptune",
+        "aliases": [
+            "hippocamp",
+            "s/2004 n1",
+            "neptune xiv"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.000703887327,
+            "T": 0.002601012553926725,
+            "e": 0.0,
+            "i": 0.0,
+            "n": 0.0,
+            "w": 0.0,
+            "M": 0.0
+        },
+        "H": 11.783310085,
+        "G": 0.15,
+        "bvi": 0.77
+    },
+    {
+        "type": "asteroid",
+        "id": "proteus",
+        "primary": "sun.neptune",
+        "aliases": [
+            "proteus",
+            "s/1989 n1",
+            "neptune viii"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.000786107784,
+            "T": 0.0030719327215850377,
+            "e": 0.0,
+            "i": 0.039,
+            "n": 150.3,
+            "w": 309.5,
+            "M": 114.2
+        },
+        "H": 5.283310085,
+        "G": 0.15,
+        "bvi": 0.77
+    },
+    {
+        "type": "asteroid",
+        "id": "triton",
+        "primary": "sun.neptune",
+        "aliases": [
+            "triton",
+            "neptune i"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.002371692532,
+            "T": 0.016098898754830678,
+            "e": 0.0,
+            "i": 156.8,
+            "n": 172.4,
+            "w": 344.0,
+            "M": 264.8
+        },
+        "H": -1.716689915,
+        "G": 0.15,
+        "bvi": 0.77
+    },
+    {
+        "type": "asteroid",
+        "id": "nereid",
+        "primary": "sun.neptune",
+        "aliases": [
+            "nereid",
+            "neptune ii"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.036854818506,
+            "T": 0.9859206533358039,
+            "e": 0.751,
+            "i": 7.23,
+            "n": 334.8,
+            "w": 280.8,
+            "M": 359.3
+        },
+        "H": 4.483310084999999,
+        "G": 0.15,
+        "bvi": 0.77
+    },
+    {
+        "type": "asteroid",
+        "id": "halimede",
+        "primary": "sun.neptune",
+        "aliases": [
+            "halimede",
+            "s/2002 n1",
+            "neptune ix"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.10513523152,
+            "T": 5.146445576437963,
+            "e": 0.571,
+            "i": 134.1,
+            "n": 202.7,
+            "w": 159.5,
+            "M": 96.8
+        },
+        "H": 9.783310085,
+        "G": 0.15,
+        "bvi": 0.77
+    },
+    {
+        "type": "asteroid",
+        "id": "sao",
+        "primary": "sun.neptune",
+        "aliases": [
+            "sao",
+            "s/2002 n2",
+            "neptune xi"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.14988187698,
+            "T": 7.978537561471441,
+            "e": 0.293,
+            "i": 48.51,
+            "n": 58.9,
+            "w": 19.5,
+            "M": 129.4
+        },
+        "H": 10.683310084999999,
+        "G": 0.15,
+        "bvi": 0.77
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2002-n5",
+        "primary": "sun.neptune",
+        "aliases": [
+            "s/2002 n5"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.156419406,
+            "T": 8.600042666462354,
+            "e": 0.548,
+            "i": 42.13,
+            "n": 274.1,
+            "w": 62.7,
+            "M": 105.5
+        },
+        "H": 11.183310084999999,
+        "G": 0.15,
+        "bvi": 0.77
+    },
+    {
+        "type": "asteroid",
+        "id": "laomedeia",
+        "primary": "sun.neptune",
+        "aliases": [
+            "laomedeia",
+            "s/2002 n3",
+            "neptune xii"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.15756247089,
+            "T": 8.673418599562602,
+            "e": 0.424,
+            "i": 34.74,
+            "n": 53.5,
+            "w": 138.0,
+            "M": 321.1
+        },
+        "H": 10.683310084999999,
+        "G": 0.15,
+        "bvi": 0.77
+    },
+    {
+        "type": "asteroid",
+        "id": "psamathe",
+        "primary": "sun.neptune",
+        "aliases": [
+            "psamathe",
+            "s/2003 n1",
+            "neptune x"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.31213693005,
+            "T": 24.9584950950954,
+            "e": 0.45,
+            "i": 137.4,
+            "n": 301.0,
+            "w": 145.9,
+            "M": 206.2
+        },
+        "H": 10.883310085000002,
+        "G": 0.15,
+        "bvi": 0.77
+    },
+    {
+        "type": "asteroid",
+        "id": "neso",
+        "primary": "sun.neptune",
+        "aliases": [
+            "neso",
+            "s/2002 n4",
+            "neptune xiii"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.32344725633,
+            "T": 25.66514913737802,
+            "e": 0.495,
+            "i": 132.6,
+            "n": 49.9,
+            "w": 89.3,
+            "M": 269.8
+        },
+        "H": 9.883310085000002,
+        "G": 0.15,
+        "bvi": 0.77
+    },
+    {
+        "type": "asteroid",
+        "id": "s_2021-n1",
+        "primary": "sun.neptune",
+        "aliases": [
+            "s/2021 n1"
+        ],
+        "position": {
+            "type": "orbit",
+            "epoch": 2451545,
+            "a": 0.3393097884,
+            "T": 27.43055218450639,
+            "e": 0.44,
+            "i": 134.5,
+            "n": 264.1,
+            "w": 100.8,
+            "M": 86.3
+        },
+        "H": 12.283310085,
+        "G": 0.15,
+        "bvi": 0.77
+    }
+]

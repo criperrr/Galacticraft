@@ -1,0 +1,46 @@
+[
+    {
+        "type": "star",
+        "id": "hip-49641",
+        "primary": "star",
+        "aliases": [
+            "alf-sex",
+            "alpha-sextantis",
+            "15-sex",
+            "15-sextantis"
+        ],
+        "M": -0.24,
+        "B": -0.8,
+        "temp": 10368,
+        "diameter": 4444964,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 151.984514,
+            "de": -0.371646,
+            "plx": 11.43
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-51437",
+        "primary": "star",
+        "aliases": [
+            "bet-sex",
+            "beta-sextantis",
+            "30-sex",
+            "30-sextantis"
+        ],
+        "M": -0.08,
+        "B": -0.8,
+        "temp": 11920,
+        "diameter": 3124361,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 157.572834,
+            "de": -0.637034,
+            "plx": 9.38
+        }
+    }
+]

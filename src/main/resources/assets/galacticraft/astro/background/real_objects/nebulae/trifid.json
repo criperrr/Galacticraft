@@ -1,0 +1,10 @@
+{
+    "id": "trifid",
+    "type": "nebula",
+    "texture": "galacticraft:astro/deepsky/trifid",
+    "right_ascension": {"h": 18, "m": 2, "s": 23},
+    "declination": {"d": -23, "m": -1, "s": -48},
+    "width": {"m": 28},
+    "height": {"m": 28},
+    "magnitude": 6.3
+}

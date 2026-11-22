@@ -1,0 +1,4 @@
+{
+    "phases": "galacticraft:textures/astro/planets/rocky-phases.png",
+    "phaseCurveCoefficients": [0.0, 0.06328, -0.0016336, 0.000033644, -0.00000034265, 0.0000000016893, -0.0000000000030334]
+}
