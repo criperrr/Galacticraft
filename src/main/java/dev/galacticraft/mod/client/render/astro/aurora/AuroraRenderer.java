@@ -35,9 +35,9 @@ import org.joml.Vector3f;
 import java.util.Random;
 
 /**
- * Procedural 3D Aurora Borealis renderer inspired by LabyMod Atmosphere & Real Sky.
+ * Procedural 3D Aurora Borealis renderer inspired by LabyMod Atmosphere and Real Sky.
  * Renders multi-layered undulating geomagnetic light curtains with vertical ray striations
- * and smooth vertical spectral color gradients (oxygen green -> cyan -> nitrogen violet/crimson)
+ * and smooth vertical spectral color gradients (oxygen green to cyan to nitrogen violet/crimson)
  * in very cold biomes at night.
  */
 public class AuroraRenderer {
