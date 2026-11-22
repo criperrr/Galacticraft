@@ -88,6 +88,12 @@ public class GCJEIPlugin implements IModPlugin {
         registration.registerSubtypeInterpreter(GCItems.ROCKET, RocketSubtypeInterpreter.INSTANCE);
         registration.registerSubtypeInterpreter(GCItems.CANNED_FOOD, CannedFoodSubtypeInterpreter.INSTANCE);
         registration.registerSubtypeInterpreter(GCBlocks.PARACHEST.asItem(), ParachestSubtypeInterpreter.INSTANCE);
+        registration.registerSubtypeInterpreter(GCBlocks.ROCKET_PART_COMMAND.asItem(), ModularRocketPartSubtypeInterpreter.INSTANCE);
+        registration.registerSubtypeInterpreter(GCBlocks.ROCKET_PART_ENGINE.asItem(), ModularRocketPartSubtypeInterpreter.INSTANCE);
+        registration.registerSubtypeInterpreter(GCBlocks.ROCKET_PART_TANK.asItem(), ModularRocketPartSubtypeInterpreter.INSTANCE);
+        registration.registerSubtypeInterpreter(GCBlocks.ROCKET_PART_ADAPTER.asItem(), ModularRocketPartSubtypeInterpreter.INSTANCE);
+        registration.registerSubtypeInterpreter(GCBlocks.ROCKET_PART_PAYLOAD.asItem(), ModularRocketPartSubtypeInterpreter.INSTANCE);
+        registration.registerSubtypeInterpreter(GCBlocks.ROCKET_PART_UTILITY.asItem(), ModularRocketPartSubtypeInterpreter.INSTANCE);
     }
 
     @Override

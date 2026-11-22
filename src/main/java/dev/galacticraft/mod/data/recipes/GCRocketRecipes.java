@@ -62,6 +62,132 @@ public class GCRocketRecipes extends FabricRecipeProvider {
                 .emiDefaultRecipe(true)
                 .save(output);
 
+        // Modular Platform Blocks
+        GCShapedRecipeBuilder.crafting(RecipeCategory.BUILDING_BLOCKS, GCBlocks.REINFORCED_LAUNCH_PAD, 4)
+                .define('P', GCItems.TIER_1_HEAVY_DUTY_PLATE)
+                .define('S', GCItems.COMPRESSED_STEEL)
+                .define('I', GCItems.COMPRESSED_IRON)
+                .pattern("PPP")
+                .pattern("SSS")
+                .pattern("III")
+                .unlockedBy(getHasName(GCItems.TIER_1_HEAVY_DUTY_PLATE), has(GCItems.TIER_1_HEAVY_DUTY_PLATE))
+                .emiDefaultRecipe(true)
+                .save(output);
+
+        GCShapedRecipeBuilder.crafting(RecipeCategory.BUILDING_BLOCKS, GCBlocks.GANTRY_TRUSS, 6)
+                .define('S', GCItems.COMPRESSED_STEEL)
+                .define('A', GCItems.COMPRESSED_ALUMINUM)
+                .pattern("S S")
+                .pattern(" A ")
+                .pattern("S S")
+                .unlockedBy(getHasName(GCItems.COMPRESSED_STEEL), has(GCItems.COMPRESSED_STEEL))
+                .emiDefaultRecipe(true)
+                .save(output);
+
+        GCShapedRecipeBuilder.crafting(RecipeCategory.BUILDING_BLOCKS, GCBlocks.GANTRY_CRANE_RAIL, 4)
+                .define('S', GCItems.COMPRESSED_STEEL)
+                .define('P', GCItems.TIER_1_HEAVY_DUTY_PLATE)
+                .define('A', GCItems.COMPRESSED_ALUMINUM)
+                .pattern("SSS")
+                .pattern("PAP")
+                .pattern("SSS")
+                .unlockedBy(getHasName(GCItems.COMPRESSED_STEEL), has(GCItems.COMPRESSED_STEEL))
+                .emiDefaultRecipe(true)
+                .save(output);
+
+        GCShapedRecipeBuilder.crafting(RecipeCategory.MISC, GCBlocks.PLATFORM_UPGRADE_SOCKET)
+                .define('S', GCItems.COMPRESSED_STEEL)
+                .define('A', GCItems.COMPRESSED_ALUMINUM)
+                .define('P', GCItems.TIER_1_HEAVY_DUTY_PLATE)
+                .define('W', GCItems.BASIC_WAFER)
+                .define('I', Items.IRON_BLOCK)
+                .pattern("SAS")
+                .pattern("PWP")
+                .pattern("SIS")
+                .unlockedBy(getHasName(GCItems.BASIC_WAFER), has(GCItems.BASIC_WAFER))
+                .emiDefaultRecipe(true)
+                .save(output);
+
+        GCShapedRecipeBuilder.crafting(RecipeCategory.MISC, GCBlocks.HANGAR_TERMINAL)
+                .define('S', GCItems.COMPRESSED_STEEL)
+                .define('G', GCBlocks.VACUUM_GLASS)
+                .define('P', GCItems.TIER_1_HEAVY_DUTY_PLATE)
+                .define('W', GCItems.ADVANCED_WAFER)
+                .define('R', Items.REDSTONE_BLOCK)
+                .pattern("SGS")
+                .pattern("PWP")
+                .pattern("SRS")
+                .unlockedBy(getHasName(GCItems.ADVANCED_WAFER), has(GCItems.ADVANCED_WAFER))
+                .emiDefaultRecipe(true)
+                .save(output);
+
+        // Modular Part Category Schematics
+        GCShapedRecipeBuilder.crafting(RecipeCategory.MISC, GCItems.PART_SCHEMATIC_COMMAND)
+                .define('P', Items.PAPER)
+                .define('A', GCItems.COMPRESSED_ALUMINUM)
+                .define('W', GCItems.ADVANCED_WAFER)
+                .pattern("PAP")
+                .pattern("AWA")
+                .pattern("PAP")
+                .unlockedBy(getHasName(GCItems.ADVANCED_WAFER), has(GCItems.ADVANCED_WAFER))
+                .emiDefaultRecipe(true)
+                .save(output);
+
+        GCShapedRecipeBuilder.crafting(RecipeCategory.MISC, GCItems.PART_SCHEMATIC_ENGINE)
+                .define('P', Items.PAPER)
+                .define('S', GCItems.COMPRESSED_STEEL)
+                .define('C', GCItems.COMPRESSED_COPPER)
+                .pattern("PSP")
+                .pattern("SCS")
+                .pattern("PSP")
+                .unlockedBy(getHasName(GCItems.COMPRESSED_STEEL), has(GCItems.COMPRESSED_STEEL))
+                .emiDefaultRecipe(true)
+                .save(output);
+
+        GCShapedRecipeBuilder.crafting(RecipeCategory.MISC, GCItems.PART_SCHEMATIC_TANK)
+                .define('P', Items.PAPER)
+                .define('T', GCItems.COMPRESSED_TIN)
+                .define('C', GCItems.TIN_CANISTER)
+                .pattern("PTP")
+                .pattern("TCT")
+                .pattern("PTP")
+                .unlockedBy(getHasName(GCItems.TIN_CANISTER), has(GCItems.TIN_CANISTER))
+                .emiDefaultRecipe(true)
+                .save(output);
+
+        GCShapedRecipeBuilder.crafting(RecipeCategory.MISC, GCItems.PART_SCHEMATIC_ADAPTER)
+                .define('P', Items.PAPER)
+                .define('I', GCItems.COMPRESSED_IRON)
+                .define('S', GCItems.COMPRESSED_STEEL)
+                .pattern("PIP")
+                .pattern("ISI")
+                .pattern("PIP")
+                .unlockedBy(getHasName(GCItems.COMPRESSED_STEEL), has(GCItems.COMPRESSED_STEEL))
+                .emiDefaultRecipe(true)
+                .save(output);
+
+        GCShapedRecipeBuilder.crafting(RecipeCategory.MISC, GCItems.PART_SCHEMATIC_PAYLOAD)
+                .define('P', Items.PAPER)
+                .define('A', GCItems.COMPRESSED_ALUMINUM)
+                .define('C', ConventionalItemTags.WOODEN_CHESTS)
+                .pattern("PAP")
+                .pattern("ACA")
+                .pattern("PAP")
+                .unlockedBy(getHasName(GCItems.COMPRESSED_ALUMINUM), has(GCItems.COMPRESSED_ALUMINUM))
+                .emiDefaultRecipe(true)
+                .save(output);
+
+        GCShapedRecipeBuilder.crafting(RecipeCategory.MISC, GCItems.PART_SCHEMATIC_UTILITY)
+                .define('P', Items.PAPER)
+                .define('I', GCItems.COMPRESSED_IRON)
+                .define('W', GCItems.BASIC_WAFER)
+                .pattern("PIP")
+                .pattern("IWI")
+                .pattern("PIP")
+                .unlockedBy(getHasName(GCItems.BASIC_WAFER), has(GCItems.BASIC_WAFER))
+                .emiDefaultRecipe(true)
+                .save(output);
+
         // Rocket Part Items
         GCShapedRecipeBuilder.crafting(RecipeCategory.TRANSPORTATION, GCItems.NOSE_CONE)
                 .define('R', Items.REDSTONE_TORCH)

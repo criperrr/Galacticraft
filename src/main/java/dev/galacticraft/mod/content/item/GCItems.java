@@ -24,6 +24,7 @@ package dev.galacticraft.mod.content.item;
 
 import dev.galacticraft.api.component.GCDataComponents;
 import dev.galacticraft.api.rocket.RocketPrefabs;
+import dev.galacticraft.api.rocket.part.modular.RocketPartCategory;
 import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.Galacticraft;
 import dev.galacticraft.mod.content.*;
@@ -270,11 +271,26 @@ public class GCItems {
     public static final Item BUGGY_SEAT = registerGeneric(Constant.Item.BUGGY_SEAT);
     public static final Item BUGGY_STORAGE = registerGeneric(Constant.Item.BUGGY_STORAGE);
 
+    // MODULAR ROCKET PART BLOCK ITEMS
+    public static final Item ROCKET_PART_COMMAND = registerBlockItem(Constant.Block.ROCKET_PART_COMMAND, new ModularRocketPartBlockItem(GCBlocks.ROCKET_PART_COMMAND, new Item.Properties().stacksTo(1)));
+    public static final Item ROCKET_PART_ENGINE = registerBlockItem(Constant.Block.ROCKET_PART_ENGINE, new ModularRocketPartBlockItem(GCBlocks.ROCKET_PART_ENGINE, new Item.Properties().stacksTo(1)));
+    public static final Item ROCKET_PART_TANK = registerBlockItem(Constant.Block.ROCKET_PART_TANK, new ModularRocketPartBlockItem(GCBlocks.ROCKET_PART_TANK, new Item.Properties().stacksTo(1)));
+    public static final Item ROCKET_PART_ADAPTER = registerBlockItem(Constant.Block.ROCKET_PART_ADAPTER, new ModularRocketPartBlockItem(GCBlocks.ROCKET_PART_ADAPTER, new Item.Properties().stacksTo(1)));
+    public static final Item ROCKET_PART_PAYLOAD = registerBlockItem(Constant.Block.ROCKET_PART_PAYLOAD, new ModularRocketPartBlockItem(GCBlocks.ROCKET_PART_PAYLOAD, new Item.Properties().stacksTo(1)));
+    public static final Item ROCKET_PART_UTILITY = registerBlockItem(Constant.Block.ROCKET_PART_UTILITY, new ModularRocketPartBlockItem(GCBlocks.ROCKET_PART_UTILITY, new Item.Properties().stacksTo(1)));
+
     // SCHEMATICS
     public static final Item BASIC_ROCKET_CONE_SCHEMATIC = ITEMS.register(Constant.Item.BASIC_ROCKET_CONE_SCHEMATIC, new RocketPartSchematic(new Item.Properties().stacksTo(1).rarity(Rarity.RARE), GCRocketParts.TIER_1_CONE));
     public static final Item BASIC_ROCKET_BODY_SCHEMATIC = ITEMS.register(Constant.Item.BASIC_ROCKET_BODY_SCHEMATIC, new RocketPartSchematic(new Item.Properties().stacksTo(1).rarity(Rarity.RARE), GCRocketParts.TIER_1_BODY));
     public static final Item BASIC_ROCKET_FINS_SCHEMATIC = ITEMS.register(Constant.Item.BASIC_ROCKET_FINS_SCHEMATIC, new RocketPartSchematic(new Item.Properties().stacksTo(1).rarity(Rarity.RARE), GCRocketParts.TIER_1_FIN));
     public static final Item BASIC_ROCKET_ENGINE_SCHEMATIC = ITEMS.register(Constant.Item.BASIC_ROCKET_ENGINE_SCHEMATIC, new RocketPartSchematic(new Item.Properties().stacksTo(1).rarity(Rarity.RARE), GCRocketParts.TIER_1_ENGINE));
+
+    public static final Item PART_SCHEMATIC_COMMAND = ITEMS.register(Constant.Item.PART_SCHEMATIC_COMMAND, new PartCategorySchematicItem(RocketPartCategory.COMMAND, new Item.Properties().stacksTo(1)));
+    public static final Item PART_SCHEMATIC_ENGINE = ITEMS.register(Constant.Item.PART_SCHEMATIC_ENGINE, new PartCategorySchematicItem(RocketPartCategory.ENGINE, new Item.Properties().stacksTo(1)));
+    public static final Item PART_SCHEMATIC_TANK = ITEMS.register(Constant.Item.PART_SCHEMATIC_TANK, new PartCategorySchematicItem(RocketPartCategory.TANK, new Item.Properties().stacksTo(1)));
+    public static final Item PART_SCHEMATIC_ADAPTER = ITEMS.register(Constant.Item.PART_SCHEMATIC_ADAPTER, new PartCategorySchematicItem(RocketPartCategory.ADAPTER, new Item.Properties().stacksTo(1)));
+    public static final Item PART_SCHEMATIC_PAYLOAD = ITEMS.register(Constant.Item.PART_SCHEMATIC_PAYLOAD, new PartCategorySchematicItem(RocketPartCategory.PAYLOAD, new Item.Properties().stacksTo(1)));
+    public static final Item PART_SCHEMATIC_UTILITY = ITEMS.register(Constant.Item.PART_SCHEMATIC_UTILITY, new PartCategorySchematicItem(RocketPartCategory.UTILITY, new Item.Properties().stacksTo(1)));
 
     public static final Item TIER_2_ROCKET_SCHEMATIC = ITEMS.register(Constant.Item.TIER_2_ROCKET_SCHEMATIC, new SchematicItem(new Item.Properties()));
     public static final Item CARGO_ROCKET_SCHEMATIC = ITEMS.register(Constant.Item.CARGO_ROCKET_SCHEMATIC, new SchematicItem(new Item.Properties()));
@@ -318,6 +334,12 @@ public class GCItems {
 
     private static Item registerGeneric(String id) {
         return ITEMS.register(id, new Item(new Item.Properties()));
+    }
+
+    private static <T extends BlockItem> T registerBlockItem(String id, T item) {
+        ITEMS.register(id, item);
+        item.registerBlocks(Item.BY_BLOCK, item);
+        return item;
     }
 
     public static void register() {

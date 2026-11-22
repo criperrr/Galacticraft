@@ -25,10 +25,14 @@ package dev.galacticraft.mod.content.item;
 import dev.galacticraft.api.component.GCDataComponents;
 import dev.galacticraft.api.gas.Gases;
 import dev.galacticraft.api.rocket.RocketPrefabs;
+import dev.galacticraft.api.rocket.part.modular.RocketLivery;
+import dev.galacticraft.api.rocket.part.modular.RocketPartCategory;
 import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.api.block.entity.PipeColor;
 import dev.galacticraft.mod.content.GCBlockRegistry;
 import dev.galacticraft.mod.content.GCFluids;
+import dev.galacticraft.mod.content.rocket.part.RocketPartCatalog;
+import dev.galacticraft.mod.content.rocket.part.RocketPartSpec;
 import dev.galacticraft.mod.util.Translations;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -310,6 +314,11 @@ public class GCCreativeModeTabs {
                     output.accept(SEALABLE_FLUID_PIPES.get(color));
                 }
                 output.accept(ROCKET_LAUNCH_PAD);
+                output.accept(REINFORCED_LAUNCH_PAD);
+                output.accept(GANTRY_TRUSS);
+                output.accept(GANTRY_CRANE_RAIL);
+                output.accept(PLATFORM_UPGRADE_SOCKET);
+                output.accept(HANGAR_TERMINAL);
                 output.accept(FUELING_PAD);
                 output.accept(SHORT_RANGE_TELEPAD);
                 output.accept(ROCKET_WORKBENCH);
@@ -366,6 +375,7 @@ public class GCCreativeModeTabs {
                 output.accept(AIR_LOCK_FRAME);
                 output.accept(AIR_LOCK_CONTROLLER);
                 output.accept(ROCKET_WORKBENCH);
+                output.accept(HANGAR_TERMINAL);
             }).build();
 
     public static final CreativeModeTab ITEMS_GROUP = FabricItemGroup
@@ -522,11 +532,31 @@ public class GCCreativeModeTabs {
                 output.accept(BASIC_ROCKET_BODY_SCHEMATIC);
                 output.accept(BASIC_ROCKET_FINS_SCHEMATIC);
                 output.accept(BASIC_ROCKET_ENGINE_SCHEMATIC);
+                output.accept(PART_SCHEMATIC_COMMAND);
+                output.accept(PART_SCHEMATIC_ENGINE);
+                output.accept(PART_SCHEMATIC_TANK);
+                output.accept(PART_SCHEMATIC_ADAPTER);
+                output.accept(PART_SCHEMATIC_PAYLOAD);
+                output.accept(PART_SCHEMATIC_UTILITY);
                 output.accept(TIER_2_ROCKET_SCHEMATIC);
                 output.accept(CARGO_ROCKET_SCHEMATIC);
                 output.accept(MOON_BUGGY_SCHEMATIC);
                 output.accept(TIER_3_ROCKET_SCHEMATIC);
                 output.accept(ASTRO_MINER_SCHEMATIC);
+
+                // MODULAR ROCKET PARTS
+                RocketPartCatalog partCatalog = RocketPartCatalog.getInstance();
+                if (partCatalog != null) {
+                    for (RocketPartCategory category : RocketPartCategory.values()) {
+                        output.accept(ModularRocketPartBlockItem.createConfiguredStack(partCatalog.defaultConfigFor(category)));
+                    }
+                    addShowcaseRocketPart(output, partCatalog, "capsule_orion_5x5_3b", RocketLivery.WHITE);
+                    addShowcaseRocketPart(output, partCatalog, "engine_raptor_3x3_2b", RocketLivery.BLUE);
+                    addShowcaseRocketPart(output, partCatalog, "adapter_5x5_to_3x3_2b", RocketLivery.BLACK);
+                    addShowcaseRocketPart(output, partCatalog, "cargo_bay_pressurized_5x5_3b", RocketLivery.WHITE);
+                    addShowcaseRocketPart(output, partCatalog, "tank_hydrolox_supercryo_7x7_3b", RocketLivery.ORANGE);
+                    addShowcaseRocketPart(output, partCatalog, "decoupler_radial_booster_1b", RocketLivery.OLIVE);
+                }
 
                 // SMITHING TEMPLATES
                 output.accept(TITANTIUM_UPGRADE_SMITHING_TEMPLATE);
@@ -603,6 +633,13 @@ public class GCCreativeModeTabs {
                 output.accept(EMPTY_CAN);
                 CannedFoodItem.getDefaultCannedFoods().forEach(cannedFoodItem -> output.accept(cannedFoodItem));
             }).build();
+
+    private static void addShowcaseRocketPart(CreativeModeTab.Output output, RocketPartCatalog catalog, String modelId, RocketLivery livery) {
+        RocketPartSpec spec = catalog.getPart(modelId);
+        if (spec != null) {
+            output.accept(ModularRocketPartBlockItem.createConfiguredStack(spec.toConfig(livery)));
+        }
+    }
 
     public static void registerSpawnEggs() {
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.SPAWN_EGGS).register(content -> {

@@ -40,6 +40,10 @@ import dev.galacticraft.mod.content.block.machine.CoalGeneratorBlock;
 import dev.galacticraft.mod.content.block.machine.FoodCannerBlock;
 import dev.galacticraft.mod.content.block.machine.FuelLoaderBlock;
 import dev.galacticraft.mod.content.block.machine.ResourceStorageBlock;
+import dev.galacticraft.mod.content.block.platform.GantryCraneRailBlock;
+import dev.galacticraft.mod.content.block.platform.HangarTerminalBlock;
+import dev.galacticraft.mod.content.block.platform.PlatformUpgradeSocketBlock;
+import dev.galacticraft.mod.content.block.platform.ReinforcedLaunchPadBlock;
 import dev.galacticraft.mod.content.block.special.ParachestBlock;
 import dev.galacticraft.mod.content.block.special.RocketWorkbench;
 import dev.galacticraft.mod.content.block.special.launchpad.AbstractLaunchPad;
@@ -66,10 +70,12 @@ import org.jetbrains.annotations.Contract;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 public class GCModelProvider extends FabricModelProvider {
     private static final TexturedModel.Provider DETAILED_DECORATION = TexturedModel.createDefault(GCModelProvider::detailedTexture, ModelTemplates.CUBE_BOTTOM_TOP);
+    private static final ModelTemplate BUILTIN_ENTITY = new ModelTemplate(Optional.of(ResourceLocation.withDefaultNamespace("builtin/entity")), Optional.empty());
 
     public GCModelProvider(FabricDataOutput output) {
         super(output);
@@ -262,6 +268,19 @@ public class GCModelProvider extends FabricModelProvider {
         }
         createLaunchPadBlock(GCBlocks.FUELING_PAD, generator);
         createLaunchPadBlock(GCBlocks.ROCKET_LAUNCH_PAD, generator);
+        this.createReinforcedLaunchPad(generator);
+        this.createHandcraftedModelBlock(generator, GCBlocks.GANTRY_TRUSS);
+        this.createGantryCraneRail(generator);
+        this.createHorizontalHandcraftedModelBlock(generator, GCBlocks.PLATFORM_UPGRADE_SOCKET);
+        this.createHangarTerminal(generator);
+        generator.createAirLikeBlock(GCBlocks.PLATFORM_PROXY, GCItems.COMPRESSED_STEEL);
+        this.createModularRocketPartBlock(generator, GCBlocks.ROCKET_PART_COMMAND);
+        this.createModularRocketPartBlock(generator, GCBlocks.ROCKET_PART_ENGINE);
+        this.createModularRocketPartBlock(generator, GCBlocks.ROCKET_PART_TANK);
+        this.createModularRocketPartBlock(generator, GCBlocks.ROCKET_PART_ADAPTER);
+        this.createModularRocketPartBlock(generator, GCBlocks.ROCKET_PART_PAYLOAD);
+        this.createModularRocketPartBlock(generator, GCBlocks.ROCKET_PART_UTILITY);
+        generator.createAirLikeBlock(GCBlocks.ROCKET_PART_BOUNDS, GCItems.COMPRESSED_STEEL);
         this.createShortRangeTelepad(generator);
         this.createRocketWorkbench(generator);
         generator.createNonTemplateModelBlock(GCBlocks.FALLEN_METEOR);
@@ -949,11 +968,25 @@ public class GCModelProvider extends FabricModelProvider {
         generator.generateFlatItem(GCItems.BASIC_ROCKET_ENGINE_SCHEMATIC, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(GCItems.BASIC_ROCKET_CONE_SCHEMATIC, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(GCItems.BASIC_ROCKET_FINS_SCHEMATIC, ModelTemplates.FLAT_ITEM);
+        this.createReusedFlatItem(generator, GCItems.PART_SCHEMATIC_COMMAND, "item/basic_rocket_cone_schematic");
+        this.createReusedFlatItem(generator, GCItems.PART_SCHEMATIC_ENGINE, "item/basic_rocket_engine_schematic");
+        this.createReusedFlatItem(generator, GCItems.PART_SCHEMATIC_TANK, "item/basic_rocket_body_schematic");
+        this.createReusedFlatItem(generator, GCItems.PART_SCHEMATIC_ADAPTER, "item/tier_2_rocket_schematic");
+        this.createReusedFlatItem(generator, GCItems.PART_SCHEMATIC_PAYLOAD, "item/cargo_rocket_schematic");
+        this.createReusedFlatItem(generator, GCItems.PART_SCHEMATIC_UTILITY, "item/basic_rocket_fins_schematic");
         generator.generateFlatItem(GCItems.TIER_2_ROCKET_SCHEMATIC, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(GCItems.CARGO_ROCKET_SCHEMATIC, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(GCItems.MOON_BUGGY_SCHEMATIC, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(GCItems.TIER_3_ROCKET_SCHEMATIC, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(GCItems.ASTRO_MINER_SCHEMATIC, ModelTemplates.FLAT_ITEM);
+
+        // MODULAR ROCKET PART BLOCK ITEMS
+        this.createBuiltinEntityItem(generator, GCBlocks.ROCKET_PART_COMMAND.asItem());
+        this.createBuiltinEntityItem(generator, GCBlocks.ROCKET_PART_ENGINE.asItem());
+        this.createBuiltinEntityItem(generator, GCBlocks.ROCKET_PART_TANK.asItem());
+        this.createBuiltinEntityItem(generator, GCBlocks.ROCKET_PART_ADAPTER.asItem());
+        this.createBuiltinEntityItem(generator, GCBlocks.ROCKET_PART_PAYLOAD.asItem());
+        this.createBuiltinEntityItem(generator, GCBlocks.ROCKET_PART_UTILITY.asItem());
 
         // LEGACY MUSIC DISCS
         generator.generateFlatItem(GCItems.LEGACY_MUSIC_DISC_MARS, ModelTemplates.FLAT_ITEM);
@@ -987,6 +1020,19 @@ public class GCModelProvider extends FabricModelProvider {
 
     private void createLayeredItem(ItemModelGenerators generator, Item item, String overlay) {
         generator.generateLayeredItem(ModelLocationUtils.getModelLocation(item), TextureMapping.getItemTexture(item), Constant.id(overlay).withPrefix("item/"));
+    }
+
+    private void createModularRocketPartBlock(BlockModelGenerators generator, Block block) {
+        generator.createAirLikeBlock(block, GCItems.COMPRESSED_STEEL);
+        generator.skipAutoItemBlock(block);
+    }
+
+    private void createBuiltinEntityItem(ItemModelGenerators generator, Item item) {
+        BUILTIN_ENTITY.create(ModelLocationUtils.getModelLocation(item), new TextureMapping(), generator.output);
+    }
+
+    private void createReusedFlatItem(ItemModelGenerators generator, Item item, String texturePath) {
+        ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(item), TextureMapping.layer0(Constant.id(texturePath)), generator.output);
     }
 
     @Contract("_ -> new")
@@ -1037,6 +1083,80 @@ public class GCModelProvider extends FabricModelProvider {
                 .select(AbstractLaunchPad.Part.EAST, Variant.variant().with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90).with(VariantProperties.MODEL, side))
         ));
         generator.delegateItemModel(pad, centerModel);
+    }
+
+    private void createReinforcedLaunchPad(BlockModelGenerators generator) {
+        Block block = GCBlocks.REINFORCED_LAUNCH_PAD;
+        ResourceLocation standaloneModel = Constant.id("block/reinforced_launch_pad");
+        ResourceLocation centerModel = Constant.id("block/reinforced_launch_pad_center");
+        ResourceLocation sideModel = Constant.id("block/reinforced_launch_pad_side");
+        ResourceLocation cornerModel = Constant.id("block/reinforced_launch_pad_corner");
+
+        PropertyDispatch.C2<ReinforcedLaunchPadBlock.PadPart, Direction> dispatch = PropertyDispatch.properties(
+                ReinforcedLaunchPadBlock.PART,
+                ReinforcedLaunchPadBlock.FACING
+        );
+        for (Direction direction : Direction.Plane.HORIZONTAL) {
+            VariantProperties.Rotation rot = getRotationFromDirection(direction);
+            dispatch.select(ReinforcedLaunchPadBlock.PadPart.STANDALONE, direction, Variant.variant().with(VariantProperties.MODEL, standaloneModel));
+            dispatch.select(ReinforcedLaunchPadBlock.PadPart.CENTER, direction, Variant.variant().with(VariantProperties.MODEL, centerModel));
+            dispatch.select(ReinforcedLaunchPadBlock.PadPart.SIDE, direction, Variant.variant().with(VariantProperties.MODEL, sideModel).with(VariantProperties.Y_ROT, rot));
+            dispatch.select(ReinforcedLaunchPadBlock.PadPart.CORNER, direction, Variant.variant().with(VariantProperties.MODEL, cornerModel).with(VariantProperties.Y_ROT, rot));
+        }
+        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block).with(dispatch));
+        generator.delegateItemModel(block, standaloneModel);
+    }
+
+    private void createHandcraftedModelBlock(BlockModelGenerators generator, Block block) {
+        ResourceLocation model = ModelLocationUtils.getModelLocation(block);
+        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, model));
+        generator.delegateItemModel(block, model);
+    }
+
+    private void createGantryCraneRail(BlockModelGenerators generator) {
+        Block block = GCBlocks.GANTRY_CRANE_RAIL;
+        ResourceLocation straightModel = Constant.id("block/gantry_crane_rail");
+        ResourceLocation cornerModel = Constant.id("block/gantry_crane_rail_corner");
+
+        PropertyDispatch.C2<Direction, Boolean> dispatch = PropertyDispatch.properties(
+                GantryCraneRailBlock.FACING,
+                GantryCraneRailBlock.CORNER
+        );
+        for (Direction direction : Direction.Plane.HORIZONTAL) {
+            VariantProperties.Rotation rot = getRotationFromDirection(direction);
+            dispatch.select(direction, false, Variant.variant().with(VariantProperties.MODEL, straightModel).with(VariantProperties.Y_ROT, rot));
+            dispatch.select(direction, true, Variant.variant().with(VariantProperties.MODEL, cornerModel).with(VariantProperties.Y_ROT, rot));
+        }
+        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block).with(dispatch));
+        generator.delegateItemModel(block, straightModel);
+    }
+
+    private void createHorizontalHandcraftedModelBlock(BlockModelGenerators generator, Block block) {
+        ResourceLocation model = ModelLocationUtils.getModelLocation(block);
+        PropertyDispatch.C1<Direction> dispatch = PropertyDispatch.property(PlatformUpgradeSocketBlock.FACING);
+        for (Direction direction : Direction.Plane.HORIZONTAL) {
+            dispatch.select(direction, Variant.variant()
+                    .with(VariantProperties.MODEL, model)
+                    .with(VariantProperties.Y_ROT, getRotationFromDirection(direction)));
+        }
+        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block).with(dispatch));
+        generator.delegateItemModel(block, model);
+    }
+
+    private void createHangarTerminal(BlockModelGenerators generator) {
+        Block block = GCBlocks.HANGAR_TERMINAL;
+        ResourceLocation model = Constant.id("block/hangar_terminal");
+        PropertyDispatch.C2<Direction, Boolean> dispatch = PropertyDispatch.properties(
+                HangarTerminalBlock.FACING,
+                HangarTerminalBlock.ACTIVE
+        );
+        for (Direction direction : Direction.Plane.HORIZONTAL) {
+            VariantProperties.Rotation rot = getRotationFromDirection(direction);
+            dispatch.select(direction, false, Variant.variant().with(VariantProperties.MODEL, model).with(VariantProperties.Y_ROT, rot));
+            dispatch.select(direction, true, Variant.variant().with(VariantProperties.MODEL, model).with(VariantProperties.Y_ROT, rot));
+        }
+        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block).with(dispatch));
+        generator.delegateItemModel(block, model);
     }
 
     private void createCavernousVines(BlockModelGenerators generator) {

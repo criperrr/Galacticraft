@@ -307,6 +307,19 @@ public class GCTranslationProvider extends TranslationProvider {
         this.block(GCBlocks.GLASS_FLUID_PIPE, "Glass Fluid Pipe");
         this.block(GCBlocks.FUELING_PAD, "Fueling Pad");
         this.block(GCBlocks.ROCKET_LAUNCH_PAD, "Rocket Launch Pad");
+        this.block(GCBlocks.REINFORCED_LAUNCH_PAD, "Reinforced Launch Pad");
+        this.block(GCBlocks.GANTRY_TRUSS, "Gantry Truss");
+        this.block(GCBlocks.GANTRY_CRANE_RAIL, "Gantry Crane Rail");
+        this.block(GCBlocks.PLATFORM_UPGRADE_SOCKET, "Platform Upgrade Socket");
+        this.block(GCBlocks.HANGAR_TERMINAL, "Hangar Terminal");
+        this.block(GCBlocks.PLATFORM_PROXY, "Platform Structure");
+        this.block(GCBlocks.ROCKET_PART_COMMAND, "Modular Command Module");
+        this.block(GCBlocks.ROCKET_PART_ENGINE, "Modular Rocket Engine");
+        this.block(GCBlocks.ROCKET_PART_TANK, "Modular Propellant Tank");
+        this.block(GCBlocks.ROCKET_PART_ADAPTER, "Modular Structural Adapter");
+        this.block(GCBlocks.ROCKET_PART_PAYLOAD, "Modular Payload Bay");
+        this.block(GCBlocks.ROCKET_PART_UTILITY, "Modular Utility Component");
+        this.block(GCBlocks.ROCKET_PART_BOUNDS, "Rocket Part Structure");
         this.block(GCBlocks.SHORT_RANGE_TELEPAD, "Short Range Telepad");
         this.block(GCBlocks.ROCKET_WORKBENCH, "Rocket Workbench");
         this.block(GCBlocks.PARACHEST, "Parachest");
@@ -667,6 +680,13 @@ public class GCTranslationProvider extends TranslationProvider {
         this.item(GCItems.BASIC_ROCKET_BODY_SCHEMATIC, "Basic Rocket Body Schematic");
         this.item(GCItems.BASIC_ROCKET_FINS_SCHEMATIC, "Basic Rocket Fins Schematic");
         this.item(GCItems.BASIC_ROCKET_ENGINE_SCHEMATIC, "Basic Rocket Engine Schematic");
+
+        this.item(GCItems.PART_SCHEMATIC_COMMAND, "Command Part Schematic");
+        this.item(GCItems.PART_SCHEMATIC_ENGINE, "Engine Part Schematic");
+        this.item(GCItems.PART_SCHEMATIC_TANK, "Propellant Tank Part Schematic");
+        this.item(GCItems.PART_SCHEMATIC_ADAPTER, "Adapter Part Schematic");
+        this.item(GCItems.PART_SCHEMATIC_PAYLOAD, "Payload Part Schematic");
+        this.item(GCItems.PART_SCHEMATIC_UTILITY, "Utility Part Schematic");
 
         this.item(GCItems.TIER_2_ROCKET_SCHEMATIC, "Tier 2 Rocket Schematic");
         this.item(GCItems.CARGO_ROCKET_SCHEMATIC, "Cargo Rocket Schematic");
