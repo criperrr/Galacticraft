@@ -1,0 +1,44 @@
+[
+    {
+        "type": "star",
+        "id": "hip-90422",
+        "primary": "star",
+        "aliases": [
+            "alf-tel",
+            "alpha-telescopii"
+        ],
+        "M": -0.99,
+        "B": -0.8,
+        "temp": 12609,
+        "diameter": 4251226,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 276.743401,
+            "de": -45.968462,
+            "plx": 12.76
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-90568",
+        "primary": "star",
+        "aliases": [
+            "zet-tel",
+            "zeta-telescopii"
+        ],
+        "M": 1.11,
+        "B": -0.8,
+        "temp": 4709,
+        "diameter": 11572892,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 277.207748,
+            "de": -49.070587,
+            "plx": 25.21,
+            "pmra": 138.8,
+            "pmde": -228.96
+        }
+    }
+]

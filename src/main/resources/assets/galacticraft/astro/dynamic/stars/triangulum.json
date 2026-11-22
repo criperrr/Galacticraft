@@ -1,0 +1,72 @@
+[
+    {
+        "type": "star",
+        "id": "hip-10064",
+        "primary": "star",
+        "aliases": [
+            "bet-tri",
+            "beta-trianguli",
+            "4-tri",
+            "4-trianguli"
+        ],
+        "M": 0.07,
+        "B": -0.8,
+        "temp": 8378,
+        "diameter": 5905260,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 32.385947,
+            "de": 34.987296,
+            "plx": 25.86,
+            "pmra": 149.41,
+            "pmde": -39.43
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-8796",
+        "primary": "star",
+        "aliases": [
+            "alf-tri",
+            "alpha-trianguli",
+            "2-tri",
+            "2-trianguli"
+        ],
+        "M": 1.95,
+        "B": -0.8,
+        "temp": 6361,
+        "diameter": 4309258,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 28.27045,
+            "de": 29.578828,
+            "plx": 51.0,
+            "pmra": 12.02,
+            "pmde": -234.21
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-10670",
+        "primary": "star",
+        "aliases": [
+            "gam-tri",
+            "gamma-trianguli",
+            "9-tri",
+            "9-trianguli"
+        ],
+        "M": 1.19,
+        "B": -0.8,
+        "temp": 9674,
+        "diameter": 2650174,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 34.328616,
+            "de": 33.847195,
+            "plx": 27.39
+        }
+    }
+]

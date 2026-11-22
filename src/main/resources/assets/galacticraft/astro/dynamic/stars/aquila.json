@@ -1,0 +1,214 @@
+[
+    {
+        "type": "star",
+        "id": "hip-97649",
+        "primary": "star",
+        "aliases": [
+            "altair",
+            "alf-aql",
+            "alpha-aquilae",
+            "53-aql",
+            "53-aquilae"
+        ],
+        "M": 2.32,
+        "B": -0.8,
+        "temp": 7837,
+        "diameter": 2401264,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 297.695831,
+            "de": 8.868324,
+            "plx": 195.05,
+            "pmra": 537.46,
+            "pmde": 386.36
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-97278",
+        "primary": "star",
+        "aliases": [
+            "tarazed",
+            "gam-aql",
+            "gamma-aquilae",
+            "50-aql",
+            "50-aquilae"
+        ],
+        "M": -3.13,
+        "B": -0.8,
+        "temp": 3694,
+        "diameter": 133032061,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 296.564917,
+            "de": 10.613263,
+            "plx": 6.78
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-93747",
+        "primary": "star",
+        "aliases": [
+            "zet-aql",
+            "zeta-aquilae",
+            "17-aql",
+            "17-aquilae"
+        ],
+        "M": 0.94,
+        "B": -0.8,
+        "temp": 9629,
+        "diameter": 3001894,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 286.352537,
+            "de": 13.863477,
+            "plx": 39.04
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-99473",
+        "primary": "star",
+        "aliases": [
+            "the-aql",
+            "the-aquilae",
+            "65-aql",
+            "65-aquilae"
+        ],
+        "M": -1.49,
+        "B": -0.8,
+        "temp": 10653,
+        "diameter": 7485226,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 302.826197,
+            "de": -0.821464,
+            "plx": 11.35
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-95501",
+        "primary": "star",
+        "aliases": [
+            "del-aql",
+            "delta-aquilae",
+            "30-aql",
+            "30-aquilae"
+        ],
+        "M": 2.42,
+        "B": -0.8,
+        "temp": 7216,
+        "diameter": 2696070,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 291.37459,
+            "de": 3.114779,
+            "plx": 64.94,
+            "pmra": 255.13,
+            "pmde": 82.08
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-93805",
+        "primary": "star",
+        "aliases": [
+            "lam-aql",
+            "lambda-aquilae",
+            "16-aql",
+            "16-aquilae"
+        ],
+        "M": 0.52,
+        "B": -0.8,
+        "temp": 11168,
+        "diameter": 2699435,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 286.562248,
+            "de": -4.882552,
+            "plx": 26.27
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-98036",
+        "primary": "star",
+        "aliases": [
+            "alshain",
+            "bet-aql",
+            "beta-aquilae",
+            "60-aql",
+            "60-aquilae"
+        ],
+        "M": 3.01,
+        "B": -0.8,
+        "temp": 5108,
+        "diameter": 4097528,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 298.828306,
+            "de": 6.406763,
+            "plx": 72.5,
+            "pmra": 46.66,
+            "pmde": -481.47
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-97804",
+        "primary": "star",
+        "aliases": [
+            "eta-aql",
+            "eta-aquilae",
+            "55-aql",
+            "55-aquilae"
+        ],
+        "M": -4.09,
+        "B": -0.8,
+        "temp": 5097,
+        "diameter": 108527923,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 298.118205,
+            "de": 1.005661,
+            "plx": 2.47
+        },
+        "variability": {
+            "type": "cepheid",
+            "period": 7.176915,
+            "amplitude": 0.42
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-93244",
+        "primary": "star",
+        "aliases": [
+            "eps-aql",
+            "epsilon-aquilae",
+            "13-aql",
+            "13-aquilae"
+        ],
+        "M": 0.68,
+        "B": -0.8,
+        "temp": 4571,
+        "diameter": 15029000,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 284.905658,
+            "de": 15.0683,
+            "plx": 21.5
+        }
+    }
+]

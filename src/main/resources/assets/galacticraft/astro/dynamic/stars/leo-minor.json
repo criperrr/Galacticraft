@@ -1,0 +1,92 @@
+[
+    {
+        "type": "star",
+        "id": "hip-53229",
+        "primary": "star",
+        "aliases": [
+            "46-lmi",
+            "46-leonis-minoris"
+        ],
+        "M": 1.39,
+        "B": -0.8,
+        "temp": 4612,
+        "diameter": 10600475,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 163.327928,
+            "de": 34.21488,
+            "plx": 33.22,
+            "pmra": 89.0,
+            "pmde": -282.32
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-51233",
+        "primary": "star",
+        "aliases": [
+            "bet-lmi",
+            "beta-leonis-minoris",
+            "31-lmi",
+            "31-leonis-minoris"
+        ],
+        "M": 0.96,
+        "B": -0.8,
+        "temp": 4961,
+        "diameter": 11180564,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 156.970856,
+            "de": 36.707226,
+            "plx": 22.48,
+            "pmra": -119.55,
+            "pmde": -103.75
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-49593",
+        "primary": "star",
+        "aliases": [
+            "21-lmi",
+            "21-leonis-minoris"
+        ],
+        "M": 2.28,
+        "B": -0.8,
+        "temp": 8124,
+        "diameter": 2271696,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 151.857339,
+            "de": 35.244693,
+            "plx": 36.34
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-46952",
+        "primary": "star",
+        "aliases": [
+            "10-lmi",
+            "10-leonis-minoris"
+        ],
+        "M": 0.85,
+        "B": -0.8,
+        "temp": 4985,
+        "diameter": 11640264,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 143.555756,
+            "de": 36.397559,
+            "plx": 18.32
+        },
+        "variability": {
+            "type": "scatter",
+            "amplitude": 2.26
+        }
+    }
+]

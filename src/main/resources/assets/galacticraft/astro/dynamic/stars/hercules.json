@@ -1,0 +1,418 @@
+[
+    {
+        "type": "star",
+        "id": "hip-80816",
+        "primary": "star",
+        "aliases": [
+            "bet-her",
+            "beta-herculis",
+            "27-her",
+            "27-herculis"
+        ],
+        "M": -0.68,
+        "B": -0.8,
+        "temp": 4873,
+        "diameter": 24648197,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 247.555,
+            "de": 21.489613,
+            "plx": 20.42
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-81693",
+        "primary": "star",
+        "aliases": [
+            "zet-her",
+            "zeta-herculis",
+            "40-her",
+            "40-herculis"
+        ],
+        "M": 2.69,
+        "B": -0.8,
+        "temp": 5749,
+        "diameter": 3756346,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 250.321502,
+            "de": 31.602728,
+            "plx": 93.18,
+            "pmra": -462.45,
+            "pmde": 345.85
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-84379",
+        "primary": "star",
+        "aliases": [
+            "del-her",
+            "delta-herculis",
+            "65-her",
+            "65-herculis"
+        ],
+        "M": 1.22,
+        "B": -0.8,
+        "temp": 8970,
+        "diameter": 3032983,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 258.757962,
+            "de": 24.839205,
+            "plx": 41.81,
+            "pmra": -20.62,
+            "pmde": -157.33
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-84380",
+        "primary": "star",
+        "aliases": [
+            "pi-her",
+            "pi-herculis",
+            "67-her",
+            "67-herculis"
+        ],
+        "M": -2.09,
+        "B": -0.8,
+        "temp": 3811,
+        "diameter": 77331269,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 258.76181,
+            "de": 36.809164,
+            "plx": 8.97
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-86974",
+        "primary": "star",
+        "aliases": [
+            "mu-her",
+            "mu-herculis",
+            "86-her",
+            "86-herculis"
+        ],
+        "M": 3.8,
+        "B": -0.8,
+        "temp": 5410,
+        "diameter": 2549712,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 266.614652,
+            "de": 27.720675,
+            "plx": 119.27,
+            "pmra": -307.17,
+            "pmde": -750.33
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-81833",
+        "primary": "star",
+        "aliases": [
+            "eta-her",
+            "eta-herculis",
+            "44-her",
+            "44-herculis"
+        ],
+        "M": 0.79,
+        "B": -0.8,
+        "temp": 4940,
+        "diameter": 12195678,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 250.724022,
+            "de": 38.922258,
+            "plx": 29.05
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-87933",
+        "primary": "star",
+        "aliases": [
+            "ksi-her",
+            "ksi-herculis",
+            "92-her",
+            "92-herculis"
+        ],
+        "M": 0.6,
+        "B": -0.8,
+        "temp": 4914,
+        "diameter": 13432141,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 269.441192,
+            "de": 29.24788,
+            "plx": 24.11
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-80170",
+        "primary": "star",
+        "aliases": [
+            "gam-her",
+            "gamma-herculis",
+            "20-her",
+            "20-herculis"
+        ],
+        "M": -0.17,
+        "B": -0.8,
+        "temp": 7392,
+        "diameter": 8486047,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 245.48006,
+            "de": 19.153128,
+            "plx": 16.59
+        },
+        "variability": {
+            "type": "scatter",
+            "amplitude": 1.96
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-86414",
+        "primary": "star",
+        "aliases": [
+            "iot-her",
+            "iota-herculis",
+            "85-her",
+            "85-herculis"
+        ],
+        "M": -2.09,
+        "B": -0.8,
+        "temp": 12650,
+        "diameter": 7003895,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 264.866192,
+            "de": 46.006333,
+            "plx": 6.65
+        },
+        "variability": {
+            "type": "scatter",
+            "amplitude": 1.46
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-88794",
+        "primary": "star",
+        "aliases": [
+            "omi-her",
+            "omicron-herculis",
+            "103-her",
+            "103-herculis"
+        ],
+        "M": -1.3,
+        "B": -0.8,
+        "temp": 10238,
+        "diameter": 7450615,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 271.885629,
+            "de": 28.76249,
+            "plx": 9.39
+        },
+        "variability": {
+            "type": "scatter",
+            "amplitude": 1.86
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-87808",
+        "primary": "star",
+        "aliases": [
+            "the-her",
+            "the-herculis",
+            "91-her",
+            "91-herculis"
+        ],
+        "M": -2.58,
+        "B": -0.8,
+        "temp": 3973,
+        "diameter": 88962228,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 269.063253,
+            "de": 37.250539,
+            "plx": 5.21
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-79992",
+        "primary": "star",
+        "aliases": [
+            "tau-her",
+            "tau-herculis",
+            "22-her",
+            "22-herculis"
+        ],
+        "M": -1.03,
+        "B": -0.8,
+        "temp": 12140,
+        "diameter": 4672191,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 244.935156,
+            "de": 46.313368,
+            "plx": 10.36
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-83207",
+        "primary": "star",
+        "aliases": [
+            "eps-her",
+            "epsilon-herculis",
+            "58-her",
+            "58-herculis"
+        ],
+        "M": 0.37,
+        "B": -0.8,
+        "temp": 10087,
+        "diameter": 3545310,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 255.072392,
+            "de": 30.926406,
+            "plx": 19.71
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-81126",
+        "primary": "star",
+        "aliases": [
+            "sig-her",
+            "sigma-herculis",
+            "35-her",
+            "35-herculis"
+        ],
+        "M": -0.69,
+        "B": -0.8,
+        "temp": 10213,
+        "diameter": 5638526,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 248.525752,
+            "de": 42.437021,
+            "plx": 10.55
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-85693",
+        "primary": "star",
+        "aliases": [
+            "lam-her",
+            "lambda-herculis",
+            "76-her",
+            "76-herculis"
+        ],
+        "M": -0.89,
+        "B": -0.8,
+        "temp": 3840,
+        "diameter": 43846198,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 262.684625,
+            "de": 26.110648,
+            "plx": 8.77
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-85112",
+        "primary": "star",
+        "aliases": [
+            "rho-her",
+            "rho-herculis",
+            "75-her",
+            "75-herculis"
+        ],
+        "M": -0.99,
+        "B": -0.8,
+        "temp": 10316,
+        "diameter": 6367989,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 260.920603,
+            "de": 37.145946,
+            "plx": 7.96
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-77760",
+        "primary": "star",
+        "aliases": [
+            "chi-her",
+            "chi-herculis",
+            "1-her",
+            "1-herculis"
+        ],
+        "M": 3.6,
+        "B": -0.8,
+        "temp": 6063,
+        "diameter": 2220501,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 238.168927,
+            "de": 42.45152,
+            "plx": 62.99,
+            "pmra": 440.17,
+            "pmde": 630.32
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-84606",
+        "primary": "star",
+        "aliases": [
+            "e-her",
+            "e-herculis",
+            "69-her",
+            "69-herculis"
+        ],
+        "M": 0.9,
+        "B": -0.8,
+        "temp": 9519,
+        "diameter": 3128249,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 259.417728,
+            "de": 37.291496,
+            "plx": 18.03
+        }
+    }
+]

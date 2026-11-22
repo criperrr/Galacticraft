@@ -24,6 +24,7 @@ package dev.galacticraft.mod.mixin.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.galacticraft.mod.client.accessor.GameRendererAccessor;
+import dev.galacticraft.mod.client.render.astro.AstroSpyglassManager;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
@@ -35,6 +36,9 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(GameRenderer.class)
 public abstract class GameRendererMixin implements GameRendererAccessor {
@@ -102,5 +106,12 @@ public abstract class GameRendererMixin implements GameRendererAccessor {
             matrix4f.rotate(-angle, vector3f);
         }
         this.resetProjectionMatrix(matrix4f);
+    }
+
+    @Inject(method = "tickFov", at = @At(value = "FIELD", ordinal = 8), cancellable = true)
+    private void gc$allowDeepSpyglassFov(CallbackInfo ci) {
+        if (AstroSpyglassManager.isInUse()) {
+            ci.cancel();
+        }
     }
 }

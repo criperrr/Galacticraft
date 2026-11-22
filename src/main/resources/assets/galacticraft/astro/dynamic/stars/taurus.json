@@ -1,0 +1,278 @@
+[
+    {
+        "type": "star",
+        "id": "hip-21421",
+        "primary": "star",
+        "aliases": [
+            "aldebaran",
+            "alf-tau",
+            "alpha-tauri",
+            "87-tau",
+            "87-tauri"
+        ],
+        "M": -0.58,
+        "B": -0.8,
+        "temp": 3696,
+        "diameter": 40904589,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 68.980162,
+            "de": 16.509301,
+            "plx": 49.65,
+            "pmra": 63.0,
+            "pmde": -189.5
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-26451",
+        "primary": "star",
+        "aliases": [
+            "zet-tau",
+            "zeta-tauri",
+            "123-tau",
+            "123-tauri"
+        ],
+        "M": -2.59,
+        "B": -0.8,
+        "temp": 12140,
+        "diameter": 9578912,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 84.411186,
+            "de": 21.142544,
+            "plx": 7.73
+        },
+        "variability": {
+            "type": "eclipse",
+            "duration": 14,
+            "period": 132.9735,
+            "epoch": 2444936.781,
+            "secondary": 0,
+            "amplitude": 0.29
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-20894",
+        "primary": "star",
+        "aliases": [
+            "the02-tau",
+            "the2-tauri",
+            "78-tau",
+            "78-tauri"
+        ],
+        "M": 0.09,
+        "B": -0.8,
+        "temp": 8056,
+        "diameter": 6330443,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 67.165589,
+            "de": 15.870882,
+            "plx": 21.82,
+            "pmra": 109.73,
+            "pmde": -26.73
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-18724",
+        "primary": "star",
+        "aliases": [
+            "lam-tau",
+            "lambda-tauri",
+            "35-tau",
+            "35-tauri"
+        ],
+        "M": -1.8,
+        "B": -0.8,
+        "temp": 11539,
+        "diameter": 7366266,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 60.170069,
+            "de": 12.490348,
+            "plx": 9.09
+        },
+        "variability": {
+            "type": "eclipse",
+            "duration": 15.0,
+            "period": 3.9529478,
+            "epoch": 2421506.851,
+            "secondary": 0.25,
+            "amplitude": 0.54
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-20889",
+        "primary": "star",
+        "aliases": [
+            "eps-tau",
+            "epsilon-tauri",
+            "74-tau",
+            "74-tauri"
+        ],
+        "M": 0.16,
+        "B": -0.8,
+        "temp": 4702,
+        "diameter": 18047686,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 67.154165,
+            "de": 19.180433,
+            "plx": 21.15,
+            "pmra": 107.33,
+            "pmde": -36.27
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-15900",
+        "primary": "star",
+        "aliases": [
+            "omi-tau",
+            "omicron-tauri",
+            "1-tau",
+            "1-tauri"
+        ],
+        "M": -0.52,
+        "B": -0.8,
+        "temp": 5012,
+        "diameter": 21691439,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 51.203328,
+            "de": 9.028877,
+            "plx": 14.94,
+            "pmra": -66.01,
+            "pmde": -77.56
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-17847",
+        "primary": "star",
+        "aliases": [
+            "27-tau",
+            "27-tauri"
+        ],
+        "M": -1.92,
+        "B": -0.8,
+        "temp": 11076,
+        "diameter": 8454184,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 57.290597,
+            "de": 24.053411,
+            "plx": 7.8
+        },
+        "variability": {
+            "type": "scatter",
+            "amplitude": 1.4
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-20205",
+        "primary": "star",
+        "aliases": [
+            "gam-tau",
+            "gamma-tauri",
+            "54-tau",
+            "54-tauri"
+        ],
+        "M": 0.21,
+        "B": -0.8,
+        "temp": 4779,
+        "diameter": 17020775,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 64.948352,
+            "de": 15.627643,
+            "plx": 20.62,
+            "pmra": 116.48,
+            "pmde": -23.45
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-20455",
+        "primary": "star",
+        "aliases": [
+            "del01-tau",
+            "delta1-tauri",
+            "delta-tauri",
+            "61-tau",
+            "61-tauri"
+        ],
+        "M": 0.38,
+        "B": -0.8,
+        "temp": 4757,
+        "diameter": 15882589,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 65.733721,
+            "de": 17.542514,
+            "plx": 21.18,
+            "pmra": 107.3,
+            "pmde": -28.93
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-21881",
+        "primary": "star",
+        "aliases": [
+            "tau-tau",
+            "tau-tauri",
+            "94-tau",
+            "94-tauri"
+        ],
+        "M": -1.15,
+        "B": -0.8,
+        "temp": 11726,
+        "diameter": 5288429,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 70.56126,
+            "de": 22.956936,
+            "plx": 8.27
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-20648",
+        "primary": "star",
+        "aliases": [
+            "del03-tau",
+            "delta3-tauri",
+            "68-tau",
+            "68-tauri"
+        ],
+        "M": 1.01,
+        "B": -0.8,
+        "temp": 9317,
+        "diameter": 3102262,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 66.372438,
+            "de": 17.92791,
+            "plx": 22.0,
+            "pmra": 110.48,
+            "pmde": -32.54
+        }
+    }
+]

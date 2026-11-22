@@ -71,6 +71,8 @@ public class GCMenuTypes {
 
     public static final MenuType<AirlockControllerMenu> AIRLOCK_CONTROLLER_MENU = new MenuType<>(AirlockControllerMenu::new, FeatureFlags.VANILLA_SET);
     public static final MenuType<RocketWorkbenchMenu> ROCKET_WORKBENCH = new ExtendedScreenHandlerType<>(RocketWorkbenchMenu::new, RocketWorkbenchMenu.OpeningData.CODEC);
+    public static final MenuType<HangarTerminalMenu> HANGAR_TERMINAL = new ExtendedScreenHandlerType<>(HangarTerminalMenu::new, HangarTerminalOpeningData.STREAM_CODEC);
+    public static final MenuType<PartAssemblerMenu> PART_ASSEMBLER = SynchronizedMenuType.create(PartAssemblerMenu::new);
     public static final MenuType<RocketMenu> ROCKET = new ExtendedScreenHandlerType<>(RocketMenu::new, ByteBufCodecs.INT);
     public static final MenuType<ParachestMenu> PARACHEST = new ExtendedScreenHandlerType<>(ParachestMenu::new, ParachestMenu.OpeningData.STREAM_CODEC);
 
@@ -106,6 +108,8 @@ public class GCMenuTypes {
 
         Registry.register(BuiltInRegistries.MENU, Constant.id(Constant.Menu.AIR_LOCK_CONTROLLER_MENU), AIRLOCK_CONTROLLER_MENU);
         Registry.register(BuiltInRegistries.MENU, Constant.id(Constant.Menu.ROCKET_WORKBENCH_MENU), ROCKET_WORKBENCH);
+        Registry.register(BuiltInRegistries.MENU, Constant.id(Constant.Menu.HANGAR_TERMINAL_MENU), HANGAR_TERMINAL);
+        Registry.register(BuiltInRegistries.MENU, Constant.id("part_assembler_menu"), PART_ASSEMBLER);
         Registry.register(BuiltInRegistries.MENU, Constant.id(Constant.Menu.ROCKET), ROCKET);
         Registry.register(BuiltInRegistries.MENU, Constant.id(Constant.Menu.PARACHEST), PARACHEST);
     }

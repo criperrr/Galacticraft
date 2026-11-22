@@ -1,0 +1,11 @@
+{
+    "id": "andromeda",
+    "type": "galaxy",
+    "texture": "galacticraft:astro/deepsky/andromeda",
+    "right_ascension": {"h": 0, "m": 42, "s": 44.3},
+    "declination": {"d": 41, "m": 16, "s": 9},
+    "orientation": {"d": 52},
+    "magnitude": 3.4,
+    "width": {"d": 2.4},
+    "height": {"d": 1.2}
+}

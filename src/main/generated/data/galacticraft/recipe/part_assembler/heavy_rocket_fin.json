@@ -1,0 +1,35 @@
+{
+  "type": "galacticraft:part_assembler",
+  "assembly_time": 250,
+  "key": {
+    "P": {
+      "item": "galacticraft:heavy_plating_t3"
+    },
+    "T": {
+      "item": "galacticraft:heavy_plating_t2"
+    }
+  },
+  "part_stats": {
+    "dry_weight_kg": 300.0,
+    "fuel_capacity_droplets": 0,
+    "pressure_tolerance_atm": 6.0,
+    "thermal_tolerance_kelvin": 2200.0,
+    "thrust_kn": 0.0
+  },
+  "pattern": [
+    " T ",
+    "PTP",
+    "P P"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:heavy_rocket_fin"
+  },
+  "schematic": {
+    "item": "galacticraft:basic_rocket_fins_schematic"
+  },
+  "scrap_byproduct": {
+    "count": 1,
+    "id": "galacticraft:compressed_titanium"
+  }
+}

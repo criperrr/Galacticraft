@@ -1,0 +1,5 @@
+{
+    "parent": "template/rocky-phases",
+    "texture": "galacticraft:textures/astro/planets/moon.png",
+    "refColor": 12832229
+}

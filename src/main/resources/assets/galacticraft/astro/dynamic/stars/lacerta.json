@@ -1,0 +1,130 @@
+[
+    {
+        "type": "star",
+        "id": "hip-111169",
+        "primary": "star",
+        "aliases": [
+            "alf-lac",
+            "alpha-lacertae",
+            "7-lac",
+            "7-lacertae"
+        ],
+        "M": 1.28,
+        "B": -0.8,
+        "temp": 9629,
+        "diameter": 2563803,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 337.822922,
+            "de": 50.282493,
+            "plx": 31.77,
+            "pmra": 137.55,
+            "pmde": 17.79
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-109937",
+        "primary": "star",
+        "aliases": [
+            "1-lac",
+            "1-lacertae"
+        ],
+        "M": -2.4,
+        "B": -0.8,
+        "temp": 3811,
+        "diameter": 89262483,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 333.992399,
+            "de": 37.748738,
+            "plx": 4.96
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-111022",
+        "primary": "star",
+        "aliases": [
+            "5-lac",
+            "5-lacertae"
+        ],
+        "M": -3.32,
+        "B": -0.8,
+        "temp": 3669,
+        "diameter": 146880560,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 337.382592,
+            "de": 47.706887,
+            "plx": 2.91
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-110538",
+        "primary": "star",
+        "aliases": [
+            "bet-lac",
+            "beta-lacertae",
+            "3-lac",
+            "3-lacertae"
+        ],
+        "M": 0.87,
+        "B": -0.8,
+        "temp": 4709,
+        "diameter": 12978230,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 335.890098,
+            "de": 52.229048,
+            "plx": 19.4,
+            "pmra": -13.52,
+            "pmde": -185.91
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-111104",
+        "primary": "star",
+        "aliases": [
+            "6-lac",
+            "6-lacertae"
+        ],
+        "M": -3.68,
+        "B": -0.8,
+        "temp": 11472,
+        "diameter": 17750349,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 337.621917,
+            "de": 43.123375,
+            "plx": 2.29
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-110609",
+        "primary": "star",
+        "aliases": [
+            "4-lac",
+            "4-lacertae"
+        ],
+        "M": -4.74,
+        "B": -0.8,
+        "temp": 9307,
+        "diameter": 43912137,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 336.129129,
+            "de": 49.476394,
+            "plx": 1.36
+        }
+    }
+]

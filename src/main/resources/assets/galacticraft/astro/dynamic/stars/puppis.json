@@ -1,0 +1,103 @@
+[
+    {
+        "type": "star",
+        "id": "hip-35264",
+        "primary": "star",
+        "aliases": [
+            "pi-pup",
+            "pi-puppis"
+        ],
+        "M": -4.96,
+        "B": -0.8,
+        "temp": 3651,
+        "diameter": 315002885,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 109.285652,
+            "de": -37.097473,
+            "plx": 2.93
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-39757",
+        "primary": "star",
+        "aliases": [
+            "rho-pup",
+            "rho-puppis",
+            "15-pup",
+            "15-puppis"
+        ],
+        "M": 1.37,
+        "B": -0.8,
+        "temp": 6513,
+        "diameter": 5375982,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 121.886036,
+            "de": -24.304323,
+            "plx": 51.38
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-32768",
+        "primary": "star",
+        "aliases": [
+            "tau-pup",
+            "tau-puppis"
+        ],
+        "M": -0.81,
+        "B": -0.8,
+        "temp": 4256,
+        "diameter": 34390003,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 102.484033,
+            "de": -50.614557,
+            "plx": 17.85
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-36377",
+        "primary": "star",
+        "aliases": [
+            "sig-pup",
+            "sigma-puppis"
+        ],
+        "M": -0.5,
+        "B": -0.8,
+        "temp": 3694,
+        "diameter": 39598426,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 112.307628,
+            "de": -43.301433,
+            "plx": 17.68,
+            "pmra": -59.4,
+            "pmde": 188.63
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-38146",
+        "primary": "star",
+        "aliases": [],
+        "M": 0.25,
+        "B": -0.8,
+        "temp": 5455,
+        "diameter": 12816676,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 117.256983,
+            "de": -24.912207,
+            "plx": 9.73
+        }
+    }
+]

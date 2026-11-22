@@ -1,0 +1,10 @@
+{
+    "id": "triangulum",
+    "type": "galaxy",
+    "texture": "galacticraft:astro/deepsky/triangulum",
+    "right_ascension": {"h": 1, "m": 33, "s": 50},
+    "declination": {"d": 30, "m": 39, "s": 38},
+    "magnitude": 5.7,
+    "width": {"m": 60},
+    "height": {"m": 60}
+}

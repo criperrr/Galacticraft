@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "item": "galacticraft:compressed_iron"
+    },
+    "P": {
+      "item": "minecraft:paper"
+    },
+    "S": {
+      "item": "galacticraft:compressed_steel"
+    }
+  },
+  "pattern": [
+    "PIP",
+    "ISI",
+    "PIP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:part_schematic_adapter"
+  }
+}

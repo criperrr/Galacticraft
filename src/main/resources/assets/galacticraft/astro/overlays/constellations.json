@@ -1,0 +1,4481 @@
+[
+    {
+        "name": "aquila",
+        "lines": [
+            {
+                "srcRA": 298.829,
+                "srcDE": 6.4,
+                "dstRA": 297.703,
+                "dstDE": 8.874
+            },
+            {
+                "srcRA": 297.703,
+                "srcDE": 8.874,
+                "dstRA": 296.565,
+                "dstDE": 10.613
+            },
+            {
+                "srcRA": 297.703,
+                "srcDE": 8.874,
+                "dstRA": 291.378,
+                "dstDE": 3.116
+            },
+            {
+                "srcRA": 291.378,
+                "srcDE": 3.116,
+                "dstRA": 298.118,
+                "dstDE": 1.006
+            },
+            {
+                "srcRA": 302.827,
+                "srcDE": -0.821,
+                "dstRA": 298.118,
+                "dstDE": 1.006
+            },
+            {
+                "srcRA": 291.378,
+                "srcDE": 3.116,
+                "dstRA": 286.352,
+                "dstDE": 13.862
+            },
+            {
+                "srcRA": 286.352,
+                "srcDE": 13.862,
+                "dstRA": 284.905,
+                "dstDE": 15.067
+            },
+            {
+                "srcRA": 291.378,
+                "srcDE": 3.116,
+                "dstRA": 286.562,
+                "dstDE": -4.884
+            }
+        ]
+    },
+    {
+        "name": "andromeda",
+        "lines": [
+            {
+                "srcRA": 2.099,
+                "srcDE": 29.088,
+                "dstRA": 9.834,
+                "dstDE": 30.86
+            },
+            {
+                "srcRA": 9.834,
+                "srcDE": 30.86,
+                "dstRA": 17.435,
+                "dstDE": 35.619
+            },
+            {
+                "srcRA": 30.975,
+                "srcDE": 42.329,
+                "dstRA": 17.435,
+                "dstDE": 35.619
+            },
+            {
+                "srcRA": 17.435,
+                "srcDE": 35.619,
+                "dstRA": 14.191,
+                "dstDE": 38.5
+            },
+            {
+                "srcRA": 14.191,
+                "srcDE": 38.5,
+                "dstRA": 12.454,
+                "dstDE": 41.079
+            }
+        ]
+    },
+    {
+        "name": "sculptor",
+        "lines": [
+            {
+                "srcRA": 353.244,
+                "srcDE": -37.818,
+                "dstRA": 14.652,
+                "dstDE": -29.357
+            },
+            {
+                "srcRA": 14.652,
+                "srcDE": -29.357,
+                "dstRA": 349.706,
+                "dstDE": -32.533
+            },
+            {
+                "srcRA": 349.706,
+                "srcDE": -32.533,
+                "dstRA": 353.244,
+                "dstDE": -37.818
+            }
+        ]
+    },
+    {
+        "name": "ara",
+        "lines": [
+            {
+                "srcRA": 271.658,
+                "srcDE": -50.092,
+                "dstRA": 262.96,
+                "dstDE": -49.877
+            },
+            {
+                "srcRA": 262.96,
+                "srcDE": -49.877,
+                "dstRA": 254.655,
+                "dstDE": -55.991
+            },
+            {
+                "srcRA": 254.655,
+                "srcDE": -55.991,
+                "dstRA": 252.447,
+                "dstDE": -59.042
+            },
+            {
+                "srcRA": 252.447,
+                "srcDE": -59.042,
+                "dstRA": 262.774,
+                "dstDE": -60.685
+            },
+            {
+                "srcRA": 262.774,
+                "srcDE": -60.685,
+                "dstRA": 261.349,
+                "dstDE": -56.378
+            },
+            {
+                "srcRA": 261.349,
+                "srcDE": -56.378,
+                "dstRA": 261.325,
+                "dstDE": -55.53
+            },
+            {
+                "srcRA": 261.325,
+                "srcDE": -55.53,
+                "dstRA": 271.658,
+                "dstDE": -50.092
+            }
+        ]
+    },
+    {
+        "name": "libra",
+        "type": "zodiac",
+        "lines": [
+            {
+                "srcRA": 238.458,
+                "srcDE": -16.727,
+                "dstRA": 233.882,
+                "dstDE": -14.789
+            },
+            {
+                "srcRA": 233.882,
+                "srcDE": -14.789,
+                "dstRA": 229.25,
+                "dstDE": -9.383
+            },
+            {
+                "srcRA": 229.25,
+                "srcDE": -9.383,
+                "dstRA": 222.718,
+                "dstDE": -16.043
+            },
+            {
+                "srcRA": 222.718,
+                "srcDE": -16.043,
+                "dstRA": 226.017,
+                "dstDE": -25.283
+            },
+            {
+                "srcRA": 226.017,
+                "srcDE": -25.283,
+                "dstRA": 233.882,
+                "dstDE": -14.789
+            }
+        ]
+    },
+    {
+        "name": "cetus",
+        "lines": [
+            {
+                "srcRA": 33.25,
+                "srcDE": 8.847,
+                "dstRA": 37.04,
+                "dstDE": 8.46
+            },
+            {
+                "srcRA": 25.993,
+                "srcDE": -15.926,
+                "dstRA": 10.901,
+                "dstDE": -17.986
+            },
+            {
+                "srcRA": 10.901,
+                "srcDE": -17.986,
+                "dstRA": 4.857,
+                "dstDE": -8.824
+            },
+            {
+                "srcRA": 10.901,
+                "srcDE": -17.986,
+                "dstRA": 17.15,
+                "dstDE": -10.184
+            },
+            {
+                "srcRA": 17.15,
+                "srcDE": -10.184,
+                "dstRA": 21.005,
+                "dstDE": -8.186
+            },
+            {
+                "srcRA": 21.005,
+                "srcDE": -8.186,
+                "dstRA": 27.866,
+                "dstDE": -10.336
+            },
+            {
+                "srcRA": 27.866,
+                "srcDE": -10.336,
+                "dstRA": 36.487,
+                "dstDE": -12.291
+            },
+            {
+                "srcRA": 36.487,
+                "srcDE": -12.291,
+                "dstRA": 39.893,
+                "dstDE": -11.875
+            },
+            {
+                "srcRA": 39.893,
+                "srcDE": -11.875,
+                "dstRA": 41.031,
+                "dstDE": -13.859
+            },
+            {
+                "srcRA": 41.031,
+                "srcDE": -13.859,
+                "dstRA": 38.021,
+                "dstDE": -15.246
+            },
+            {
+                "srcRA": 38.021,
+                "srcDE": -15.246,
+                "dstRA": 25.993,
+                "dstDE": -15.926
+            },
+            {
+                "srcRA": 34.837,
+                "srcDE": -2.981,
+                "dstRA": 39.893,
+                "dstDE": -11.875
+            },
+            {
+                "srcRA": 34.837,
+                "srcDE": -2.981,
+                "dstRA": 39.871,
+                "dstDE": 0.328
+            },
+            {
+                "srcRA": 39.871,
+                "srcDE": 0.328,
+                "dstRA": 40.823,
+                "dstDE": 3.234
+            },
+            {
+                "srcRA": 40.823,
+                "srcDE": 3.234,
+                "dstRA": 45.57,
+                "dstDE": 4.089
+            },
+            {
+                "srcRA": 45.57,
+                "srcDE": 4.089,
+                "dstRA": 44.929,
+                "dstDE": 8.907
+            },
+            {
+                "srcRA": 44.929,
+                "srcDE": 8.907,
+                "dstRA": 41.24,
+                "dstDE": 10.114
+            },
+            {
+                "srcRA": 41.24,
+                "srcDE": 10.114,
+                "dstRA": 37.04,
+                "dstDE": 8.46
+            },
+            {
+                "srcRA": 37.04,
+                "srcDE": 8.46,
+                "dstRA": 38.968,
+                "dstDE": 5.593
+            },
+            {
+                "srcRA": 38.968,
+                "srcDE": 5.593,
+                "dstRA": 40.823,
+                "dstDE": 3.234
+            }
+        ]
+    },
+    {
+        "name": "aries",
+        "type": "zodiac",
+        "lines": [
+            {
+                "srcRA": 42.497,
+                "srcDE": 27.259,
+                "dstRA": 31.796,
+                "dstDE": 23.46
+            },
+            {
+                "srcRA": 31.796,
+                "srcDE": 23.46,
+                "dstRA": 28.661,
+                "dstDE": 20.807
+            },
+            {
+                "srcRA": 28.661,
+                "srcDE": 20.807,
+                "dstRA": 28.384,
+                "dstDE": 19.292
+            }
+        ]
+    },
+    {
+        "name": "scutum",
+        "lines": [
+            {
+                "srcRA": 281.794,
+                "srcDE": -4.748,
+                "dstRA": 281.87,
+                "dstDE": -5.706
+            },
+            {
+                "srcRA": 281.87,
+                "srcDE": -5.706,
+                "dstRA": 283.68,
+                "dstDE": -15.603
+            },
+            {
+                "srcRA": 283.68,
+                "srcDE": -15.603,
+                "dstRA": 277.299,
+                "dstDE": -14.566
+            },
+            {
+                "srcRA": 277.299,
+                "srcDE": -14.566,
+                "dstRA": 278.802,
+                "dstDE": -8.248
+            },
+            {
+                "srcRA": 278.802,
+                "srcDE": -8.248,
+                "dstRA": 281.794,
+                "dstDE": -4.748
+            }
+        ]
+    },
+    {
+        "name": "pyxis",
+        "lines": [
+            {
+                "srcRA": 130.026,
+                "srcDE": -35.309,
+                "dstRA": 130.898,
+                "dstDE": -33.186
+            },
+            {
+                "srcRA": 130.898,
+                "srcDE": -33.186,
+                "dstRA": 132.631,
+                "dstDE": -27.709
+            }
+        ]
+    },
+    {
+        "name": "bootes",
+        "lines": [
+            {
+                "srcRA": 220.288,
+                "srcDE": 13.728,
+                "dstRA": 213.9,
+                "dstDE": 19.155
+            },
+            {
+                "srcRA": 213.9,
+                "srcDE": 19.155,
+                "dstRA": 221.246,
+                "dstDE": 27.074
+            },
+            {
+                "srcRA": 221.246,
+                "srcDE": 27.074,
+                "dstRA": 228.877,
+                "dstDE": 33.313
+            },
+            {
+                "srcRA": 228.877,
+                "srcDE": 33.313,
+                "dstRA": 225.486,
+                "dstDE": 40.39
+            },
+            {
+                "srcRA": 225.486,
+                "srcDE": 40.39,
+                "dstRA": 218.018,
+                "dstDE": 38.31
+            },
+            {
+                "srcRA": 218.018,
+                "srcDE": 38.31,
+                "dstRA": 217.956,
+                "dstDE": 30.373
+            },
+            {
+                "srcRA": 217.956,
+                "srcDE": 30.373,
+                "dstRA": 213.9,
+                "dstDE": 19.155
+            },
+            {
+                "srcRA": 213.9,
+                "srcDE": 19.155,
+                "dstRA": 208.67,
+                "dstDE": 18.393
+            },
+            {
+                "srcRA": 208.67,
+                "srcDE": 18.393,
+                "dstRA": 207.368,
+                "dstDE": 15.798
+            }
+        ]
+    },
+    {
+        "name": "caelum",
+        "lines": [
+            {
+                "srcRA": 67.709,
+                "srcDE": -44.954,
+                "dstRA": 70.139,
+                "dstDE": -41.865
+            },
+            {
+                "srcRA": 70.139,
+                "srcDE": -41.865,
+                "dstRA": 70.515,
+                "dstDE": -37.142
+            }
+        ]
+    },
+    {
+        "name": "chamaeleon",
+        "lines": [
+            {
+                "srcRA": 124.633,
+                "srcDE": -76.918,
+                "dstRA": 158.867,
+                "dstDE": -78.608
+            },
+            {
+                "srcRA": 158.867,
+                "srcDE": -78.608,
+                "dstRA": 184.586,
+                "dstDE": -79.312
+            }
+        ]
+    },
+    {
+        "name": "cancer",
+        "type": "zodiac",
+        "lines": [
+            {
+                "srcRA": 131.674,
+                "srcDE": 28.759,
+                "dstRA": 130.82,
+                "dstDE": 21.468
+            },
+            {
+                "srcRA": 130.82,
+                "srcDE": 21.468,
+                "dstRA": 125.016,
+                "dstDE": 27.212
+            },
+            {
+                "srcRA": 130.82,
+                "srcDE": 21.468,
+                "dstRA": 131.171,
+                "dstDE": 18.151
+            },
+            {
+                "srcRA": 131.171,
+                "srcDE": 18.151,
+                "dstRA": 124.128,
+                "dstDE": 9.185
+            },
+            {
+                "srcRA": 131.171,
+                "srcDE": 18.151,
+                "dstRA": 134.622,
+                "dstDE": 11.857
+            }
+        ]
+    },
+    {
+        "name": "capricorn",
+        "type": "zodiac",
+        "lines": [
+            {
+                "srcRA": 304.514,
+                "srcDE": -12.545,
+                "dstRA": 305.253,
+                "dstDE": -14.781
+            },
+            {
+                "srcRA": 305.253,
+                "srcDE": -14.781,
+                "dstRA": 316.488,
+                "dstDE": -17.234
+            },
+            {
+                "srcRA": 316.488,
+                "srcDE": -17.234,
+                "dstRA": 320.562,
+                "dstDE": -16.834
+            },
+            {
+                "srcRA": 320.562,
+                "srcDE": -16.834,
+                "dstRA": 325.025,
+                "dstDE": -16.663
+            },
+            {
+                "srcRA": 325.025,
+                "srcDE": -16.663,
+                "dstRA": 326.764,
+                "dstDE": -16.131
+            },
+            {
+                "srcRA": 320.562,
+                "srcDE": -16.834,
+                "dstRA": 321.667,
+                "dstDE": -22.411
+            },
+            {
+                "srcRA": 321.667,
+                "srcDE": -22.411,
+                "dstRA": 316.488,
+                "dstDE": -17.234
+            },
+            {
+                "srcRA": 305.253,
+                "srcDE": -14.781,
+                "dstRA": 311.523,
+                "dstDE": -25.273
+            },
+            {
+                "srcRA": 316.488,
+                "srcDE": -17.234,
+                "dstRA": 312.955,
+                "dstDE": -26.919
+            }
+        ]
+    },
+    {
+        "name": "carina",
+        "lines": [
+            {
+                "srcRA": 138.298,
+                "srcDE": -69.716,
+                "dstRA": 153.434,
+                "dstDE": -70.038
+            },
+            {
+                "srcRA": 153.434,
+                "srcDE": -70.038,
+                "dstRA": 160.739,
+                "dstDE": -64.394
+            },
+            {
+                "srcRA": 160.739,
+                "srcDE": -64.394,
+                "dstRA": 160.884,
+                "dstDE": -60.567
+            },
+            {
+                "srcRA": 160.884,
+                "srcDE": -60.567,
+                "dstRA": 167.147,
+                "dstDE": -58.975
+            },
+            {
+                "srcRA": 167.147,
+                "srcDE": -58.975,
+                "dstRA": 163.375,
+                "dstDE": -58.853
+            },
+            {
+                "srcRA": 163.375,
+                "srcDE": -58.853,
+                "dstRA": 156.97,
+                "dstDE": -58.739
+            },
+            {
+                "srcRA": 156.97,
+                "srcDE": -58.739,
+                "dstRA": 154.27,
+                "dstDE": -61.332
+            },
+            {
+                "srcRA": 154.27,
+                "srcDE": -61.332,
+                "dstRA": 139.272,
+                "dstDE": -59.275
+            },
+            {
+                "srcRA": 130.154,
+                "srcDE": -59.761,
+                "dstRA": 125.628,
+                "dstDE": -59.509
+            },
+            {
+                "srcRA": 125.628,
+                "srcDE": -59.509,
+                "dstRA": 95.988,
+                "dstDE": -52.695
+            },
+            {
+                "srcRA": 137.742,
+                "srcDE": -58.967,
+                "dstRA": 139.272,
+                "dstDE": -59.275
+            },
+            {
+                "srcRA": 137.742,
+                "srcDE": -58.967,
+                "dstRA": 130.154,
+                "dstDE": -59.761
+            },
+            {
+                "srcRA": 95.988,
+                "srcDE": -52.695,
+                "dstRA": 99.44,
+                "dstDE": -43.196
+            },
+            {
+                "srcRA": 125.628,
+                "srcDE": -59.509,
+                "dstRA": 120.896,
+                "dstDE": -40.003
+            }
+        ]
+    },
+    {
+        "name": "cassiopeia",
+        "lines": [
+            {
+                "srcRA": 28.599,
+                "srcDE": 63.67,
+                "dstRA": 21.458,
+                "dstDE": 60.235
+            },
+            {
+                "srcRA": 21.458,
+                "srcDE": 60.235,
+                "dstRA": 14.178,
+                "dstDE": 60.717
+            },
+            {
+                "srcRA": 14.178,
+                "srcDE": 60.717,
+                "dstRA": 10.128,
+                "dstDE": 56.537
+            },
+            {
+                "srcRA": 10.128,
+                "srcDE": 56.537,
+                "dstRA": 2.302,
+                "dstDE": 59.147
+            }
+        ]
+    },
+    {
+        "name": "centaurus",
+        "lines": [
+            {
+                "srcRA": 219.851,
+                "srcDE": -60.827,
+                "dstRA": 210.955,
+                "dstDE": -60.373
+            },
+            {
+                "srcRA": 210.955,
+                "srcDE": -60.373,
+                "dstRA": 204.972,
+                "dstDE": -53.467
+            },
+            {
+                "srcRA": 204.972,
+                "srcDE": -53.467,
+                "dstRA": 208.884,
+                "dstDE": -47.289
+            },
+            {
+                "srcRA": 208.884,
+                "srcDE": -47.289,
+                "dstRA": 209.669,
+                "dstDE": -44.804
+            },
+            {
+                "srcRA": 209.669,
+                "srcDE": -44.804,
+                "dstRA": 207.404,
+                "dstDE": -42.474
+            },
+            {
+                "srcRA": 207.404,
+                "srcDE": -42.474,
+                "dstRA": 207.376,
+                "dstDE": -41.688
+            },
+            {
+                "srcRA": 207.376,
+                "srcDE": -41.688,
+                "dstRA": 202.761,
+                "dstDE": -39.407
+            },
+            {
+                "srcRA": 202.761,
+                "srcDE": -39.407,
+                "dstRA": 200.144,
+                "dstDE": -36.714
+            },
+            {
+                "srcRA": 207.376,
+                "srcDE": -41.688,
+                "dstRA": 211.663,
+                "dstDE": -36.377
+            },
+            {
+                "srcRA": 207.404,
+                "srcDE": -42.474,
+                "dstRA": 218.876,
+                "dstDE": -42.158
+            },
+            {
+                "srcRA": 218.876,
+                "srcDE": -42.158,
+                "dstRA": 224.79,
+                "dstDE": -42.105
+            },
+            {
+                "srcRA": 208.884,
+                "srcDE": -47.289,
+                "dstRA": 190.377,
+                "dstDE": -48.96
+            },
+            {
+                "srcRA": 190.377,
+                "srcDE": -48.96,
+                "dstRA": 187.009,
+                "dstDE": -50.231
+            },
+            {
+                "srcRA": 187.009,
+                "srcDE": -50.231,
+                "dstRA": 182.089,
+                "dstDE": -50.723
+            },
+            {
+                "srcRA": 182.089,
+                "srcDE": -50.723,
+                "dstRA": 173.689,
+                "dstDE": -54.264
+            },
+            {
+                "srcRA": 173.689,
+                "srcDE": -54.264,
+                "dstRA": 173.945,
+                "dstDE": -63.02
+            }
+        ]
+    },
+    {
+        "name": "cepheus",
+        "lines": [
+            {
+                "srcRA": 332.714,
+                "srcDE": 58.201,
+                "dstRA": 342.419,
+                "dstDE": 66.199
+            },
+            {
+                "srcRA": 342.419,
+                "srcDE": 66.199,
+                "dstRA": 322.165,
+                "dstDE": 70.561
+            },
+            {
+                "srcRA": 322.165,
+                "srcDE": 70.561,
+                "dstRA": 319.647,
+                "dstDE": 62.586
+            },
+            {
+                "srcRA": 319.647,
+                "srcDE": 62.586,
+                "dstRA": 332.714,
+                "dstDE": 58.201
+            },
+            {
+                "srcRA": 342.419,
+                "srcDE": 66.199,
+                "dstRA": 354.836,
+                "dstDE": 77.634
+            },
+            {
+                "srcRA": 354.836,
+                "srcDE": 77.634,
+                "dstRA": 322.165,
+                "dstDE": 70.561
+            }
+        ]
+    },
+    {
+        "name": "coma-berenices",
+        "lines": [
+            {
+                "srcRA": 197.491,
+                "srcDE": 17.531,
+                "dstRA": 197.957,
+                "dstDE": 27.89
+            },
+            {
+                "srcRA": 197.957,
+                "srcDE": 27.89,
+                "dstRA": 186.733,
+                "dstDE": 28.267
+            }
+        ]
+    },
+    {
+        "name": "canes-venatici",
+        "lines": [
+            {
+                "srcRA": 188.426,
+                "srcDE": 41.362,
+                "dstRA": 194.004,
+                "dstDE": 38.319
+            }
+        ]
+    },
+    {
+        "name": "auriga",
+        "lines": [
+            {
+                "srcRA": 89.931,
+                "srcDE": 37.212,
+                "dstRA": 89.881,
+                "dstDE": 44.947
+            },
+            {
+                "srcRA": 89.881,
+                "srcDE": 44.947,
+                "dstRA": 79.173,
+                "dstDE": 45.992
+            },
+            {
+                "srcRA": 79.173,
+                "srcDE": 45.992,
+                "dstRA": 75.62,
+                "dstDE": 41.076
+            },
+            {
+                "srcRA": 75.62,
+                "srcDE": 41.076,
+                "dstRA": 74.248,
+                "dstDE": 33.166
+            },
+            {
+                "srcRA": 81.573,
+                "srcDE": 28.605,
+                "dstRA": 74.248,
+                "dstDE": 33.166
+            },
+            {
+                "srcRA": 81.573,
+                "srcDE": 28.605,
+                "dstRA": 89.931,
+                "dstDE": 37.212
+            }
+        ]
+    },
+    {
+        "name": "columba",
+        "lines": [
+            {
+                "srcRA": 95.528,
+                "srcDE": -33.437,
+                "dstRA": 94.138,
+                "dstDE": -35.139
+            },
+            {
+                "srcRA": 94.138,
+                "srcDE": -35.139,
+                "dstRA": 89.384,
+                "dstDE": -35.283
+            },
+            {
+                "srcRA": 89.384,
+                "srcDE": -35.283,
+                "dstRA": 87.741,
+                "dstDE": -35.763
+            },
+            {
+                "srcRA": 87.741,
+                "srcDE": -35.763,
+                "dstRA": 89.787,
+                "dstDE": -42.815
+            },
+            {
+                "srcRA": 87.741,
+                "srcDE": -35.763,
+                "dstRA": 84.912,
+                "dstDE": -34.074
+            },
+            {
+                "srcRA": 84.912,
+                "srcDE": -34.074,
+                "dstRA": 82.804,
+                "dstDE": -35.471
+            }
+        ]
+    },
+    {
+        "name": "circinus",
+        "lines": [
+            {
+                "srcRA": 220.624,
+                "srcDE": -64.978,
+                "dstRA": 230.844,
+                "dstDE": -59.321
+            },
+            {
+                "srcRA": 220.624,
+                "srcDE": -64.978,
+                "dstRA": 229.377,
+                "dstDE": -58.803
+            }
+        ]
+    },
+    {
+        "name": "crater",
+        "lines": [
+            {
+                "srcRA": 164.937,
+                "srcDE": -18.297,
+                "dstRA": 167.915,
+                "dstDE": -22.827
+            },
+            {
+                "srcRA": 167.915,
+                "srcDE": -22.827,
+                "dstRA": 171.219,
+                "dstDE": -17.684
+            },
+            {
+                "srcRA": 171.219,
+                "srcDE": -17.684,
+                "dstRA": 169.833,
+                "dstDE": -14.776
+            },
+            {
+                "srcRA": 169.833,
+                "srcDE": -14.776,
+                "dstRA": 164.937,
+                "dstDE": -18.297
+            },
+            {
+                "srcRA": 169.833,
+                "srcDE": -14.776,
+                "dstRA": 171.152,
+                "dstDE": -10.859
+            },
+            {
+                "srcRA": 171.152,
+                "srcDE": -10.859,
+                "dstRA": 174.17,
+                "dstDE": -9.802
+            },
+            {
+                "srcRA": 174.17,
+                "srcDE": -9.802,
+                "dstRA": 179.003,
+                "dstDE": -17.151
+            },
+            {
+                "srcRA": 179.003,
+                "srcDE": -17.151,
+                "dstRA": 176.191,
+                "dstDE": -18.351
+            },
+            {
+                "srcRA": 176.191,
+                "srcDE": -18.351,
+                "dstRA": 171.219,
+                "dstDE": -17.684
+            }
+        ]
+    },
+    {
+        "name": "corona-australis",
+        "lines": [
+            {
+                "srcRA": 280.946,
+                "srcDE": -38.324,
+                "dstRA": 284.169,
+                "dstDE": -37.344
+            },
+            {
+                "srcRA": 284.169,
+                "srcDE": -37.344,
+                "dstRA": 284.679,
+                "dstDE": -37.109
+            },
+            {
+                "srcRA": 284.679,
+                "srcDE": -37.109,
+                "dstRA": 286.606,
+                "dstDE": -37.067
+            },
+            {
+                "srcRA": 286.606,
+                "srcDE": -37.067,
+                "dstRA": 287.369,
+                "dstDE": -37.906
+            },
+            {
+                "srcRA": 287.369,
+                "srcDE": -37.906,
+                "dstRA": 287.507,
+                "dstDE": -39.341
+            },
+            {
+                "srcRA": 287.507,
+                "srcDE": -39.341,
+                "dstRA": 287.088,
+                "dstDE": -40.497
+            },
+            {
+                "srcRA": 287.088,
+                "srcDE": -40.497,
+                "dstRA": 285.779,
+                "dstDE": -42.096
+            },
+            {
+                "srcRA": 285.779,
+                "srcDE": -42.096,
+                "dstRA": 284.07,
+                "dstDE": -42.711
+            },
+            {
+                "srcRA": 280.946,
+                "srcDE": -38.324,
+                "dstRA": 278.089,
+                "dstDE": -39.705
+            }
+        ]
+    },
+    {
+        "name": "corona-borealis",
+        "lines": [
+            {
+                "srcRA": 233.232,
+                "srcDE": 31.359,
+                "dstRA": 231.955,
+                "dstDE": 29.107
+            },
+            {
+                "srcRA": 231.955,
+                "srcDE": 29.107,
+                "dstRA": 233.674,
+                "dstDE": 26.713
+            },
+            {
+                "srcRA": 233.674,
+                "srcDE": 26.713,
+                "dstRA": 235.684,
+                "dstDE": 26.296
+            },
+            {
+                "srcRA": 235.684,
+                "srcDE": 26.296,
+                "dstRA": 237.397,
+                "dstDE": 26.068
+            },
+            {
+                "srcRA": 237.397,
+                "srcDE": 26.068,
+                "dstRA": 239.396,
+                "dstDE": 26.877
+            },
+            {
+                "srcRA": 239.396,
+                "srcDE": 26.877,
+                "dstRA": 240.36,
+                "dstDE": 29.851
+            }
+        ]
+    },
+    {
+        "name": "corvus",
+        "lines": [
+            {
+                "srcRA": 188.012,
+                "srcDE": -16.197,
+                "dstRA": 187.463,
+                "dstDE": -16.517
+            },
+            {
+                "srcRA": 187.463,
+                "srcDE": -16.517,
+                "dstRA": 183.949,
+                "dstDE": -17.542
+            },
+            {
+                "srcRA": 183.949,
+                "srcDE": -17.542,
+                "dstRA": 182.53,
+                "dstDE": -22.62
+            },
+            {
+                "srcRA": 182.53,
+                "srcDE": -22.62,
+                "dstRA": 182.105,
+                "dstDE": -24.729
+            },
+            {
+                "srcRA": 182.53,
+                "srcDE": -22.62,
+                "dstRA": 188.597,
+                "dstDE": -23.398
+            },
+            {
+                "srcRA": 188.597,
+                "srcDE": -23.398,
+                "dstRA": 187.463,
+                "dstDE": -16.517
+            }
+        ]
+    },
+    {
+        "name": "crux",
+        "lines": [
+            {
+                "srcRA": 187.792,
+                "srcDE": -57.117,
+                "dstRA": 186.649,
+                "dstDE": -63.099
+            },
+            {
+                "srcRA": 191.93,
+                "srcDE": -59.689,
+                "dstRA": 183.786,
+                "dstDE": -58.749
+            }
+        ]
+    },
+    {
+        "name": "cygnus",
+        "lines": [
+            {
+                "srcRA": 289.277,
+                "srcDE": 53.37,
+                "dstRA": 292.427,
+                "dstDE": 51.732
+            },
+            {
+                "srcRA": 292.427,
+                "srcDE": 51.732,
+                "dstRA": 296.244,
+                "dstDE": 45.131
+            },
+            {
+                "srcRA": 296.244,
+                "srcDE": 45.131,
+                "dstRA": 305.557,
+                "dstDE": 40.257
+            },
+            {
+                "srcRA": 305.557,
+                "srcDE": 40.257,
+                "dstRA": 310.358,
+                "dstDE": 45.28
+            },
+            {
+                "srcRA": 305.557,
+                "srcDE": 40.257,
+                "dstRA": 311.558,
+                "dstDE": 33.975
+            },
+            {
+                "srcRA": 311.558,
+                "srcDE": 33.975,
+                "dstRA": 318.234,
+                "dstDE": 30.226
+            },
+            {
+                "srcRA": 318.234,
+                "srcDE": 30.226,
+                "dstRA": 326.039,
+                "dstDE": 28.739
+            },
+            {
+                "srcRA": 305.557,
+                "srcDE": 40.257,
+                "dstRA": 299.076,
+                "dstDE": 35.083
+            },
+            {
+                "srcRA": 299.076,
+                "srcDE": 35.083,
+                "dstRA": 292.68,
+                "dstDE": 27.96
+            }
+        ]
+    },
+    {
+        "name": "delphinus",
+        "lines": [
+            {
+                "srcRA": 308.303,
+                "srcDE": 11.303,
+                "dstRA": 309.389,
+                "dstDE": 14.595
+            },
+            {
+                "srcRA": 309.389,
+                "srcDE": 14.595,
+                "dstRA": 309.91,
+                "dstDE": 15.912
+            },
+            {
+                "srcRA": 309.91,
+                "srcDE": 15.912,
+                "dstRA": 311.664,
+                "dstDE": 16.122
+            },
+            {
+                "srcRA": 311.664,
+                "srcDE": 16.122,
+                "dstRA": 310.864,
+                "dstDE": 15.074
+            },
+            {
+                "srcRA": 310.864,
+                "srcDE": 15.074,
+                "dstRA": 309.389,
+                "dstDE": 14.595
+            }
+        ]
+    },
+    {
+        "name": "dorado",
+        "lines": [
+            {
+                "srcRA": 86.193,
+                "srcDE": -65.735,
+                "dstRA": 88.527,
+                "dstDE": -63.082
+            },
+            {
+                "srcRA": 88.527,
+                "srcDE": -63.082,
+                "dstRA": 83.406,
+                "dstDE": -62.49
+            },
+            {
+                "srcRA": 83.406,
+                "srcDE": -62.49,
+                "dstRA": 86.193,
+                "dstDE": -65.735
+            },
+            {
+                "srcRA": 83.406,
+                "srcDE": -62.49,
+                "dstRA": 68.5,
+                "dstDE": -55.045
+            },
+            {
+                "srcRA": 68.5,
+                "srcDE": -55.045,
+                "dstRA": 64.008,
+                "dstDE": -51.484
+            }
+        ]
+    },
+    {
+        "name": "draco",
+        "lines": [
+            {
+                "srcRA": 268.384,
+                "srcDE": 56.874,
+                "dstRA": 269.151,
+                "dstDE": 51.489
+            },
+            {
+                "srcRA": 269.151,
+                "srcDE": 51.489,
+                "dstRA": 262.608,
+                "dstDE": 52.302
+            },
+            {
+                "srcRA": 262.608,
+                "srcDE": 52.302,
+                "dstRA": 263.069,
+                "dstDE": 55.174
+            },
+            {
+                "srcRA": 263.069,
+                "srcDE": 55.174,
+                "dstRA": 268.384,
+                "dstDE": 56.874
+            },
+            {
+                "srcRA": 268.384,
+                "srcDE": 56.874,
+                "dstRA": 288.14,
+                "dstDE": 67.663
+            },
+            {
+                "srcRA": 288.14,
+                "srcDE": 67.663,
+                "dstRA": 297.044,
+                "dstDE": 70.268
+            },
+            {
+                "srcRA": 297.044,
+                "srcDE": 70.268,
+                "dstRA": 288.886,
+                "dstDE": 73.357
+            },
+            {
+                "srcRA": 288.886,
+                "srcDE": 73.357,
+                "dstRA": 275.272,
+                "dstDE": 72.728
+            },
+            {
+                "srcRA": 275.272,
+                "srcDE": 72.728,
+                "dstRA": 257.196,
+                "dstDE": 65.715
+            },
+            {
+                "srcRA": 257.196,
+                "srcDE": 65.715,
+                "dstRA": 245.998,
+                "dstDE": 61.515
+            },
+            {
+                "srcRA": 245.998,
+                "srcDE": 61.515,
+                "dstRA": 240.468,
+                "dstDE": 58.57
+            },
+            {
+                "srcRA": 240.468,
+                "srcDE": 58.57,
+                "dstRA": 231.232,
+                "dstDE": 58.966
+            },
+            {
+                "srcRA": 231.232,
+                "srcDE": 58.966,
+                "dstRA": 211.097,
+                "dstDE": 64.376
+            },
+            {
+                "srcRA": 211.097,
+                "srcDE": 64.376,
+                "dstRA": 188.37,
+                "dstDE": 69.788
+            },
+            {
+                "srcRA": 188.37,
+                "srcDE": 69.788,
+                "dstRA": 172.85,
+                "dstDE": 69.331
+            }
+        ]
+    },
+    {
+        "name": "norma",
+        "lines": [
+            {
+                "srcRA": 243.37,
+                "srcDE": -54.631,
+                "dstRA": 244.958,
+                "dstDE": -50.156
+            },
+            {
+                "srcRA": 244.958,
+                "srcDE": -50.156,
+                "dstRA": 246.796,
+                "dstDE": -47.555
+            },
+            {
+                "srcRA": 246.796,
+                "srcDE": -47.555,
+                "dstRA": 240.804,
+                "dstDE": -49.23
+            },
+            {
+                "srcRA": 240.804,
+                "srcDE": -49.23,
+                "dstRA": 244.958,
+                "dstDE": -50.156
+            },
+            {
+                "srcRA": 240.804,
+                "srcDE": -49.23,
+                "dstRA": 243.37,
+                "dstDE": -54.631
+            }
+        ]
+    },
+    {
+        "name": "eridanus",
+        "lines": [
+            {
+                "srcRA": 24.43,
+                "srcDE": -57.237,
+                "dstRA": 28.999,
+                "dstDE": -51.605
+            },
+            {
+                "srcRA": 28.999,
+                "srcDE": -51.605,
+                "dstRA": 34.129,
+                "dstDE": -51.512
+            },
+            {
+                "srcRA": 34.129,
+                "srcDE": -51.512,
+                "dstRA": 36.747,
+                "dstDE": -47.704
+            },
+            {
+                "srcRA": 36.747,
+                "srcDE": -47.704,
+                "dstRA": 39.951,
+                "dstDE": -42.892
+            },
+            {
+                "srcRA": 39.951,
+                "srcDE": -42.892,
+                "dstRA": 40.169,
+                "dstDE": -39.856
+            },
+            {
+                "srcRA": 40.169,
+                "srcDE": -39.856,
+                "dstRA": 44.565,
+                "dstDE": -40.304
+            },
+            {
+                "srcRA": 44.565,
+                "srcDE": -40.304,
+                "dstRA": 50.024,
+                "dstDE": -43.06
+            },
+            {
+                "srcRA": 50.024,
+                "srcDE": -43.06,
+                "dstRA": 57.151,
+                "dstDE": -37.62
+            },
+            {
+                "srcRA": 57.151,
+                "srcDE": -37.62,
+                "dstRA": 57.363,
+                "dstDE": -36.201
+            },
+            {
+                "srcRA": 57.363,
+                "srcDE": -36.201,
+                "dstRA": 64.474,
+                "dstDE": -33.798
+            },
+            {
+                "srcRA": 64.474,
+                "srcDE": -33.798,
+                "dstRA": 66.01,
+                "dstDE": -34.016
+            },
+            {
+                "srcRA": 66.01,
+                "srcDE": -34.016,
+                "dstRA": 68.887,
+                "dstDE": -30.563
+            },
+            {
+                "srcRA": 68.887,
+                "srcDE": -30.563,
+                "dstRA": 56.71,
+                "dstDE": -23.257
+            },
+            {
+                "srcRA": 56.71,
+                "srcDE": -23.257,
+                "dstRA": 53.448,
+                "dstDE": -21.633
+            },
+            {
+                "srcRA": 53.448,
+                "srcDE": -21.633,
+                "dstRA": 49.88,
+                "dstDE": -21.757
+            },
+            {
+                "srcRA": 49.88,
+                "srcDE": -21.757,
+                "dstRA": 45.596,
+                "dstDE": -23.625
+            },
+            {
+                "srcRA": 45.596,
+                "srcDE": -23.625,
+                "dstRA": 41.28,
+                "dstDE": -18.572
+            },
+            {
+                "srcRA": 41.28,
+                "srcDE": -18.572,
+                "dstRA": 44.108,
+                "dstDE": -8.901
+            },
+            {
+                "srcRA": 44.108,
+                "srcDE": -8.901,
+                "dstRA": 48.958,
+                "dstDE": -8.819
+            },
+            {
+                "srcRA": 48.958,
+                "srcDE": -8.819,
+                "dstRA": 53.219,
+                "dstDE": -9.458
+            },
+            {
+                "srcRA": 53.219,
+                "srcDE": -9.458,
+                "dstRA": 55.811,
+                "dstDE": -9.753
+            },
+            {
+                "srcRA": 55.811,
+                "srcDE": -9.753,
+                "dstRA": 69.08,
+                "dstDE": -3.353
+            },
+            {
+                "srcRA": 69.08,
+                "srcDE": -3.353,
+                "dstRA": 71.376,
+                "dstDE": -3.255
+            },
+            {
+                "srcRA": 71.376,
+                "srcDE": -3.255,
+                "dstRA": 73.223,
+                "dstDE": -5.452
+            },
+            {
+                "srcRA": 73.223,
+                "srcDE": -5.452,
+                "dstRA": 76.961,
+                "dstDE": -5.088
+            },
+            {
+                "srcRA": 76.961,
+                "srcDE": -5.088,
+                "dstRA": 77.287,
+                "dstDE": -8.754
+            },
+            {
+                "srcRA": 77.287,
+                "srcDE": -8.754,
+                "dstRA": 69.544,
+                "dstDE": -14.306
+            }
+        ]
+    },
+    {
+        "name": "sagitta",
+        "lines": [
+            {
+                "srcRA": 17.096,
+                "srcDE": -55.245,
+                "dstRA": 16.521,
+                "dstDE": -46.718
+            },
+            {
+                "srcRA": 16.521,
+                "srcDE": -46.718,
+                "dstRA": 6.552,
+                "dstDE": -43.679
+            },
+            {
+                "srcRA": 6.552,
+                "srcDE": -43.679,
+                "dstRA": 17.096,
+                "dstDE": -55.245
+            },
+            {
+                "srcRA": 16.521,
+                "srcDE": -46.718,
+                "dstRA": 22.815,
+                "dstDE": -49.071
+            },
+            {
+                "srcRA": 22.815,
+                "srcDE": -49.071,
+                "dstRA": 28.41,
+                "dstDE": -46.304
+            },
+            {
+                "srcRA": 28.41,
+                "srcDE": -46.304,
+                "dstRA": 16.521,
+                "dstDE": -46.718
+            },
+            {
+                "srcRA": 16.521,
+                "srcDE": -46.718,
+                "dstRA": 22.091,
+                "dstDE": -43.321
+            },
+            {
+                "srcRA": 22.091,
+                "srcDE": -43.321,
+                "dstRA": 6.552,
+                "dstDE": -43.679
+            },
+            {
+                "srcRA": 6.552,
+                "srcDE": -43.679,
+                "dstRA": 6.574,
+                "dstDE": -42.311
+            },
+            {
+                "srcRA": 6.574,
+                "srcDE": -42.311,
+                "dstRA": 2.354,
+                "dstDE": -45.75
+            },
+            {
+                "srcRA": 2.354,
+                "srcDE": -45.75,
+                "dstRA": 6.552,
+                "dstDE": -43.679
+            }
+        ]
+    },
+    {
+        "name": "fornax",
+        "lines": [
+            {
+                "srcRA": 42.274,
+                "srcDE": -32.404,
+                "dstRA": 48.024,
+                "dstDE": -28.979
+            }
+        ]
+    },
+    {
+        "name": "gemini",
+        "type": "zodiac",
+        "lines": [
+            {
+                "srcRA": 99.429,
+                "srcDE": 16.399,
+                "dstRA": 106.027,
+                "dstDE": 20.57
+            },
+            {
+                "srcRA": 106.027,
+                "srcDE": 20.57,
+                "dstRA": 110.03,
+                "dstDE": 21.982
+            },
+            {
+                "srcRA": 110.03,
+                "srcDE": 21.982,
+                "dstRA": 109.523,
+                "dstDE": 16.54
+            },
+            {
+                "srcRA": 109.523,
+                "srcDE": 16.54,
+                "dstRA": 101.321,
+                "dstDE": 12.893
+            },
+            {
+                "srcRA": 110.03,
+                "srcDE": 21.982,
+                "dstRA": 113.98,
+                "dstDE": 26.894
+            },
+            {
+                "srcRA": 113.98,
+                "srcDE": 26.894,
+                "dstRA": 116.111,
+                "dstDE": 24.397
+            },
+            {
+                "srcRA": 113.98,
+                "srcDE": 26.894,
+                "dstRA": 116.32,
+                "dstDE": 28.026
+            },
+            {
+                "srcRA": 113.98,
+                "srcDE": 26.894,
+                "dstRA": 111.43,
+                "dstDE": 27.797
+            },
+            {
+                "srcRA": 111.43,
+                "srcDE": 27.797,
+                "dstRA": 107.784,
+                "dstDE": 30.245
+            },
+            {
+                "srcRA": 107.784,
+                "srcDE": 30.245,
+                "dstRA": 113.647,
+                "dstDE": 31.887
+            },
+            {
+                "srcRA": 107.784,
+                "srcDE": 30.245,
+                "dstRA": 103.197,
+                "dstDE": 33.961
+            },
+            {
+                "srcRA": 107.784,
+                "srcDE": 30.245,
+                "dstRA": 100.983,
+                "dstDE": 25.131
+            },
+            {
+                "srcRA": 100.983,
+                "srcDE": 25.131,
+                "dstRA": 97.241,
+                "dstDE": 20.212
+            },
+            {
+                "srcRA": 100.983,
+                "srcDE": 25.131,
+                "dstRA": 95.741,
+                "dstDE": 22.512
+            },
+            {
+                "srcRA": 95.741,
+                "srcDE": 22.512,
+                "dstRA": 93.719,
+                "dstDE": 22.507
+            },
+            {
+                "srcRA": 93.719,
+                "srcDE": 22.507,
+                "dstRA": 91.03,
+                "dstDE": 23.262
+            }
+        ]
+    },
+    {
+        "name": "camelopardalis",
+        "lines": [
+            {
+                "srcRA": 52.267,
+                "srcDE": 59.94,
+                "dstRA": 59.356,
+                "dstDE": 63.072
+            },
+            {
+                "srcRA": 59.356,
+                "srcDE": 63.072,
+                "dstRA": 73.513,
+                "dstDE": 66.343
+            },
+            {
+                "srcRA": 52.267,
+                "srcDE": 59.94,
+                "dstRA": 57.59,
+                "dstDE": 71.332
+            },
+            {
+                "srcRA": 57.59,
+                "srcDE": 71.332,
+                "dstRA": 73.513,
+                "dstDE": 66.343
+            },
+            {
+                "srcRA": 57.59,
+                "srcDE": 71.332,
+                "dstRA": 80.639,
+                "dstDE": 79.233
+            }
+        ]
+    },
+    {
+        "name": "canis-major",
+        "lines": [
+            {
+                "srcRA": 103.546,
+                "srcDE": -12.039,
+                "dstRA": 105.94,
+                "dstDE": -15.633
+            },
+            {
+                "srcRA": 105.94,
+                "srcDE": -15.633,
+                "dstRA": 104.034,
+                "dstDE": -17.054
+            },
+            {
+                "srcRA": 104.034,
+                "srcDE": -17.054,
+                "dstRA": 101.279,
+                "dstDE": -16.733
+            },
+            {
+                "srcRA": 101.279,
+                "srcDE": -16.733,
+                "dstRA": 105.756,
+                "dstDE": -23.833
+            },
+            {
+                "srcRA": 105.756,
+                "srcDE": -23.833,
+                "dstRA": 107.098,
+                "dstDE": -26.393
+            },
+            {
+                "srcRA": 107.098,
+                "srcDE": -26.393,
+                "dstRA": 108.703,
+                "dstDE": -26.773
+            },
+            {
+                "srcRA": 108.703,
+                "srcDE": -26.773,
+                "dstRA": 111.024,
+                "dstDE": -29.303
+            },
+            {
+                "srcRA": 104.656,
+                "srcDE": -28.972,
+                "dstRA": 105.43,
+                "dstDE": -27.935
+            },
+            {
+                "srcRA": 105.43,
+                "srcDE": -27.935,
+                "dstRA": 107.098,
+                "dstDE": -26.393
+            },
+            {
+                "srcRA": 105.43,
+                "srcDE": -27.935,
+                "dstRA": 103.554,
+                "dstDE": -23.928
+            },
+            {
+                "srcRA": 103.554,
+                "srcDE": -23.928,
+                "dstRA": 99.172,
+                "dstDE": -19.257
+            },
+            {
+                "srcRA": 99.172,
+                "srcDE": -19.257,
+                "dstRA": 98.764,
+                "dstDE": -22.965
+            },
+            {
+                "srcRA": 99.172,
+                "srcDE": -19.257,
+                "dstRA": 95.675,
+                "dstDE": -17.956
+            },
+            {
+                "srcRA": 99.172,
+                "srcDE": -19.257,
+                "dstRA": 101.279,
+                "dstDE": -16.733
+            },
+            {
+                "srcRA": 104.656,
+                "srcDE": -28.972,
+                "dstRA": 102.46,
+                "dstDE": -32.508
+            },
+            {
+                "srcRA": 95.078,
+                "srcDE": -30.063,
+                "dstRA": 104.656,
+                "dstDE": -28.972
+            },
+            {
+                "srcRA": 104.034,
+                "srcDE": -17.054,
+                "dstRA": 103.546,
+                "dstDE": -12.039
+            }
+        ]
+    },
+    {
+        "name": "ursa-major",
+        "lines": [
+            {
+                "srcRA": 206.883,
+                "srcDE": 49.313,
+                "dstRA": 200.983,
+                "dstDE": 54.925
+            },
+            {
+                "srcRA": 200.983,
+                "srcDE": 54.925,
+                "dstRA": 193.509,
+                "dstDE": 55.96
+            },
+            {
+                "srcRA": 193.509,
+                "srcDE": 55.96,
+                "dstRA": 183.858,
+                "dstDE": 57.033
+            },
+            {
+                "srcRA": 183.858,
+                "srcDE": 57.033,
+                "dstRA": 165.93,
+                "dstDE": 61.75
+            },
+            {
+                "srcRA": 165.93,
+                "srcDE": 61.75,
+                "dstRA": 165.461,
+                "dstDE": 56.383
+            },
+            {
+                "srcRA": 165.461,
+                "srcDE": 56.383,
+                "dstRA": 178.459,
+                "dstDE": 53.695
+            },
+            {
+                "srcRA": 178.459,
+                "srcDE": 53.695,
+                "dstRA": 183.858,
+                "dstDE": 57.033
+            },
+            {
+                "srcRA": 178.459,
+                "srcDE": 53.695,
+                "dstRA": 176.511,
+                "dstDE": 47.78
+            },
+            {
+                "srcRA": 176.511,
+                "srcDE": 47.78,
+                "dstRA": 167.415,
+                "dstDE": 44.498
+            },
+            {
+                "srcRA": 167.415,
+                "srcDE": 44.498,
+                "dstRA": 154.272,
+                "dstDE": 42.914
+            },
+            {
+                "srcRA": 167.415,
+                "srcDE": 44.498,
+                "dstRA": 155.581,
+                "dstDE": 41.5
+            },
+            {
+                "srcRA": 165.461,
+                "srcDE": 56.383,
+                "dstRA": 148.026,
+                "dstDE": 54.065
+            },
+            {
+                "srcRA": 148.026,
+                "srcDE": 54.065,
+                "dstRA": 143.201,
+                "dstDE": 51.67
+            },
+            {
+                "srcRA": 143.201,
+                "srcDE": 51.67,
+                "dstRA": 135.906,
+                "dstDE": 47.156
+            },
+            {
+                "srcRA": 143.201,
+                "srcDE": 51.67,
+                "dstRA": 134.796,
+                "dstDE": 48.039
+            },
+            {
+                "srcRA": 148.026,
+                "srcDE": 54.065,
+                "dstRA": 147.743,
+                "dstDE": 59.037
+            },
+            {
+                "srcRA": 147.743,
+                "srcDE": 59.037,
+                "dstRA": 127.564,
+                "dstDE": 60.717
+            },
+            {
+                "srcRA": 127.564,
+                "srcDE": 60.717,
+                "dstRA": 142.884,
+                "dstDE": 63.062
+            },
+            {
+                "srcRA": 142.884,
+                "srcDE": 63.062,
+                "dstRA": 165.93,
+                "dstDE": 61.75
+            }
+        ]
+    },
+    {
+        "name": "grus",
+        "lines": [
+            {
+                "srcRA": 346.719,
+                "srcDE": -43.521,
+                "dstRA": 337.318,
+                "dstDE": -43.496
+            },
+            {
+                "srcRA": 337.318,
+                "srcDE": -43.496,
+                "dstRA": 332.06,
+                "dstDE": -46.963
+            },
+            {
+                "srcRA": 332.06,
+                "srcDE": -46.963,
+                "dstRA": 340.669,
+                "dstDE": -46.885
+            },
+            {
+                "srcRA": 340.669,
+                "srcDE": -46.885,
+                "dstRA": 347.592,
+                "dstDE": -45.247
+            },
+            {
+                "srcRA": 347.592,
+                "srcDE": -45.247,
+                "dstRA": 346.719,
+                "dstDE": -43.521
+            },
+            {
+                "srcRA": 340.669,
+                "srcDE": -46.885,
+                "dstRA": 345.219,
+                "dstDE": -52.754
+            },
+            {
+                "srcRA": 340.669,
+                "srcDE": -46.885,
+                "dstRA": 342.14,
+                "dstDE": -51.318
+            },
+            {
+                "srcRA": 332.06,
+                "srcDE": -46.963,
+                "dstRA": 331.528,
+                "dstDE": -39.545
+            },
+            {
+                "srcRA": 331.528,
+                "srcDE": -39.545,
+                "dstRA": 328.484,
+                "dstDE": -37.365
+            }
+        ]
+    },
+    {
+        "name": "hercules",
+        "lines": [
+            {
+                "srcRA": 264.866,
+                "srcDE": 46.006,
+                "dstRA": 269.063,
+                "dstDE": 37.251
+            },
+            {
+                "srcRA": 269.063,
+                "srcDE": 37.251,
+                "dstRA": 260.92,
+                "dstDE": 37.146
+            },
+            {
+                "srcRA": 260.92,
+                "srcDE": 37.146,
+                "dstRA": 259.417,
+                "dstDE": 37.292
+            },
+            {
+                "srcRA": 259.417,
+                "srcDE": 37.292,
+                "dstRA": 258.761,
+                "dstDE": 36.809
+            },
+            {
+                "srcRA": 258.761,
+                "srcDE": 36.809,
+                "dstRA": 250.725,
+                "dstDE": 38.921
+            },
+            {
+                "srcRA": 250.725,
+                "srcDE": 38.921,
+                "dstRA": 248.526,
+                "dstDE": 42.438
+            },
+            {
+                "srcRA": 248.526,
+                "srcDE": 42.438,
+                "dstRA": 244.935,
+                "dstDE": 46.314
+            },
+            {
+                "srcRA": 244.935,
+                "srcDE": 46.314,
+                "dstRA": 238.175,
+                "dstDE": 42.46
+            },
+            {
+                "srcRA": 250.725,
+                "srcDE": 38.921,
+                "dstRA": 250.315,
+                "dstDE": 31.608
+            },
+            {
+                "srcRA": 250.315,
+                "srcDE": 31.608,
+                "dstRA": 247.554,
+                "dstDE": 21.489
+            },
+            {
+                "srcRA": 247.554,
+                "srcDE": 21.489,
+                "dstRA": 245.479,
+                "dstDE": 19.154
+            },
+            {
+                "srcRA": 250.315,
+                "srcDE": 31.608,
+                "dstRA": 255.072,
+                "dstDE": 30.927
+            },
+            {
+                "srcRA": 255.072,
+                "srcDE": 30.927,
+                "dstRA": 262.685,
+                "dstDE": 26.111
+            },
+            {
+                "srcRA": 262.685,
+                "srcDE": 26.111,
+                "dstRA": 258.758,
+                "dstDE": 24.837
+            },
+            {
+                "srcRA": 266.61,
+                "srcDE": 27.71,
+                "dstRA": 269.442,
+                "dstDE": 29.248
+            },
+            {
+                "srcRA": 269.442,
+                "srcDE": 29.248,
+                "dstRA": 271.886,
+                "dstDE": 28.763
+            },
+            {
+                "srcRA": 255.072,
+                "srcDE": 30.927,
+                "dstRA": 258.761,
+                "dstDE": 36.809
+            },
+            {
+                "srcRA": 266.61,
+                "srcDE": 27.71,
+                "dstRA": 262.685,
+                "dstDE": 26.111
+            }
+        ]
+    },
+    {
+        "name": "horologium",
+        "lines": [
+            {
+                "srcRA": 63.501,
+                "srcDE": -42.297,
+                "dstRA": 40.166,
+                "dstDE": -54.55
+            },
+            {
+                "srcRA": 40.166,
+                "srcDE": -54.55,
+                "dstRA": 45.902,
+                "dstDE": -59.739
+            }
+        ]
+    },
+    {
+        "name": "hydra",
+        "lines": [
+            {
+                "srcRA": 130.806,
+                "srcDE": 3.399,
+                "dstRA": 129.689,
+                "dstDE": 3.341
+            },
+            {
+                "srcRA": 129.689,
+                "srcDE": 3.341,
+                "dstRA": 129.413,
+                "dstDE": 5.704
+            },
+            {
+                "srcRA": 129.413,
+                "srcDE": 5.704,
+                "dstRA": 131.691,
+                "dstDE": 6.418
+            },
+            {
+                "srcRA": 131.691,
+                "srcDE": 6.418,
+                "dstRA": 132.108,
+                "dstDE": 5.837
+            },
+            {
+                "srcRA": 132.108,
+                "srcDE": 5.837,
+                "dstRA": 130.806,
+                "dstDE": 3.399
+            },
+            {
+                "srcRA": 132.108,
+                "srcDE": 5.837,
+                "dstRA": 133.847,
+                "dstDE": 5.946
+            },
+            {
+                "srcRA": 133.847,
+                "srcDE": 5.946,
+                "dstRA": 138.593,
+                "dstDE": 2.31
+            },
+            {
+                "srcRA": 138.593,
+                "srcDE": 2.31,
+                "dstRA": 142.995,
+                "dstDE": -1.185
+            },
+            {
+                "srcRA": 142.995,
+                "srcDE": -1.185,
+                "dstRA": 142.289,
+                "dstDE": -2.769
+            },
+            {
+                "srcRA": 142.289,
+                "srcDE": -2.769,
+                "dstRA": 141.897,
+                "dstDE": -8.658
+            },
+            {
+                "srcRA": 141.897,
+                "srcDE": -8.658,
+                "dstRA": 147.87,
+                "dstDE": -14.847
+            },
+            {
+                "srcRA": 147.87,
+                "srcDE": -14.847,
+                "dstRA": 152.644,
+                "dstDE": -12.355
+            },
+            {
+                "srcRA": 152.644,
+                "srcDE": -12.355,
+                "dstRA": 156.521,
+                "dstDE": -16.837
+            },
+            {
+                "srcRA": 156.521,
+                "srcDE": -16.837,
+                "dstRA": 162.407,
+                "dstDE": -16.191
+            },
+            {
+                "srcRA": 162.407,
+                "srcDE": -16.191,
+                "dstRA": 173.248,
+                "dstDE": -31.858
+            },
+            {
+                "srcRA": 173.248,
+                "srcDE": -31.858,
+                "dstRA": 178.226,
+                "dstDE": -33.908
+            },
+            {
+                "srcRA": 178.226,
+                "srcDE": -33.908,
+                "dstRA": 197.263,
+                "dstDE": -23.119
+            },
+            {
+                "srcRA": 197.263,
+                "srcDE": -23.119,
+                "dstRA": 199.731,
+                "dstDE": -23.172
+            }
+        ]
+    },
+    {
+        "name": "hydrus",
+        "lines": [
+            {
+                "srcRA": 6.469,
+                "srcDE": -77.25,
+                "dstRA": 56.81,
+                "dstDE": -74.237
+            },
+            {
+                "srcRA": 56.81,
+                "srcDE": -74.237,
+                "dstRA": 39.899,
+                "dstDE": -68.267
+            },
+            {
+                "srcRA": 39.899,
+                "srcDE": -68.267,
+                "dstRA": 35.437,
+                "dstDE": -68.659
+            },
+            {
+                "srcRA": 35.437,
+                "srcDE": -68.659,
+                "dstRA": 29.696,
+                "dstDE": -61.569
+            }
+        ]
+    },
+    {
+        "name": "indus",
+        "lines": [
+            {
+                "srcRA": 319.968,
+                "srcDE": -53.45,
+                "dstRA": 309.393,
+                "dstDE": -47.291
+            },
+            {
+                "srcRA": 309.393,
+                "srcDE": -47.291,
+                "dstRA": 313.703,
+                "dstDE": -58.455
+            },
+            {
+                "srcRA": 313.703,
+                "srcDE": -58.455,
+                "dstRA": 319.968,
+                "dstDE": -53.45
+            }
+        ]
+    },
+    {
+        "name": "lacerta",
+        "lines": [
+            {
+                "srcRA": 333.993,
+                "srcDE": 37.749,
+                "dstRA": 337.622,
+                "dstDE": 43.123
+            },
+            {
+                "srcRA": 337.622,
+                "srcDE": 43.123,
+                "dstRA": 337.383,
+                "dstDE": 47.707
+            },
+            {
+                "srcRA": 337.383,
+                "srcDE": 47.707,
+                "dstRA": 336.129,
+                "dstDE": 49.476
+            },
+            {
+                "srcRA": 336.129,
+                "srcDE": 49.476,
+                "dstRA": 335.89,
+                "dstDE": 52.226
+            },
+            {
+                "srcRA": 335.89,
+                "srcDE": 52.226,
+                "dstRA": 337.825,
+                "dstDE": 50.283
+            },
+            {
+                "srcRA": 337.825,
+                "srcDE": 50.283,
+                "dstRA": 337.383,
+                "dstDE": 47.707
+            }
+        ]
+    },
+    {
+        "name": "monoceros",
+        "lines": [
+            {
+                "srcRA": 93.714,
+                "srcDE": -6.275,
+                "dstRA": 97.204,
+                "dstDE": -7.033
+            },
+            {
+                "srcRA": 97.204,
+                "srcDE": -7.033,
+                "dstRA": 107.966,
+                "dstDE": -0.493
+            },
+            {
+                "srcRA": 107.966,
+                "srcDE": -0.493,
+                "dstRA": 95.942,
+                "dstDE": 4.593
+            },
+            {
+                "srcRA": 95.942,
+                "srcDE": 4.593,
+                "dstRA": 92.241,
+                "dstDE": 2.5
+            },
+            {
+                "srcRA": 107.966,
+                "srcDE": -0.493,
+                "dstRA": 122.148,
+                "dstDE": -2.984
+            },
+            {
+                "srcRA": 122.148,
+                "srcDE": -2.984,
+                "dstRA": 115.311,
+                "dstDE": -9.551
+            }
+        ]
+    },
+    {
+        "name": "lepus",
+        "lines": [
+            {
+                "srcRA": 91.539,
+                "srcDE": -14.935,
+                "dstRA": 89.101,
+                "dstDE": -14.166
+            },
+            {
+                "srcRA": 89.101,
+                "srcDE": -14.166,
+                "dstRA": 86.739,
+                "dstDE": -14.822
+            },
+            {
+                "srcRA": 86.739,
+                "srcDE": -14.822,
+                "dstRA": 83.183,
+                "dstDE": -17.822
+            },
+            {
+                "srcRA": 83.183,
+                "srcDE": -17.822,
+                "dstRA": 78.234,
+                "dstDE": -16.206
+            },
+            {
+                "srcRA": 83.183,
+                "srcDE": -17.822,
+                "dstRA": 87.834,
+                "dstDE": -20.888
+            },
+            {
+                "srcRA": 87.834,
+                "srcDE": -20.888,
+                "dstRA": 86.112,
+                "dstDE": -22.454
+            },
+            {
+                "srcRA": 86.112,
+                "srcDE": -22.454,
+                "dstRA": 82.061,
+                "dstDE": -20.761
+            },
+            {
+                "srcRA": 82.061,
+                "srcDE": -20.761,
+                "dstRA": 76.366,
+                "dstDE": -22.372
+            },
+            {
+                "srcRA": 83.183,
+                "srcDE": -17.822,
+                "dstRA": 82.061,
+                "dstDE": -20.761
+            },
+            {
+                "srcRA": 78.234,
+                "srcDE": -16.206,
+                "dstRA": 79.894,
+                "dstDE": -13.177
+            },
+            {
+                "srcRA": 78.234,
+                "srcDE": -16.206,
+                "dstRA": 78.308,
+                "dstDE": -12.941
+            },
+            {
+                "srcRA": 76.366,
+                "srcDE": -22.372,
+                "dstRA": 78.234,
+                "dstDE": -16.206
+            },
+            {
+                "srcRA": 78.308,
+                "srcDE": -12.941,
+                "dstRA": 78.075,
+                "dstDE": -11.87
+            },
+            {
+                "srcRA": 79.894,
+                "srcDE": -13.177,
+                "dstRA": 79.996,
+                "dstDE": -12.316
+            }
+        ]
+    },
+    {
+        "name": "leo",
+        "type": "zodiac",
+        "lines": [
+            {
+                "srcRA": 177.258,
+                "srcDE": 14.57,
+                "dstRA": 168.559,
+                "dstDE": 15.428
+            },
+            {
+                "srcRA": 168.559,
+                "srcDE": 15.428,
+                "dstRA": 152.09,
+                "dstDE": 11.967
+            },
+            {
+                "srcRA": 152.09,
+                "srcDE": 11.967,
+                "dstRA": 151.833,
+                "dstDE": 16.763
+            },
+            {
+                "srcRA": 151.833,
+                "srcDE": 16.763,
+                "dstRA": 154.997,
+                "dstDE": 19.839
+            },
+            {
+                "srcRA": 154.997,
+                "srcDE": 19.839,
+                "dstRA": 168.529,
+                "dstDE": 20.522
+            },
+            {
+                "srcRA": 168.529,
+                "srcDE": 20.522,
+                "dstRA": 177.258,
+                "dstDE": 14.57
+            },
+            {
+                "srcRA": 154.997,
+                "srcDE": 19.839,
+                "dstRA": 154.173,
+                "dstDE": 23.417
+            },
+            {
+                "srcRA": 154.173,
+                "srcDE": 23.417,
+                "dstRA": 148.188,
+                "dstDE": 26.006
+            },
+            {
+                "srcRA": 148.188,
+                "srcDE": 26.006,
+                "dstRA": 146.462,
+                "dstDE": 23.774
+            },
+            {
+                "srcRA": 168.529,
+                "srcDE": 20.522,
+                "dstRA": 168.559,
+                "dstDE": 15.428
+            }
+        ]
+    },
+    {
+        "name": "lupus",
+        "lines": [
+            {
+                "srcRA": 237.74,
+                "srcDE": -33.628,
+                "dstRA": 241.818,
+                "dstDE": -36.756
+            },
+            {
+                "srcRA": 241.818,
+                "srcDE": -36.756,
+                "dstRA": 240.03,
+                "dstDE": -38.397
+            },
+            {
+                "srcRA": 240.03,
+                "srcDE": -38.397,
+                "dstRA": 237.74,
+                "dstDE": -33.628
+            },
+            {
+                "srcRA": 240.03,
+                "srcDE": -38.397,
+                "dstRA": 233.785,
+                "dstDE": -41.167
+            },
+            {
+                "srcRA": 233.785,
+                "srcDE": -41.167,
+                "dstRA": 230.343,
+                "dstDE": -40.648
+            },
+            {
+                "srcRA": 230.343,
+                "srcDE": -40.648,
+                "dstRA": 230.45,
+                "dstDE": -36.263
+            },
+            {
+                "srcRA": 230.343,
+                "srcDE": -40.648,
+                "dstRA": 224.633,
+                "dstDE": -43.134
+            },
+            {
+                "srcRA": 233.785,
+                "srcDE": -41.167,
+                "dstRA": 234.511,
+                "dstDE": -42.567
+            },
+            {
+                "srcRA": 234.511,
+                "srcDE": -42.567,
+                "dstRA": 228.07,
+                "dstDE": -52.1
+            },
+            {
+                "srcRA": 228.07,
+                "srcDE": -52.1,
+                "dstRA": 220.482,
+                "dstDE": -47.389
+            },
+            {
+                "srcRA": 228.07,
+                "srcDE": -52.1,
+                "dstRA": 219.471,
+                "dstDE": -49.426
+            },
+            {
+                "srcRA": 220.482,
+                "srcDE": -47.389,
+                "dstRA": 216.545,
+                "dstDE": -45.379
+            },
+            {
+                "srcRA": 220.482,
+                "srcDE": -47.389,
+                "dstRA": 224.633,
+                "dstDE": -43.134
+            }
+        ]
+    },
+    {
+        "name": "lynx",
+        "lines": [
+            {
+                "srcRA": 140.261,
+                "srcDE": 34.393,
+                "dstRA": 139.711,
+                "dstDE": 36.801
+            },
+            {
+                "srcRA": 139.711,
+                "srcDE": 36.801,
+                "dstRA": 136.632,
+                "dstDE": 38.452
+            },
+            {
+                "srcRA": 136.632,
+                "srcDE": 38.452,
+                "dstRA": 135.153,
+                "dstDE": 41.78
+            },
+            {
+                "srcRA": 135.153,
+                "srcDE": 41.78,
+                "dstRA": 125.708,
+                "dstDE": 43.187
+            },
+            {
+                "srcRA": 125.708,
+                "srcDE": 43.187,
+                "dstRA": 111.678,
+                "dstDE": 49.211
+            },
+            {
+                "srcRA": 111.678,
+                "srcDE": 49.211,
+                "dstRA": 104.319,
+                "dstDE": 58.421
+            },
+            {
+                "srcRA": 104.319,
+                "srcDE": 58.421,
+                "dstRA": 94.906,
+                "dstDE": 59.011
+            }
+        ]
+    },
+    {
+        "name": "lyra",
+        "lines": [
+            {
+                "srcRA": 279.238,
+                "srcDE": 38.788,
+                "dstRA": 281.194,
+                "dstDE": 37.605
+            },
+            {
+                "srcRA": 281.194,
+                "srcDE": 37.605,
+                "dstRA": 282.52,
+                "dstDE": 33.363
+            },
+            {
+                "srcRA": 282.52,
+                "srcDE": 33.363,
+                "dstRA": 284.736,
+                "dstDE": 32.69
+            },
+            {
+                "srcRA": 284.736,
+                "srcDE": 32.69,
+                "dstRA": 283.626,
+                "dstDE": 36.899
+            },
+            {
+                "srcRA": 283.626,
+                "srcDE": 36.899,
+                "dstRA": 281.194,
+                "dstDE": 37.605
+            }
+        ]
+    },
+    {
+        "name": "antlia",
+        "lines": [
+            {
+                "srcRA": 156.787,
+                "srcDE": -31.068,
+                "dstRA": 149.717,
+                "dstDE": -35.891
+            }
+        ]
+    },
+    {
+        "name": "microscopium",
+        "lines": [
+            {
+                "srcRA": 319.485,
+                "srcDE": -32.173,
+                "dstRA": 315.323,
+                "dstDE": -32.258
+            },
+            {
+                "srcRA": 315.323,
+                "srcDE": -32.258,
+                "dstRA": 312.492,
+                "dstDE": -33.78
+            }
+        ]
+    },
+    {
+        "name": "musca",
+        "lines": [
+            {
+                "srcRA": 191.569,
+                "srcDE": -68.108,
+                "dstRA": 176.4,
+                "dstDE": -66.728
+            },
+            {
+                "srcRA": 176.4,
+                "srcDE": -66.728,
+                "dstRA": 188.116,
+                "dstDE": -72.133
+            },
+            {
+                "srcRA": 188.116,
+                "srcDE": -72.133,
+                "dstRA": 189.295,
+                "dstDE": -69.136
+            },
+            {
+                "srcRA": 189.295,
+                "srcDE": -69.136,
+                "dstRA": 191.569,
+                "dstDE": -68.108
+            }
+        ]
+    },
+    {
+        "name": "octans",
+        "lines": [
+            {
+                "srcRA": 325.37,
+                "srcDE": -77.393,
+                "dstRA": 341.514,
+                "dstDE": -81.382
+            },
+            {
+                "srcRA": 341.514,
+                "srcDE": -81.382,
+                "dstRA": 216.729,
+                "dstDE": -83.668
+            },
+            {
+                "srcRA": 216.729,
+                "srcDE": -83.668,
+                "dstRA": 325.37,
+                "dstDE": -77.393
+            }
+        ]
+    },
+    {
+        "name": "apus",
+        "lines": [
+            {
+                "srcRA": 221.965,
+                "srcDE": -79.045,
+                "dstRA": 248.361,
+                "dstDE": -78.898
+            },
+            {
+                "srcRA": 248.361,
+                "srcDE": -78.898,
+                "dstRA": 250.765,
+                "dstDE": -77.522
+            }
+        ]
+    },
+    {
+        "name": "ophiuchus",
+        "lines": [
+            {
+                "srcRA": 263.735,
+                "srcDE": 12.557,
+                "dstRA": 265.868,
+                "dstDE": 4.57
+            },
+            {
+                "srcRA": 257.595,
+                "srcDE": -15.724,
+                "dstRA": 265.868,
+                "dstDE": 4.57
+            },
+            {
+                "srcRA": 263.735,
+                "srcDE": 12.557,
+                "dstRA": 254.413,
+                "dstDE": 9.375
+            },
+            {
+                "srcRA": 254.413,
+                "srcDE": 9.375,
+                "dstRA": 244.582,
+                "dstDE": -4.692
+            },
+            {
+                "srcRA": 244.582,
+                "srcDE": -4.692,
+                "dstRA": 249.29,
+                "dstDE": -10.567
+            },
+            {
+                "srcRA": 249.29,
+                "srcDE": -10.567,
+                "dstRA": 257.595,
+                "dstDE": -15.724
+            },
+            {
+                "srcRA": 257.595,
+                "srcDE": -15.724,
+                "dstRA": 262.854,
+                "dstDE": -23.963
+            }
+        ]
+    },
+    {
+        "name": "orion",
+        "lines": [
+            {
+                "srcRA": 85.19,
+                "srcDE": -1.943,
+                "dstRA": 84.053,
+                "dstDE": -1.202
+            },
+            {
+                "srcRA": 84.053,
+                "srcDE": -1.202,
+                "dstRA": 83.002,
+                "dstDE": -0.299
+            },
+            {
+                "srcRA": 93.014,
+                "srcDE": 16.13,
+                "dstRA": 92.985,
+                "dstDE": 14.208
+            },
+            {
+                "srcRA": 93.014,
+                "srcDE": 16.13,
+                "dstRA": 90.98,
+                "dstDE": 20.138
+            },
+            {
+                "srcRA": 90.98,
+                "srcDE": 20.138,
+                "dstRA": 88.593,
+                "dstDE": 20.275
+            },
+            {
+                "srcRA": 92.985,
+                "srcDE": 14.208,
+                "dstRA": 91.893,
+                "dstDE": 14.768
+            },
+            {
+                "srcRA": 91.893,
+                "srcDE": 14.768,
+                "dstRA": 88.593,
+                "dstDE": 20.275
+            },
+            {
+                "srcRA": 92.985,
+                "srcDE": 14.208,
+                "dstRA": 90.596,
+                "dstDE": 9.647
+            },
+            {
+                "srcRA": 90.596,
+                "srcDE": 9.647,
+                "dstRA": 88.793,
+                "dstDE": 7.407
+            },
+            {
+                "srcRA": 88.793,
+                "srcDE": 7.407,
+                "dstRA": 85.19,
+                "dstDE": -1.943
+            },
+            {
+                "srcRA": 85.19,
+                "srcDE": -1.943,
+                "dstRA": 86.939,
+                "dstDE": -9.67
+            },
+            {
+                "srcRA": 86.939,
+                "srcDE": -9.67,
+                "dstRA": 78.634,
+                "dstDE": -8.202
+            },
+            {
+                "srcRA": 78.634,
+                "srcDE": -8.202,
+                "dstRA": 83.002,
+                "dstDE": -0.299
+            },
+            {
+                "srcRA": 83.002,
+                "srcDE": -0.299,
+                "dstRA": 81.283,
+                "dstDE": 6.35
+            },
+            {
+                "srcRA": 81.283,
+                "srcDE": 6.35,
+                "dstRA": 83.784,
+                "dstDE": 9.934
+            },
+            {
+                "srcRA": 83.784,
+                "srcDE": 9.934,
+                "dstRA": 88.793,
+                "dstDE": 7.407
+            },
+            {
+                "srcRA": 81.283,
+                "srcDE": 6.35,
+                "dstRA": 72.466,
+                "dstDE": 6.961
+            },
+            {
+                "srcRA": 72.466,
+                "srcDE": 6.961,
+                "dstRA": 72.801,
+                "dstDE": 5.605
+            },
+            {
+                "srcRA": 72.801,
+                "srcDE": 5.605,
+                "dstRA": 73.345,
+                "dstDE": 2.508
+            },
+            {
+                "srcRA": 73.345,
+                "srcDE": 2.508,
+                "dstRA": 74.637,
+                "dstDE": 1.714
+            },
+            {
+                "srcRA": 72.466,
+                "srcDE": 6.961,
+                "dstRA": 72.653,
+                "dstDE": 8.9
+            },
+            {
+                "srcRA": 72.653,
+                "srcDE": 8.9,
+                "dstRA": 73.724,
+                "dstDE": 10.149
+            },
+            {
+                "srcRA": 91.893,
+                "srcDE": 14.768,
+                "dstRA": 90.596,
+                "dstDE": 9.647
+            }
+        ]
+    },
+    {
+        "name": "pavo",
+        "lines": [
+            {
+                "srcRA": 306.412,
+                "srcDE": -56.736,
+                "dstRA": 321.612,
+                "dstDE": -65.355
+            },
+            {
+                "srcRA": 321.612,
+                "srcDE": -65.355,
+                "dstRA": 311.239,
+                "dstDE": -66.203
+            },
+            {
+                "srcRA": 311.239,
+                "srcDE": -66.203,
+                "dstRA": 302.199,
+                "dstDE": -66.198
+            },
+            {
+                "srcRA": 302.199,
+                "srcDE": -66.198,
+                "dstRA": 306.412,
+                "dstDE": -56.736
+            },
+            {
+                "srcRA": 302.199,
+                "srcDE": -66.198,
+                "dstRA": 300.149,
+                "dstDE": -72.912
+            },
+            {
+                "srcRA": 300.149,
+                "srcDE": -72.912,
+                "dstRA": 280.759,
+                "dstDE": -71.43
+            },
+            {
+                "srcRA": 280.759,
+                "srcDE": -71.43,
+                "dstRA": 284.238,
+                "dstDE": -67.233
+            },
+            {
+                "srcRA": 284.238,
+                "srcDE": -67.233,
+                "dstRA": 302.199,
+                "dstDE": -66.198
+            },
+            {
+                "srcRA": 284.238,
+                "srcDE": -67.233,
+                "dstRA": 283.054,
+                "dstDE": -62.188
+            },
+            {
+                "srcRA": 283.054,
+                "srcDE": -62.188,
+                "dstRA": 275.807,
+                "dstDE": -61.494
+            },
+            {
+                "srcRA": 275.807,
+                "srcDE": -61.494,
+                "dstRA": 272.145,
+                "dstDE": -63.671
+            },
+            {
+                "srcRA": 272.145,
+                "srcDE": -63.671,
+                "dstRA": 283.054,
+                "dstDE": -62.188
+            },
+            {
+                "srcRA": 272.145,
+                "srcDE": -63.671,
+                "dstRA": 266.433,
+                "dstDE": -64.725
+            }
+        ]
+    },
+    {
+        "name": "pegasus",
+        "lines": [
+            {
+                "srcRA": 3.309,
+                "srcDE": 15.183,
+                "dstRA": 346.191,
+                "dstDE": 15.205
+            },
+            {
+                "srcRA": 345.946,
+                "srcDE": 28.085,
+                "dstRA": 340.751,
+                "dstDE": 30.221
+            },
+            {
+                "srcRA": 340.751,
+                "srcDE": 30.221,
+                "dstRA": 332.306,
+                "dstDE": 33.171
+            },
+            {
+                "srcRA": 345.946,
+                "srcDE": 28.085,
+                "dstRA": 342.503,
+                "dstDE": 24.601
+            },
+            {
+                "srcRA": 342.503,
+                "srcDE": 24.601,
+                "dstRA": 341.634,
+                "dstDE": 23.566
+            },
+            {
+                "srcRA": 341.634,
+                "srcDE": 23.566,
+                "dstRA": 331.757,
+                "dstDE": 25.345
+            },
+            {
+                "srcRA": 331.757,
+                "srcDE": 25.345,
+                "dstRA": 326.162,
+                "dstDE": 25.645
+            },
+            {
+                "srcRA": 346.191,
+                "srcDE": 15.205,
+                "dstRA": 341.676,
+                "dstDE": 12.166
+            },
+            {
+                "srcRA": 341.676,
+                "srcDE": 12.166,
+                "dstRA": 340.367,
+                "dstDE": 10.831
+            },
+            {
+                "srcRA": 340.367,
+                "srcDE": 10.831,
+                "dstRA": 332.554,
+                "dstDE": 6.198
+            },
+            {
+                "srcRA": 332.554,
+                "srcDE": 6.198,
+                "dstRA": 326.047,
+                "dstDE": 9.875
+            },
+            {
+                "srcRA": 2.099,
+                "srcDE": 29.088,
+                "dstRA": 345.946,
+                "dstDE": 28.085
+            },
+            {
+                "srcRA": 2.099,
+                "srcDE": 29.088,
+                "dstRA": 3.309,
+                "dstDE": 15.183
+            },
+            {
+                "srcRA": 345.946,
+                "srcDE": 28.085,
+                "dstRA": 346.191,
+                "dstDE": 15.205
+            }
+        ]
+    },
+    {
+        "name": "pictor",
+        "lines": [
+            {
+                "srcRA": 102.047,
+                "srcDE": -61.938,
+                "dstRA": 87.458,
+                "dstDE": -56.168
+            },
+            {
+                "srcRA": 87.458,
+                "srcDE": -56.168,
+                "dstRA": 86.821,
+                "dstDE": -51.065
+            }
+        ]
+    },
+    {
+        "name": "perseus",
+        "lines": [
+            {
+                "srcRA": 56.08,
+                "srcDE": 32.288,
+                "dstRA": 58.533,
+                "dstDE": 31.884
+            },
+            {
+                "srcRA": 58.533,
+                "srcDE": 31.884,
+                "dstRA": 59.741,
+                "dstDE": 35.791
+            },
+            {
+                "srcRA": 59.741,
+                "srcDE": 35.791,
+                "dstRA": 59.464,
+                "dstDE": 40.01
+            },
+            {
+                "srcRA": 59.464,
+                "srcDE": 40.01,
+                "dstRA": 55.732,
+                "dstDE": 47.787
+            },
+            {
+                "srcRA": 55.732,
+                "srcDE": 47.787,
+                "dstRA": 51.081,
+                "dstDE": 49.861
+            },
+            {
+                "srcRA": 51.081,
+                "srcDE": 49.861,
+                "dstRA": 46.199,
+                "dstDE": 53.506
+            },
+            {
+                "srcRA": 46.199,
+                "srcDE": 53.506,
+                "dstRA": 42.674,
+                "dstDE": 55.895
+            },
+            {
+                "srcRA": 51.081,
+                "srcDE": 49.861,
+                "dstRA": 47.042,
+                "dstDE": 40.956
+            },
+            {
+                "srcRA": 47.042,
+                "srcDE": 40.956,
+                "dstRA": 46.296,
+                "dstDE": 38.839
+            },
+            {
+                "srcRA": 46.296,
+                "srcDE": 38.839,
+                "dstRA": 42.649,
+                "dstDE": 38.317
+            }
+        ]
+    },
+    {
+        "name": "equuleus",
+        "lines": [
+            {
+                "srcRA": 317.586,
+                "srcDE": 10.129,
+                "dstRA": 318.621,
+                "dstDE": 10.003
+            },
+            {
+                "srcRA": 318.621,
+                "srcDE": 10.003,
+                "dstRA": 320.724,
+                "dstDE": 6.811
+            },
+            {
+                "srcRA": 320.724,
+                "srcDE": 6.811,
+                "dstRA": 318.957,
+                "dstDE": 5.247
+            },
+            {
+                "srcRA": 318.957,
+                "srcDE": 5.247,
+                "dstRA": 317.586,
+                "dstDE": 10.129
+            }
+        ]
+    },
+    {
+        "name": "canis-minor",
+        "lines": [
+            {
+                "srcRA": 114.816,
+                "srcDE": 5.211,
+                "dstRA": 111.787,
+                "dstDE": 8.289
+            }
+        ]
+    },
+    {
+        "name": "leo-minor",
+        "lines": [
+            {
+                "srcRA": 163.329,
+                "srcDE": 34.211,
+                "dstRA": 156.969,
+                "dstDE": 36.706
+            },
+            {
+                "srcRA": 156.969,
+                "srcDE": 36.706,
+                "dstRA": 151.858,
+                "dstDE": 35.245
+            },
+            {
+                "srcRA": 151.858,
+                "srcDE": 35.245,
+                "dstRA": 143.556,
+                "dstDE": 36.397
+            },
+            {
+                "srcRA": 151.858,
+                "srcDE": 35.245,
+                "dstRA": 163.329,
+                "dstDE": 34.211
+            }
+        ]
+    },
+    {
+        "name": "vulpecula",
+        "lines": [
+            {
+                "srcRA": 292.175,
+                "srcDE": 24.663,
+                "dstRA": 300.276,
+                "dstDE": 27.754
+            }
+        ]
+    },
+    {
+        "name": "ursa-minor",
+        "lines": [
+            {
+                "srcRA": 37.959,
+                "srcDE": 89.264,
+                "dstRA": 263.054,
+                "dstDE": 86.587
+            },
+            {
+                "srcRA": 263.054,
+                "srcDE": 86.587,
+                "dstRA": 251.493,
+                "dstDE": 82.037
+            },
+            {
+                "srcRA": 251.493,
+                "srcDE": 82.037,
+                "dstRA": 236.015,
+                "dstDE": 77.794
+            },
+            {
+                "srcRA": 236.015,
+                "srcDE": 77.794,
+                "dstRA": 244.375,
+                "dstDE": 75.759
+            },
+            {
+                "srcRA": 244.375,
+                "srcDE": 75.759,
+                "dstRA": 230.182,
+                "dstDE": 71.834
+            },
+            {
+                "srcRA": 230.182,
+                "srcDE": 71.834,
+                "dstRA": 222.676,
+                "dstDE": 74.156
+            },
+            {
+                "srcRA": 222.676,
+                "srcDE": 74.156,
+                "dstRA": 236.015,
+                "dstDE": 77.794
+            }
+        ]
+    },
+    {
+        "name": "pisces",
+        "type": "zodiac",
+        "lines": [
+            {
+                "srcRA": 15.705,
+                "srcDE": 31.804,
+                "dstRA": 18.438,
+                "dstDE": 24.583
+            },
+            {
+                "srcRA": 15.705,
+                "srcDE": 31.804,
+                "dstRA": 19.867,
+                "dstDE": 27.264
+            },
+            {
+                "srcRA": 19.867,
+                "srcDE": 27.264,
+                "dstRA": 18.438,
+                "dstDE": 24.583
+            },
+            {
+                "srcRA": 18.438,
+                "srcDE": 24.583,
+                "dstRA": 22.871,
+                "dstDE": 15.346
+            },
+            {
+                "srcRA": 22.871,
+                "srcDE": 15.346,
+                "dstRA": 26.349,
+                "dstDE": 9.158
+            },
+            {
+                "srcRA": 26.349,
+                "srcDE": 9.158,
+                "dstRA": 30.512,
+                "dstDE": 2.764
+            },
+            {
+                "srcRA": 30.512,
+                "srcDE": 2.764,
+                "dstRA": 28.389,
+                "dstDE": 3.188
+            },
+            {
+                "srcRA": 28.389,
+                "srcDE": 3.188,
+                "dstRA": 25.358,
+                "dstDE": 5.488
+            },
+            {
+                "srcRA": 25.358,
+                "srcDE": 5.488,
+                "dstRA": 22.55,
+                "dstDE": 6.143
+            },
+            {
+                "srcRA": 22.55,
+                "srcDE": 6.143,
+                "dstRA": 15.735,
+                "dstDE": 7.89
+            },
+            {
+                "srcRA": 15.735,
+                "srcDE": 7.89,
+                "dstRA": 12.074,
+                "dstDE": 7.3
+            },
+            {
+                "srcRA": 12.074,
+                "srcDE": 7.3,
+                "dstRA": 5.149,
+                "dstDE": 8.19
+            },
+            {
+                "srcRA": 5.149,
+                "srcDE": 8.19,
+                "dstRA": 359.83,
+                "dstDE": 6.862
+            },
+            {
+                "srcRA": 359.83,
+                "srcDE": 6.862,
+                "dstRA": 354.993,
+                "dstDE": 5.62
+            },
+            {
+                "srcRA": 354.993,
+                "srcDE": 5.62,
+                "dstRA": 355.51,
+                "dstDE": 1.778
+            },
+            {
+                "srcRA": 355.51,
+                "srcDE": 1.778,
+                "dstRA": 351.734,
+                "dstDE": 1.254
+            },
+            {
+                "srcRA": 351.734,
+                "srcDE": 1.254,
+                "dstRA": 349.302,
+                "dstDE": 3.283
+            },
+            {
+                "srcRA": 349.302,
+                "srcDE": 3.283,
+                "dstRA": 351.99,
+                "dstDE": 6.378
+            },
+            {
+                "srcRA": 351.99,
+                "srcDE": 6.378,
+                "dstRA": 354.993,
+                "dstDE": 5.62
+            }
+        ]
+    },
+    {
+        "name": "piscis-austrinus",
+        "lines": [
+            {
+                "srcRA": 344.417,
+                "srcDE": -29.625,
+                "dstRA": 340.164,
+                "dstDE": -27.044
+            },
+            {
+                "srcRA": 340.164,
+                "srcDE": -27.044,
+                "dstRA": 330.209,
+                "dstDE": -28.454
+            },
+            {
+                "srcRA": 330.209,
+                "srcDE": -28.454,
+                "dstRA": 326.933,
+                "dstDE": -30.898
+            },
+            {
+                "srcRA": 326.933,
+                "srcDE": -30.898,
+                "dstRA": 332.543,
+                "dstDE": -32.548
+            },
+            {
+                "srcRA": 332.543,
+                "srcDE": -32.548,
+                "dstRA": 337.877,
+                "dstDE": -32.346
+            },
+            {
+                "srcRA": 337.877,
+                "srcDE": -32.346,
+                "dstRA": 343.987,
+                "dstDE": -32.539
+            }
+        ]
+    },
+    {
+        "name": "volans",
+        "lines": [
+            {
+                "srcRA": 115.456,
+                "srcDE": -72.606,
+                "dstRA": 107.187,
+                "dstDE": -70.497
+            },
+            {
+                "srcRA": 107.187,
+                "srcDE": -70.497,
+                "dstRA": 121.982,
+                "dstDE": -68.617
+            },
+            {
+                "srcRA": 121.982,
+                "srcDE": -68.617,
+                "dstRA": 115.456,
+                "dstDE": -72.606
+            },
+            {
+                "srcRA": 121.982,
+                "srcDE": -68.617,
+                "dstRA": 109.208,
+                "dstDE": -67.957
+            },
+            {
+                "srcRA": 121.982,
+                "srcDE": -68.617,
+                "dstRA": 126.434,
+                "dstDE": -66.139
+            },
+            {
+                "srcRA": 126.434,
+                "srcDE": -66.139,
+                "dstRA": 135.612,
+                "dstDE": -66.397
+            },
+            {
+                "srcRA": 135.612,
+                "srcDE": -66.397,
+                "dstRA": 121.982,
+                "dstDE": -68.617
+            }
+        ]
+    },
+    {
+        "name": "puppis",
+        "lines": [
+            {
+                "srcRA": 121.885,
+                "srcDE": -24.304,
+                "dstRA": 117.257,
+                "dstDE": -24.912
+            },
+            {
+                "srcRA": 117.257,
+                "srcDE": -24.912,
+                "dstRA": 109.286,
+                "dstDE": -37.097
+            },
+            {
+                "srcRA": 109.286,
+                "srcDE": -37.097,
+                "dstRA": 99.44,
+                "dstDE": -43.196
+            },
+            {
+                "srcRA": 99.44,
+                "srcDE": -43.196,
+                "dstRA": 102.485,
+                "dstDE": -50.615
+            },
+            {
+                "srcRA": 102.485,
+                "srcDE": -50.615,
+                "dstRA": 112.307,
+                "dstDE": -43.299
+            },
+            {
+                "srcRA": 112.307,
+                "srcDE": -43.299,
+                "dstRA": 120.896,
+                "dstDE": -40.003
+            },
+            {
+                "srcRA": 120.896,
+                "srcDE": -40.003,
+                "dstRA": 121.885,
+                "dstDE": -24.304
+            }
+        ]
+    },
+    {
+        "name": "reticulum",
+        "lines": [
+            {
+                "srcRA": 63.607,
+                "srcDE": -62.473,
+                "dstRA": 64.12,
+                "dstDE": -59.304
+            },
+            {
+                "srcRA": 64.12,
+                "srcDE": -59.304,
+                "dstRA": 59.687,
+                "dstDE": -61.4
+            },
+            {
+                "srcRA": 59.687,
+                "srcDE": -61.4,
+                "dstRA": 56.054,
+                "dstDE": -64.806
+            },
+            {
+                "srcRA": 56.054,
+                "srcDE": -64.806,
+                "dstRA": 63.607,
+                "dstDE": -62.473
+            }
+        ]
+    },
+    {
+        "name": "sagittarius",
+        "type": "zodiac",
+        "lines": [
+            {
+                "srcRA": 275.249,
+                "srcDE": -29.828,
+                "dstRA": 276.992,
+                "dstDE": -25.424
+            },
+            {
+                "srcRA": 274.405,
+                "srcDE": -36.764,
+                "dstRA": 276.042,
+                "dstDE": -34.386
+            },
+            {
+                "srcRA": 276.042,
+                "srcDE": -34.386,
+                "dstRA": 271.451,
+                "dstDE": -30.427
+            },
+            {
+                "srcRA": 271.451,
+                "srcDE": -30.427,
+                "dstRA": 266.89,
+                "dstDE": -27.831
+            },
+            {
+                "srcRA": 271.451,
+                "srcDE": -30.427,
+                "dstRA": 275.249,
+                "dstDE": -29.828
+            },
+            {
+                "srcRA": 275.249,
+                "srcDE": -29.828,
+                "dstRA": 276.042,
+                "dstDE": -34.386
+            },
+            {
+                "srcRA": 276.042,
+                "srcDE": -34.386,
+                "dstRA": 285.652,
+                "dstDE": -29.88
+            },
+            {
+                "srcRA": 285.652,
+                "srcDE": -29.88,
+                "dstRA": 281.415,
+                "dstDE": -26.991
+            },
+            {
+                "srcRA": 281.415,
+                "srcDE": -26.991,
+                "dstRA": 275.249,
+                "dstDE": -29.828
+            },
+            {
+                "srcRA": 281.415,
+                "srcDE": -26.991,
+                "dstRA": 276.992,
+                "dstDE": -25.424
+            },
+            {
+                "srcRA": 276.992,
+                "srcDE": -25.424,
+                "dstRA": 273.441,
+                "dstDE": -21.059
+            },
+            {
+                "srcRA": 285.652,
+                "srcDE": -29.88,
+                "dstRA": 286.734,
+                "dstDE": -27.674
+            },
+            {
+                "srcRA": 286.734,
+                "srcDE": -27.674,
+                "dstRA": 283.817,
+                "dstDE": -26.297
+            },
+            {
+                "srcRA": 283.817,
+                "srcDE": -26.297,
+                "dstRA": 281.415,
+                "dstDE": -26.991
+            },
+            {
+                "srcRA": 283.817,
+                "srcDE": -26.297,
+                "dstRA": 284.433,
+                "dstDE": -21.107
+            },
+            {
+                "srcRA": 284.433,
+                "srcDE": -21.107,
+                "dstRA": 286.172,
+                "dstDE": -21.742
+            },
+            {
+                "srcRA": 286.172,
+                "srcDE": -21.742,
+                "dstRA": 289.409,
+                "dstDE": -18.953
+            },
+            {
+                "srcRA": 289.409,
+                "srcDE": -18.953,
+                "dstRA": 290.418,
+                "dstDE": -17.847
+            },
+            {
+                "srcRA": 286.734,
+                "srcDE": -27.674,
+                "dstRA": 294.007,
+                "dstDE": -24.719
+            },
+            {
+                "srcRA": 294.007,
+                "srcDE": -24.719,
+                "dstRA": 300.665,
+                "dstDE": -27.71
+            },
+            {
+                "srcRA": 300.665,
+                "srcDE": -27.71,
+                "dstRA": 299.934,
+                "dstDE": -35.277
+            },
+            {
+                "srcRA": 299.934,
+                "srcDE": -35.277,
+                "dstRA": 298.816,
+                "dstDE": -41.868
+            },
+            {
+                "srcRA": 298.816,
+                "srcDE": -41.868,
+                "dstRA": 290.972,
+                "dstDE": -40.618
+            },
+            {
+                "srcRA": 298.816,
+                "srcDE": -41.868,
+                "dstRA": 290.806,
+                "dstDE": -44.801
+            }
+        ]
+    },
+    {
+        "name": "scorpius",
+        "type": "zodiac",
+        "lines": [
+            {
+                "srcRA": 263.402,
+                "srcDE": -37.104,
+                "dstRA": 265.622,
+                "dstDE": -39.03
+            },
+            {
+                "srcRA": 265.622,
+                "srcDE": -39.03,
+                "dstRA": 266.896,
+                "dstDE": -40.127
+            },
+            {
+                "srcRA": 266.896,
+                "srcDE": -40.127,
+                "dstRA": 264.33,
+                "dstDE": -42.998
+            },
+            {
+                "srcRA": 264.33,
+                "srcDE": -42.998,
+                "dstRA": 258.039,
+                "dstDE": -43.243
+            },
+            {
+                "srcRA": 258.039,
+                "srcDE": -43.243,
+                "dstRA": 253.499,
+                "dstDE": -42.362
+            },
+            {
+                "srcRA": 253.499,
+                "srcDE": -42.362,
+                "dstRA": 252.967,
+                "dstDE": -38.048
+            },
+            {
+                "srcRA": 252.967,
+                "srcDE": -38.048,
+                "dstRA": 252.532,
+                "dstDE": -34.297
+            },
+            {
+                "srcRA": 252.532,
+                "srcDE": -34.297,
+                "dstRA": 248.971,
+                "dstDE": -28.216
+            },
+            {
+                "srcRA": 248.971,
+                "srcDE": -28.216,
+                "dstRA": 247.352,
+                "dstDE": -26.432
+            },
+            {
+                "srcRA": 247.352,
+                "srcDE": -26.432,
+                "dstRA": 240.083,
+                "dstDE": -22.622
+            },
+            {
+                "srcRA": 247.352,
+                "srcDE": -26.432,
+                "dstRA": 239.713,
+                "dstDE": -26.114
+            },
+            {
+                "srcRA": 247.352,
+                "srcDE": -26.432,
+                "dstRA": 241.359,
+                "dstDE": -19.806
+            }
+        ]
+    },
+    {
+        "name": "serpens",
+        "lines": [
+            {
+                "srcRA": 237.404,
+                "srcDE": -3.431,
+                "dstRA": 237.706,
+                "dstDE": 4.479
+            },
+            {
+                "srcRA": 237.706,
+                "srcDE": 4.479,
+                "dstRA": 236.069,
+                "dstDE": 6.426
+            },
+            {
+                "srcRA": 236.069,
+                "srcDE": 6.426,
+                "dstRA": 233.7,
+                "dstDE": 10.539
+            },
+            {
+                "srcRA": 233.7,
+                "srcDE": 10.539,
+                "dstRA": 236.548,
+                "dstDE": 15.421
+            },
+            {
+                "srcRA": 236.548,
+                "srcDE": 15.421,
+                "dstRA": 239.118,
+                "dstDE": 15.644
+            },
+            {
+                "srcRA": 239.118,
+                "srcDE": 15.644,
+                "dstRA": 237.184,
+                "dstDE": 18.14
+            },
+            {
+                "srcRA": 237.184,
+                "srcDE": 18.14,
+                "dstRA": 236.548,
+                "dstDE": 15.421
+            },
+            {
+                "srcRA": 284.056,
+                "srcDE": 4.204,
+                "dstRA": 275.32,
+                "dstDE": -2.909
+            },
+            {
+                "srcRA": 275.32,
+                "srcDE": -2.909,
+                "dstRA": 265.353,
+                "dstDE": -12.876
+            },
+            {
+                "srcRA": 265.353,
+                "srcDE": -12.876,
+                "dstRA": 264.396,
+                "dstDE": -15.399
+            },
+            {
+                "srcRA": 264.396,
+                "srcDE": -15.399,
+                "dstRA": 260.207,
+                "dstDE": -12.847
+            }
+        ]
+    },
+    {
+        "name": "sextans",
+        "lines": [
+            {
+                "srcRA": 157.572,
+                "srcDE": -0.637,
+                "dstRA": 151.984,
+                "dstDE": -0.372
+            }
+        ]
+    },
+    {
+        "name": "mensa",
+        "lines": [
+            {
+                "srcRA": 82.972,
+                "srcDE": -76.337,
+                "dstRA": 70.767,
+                "dstDE": -70.931
+            }
+        ]
+    },
+    {
+        "name": "taurus",
+        "type": "zodiac",
+        "lines": [
+            {
+                "srcRA": 81.573,
+                "srcDE": 28.605,
+                "dstRA": 70.561,
+                "dstDE": 22.957
+            },
+            {
+                "srcRA": 70.561,
+                "srcDE": 22.957,
+                "dstRA": 67.156,
+                "dstDE": 19.18
+            },
+            {
+                "srcRA": 68.981,
+                "srcDE": 16.507,
+                "dstRA": 84.411,
+                "dstDE": 21.142
+            },
+            {
+                "srcRA": 64.95,
+                "srcDE": 15.627,
+                "dstRA": 65.735,
+                "dstDE": 17.542
+            },
+            {
+                "srcRA": 64.95,
+                "srcDE": 15.627,
+                "dstRA": 60.17,
+                "dstDE": 12.49
+            },
+            {
+                "srcRA": 60.17,
+                "srcDE": 12.49,
+                "dstRA": 51.202,
+                "dstDE": 9.028
+            },
+            {
+                "srcRA": 68.981,
+                "srcDE": 16.507,
+                "dstRA": 67.156,
+                "dstDE": 19.18
+            },
+            {
+                "srcRA": 68.981,
+                "srcDE": 16.507,
+                "dstRA": 67.167,
+                "dstDE": 15.871
+            },
+            {
+                "srcRA": 67.167,
+                "srcDE": 15.871,
+                "dstRA": 64.95,
+                "dstDE": 15.627
+            },
+            {
+                "srcRA": 67.156,
+                "srcDE": 19.18,
+                "dstRA": 66.374,
+                "dstDE": 17.927
+            },
+            {
+                "srcRA": 66.374,
+                "srcDE": 17.927,
+                "dstRA": 65.735,
+                "dstDE": 17.542
+            },
+            {
+                "srcRA": 65.735,
+                "srcDE": 17.542,
+                "dstRA": 57.291,
+                "dstDE": 24.053
+            }
+        ]
+    },
+    {
+        "name": "telescopium",
+        "lines": [
+            {
+                "srcRA": 277.21,
+                "srcDE": -49.074,
+                "dstRA": 276.743,
+                "dstDE": -45.969
+            }
+        ]
+    },
+    {
+        "name": "tucana",
+        "lines": [
+            {
+                "srcRA": 334.624,
+                "srcDE": -60.26,
+                "dstRA": 349.357,
+                "dstDE": -58.235
+            },
+            {
+                "srcRA": 349.357,
+                "srcDE": -58.235,
+                "dstRA": 5.042,
+                "dstDE": -64.859
+            },
+            {
+                "srcRA": 349.357,
+                "srcDE": -58.235,
+                "dstRA": 7.887,
+                "dstDE": -62.959
+            }
+        ]
+    },
+    {
+        "name": "triangulum",
+        "lines": [
+            {
+                "srcRA": 34.329,
+                "srcDE": 33.846,
+                "dstRA": 32.388,
+                "dstDE": 34.987
+            },
+            {
+                "srcRA": 32.388,
+                "srcDE": 34.987,
+                "dstRA": 28.271,
+                "dstDE": 29.576
+            },
+            {
+                "srcRA": 28.271,
+                "srcDE": 29.576,
+                "dstRA": 34.329,
+                "dstDE": 33.846
+            }
+        ]
+    },
+    {
+        "name": "triangulum-australe",
+        "lines": [
+            {
+                "srcRA": 252.166,
+                "srcDE": -69.028,
+                "dstRA": 229.726,
+                "dstDE": -68.68
+            },
+            {
+                "srcRA": 229.726,
+                "srcDE": -68.68,
+                "dstRA": 238.783,
+                "dstDE": -63.436
+            },
+            {
+                "srcRA": 238.783,
+                "srcDE": -63.436,
+                "dstRA": 252.166,
+                "dstDE": -69.028
+            }
+        ]
+    },
+    {
+        "name": "aquarius",
+        "type": "zodiac",
+        "lines": [
+            {
+                "srcRA": 322.89,
+                "srcDE": -5.571,
+                "dstRA": 331.446,
+                "dstDE": -0.32
+            },
+            {
+                "srcRA": 331.446,
+                "srcDE": -0.32,
+                "dstRA": 335.416,
+                "dstDE": -1.387
+            },
+            {
+                "srcRA": 335.416,
+                "srcDE": -1.387,
+                "dstRA": 337.211,
+                "dstDE": -0.019
+            },
+            {
+                "srcRA": 337.211,
+                "srcDE": -0.019,
+                "dstRA": 338.84,
+                "dstDE": -0.118
+            },
+            {
+                "srcRA": 338.84,
+                "srcDE": -0.118,
+                "dstRA": 343.154,
+                "dstDE": -7.579
+            },
+            {
+                "srcRA": 343.154,
+                "srcDE": -7.579,
+                "dstRA": 348.978,
+                "dstDE": -9.088
+            },
+            {
+                "srcRA": 348.978,
+                "srcDE": -9.088,
+                "dstRA": 350.741,
+                "dstDE": -20.102
+            },
+            {
+                "srcRA": 331.446,
+                "srcDE": -0.32,
+                "dstRA": 334.21,
+                "dstDE": -7.784
+            },
+            {
+                "srcRA": 334.21,
+                "srcDE": -7.784,
+                "dstRA": 331.61,
+                "dstDE": -13.87
+            },
+            {
+                "srcRA": 334.21,
+                "srcDE": -7.784,
+                "dstRA": 337.662,
+                "dstDE": -10.678
+            },
+            {
+                "srcRA": 337.662,
+                "srcDE": -10.678,
+                "dstRA": 342.398,
+                "dstDE": -13.593
+            },
+            {
+                "srcRA": 342.398,
+                "srcDE": -13.593,
+                "dstRA": 343.662,
+                "dstDE": -15.821
+            },
+            {
+                "srcRA": 343.662,
+                "srcDE": -15.821,
+                "dstRA": 347.362,
+                "dstDE": -21.172
+            },
+            {
+                "srcRA": 311.919,
+                "srcDE": -9.496,
+                "dstRA": 322.89,
+                "dstDE": -5.571
+            }
+        ]
+    },
+    {
+        "name": "virgo",
+        "type": "zodiac",
+        "lines": [
+            {
+                "srcRA": 176.465,
+                "srcDE": 6.527,
+                "dstRA": 184.976,
+                "dstDE": -0.667
+            },
+            {
+                "srcRA": 184.976,
+                "srcDE": -0.667,
+                "dstRA": 190.407,
+                "dstDE": -1.449
+            },
+            {
+                "srcRA": 190.407,
+                "srcDE": -1.449,
+                "dstRA": 201.298,
+                "dstDE": -11.162
+            },
+            {
+                "srcRA": 201.298,
+                "srcDE": -11.162,
+                "dstRA": 213.224,
+                "dstDE": -10.272
+            },
+            {
+                "srcRA": 213.224,
+                "srcDE": -10.272,
+                "dstRA": 214.004,
+                "dstDE": -6.006
+            },
+            {
+                "srcRA": 214.004,
+                "srcDE": -6.006,
+                "dstRA": 220.767,
+                "dstDE": -5.663
+            },
+            {
+                "srcRA": 201.298,
+                "srcDE": -11.162,
+                "dstRA": 203.669,
+                "dstDE": -0.595
+            },
+            {
+                "srcRA": 203.669,
+                "srcDE": -0.595,
+                "dstRA": 210.412,
+                "dstDE": 1.544
+            },
+            {
+                "srcRA": 210.412,
+                "srcDE": 1.544,
+                "dstRA": 221.561,
+                "dstDE": 1.893
+            },
+            {
+                "srcRA": 203.669,
+                "srcDE": -0.595,
+                "dstRA": 193.894,
+                "dstDE": 3.397
+            },
+            {
+                "srcRA": 193.894,
+                "srcDE": 3.397,
+                "dstRA": 195.54,
+                "dstDE": 10.959
+            },
+            {
+                "srcRA": 193.894,
+                "srcDE": 3.397,
+                "dstRA": 190.407,
+                "dstDE": -1.449
+            }
+        ]
+    },
+    {
+        "name": "vela",
+        "lines": [
+            {
+                "srcRA": 122.383,
+                "srcDE": -47.336,
+                "dstRA": 130.073,
+                "dstDE": -52.921
+            },
+            {
+                "srcRA": 130.073,
+                "srcDE": -52.921,
+                "dstRA": 131.176,
+                "dstDE": -54.71
+            },
+            {
+                "srcRA": 131.176,
+                "srcDE": -54.71,
+                "dstRA": 140.528,
+                "dstDE": -55.011
+            },
+            {
+                "srcRA": 140.528,
+                "srcDE": -55.011,
+                "dstRA": 149.215,
+                "dstDE": -54.568
+            },
+            {
+                "srcRA": 149.215,
+                "srcDE": -54.568,
+                "dstRA": 161.693,
+                "dstDE": -49.421
+            },
+            {
+                "srcRA": 161.693,
+                "srcDE": -49.421,
+                "dstRA": 159.324,
+                "dstDE": -48.226
+            },
+            {
+                "srcRA": 159.324,
+                "srcDE": -48.226,
+                "dstRA": 153.682,
+                "dstDE": -42.121
+            },
+            {
+                "srcRA": 153.682,
+                "srcDE": -42.121,
+                "dstRA": 142.673,
+                "dstDE": -40.466
+            },
+            {
+                "srcRA": 142.673,
+                "srcDE": -40.466,
+                "dstRA": 136.999,
+                "dstDE": -43.432
+            },
+            {
+                "srcRA": 136.999,
+                "srcDE": -43.432,
+                "dstRA": 122.383,
+                "dstDE": -47.336
+            }
+        ]
+    }
+]

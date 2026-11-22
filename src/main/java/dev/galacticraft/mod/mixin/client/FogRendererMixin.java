@@ -23,8 +23,12 @@
 package dev.galacticraft.mod.mixin.client;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import dev.galacticraft.mod.Constant;
+import dev.galacticraft.mod.client.render.astro.AstroLightingManager;
+import dev.galacticraft.mod.client.render.astro.AstroSkyEngine;
 import dev.galacticraft.mod.client.render.dimension.OverworldRenderer;
 import dev.galacticraft.mod.tag.GCFluidTags;
 import net.minecraft.client.Camera;
@@ -41,6 +45,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(FogRenderer.class)
@@ -49,16 +54,56 @@ public class FogRendererMixin {
     @Shadow private static float fogGreen;
     @Shadow private static float fogBlue;
 
-    @Inject(method = "setupColor", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;clearColor(FFFF)V", remap = false, ordinal = 1))
+    @WrapOperation(
+            method = "setupColor",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel;getTimeOfDay(F)F")
+    )
+    private static float gc$modifyAstroFogSkyAngle(ClientLevel world, float partialTick, Operation<Float> original) {
+        if (AstroSkyEngine.isInitialized() && AstroSkyEngine.isOverworld(world) && AstroLightingManager.hasComputedLighting()) {
+            return AstroLightingManager.getSunsetAltitude();
+        }
+        return original.call(world, partialTick);
+    }
+
+    @ModifyVariable(method = "setupColor", index = 12, at = @At("STORE"))
+    private static float gc$modifyAstroFogColor(float original, @Local ClientLevel clientLevel) {
+        if (AstroSkyEngine.isInitialized() && AstroSkyEngine.isOverworld(clientLevel) && AstroLightingManager.hasComputedLighting()) {
+            return AstroLightingManager.getFogBrightness();
+        }
+        return original;
+    }
+
+    @ModifyVariable(method = "setupColor", index = 18, at = @At(value = "STORE", ordinal = 1))
+    private static float gc$modifyAstroSunsetFog(float original, @Local ClientLevel clientLevel) {
+        if (AstroSkyEngine.isInitialized() && AstroSkyEngine.isOverworld(clientLevel) && AstroLightingManager.hasComputedLighting()) {
+            return AstroLightingManager.getSkyBrightness();
+        }
+        return original;
+    }
+
+    @Inject(method = "setupColor", at = @At("TAIL"))
     private static void gc$setupColor(Camera camera, float partialTicks, ClientLevel clientLevel, int renderDistanceChunks, float bossColorModifier, CallbackInfo ci) {
         Player player = Minecraft.getInstance().player;
-        if (player != null && clientLevel.dimension() == Level.OVERWORLD) {
+        if (player != null) {
             double playerY = player.getVehicle() != null ? player.getVehicle().getY() : player.getY();
-            if (playerY > Constant.OVERWORLD_SKYPROVIDER_STARTHEIGHT) {
-                Vec3 vec3 = OverworldRenderer.getFogColor(clientLevel, partialTicks, camera.getPosition());
-                fogRed = (float) vec3.x();
-                fogGreen = (float) vec3.y();
-                fogBlue = (float) vec3.z();
+            if (playerY > Constant.ATMOSPHERE_FADE_START) {
+                if (clientLevel.dimension() == Level.OVERWORLD) {
+                    Vec3 vec3 = OverworldRenderer.getFogColor(clientLevel, partialTicks, camera.getPosition());
+                    fogRed = (float) vec3.x();
+                    fogGreen = (float) vec3.y();
+                    fogBlue = (float) vec3.z();
+                } else {
+                    float progress = net.minecraft.util.Mth.clamp(
+                            (float) ((playerY - Constant.ATMOSPHERE_FADE_START) / (double) (Constant.ATMOSPHERE_EXIT_END - Constant.ATMOSPHERE_FADE_START)),
+                            0.0F,
+                            1.0F
+                    );
+                    float remaining = 1.0F - progress * progress * (3.0F - 2.0F * progress);
+                    fogRed *= remaining;
+                    fogGreen *= remaining;
+                    fogBlue *= remaining;
+                }
+                com.mojang.blaze3d.systems.RenderSystem.clearColor(fogRed, fogGreen, fogBlue, 0.0F);
             }
         }
     }
@@ -106,13 +151,18 @@ public class FogRendererMixin {
             }
         } else if (player != null) {
             double playerY = player.getVehicle() != null ? player.getVehicle().getY() : player.getY();
-            if (playerY > Constant.OVERWORLD_SKYPROVIDER_STARTHEIGHT + 200) {
+            if (playerY >= Constant.ATMOSPHERE_EXIT_END) {
                 return Float.MAX_VALUE;
-            } else {
-                float diff = 10.0F * (float) (playerY - Constant.OVERWORLD_SKYPROVIDER_STARTHEIGHT);
-                if (diff > 0.0F) {
-                    return diff * diff;
+            } else if (playerY > Constant.ATMOSPHERE_FOG_START) {
+                // Atmospheric exit fog band (Y=450 -> Y=780):
+                // Softly brings in upper-atmosphere fog around the midpoint, then clears into pure space at Y=780
+                float progress = (float) ((playerY - Constant.ATMOSPHERE_FOG_START) / (double) (Constant.ATMOSPHERE_EXIT_END - Constant.ATMOSPHERE_FOG_START));
+                float exitHaze = (float) Math.sin(progress * Math.PI);
+                if (progress > 0.85F) {
+                    float clearT = (progress - 0.85F) / 0.15F;
+                    return net.minecraft.util.Mth.lerp(clearT * clearT, start, 4096.0F);
                 }
+                return net.minecraft.util.Mth.lerp(exitHaze, start, 12.0F);
             }
         }
         return start;
@@ -120,14 +170,27 @@ public class FogRendererMixin {
 
     @ModifyArg(method = "setupFog", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;setShaderFogEnd(F)V", remap = false), index = 0)
     private static float gc$setShaderFogEnd(float end, @Local FogType fogType) {
+        Player player = Minecraft.getInstance().player;
         if (fogType != FogType.NONE) {
-            Player player = Minecraft.getInstance().player;
             if (player.isEyeInFluid(GCFluidTags.OIL)) {
                 return 8.0F;
             } else if (player.isEyeInFluid(GCFluidTags.FUEL)) {
                 return 12.0F;
             } else if (player.isEyeInFluid(GCFluidTags.SULFURIC_ACID)) {
                 return 12.0F;
+            }
+        } else if (player != null) {
+            double playerY = player.getVehicle() != null ? player.getVehicle().getY() : player.getY();
+            if (playerY >= Constant.ATMOSPHERE_EXIT_END) {
+                return Float.MAX_VALUE;
+            } else if (playerY > Constant.ATMOSPHERE_FOG_START) {
+                float progress = (float) ((playerY - Constant.ATMOSPHERE_FOG_START) / (double) (Constant.ATMOSPHERE_EXIT_END - Constant.ATMOSPHERE_FOG_START));
+                float exitHaze = (float) Math.sin(progress * Math.PI);
+                if (progress > 0.85F) {
+                    float clearT = (progress - 0.85F) / 0.15F;
+                    return net.minecraft.util.Mth.lerp(clearT * clearT, end, 8192.0F);
+                }
+                return net.minecraft.util.Mth.lerp(exitHaze, end, 110.0F);
             }
         }
         return end;

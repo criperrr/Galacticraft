@@ -34,8 +34,11 @@ import dev.galacticraft.mod.client.gui.overlay.RocketOverlay;
 import dev.galacticraft.mod.client.render.FootprintRenderer;
 import dev.galacticraft.mod.client.render.GCBlockOutlineRenderer;
 import dev.galacticraft.mod.client.render.dimension.SatelliteSkyRenderer;
+import dev.galacticraft.mod.client.render.platform.PlatformHologramRenderer;
+import dev.galacticraft.mod.client.render.rocket.part.RocketPartPlacementPreviewRenderer;
 import dev.galacticraft.mod.client.sounds.GCSoundManager;
 import dev.galacticraft.mod.client.sounds.RocketSound;
+import dev.galacticraft.mod.content.block.entity.HangarTerminalBlockEntity;
 import dev.galacticraft.mod.content.entity.vehicle.RocketEntity;
 import dev.galacticraft.mod.misc.footprint.FootprintManager;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -54,6 +57,8 @@ public class ClientEventHandler {
         ClientTickEvents.END_CLIENT_TICK.register(ClientEventHandler::clientTick);
         WorldRenderEvents.BLOCK_OUTLINE.register(GCBlockOutlineRenderer::renderBlockOutlines);
         WorldRenderEvents.LAST.register(FootprintRenderer::renderFootprints);
+        WorldRenderEvents.AFTER_TRANSLUCENT.register(PlatformHologramRenderer::render);
+        WorldRenderEvents.AFTER_TRANSLUCENT.register(RocketPartPlacementPreviewRenderer::render);
         ClientTickEvents.END_WORLD_TICK.register(ClientEventHandler::tickFootprints);
         MachineStatusEvents.MACHINE_STATUS_CHANGED.register(GCSoundManager::onStatusChanged);
         HudRenderCallback.EVENT.register(OxygenOverlay::onHudRender);
@@ -72,6 +77,8 @@ public class ClientEventHandler {
     }
 
     public static void initializeSatelliteSkybox(Minecraft minecraft, ClientLevel level) {
+        PlatformHologramRenderer.clearCache();
+        HangarTerminalBlockEntity.clearClientTerminals();
         Holder<CelestialBody<?, ?>> holder = level.galacticraft$getCelestialBody();
         if (holder != null && holder.value().isSatellite()) {
             DimensionRenderingRegistry.registerSkyRenderer(level.dimension(), SatelliteSkyRenderer.INSTANCE);

@@ -1,0 +1,182 @@
+[
+    {
+        "type": "star",
+        "id": "hip-55282",
+        "primary": "star",
+        "aliases": [
+            "del-crt",
+            "delta-crateris",
+            "12-crt",
+            "12-crateris"
+        ],
+        "M": -0.36,
+        "B": -0.8,
+        "temp": 4465,
+        "diameter": 25376592,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 169.835203,
+            "de": -14.778541,
+            "plx": 16.45,
+            "pmra": -122.65,
+            "pmde": 206.72
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-55705",
+        "primary": "star",
+        "aliases": [
+            "gam-crt",
+            "gamma-crateris",
+            "15-crt",
+            "15-crateris"
+        ],
+        "M": 2.01,
+        "B": -0.8,
+        "temp": 7989,
+        "diameter": 2667037,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 171.220512,
+            "de": -17.684009,
+            "plx": 38.61
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-53740",
+        "primary": "star",
+        "aliases": [
+            "alf-crt",
+            "alpha-crateris",
+            "7-crt",
+            "7-crateris"
+        ],
+        "M": 0.37,
+        "B": -0.8,
+        "temp": 4523,
+        "diameter": 17628346,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 164.943606,
+            "de": -18.298783,
+            "plx": 18.18,
+            "pmra": -461.32,
+            "pmde": 129.25
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-54682",
+        "primary": "star",
+        "aliases": [
+            "bet-crt",
+            "beta-crateris",
+            "11-crt",
+            "11-crateris"
+        ],
+        "M": -0.08,
+        "B": -0.8,
+        "temp": 9585,
+        "diameter": 4846275,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 167.914536,
+            "de": -22.825849,
+            "plx": 12.38
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-56633",
+        "primary": "star",
+        "aliases": [
+            "the-crt",
+            "the-crateris",
+            "21-crt",
+            "21-crateris"
+        ],
+        "M": -0.19,
+        "B": -0.8,
+        "temp": 10867,
+        "diameter": 3966277,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 174.17047,
+            "de": -9.802241,
+            "plx": 10.6
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-57283",
+        "primary": "star",
+        "aliases": [
+            "zet-crt",
+            "zeta-crateris",
+            "27-crt",
+            "27-crateris"
+        ],
+        "M": -0.43,
+        "B": -0.8,
+        "temp": 4815,
+        "diameter": 22549058,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 176.190737,
+            "de": -18.350681,
+            "plx": 9.39
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-55687",
+        "primary": "star",
+        "aliases": [
+            "eps-crt",
+            "epsilon-crateris",
+            "14-crt",
+            "14-crateris"
+        ],
+        "M": -0.44,
+        "B": -0.8,
+        "temp": 3689,
+        "diameter": 38547666,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 171.152462,
+            "de": -10.859324,
+            "plx": 8.92
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-58188",
+        "primary": "star",
+        "aliases": [
+            "eta-crt",
+            "eta-crateris",
+            "30-crt",
+            "30-crateris"
+        ],
+        "M": 0.47,
+        "B": -0.8,
+        "temp": 10303,
+        "diameter": 3248947,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 179.003973,
+            "de": -17.150828,
+            "plx": 11.52
+        }
+    }
+]

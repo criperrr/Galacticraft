@@ -1,0 +1,10 @@
+{
+    "id": "dumbbell",
+    "type": "nebula",
+    "texture": "galacticraft:astro/deepsky/dumbbell",
+    "right_ascension": {"h": 19, "m": 59, "s": 36},
+    "declination": {"d": 22, "m": 43, "s": 16},
+    "width": {"m": 8},
+    "height": {"m": 6.5},
+    "magnitude": 7.4
+}

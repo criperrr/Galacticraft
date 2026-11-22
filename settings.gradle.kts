@@ -15,6 +15,13 @@ pluginManagement {
                 includeGroup("fabric-loom")
             }
         }
+        maven(url = rootDir.resolve("gradle/local-maven")) {
+            name = "LocalGalacticraftMirror"
+            content {
+                includeGroup("dev.galacticraft")
+                includeGroup("dev.galacticraft.mojarn")
+            }
+        }
         maven("http://5.161.199.182/repository/maven-releases/") {
             isAllowInsecureProtocol = true
             // https://maven.galacticraft.net/repository/maven-releases
@@ -23,6 +30,7 @@ pluginManagement {
                 includeGroup("dev.galacticraft.mojarn")
             }
         }
+        mavenCentral()
         gradlePluginPortal()
     }
 }

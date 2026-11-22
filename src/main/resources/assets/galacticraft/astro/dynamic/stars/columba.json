@@ -1,0 +1,144 @@
+[
+    {
+        "type": "star",
+        "id": "hip-26634",
+        "primary": "star",
+        "aliases": [
+            "alf-col",
+            "alpha-columbae"
+        ],
+        "M": -1.87,
+        "B": -0.8,
+        "temp": 11326,
+        "diameter": 7915081,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 84.912256,
+            "de": -34.07411,
+            "plx": 12.46
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-27628",
+        "primary": "star",
+        "aliases": [
+            "bet-col",
+            "beta-columbae"
+        ],
+        "M": 1.0,
+        "B": -0.8,
+        "temp": 4336,
+        "diameter": 14396206,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 87.739968,
+            "de": -35.76831,
+            "plx": 37.9,
+            "pmra": 54.91,
+            "pmde": 403.95
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-30277",
+        "primary": "star",
+        "aliases": [
+            "del-col",
+            "delta-columbae"
+        ],
+        "M": -0.45,
+        "B": -0.8,
+        "temp": 5083,
+        "diameter": 20364782,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 95.52845,
+            "de": -33.436403,
+            "plx": 13.89
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-25859",
+        "primary": "star",
+        "aliases": [
+            "eps-col",
+            "epsilon-columbae"
+        ],
+        "M": -0.76,
+        "B": -0.8,
+        "temp": 4409,
+        "diameter": 31322137,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 82.803145,
+            "de": -35.470519,
+            "plx": 11.89
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-28328",
+        "primary": "star",
+        "aliases": [
+            "eta-col",
+            "eta-columbae"
+        ],
+        "M": -2.1,
+        "B": -0.8,
+        "temp": 4398,
+        "diameter": 58234530,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 89.78669,
+            "de": -42.815135,
+            "plx": 6.21
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-28199",
+        "primary": "star",
+        "aliases": [
+            "gam-col",
+            "gamma-columbae"
+        ],
+        "M": -2.75,
+        "B": -0.8,
+        "temp": 12629,
+        "diameter": 9519032,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 89.384209,
+            "de": -35.283281,
+            "plx": 3.8
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-29807",
+        "primary": "star",
+        "aliases": [
+            "kap-col",
+            "kappa-columbae"
+        ],
+        "M": 0.6,
+        "B": -0.8,
+        "temp": 4759,
+        "diameter": 14342687,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 94.138065,
+            "de": -35.140519,
+            "plx": 17.7
+        }
+    }
+]

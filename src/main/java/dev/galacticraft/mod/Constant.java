@@ -45,10 +45,14 @@ public interface Constant {
 
     double RADIANS_TO_DEGREES = 180.0 / Math.PI;
 
-    int OVERWORLD_SKYPROVIDER_STARTHEIGHT = 200;
+    int ATMOSPHERE_FADE_START = 400;
+    int ATMOSPHERE_FOG_START = 450;
+    int ATMOSPHERE_EXIT_START = 500;
+    int ATMOSPHERE_EXIT_END = 700;
+    int OVERWORLD_SKYPROVIDER_STARTHEIGHT = ATMOSPHERE_FADE_START;
     int CLOUD_HEIGHT = 200;
     int CLOUD_LIMIT = CLOUD_HEIGHT + 50;
-    int SPACE_HEIGHT = 1000;
+    int SPACE_HEIGHT = ATMOSPHERE_EXIT_END;
     int REENTRY_HEIGHT = 1100;
     int ESCAPE_HEIGHT = 1200;
 
@@ -435,6 +439,19 @@ public interface Constant {
         // Pad Blocks
         String FUELING_PAD = "fueling_pad";
         String ROCKET_LAUNCH_PAD = "rocket_launch_pad";
+        String REINFORCED_LAUNCH_PAD = "reinforced_launch_pad";
+        String GANTRY_TRUSS = "gantry_truss";
+        String GANTRY_CRANE_RAIL = "gantry_crane_rail";
+        String PLATFORM_UPGRADE_SOCKET = "platform_upgrade_socket";
+        String HANGAR_TERMINAL = "hangar_terminal";
+        String PLATFORM_PROXY = "platform_proxy";
+        String ROCKET_PART_COMMAND = "rocket_part_command";
+        String ROCKET_PART_ENGINE = "rocket_part_engine";
+        String ROCKET_PART_TANK = "rocket_part_tank";
+        String ROCKET_PART_ADAPTER = "rocket_part_adapter";
+        String ROCKET_PART_PAYLOAD = "rocket_part_payload";
+        String ROCKET_PART_UTILITY = "rocket_part_utility";
+        String ROCKET_PART_BOUNDS = "rocket_part_bounds";
         String FUEL_LOADER = "fuel_loader";
         String CARGO_LOADER = "cargo_loader";
         String CARGO_UNLOADER = "cargo_unloader";
@@ -689,6 +706,12 @@ public interface Constant {
         String BASIC_ROCKET_BODY_SCHEMATIC = "basic_rocket_body_schematic";
         String BASIC_ROCKET_FINS_SCHEMATIC = "basic_rocket_fins_schematic";
         String BASIC_ROCKET_ENGINE_SCHEMATIC = "basic_rocket_engine_schematic";
+        String PART_SCHEMATIC_COMMAND = "part_schematic_command";
+        String PART_SCHEMATIC_ENGINE = "part_schematic_engine";
+        String PART_SCHEMATIC_TANK = "part_schematic_tank";
+        String PART_SCHEMATIC_ADAPTER = "part_schematic_adapter";
+        String PART_SCHEMATIC_PAYLOAD = "part_schematic_payload";
+        String PART_SCHEMATIC_UTILITY = "part_schematic_utility";
         String MOON_TANGLE_FRUIT = "moon_tangle_fruit";
         String GRAPPLE_HOOK = "grapple_hook";
     }
@@ -1350,6 +1373,7 @@ public interface Constant {
         String FUEL_LOADER_MENU = "fuel_loader_menu";
         String AIR_LOCK_CONTROLLER_MENU = "air_lock_menu";
         String ROCKET_WORKBENCH_MENU = "rocket_workbench_menu";
+        String HANGAR_TERMINAL_MENU = "hangar_terminal_menu";
         String ROCKET = "rocket";
         String PARACHEST = "parachest";
         String BUGGY_BENCH = "buggy_bench";
@@ -1479,6 +1503,7 @@ public interface Constant {
         String ELECTRIC_BLASTING = "electric_blasting";
         String CANNING = "canning";
         String ROCKET = "rocket";
+        String PART_ASSEMBLER = "part_assembler";
 
         interface Serializer {
             String FABRICATION = "fabrication";
@@ -1487,6 +1512,7 @@ public interface Constant {
             String COMPRESSING_SHAPED = "compressing_shaped";
             String CANNING = "canning";
             String ROCKET = "rocket";
+            String PART_ASSEMBLER = "part_assembler";
             String EMERGENCY_KIT = "crafting_special_emergencykit";
         }
     }
@@ -1601,6 +1627,7 @@ public interface Constant {
     interface Attachments {
         String SERVER_PLAYER = "server_player";
         String CLIENT_PLAYER = "client_player";
+        String MULTIBLOCK_LINKS = "multiblock_links";
     }
 
     interface Teleporters {

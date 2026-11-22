@@ -1,0 +1,36 @@
+{
+  "variants": {
+    "active=false,facing=east": {
+      "model": "galacticraft:block/hangar_terminal",
+      "y": 90
+    },
+    "active=false,facing=north": {
+      "model": "galacticraft:block/hangar_terminal",
+      "y": 0
+    },
+    "active=false,facing=south": {
+      "model": "galacticraft:block/hangar_terminal",
+      "y": 180
+    },
+    "active=false,facing=west": {
+      "model": "galacticraft:block/hangar_terminal",
+      "y": 270
+    },
+    "active=true,facing=east": {
+      "model": "galacticraft:block/hangar_terminal",
+      "y": 90
+    },
+    "active=true,facing=north": {
+      "model": "galacticraft:block/hangar_terminal",
+      "y": 0
+    },
+    "active=true,facing=south": {
+      "model": "galacticraft:block/hangar_terminal",
+      "y": 180
+    },
+    "active=true,facing=west": {
+      "model": "galacticraft:block/hangar_terminal",
+      "y": 270
+    }
+  }
+}

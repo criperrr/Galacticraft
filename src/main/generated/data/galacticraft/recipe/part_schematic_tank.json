@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "galacticraft:tin_canister"
+    },
+    "P": {
+      "item": "minecraft:paper"
+    },
+    "T": {
+      "item": "galacticraft:compressed_tin"
+    }
+  },
+  "pattern": [
+    "PTP",
+    "TCT",
+    "PTP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:part_schematic_tank"
+  }
+}

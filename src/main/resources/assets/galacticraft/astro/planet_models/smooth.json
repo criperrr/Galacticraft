@@ -1,0 +1,5 @@
+{
+    "parent": "template/cloudy-phases",
+    "texture": "galacticraft:textures/astro/planets/smooth.png",
+    "refColor": 16777215
+}

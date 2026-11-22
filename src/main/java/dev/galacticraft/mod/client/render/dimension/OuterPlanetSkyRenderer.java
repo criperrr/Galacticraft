@@ -25,8 +25,10 @@ package dev.galacticraft.mod.client.render.dimension;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
-import com.mojang.math.Axis;
 import dev.galacticraft.mod.Constant;
+import dev.galacticraft.mod.client.render.astro.AstroSkyEngine;
+import dev.galacticraft.mod.client.render.astro.AstroSkyRenderer;
+import dev.galacticraft.mod.client.render.astro.PlanetaryRingSkyRenderer;
 import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
 import net.minecraft.client.Minecraft;
@@ -34,7 +36,6 @@ import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import org.joml.Matrix4f;
 
 /**
  * Authoritative space sky renderer for outer planets (Jupiter, Saturn, Uranus, Neptune),
@@ -149,147 +150,72 @@ public class OuterPlanetSkyRenderer extends SpaceSkyRenderer implements Dimensio
         var player = Minecraft.getInstance().player;
         double playerY = player != null ? (player.getVehicle() != null ? player.getVehicle().getY() : player.getY()) : 64.0D;
 
-        float spaceProgress = Mth.clamp((float) ((playerY - 200.0D) / 250.0D), 0.0F, 1.0F);
-        float atmosphereAlpha = 1.0F - spaceProgress;
+        float rawProgress = Mth.clamp(
+                (float) ((playerY - Constant.ATMOSPHERE_FADE_START) / (double) (Constant.ATMOSPHERE_EXIT_END - Constant.ATMOSPHERE_FADE_START)),
+                0.0F,
+                1.0F
+        );
+        float spaceProgress = rawProgress * rawProgress * (3.0F - 2.0F * rawProgress);
 
         float starBrightness = Mth.clamp(1.0F - (Mth.cos(celestialAngle * (float) (Math.PI * 2)) * 2.0F + 0.25F), 0.0F, 1.0F);
         float day = 1.0F - starBrightness;
         float night = starBrightness;
+        float timeOpacity = Mth.lerp(day, 0.28F, 1.0F);
+        float atmosphereAlpha = (1.0F - spaceProgress) * timeOpacity;
 
         float rSky = this.daySkyR * day + this.nightSkyR * night;
         float gSky = this.daySkyG * day + this.nightSkyG * night;
         float bSky = this.daySkyB * day + this.nightSkyB * night;
 
-        // 1. Deep atmospheric gas dome (Envelops player in the planet's atmospheric gas layer)
-        if (atmosphereAlpha > 0.0F) {
-            RenderSystem.depthMask(false);
-            RenderSystem.disableCull();
-            FogRenderer.levelFogColor();
+        // 1. Deep space black base + thinning atmospheric gas dome (Y=500 -> Y=780)
+        RenderSystem.depthMask(false);
+        RenderSystem.disableCull();
+        FogRenderer.levelFogColor();
+        VertexBuffer buffer = getSkyBuffer();
+        buffer.bind();
+        RenderSystem.setShader(GameRenderer::getPositionShader);
+        RenderSystem.disableBlend();
+        RenderSystem.setShaderColor(0.0F, 0.0F, 0.0F, 1.0F);
+        buffer.drawWithShader(matrices.last().pose(), context.projectionMatrix(), GameRenderer.getPositionShader());
+        if (atmosphereAlpha > 0.005F) {
             RenderSystem.enableBlend();
             RenderSystem.blendFuncSeparate(
                     GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
                     GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO
             );
-            RenderSystem.setShader(GameRenderer::getPositionShader);
             RenderSystem.setShaderColor(rSky, gSky, bSky, atmosphereAlpha);
-            VertexBuffer buffer = getSkyBuffer();
-            buffer.bind();
             buffer.drawWithShader(matrices.last().pose(), context.projectionMatrix(), GameRenderer.getPositionShader());
-            VertexBuffer.unbind();
-            RenderSystem.enableCull();
             RenderSystem.disableBlend();
         }
+        VertexBuffer.unbind();
+        RenderSystem.enableCull();
 
         RenderSystem.disableBlend();
         RenderSystem.depthMask(false);
 
-        // 2. Stars (Visible brilliantly in space and through the night sky)
-        float starAlpha = Math.max(spaceProgress, night * 0.75F);
-        if (starAlpha > 0.01F) {
+        // 2-5. Realistic AstroCraft outer-planet sky (real Keplerian moons, distant Sun, Milky Way & stars)
+        float starAlpha = Math.max(spaceProgress, night * 0.85F + 0.15F);
+        if (AstroSkyEngine.isInitialized()) {
+            context.profiler().push("astro_outer_planet_sky");
+            AstroSkyRenderer.renderSpaceDimensionSky(matrices, context.projectionMatrix(), starAlpha, false);
+            context.profiler().pop();
+        } else if (starAlpha > 0.01F) {
             context.profiler().push("stars");
             matrices.pushPose();
             StarManager.rotateForCelestialAngle(matrices, celestialAngle);
-
             float renderStarBrightness = (starBrightness * starBrightness * 0.5F + 0.3F) * starAlpha;
             this.starManager.render(matrices, context.projectionMatrix(), context.world(), partialTicks, renderStarBrightness);
-
             matrices.popPose();
             context.profiler().pop();
         }
 
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-
-        // 3. Distant Orbital Sun
-        context.profiler().push("sun");
-        matrices.pushPose();
-        matrices.mulPose(Axis.YN.rotationDegrees(90.0F));
-        matrices.mulPose(Axis.XP.rotationDegrees(celestialAngle * 360.0F));
-
-        // Occulting black quad behind sun
-        RenderSystem.enableBlend();
-        RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-        RenderSystem.setShaderColor(0.0F, 0.0F, 0.0F, 1.0F);
-        RenderSystem.setShader(GameRenderer::getPositionShader);
-        float blackSize = this.sunSize / 3.5F;
-        Matrix4f sunMatrix = matrices.last().pose();
-        BufferBuilder buffer = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION);
-        buffer.addVertex(sunMatrix, -blackSize, 99.9F, -blackSize)
-                .addVertex(sunMatrix, blackSize, 99.9F, -blackSize)
-                .addVertex(sunMatrix, blackSize, 99.9F, blackSize)
-                .addVertex(sunMatrix, -blackSize, 99.9F, blackSize);
-        BufferUploader.drawWithShader(buffer.buildOrThrow());
-
-        // Radiant sun texture
-        RenderSystem.blendFuncSeparate(
-                GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE,
-                GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO
-        );
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderTexture(0, Constant.Skybox.SUN_ORBITAL);
-        buffer = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-        buffer.addVertex(sunMatrix, -this.sunSize, 100.0F, -this.sunSize).setUv(0.0F, 0.0F)
-                .addVertex(sunMatrix, this.sunSize, 100.0F, -this.sunSize).setUv(1.0F, 0.0F)
-                .addVertex(sunMatrix, this.sunSize, 100.0F, this.sunSize).setUv(1.0F, 1.0F)
-                .addVertex(sunMatrix, -this.sunSize, 100.0F, this.sunSize).setUv(0.0F, 1.0F);
-        BufferUploader.drawWithShader(buffer.buildOrThrow());
-
-        RenderSystem.disableBlend();
-        matrices.popPose();
-        context.profiler().pop();
-
-        // 4. Planetary Rings (if present)
+        // 5. Realistic 3D Planetary Ring Arch across the sky (Saturn & Uranus)
         if (this.ringTexture != null) {
-            context.profiler().push("rings");
-            matrices.pushPose();
-            matrices.scale(0.8F, 0.8F, 0.8F);
-            matrices.mulPose(Axis.XP.rotationDegrees(25.0F));
-            matrices.mulPose(Axis.YP.rotationDegrees(celestialAngle * 360.0F * 0.1F));
-
-            Matrix4f ringMatrix = matrices.last().pose();
-            float ringSize = 18.0F;
-            RenderSystem.enableBlend();
-            RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 0.85F);
-            RenderSystem.setShader(GameRenderer::getPositionTexShader);
-            RenderSystem.setShaderTexture(0, this.ringTexture);
-            buffer = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-            buffer.addVertex(ringMatrix, -ringSize, -100.0F, ringSize).setUv(0.0F, 1.0F)
-                    .addVertex(ringMatrix, ringSize, -100.0F, ringSize).setUv(1.0F, 1.0F)
-                    .addVertex(ringMatrix, ringSize, -100.0F, -ringSize).setUv(1.0F, 0.0F)
-                    .addVertex(ringMatrix, -ringSize, -100.0F, -ringSize).setUv(0.0F, 0.0F);
-            BufferUploader.drawWithShader(buffer.buildOrThrow());
-
-            RenderSystem.disableBlend();
-            matrices.popPose();
-            context.profiler().pop();
-        }
-
-        // 5. Moons
-        if (this.moons.length > 0) {
-            context.profiler().push("moons");
-            for (CelestialMoon moon : this.moons) {
-                matrices.pushPose();
-                matrices.scale(0.7F, 0.7F, 0.7F);
-                matrices.mulPose(Axis.ZP.rotationDegrees(celestialAngle * 360.0F * moon.orbitSpeed + moon.angleZ));
-                matrices.mulPose(Axis.XP.rotationDegrees(moon.angleX));
-
-                Matrix4f moonMatrix = matrices.last().pose();
-                RenderSystem.enableBlend();
-                RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-                RenderSystem.setShader(GameRenderer::getPositionTexShader);
-                RenderSystem.setShaderTexture(0, moon.texture);
-                buffer = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-                buffer.addVertex(moonMatrix, -moon.size, -100.0F, moon.size).setUv(0.0F, 1.0F)
-                        .addVertex(moonMatrix, moon.size, -100.0F, moon.size).setUv(1.0F, 1.0F)
-                        .addVertex(moonMatrix, moon.size, -100.0F, -moon.size).setUv(1.0F, 0.0F)
-                        .addVertex(moonMatrix, -moon.size, -100.0F, -moon.size).setUv(0.0F, 0.0F);
-                BufferUploader.drawWithShader(buffer.buildOrThrow());
-
-                RenderSystem.disableBlend();
-                matrices.popPose();
-            }
+            context.profiler().push("planetary_rings");
+            PlanetaryRingSkyRenderer.RingProfile ringProfile = this.ringTexture.equals(Constant.CelestialBody.URANUS_RINGS)
+                    ? PlanetaryRingSkyRenderer.URANUS
+                    : PlanetaryRingSkyRenderer.SATURN;
+            PlanetaryRingSkyRenderer.render(matrices, ringProfile, celestialAngle, spaceProgress, rSky, gSky, bSky);
             context.profiler().pop();
         }
 
@@ -301,7 +227,7 @@ public class OuterPlanetSkyRenderer extends SpaceSkyRenderer implements Dimensio
                 Constant.Skybox.ATMOSPHERE,
                 playerY,
                 partialTicks,
-                180.0F,
+                Constant.ATMOSPHERE_EXIT_START,
                 1.0F,
                 this.haloR,
                 this.haloG,

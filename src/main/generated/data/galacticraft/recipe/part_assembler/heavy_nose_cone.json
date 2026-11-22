@@ -1,0 +1,35 @@
+{
+  "type": "galacticraft:part_assembler",
+  "assembly_time": 250,
+  "key": {
+    "P": {
+      "item": "galacticraft:heavy_plating_t3"
+    },
+    "R": {
+      "item": "minecraft:redstone_torch"
+    }
+  },
+  "part_stats": {
+    "dry_weight_kg": 450.0,
+    "fuel_capacity_droplets": 0,
+    "pressure_tolerance_atm": 5.0,
+    "thermal_tolerance_kelvin": 2500.0,
+    "thrust_kn": 0.0
+  },
+  "pattern": [
+    " R ",
+    " P ",
+    "P P"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:heavy_nose_cone"
+  },
+  "schematic": {
+    "item": "galacticraft:basic_rocket_cone_schematic"
+  },
+  "scrap_byproduct": {
+    "count": 1,
+    "id": "galacticraft:compressed_titanium"
+  }
+}

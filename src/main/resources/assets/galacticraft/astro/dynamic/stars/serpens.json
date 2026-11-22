@@ -1,0 +1,288 @@
+[
+    {
+        "type": "star",
+        "id": "hip-77070",
+        "primary": "star",
+        "aliases": [
+            "unukalhai",
+            "alf-ser",
+            "alpha-serpentis",
+            "24-ser",
+            "24-serpentis"
+        ],
+        "M": 0.87,
+        "B": -0.8,
+        "temp": 4304,
+        "diameter": 15526597,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 236.066983,
+            "de": 6.425632,
+            "plx": 44.5,
+            "pmra": 136.35,
+            "pmde": 46.29
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-89962",
+        "primary": "star",
+        "aliases": [
+            "eta-ser",
+            "eta-serpentis",
+            "58-ser",
+            "58-serpentis"
+        ],
+        "M": 1.86,
+        "B": -0.8,
+        "temp": 4868,
+        "diameter": 7678776,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 275.327503,
+            "de": -2.898824,
+            "plx": 52.97,
+            "pmra": -547.46,
+            "pmde": -700.28
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-86263",
+        "primary": "star",
+        "aliases": [
+            "ksi-ser",
+            "ksi-serpentis",
+            "55-ser",
+            "55-serpentis"
+        ],
+        "M": 0.99,
+        "B": -0.8,
+        "temp": 7480,
+        "diameter": 4852933,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 264.396669,
+            "de": -15.398555,
+            "plx": 31.09
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-77516",
+        "primary": "star",
+        "aliases": [
+            "mu-ser",
+            "mu-serpentis",
+            "32-ser",
+            "32-serpentis"
+        ],
+        "M": 0.13,
+        "B": -0.8,
+        "temp": 10277,
+        "diameter": 3815286,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 237.40506,
+            "de": -3.430204,
+            "plx": 20.79
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-77233",
+        "primary": "star",
+        "aliases": [
+            "bet-ser",
+            "beta-serpentis",
+            "28-ser",
+            "28-serpentis"
+        ],
+        "M": 0.27,
+        "B": -0.8,
+        "temp": 9135,
+        "diameter": 4526924,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 236.546897,
+            "de": 15.421819,
+            "plx": 21.12
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-77622",
+        "primary": "star",
+        "aliases": [
+            "eps-ser",
+            "epsilon-serpentis",
+            "37-ser",
+            "37-serpentis"
+        ],
+        "M": 2.03,
+        "B": -0.8,
+        "temp": 8419,
+        "diameter": 2376675,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 237.704027,
+            "de": 4.477732,
+            "plx": 46.24,
+            "pmra": 128.52,
+            "pmde": 62.5
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-78072",
+        "primary": "star",
+        "aliases": [
+            "gam-ser",
+            "gamma-serpentis",
+            "41-ser",
+            "41-serpentis"
+        ],
+        "M": 3.6,
+        "B": -0.8,
+        "temp": 6420,
+        "diameter": 1983944,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 239.113262,
+            "de": 15.661619,
+            "plx": 89.91,
+            "pmra": 311.44,
+            "pmde": -1281.38
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-77450",
+        "primary": "star",
+        "aliases": [
+            "kap-ser",
+            "kappa-serpentis",
+            "35-ser",
+            "35-serpentis"
+        ],
+        "M": -1.13,
+        "B": -0.8,
+        "temp": 3643,
+        "diameter": 54364953,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 237.184902,
+            "de": 18.141565,
+            "plx": 9.02,
+            "pmra": -52.27,
+            "pmde": -88.0
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-76276",
+        "primary": "star",
+        "aliases": [
+            "del-ser",
+            "delta-serpentis",
+            "13-ser",
+            "13-serpentis"
+        ],
+        "M": 0.08,
+        "B": -0.8,
+        "temp": 7658,
+        "diameter": 7047381,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 233.700613,
+            "de": 10.538869,
+            "plx": 15.52
+        },
+        "variability": {
+            "type": "scatter",
+            "period": 0.134,
+            "amplitude": 2.1
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-86565",
+        "primary": "star",
+        "aliases": [
+            "omi-ser",
+            "omicron-serpentis",
+            "56-ser",
+            "56-serpentis"
+        ],
+        "M": 0.64,
+        "B": -0.8,
+        "temp": 8960,
+        "diameter": 3984074,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 265.353639,
+            "de": -12.875306,
+            "plx": 19.07
+        },
+        "variability": {
+            "type": "scatter",
+            "period": 0.053,
+            "amplitude": 2.13
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-84880",
+        "primary": "star",
+        "aliases": [
+            "nu-ser",
+            "nu-serpentis",
+            "53-ser",
+            "53-serpentis"
+        ],
+        "M": 0.44,
+        "B": -0.8,
+        "temp": 9465,
+        "diameter": 3904168,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 260.206919,
+            "de": -12.846877,
+            "plx": 16.7
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-92946",
+        "primary": "star",
+        "aliases": [
+            "the01-ser",
+            "the1-serpentis",
+            "the-serpentis",
+            "63-ser-a",
+            "63-serpentis-a"
+        ],
+        "M": 1.39,
+        "B": -0.8,
+        "temp": 8280,
+        "diameter": 3288996,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 284.054948,
+            "de": 4.203603,
+            "plx": 22.82
+        }
+    }
+]

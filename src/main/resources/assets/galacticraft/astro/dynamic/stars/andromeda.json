@@ -1,0 +1,155 @@
+[
+    {
+        "type": "star",
+        "id": "hip-677",
+        "primary": "star",
+        "aliases": [
+            "alpheratz",
+            "alf-and",
+            "alpha-andromedae",
+            "21-and",
+            "21-andromedae",
+            "del-peg",
+            "delta-pegasi"
+        ],
+        "M": -0.33,
+        "B": -0.8,
+        "temp": 10597,
+        "diameter": 4436037,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 2.096912,
+            "de": 29.090433,
+            "plx": 33.43,
+            "pmra": 136.16,
+            "pmde": -162.41
+        },
+        "variability": {
+            "type": "scatter",
+            "period": 0.966222,
+            "amplitude": 1.01
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-5447",
+        "primary": "star",
+        "aliases": [
+            "mirach",
+            "bet-and",
+            "beta-andromedae",
+            "43-and",
+            "43-andromedae"
+        ],
+        "M": -1.92,
+        "B": -0.8,
+        "temp": 3668,
+        "diameter": 77245408,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 17.433018,
+            "de": 35.620557,
+            "plx": 15.86,
+            "pmra": 176.77,
+            "pmde": -112.4
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-9640",
+        "primary": "star",
+        "aliases": [
+            "almaak",
+            "gam01-and",
+            "gamma1-andromedae",
+            "gamma-andromedae",
+            "gam02-and",
+            "gamma2-andromedae",
+            "57-and",
+            "57-andromedae"
+        ],
+        "M": -3.16,
+        "B": -0.8,
+        "temp": 3868,
+        "diameter": 122528135,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 30.97481,
+            "de": 42.329724,
+            "plx": 8.63
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-3092",
+        "primary": "star",
+        "aliases": [
+            "del-and",
+            "delta-andromedae",
+            "31-and",
+            "31-andromedae"
+        ],
+        "M": 0.8,
+        "B": -0.8,
+        "temp": 4093,
+        "diameter": 17685299,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 9.832021,
+            "de": 30.861016,
+            "plx": 32.11,
+            "pmra": 129.03,
+            "pmde": -86.3
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-4436",
+        "primary": "star",
+        "aliases": [
+            "mu-and",
+            "mu-andromedae",
+            "37-and",
+            "37-andromedae"
+        ],
+        "M": 0.72,
+        "B": -0.8,
+        "temp": 8519,
+        "diameter": 4234230,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 14.188381,
+            "de": 38.49934,
+            "plx": 23.61,
+            "pmra": 152.74,
+            "pmde": 35.02
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-3881",
+        "primary": "star",
+        "aliases": [
+            "nu-and",
+            "nu-andromedae",
+            "35-and",
+            "35-andromedae"
+        ],
+        "M": -2.06,
+        "B": -0.8,
+        "temp": 12178,
+        "diameter": 7453479,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 12.45353,
+            "de": 41.07891,
+            "plx": 4.82
+        }
+    }
+]

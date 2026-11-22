@@ -1,0 +1,64 @@
+[
+    {
+        "type": "star",
+        "id": "hip-19747",
+        "primary": "star",
+        "aliases": [
+            "alf-hor",
+            "alpha-horologii"
+        ],
+        "M": 1.08,
+        "B": -0.8,
+        "temp": 4516,
+        "diameter": 12793228,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 63.500479,
+            "de": -42.29437,
+            "plx": 27.84,
+            "pmra": 42.58,
+            "pmde": -204.41
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-14240",
+        "primary": "star",
+        "aliases": [
+            "mu-hor",
+            "mu-horologii"
+        ],
+        "M": 1.98,
+        "B": -0.8,
+        "temp": 7089,
+        "diameter": 3427430,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 45.903417,
+            "de": -59.737777,
+            "plx": 23.57
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-12484",
+        "primary": "star",
+        "aliases": [
+            "zet-hor",
+            "zeta-horologii"
+        ],
+        "M": 1.77,
+        "B": -0.8,
+        "temp": 6775,
+        "diameter": 4139839,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 40.165054,
+            "de": -54.549913,
+            "plx": 20.43
+        }
+    }
+]

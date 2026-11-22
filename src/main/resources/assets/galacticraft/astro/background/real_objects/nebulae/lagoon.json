@@ -1,0 +1,10 @@
+{
+    "id": "lagoon",
+    "type": "nebula",
+    "texture": "galacticraft:astro/deepsky/lagoon",
+    "right_ascension": {"h": 18, "m": 4, "s": 19},
+    "declination": {"d": -24, "m": 17, "s": 24},
+    "width": {"d": 1.43},
+    "height": {"d": 0.9},
+    "mag": 5.6
+}

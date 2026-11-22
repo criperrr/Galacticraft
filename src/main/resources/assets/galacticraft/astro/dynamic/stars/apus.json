@@ -1,0 +1,66 @@
+[
+    {
+        "type": "star",
+        "id": "hip-72370",
+        "primary": "star",
+        "aliases": [
+            "alf-aps",
+            "alpha-apodis"
+        ],
+        "M": -1.73,
+        "B": -0.8,
+        "temp": 3810,
+        "diameter": 65402671,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 221.965445,
+            "de": -79.044751,
+            "plx": 7.8
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-81065",
+        "primary": "star",
+        "aliases": [
+            "gam-aps",
+            "gamma-apodis"
+        ],
+        "M": 0.45,
+        "B": -0.8,
+        "temp": 4938,
+        "diameter": 14287658,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 248.362832,
+            "de": -78.897147,
+            "plx": 20.79,
+            "pmra": -126.9,
+            "pmde": -77.41
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-81852",
+        "primary": "star",
+        "aliases": [
+            "bet-aps",
+            "beta-apodis"
+        ],
+        "M": 0.82,
+        "B": -0.8,
+        "temp": 4587,
+        "diameter": 13974997,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 250.769395,
+            "de": -77.517435,
+            "plx": 20.79,
+            "pmra": -283.42,
+            "pmde": -355.04
+        }
+    }
+]

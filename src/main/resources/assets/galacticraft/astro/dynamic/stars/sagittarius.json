@@ -1,0 +1,478 @@
+[
+    {
+        "type": "star",
+        "id": "hip-90185",
+        "primary": "star",
+        "aliases": [
+            "kaus-australis",
+            "eps-sgr",
+            "epsilon-sagittarii",
+            "20-sgr",
+            "20-sagittarii"
+        ],
+        "M": -1.44,
+        "B": -0.8,
+        "temp": 9754,
+        "diameter": 8764710,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 276.042996,
+            "de": -34.384616,
+            "plx": 22.42,
+            "pmra": -38.68,
+            "pmde": -123.86
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-92855",
+        "primary": "star",
+        "aliases": [
+            "nunki",
+            "sig-sgr",
+            "sigma-sagittarii",
+            "34-sgr",
+            "34-sagittarii"
+        ],
+        "M": -2.12,
+        "B": -0.8,
+        "temp": 12140,
+        "diameter": 7713221,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 283.816358,
+            "de": -26.296724,
+            "plx": 14.59
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-93506",
+        "primary": "star",
+        "aliases": [
+            "zet-sgr",
+            "zeta-sagittarii",
+            "38-sgr",
+            "38-sagittarii"
+        ],
+        "M": 0.38,
+        "B": -0.8,
+        "temp": 8857,
+        "diameter": 4584380,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 285.65282,
+            "de": -29.880097,
+            "plx": 36.08
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-89931",
+        "primary": "star",
+        "aliases": [
+            "del-sgr",
+            "delta-sagittarii",
+            "19-sgr",
+            "19-sagittarii"
+        ],
+        "M": -2.19,
+        "B": -0.8,
+        "temp": 3879,
+        "diameter": 77964321,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 275.248511,
+            "de": -29.828104,
+            "plx": 10.57
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-90496",
+        "primary": "star",
+        "aliases": [
+            "lam-sgr",
+            "lambda-sagittarii",
+            "22-sgr",
+            "22-sagittarii"
+        ],
+        "M": 0.94,
+        "B": -0.8,
+        "temp": 4596,
+        "diameter": 13177674,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 276.992669,
+            "de": -25.4217,
+            "plx": 42.06,
+            "pmra": -44.75,
+            "pmde": -186.24
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-89642",
+        "primary": "star",
+        "aliases": [
+            "eta-sgr",
+            "eta-sagittarii"
+        ],
+        "M": -0.18,
+        "B": -0.8,
+        "temp": 3688,
+        "diameter": 34216588,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 274.406809,
+            "de": -36.761687,
+            "plx": 21.78,
+            "pmra": -130.39,
+            "pmde": -167.19
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-92041",
+        "primary": "star",
+        "aliases": [
+            "phi-sgr",
+            "phi-sagittarii",
+            "27-sgr",
+            "27-sagittarii"
+        ],
+        "M": -1.14,
+        "B": -0.8,
+        "temp": 11374,
+        "diameter": 5591928,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 281.414114,
+            "de": -26.990778,
+            "plx": 13.82
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-88635",
+        "primary": "star",
+        "aliases": [
+            "gam-sgr",
+            "gamma-sagittarii",
+            "gam02-sgr",
+            "gamma2-sagittarii",
+            "10-sgr",
+            "10-sagittarii"
+        ],
+        "M": 0.87,
+        "B": -0.8,
+        "temp": 5520,
+        "diameter": 9415742,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 271.452029,
+            "de": -30.424097,
+            "plx": 33.61,
+            "pmra": -55.63,
+            "pmde": -183.94
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-93864",
+        "primary": "star",
+        "aliases": [
+            "tau-sgr",
+            "tau-sagittarii",
+            "40-sgr",
+            "40-sagittarii"
+        ],
+        "M": 0.44,
+        "B": -0.8,
+        "temp": 4316,
+        "diameter": 18823263,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 286.735024,
+            "de": -27.670424,
+            "plx": 26.63,
+            "pmra": -55.65,
+            "pmde": -250.97
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-93085",
+        "primary": "star",
+        "aliases": [
+            "ksi02-sgr",
+            "ksi2-sagittarii",
+            "37-sgr",
+            "37-sagittarii"
+        ],
+        "M": -1.72,
+        "B": -0.8,
+        "temp": 4306,
+        "diameter": 51116188,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 284.432503,
+            "de": -21.106654,
+            "plx": 8.96
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-93683",
+        "primary": "star",
+        "aliases": [
+            "omi-sgr",
+            "omicron-sagittarii",
+            "39-sgr",
+            "39-sagittarii"
+        ],
+        "M": 0.62,
+        "B": -0.8,
+        "temp": 4681,
+        "diameter": 14711151,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 286.17076,
+            "de": -21.741496,
+            "plx": 23.55
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-89341",
+        "primary": "star",
+        "aliases": [
+            "mu-sgr",
+            "mu-sagittarii",
+            "13-sgr",
+            "13-sagittarii"
+        ],
+        "M": -6.17,
+        "B": -0.8,
+        "temp": 8132,
+        "diameter": 111224085,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 273.440873,
+            "de": -21.05883,
+            "plx": 1
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-95168",
+        "primary": "star",
+        "aliases": [
+            "rho01-sgr",
+            "rho1-sagittarii",
+            "rho-sagittarii",
+            "44-sgr",
+            "44-sagittarii"
+        ],
+        "M": 1.06,
+        "B": -0.8,
+        "temp": 7830,
+        "diameter": 4285204,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 290.418164,
+            "de": -17.847198,
+            "plx": 26.78
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-95347",
+        "primary": "star",
+        "aliases": [
+            "alf-sgr",
+            "alpha-sagittarii"
+        ],
+        "M": 0.29,
+        "B": -0.8,
+        "temp": 11326,
+        "diameter": 2927830,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 290.971574,
+            "de": -40.615941,
+            "plx": 18.51,
+            "pmra": 34.22,
+            "pmde": -121.12
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-98032",
+        "primary": "star",
+        "aliases": [
+            "iot-sgr",
+            "iota-sagittarii"
+        ],
+        "M": 0.26,
+        "B": -0.8,
+        "temp": 4556,
+        "diameter": 18336740,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 298.815398,
+            "de": -41.868278,
+            "plx": 16.92
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-95294",
+        "primary": "star",
+        "aliases": [
+            "bet02-sgr",
+            "beta2-sagittarii"
+        ],
+        "M": 1.09,
+        "B": -0.8,
+        "temp": 7066,
+        "diameter": 5194618,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 290.804746,
+            "de": -44.799781,
+            "plx": 23.14,
+            "pmra": 95.54,
+            "pmde": -54.79
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-98412",
+        "primary": "star",
+        "aliases": [
+            "the01-sgr",
+            "the1-sagittarii",
+            "the-sagittarii"
+        ],
+        "M": -2.04,
+        "B": -0.8,
+        "temp": 12292,
+        "diameter": 7252780,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 299.934078,
+            "de": -35.276306,
+            "plx": 5.26
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-98688",
+        "primary": "star",
+        "aliases": [
+            "c-sgr",
+            "c-sagittarii",
+            "62-sgr",
+            "62-sagittarii"
+        ],
+        "M": -1.18,
+        "B": -0.8,
+        "temp": 3685,
+        "diameter": 54357727,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 300.664504,
+            "de": -27.709844,
+            "plx": 7.32
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-87072",
+        "primary": "star",
+        "aliases": [
+            "3-sgr",
+            "3-sagittarii"
+        ],
+        "M": -3.09,
+        "B": -0.8,
+        "temp": 5385,
+        "diameter": 61366972,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 266.890106,
+            "de": -27.830788,
+            "plx": 2.95
+        },
+        "variability": {
+            "type": "cepheid",
+            "period": 7.01283,
+            "amplitude": 0.35
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-94820",
+        "primary": "star",
+        "aliases": [
+            "d-sgr",
+            "d-sagittarii",
+            "43-sgr",
+            "43-sagittarii"
+        ],
+        "M": -1.17,
+        "B": -0.8,
+        "temp": 4716,
+        "diameter": 33055374,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 289.408661,
+            "de": -18.95291,
+            "plx": 6.17
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-96406",
+        "primary": "star",
+        "aliases": [
+            "h01-sgr",
+            "h1-sagittarii",
+            "h-sagittarii",
+            "51-sgr",
+            "51-sagittarii"
+        ],
+        "M": 0.87,
+        "B": -0.8,
+        "temp": 8132,
+        "diameter": 4341447,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 294.006892,
+            "de": -24.719081,
+            "plx": 11.13
+        }
+    }
+]

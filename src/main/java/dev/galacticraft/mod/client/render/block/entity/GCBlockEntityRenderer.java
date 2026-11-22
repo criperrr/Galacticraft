@@ -22,6 +22,7 @@
 
 package dev.galacticraft.mod.client.render.block.entity;
 
+import dev.galacticraft.mod.client.render.rocket.part.ModularRocketPartBlockEntityRenderer;
 import dev.galacticraft.mod.content.GCBlockEntityTypes;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 
@@ -33,6 +34,8 @@ public class GCBlockEntityRenderer {
         BlockEntityRenderers.register(GCBlockEntityTypes.OXYGEN_BUBBLE_DISTRIBUTOR, BubbleDistributorRenderer::new);
         BlockEntityRenderers.register(GCBlockEntityTypes.ROCKET_WORKBENCH, RocketWorkbenchBlockEntityRenderer::new);
         BlockEntityRenderers.register(GCBlockEntityTypes.FLAG, FlagBlockEntityRenderer::new);
+        BlockEntityRenderers.register(GCBlockEntityTypes.HANGAR_TERMINAL, HangarTerminalBlockEntityRenderer::new);
+        BlockEntityRenderers.register(GCBlockEntityTypes.MODULAR_ROCKET_PART, ModularRocketPartBlockEntityRenderer::new);
         //BlockEntityRenderers.register(GCBlockEntityTypes.CANNED_FOOD, CannedFoodBlockEntityRenderer::new);
     }
 }

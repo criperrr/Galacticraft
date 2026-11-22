@@ -25,6 +25,7 @@ package dev.galacticraft.mod.attachments;
 import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.Constant.Attachments;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
+import net.fabricmc.fabric.api.attachment.v1.AttachmentSyncPredicate;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
 
 @SuppressWarnings("UnstableApiUsage")
@@ -36,6 +37,14 @@ public final class GCAttachments {
 
     public static final AttachmentType<GCClientPlayer> CLIENT_PLAYER = AttachmentRegistry.<GCClientPlayer>builder()
             .buildAndRegister(Constant.id(Attachments.CLIENT_PLAYER));
+
+    public static final AttachmentType<MultiblockLinksAttachment> MULTIBLOCK_LINKS = AttachmentRegistry.create(
+            Constant.id("multiblock_links"),
+            builder -> builder
+                    .initializer(() -> MultiblockLinksAttachment.EMPTY)
+                    .persistent(MultiblockLinksAttachment.CODEC)
+                    .syncWith(MultiblockLinksAttachment.STREAM_CODEC, AttachmentSyncPredicate.all())
+    );
 
     public static void init() {
     }

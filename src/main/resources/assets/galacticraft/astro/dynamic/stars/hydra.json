@@ -1,0 +1,414 @@
+[
+    {
+        "type": "star",
+        "id": "hip-46390",
+        "primary": "star",
+        "aliases": [
+            "alphard",
+            "alf-hya",
+            "alpha-hydrae",
+            "30-hya",
+            "30-hydrae"
+        ],
+        "M": -1.71,
+        "B": -0.8,
+        "temp": 3771,
+        "diameter": 66126215,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 141.896849,
+            "de": -8.658603,
+            "plx": 18.25
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-64962",
+        "primary": "star",
+        "aliases": [
+            "gam-hya",
+            "gamma-hydrae",
+            "46-hya",
+            "46-hydrae"
+        ],
+        "M": -0.04,
+        "B": -0.8,
+        "temp": 4948,
+        "diameter": 17871226,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 199.730398,
+            "de": -23.171515,
+            "plx": 24.73
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-52943",
+        "primary": "star",
+        "aliases": [
+            "nu-hya",
+            "nu-hydrae"
+        ],
+        "M": -0.02,
+        "B": -0.8,
+        "temp": 4159,
+        "diameter": 25000825,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 162.406203,
+            "de": -16.193647,
+            "plx": 23.7,
+            "pmra": 93.29,
+            "pmde": 199.41
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-43813",
+        "primary": "star",
+        "aliases": [
+            "zet-hya",
+            "zeta-hydrae",
+            "16-hya",
+            "16-hydrae"
+        ],
+        "M": -0.23,
+        "B": -0.8,
+        "temp": 4725,
+        "diameter": 21317373,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 133.848447,
+            "de": 5.945562,
+            "plx": 21.48
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-43109",
+        "primary": "star",
+        "aliases": [
+            "eps-hya",
+            "epsilon-hydrae",
+            "11-hya",
+            "11-hydrae"
+        ],
+        "M": 0.34,
+        "B": -0.8,
+        "temp": 5625,
+        "diameter": 11583056,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 131.693805,
+            "de": 6.418805,
+            "plx": 24.5,
+            "pmra": -226.58,
+            "pmde": -41.81
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-56343",
+        "primary": "star",
+        "aliases": [
+            "ksi-hya",
+            "ksi-hydrae"
+        ],
+        "M": 0.56,
+        "B": -0.8,
+        "temp": 4868,
+        "diameter": 13996333,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 173.250483,
+            "de": -31.857624,
+            "plx": 25.37,
+            "pmra": -208.24,
+            "pmde": -41.29
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-49841",
+        "primary": "star",
+        "aliases": [
+            "lam-hya",
+            "lambda-hydrae",
+            "41-hya",
+            "41-hydrae"
+        ],
+        "M": 0.87,
+        "B": -0.8,
+        "temp": 4697,
+        "diameter": 13032573,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 152.646982,
+            "de": -12.354053,
+            "plx": 28.39,
+            "pmra": -203.35,
+            "pmde": -87.97
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-51069",
+        "primary": "star",
+        "aliases": [
+            "mu-hya",
+            "mu-hydrae",
+            "42-hya",
+            "42-hydrae"
+        ],
+        "M": -0.6,
+        "B": -0.8,
+        "temp": 3731,
+        "diameter": 40669428,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 156.522611,
+            "de": -16.836291,
+            "plx": 13.03,
+            "pmra": -128.75,
+            "pmde": -80.11
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-45336",
+        "primary": "star",
+        "aliases": [
+            "the-hya",
+            "the-hydrae",
+            "22-hya",
+            "22-hydrae"
+        ],
+        "M": 0.95,
+        "B": -0.8,
+        "temp": 10653,
+        "diameter": 2438400,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 138.591115,
+            "de": 2.314272,
+            "plx": 25.97,
+            "pmra": 127.16,
+            "pmde": -309.35
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-48356",
+        "primary": "star",
+        "aliases": [
+            "ups01-hya",
+            "upsilon1-hydrae",
+            "upsilon-hydrae",
+            "39-hya",
+            "39-hydrae"
+        ],
+        "M": -0.55,
+        "B": -0.8,
+        "temp": 4912,
+        "diameter": 22911541,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 147.869555,
+            "de": -14.846608,
+            "plx": 11.71
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-42313",
+        "primary": "star",
+        "aliases": [
+            "del-hya",
+            "delta-hydrae",
+            "4-hya",
+            "4-hydrae"
+        ],
+        "M": 0.46,
+        "B": -0.8,
+        "temp": 9742,
+        "diameter": 3646480,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 129.414032,
+            "de": 5.703782,
+            "plx": 18.48
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-42799",
+        "primary": "star",
+        "aliases": [
+            "eta-hya",
+            "eta-hydrae",
+            "7-hya",
+            "7-hydrae"
+        ],
+        "M": -1.16,
+        "B": -0.8,
+        "temp": 13032,
+        "diameter": 4300070,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 130.806148,
+            "de": 3.398661,
+            "plx": 8.17
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-57936",
+        "primary": "star",
+        "aliases": [
+            "bet-hya",
+            "beta-hydrae"
+        ],
+        "M": -0.95,
+        "B": -0.8,
+        "temp": 11522,
+        "diameter": 5006044,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 178.227169,
+            "de": -33.908133,
+            "plx": 8.92
+        },
+        "variability": {
+            "type": "scatter",
+            "period": 2.344,
+            "amplitude": 2.11
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-43234",
+        "primary": "star",
+        "aliases": [
+            "rho-hya",
+            "rho-hydrae",
+            "13-hya",
+            "13-hydrae"
+        ],
+        "M": -0.73,
+        "B": -0.8,
+        "temp": 10238,
+        "diameter": 5727654,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 132.108207,
+            "de": 5.83781,
+            "plx": 9.68
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-42402",
+        "primary": "star",
+        "aliases": [
+            "sig-hya",
+            "sigma-hydrae",
+            "5-hya",
+            "5-hydrae"
+        ],
+        "M": -0.67,
+        "B": -0.8,
+        "temp": 4235,
+        "diameter": 32487302,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 129.689324,
+            "de": 3.341434,
+            "plx": 9.52
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-46776",
+        "primary": "star",
+        "aliases": [
+            "tau02-hya",
+            "tau2-hydrae",
+            "32-hya",
+            "32-hydrae"
+        ],
+        "M": -1.27,
+        "B": -0.8,
+        "temp": 8802,
+        "diameter": 9941938,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 142.995527,
+            "de": -1.184667,
+            "plx": 6.86
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-46509",
+        "primary": "star",
+        "aliases": [
+            "tau01-hya",
+            "tau1-hydrae",
+            "tau-hydrae",
+            "31-hya",
+            "31-hydrae"
+        ],
+        "M": 3.54,
+        "B": -0.8,
+        "temp": 7732,
+        "diameter": 1404042,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 142.287139,
+            "de": -2.768994,
+            "plx": 57.13,
+            "pmra": 127.56,
+            "pmde": -15.63
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-64166",
+        "primary": "star",
+        "aliases": [
+            "psi-hya",
+            "psi-hydrae",
+            "45-hya",
+            "45-hydrae"
+        ],
+        "M": 0.65,
+        "B": -0.8,
+        "temp": 4632,
+        "diameter": 14778255,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 197.263622,
+            "de": -23.118069,
+            "plx": 13.94
+        }
+    }
+]

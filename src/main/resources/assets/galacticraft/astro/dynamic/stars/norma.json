@@ -1,0 +1,84 @@
+[
+    {
+        "type": "star",
+        "id": "hip-80000",
+        "primary": "star",
+        "aliases": [
+            "gam02-nor",
+            "gamma2-normae"
+        ],
+        "M": 1.04,
+        "B": -0.8,
+        "temp": 4529,
+        "diameter": 12927817,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 244.960099,
+            "de": -50.155506,
+            "plx": 25.54,
+            "pmra": -158.0,
+            "pmde": -52.33
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-80582",
+        "primary": "star",
+        "aliases": [
+            "eps-nor",
+            "epsilon-normae"
+        ],
+        "M": -1.06,
+        "B": -0.8,
+        "temp": 11137,
+        "diameter": 5624687,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 246.795978,
+            "de": -47.554787,
+            "plx": 7.65
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-78639",
+        "primary": "star",
+        "aliases": [
+            "eta-nor",
+            "eta-normae"
+        ],
+        "M": 0.53,
+        "B": -0.8,
+        "temp": 4922,
+        "diameter": 13875743,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 240.803741,
+            "de": -49.229698,
+            "plx": 15.07
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-79509",
+        "primary": "star",
+        "aliases": [
+            "kap-nor",
+            "kappa-normae"
+        ],
+        "M": -0.79,
+        "B": -0.8,
+        "temp": 4697,
+        "diameter": 27933302,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 243.369705,
+            "de": -54.630468,
+            "plx": 7.13
+        }
+    }
+]

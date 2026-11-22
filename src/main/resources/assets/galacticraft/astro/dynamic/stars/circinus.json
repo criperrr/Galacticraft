@@ -1,0 +1,66 @@
+[
+    {
+        "type": "star",
+        "id": "hip-71908",
+        "primary": "star",
+        "aliases": [
+            "alf-cir",
+            "alpha-circini"
+        ],
+        "M": 2.1,
+        "B": -0.8,
+        "temp": 7545,
+        "diameter": 2858901,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 220.626748,
+            "de": -64.975138,
+            "plx": 61.06,
+            "pmra": -192.53,
+            "pmde": -234.05
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-74824",
+        "primary": "star",
+        "aliases": [
+            "bet-cir",
+            "beta-circini"
+        ],
+        "M": 1.67,
+        "B": -0.8,
+        "temp": 8857,
+        "diameter": 2532105,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 229.378537,
+            "de": -58.801209,
+            "plx": 33.27,
+            "pmra": -98.94,
+            "pmde": -135.85
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-75323",
+        "primary": "star",
+        "aliases": [
+            "gam-cir",
+            "gamma-circini"
+        ],
+        "M": -1.05,
+        "B": -0.8,
+        "temp": 9697,
+        "diameter": 7405522,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 230.844355,
+            "de": -59.320788,
+            "plx": 7.15
+        }
+    }
+]

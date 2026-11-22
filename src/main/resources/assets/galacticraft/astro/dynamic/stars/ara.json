@@ -1,0 +1,144 @@
+[
+    {
+        "type": "star",
+        "id": "hip-85258",
+        "primary": "star",
+        "aliases": [
+            "bet-ara",
+            "beta-arae"
+        ],
+        "M": -3.29,
+        "B": -0.8,
+        "temp": 3731,
+        "diameter": 139882809,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 261.324953,
+            "de": -55.529884,
+            "plx": 6.01
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-85792",
+        "primary": "star",
+        "aliases": [
+            "alf-ara",
+            "alpha-arae"
+        ],
+        "M": -1.52,
+        "B": -0.8,
+        "temp": 11657,
+        "diameter": 6347191,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 262.960385,
+            "de": -49.876145,
+            "plx": 13.47
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-83081",
+        "primary": "star",
+        "aliases": [
+            "zet-ara",
+            "zeta-arae"
+        ],
+        "M": -3.18,
+        "B": -0.8,
+        "temp": 3628,
+        "diameter": 140747184,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 254.65505,
+            "de": -55.990141,
+            "plx": 5.53
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-85267",
+        "primary": "star",
+        "aliases": [
+            "gam-ara",
+            "gamma-arae"
+        ],
+        "M": -4.34,
+        "B": -0.8,
+        "temp": 12178,
+        "diameter": 21363933,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 261.348592,
+            "de": -56.377733,
+            "plx": 2.94
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-85727",
+        "primary": "star",
+        "aliases": [
+            "del-ara",
+            "delta-arae"
+        ],
+        "M": -0.19,
+        "B": -0.8,
+        "temp": 11294,
+        "diameter": 3675568,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 262.774623,
+            "de": -60.683847,
+            "plx": 17.51,
+            "pmra": -56.54,
+            "pmde": -98.95
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-88714",
+        "primary": "star",
+        "aliases": [
+            "the-ara",
+            "the-arae"
+        ],
+        "M": -4.06,
+        "B": -0.8,
+        "temp": 11539,
+        "diameter": 20902040,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 271.657795,
+            "de": -50.09148,
+            "plx": 2.85
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-82363",
+        "primary": "star",
+        "aliases": [
+            "eta-ara",
+            "eta-arae"
+        ],
+        "M": -1.17,
+        "B": -0.8,
+        "temp": 3677,
+        "diameter": 54289288,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 252.446483,
+            "de": -59.041379,
+            "plx": 10.31
+        }
+    }
+]

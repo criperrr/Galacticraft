@@ -1,0 +1,10 @@
+{
+    "id": "ring",
+    "type": "nebula",
+    "texture": "galacticraft:astro/deepsky/ring",
+    "right_ascension": {"h": 18, "m": 53, "s": 35},
+    "declination": {"d": 33, "m": 1, "s": 45},
+    "width": {"s": 230},
+    "height": {"s": 230},
+    "magnitude": 8.8
+}

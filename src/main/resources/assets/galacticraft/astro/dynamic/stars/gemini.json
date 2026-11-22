@@ -1,0 +1,403 @@
+[
+    {
+        "type": "star",
+        "id": "hip-37826",
+        "primary": "star",
+        "aliases": [
+            "pollux",
+            "bet-gem",
+            "beta-geminorum",
+            "78-gem",
+            "78-geminorum"
+        ],
+        "M": 1.14,
+        "B": -0.8,
+        "temp": 4781,
+        "diameter": 11112169,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 116.328952,
+            "de": 28.026199,
+            "plx": 97.01,
+            "pmra": -628.54,
+            "pmde": -45.9
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-36850",
+        "primary": "star",
+        "aliases": [
+            "castor",
+            "alf-gem",
+            "alpha-geminorum",
+            "66-gem",
+            "66-geminorum",
+            "66-gem",
+            "66-geminorum"
+        ],
+        "M": 0.89,
+        "B": -0.8,
+        "temp": 15450,
+        "diameter": 1192499,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 113.649522,
+            "de": 31.888388,
+            "plx": 63.27,
+            "pmra": -173.75,
+            "pmde": -102.27
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-31681",
+        "primary": "star",
+        "aliases": [
+            "alhena",
+            "gam-gem",
+            "gamma-geminorum",
+            "24-gem",
+            "24-geminorum"
+        ],
+        "M": -0.59,
+        "B": -0.8,
+        "temp": 10970,
+        "diameter": 4676107,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 99.428032,
+            "de": 16.399311,
+            "plx": 30.45
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-30343",
+        "primary": "star",
+        "aliases": [
+            "mu-gem",
+            "mu-geminorum",
+            "13-gem",
+            "13-geminorum"
+        ],
+        "M": -1.34,
+        "B": -0.8,
+        "temp": 3647,
+        "diameter": 59846421,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 95.740106,
+            "de": 22.513582,
+            "plx": 14.22,
+            "pmra": 54.36,
+            "pmde": -110.26
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-32246",
+        "primary": "star",
+        "aliases": [
+            "eps-gem",
+            "epsilon-geminorum",
+            "27-gem",
+            "27-geminorum"
+        ],
+        "M": -4.46,
+        "B": -0.8,
+        "temp": 3859,
+        "diameter": 224730644,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 100.983027,
+            "de": 25.131125,
+            "plx": 3.21
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-29655",
+        "primary": "star",
+        "aliases": [
+            "eta-gem",
+            "eta-geminorum",
+            "7-gem",
+            "7-geminorum"
+        ],
+        "M": -1.93,
+        "B": -0.8,
+        "temp": 3669,
+        "diameter": 77444790,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 93.719406,
+            "de": 22.506791,
+            "plx": 8.93
+        },
+        "variability": {
+            "type": "scatter",
+            "period": 232.9,
+            "amplitude": 0.38
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-32362",
+        "primary": "star",
+        "aliases": [
+            "ksi-gem",
+            "ksi-geminorum",
+            "31-gem",
+            "31-geminorum"
+        ],
+        "M": 2.12,
+        "B": -0.8,
+        "temp": 6513,
+        "diameter": 3800568,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 101.322352,
+            "de": 12.895592,
+            "plx": 57.2,
+            "pmra": -115.62,
+            "pmde": -190.74
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-35550",
+        "primary": "star",
+        "aliases": [
+            "del-gem",
+            "delta-geminorum",
+            "55-gem",
+            "55-geminorum"
+        ],
+        "M": 2.24,
+        "B": -0.8,
+        "temp": 7083,
+        "diameter": 3042864,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 110.030722,
+            "de": 21.982309,
+            "plx": 55.2
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-37740",
+        "primary": "star",
+        "aliases": [
+            "kap-gem",
+            "kappa-geminorum",
+            "77-gem",
+            "77-geminorum"
+        ],
+        "M": 0.34,
+        "B": -0.8,
+        "temp": 4878,
+        "diameter": 15371163,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 116.111874,
+            "de": 24.397998,
+            "plx": 22.71
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-35350",
+        "primary": "star",
+        "aliases": [
+            "lam-gem",
+            "lambda-geminorum",
+            "54-gem",
+            "54-geminorum"
+        ],
+        "M": 1.28,
+        "B": -0.8,
+        "temp": 8756,
+        "diameter": 3103564,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 109.523244,
+            "de": 16.540384,
+            "plx": 34.77
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-33018",
+        "primary": "star",
+        "aliases": [
+            "the-gem",
+            "the-geminorum",
+            "34-gem",
+            "34-geminorum"
+        ],
+        "M": -0.28,
+        "B": -0.8,
+        "temp": 8729,
+        "diameter": 6390188,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 103.197245,
+            "de": 33.961254,
+            "plx": 16.79
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-36046",
+        "primary": "star",
+        "aliases": [
+            "iot-gem",
+            "iota-geminorum",
+            "60-gem",
+            "60-geminorum"
+        ],
+        "M": 0.86,
+        "B": -0.8,
+        "temp": 4671,
+        "diameter": 13203611,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 111.431646,
+            "de": 27.79808,
+            "plx": 26.09,
+            "pmra": -122.81,
+            "pmde": -84.66
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-34088",
+        "primary": "star",
+        "aliases": [
+            "zet-gem",
+            "zeta-geminorum",
+            "43-gem",
+            "43-geminorum"
+        ],
+        "M": -3.43,
+        "B": -0.8,
+        "temp": 4983,
+        "diameter": 83704785,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 106.027212,
+            "de": 20.570297,
+            "plx": 3.35
+        },
+        "variability": {
+            "type": "cepheid",
+            "period": 10.15073,
+            "amplitude": 0.28
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-36962",
+        "primary": "star",
+        "aliases": [
+            "ups-gem",
+            "upsilon-geminorum",
+            "69-gem",
+            "69-geminorum"
+        ],
+        "M": -0.29,
+        "B": -0.8,
+        "temp": 3702,
+        "diameter": 35742092,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 113.980625,
+            "de": 26.895746,
+            "plx": 13.47,
+            "pmra": -34.18,
+            "pmde": -105.98
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-28734",
+        "primary": "star",
+        "aliases": [
+            "1-gem",
+            "1-geminorum"
+        ],
+        "M": 0.81,
+        "B": -0.8,
+        "temp": 5247,
+        "diameter": 10743494,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 91.030021,
+            "de": 23.263366,
+            "plx": 21.62,
+            "pmra": -7.76,
+            "pmde": -99.72
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-30883",
+        "primary": "star",
+        "aliases": [
+            "nu-gem",
+            "nu-geminorum",
+            "18-gem",
+            "18-geminorum"
+        ],
+        "M": -1.65,
+        "B": -0.8,
+        "temp": 11743,
+        "diameter": 6661066,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 97.240779,
+            "de": 20.212133,
+            "plx": 6.96
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-34693",
+        "primary": "star",
+        "aliases": [
+            "tau-gem",
+            "tau-geminorum",
+            "46-gem",
+            "46-geminorum"
+        ],
+        "M": -0.33,
+        "B": -0.8,
+        "temp": 4117,
+        "diameter": 29448885,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 107.784875,
+            "de": 30.245166,
+            "plx": 11.38
+        }
+    }
+]

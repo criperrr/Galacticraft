@@ -1,0 +1,301 @@
+[
+    {
+        "type": "star",
+        "id": "hip-25985",
+        "primary": "star",
+        "aliases": [
+            "arneb",
+            "alf-lep",
+            "alpha-leporis",
+            "11-lep",
+            "11-leporis"
+        ],
+        "M": -5.65,
+        "B": -0.8,
+        "temp": 7760,
+        "diameter": 96174118,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 83.182562,
+            "de": -17.822287,
+            "plx": 2.25
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-25606",
+        "primary": "star",
+        "aliases": [
+            "nihal",
+            "bet-lep",
+            "beta-leporis",
+            "9-lep",
+            "9-leporis"
+        ],
+        "M": -0.64,
+        "B": -0.8,
+        "temp": 5203,
+        "diameter": 21217007,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 82.061347,
+            "de": -20.759445,
+            "plx": 20.29
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-23685",
+        "primary": "star",
+        "aliases": [
+            "eps-lep",
+            "epsilon-leporis",
+            "2-lep",
+            "2-leporis"
+        ],
+        "M": -0.98,
+        "B": -0.8,
+        "temp": 3746,
+        "diameter": 48084390,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 76.365274,
+            "de": -22.371034,
+            "plx": 14.69
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-24305",
+        "primary": "star",
+        "aliases": [
+            "mu-lep",
+            "mu-leporis",
+            "5-lep",
+            "5-leporis"
+        ],
+        "M": -0.47,
+        "B": -0.8,
+        "temp": 11391,
+        "diameter": 4097912,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 78.232917,
+            "de": -16.205477,
+            "plx": 17.81
+        },
+        "variability": {
+            "type": "scatter",
+            "period": 2.0,
+            "amplitude": 0.22
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-27288",
+        "primary": "star",
+        "aliases": [
+            "zet-lep",
+            "zeta-leporis",
+            "14-lep",
+            "14-leporis"
+        ],
+        "M": 1.87,
+        "B": -0.8,
+        "temp": 8756,
+        "diameter": 2366553,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 86.738918,
+            "de": -14.82195,
+            "plx": 46.36
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-27072",
+        "primary": "star",
+        "aliases": [
+            "gam-lep",
+            "gamma-leporis",
+            "13-lep",
+            "13-leporis"
+        ],
+        "M": 3.83,
+        "B": -0.8,
+        "temp": 6348,
+        "diameter": 1826935,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 86.115792,
+            "de": -22.448383,
+            "plx": 111.55,
+            "pmra": -292.98,
+            "pmde": -368.8
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-28103",
+        "primary": "star",
+        "aliases": [
+            "eta-lep",
+            "eta-leporis",
+            "16-lep",
+            "16-leporis"
+        ],
+        "M": 2.82,
+        "B": -0.8,
+        "temp": 7146,
+        "diameter": 2293781,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 89.101219,
+            "de": -14.1677,
+            "plx": 66.37,
+            "pmra": -42.7,
+            "pmde": 139.11
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-27654",
+        "primary": "star",
+        "aliases": [
+            "del-lep",
+            "delta-leporis",
+            "15-lep",
+            "15-leporis"
+        ],
+        "M": 1.08,
+        "B": -0.8,
+        "temp": 4783,
+        "diameter": 11384749,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 87.830397,
+            "de": -20.879089,
+            "plx": 28.95,
+            "pmra": 228.3,
+            "pmde": -648.13
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-24845",
+        "primary": "star",
+        "aliases": [
+            "lam-lep",
+            "lambda-leporis",
+            "6-lep",
+            "6-leporis"
+        ],
+        "M": -3.73,
+        "B": -0.8,
+        "temp": 14326,
+        "diameter": 11614913,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 79.893854,
+            "de": -13.176786,
+            "plx": 2.51
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-24327",
+        "primary": "star",
+        "aliases": [
+            "kap-lep",
+            "kappa-leporis",
+            "4-lep",
+            "4-leporis"
+        ],
+        "M": -1.8,
+        "B": -0.8,
+        "temp": 11522,
+        "diameter": 7389784,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 78.307823,
+            "de": -12.941291,
+            "plx": 5.71
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-24244",
+        "primary": "star",
+        "aliases": [
+            "iot-lep",
+            "iota-leporis",
+            "3-lep",
+            "3-leporis"
+        ],
+        "M": 0.12,
+        "B": -0.8,
+        "temp": 11391,
+        "diameter": 3132431,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 78.074596,
+            "de": -11.869215,
+            "plx": 13.55
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-28910",
+        "primary": "star",
+        "aliases": [
+            "the-lep",
+            "the-leporis",
+            "18-lep",
+            "18-leporis"
+        ],
+        "M": 1.03,
+        "B": -0.8,
+        "temp": 9454,
+        "diameter": 2980554,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 91.538848,
+            "de": -14.935254,
+            "plx": 18.79
+        }
+    },
+    {
+        "type": "star",
+        "id": "hip-24873",
+        "primary": "star",
+        "aliases": [
+            "nu-lep",
+            "nu-leporis",
+            "7-lep",
+            "7-leporis"
+        ],
+        "M": 0.31,
+        "B": -0.8,
+        "temp": 11623,
+        "diameter": 2750835,
+        "position": {
+            "type": "equatorial",
+            "epoch": 2448350,
+            "ra": 79.995932,
+            "de": -12.315591,
+            "plx": 10.13
+        }
+    }
+]

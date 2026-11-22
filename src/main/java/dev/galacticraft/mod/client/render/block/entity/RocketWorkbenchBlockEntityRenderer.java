@@ -32,6 +32,7 @@ import dev.galacticraft.mod.content.block.entity.RocketWorkbenchBlockEntity;
 import dev.galacticraft.mod.content.block.special.RocketWorkbench;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -43,15 +44,17 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.level.Level;
 
 @Environment(EnvType.CLIENT)
 public class RocketWorkbenchBlockEntityRenderer implements BlockEntityRenderer<RocketWorkbenchBlockEntity> {
     private static final ResourceLocation TEXTURE = Constant.id("textures/model/rocket_workbench.png");
     private final ModelPart top;
     private final ModelPart plierArm, plierSmallArm;
-    private final ModelPart drillArm, drillTool;
+    private final ModelPart drillArm, drillTool, drillBit;
     private final ModelPart flashlightArm, flashlight;
     private final ModelPart display;
+    private final Font font;
 
     public RocketWorkbenchBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
         ModelPart root = context.bakeLayer(GCEntityModelLayer.ROCKET_WORKBENCH);
@@ -60,9 +63,11 @@ public class RocketWorkbenchBlockEntityRenderer implements BlockEntityRenderer<R
         this.plierSmallArm = root.getChild(Constant.ModelPartName.ROCKET_WORKBENCH_PLIER_TOOL_SMALL_ARM);
         this.drillArm = root.getChild(Constant.ModelPartName.ROCKET_WORKBENCH_DRILL_TOOL_SMALL_ARM);
         this.drillTool = root.getChild(Constant.ModelPartName.ROCKET_WORKBENCH_DRILL_TOOL_DRILL);
+        this.drillBit = this.drillTool.getChild(Constant.ModelPartName.ROCKET_WORKBENCH_DRILL_TOOL_DRILL_BIT);
         this.flashlightArm = root.getChild(Constant.ModelPartName.ROCKET_WORKBENCH_FLASHLIGHT_HOLDER);
         this.flashlight = root.getChild(Constant.ModelPartName.ROCKET_WORKBENCH_FLASHLIGHT_HANDLE);
         this.display = root.getChild(Constant.ModelPartName.ROCKET_WORKBENCH_DISPLAY);
+        this.font = context.getFont();
     }
 
     public static LayerDefinition getTexturedModelData() {
@@ -88,18 +93,162 @@ public class RocketWorkbenchBlockEntityRenderer implements BlockEntityRenderer<R
 
     @Override
     public void render(RocketWorkbenchBlockEntity blockEntity, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
-        light = LevelRenderer.getLightColor(blockEntity.getLevel(), blockEntity.getBlockPos().relative(Direction.UP, 1));
+        Level level = blockEntity.getLevel();
+        light = LevelRenderer.getLightColor(level, blockEntity.getBlockPos().relative(Direction.UP, 1));
         Direction facing = blockEntity.getBlockState().getValue(RocketWorkbench.FACING);
+        boolean active = blockEntity.getBlockState().getValue(RocketWorkbench.ACTIVE);
+
+        float targetBlend = active ? 1.0F : 0.0F;
+        blockEntity.animationBlend = Mth.lerp(0.08F, blockEntity.animationBlend, targetBlend);
+        if (Math.abs(blockEntity.animationBlend - targetBlend) < 0.001F) {
+            blockEntity.animationBlend = targetBlend;
+        }
+        float blend = blockEntity.animationBlend;
+        float time = (level != null ? (float) level.getGameTime() : 0.0F) + tickDelta;
 
         matrices.pushPose();
         matrices.translate(0.0F, 1.0F, 0.0F);
         matrices.rotateAround(Axis.YP.rotationDegrees(90.0F - facing.toYRot()), 0.5F, 0.0F, 0.5F);
         RenderSystem.setShaderTexture(0, RocketWorkbenchBlockEntityRenderer.TEXTURE);
-        this.render(matrices, vertexConsumers.getBuffer(RenderType.entityCutoutNoCull(TEXTURE)), light, overlay);
+        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderType.entityCutoutNoCull(TEXTURE));
+
+        if (blend <= 0.001F) {
+            this.render(matrices, vertexConsumer, light, overlay);
+        } else {
+            this.renderAnimated(matrices, vertexConsumer, light, overlay, time, blend);
+        }
+
+        this.renderCrtOverlay(blockEntity, tickDelta, matrices, vertexConsumers, active, time);
+
+        matrices.popPose();
+    }
+
+    private void renderCrtOverlay(RocketWorkbenchBlockEntity blockEntity, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, boolean active, float time) {
+        float alpha;
+        if (active) {
+            float syncedAlpha = blockEntity.getClientProgressRatio(tickDelta);
+            alpha = syncedAlpha > 0.0F ? syncedAlpha : (Math.floorMod((long) time, 80) + tickDelta) / 80.0F;
+        } else {
+            alpha = 0.0F;
+        }
+
+        String statusText = active ? "[ FABRICATING ]" : "[ STANDBY ]";
+        int statusColor = active ? 0x00FF66 : 0x33AA33;
+
+        int pct = (int) (alpha * 100.0F);
+        int bars = Mth.clamp(pct / 10, 0, 10);
+        String barText = "[" + "=".repeat(bars) + " ".repeat(10 - bars) + "] " + pct + "%";
+        int barColor = active ? 0x66FF99 : 0x448844;
+
+        matrices.pushPose();
+        matrices.translate(1.0F, 0.0F, 0.5F);
+        matrices.mulPose(Axis.ZP.rotationDegrees(202.5F));
+
+        // Inner screen face (facing workbench center, x = 1/16 + 0.002 = 0.0645F, y = -3/16 = -0.1875F)
+        matrices.pushPose();
+        matrices.translate(0.0645F, -0.1875F, 0.0F);
+        matrices.mulPose(Axis.YP.rotationDegrees(-90.0F));
+        matrices.scale(0.0042F, 0.0042F, 0.0042F);
+        this.font.drawInBatch(statusText, -this.font.width(statusText) / 2.0F, -9.0F, statusColor, false, matrices.last().pose(), vertexConsumers, Font.DisplayMode.NORMAL, 0, 0xF000F0);
+        this.font.drawInBatch(barText, -this.font.width(barText) / 2.0F, 1.0F, barColor, false, matrices.last().pose(), vertexConsumers, Font.DisplayMode.NORMAL, 0, 0xF000F0);
+        matrices.popPose();
+
+        // Outer display face (facing outward, x = -0.002F, y = -3/16 = -0.1875F)
+        matrices.pushPose();
+        matrices.translate(-0.002F, -0.1875F, 0.0F);
+        matrices.mulPose(Axis.YP.rotationDegrees(90.0F));
+        matrices.scale(0.0042F, 0.0042F, 0.0042F);
+        this.font.drawInBatch(statusText, -this.font.width(statusText) / 2.0F, -9.0F, statusColor, false, matrices.last().pose(), vertexConsumers, Font.DisplayMode.NORMAL, 0, 0xF000F0);
+        this.font.drawInBatch(barText, -this.font.width(barText) / 2.0F, 1.0F, barColor, false, matrices.last().pose(), vertexConsumers, Font.DisplayMode.NORMAL, 0, 0xF000F0);
+        matrices.popPose();
+
+        matrices.popPose();
+    }
+
+    private void renderAnimated(PoseStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float time, float blend) {
+        // 1. Table Top
+        this.top.render(matrices, vertexConsumer, light, overlay);
+
+        // 2. Articulated Plier Arm Assembly (Base bolted at (0.5, 0.0, 0.0); elbow hinged at (0.5, 0.55, -0.69) in 40° frame)
+        float plierShoulderPitch = (6.0F + 2.5F * Mth.sin(time * 0.10F)) * blend;
+        float plierShoulderYaw = (4.0F * Mth.sin(time * 0.07F)) * blend;
+        float plierElbowPitch = (18.0F + 6.0F * Mth.sin(time * 0.20F)) * blend;
+
+        matrices.pushPose();
+        matrices.rotateAround(Axis.YP.rotationDegrees(plierShoulderYaw), 0.5F, 0.0F, 0.0F);
+        matrices.rotateAround(Axis.XP.rotationDegrees(plierShoulderPitch), 0.5F, 0.0F, 0.0F);
+
+        matrices.pushPose();
+        matrices.translate(0.5F, 0.0F, 0.0F);
+        this.plierArm.render(matrices, vertexConsumer, light, overlay);
+        matrices.popPose();
+
+        matrices.pushPose();
+        matrices.mulPose(Axis.XP.rotationDegrees(40.0F));
+        matrices.translate(0.5F, 0.55F, -0.69F);
+        matrices.mulPose(Axis.XP.rotationDegrees(plierElbowPitch));
+        this.plierSmallArm.render(matrices, vertexConsumer, light, overlay);
+        matrices.popPose();
+
+        matrices.popPose();
+
+        // 3. Articulated Drill Assembly (Base bolted at (0.5, 0.0, 0.875); wrist hinged at (0.5, 0.875, 1.25))
+        float drillShoulderPitch = (-7.0F + 3.0F * Mth.sin(time * 0.14F)) * blend;
+        float drillShoulderYaw = (3.5F * Mth.cos(time * 0.09F)) * blend;
+        float drillPeck = Mth.sin(time * 0.35F);
+        float drillWristPitch = (-14.0F + 7.0F * drillPeck + 0.6F * Mth.sin(time * 1.8F)) * blend;
+
+        matrices.pushPose();
+        matrices.rotateAround(Axis.YP.rotationDegrees(drillShoulderYaw), 0.5F, 0.0F, 0.875F);
+        matrices.rotateAround(Axis.XP.rotationDegrees(drillShoulderPitch), 0.5F, 0.0F, 0.875F);
+
+        matrices.pushPose();
+        matrices.translate(0.5F, 0.0F, 0.875F);
+        this.drillArm.render(matrices, vertexConsumer, light, overlay);
+        matrices.popPose();
+
+        matrices.pushPose();
+        matrices.translate(0.5F, 0.875F, 1.25F);
+        matrices.mulPose(Axis.XP.rotationDegrees(drillWristPitch));
+        this.drillBit.yRot = (time * 0.95F) * blend;
+        this.drillTool.render(matrices, vertexConsumer, light, overlay);
+        this.drillBit.yRot = 0.0F;
+        matrices.popPose();
+
+        matrices.popPose();
+
+        // 4. Articulated Inspection Lamp Assembly (Base bolted at (0.125, 0.0, 0.5); neck hinged at (-0.4375, 0.75, 0.5) in -20° frame)
+        float lampShoulderRoll = (-5.0F + 2.0F * Mth.sin(time * 0.06F)) * blend;
+        float lampNeckTilt = (-8.0F + 3.0F * Mth.cos(time * 0.12F)) * blend;
+        float lampNeckPan = (6.0F * Mth.sin(time * 0.08F)) * blend;
+
+        matrices.pushPose();
+        matrices.rotateAround(Axis.ZP.rotationDegrees(lampShoulderRoll), 0.125F, 0.0F, 0.5F);
+
+        matrices.pushPose();
+        matrices.translate(0.125F, 0.0F, 0.5F);
+        this.flashlightArm.render(matrices, vertexConsumer, light, overlay);
+        matrices.popPose();
+
+        matrices.pushPose();
+        matrices.mulPose(Axis.ZP.rotationDegrees(-20.0F));
+        matrices.translate(-0.4375F, 0.75F, 0.5F);
+        matrices.mulPose(Axis.ZP.rotationDegrees(lampNeckTilt));
+        matrices.mulPose(Axis.YP.rotationDegrees(lampNeckPan));
+        this.flashlight.render(matrices, vertexConsumer, light, overlay);
+        matrices.popPose();
+
+        matrices.popPose();
+
+        // 5. Display Panel
+        matrices.pushPose();
+        matrices.translate(1.0F, 0.0F, 0.5F);
+        this.display.render(matrices, vertexConsumer, light, overlay);
         matrices.popPose();
     }
 
     public void render(PoseStack matrices, VertexConsumer vertexConsumer, int light, int overlay) {
+        this.drillBit.yRot = 0.0F;
         this.top.render(matrices, vertexConsumer, light, overlay);
 
         matrices.pushPose();
