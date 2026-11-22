@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "galacticraft:compressed_aluminum"
+    },
+    "I": {
+      "item": "minecraft:iron_block"
+    },
+    "P": {
+      "item": "galacticraft:heavy_plating"
+    },
+    "S": {
+      "item": "galacticraft:compressed_steel"
+    },
+    "W": {
+      "item": "galacticraft:basic_wafer"
+    }
+  },
+  "pattern": [
+    "SAS",
+    "PWP",
+    "SIS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:platform_upgrade_socket"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "item": "galacticraft:vacuum_glass"
+    },
+    "P": {
+      "item": "galacticraft:heavy_plating"
+    },
+    "R": {
+      "item": "minecraft:redstone_block"
+    },
+    "S": {
+      "item": "galacticraft:compressed_steel"
+    },
+    "W": {
+      "item": "galacticraft:advanced_wafer"
+    }
+  },
+  "pattern": [
+    "SGS",
+    "PWP",
+    "SRS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:hangar_terminal"
+  }
+}
