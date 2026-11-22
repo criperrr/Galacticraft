@@ -30,6 +30,7 @@ pluginManagement {
                 includeGroup("dev.galacticraft.mojarn")
             }
         }
+        mavenCentral()
         gradlePluginPortal()
     }
 }
