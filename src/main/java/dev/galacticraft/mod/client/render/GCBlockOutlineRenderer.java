@@ -24,15 +24,25 @@ package dev.galacticraft.mod.client.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import dev.galacticraft.api.rocket.part.modular.FootprintMode;
+import dev.galacticraft.api.rocket.part.modular.RocketPartConfig;
+import dev.galacticraft.mod.attachments.MultiblockLinkManager;
+import dev.galacticraft.mod.client.render.rocket.part.RocketPartMeshRenderer;
+import dev.galacticraft.mod.content.block.entity.HangarTerminalBlockEntity;
+import dev.galacticraft.mod.content.block.entity.ModularRocketPartBlockEntity;
+import dev.galacticraft.mod.content.block.multiblock.RocketPartBoundsBlock;
+import dev.galacticraft.mod.content.block.rocket.ModularRocketPartBlock;
 import dev.galacticraft.mod.content.block.special.CryogenicChamberBlock;
 import dev.galacticraft.mod.content.block.special.CryogenicChamberPart;
 import dev.galacticraft.mod.content.block.special.TransportTube;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext.BlockOutlineContext;
+import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
@@ -43,8 +53,85 @@ public class GCBlockOutlineRenderer {
     private static float B = 0.15F;
     private static float A = 1.0F; // opaque
 
+    // Unified dark-cyan wireframe outline for multi-voxel modular rocket parts
+    private static final float ROCKET_PART_R = 0.10F;
+    private static final float ROCKET_PART_G = 0.75F;
+    private static final float ROCKET_PART_B = 0.85F;
+    private static final float ROCKET_PART_A = 0.85F;
+
+    // Unified emerald-cyan wireframe outline for a complete rocket assembled on a platform
+    private static final float ASSEMBLED_ROCKET_R = 0.20F;
+    private static final float ASSEMBLED_ROCKET_G = 0.88F;
+    private static final float ASSEMBLED_ROCKET_B = 0.65F;
+    private static final float ASSEMBLED_ROCKET_A = 0.90F;
+
     public static boolean renderBlockOutlines(WorldRenderContext worldContext, BlockOutlineContext context) {
         BlockState blockState = context.blockState();
+        if (blockState.getBlock() instanceof ModularRocketPartBlock || blockState.getBlock() instanceof RocketPartBoundsBlock) {
+            if (worldContext.world() != null && worldContext.matrixStack() != null && worldContext.consumers() != null) {
+                BlockPos blockPos = context.blockPos();
+                BlockPos masterPos = blockState.getBlock() instanceof ModularRocketPartBlock
+                        ? blockPos
+                        : MultiblockLinkManager.getMasterPos(worldContext.world(), blockPos);
+                if (masterPos != null
+                        && worldContext.world().getBlockEntity(masterPos) instanceof ModularRocketPartBlockEntity partEntity) {
+                    BlockPos assembledTerminalPos = partEntity.getAssembledTerminalPos();
+                    if (assembledTerminalPos != null
+                            && worldContext.world().getBlockEntity(assembledTerminalPos) instanceof HangarTerminalBlockEntity terminal
+                            && terminal.isRocketAssembled()
+                            && terminal.isPartOfAssembledRocket(masterPos)) {
+                        AABB unifiedWorldBounds = terminal.computeAssembledRocketWorldBounds();
+                        if (unifiedWorldBounds != null) {
+                            AABB cameraBounds = unifiedWorldBounds
+                                    .move(-context.cameraX(), -context.cameraY(), -context.cameraZ())
+                                    .inflate(0.004);
+                            VertexConsumer lineConsumer = worldContext.consumers().getBuffer(RenderType.lines());
+                            LevelRenderer.renderLineBox(
+                                    worldContext.matrixStack(),
+                                    lineConsumer,
+                                    cameraBounds.minX,
+                                    cameraBounds.minY,
+                                    cameraBounds.minZ,
+                                    cameraBounds.maxX,
+                                    cameraBounds.maxY,
+                                    cameraBounds.maxZ,
+                                    ASSEMBLED_ROCKET_R,
+                                    ASSEMBLED_ROCKET_G,
+                                    ASSEMBLED_ROCKET_B,
+                                    ASSEMBLED_ROCKET_A
+                            );
+                            return false;
+                        }
+                    }
+
+                    RocketPartConfig config = partEntity.getConfig();
+                    AABB localBounds = FootprintMode.computeBoundsAABB(config);
+                    AABB rotatedBounds = RocketPartMeshRenderer.rotateLocalBounds(localBounds, partEntity.getFacing())
+                            .move(
+                                    masterPos.getX() - context.cameraX(),
+                                    masterPos.getY() - context.cameraY(),
+                                    masterPos.getZ() - context.cameraZ()
+                            )
+                            .inflate(0.002);
+                    VertexConsumer lineConsumer = worldContext.consumers().getBuffer(RenderType.lines());
+                    LevelRenderer.renderLineBox(
+                            worldContext.matrixStack(),
+                            lineConsumer,
+                            rotatedBounds.minX,
+                            rotatedBounds.minY,
+                            rotatedBounds.minZ,
+                            rotatedBounds.maxX,
+                            rotatedBounds.maxY,
+                            rotatedBounds.maxZ,
+                            ROCKET_PART_R,
+                            ROCKET_PART_G,
+                            ROCKET_PART_B,
+                            ROCKET_PART_A
+                    );
+                    return false;
+                }
+            }
+        }
         if (blockState.getBlock() instanceof CryogenicChamberBlock || blockState.getBlock() instanceof CryogenicChamberPart || blockState.getBlock() instanceof TransportTube) {
             BlockPos blockPos = context.blockPos();
             VoxelShape voxelShape = blockState.getShape(worldContext.world(), blockPos, CollisionContext.of(context.entity()));

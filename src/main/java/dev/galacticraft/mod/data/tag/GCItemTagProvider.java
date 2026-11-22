@@ -510,6 +510,23 @@ public class GCItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(GCBlocks.ASTEROID_ROCK_2.asItem());
 
         this.copy(ConventionalBlockTags.VILLAGER_JOB_SITES, ConventionalItemTags.VILLAGER_JOB_SITES);
+
+        this.tag(GCItemTags.ROCKET_SCHEMATICS)
+                .add(GCItems.BASIC_ROCKET_CONE_SCHEMATIC)
+                .add(GCItems.BASIC_ROCKET_BODY_SCHEMATIC)
+                .add(GCItems.BASIC_ROCKET_FINS_SCHEMATIC)
+                .add(GCItems.BASIC_ROCKET_ENGINE_SCHEMATIC)
+                .add(GCItems.PART_SCHEMATIC_COMMAND)
+                .add(GCItems.PART_SCHEMATIC_ENGINE)
+                .add(GCItems.PART_SCHEMATIC_TANK)
+                .add(GCItems.PART_SCHEMATIC_ADAPTER)
+                .add(GCItems.PART_SCHEMATIC_PAYLOAD)
+                .add(GCItems.PART_SCHEMATIC_UTILITY)
+                .add(GCItems.TIER_2_ROCKET_SCHEMATIC)
+                .add(GCItems.TIER_3_ROCKET_SCHEMATIC)
+                .add(GCItems.CARGO_ROCKET_SCHEMATIC)
+                .add(GCItems.MOON_BUGGY_SCHEMATIC)
+                .add(GCItems.ASTRO_MINER_SCHEMATIC);
     }
 
     protected FabricTagProvider<Item>.@NotNull FabricTagBuilder tag(TagKey<Item> tag) {

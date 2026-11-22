@@ -401,6 +401,11 @@ public class GCBlockLootTableProvider extends FabricBlockLootTableProvider {
 
         this.add(GCBlocks.FUELING_PAD, this::createLaunchPadTable);
         this.add(GCBlocks.ROCKET_LAUNCH_PAD, this::createLaunchPadTable);
+        this.dropSelf(GCBlocks.REINFORCED_LAUNCH_PAD);
+        this.dropSelf(GCBlocks.GANTRY_TRUSS);
+        this.dropSelf(GCBlocks.GANTRY_CRANE_RAIL);
+        this.dropSelf(GCBlocks.PLATFORM_UPGRADE_SOCKET);
+        this.dropSelf(GCBlocks.HANGAR_TERMINAL);
         this.dropSelf(GCBlocks.SHORT_RANGE_TELEPAD);
         this.dropSelf(GCBlocks.AIR_LOCK_CONTROLLER);
         this.dropSelf(GCBlocks.AIR_LOCK_FRAME);

@@ -22,6 +22,7 @@
 
 package dev.galacticraft.mod.content;
 
+import dev.galacticraft.api.rocket.part.modular.RocketPartCategory;
 import dev.galacticraft.machinelib.api.block.SimpleMachineBlock;
 import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.api.block.entity.PipeColor;
@@ -30,6 +31,14 @@ import dev.galacticraft.mod.content.block.boss.BossSpawner;
 import dev.galacticraft.mod.content.block.decoration.*;
 import dev.galacticraft.mod.content.block.environment.*;
 import dev.galacticraft.mod.content.block.machine.*;
+import dev.galacticraft.mod.content.block.multiblock.PlatformProxyBlock;
+import dev.galacticraft.mod.content.block.multiblock.RocketPartBoundsBlock;
+import dev.galacticraft.mod.content.block.platform.GantryCraneRailBlock;
+import dev.galacticraft.mod.content.block.platform.GantryTrussBlock;
+import dev.galacticraft.mod.content.block.platform.HangarTerminalBlock;
+import dev.galacticraft.mod.content.block.platform.PlatformUpgradeSocketBlock;
+import dev.galacticraft.mod.content.block.platform.ReinforcedLaunchPadBlock;
+import dev.galacticraft.mod.content.block.rocket.ModularRocketPartBlock;
 import dev.galacticraft.mod.content.block.special.*;
 import dev.galacticraft.mod.content.block.special.aluminumwire.tier1.AluminumWireBlock;
 import dev.galacticraft.mod.content.block.special.aluminumwire.tier1.SealableAluminumWireBlock;
@@ -355,6 +364,19 @@ public class GCBlocks {
 
     // SPECIAL
     public static final Block ROCKET_LAUNCH_PAD = BLOCKS.registerWithItem(Constant.Block.ROCKET_LAUNCH_PAD, new LaunchPadBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).instrument(NoteBlockInstrument.BASEDRUM).strength(1.5F, 10.0F).requiresCorrectToolForDrops()));
+    public static final Block REINFORCED_LAUNCH_PAD = BLOCKS.registerWithItem(Constant.Block.REINFORCED_LAUNCH_PAD, new ReinforcedLaunchPadBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).instrument(NoteBlockInstrument.BASEDRUM).strength(4.0F, 12.0F).sound(SoundType.METAL).requiresCorrectToolForDrops().noOcclusion()));
+    public static final Block GANTRY_TRUSS = BLOCKS.registerWithItem(Constant.Block.GANTRY_TRUSS, new GantryTrussBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(3.5F, 8.0F).sound(SoundType.METAL).requiresCorrectToolForDrops().noOcclusion()));
+    public static final Block GANTRY_CRANE_RAIL = BLOCKS.registerWithItem(Constant.Block.GANTRY_CRANE_RAIL, new GantryCraneRailBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(3.5F, 8.0F).sound(SoundType.METAL).requiresCorrectToolForDrops().noOcclusion()));
+    public static final Block PLATFORM_UPGRADE_SOCKET = BLOCKS.registerWithItem(Constant.Block.PLATFORM_UPGRADE_SOCKET, new PlatformUpgradeSocketBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).strength(3.5F, 8.0F).sound(SoundType.METAL).requiresCorrectToolForDrops().noOcclusion()));
+    public static final Block HANGAR_TERMINAL = BLOCKS.registerWithItem(Constant.Block.HANGAR_TERMINAL, new HangarTerminalBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).strength(4.0F, 10.0F).sound(SoundType.METAL).requiresCorrectToolForDrops().noOcclusion()));
+    public static final Block PLATFORM_PROXY = BLOCKS.register(Constant.Block.PLATFORM_PROXY, new PlatformProxyBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(2.0F, 6.0F).sound(SoundType.METAL).noOcclusion().noLootTable().pushReaction(PushReaction.BLOCK)));
+    public static final Block ROCKET_PART_COMMAND = BLOCKS.register(Constant.Block.ROCKET_PART_COMMAND, new ModularRocketPartBlock(RocketPartCategory.COMMAND, BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(3.5F, 9.0F).sound(SoundType.METAL).noOcclusion().noLootTable().pushReaction(PushReaction.BLOCK)));
+    public static final Block ROCKET_PART_ENGINE = BLOCKS.register(Constant.Block.ROCKET_PART_ENGINE, new ModularRocketPartBlock(RocketPartCategory.ENGINE, BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(3.5F, 9.0F).sound(SoundType.METAL).noOcclusion().noLootTable().pushReaction(PushReaction.BLOCK)));
+    public static final Block ROCKET_PART_TANK = BLOCKS.register(Constant.Block.ROCKET_PART_TANK, new ModularRocketPartBlock(RocketPartCategory.TANK, BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(3.5F, 9.0F).sound(SoundType.METAL).noOcclusion().noLootTable().pushReaction(PushReaction.BLOCK)));
+    public static final Block ROCKET_PART_ADAPTER = BLOCKS.register(Constant.Block.ROCKET_PART_ADAPTER, new ModularRocketPartBlock(RocketPartCategory.ADAPTER, BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(3.5F, 9.0F).sound(SoundType.METAL).noOcclusion().noLootTable().pushReaction(PushReaction.BLOCK)));
+    public static final Block ROCKET_PART_PAYLOAD = BLOCKS.register(Constant.Block.ROCKET_PART_PAYLOAD, new ModularRocketPartBlock(RocketPartCategory.PAYLOAD, BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(3.5F, 9.0F).sound(SoundType.METAL).noOcclusion().noLootTable().pushReaction(PushReaction.BLOCK)));
+    public static final Block ROCKET_PART_UTILITY = BLOCKS.register(Constant.Block.ROCKET_PART_UTILITY, new ModularRocketPartBlock(RocketPartCategory.UTILITY, BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(3.5F, 9.0F).sound(SoundType.METAL).noOcclusion().noLootTable().pushReaction(PushReaction.BLOCK)));
+    public static final Block ROCKET_PART_BOUNDS = BLOCKS.register(Constant.Block.ROCKET_PART_BOUNDS, new RocketPartBoundsBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(3.5F, 9.0F).sound(SoundType.METAL).noOcclusion().noLootTable().pushReaction(PushReaction.BLOCK)));
     public static final Block FUELING_PAD = BLOCKS.registerWithItem(Constant.Block.FUELING_PAD, new FuelPadBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).instrument(NoteBlockInstrument.BASEDRUM).strength(1.5F, 10.0F).requiresCorrectToolForDrops()));
     public static final Block SHORT_RANGE_TELEPAD = BLOCKS.registerWithItem(Constant.Block.SHORT_RANGE_TELEPAD, new ShortRangeTelepadBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(3.0F, 6.0F).sound(SoundType.METAL).requiresCorrectToolForDrops()));
     public static final Block ROCKET_WORKBENCH = BLOCKS.registerWithItem(Constant.Block.ROCKET_WORKBENCH, new RocketWorkbench(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).instrument(NoteBlockInstrument.BASEDRUM).strength(1.5F, 6.0F).requiresCorrectToolForDrops()));

@@ -1,5 +1,10 @@
 {
   "values": [
+    "galacticraft:reinforced_launch_pad",
+    "galacticraft:gantry_truss",
+    "galacticraft:gantry_crane_rail",
+    "galacticraft:platform_upgrade_socket",
+    "galacticraft:hangar_terminal",
     "galacticraft:silicon_ore",
     "galacticraft:deepslate_silicon_ore",
     "galacticraft:asteroid_silicon_ore",

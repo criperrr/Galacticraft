@@ -22,8 +22,11 @@
 
 package dev.galacticraft.mod.compat.rei.common;
 
+import dev.galacticraft.api.component.GCDataComponents;
+import dev.galacticraft.api.rocket.part.modular.RocketPartConfig;
 import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.compat.rei.common.display.*;
+import dev.galacticraft.mod.content.GCBlocks;
 import dev.galacticraft.mod.content.item.CannedFoodItem;
 import dev.galacticraft.mod.content.item.GCItems;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
@@ -31,6 +34,7 @@ import me.shedaniel.rei.api.common.display.DisplaySerializerRegistry;
 import me.shedaniel.rei.api.common.entry.comparison.ItemComparatorRegistry;
 import me.shedaniel.rei.api.common.plugins.REIServerPlugin;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
 public class GalacticraftREIServerPlugin implements REIServerPlugin {
     public static final CategoryIdentifier<DefaultFabricationDisplay> FABRICATION = CategoryIdentifier.of(Constant.MOD_ID, "plugins/" + Constant.Recipe.FABRICATION);
@@ -62,5 +66,39 @@ public class GalacticraftREIServerPlugin implements REIServerPlugin {
             }
             return hash;
         }, GCItems.CANNED_FOOD);
+
+        registry.register(
+                (context, stack) -> hashRocketPartConfig(stack.get(GCDataComponents.ROCKET_PART_CONFIG)),
+                GCBlocks.ROCKET_PART_COMMAND.asItem(),
+                GCBlocks.ROCKET_PART_ENGINE.asItem(),
+                GCBlocks.ROCKET_PART_TANK.asItem(),
+                GCBlocks.ROCKET_PART_ADAPTER.asItem(),
+                GCBlocks.ROCKET_PART_PAYLOAD.asItem(),
+                GCBlocks.ROCKET_PART_UTILITY.asItem()
+        );
+    }
+
+    private static long hashRocketPartConfig(@Nullable RocketPartConfig config) {
+        if (config == null) {
+            return 0L;
+        }
+        long hash = 0xCBF29CE484222325L;
+        hash = mixString(hash, config.modelId());
+        hash = mixString(hash, config.familyId());
+        hash = (hash ^ config.category().ordinal()) * 0x100000001B3L;
+        hash = (hash ^ config.diameter()) * 0x100000001B3L;
+        hash = (hash ^ config.topDiameter()) * 0x100000001B3L;
+        hash = (hash ^ config.heightBlocks()) * 0x100000001B3L;
+        hash = (hash ^ config.livery().ordinal()) * 0x100000001B3L;
+        hash = (hash ^ (config.walkableInterior() ? 1L : 0L)) * 0x100000001B3L;
+        hash = (hash ^ (config.radial() ? 1L : 0L)) * 0x100000001B3L;
+        return hash == 0L ? 1L : hash;
+    }
+
+    private static long mixString(long hash, String value) {
+        for (int i = 0; i < value.length(); i++) {
+            hash = (hash ^ value.charAt(i)) * 0x100000001B3L;
+        }
+        return (hash ^ 0xFFL) * 0x100000001B3L;
     }
 }

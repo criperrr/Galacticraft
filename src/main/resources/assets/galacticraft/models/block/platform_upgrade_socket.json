@@ -1,0 +1,244 @@
+{
+  "credit": "Made with Blockbench for Galacticraft 5",
+  "parent": "minecraft:block/block",
+  "textures": {
+    "particle": "galacticraft:block/starbase_dark_steel",
+    "steel": "galacticraft:block/starbase_dark_steel",
+    "hazard": "galacticraft:block/aerospace_hazard_stripe",
+    "cryo": "galacticraft:block/cryo_pipes_valves",
+    "grating": "galacticraft:block/industrial_grating"
+  },
+  "elements": [
+    {
+      "name": "base_plate",
+      "from": [0, 0, 0],
+      "to": [16, 3, 16],
+      "faces": {
+        "north": {"uv": [0, 13, 16, 16], "texture": "#steel", "cullface": "north"},
+        "east": {"uv": [0, 13, 16, 16], "texture": "#steel", "cullface": "east"},
+        "south": {"uv": [0, 13, 16, 16], "texture": "#steel", "cullface": "south"},
+        "west": {"uv": [0, 13, 16, 16], "texture": "#steel", "cullface": "west"},
+        "down": {"uv": [0, 0, 16, 16], "texture": "#steel", "cullface": "down"}
+      }
+    },
+    {
+      "name": "hazard_skirt",
+      "from": [0, 3, 0],
+      "to": [16, 5, 16],
+      "faces": {
+        "north": {"uv": [0, 11, 16, 13], "texture": "#hazard", "cullface": "north"},
+        "east": {"uv": [0, 11, 16, 13], "texture": "#hazard", "cullface": "east"},
+        "south": {"uv": [0, 11, 16, 13], "texture": "#hazard", "cullface": "south"},
+        "west": {"uv": [0, 11, 16, 13], "texture": "#hazard", "cullface": "west"},
+        "up": {"uv": [0, 0, 16, 16], "texture": "#steel"}
+      }
+    },
+    {
+      "name": "core_housing",
+      "from": [2, 5, 2],
+      "to": [14, 13, 14],
+      "faces": {
+        "north": {"uv": [2, 3, 14, 11], "texture": "#steel"},
+        "east": {"uv": [2, 3, 14, 11], "texture": "#steel"},
+        "south": {"uv": [2, 3, 14, 11], "texture": "#steel"},
+        "west": {"uv": [2, 3, 14, 11], "texture": "#steel"},
+        "up": {"uv": [2, 2, 14, 14], "texture": "#steel"}
+      }
+    },
+    {
+      "name": "front_cryo_manifold",
+      "from": [4, 6, 0],
+      "to": [12, 12, 2],
+      "faces": {
+        "north": {"uv": [4, 4, 12, 10], "texture": "#cryo", "cullface": "north"},
+        "east": {"uv": [14, 4, 16, 10], "texture": "#steel"},
+        "west": {"uv": [0, 4, 2, 10], "texture": "#steel"},
+        "up": {"uv": [4, 0, 12, 2], "texture": "#steel"},
+        "down": {"uv": [4, 14, 12, 16], "texture": "#steel"}
+      }
+    },
+    {
+      "name": "rear_cryo_manifold",
+      "from": [4, 6, 14],
+      "to": [12, 12, 16],
+      "faces": {
+        "south": {"uv": [4, 4, 12, 10], "texture": "#cryo", "cullface": "south"},
+        "east": {"uv": [0, 4, 2, 10], "texture": "#steel"},
+        "west": {"uv": [14, 4, 16, 10], "texture": "#steel"},
+        "up": {"uv": [4, 14, 12, 16], "texture": "#steel"},
+        "down": {"uv": [4, 0, 12, 2], "texture": "#steel"}
+      }
+    },
+    {
+      "name": "side_cryo_manifold_west",
+      "from": [0, 6, 4],
+      "to": [2, 12, 12],
+      "faces": {
+        "west": {"uv": [4, 4, 12, 10], "texture": "#cryo", "cullface": "west"},
+        "north": {"uv": [14, 4, 16, 10], "texture": "#steel"},
+        "south": {"uv": [0, 4, 2, 10], "texture": "#steel"},
+        "up": {"uv": [0, 4, 2, 12], "texture": "#steel"},
+        "down": {"uv": [0, 4, 2, 12], "texture": "#steel"}
+      }
+    },
+    {
+      "name": "side_cryo_manifold_east",
+      "from": [14, 6, 4],
+      "to": [16, 12, 12],
+      "faces": {
+        "east": {"uv": [4, 4, 12, 10], "texture": "#cryo", "cullface": "east"},
+        "north": {"uv": [0, 4, 2, 10], "texture": "#steel"},
+        "south": {"uv": [14, 4, 16, 10], "texture": "#steel"},
+        "up": {"uv": [14, 4, 16, 12], "texture": "#steel"},
+        "down": {"uv": [14, 4, 16, 12], "texture": "#steel"}
+      }
+    },
+    {
+      "name": "corner_clamp_nw",
+      "from": [1, 5, 1],
+      "to": [3, 14, 3],
+      "faces": {
+        "north": {"uv": [13, 2, 15, 11], "texture": "#steel"},
+        "east": {"uv": [13, 2, 15, 11], "texture": "#steel"},
+        "south": {"uv": [1, 2, 3, 11], "texture": "#steel"},
+        "west": {"uv": [1, 2, 3, 11], "texture": "#steel"},
+        "up": {"uv": [1, 1, 3, 3], "texture": "#steel"}
+      }
+    },
+    {
+      "name": "corner_clamp_ne",
+      "from": [13, 5, 1],
+      "to": [15, 14, 3],
+      "faces": {
+        "north": {"uv": [1, 2, 3, 11], "texture": "#steel"},
+        "east": {"uv": [13, 2, 15, 11], "texture": "#steel"},
+        "south": {"uv": [13, 2, 15, 11], "texture": "#steel"},
+        "west": {"uv": [1, 2, 3, 11], "texture": "#steel"},
+        "up": {"uv": [13, 1, 15, 3], "texture": "#steel"}
+      }
+    },
+    {
+      "name": "corner_clamp_sw",
+      "from": [1, 5, 13],
+      "to": [3, 14, 15],
+      "faces": {
+        "north": {"uv": [13, 2, 15, 11], "texture": "#steel"},
+        "east": {"uv": [1, 2, 3, 11], "texture": "#steel"},
+        "south": {"uv": [1, 2, 3, 11], "texture": "#steel"},
+        "west": {"uv": [13, 2, 15, 11], "texture": "#steel"},
+        "up": {"uv": [1, 13, 3, 15], "texture": "#steel"}
+      }
+    },
+    {
+      "name": "corner_clamp_se",
+      "from": [13, 5, 13],
+      "to": [15, 14, 15],
+      "faces": {
+        "north": {"uv": [1, 2, 3, 11], "texture": "#steel"},
+        "east": {"uv": [1, 2, 3, 11], "texture": "#steel"},
+        "south": {"uv": [13, 2, 15, 11], "texture": "#steel"},
+        "west": {"uv": [13, 2, 15, 11], "texture": "#steel"},
+        "up": {"uv": [13, 13, 15, 15], "texture": "#steel"}
+      }
+    },
+    {
+      "name": "socket_deck_grating",
+      "from": [3, 13, 3],
+      "to": [13, 14, 13],
+      "faces": {
+        "north": {"uv": [3, 2, 13, 3], "texture": "#steel"},
+        "east": {"uv": [3, 2, 13, 3], "texture": "#steel"},
+        "south": {"uv": [3, 2, 13, 3], "texture": "#steel"},
+        "west": {"uv": [3, 2, 13, 3], "texture": "#steel"},
+        "up": {"uv": [3, 3, 13, 13], "texture": "#grating"}
+      }
+    },
+    {
+      "name": "docking_rim_north",
+      "from": [1, 14, 1],
+      "to": [15, 16, 3],
+      "faces": {
+        "north": {"uv": [1, 0, 15, 2], "texture": "#hazard"},
+        "east": {"uv": [13, 0, 15, 2], "texture": "#steel"},
+        "south": {"uv": [1, 0, 15, 2], "texture": "#steel"},
+        "west": {"uv": [1, 0, 3, 2], "texture": "#steel"},
+        "up": {"uv": [1, 1, 15, 3], "texture": "#hazard", "cullface": "up"},
+        "down": {"uv": [1, 13, 15, 15], "texture": "#steel"}
+      }
+    },
+    {
+      "name": "docking_rim_south",
+      "from": [1, 14, 13],
+      "to": [15, 16, 15],
+      "faces": {
+        "north": {"uv": [1, 0, 15, 2], "texture": "#steel"},
+        "east": {"uv": [1, 0, 3, 2], "texture": "#steel"},
+        "south": {"uv": [1, 0, 15, 2], "texture": "#hazard"},
+        "west": {"uv": [13, 0, 15, 2], "texture": "#steel"},
+        "up": {"uv": [1, 13, 15, 15], "texture": "#hazard", "cullface": "up"},
+        "down": {"uv": [1, 1, 15, 3], "texture": "#steel"}
+      }
+    },
+    {
+      "name": "docking_rim_west",
+      "from": [1, 14, 3],
+      "to": [3, 16, 13],
+      "faces": {
+        "east": {"uv": [3, 0, 13, 2], "texture": "#steel"},
+        "west": {"uv": [3, 0, 13, 2], "texture": "#hazard"},
+        "up": {"uv": [1, 3, 3, 13], "texture": "#hazard", "cullface": "up"},
+        "down": {"uv": [1, 3, 3, 13], "texture": "#steel"}
+      }
+    },
+    {
+      "name": "docking_rim_east",
+      "from": [13, 14, 3],
+      "to": [15, 16, 13],
+      "faces": {
+        "east": {"uv": [3, 0, 13, 2], "texture": "#hazard"},
+        "west": {"uv": [3, 0, 13, 2], "texture": "#steel"},
+        "up": {"uv": [13, 3, 15, 13], "texture": "#hazard", "cullface": "up"},
+        "down": {"uv": [13, 3, 15, 13], "texture": "#steel"}
+      }
+    },
+    {
+      "name": "central_coupling_port",
+      "from": [6, 14, 6],
+      "to": [10, 15, 10],
+      "faces": {
+        "north": {"uv": [6, 1, 10, 2], "texture": "#cryo"},
+        "east": {"uv": [6, 1, 10, 2], "texture": "#cryo"},
+        "south": {"uv": [6, 1, 10, 2], "texture": "#cryo"},
+        "west": {"uv": [6, 1, 10, 2], "texture": "#cryo"},
+        "up": {"uv": [6, 6, 10, 10], "texture": "#cryo"}
+      }
+    }
+  ],
+  "display": {
+    "gui": {
+      "rotation": [30, 225, 0],
+      "translation": [0, 0, 0],
+      "scale": [0.625, 0.625, 0.625]
+    },
+    "ground": {
+      "rotation": [0, 0, 0],
+      "translation": [0, 3, 0],
+      "scale": [0.25, 0.25, 0.25]
+    },
+    "fixed": {
+      "rotation": [0, 0, 0],
+      "translation": [0, 0, 0],
+      "scale": [0.5, 0.5, 0.5]
+    },
+    "thirdperson_righthand": {
+      "rotation": [75, 45, 0],
+      "translation": [0, 2.5, 0],
+      "scale": [0.375, 0.375, 0.375]
+    },
+    "firstperson_righthand": {
+      "rotation": [0, 45, 0],
+      "translation": [0, 0, 0],
+      "scale": [0.4, 0.4, 0.4]
+    }
+  }
+}

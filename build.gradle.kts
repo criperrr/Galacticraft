@@ -176,6 +176,12 @@ loom {
 
 repositories {
     mavenLocal()
+    maven(url = rootProject.file("gradle/local-maven")) {
+        name = "LocalGalacticraftMirror"
+        content {
+            includeGroup("dev.galacticraft")
+        }
+    }
     maven("http://5.161.199.182/repository/maven-releases/") {
         isAllowInsecureProtocol = true
         // https://maven.galacticraft.net/repository/maven-releases

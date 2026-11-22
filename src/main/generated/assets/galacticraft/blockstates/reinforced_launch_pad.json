@@ -1,0 +1,60 @@
+{
+  "variants": {
+    "facing=east,part=center": {
+      "model": "galacticraft:block/reinforced_launch_pad_center"
+    },
+    "facing=east,part=corner": {
+      "model": "galacticraft:block/reinforced_launch_pad_corner",
+      "y": 90
+    },
+    "facing=east,part=side": {
+      "model": "galacticraft:block/reinforced_launch_pad_side",
+      "y": 90
+    },
+    "facing=east,part=standalone": {
+      "model": "galacticraft:block/reinforced_launch_pad"
+    },
+    "facing=north,part=center": {
+      "model": "galacticraft:block/reinforced_launch_pad_center"
+    },
+    "facing=north,part=corner": {
+      "model": "galacticraft:block/reinforced_launch_pad_corner",
+      "y": 0
+    },
+    "facing=north,part=side": {
+      "model": "galacticraft:block/reinforced_launch_pad_side",
+      "y": 0
+    },
+    "facing=north,part=standalone": {
+      "model": "galacticraft:block/reinforced_launch_pad"
+    },
+    "facing=south,part=center": {
+      "model": "galacticraft:block/reinforced_launch_pad_center"
+    },
+    "facing=south,part=corner": {
+      "model": "galacticraft:block/reinforced_launch_pad_corner",
+      "y": 180
+    },
+    "facing=south,part=side": {
+      "model": "galacticraft:block/reinforced_launch_pad_side",
+      "y": 180
+    },
+    "facing=south,part=standalone": {
+      "model": "galacticraft:block/reinforced_launch_pad"
+    },
+    "facing=west,part=center": {
+      "model": "galacticraft:block/reinforced_launch_pad_center"
+    },
+    "facing=west,part=corner": {
+      "model": "galacticraft:block/reinforced_launch_pad_corner",
+      "y": 270
+    },
+    "facing=west,part=side": {
+      "model": "galacticraft:block/reinforced_launch_pad_side",
+      "y": 270
+    },
+    "facing=west,part=standalone": {
+      "model": "galacticraft:block/reinforced_launch_pad"
+    }
+  }
+}

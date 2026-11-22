@@ -89,6 +89,17 @@ public class GCBlockEntityTypes {
 
     public static final BlockEntityType<AirlockControllerBlockEntity> AIRLOCK_CONTROLLER = register(Constant.Block.AIR_LOCK_CONTROLLER, AirlockControllerBlockEntity::new, GCBlocks.AIR_LOCK_CONTROLLER);
     public static final BlockEntityType<RocketWorkbenchBlockEntity> ROCKET_WORKBENCH = register(Constant.Block.ROCKET_WORKBENCH, RocketWorkbenchBlockEntity::new, GCBlocks.ROCKET_WORKBENCH);
+    public static final BlockEntityType<HangarTerminalBlockEntity> HANGAR_TERMINAL = register(Constant.Block.HANGAR_TERMINAL, HangarTerminalBlockEntity::new, GCBlocks.HANGAR_TERMINAL);
+    public static final BlockEntityType<ModularRocketPartBlockEntity> MODULAR_ROCKET_PART = register(
+            "modular_rocket_part",
+            ModularRocketPartBlockEntity::new,
+            GCBlocks.ROCKET_PART_COMMAND,
+            GCBlocks.ROCKET_PART_ENGINE,
+            GCBlocks.ROCKET_PART_TANK,
+            GCBlocks.ROCKET_PART_ADAPTER,
+            GCBlocks.ROCKET_PART_PAYLOAD,
+            GCBlocks.ROCKET_PART_UTILITY
+    );
 
     private static<T extends BlockEntity> BlockEntityType<T> register(String id, BlockEntityType.BlockEntitySupplier<T> supplier, Block... compatibleBlocks) {
         return BLOCK_ENTITIES.register(id, BlockEntityType.Builder.of(supplier, compatibleBlocks).build());

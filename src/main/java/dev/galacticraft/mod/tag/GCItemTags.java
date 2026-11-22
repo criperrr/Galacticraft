@@ -165,6 +165,7 @@ public class GCItemTags {
     public static final TagKey<Item> BURGER_BUN_SEEDS = galacticraftTag("burger_bun_seeds");
 
     public static final TagKey<Item> ROCKET_STORAGE_UPGRADE_ITEMS = galacticraftTag("rocket_storage_upgrade_items");
+    public static final TagKey<Item> ROCKET_SCHEMATICS = galacticraftTag("rocket_schematics");
 
     public static final TagKey<Item> EVOLVED_CREEPER_DROP_MUSIC_DISCS = galacticraftTag("evolved_creeper_drop_music_discs");
 

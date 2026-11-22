@@ -29,8 +29,10 @@ import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.recipe.EmiWorldInteractionRecipe;
 import dev.emi.emi.api.render.EmiRenderable;
 import dev.emi.emi.api.render.EmiTexture;
+import dev.emi.emi.api.stack.Comparison;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
+import dev.galacticraft.api.component.GCDataComponents;
 import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.api.block.entity.PipeColor;
 import dev.galacticraft.mod.compat.PipeColorVariants;
@@ -115,6 +117,14 @@ public class GalacticraftEmiPlugin implements EmiPlugin {
         for (Block block : PipeColorVariants.colored()) {
             registry.removeEmiStacks(EmiStack.of(block));
         }
+
+        Comparison rocketPartComparison = Comparison.compareData(stack -> stack.get(GCDataComponents.ROCKET_PART_CONFIG));
+        registry.setDefaultComparison(GCBlocks.ROCKET_PART_COMMAND.asItem(), rocketPartComparison);
+        registry.setDefaultComparison(GCBlocks.ROCKET_PART_ENGINE.asItem(), rocketPartComparison);
+        registry.setDefaultComparison(GCBlocks.ROCKET_PART_TANK.asItem(), rocketPartComparison);
+        registry.setDefaultComparison(GCBlocks.ROCKET_PART_ADAPTER.asItem(), rocketPartComparison);
+        registry.setDefaultComparison(GCBlocks.ROCKET_PART_PAYLOAD.asItem(), rocketPartComparison);
+        registry.setDefaultComparison(GCBlocks.ROCKET_PART_UTILITY.asItem(), rocketPartComparison);
 
         registry.addRecipeHandler(GCMenuTypes.CIRCUIT_FABRICATOR,
                 new MachineRecipeHandler<>(

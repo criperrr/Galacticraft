@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "galacticraft:compressed_aluminum"
+    },
+    "C": {
+      "tag": "c:chests/wooden"
+    },
+    "P": {
+      "item": "minecraft:paper"
+    }
+  },
+  "pattern": [
+    "PAP",
+    "ACA",
+    "PAP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:part_schematic_payload"
+  }
+}

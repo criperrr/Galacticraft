@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_basic_rocket_fins_schematic": {
+      "conditions": {
+        "items": [
+          {
+            "items": "galacticraft:basic_rocket_fins_schematic"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_heavy_plating_t3": {
+      "conditions": {
+        "items": [
+          {
+            "items": "galacticraft:heavy_plating_t3"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "galacticraft:heavy_rocket_fin_alt"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_basic_rocket_fins_schematic",
+      "has_heavy_plating_t3"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "galacticraft:heavy_rocket_fin_alt"
+    ]
+  }
+}

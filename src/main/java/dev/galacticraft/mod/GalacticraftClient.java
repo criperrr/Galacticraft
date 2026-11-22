@@ -41,7 +41,10 @@ import dev.galacticraft.mod.client.render.entity.model.GCEntityModelLayer;
 import dev.galacticraft.mod.client.render.entity.rocket.RocketEntityRenderer;
 import dev.galacticraft.mod.client.render.item.FlagItemRenderer;
 import dev.galacticraft.mod.client.render.item.RocketItemRenderer;
+import dev.galacticraft.mod.client.render.platform.PlatformModelLoader;
 import dev.galacticraft.mod.client.render.rocket.GalacticraftRocketPartRenderers;
+import dev.galacticraft.mod.client.render.rocket.part.ModularRocketPartItemRenderer;
+import dev.galacticraft.mod.client.render.rocket.part.RocketPartModelCache;
 import dev.galacticraft.mod.client.resources.GCResourceReloadListener;
 import dev.galacticraft.mod.client.resources.RocketTextureManager;
 import dev.galacticraft.mod.client.util.CannedFoodColorCache;
@@ -140,6 +143,8 @@ public class GalacticraftClient implements ClientModInitializer {
         MenuScreens.register(GCMenuTypes.FUEL_LOADER, FuelLoaderScreen::new);
         MenuScreens.register(GCMenuTypes.AIRLOCK_CONTROLLER_MENU, AirlockControllerScreen::new);
         MenuScreens.register(GCMenuTypes.ROCKET_WORKBENCH, RocketWorkbenchScreen::new);
+        MenuScreens.register(GCMenuTypes.HANGAR_TERMINAL, HangarTerminalScreen::new);
+        MenuScreens.register(GCMenuTypes.PART_ASSEMBLER, PartAssemblerScreen::new);
         MenuScreens.register(GCMenuTypes.ROCKET, RocketInventoryScreen::new);
         MenuScreens.register(GCMenuTypes.PARACHEST, ParachestScreen::new);
 
@@ -202,6 +207,7 @@ public class GalacticraftClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.translucent(), GCBlocks.CRYOGENIC_CHAMBER, GCBlocks.CRYOGENIC_CHAMBER_PART, GCBlocks.PLAYER_TRANSPORT_TUBE);
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.translucent(), GCBlocks.OLIVINE_GLASS, GCBlocks.OLIVINE_GLASS_PANE, GCBlocks.MOON_GLASS, GCBlocks.MOON_GLASS_PANE);
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.cutout(), GCBlocks.MOON_WEED, GCBlocks.MOON_SHRUBS, GCBlocks.MOON_TANGLE);
+        BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.cutout(), GCBlocks.GANTRY_TRUSS, GCBlocks.GANTRY_CRANE_RAIL, GCBlocks.PLATFORM_UPGRADE_SOCKET, GCBlocks.HANGAR_TERMINAL);
 
         for (Block pipe : GCBlocks.GLASS_FLUID_PIPES.values()) {
             BlockRenderLayerMap.INSTANCE.putBlock(pipe, RenderType.translucent());
@@ -295,6 +301,12 @@ public class GalacticraftClient implements ClientModInitializer {
         for (Item flag : GCItems.FLAGS.colorMap().values()) {
             BuiltinItemRendererRegistry.INSTANCE.register(flag, new FlagItemRenderer());
         }
+        BuiltinItemRendererRegistry.INSTANCE.register(GCBlocks.ROCKET_PART_COMMAND.asItem(), ModularRocketPartItemRenderer.INSTANCE);
+        BuiltinItemRendererRegistry.INSTANCE.register(GCBlocks.ROCKET_PART_ENGINE.asItem(), ModularRocketPartItemRenderer.INSTANCE);
+        BuiltinItemRendererRegistry.INSTANCE.register(GCBlocks.ROCKET_PART_TANK.asItem(), ModularRocketPartItemRenderer.INSTANCE);
+        BuiltinItemRendererRegistry.INSTANCE.register(GCBlocks.ROCKET_PART_ADAPTER.asItem(), ModularRocketPartItemRenderer.INSTANCE);
+        BuiltinItemRendererRegistry.INSTANCE.register(GCBlocks.ROCKET_PART_PAYLOAD.asItem(), ModularRocketPartItemRenderer.INSTANCE);
+        BuiltinItemRendererRegistry.INSTANCE.register(GCBlocks.ROCKET_PART_UTILITY.asItem(), ModularRocketPartItemRenderer.INSTANCE);
 
         InventoryTabRegistry.INSTANCE.register(GCItems.OXYGEN_MASK.getDefaultInstance(), () -> ClientPlayNetworking.send(new OpenGcInventoryPayload()), GCPlayerInventoryMenu.class);
         InventoryTabRegistry.INSTANCE.register(GCItems.ROCKET.getDefaultInstance(), () -> ClientPlayNetworking.send(new OpenRocketPayload()), player -> player.getVehicle() instanceof RocketEntity, RocketMenu.class);
@@ -321,6 +333,8 @@ public class GalacticraftClient implements ClientModInitializer {
         helper.registerReloadListener(RocketTextureManager.INSTANCE);
         helper.registerReloadListener(GCModelLoader.INSTANCE);
         helper.registerReloadListener(GCResourceReloadListener.INSTANCE);
+        helper.registerReloadListener(PlatformModelLoader.INSTANCE);
+        helper.registerReloadListener(RocketPartModelCache.INSTANCE);
 
         GCModelLoader.registerModelType(UnbakedObjModel.TYPE);
 

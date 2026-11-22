@@ -1,0 +1,36 @@
+{
+  "variants": {
+    "corner=false,facing=east": {
+      "model": "galacticraft:block/gantry_crane_rail",
+      "y": 90
+    },
+    "corner=false,facing=north": {
+      "model": "galacticraft:block/gantry_crane_rail",
+      "y": 0
+    },
+    "corner=false,facing=south": {
+      "model": "galacticraft:block/gantry_crane_rail",
+      "y": 180
+    },
+    "corner=false,facing=west": {
+      "model": "galacticraft:block/gantry_crane_rail",
+      "y": 270
+    },
+    "corner=true,facing=east": {
+      "model": "galacticraft:block/gantry_crane_rail_corner",
+      "y": 90
+    },
+    "corner=true,facing=north": {
+      "model": "galacticraft:block/gantry_crane_rail_corner",
+      "y": 0
+    },
+    "corner=true,facing=south": {
+      "model": "galacticraft:block/gantry_crane_rail_corner",
+      "y": 180
+    },
+    "corner=true,facing=west": {
+      "model": "galacticraft:block/gantry_crane_rail_corner",
+      "y": 270
+    }
+  }
+}

@@ -23,16 +23,20 @@
 package dev.galacticraft.mod.lookup;
 
 import dev.galacticraft.api.gas.Gases;
+import dev.galacticraft.api.multiblock.MultiVoxelMaster;
 import dev.galacticraft.machinelib.api.block.entity.MachineBlockEntity;
 import dev.galacticraft.machinelib.api.item.SingleVariantFixedItemBackedFluidStorage;
 import dev.galacticraft.mod.api.pipe.FluidPipe;
 import dev.galacticraft.mod.api.wire.Wire;
+import dev.galacticraft.mod.attachments.MultiblockLinkManager;
 import dev.galacticraft.mod.content.GCBlockEntityTypes;
+import dev.galacticraft.mod.content.GCBlocks;
 import dev.galacticraft.mod.content.item.GCItems;
 import dev.galacticraft.mod.content.item.OxygenTankItem;
 import dev.galacticraft.mod.storage.CanisterFluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import team.reborn.energy.api.EnergyStorage;
 
@@ -57,7 +61,8 @@ public class GCApiLookupProviders {
             GCBlockEntityTypes.OXYGEN_BUBBLE_DISTRIBUTOR,
             GCBlockEntityTypes.ENERGY_STORAGE_MODULE,
             GCBlockEntityTypes.FOOD_CANNER,
-            GCBlockEntityTypes.OXYGEN_STORAGE_MODULE
+            GCBlockEntityTypes.OXYGEN_STORAGE_MODULE,
+            GCBlockEntityTypes.ROCKET_WORKBENCH
     };
     @SuppressWarnings("rawtypes")
     private static final BlockEntityType[] WIRE_TYPES = new BlockEntityType[]{
@@ -90,5 +95,27 @@ public class GCApiLookupProviders {
         FluidStorage.ITEM.registerSelf(GCItems.INFINITE_OXYGEN_TANK);
 
         FluidStorage.ITEM.registerForItems((itemStack, context) -> new CanisterFluidStorage(itemStack, context), GCItems.FLUID_CANISTER);
+
+        ItemStorage.SIDED.registerForBlocks((world, pos, state, blockEntity, direction) -> {
+            MultiVoxelMaster master = MultiblockLinkManager.getMaster(world, pos);
+            return master != null ? master.getProxyItemStorage(pos, direction) : null;
+        }, GCBlocks.PLATFORM_PROXY, GCBlocks.ROCKET_PART_BOUNDS);
+        FluidStorage.SIDED.registerForBlocks((world, pos, state, blockEntity, direction) -> {
+            MultiVoxelMaster master = MultiblockLinkManager.getMaster(world, pos);
+            return master != null ? master.getProxyFluidStorage(pos, direction) : null;
+        }, GCBlocks.PLATFORM_PROXY, GCBlocks.ROCKET_PART_BOUNDS);
+        EnergyStorage.SIDED.registerForBlocks((world, pos, state, blockEntity, direction) -> {
+            MultiVoxelMaster master = MultiblockLinkManager.getMaster(world, pos);
+            return master != null ? master.getProxyEnergyStorage(pos, direction) : null;
+        }, GCBlocks.PLATFORM_PROXY, GCBlocks.ROCKET_PART_BOUNDS);
+
+        FluidStorage.SIDED.registerForBlockEntity(
+                (terminal, direction) -> terminal.getRocketFluidStorage(),
+                GCBlockEntityTypes.HANGAR_TERMINAL
+        );
+        EnergyStorage.SIDED.registerForBlockEntity(
+                (terminal, direction) -> terminal.getRocketEnergyStorage(),
+                GCBlockEntityTypes.HANGAR_TERMINAL
+        );
     }
 }
