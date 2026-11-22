@@ -25,8 +25,9 @@ package dev.galacticraft.mod.client.render.dimension;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
-import com.mojang.math.Axis;
 import dev.galacticraft.mod.Constant;
+import dev.galacticraft.mod.client.render.astro.AstroSkyEngine;
+import dev.galacticraft.mod.client.render.astro.AstroSkyRenderer;
 import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
 import net.minecraft.client.Minecraft;
@@ -46,17 +47,32 @@ public class MarsSkyRenderer implements DimensionRenderingRegistry.SkyRenderer {
     public static final MarsSkyRenderer INSTANCE = new MarsSkyRenderer();
 
     private final StarManager starManager = new StarManager();
-    private final float sunSize = 17.5F;
+    private VertexBuffer blackSkyBuffer = null;
+
+    private VertexBuffer getBlackSkyBuffer() {
+        if (this.blackSkyBuffer == null) {
+            this.blackSkyBuffer = new VertexBuffer(VertexBuffer.Usage.STATIC);
+            this.blackSkyBuffer.bind();
+            this.blackSkyBuffer.upload(VenusSkyRenderer.buildAtmosphericDome(Tesselator.getInstance(), 256.0F, 128.0F));
+            VertexBuffer.unbind();
+        }
+        return this.blackSkyBuffer;
+    }
 
     public MarsSkyRenderer() {
     }
 
     /**
-     * Builds a semi-transparent horizon atmospheric dome where alpha is strongest at the horizon
-     * and smoothly fades out towards the zenith, keeping overhead stars visible in the thin Martian atmosphere.
+     * Builds a rich Martian atmospheric dome with warm butterscotch-terracotta dust scattering
+     * strongest near the horizon and slightly deeper dusty ochre overhead, smoothly fading to
+     * pure space black as the player ascends past Y=500 -> Y=780.
      */
-    private static void renderHorizonAtmosphericDome(PoseStack poseStack, Matrix4f projectionMatrix, float r, float g, float b, float horizonAlpha) {
-        if (horizonAlpha <= 0.005F) {
+    private static void renderMartianAtmosphericDome(
+            PoseStack poseStack,
+            float hr, float hg, float hb, float horizonAlpha,
+            float zr, float zg, float zb, float zenithAlpha
+    ) {
+        if (horizonAlpha <= 0.005F && zenithAlpha <= 0.005F) {
             return;
         }
 
@@ -84,15 +100,15 @@ public class MarsSkyRenderer implements DimensionRenderingRegistry.SkyRenderer {
             float x2 = radius * Mth.cos(a2);
             float z2 = radius * Mth.sin(a2);
 
-            // Upper dome (zenith has alpha = 0, horizon rim has alpha = horizonAlpha)
-            buffer.addVertex(matrix, 0.0F, halfHeight, 0.0F).setColor(r, g, b, 0.0F);
-            buffer.addVertex(matrix, x1, 0.0F, z1).setColor(r, g, b, horizonAlpha);
-            buffer.addVertex(matrix, x2, 0.0F, z2).setColor(r, g, b, horizonAlpha);
+            // Upper dome (dusty ochre zenith -> bright butterscotch horizon)
+            buffer.addVertex(matrix, 0.0F, halfHeight, 0.0F).setColor(zr, zg, zb, zenithAlpha);
+            buffer.addVertex(matrix, x1, 0.0F, z1).setColor(hr, hg, hb, horizonAlpha);
+            buffer.addVertex(matrix, x2, 0.0F, z2).setColor(hr, hg, hb, horizonAlpha);
 
-            // Lower dome (bottom has alpha = 0, horizon rim has alpha = horizonAlpha)
-            buffer.addVertex(matrix, 0.0F, -halfHeight, 0.0F).setColor(r, g, b, 0.0F);
-            buffer.addVertex(matrix, x2, 0.0F, z2).setColor(r, g, b, horizonAlpha);
-            buffer.addVertex(matrix, x1, 0.0F, z1).setColor(r, g, b, horizonAlpha);
+            // Lower dome (mirrors dusty haze below horizon)
+            buffer.addVertex(matrix, 0.0F, -halfHeight, 0.0F).setColor(zr, zg, zb, zenithAlpha);
+            buffer.addVertex(matrix, x2, 0.0F, z2).setColor(hr, hg, hb, horizonAlpha);
+            buffer.addVertex(matrix, x1, 0.0F, z1).setColor(hr, hg, hb, horizonAlpha);
         }
 
         BufferUploader.drawWithShader(buffer.buildOrThrow());
@@ -133,7 +149,12 @@ public class MarsSkyRenderer implements DimensionRenderingRegistry.SkyRenderer {
         Player player = Minecraft.getInstance().player;
         double playerY = player != null ? (player.getVehicle() != null ? player.getVehicle().getY() : player.getY()) : 64.0D;
 
-        float spaceProgress = Mth.clamp((float) ((playerY - 180.0D) / 270.0D), 0.0F, 1.0F);
+        float rawProgress = Mth.clamp(
+                (float) ((playerY - Constant.ATMOSPHERE_FADE_START) / (double) (Constant.ATMOSPHERE_EXIT_END - Constant.ATMOSPHERE_FADE_START)),
+                0.0F,
+                1.0F
+        );
+        float spaceProgress = rawProgress * rawProgress * (3.0F - 2.0F * rawProgress);
         float spaceAlpha = 1.0F - spaceProgress;
 
         float starBrightness = Mth.clamp(1.0F - (Mth.cos(celestialAngle * (float) (Math.PI * 2)) * 2.0F + 0.25F), 0.0F, 1.0F);
@@ -142,160 +163,51 @@ public class MarsSkyRenderer implements DimensionRenderingRegistry.SkyRenderer {
         RenderSystem.disableBlend();
         RenderSystem.depthMask(false);
 
-        // 1. Semi-transparent horizon atmospheric dome (Terracotta haze & daylight scattering)
-        if (spaceAlpha > 0.0F && f_day > 0.0F) {
+        // 0. Pure-black deep space sky dome base (guarantees pitch-black space at Y >= 700 even during daytime)
+        net.minecraft.client.renderer.FogRenderer.setupNoFog();
+        RenderSystem.disableCull();
+        RenderSystem.setShader(GameRenderer::getPositionShader);
+        RenderSystem.setShaderColor(0.0F, 0.0F, 0.0F, 1.0F);
+        VertexBuffer blackBuffer = getBlackSkyBuffer();
+        blackBuffer.bind();
+        blackBuffer.drawWithShader(matrices.last().pose(), context.projectionMatrix(), GameRenderer.getPositionShader());
+        VertexBuffer.unbind();
+        RenderSystem.enableCull();
+        // Reset shader color modulator before drawing vertex-colored atmospheric dome!
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+
+        // 1. Martian atmospheric dome driven by both time of day and altitude (Y=300 -> Y=700 -> pure black)
+        if (spaceAlpha > 0.005F) {
             context.profiler().push("atmosphere");
-            float horizonAlpha = 0.32F * f_day * spaceAlpha;
-            float rSky = 154.0F / 255.0F;
-            float gSky = 114.0F / 255.0F;
-            float bSky = 66.0F / 255.0F;
-            renderHorizonAtmosphericDome(matrices, context.projectionMatrix(), rSky, gSky, bSky, horizonAlpha);
+            // Stronger warm butterscotch-terracotta at noon, weakening smoothly to a faint dusty horizon veil at night
+            float horizonAlpha = Mth.lerp(f_day, 0.08F, 0.94F) * spaceAlpha;
+            float zenithAlpha = (0.78F * f_day) * spaceAlpha;
+            float hr = Mth.lerp(f_day, 92.0F / 255.0F, 204.0F / 255.0F);
+            float hg = Mth.lerp(f_day, 52.0F / 255.0F, 132.0F / 255.0F);
+            float hb = Mth.lerp(f_day, 38.0F / 255.0F, 84.0F / 255.0F);
+            float zr = Mth.lerp(f_day, 42.0F / 255.0F, 148.0F / 255.0F);
+            float zg = Mth.lerp(f_day, 24.0F / 255.0F, 88.0F / 255.0F);
+            float zb = Mth.lerp(f_day, 22.0F / 255.0F, 56.0F / 255.0F);
+            renderMartianAtmosphericDome(matrices, hr, hg, hb, horizonAlpha, zr, zg, zb, zenithAlpha);
             context.profiler().pop();
         }
 
-        // 2. Stars (Visible 24/7 like the Moon, with authentic GC4 celestial sphere rotation)
-        context.profiler().push("stars");
-        matrices.pushPose();
-        StarManager.rotateForCelestialAngle(matrices, celestialAngle);
-
-        float renderStarBrightness = starBrightness * starBrightness * 0.5F + 0.3F;
-        this.starManager.render(matrices, context.projectionMatrix(), level, partialTicks, renderStarBrightness);
-
-        matrices.popPose();
-        context.profiler().pop();
-
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-
-        // 3. Solar Corona & Radiant Orbital Sun
-        context.profiler().push("sun");
-        matrices.pushPose();
-        matrices.mulPose(Axis.YN.rotationDegrees(90.0F));
-        matrices.mulPose(Axis.XP.rotationDegrees(celestialAngle * 360.0F));
-
-        Matrix4f sunMatrix = matrices.last().pose();
-
-        // Authentic GC4 Mars Solar Corona / Aura
-        if (spaceAlpha > 0.0F && f_day > 0.0F) {
-            RenderSystem.enableBlend();
-            RenderSystem.blendFuncSeparate(
-                    GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE,
-                    GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO
-            );
-            float auraAlpha = 0.30F * f_day * spaceAlpha;
-            float auraR = 255.0F / 255.0F;
-            float auraG = 194.0F / 255.0F;
-            float auraB = 180.0F / 255.0F;
-            renderCoronaFan(sunMatrix, 20.0F, auraR, auraG, auraB, auraAlpha * 1.5F);
-            renderCoronaFan(sunMatrix, 40.0F, auraR, auraG, auraB, auraAlpha);
-            RenderSystem.disableBlend();
+        // 2-5. Realistic AstroCraft Martian sky (Phobos, Deimos, Earth, Sun, Milky Way, stars & meteors)
+        // Daytime dust washes out faint stars on the surface; stars emerge brilliantly at night or in space (Y=500+)
+        float marsStarVis = Math.max(spaceProgress, Mth.lerp(f_day, 1.0F, 0.14F));
+        if (AstroSkyEngine.isInitialized()) {
+            context.profiler().push("astro_mars_sky");
+            AstroSkyRenderer.renderSpaceDimensionSky(matrices, context.projectionMatrix(), marsStarVis, true);
+            context.profiler().pop();
+        } else {
+            context.profiler().push("stars");
+            matrices.pushPose();
+            StarManager.rotateForCelestialAngle(matrices, celestialAngle);
+            float renderStarBrightness = starBrightness * starBrightness * 0.5F + 0.3F;
+            this.starManager.render(matrices, context.projectionMatrix(), level, partialTicks, renderStarBrightness);
+            matrices.popPose();
+            context.profiler().pop();
         }
-
-        // Occulting black quad to prevent stars from shining through
-        RenderSystem.enableBlend();
-        RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-        RenderSystem.setShaderColor(0.0F, 0.0F, 0.0F, 1.0F);
-        RenderSystem.setShader(GameRenderer::getPositionShader);
-        float blackSize = this.sunSize / 3.5F;
-        BufferBuilder quadBuffer = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION);
-        quadBuffer.addVertex(sunMatrix, -blackSize, 99.9F, -blackSize)
-                .addVertex(sunMatrix, blackSize, 99.9F, -blackSize)
-                .addVertex(sunMatrix, blackSize, 99.9F, blackSize)
-                .addVertex(sunMatrix, -blackSize, 99.9F, blackSize);
-        BufferUploader.drawWithShader(quadBuffer.buildOrThrow());
-
-        // Radiant orbital sun texture with additive blending (SRC_ALPHA, ONE)
-        RenderSystem.blendFuncSeparate(
-                GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO
-        );
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderTexture(0, Constant.Skybox.SUN_ORBITAL);
-        quadBuffer = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-        quadBuffer.addVertex(sunMatrix, -this.sunSize, 100.0F, -this.sunSize).setUv(0.0F, 0.0F)
-                .addVertex(sunMatrix, this.sunSize, 100.0F, -this.sunSize).setUv(1.0F, 0.0F)
-                .addVertex(sunMatrix, this.sunSize, 100.0F, this.sunSize).setUv(1.0F, 1.0F)
-                .addVertex(sunMatrix, -this.sunSize, 100.0F, this.sunSize).setUv(0.0F, 1.0F);
-        BufferUploader.drawWithShader(quadBuffer.buildOrThrow());
-
-        RenderSystem.disableBlend();
-        matrices.popPose();
-        context.profiler().pop();
-
-        // 4. Earth in the Martian sky (distant blue marble)
-        context.profiler().push("earth");
-        matrices.pushPose();
-        matrices.scale(0.6F, 0.6F, 0.6F);
-        matrices.mulPose(Axis.ZP.rotationDegrees(40.0F));
-        matrices.mulPose(Axis.XP.rotationDegrees(200.0F));
-
-        Matrix4f earthMatrix = matrices.last().pose();
-        float earthSize = 0.5F;
-        RenderSystem.enableBlend();
-        RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderTexture(0, Constant.CelestialBody.EARTH);
-        quadBuffer = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-        quadBuffer.addVertex(earthMatrix, -earthSize, -100.0F, earthSize).setUv(0.0F, 1.0F)
-                .addVertex(earthMatrix, earthSize, -100.0F, earthSize).setUv(1.0F, 1.0F)
-                .addVertex(earthMatrix, earthSize, -100.0F, -earthSize).setUv(1.0F, 0.0F)
-                .addVertex(earthMatrix, -earthSize, -100.0F, -earthSize).setUv(0.0F, 0.0F);
-        BufferUploader.drawWithShader(quadBuffer.buildOrThrow());
-
-        RenderSystem.disableBlend();
-        matrices.popPose();
-        context.profiler().pop();
-
-        // 5. Phobos & Deimos (Martian Moons)
-        // Phobos (fast, close moon)
-        context.profiler().push("phobos");
-        matrices.pushPose();
-        matrices.scale(0.8F, 0.8F, 0.8F);
-        matrices.mulPose(Axis.ZP.rotationDegrees(celestialAngle * 360.0F + 80.0F));
-        matrices.mulPose(Axis.XP.rotationDegrees(40.0F));
-
-        Matrix4f phobosMatrix = matrices.last().pose();
-        float phobosSize = 2.5F;
-        RenderSystem.enableBlend();
-        RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderTexture(0, Constant.CelestialBody.PHOBOS);
-        quadBuffer = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-        quadBuffer.addVertex(phobosMatrix, -phobosSize, -100.0F, phobosSize).setUv(0.0F, 1.0F)
-                .addVertex(phobosMatrix, phobosSize, -100.0F, phobosSize).setUv(1.0F, 1.0F)
-                .addVertex(phobosMatrix, phobosSize, -100.0F, -phobosSize).setUv(1.0F, 0.0F)
-                .addVertex(phobosMatrix, -phobosSize, -100.0F, -phobosSize).setUv(0.0F, 0.0F);
-        BufferUploader.drawWithShader(quadBuffer.buildOrThrow());
-
-        RenderSystem.disableBlend();
-        matrices.popPose();
-        context.profiler().pop();
-
-        // Deimos (smaller, further moon)
-        context.profiler().push("deimos");
-        matrices.pushPose();
-        matrices.scale(0.8F, 0.8F, 0.8F);
-        matrices.mulPose(Axis.XN.rotationDegrees(80.0F));
-        matrices.mulPose(Axis.ZP.rotationDegrees(140.0F));
-
-        Matrix4f deimosMatrix = matrices.last().pose();
-        float deimosSize = 1.2F;
-        RenderSystem.enableBlend();
-        RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderTexture(0, Constant.CelestialBody.DEIMOS);
-        quadBuffer = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-        quadBuffer.addVertex(deimosMatrix, -deimosSize, -100.0F, deimosSize).setUv(0.0F, 1.0F)
-                .addVertex(deimosMatrix, deimosSize, -100.0F, deimosSize).setUv(1.0F, 1.0F)
-                .addVertex(deimosMatrix, deimosSize, -100.0F, -deimosSize).setUv(1.0F, 0.0F)
-                .addVertex(deimosMatrix, -deimosSize, -100.0F, -deimosSize).setUv(0.0F, 0.0F);
-        BufferUploader.drawWithShader(quadBuffer.buildOrThrow());
-
-        RenderSystem.disableBlend();
-        matrices.popPose();
-        context.profiler().pop();
 
         // 6. Mars Planet Below Player (Pixel art rendered below at high altitudes)
         PlanetUnderPlayerRenderer.renderPlanetBelow(
@@ -305,7 +217,7 @@ public class MarsSkyRenderer implements DimensionRenderingRegistry.SkyRenderer {
                 Constant.Skybox.ATMOSPHERE,
                 playerY,
                 partialTicks,
-                180.0F,
+                Constant.ATMOSPHERE_EXIT_START,
                 1.0F,
                 0.85F,
                 0.50F,

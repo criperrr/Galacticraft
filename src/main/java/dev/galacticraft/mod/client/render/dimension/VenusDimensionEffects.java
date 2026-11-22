@@ -72,10 +72,15 @@ public class VenusDimensionEffects extends GalacticDimensionEffects {
         float g = (147.0F / 255.0F) * day + (108.0F / 255.0F) * night;
         float b = (0.0F / 255.0F) * day + (46.0F / 255.0F) * night;
 
-        // Geoffrey Landis cloud layer transition: above Y=200, dense sulfuric fog fades into space
-        if (cameraPos.y() > 200.0D) {
-            float spaceProgress = Mth.clamp((float) ((cameraPos.y() - 200.0D) / 250.0D), 0.0F, 1.0F);
-            float atmosphereAlpha = 1.0F - spaceProgress;
+        // Atmospheric fade transition: Y=400 -> Y=700 where dense sulfuric fog fades to 0
+        if (cameraPos.y() > dev.galacticraft.mod.Constant.ATMOSPHERE_FADE_START) {
+            float spaceProgress = Mth.clamp(
+                    (float) ((cameraPos.y() - dev.galacticraft.mod.Constant.ATMOSPHERE_FADE_START)
+                            / (double) (dev.galacticraft.mod.Constant.ATMOSPHERE_EXIT_END - dev.galacticraft.mod.Constant.ATMOSPHERE_FADE_START)),
+                    0.0F,
+                    1.0F
+            );
+            float atmosphereAlpha = 1.0F - spaceProgress * spaceProgress * (3.0F - 2.0F * spaceProgress);
             return new Vec3(r * atmosphereAlpha, g * atmosphereAlpha, b * atmosphereAlpha);
         }
 

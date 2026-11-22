@@ -105,9 +105,14 @@ public class OuterPlanetDimensionEffects extends GalacticDimensionEffects {
         float g = this.dayFogG * day + this.nightFogG * night;
         float b = this.dayFogB * day + this.nightFogB * night;
 
-        if (cameraPos.y() > 200.0D) {
-            float spaceProgress = Mth.clamp((float) ((cameraPos.y() - 200.0D) / 250.0D), 0.0F, 1.0F);
-            float atmosphereAlpha = 1.0F - spaceProgress;
+        if (cameraPos.y() > dev.galacticraft.mod.Constant.ATMOSPHERE_FADE_START) {
+            float spaceProgress = Mth.clamp(
+                    (float) ((cameraPos.y() - dev.galacticraft.mod.Constant.ATMOSPHERE_FADE_START)
+                            / (double) (dev.galacticraft.mod.Constant.ATMOSPHERE_EXIT_END - dev.galacticraft.mod.Constant.ATMOSPHERE_FADE_START)),
+                    0.0F,
+                    1.0F
+            );
+            float atmosphereAlpha = 1.0F - spaceProgress * spaceProgress * (3.0F - 2.0F * spaceProgress);
             return new Vec3(r * atmosphereAlpha, g * atmosphereAlpha, b * atmosphereAlpha);
         }
 
