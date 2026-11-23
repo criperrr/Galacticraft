@@ -23,18 +23,24 @@
 package dev.galacticraft.mod.gametest;
 
 import dev.galacticraft.api.gas.Gases;
+import dev.galacticraft.machinelib.api.block.entity.MachineBlockEntity;
 import dev.galacticraft.machinelib.api.storage.slot.FluidResourceSlot;
 import dev.galacticraft.machinelib.api.storage.slot.ItemResourceSlot;
+import dev.galacticraft.machinelib.api.transfer.ResourceFlow;
+import dev.galacticraft.machinelib.api.transfer.ResourceType;
+import dev.galacticraft.machinelib.api.util.BlockFace;
 import dev.galacticraft.mod.content.GCBlocks;
 import dev.galacticraft.mod.content.block.entity.machine.Helium3FusionReactorBlockEntity;
 import dev.galacticraft.mod.content.block.entity.machine.IsotopicCentrifugeBlockEntity;
 import dev.galacticraft.mod.content.block.entity.machine.RegolithThermalDesorberBlockEntity;
 import dev.galacticraft.mod.content.item.GCItems;
 import dev.galacticraft.mod.util.FluidUtil;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
+import team.reborn.energy.api.EnergyStorage;
 
 public class Helium3ChainTestSuite implements GalacticraftGameTest {
 
@@ -215,6 +221,12 @@ public class Helium3ChainTestSuite implements GalacticraftGameTest {
             // Trigger magnetic quench-safe shutdown by removing coil mid-burn
             cryoReactor.itemStorage().slot(Helium3FusionReactorBlockEntity.COIL_SLOT).extractOne();
 
+            // Verify reactor does NOT spawn free batteries out of thin air
+            if (!cryoReactor.itemStorage().slot(Helium3FusionReactorBlockEntity.OUTPUT_CELL_SLOT).isEmpty()) {
+                context.fail("Fusion Reactor must NOT synthesize free HELIUM3_FUSION_CELL batteries out of thin air");
+                return;
+            }
+
             context.runAfterDelay(5, () -> {
                 context.assertBlockPresent(GCBlocks.HELIUM3_FUSION_REACTOR, cryoRel);
                 if (cryoReactor.getActiveGenerationRate() != 0) {
@@ -223,6 +235,49 @@ public class Helium3ChainTestSuite implements GalacticraftGameTest {
                 }
                 context.succeed();
             });
+        });
+    }
+
+    @GameTest(template = EMPTY_STRUCTURE, timeoutTicks = 120)
+    public void pipesAndDeuteriumExtractionWorkTest(GameTestHelper context) {
+        BlockPos desorberPos = new BlockPos(0, 1, 0);
+        BlockPos centrifugePos = new BlockPos(2, 1, 0);
+        BlockPos reactorPos = new BlockPos(4, 1, 0);
+
+        context.setBlock(desorberPos, GCBlocks.REGOLITH_THERMAL_DESORBER);
+        context.setBlock(centrifugePos, GCBlocks.ISOTOPIC_CENTRIFUGE);
+        context.setBlock(reactorPos, GCBlocks.HELIUM3_FUSION_REACTOR);
+
+        // Configure fluid I/O on TOP and energy I/O on BOTTOM, then verify FluidStorage.SIDED & EnergyStorage.SIDED lookups
+        for (BlockPos rel : new BlockPos[]{desorberPos, centrifugePos, reactorPos}) {
+            MachineBlockEntity machine = context.getBlockEntity(rel);
+            machine.getIOConfig().get(BlockFace.TOP).setOption(ResourceType.FLUID, ResourceFlow.BOTH);
+            machine.getIOConfig().get(BlockFace.BOTTOM).setOption(ResourceType.ENERGY, ResourceFlow.BOTH);
+            BlockPos abs = context.absolutePos(rel);
+            if (FluidStorage.SIDED.find(context.getLevel(), abs, Direction.UP) == null) {
+                context.fail("FluidStorage.SIDED missing for machine at " + rel + " — Glass Fluid Pipes will not connect!");
+                return;
+            }
+            if (EnergyStorage.SIDED.find(context.getLevel(), abs, Direction.DOWN) == null) {
+                context.fail("EnergyStorage.SIDED missing for machine at " + rel + " — Aluminum Wires will not connect!");
+                return;
+            }
+        }
+
+        // Verify DENSE_ICE -> DEUTERIUM extraction in Isotopic Centrifuge
+        IsotopicCentrifugeBlockEntity centrifuge = context.getBlockEntity(centrifugePos);
+        centrifuge.setRotorRpm(IsotopicCentrifugeBlockEntity.TARGET_RPM);
+        centrifuge.energyStorage().setEnergy(50_000L);
+        centrifuge.itemStorage().slot(IsotopicCentrifugeBlockEntity.COIL_SLOT).set(GCItems.SUPERCONDUCTING_COIL, 1);
+        centrifuge.itemStorage().slot(IsotopicCentrifugeBlockEntity.SOLID_INPUT_SLOT).set(GCBlocks.DENSE_ICE.asItem(), 1);
+
+        context.runAfterDelay(70, () -> {
+            FluidResourceSlot outTank = centrifuge.fluidStorage().slot(IsotopicCentrifugeBlockEntity.OUTPUT_GAS_TANK);
+            if (outTank.getResource() != Gases.DEUTERIUM || outTank.getAmount() != 250L * FluidUtil.MILLIBUCKET) {
+                context.fail("Expected DENSE_ICE in Isotopic Centrifuge to yield 250mB DEUTERIUM, got " + outTank.getAmount() + " of " + outTank.getResource());
+                return;
+            }
+            context.succeed();
         });
     }
 }
