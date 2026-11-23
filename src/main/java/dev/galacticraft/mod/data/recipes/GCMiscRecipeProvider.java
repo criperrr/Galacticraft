@@ -145,6 +145,19 @@ public class GCMiscRecipeProvider extends FabricRecipeProvider {
                 .emiDefaultRecipe(true)
                 .save(output);
 
+        GCShapedRecipeBuilder.crafting(RecipeCategory.MISC, GCItems.SHIELD_CONTROLLER)
+                .define('L', GCItemTags.LEAD_INGOTS)
+                .define('T', GCItems.COMPRESSED_TITANIUM)
+                .define('B', GCItems.BEAM_CORE)
+                .define('S', GCItemTags.LUNAR_SAPPHIRES)
+                .define('A', GCItems.ATOMIC_BATTERY)
+                .pattern("LLL")
+                .pattern("TBT")
+                .pattern("SAS")
+                .unlockedBy(getHasName(GCItems.ATOMIC_BATTERY), has(GCItems.ATOMIC_BATTERY))
+                .emiDefaultRecipe(true)
+                .save(output);
+
         SpecialRecipeBuilder.special(EmergencyKitRecipe::new).save(output, Constant.Item.EMERGENCY_KIT);
         EmiDefaultRecipeProvider.add(Constant.id("/" + Constant.Recipe.Serializer.EMERGENCY_KIT));
 
@@ -192,11 +205,12 @@ public class GCMiscRecipeProvider extends FabricRecipeProvider {
         GCShapedRecipeBuilder.crafting(RecipeCategory.MISC, GCItems.SENSOR_LENS)
                 .define('R', ConventionalItemTags.REDSTONE_DUSTS)
                 .define('P', ConventionalItemTags.GLASS_PANES)
+                .define('S', GCItemTags.LUNAR_SAPPHIRES)
                 .define('F', GCItems.COMPRESSED_METEORIC_IRON)
-                .pattern("RPR")
+                .pattern("RSR")
                 .pattern("PFP")
-                .pattern("RPR")
-                .unlockedBy(getHasName(GCItems.COMPRESSED_METEORIC_IRON), has(GCItems.COMPRESSED_METEORIC_IRON))
+                .pattern("RSR")
+                .unlockedBy(getHasName(GCItems.LUNAR_SAPPHIRE), has(GCItemTags.LUNAR_SAPPHIRES))
                 .emiDefaultRecipe(true)
                 .save(output);
 
@@ -260,6 +274,18 @@ public class GCMiscRecipeProvider extends FabricRecipeProvider {
                 .pattern("ARA")
                 .pattern("ACA")
                 .unlockedBy(getHasName(GCItems.COMPRESSED_ALUMINUM), has(GCItems.COMPRESSED_ALUMINUM))
+                .emiDefaultRecipe(true)
+                .save(output);
+
+        GCShapedRecipeBuilder.crafting(RecipeCategory.MISC, GCItems.RADIOISOTOPE_CORE)
+                .define('L', GCItemTags.LEAD_INGOTS)
+                .define('C', GCItems.CARBON_FRAGMENTS)
+                .define('S', GCItemTags.SOLAR_DUSTS)
+                .define('A', GCItemTags.LUNAR_SAPPHIRES)
+                .pattern("LCL")
+                .pattern("SAS")
+                .pattern("LCL")
+                .unlockedBy(getHasName(GCItems.LEAD_INGOT), has(GCItemTags.LEAD_INGOTS))
                 .emiDefaultRecipe(true)
                 .save(output);
 
@@ -377,6 +403,17 @@ public class GCMiscRecipeProvider extends FabricRecipeProvider {
                 .emiDefaultRecipe(true)
                 .save(output);
 
+        GCShapedRecipeBuilder.crafting(RecipeCategory.TRANSPORTATION, GCBlocks.PLAYER_TRANSPORT_TUBE, 4)
+                .define('G', GCBlocks.CLEAR_VACUUM_GLASS)
+                .define('A', GCItems.COMPRESSED_ALUMINUM)
+                .define('F', GCItems.OXYGEN_FAN)
+                .pattern("GAG")
+                .pattern("GFG")
+                .pattern("GAG")
+                .unlockedBy(getHasName(GCBlocks.CLEAR_VACUUM_GLASS), has(GCBlocks.CLEAR_VACUUM_GLASS))
+                .emiDefaultRecipe(true)
+                .save(output);
+
         GCShapedRecipeBuilder.crafting(RecipeCategory.MISC, GCItems.OXYGEN_FAN)
                 .define('S', GCItems.COMPRESSED_STEEL)
                 .define('W', GCItems.BASIC_WAFER)
@@ -407,6 +444,16 @@ public class GCMiscRecipeProvider extends FabricRecipeProvider {
                 .unlockedBy(getHasName(GCItems.COMPRESSED_IRON), has(GCItems.COMPRESSED_IRON))
                 .emiDefaultRecipe(true)
                 .save(output);
+
+        GCShapedRecipeBuilder.crafting(RecipeCategory.MISC, GCItems.BEAM_CORE, 2)
+                .define('R', ConventionalItemTags.REDSTONE_DUSTS)
+                .define('I', GCItems.COMPRESSED_IRON)
+                .define('S', GCItemTags.LUNAR_SAPPHIRES)
+                .pattern("RIR")
+                .pattern("ISI")
+                .pattern("RIR")
+                .unlockedBy(getHasName(GCItems.LUNAR_SAPPHIRE), has(GCItemTags.LUNAR_SAPPHIRES))
+                .save(output, Constant.id("beam_core_sapphire"));
 
         GCShapedRecipeBuilder.crafting(RecipeCategory.TRANSPORTATION, GCItems.BUGGY_WHEEL)
                 .define('L', ConventionalItemTags.LEATHERS)

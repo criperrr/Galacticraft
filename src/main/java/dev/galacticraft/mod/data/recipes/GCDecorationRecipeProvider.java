@@ -181,6 +181,17 @@ public class GCDecorationRecipeProvider extends FabricRecipeProvider {
                 .unlockedBy(getHasName(GCBlocks.MOON_GLASS), has(GCBlocks.MOON_GLASS))
                 .save(output);
 
+        GCShapedRecipeBuilder.crafting(RecipeCategory.DECORATIONS, GCBlocks.OLIVINE_GLASS, 2)
+                .define('M', GCBlocks.MOON_GLASS)
+                .define('O', GCItemTags.OLIVINE_SHARDS)
+                .define('V', GCBlocks.VACUUM_GLASS)
+                .pattern("MOM")
+                .pattern("OVO")
+                .pattern("MOM")
+                .unlockedBy(getHasName(GCItems.OLIVINE_SHARD), has(GCItemTags.OLIVINE_SHARDS))
+                .emiDefaultRecipe(true)
+                .save(output);
+
         GCShapedRecipeBuilder.crafting(RecipeCategory.DECORATIONS, GCBlocks.OLIVINE_GLASS_PANE, 16)
                 .define('G', GCBlocks.OLIVINE_GLASS)
                 .pattern("GGG")
