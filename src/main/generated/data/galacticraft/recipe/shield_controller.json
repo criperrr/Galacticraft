@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "galacticraft:atomic_battery"
+    },
+    "B": {
+      "item": "galacticraft:beam_core"
+    },
+    "L": {
+      "tag": "c:ingots/lead"
+    },
+    "S": {
+      "tag": "c:gems/lunar_sapphire"
+    },
+    "T": {
+      "item": "galacticraft:compressed_titanium"
+    }
+  },
+  "pattern": [
+    "LLL",
+    "TBT",
+    "SAS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:shield_controller"
+  }
+}

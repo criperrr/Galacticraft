@@ -53,14 +53,14 @@ public class GCMachineRecipes extends FabricRecipeProvider {
         // Machine Blocks
         GCShapedRecipeBuilder.crafting(RecipeCategory.DECORATIONS, GCBlocks.ADVANCED_SOLAR_PANEL)
                 .define('S', GCItems.COMPRESSED_STEEL)
-                .define('F', GCItems.FULL_SOLAR_PANEL)
+                .define('F', GCItems.SOLAR_ARRAY_PANEL)
                 .define('P', GCItems.STEEL_POLE)
                 .define('W', GCBlocks.HEAVY_SEALABLE_ALUMINUM_WIRE)
                 .define('A', GCItems.ADVANCED_WAFER)
                 .pattern("SFS")
                 .pattern("SPS")
                 .pattern("WAW")
-                .unlockedBy(getHasName(GCItems.ADVANCED_WAFER), has(GCItems.ADVANCED_WAFER))
+                .unlockedBy(getHasName(GCItems.SOLAR_ARRAY_PANEL), has(GCItems.SOLAR_ARRAY_PANEL))
                 .emiDefaultRecipe(true)
                 .save(output);
 
@@ -545,6 +545,12 @@ public class GCMachineRecipes extends FabricRecipeProvider {
                 .requires(ItemTags.COALS)
                 .emiDefaultRecipe(true)
                 .save(output);
+        GCShapelessRecipeBuilder.compressing(GCItems.COMPRESSED_STEEL)
+                .unlockedBy(getHasName(GCItems.CARBON_FRAGMENTS), has(GCItems.CARBON_FRAGMENTS))
+                .requires(GCItems.COMPRESSED_IRON)
+                .requires(GCItems.CARBON_FRAGMENTS)
+                .time(100)
+                .save(output, RecipeBuilder.getDefaultRecipeId(GCItems.COMPRESSED_STEEL).withSuffix("_from_carbon_fragments"));
         GCShapelessRecipeBuilder.compressing(GCItems.COMPRESSED_STEEL)
                 .unlockedBy("has_steel_ingot", has(GCItemTags.STEEL_INGOTS))
                 .requires(GCItemTags.STEEL_INGOTS)

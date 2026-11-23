@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.9,
+  "group": "solar_dust",
+  "ingredient": {
+    "item": "galacticraft:mercury_sulfide_ore"
+  },
+  "result": {
+    "id": "galacticraft:solar_dust"
+  }
+}

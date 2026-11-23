@@ -67,6 +67,7 @@ public class GCOreRecipeProvider extends FabricRecipeProvider {
         oreSmeltingAndBlasting(output, List.of(GCBlocks.SOLAR_ORE), GCItems.SOLAR_DUST, 0.7f, 100);
         oreSmeltingAndBlasting(output, List.of(GCBlocks.OLIVINE_BASALT, GCBlocks.RICH_OLIVINE_BASALT), GCItems.OLIVINE_SHARD, 0.5f, 100);
         oreSmeltingAndBlasting(output, List.of(GCBlocks.MERCURY_GRAPHITE_ORE), GCItems.CARBON_FRAGMENTS, 0.2f, 100);
+        oreSmeltingAndBlasting(output, List.of(GCBlocks.MERCURY_SULFIDE_ORE), GCItems.SOLAR_DUST, 0.9f, 100);
 
         // Nuggets <-> Ingots
         nineBlockStoragePackingRecipe(output, RecipeCategory.MISC, GCItems.TIN_NUGGET, RecipeCategory.MISC, GCItems.TIN_INGOT, "tin_ingot_from_nuggets", "tin_ingot");
