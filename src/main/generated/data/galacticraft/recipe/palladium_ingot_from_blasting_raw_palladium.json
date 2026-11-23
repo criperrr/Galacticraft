@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 120,
+  "experience": 1.2,
+  "group": "palladium_ingot",
+  "ingredient": {
+    "item": "galacticraft:raw_palladium"
+  },
+  "result": {
+    "id": "galacticraft:palladium_ingot"
+  }
+}

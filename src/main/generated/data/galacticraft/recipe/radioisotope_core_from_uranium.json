@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "tag": "c:gems/lunar_sapphire"
+    },
+    "C": {
+      "item": "galacticraft:carbon_fragments"
+    },
+    "L": {
+      "tag": "c:ingots/lead"
+    },
+    "U": {
+      "tag": "c:ingots/uranium"
+    }
+  },
+  "pattern": [
+    "LCL",
+    "UAU",
+    "LCL"
+  ],
+  "result": {
+    "count": 2,
+    "id": "galacticraft:radioisotope_core"
+  }
+}

@@ -11,6 +11,8 @@
     "#c:plates/desh",
     "#c:plates/titanium",
     "#c:plates/niobium",
+    "#c:plates/palladium",
+    "#c:plates/magnesium",
     "#c:plates/heavy_duty"
   ]
 }

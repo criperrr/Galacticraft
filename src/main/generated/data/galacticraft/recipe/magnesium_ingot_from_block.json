@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "magnesium_ingot",
+  "ingredients": [
+    {
+      "item": "galacticraft:magnesium_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "galacticraft:magnesium_ingot"
+  }
+}

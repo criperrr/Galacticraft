@@ -34,7 +34,10 @@
       "galacticraft:ore_copper_jupiter",
       "galacticraft:ore_tin_jupiter",
       "galacticraft:ore_iron_jupiter",
-      "galacticraft:ore_aluminum_jupiter"
+      "galacticraft:ore_aluminum_jupiter",
+      "galacticraft:ore_niobium_jupiter",
+      "galacticraft:ore_titanium_jupiter",
+      "galacticraft:ore_palladium_jupiter"
     ]
   ],
   "has_precipitation": false,

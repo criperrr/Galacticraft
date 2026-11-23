@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 240,
+  "experience": 1.5,
+  "group": "lonsdaleite_gem",
+  "ingredient": {
+    "item": "galacticraft:uranus_diamond_bearing_rock"
+  },
+  "result": {
+    "id": "galacticraft:lonsdaleite_gem"
+  }
+}

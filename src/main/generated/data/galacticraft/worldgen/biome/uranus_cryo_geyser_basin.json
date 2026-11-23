@@ -34,7 +34,10 @@
       "galacticraft:ore_copper_uranus",
       "galacticraft:ore_tin_uranus",
       "galacticraft:ore_aluminum_uranus",
-      "galacticraft:ore_titanium_uranus"
+      "galacticraft:ore_titanium_uranus",
+      "galacticraft:ore_iron_uranus",
+      "galacticraft:ore_niobium_uranus",
+      "galacticraft:ore_uranium_uranus"
     ],
     [
       "galacticraft:uranus_superionic_ice_pillar"

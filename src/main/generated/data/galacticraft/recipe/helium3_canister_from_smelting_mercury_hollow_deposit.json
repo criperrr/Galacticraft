@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 240,
+  "experience": 1.0,
+  "group": "helium3_canister",
+  "ingredient": {
+    "item": "galacticraft:mercury_hollow_deposit"
+  },
+  "result": {
+    "id": "galacticraft:helium3_canister"
+  }
+}

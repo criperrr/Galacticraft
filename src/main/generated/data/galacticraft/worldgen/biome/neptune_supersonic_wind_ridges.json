@@ -36,7 +36,9 @@
       "galacticraft:ore_copper_neptune",
       "galacticraft:ore_tin_neptune",
       "galacticraft:ore_iron_neptune",
-      "galacticraft:ore_titanium_neptune"
+      "galacticraft:ore_titanium_neptune",
+      "galacticraft:ore_aluminum_neptune",
+      "galacticraft:ore_niobium_neptune"
     ]
   ],
   "has_precipitation": false,

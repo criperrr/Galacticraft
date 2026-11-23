@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.4,
+  "group": "raw_solar_volatile_canister",
+  "ingredient": {
+    "item": "galacticraft:moon_basalt"
+  },
+  "result": {
+    "id": "galacticraft:raw_solar_volatile_canister"
+  }
+}

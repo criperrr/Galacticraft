@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 240,
+  "experience": 1.5,
+  "group": "superionic_ice_crystal",
+  "ingredient": {
+    "item": "galacticraft:neptune_cryo_slate"
+  },
+  "result": {
+    "id": "galacticraft:superionic_ice_crystal"
+  }
+}

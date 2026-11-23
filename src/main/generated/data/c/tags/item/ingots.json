@@ -7,6 +7,9 @@
     "#c:ingots/titanium",
     "#c:ingots/lead",
     "#c:ingots/niobium",
-    "#c:ingots/ferroniobium"
+    "#c:ingots/ferroniobium",
+    "#c:ingots/palladium",
+    "#c:ingots/magnesium",
+    "#c:ingots/uranium"
   ]
 }

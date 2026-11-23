@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.8,
+  "group": "deuterium_canister",
+  "ingredient": {
+    "item": "galacticraft:dense_ice"
+  },
+  "result": {
+    "id": "galacticraft:deuterium_canister"
+  }
+}
