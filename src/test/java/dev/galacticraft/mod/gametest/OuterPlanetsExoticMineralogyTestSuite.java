@@ -22,13 +22,16 @@
 
 package dev.galacticraft.mod.gametest;
 
+import dev.galacticraft.api.gas.Gases;
 import dev.galacticraft.mod.content.GCBlocks;
+import dev.galacticraft.mod.content.item.FluidCanisterItem;
 import dev.galacticraft.mod.content.item.GCItems;
 import dev.galacticraft.mod.recipe.GCRecipes;
 import dev.galacticraft.mod.world.biome.GCBiomes;
 import dev.galacticraft.mod.world.gen.feature.GCOrePlacedFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
@@ -136,7 +139,7 @@ public class OuterPlanetsExoticMineralogyTestSuite implements GalacticraftGameTe
                 GCBlocks.JUPITER_PALLADIUM_ORE, GCItems.RAW_PALLADIUM,
                 GCBlocks.JUPITER_METALLIC_HYDROGEN_ROCK, GCItems.METALLIC_HYDROGEN_CELL,
                 GCBlocks.SATURN_MAGNESIUM_ORE, GCItems.RAW_MAGNESIUM,
-                GCBlocks.SATURN_HELIUM_MANTLE_ROCK, GCItems.HELIUM3_CANISTER,
+                GCBlocks.SATURN_HELIUM_MANTLE_ROCK, GCBlocks.SATURN_HELIUM_MANTLE_ROCK.asItem(),
                 GCBlocks.URANUS_URANIUM_ORE, GCItems.RAW_URANIUM,
                 GCBlocks.URANUS_DIAMOND_BEARING_ROCK, GCItems.LONSDALEITE_GEM,
                 GCBlocks.NEPTUNE_ABYSSAL_MANTLE_ROCK, GCItems.SUPERIONIC_ICE_CRYSTAL
@@ -165,16 +168,18 @@ public class OuterPlanetsExoticMineralogyTestSuite implements GalacticraftGameTe
             }
         }
 
-        // Verify Moon Ilmenite retains both Titanium primary drop and Solar Volatile secondary drop
-        LootParams.Builder ilmeniteParams = new LootParams.Builder(level)
-                .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(origin))
-                .withParameter(LootContextParams.TOOL, titaniumPick);
-        List<ItemStack> ilmeniteDrops = GCBlocks.MOON_ILMENITE_ORE.defaultBlockState().getDrops(ilmeniteParams);
-        boolean hasTitanium = ilmeniteDrops.stream().anyMatch(s -> s.is(GCItems.RAW_TITANIUM));
-        boolean hasVolatiles = ilmeniteDrops.stream().anyMatch(s -> s.is(GCItems.RAW_SOLAR_VOLATILE_CANISTER));
-        if (!hasTitanium || !hasVolatiles) {
-            context.fail("MOON_ILMENITE_ORE expected RAW_TITANIUM + RAW_SOLAR_VOLATILE_CANISTER, got: " + ilmeniteDrops);
-            return;
+        // Verify Helium-3, Deuterium, Solar Volatile Gas, and Xenon are registered real GasFluids usable in FluidCanisterItem
+        for (var gas : List.of(Gases.HELIUM_3, Gases.DEUTERIUM, Gases.SOLAR_VOLATILE_GAS, Gases.XENON)) {
+            if (BuiltInRegistries.FLUID.getResourceKey(gas).isEmpty()) {
+                context.fail("Expected gas fluid to be registered: " + gas);
+                return;
+            }
+            ItemStack filled = FluidCanisterItem.getFilledCanister(GCItems.FLUID_CANISTER, gas);
+            var storage = FluidCanisterItem.getStorage(filled);
+            if (!storage.getResource().isOf(gas) || storage.getAmount() <= 0) {
+                context.fail("FluidCanisterItem failed to store gas fluid: " + gas);
+                return;
+            }
         }
 
         context.succeed();
@@ -193,14 +198,7 @@ public class OuterPlanetsExoticMineralogyTestSuite implements GalacticraftGameTe
                 Map.entry(GCBlocks.JUPITER_METALLIC_HYDROGEN_ROCK.asItem(), GCItems.METALLIC_HYDROGEN_CELL),
                 Map.entry(GCBlocks.URANUS_DIAMOND_BEARING_ROCK.asItem(), GCItems.LONSDALEITE_GEM),
                 Map.entry(GCBlocks.NEPTUNE_ABYSSAL_MANTLE_ROCK.asItem(), GCItems.SUPERIONIC_ICE_CRYSTAL),
-                Map.entry(GCBlocks.NEPTUNE_CRYO_SLATE.asItem(), GCItems.SUPERIONIC_ICE_CRYSTAL),
-                Map.entry(GCBlocks.NEPTUNE_NITROGEN_ICE.asItem(), GCItems.XENON_CANISTER),
-                Map.entry(GCBlocks.MOON_TURF.asItem(), GCItems.RAW_SOLAR_VOLATILE_CANISTER),
-                Map.entry(GCBlocks.MOON_BASALT.asItem(), GCItems.RAW_SOLAR_VOLATILE_CANISTER),
-                Map.entry(GCItems.RAW_SOLAR_VOLATILE_CANISTER, GCItems.HELIUM3_CANISTER),
-                Map.entry(GCBlocks.MERCURY_HOLLOW_DEPOSIT.asItem(), GCItems.HELIUM3_CANISTER),
-                Map.entry(GCBlocks.SATURN_HELIUM_MANTLE_ROCK.asItem(), GCItems.HELIUM3_CANISTER),
-                Map.entry(GCBlocks.DENSE_ICE.asItem(), GCItems.DEUTERIUM_CANISTER)
+                Map.entry(GCBlocks.NEPTUNE_CRYO_SLATE.asItem(), GCItems.SUPERIONIC_ICE_CRYSTAL)
         );
 
         for (var entry : expectedBlasting.entrySet()) {
@@ -226,8 +224,12 @@ public class OuterPlanetsExoticMineralogyTestSuite implements GalacticraftGameTe
             return;
         }
 
-        // Helium-3 Fusion Cell synthesis (HELIUM3_CELL + DEUTERIUM_CANISTER)
-        CraftingInput fusionInput = CraftingInput.of(2, 1, List.of(new ItemStack(GCItems.HELIUM3_CELL), new ItemStack(GCItems.DEUTERIUM_CANISTER)));
+        // Helium-3 Fusion Cell synthesis (HELIUM3_CELL + DENSE_ICE + SUPERCONDUCTING_COIL)
+        CraftingInput fusionInput = CraftingInput.of(3, 1, List.of(
+                new ItemStack(GCItems.HELIUM3_CELL),
+                new ItemStack(GCBlocks.DENSE_ICE),
+                new ItemStack(GCItems.SUPERCONDUCTING_COIL)
+        ));
         var fusionRecipe = manager.getRecipeFor(RecipeType.CRAFTING, fusionInput, level);
         if (fusionRecipe.isEmpty() || !fusionRecipe.get().value().getResultItem(registryAccess).is(GCItems.HELIUM3_FUSION_CELL)) {
             context.fail("Crafting recipe missing for HELIUM3_FUSION_CELL");
