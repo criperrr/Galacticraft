@@ -100,6 +100,15 @@ public class GCItems {
     public static final Item LEAD_INGOT = registerGeneric(Constant.Item.LEAD_INGOT);
     public static final Item LEAD_NUGGET = registerGeneric(Constant.Item.LEAD_NUGGET);
 
+    public static final Item RAW_NIOBIUM = registerGeneric(Constant.Item.RAW_NIOBIUM);
+    public static final Item NIOBIUM_OXIDE = registerGeneric(Constant.Item.NIOBIUM_OXIDE);
+    public static final Item FERRONIOBIUM_INGOT = registerGeneric(Constant.Item.FERRONIOBIUM_INGOT);
+    public static final Item COMPRESSED_FERRONIOBIUM = registerGeneric(Constant.Item.COMPRESSED_FERRONIOBIUM);
+    public static final Item NIOBIUM_INGOT = registerGeneric(Constant.Item.NIOBIUM_INGOT);
+    public static final Item NIOBIUM_NUGGET = registerGeneric(Constant.Item.NIOBIUM_NUGGET);
+    public static final Item COMPRESSED_NIOBIUM = registerGeneric(Constant.Item.COMPRESSED_NIOBIUM);
+    public static final Item SUPERCONDUCTING_COIL = registerGeneric(Constant.Item.SUPERCONDUCTING_COIL);
+
     public static final Item COMPRESSED_COPPER = registerGeneric(Constant.Item.COMPRESSED_COPPER);
     public static final Item COMPRESSED_BRONZE = registerGeneric(Constant.Item.COMPRESSED_BRONZE);
     public static final Item COMPRESSED_IRON = registerGeneric(Constant.Item.COMPRESSED_IRON);

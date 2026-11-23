@@ -258,6 +258,7 @@ public class GCItemTagProvider extends FabricTagProvider.ItemTagProvider {
         this.copy(GCBlockTags.TITANIUM_ORES, GCItemTags.TITANIUM_ORES);
         this.copy(GCBlockTags.LEAD_ORES, GCItemTags.LEAD_ORES);
         this.copy(GCBlockTags.SOLAR_ORES, GCItemTags.SOLAR_ORES);
+        this.copy(GCBlockTags.NIOBIUM_ORES, GCItemTags.NIOBIUM_ORES);
 
         this.copy(ConventionalBlockTags.ORES, ConventionalItemTags.ORES);
 
@@ -268,6 +269,8 @@ public class GCItemTagProvider extends FabricTagProvider.ItemTagProvider {
         this.copy(GCBlockTags.DESH_BLOCKS, GCItemTags.DESH_BLOCKS);
         this.copy(GCBlockTags.TITANIUM_BLOCKS, GCItemTags.TITANIUM_BLOCKS);
         this.copy(GCBlockTags.LEAD_BLOCKS, GCItemTags.LEAD_BLOCKS);
+        this.copy(GCBlockTags.NIOBIUM_BLOCKS, GCItemTags.NIOBIUM_BLOCKS);
+        this.copy(GCBlockTags.FERRONIOBIUM_BLOCKS, GCItemTags.FERRONIOBIUM_BLOCKS);
 
         this.copy(GCBlockTags.SILICON_BLOCKS, GCItemTags.SILICON_BLOCKS);
         this.copy(GCBlockTags.CHEESE_BLOCKS, GCItemTags.CHEESE_BLOCKS);
@@ -280,6 +283,7 @@ public class GCItemTagProvider extends FabricTagProvider.ItemTagProvider {
         this.copy(GCBlockTags.RAW_DESH_BLOCKS, GCItemTags.RAW_DESH_BLOCKS);
         this.copy(GCBlockTags.RAW_TITANIUM_BLOCKS, GCItemTags.RAW_TITANIUM_BLOCKS);
         this.copy(GCBlockTags.RAW_LEAD_BLOCKS, GCItemTags.RAW_LEAD_BLOCKS);
+        this.copy(GCBlockTags.RAW_NIOBIUM_BLOCKS, GCItemTags.RAW_NIOBIUM_BLOCKS);
 
         this.copy(ConventionalBlockTags.STORAGE_BLOCKS, ConventionalItemTags.STORAGE_BLOCKS);
 
@@ -308,13 +312,19 @@ public class GCItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(GCItems.TITANIUM_INGOT);
         this.tag(GCItemTags.LEAD_INGOTS)
                 .add(GCItems.LEAD_INGOT);
+        this.tag(GCItemTags.NIOBIUM_INGOTS)
+                .add(GCItems.NIOBIUM_INGOT);
+        this.tag(GCItemTags.FERRONIOBIUM_INGOTS)
+                .add(GCItems.FERRONIOBIUM_INGOT);
         this.tag(ConventionalItemTags.INGOTS)
                 .addTag(GCItemTags.TIN_INGOTS)
                 .addTag(GCItemTags.ALUMINUM_INGOTS)
                 .addTag(GCItemTags.METEORIC_IRON_INGOTS)
                 .addTag(GCItemTags.DESH_INGOTS)
                 .addTag(GCItemTags.TITANIUM_INGOTS)
-                .addTag(GCItemTags.LEAD_INGOTS);
+                .addTag(GCItemTags.LEAD_INGOTS)
+                .addTag(GCItemTags.NIOBIUM_INGOTS)
+                .addTag(GCItemTags.FERRONIOBIUM_INGOTS);
 
         this.tag(GCItemTags.TIN_RAW_MATERIALS)
                 .add(GCItems.RAW_TIN);
@@ -328,13 +338,16 @@ public class GCItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(GCItems.RAW_TITANIUM);
         this.tag(GCItemTags.LEAD_RAW_MATERIALS)
                 .add(GCItems.RAW_LEAD);
+        this.tag(GCItemTags.NIOBIUM_RAW_MATERIALS)
+                .add(GCItems.RAW_NIOBIUM);
         this.tag(ConventionalItemTags.RAW_MATERIALS)
                 .addTag(GCItemTags.TIN_RAW_MATERIALS)
                 .addTag(GCItemTags.ALUMINUM_RAW_MATERIALS)
                 .addTag(GCItemTags.METEORIC_IRON_RAW_MATERIALS)
                 .addTag(GCItemTags.DESH_RAW_MATERIALS)
                 .addTag(GCItemTags.TITANIUM_RAW_MATERIALS)
-                .addTag(GCItemTags.LEAD_RAW_MATERIALS);
+                .addTag(GCItemTags.LEAD_RAW_MATERIALS)
+                .addTag(GCItemTags.NIOBIUM_RAW_MATERIALS);
 
         this.tag(GCItemTags.TIN_NUGGETS)
                 .add(GCItems.TIN_NUGGET);
@@ -348,13 +361,16 @@ public class GCItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(GCItems.TITANIUM_NUGGET);
         this.tag(GCItemTags.LEAD_NUGGETS)
                 .add(GCItems.LEAD_NUGGET);
+        this.tag(GCItemTags.NIOBIUM_NUGGETS)
+                .add(GCItems.NIOBIUM_NUGGET);
         this.tag(ConventionalItemTags.NUGGETS)
                 .addTag(GCItemTags.TIN_NUGGETS)
                 .addTag(GCItemTags.ALUMINUM_NUGGETS)
                 .addTag(GCItemTags.METEORIC_IRON_NUGGETS)
                 .addTag(GCItemTags.DESH_NUGGETS)
                 .addTag(GCItemTags.TITANIUM_NUGGETS)
-                .addTag(GCItemTags.LEAD_NUGGETS);
+                .addTag(GCItemTags.LEAD_NUGGETS)
+                .addTag(GCItemTags.NIOBIUM_NUGGETS);
 
         this.tag(GCItemTags.COPPER_PLATES)
                 .add(GCItems.COMPRESSED_COPPER);
@@ -368,12 +384,16 @@ public class GCItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(GCItems.COMPRESSED_BRONZE);
         this.tag(GCItemTags.STEEL_PLATES)
                 .add(GCItems.COMPRESSED_STEEL);
+        this.tag(GCItemTags.FERRONIOBIUM_PLATES)
+                .add(GCItems.COMPRESSED_FERRONIOBIUM);
         this.tag(GCItemTags.METEORIC_IRON_PLATES)
                 .add(GCItems.COMPRESSED_METEORIC_IRON);
         this.tag(GCItemTags.DESH_PLATES)
                 .add(GCItems.COMPRESSED_DESH);
         this.tag(GCItemTags.TITANIUM_PLATES)
                 .add(GCItems.COMPRESSED_TITANIUM);
+        this.tag(GCItemTags.NIOBIUM_PLATES)
+                .add(GCItems.COMPRESSED_NIOBIUM);
         this.tag(GCItemTags.TIER_1_HEAVY_DUTY_PLATES)
                 .add(GCItems.TIER_1_HEAVY_DUTY_PLATE);
         this.tag(GCItemTags.TIER_2_HEAVY_DUTY_PLATES)
@@ -391,9 +411,11 @@ public class GCItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .addTag(GCItemTags.ALUMINUM_PLATES)
                 .addTag(GCItemTags.BRONZE_PLATES)
                 .addTag(GCItemTags.STEEL_PLATES)
+                .addTag(GCItemTags.FERRONIOBIUM_PLATES)
                 .addTag(GCItemTags.METEORIC_IRON_PLATES)
                 .addTag(GCItemTags.DESH_PLATES)
                 .addTag(GCItemTags.TITANIUM_PLATES)
+                .addTag(GCItemTags.NIOBIUM_PLATES)
                 .addTag(GCItemTags.HEAVY_DUTY_PLATES);
 
         this.tag(GCItemTags.STEEL_RODS)
@@ -415,8 +437,11 @@ public class GCItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         this.tag(GCItemTags.SOLAR_DUSTS)
                 .add(GCItems.SOLAR_DUST);
+        this.tag(GCItemTags.NIOBIUM_OXIDE_DUSTS)
+                .add(GCItems.NIOBIUM_OXIDE);
         this.tag(ConventionalItemTags.DUSTS)
-                .addTag(GCItemTags.SOLAR_DUSTS);
+                .addTag(GCItemTags.SOLAR_DUSTS)
+                .addTag(GCItemTags.NIOBIUM_OXIDE_DUSTS);
 
         this.tag(ItemTags.COALS)
                 .add(GCItems.CARBON_FRAGMENTS);
@@ -571,6 +596,8 @@ public class GCItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(GCItems.DESH_INGOT)
                 .add(GCItems.TITANIUM_INGOT)
                 .add(GCItems.LEAD_INGOT)
+                .add(GCItems.NIOBIUM_INGOT)
+                .add(GCItems.FERRONIOBIUM_INGOT)
                 .add(GCItems.LUNAR_SAPPHIRE);
 
         this.copy(ConventionalBlockTags.VILLAGER_JOB_SITES, ConventionalItemTags.VILLAGER_JOB_SITES);

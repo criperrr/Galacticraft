@@ -1,0 +1,16 @@
+{
+  "type": "galacticraft:compressing_shapeless",
+  "ingredients": [
+    {
+      "item": "galacticraft:niobium_oxide"
+    },
+    {
+      "item": "galacticraft:carbon_fragments"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:niobium_ingot"
+  },
+  "time": 300
+}

@@ -7,12 +7,15 @@
     "B": {
       "item": "galacticraft:compressed_bronze"
     },
+    "F": {
+      "item": "galacticraft:compressed_ferroniobium"
+    },
     "S": {
       "item": "galacticraft:compressed_steel"
     }
   },
   "pattern": [
-    "SAB",
+    "FAB",
     "SAB"
   ],
   "result": {

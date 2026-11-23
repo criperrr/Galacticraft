@@ -5,13 +5,16 @@
     "B": {
       "item": "galacticraft:battery"
     },
+    "C": {
+      "item": "galacticraft:superconducting_coil"
+    },
     "S": {
       "item": "galacticraft:compressed_steel"
     }
   },
   "pattern": [
     "SSS",
-    "BBB",
+    "BCB",
     "SSS"
   ],
   "result": {

@@ -6,6 +6,8 @@
     "#c:storage_blocks/desh",
     "#c:storage_blocks/titanium",
     "#c:storage_blocks/lead",
+    "#c:storage_blocks/niobium",
+    "#c:storage_blocks/ferroniobium",
     "#c:storage_blocks/silicon",
     "#c:storage_blocks/cheese",
     "#c:storage_blocks/lunar_sapphire",
@@ -15,6 +17,7 @@
     "#c:storage_blocks/raw_meteoric_iron",
     "#c:storage_blocks/raw_desh",
     "#c:storage_blocks/raw_titanium",
-    "#c:storage_blocks/raw_lead"
+    "#c:storage_blocks/raw_lead",
+    "#c:storage_blocks/raw_niobium"
   ]
 }

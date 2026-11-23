@@ -322,6 +322,9 @@ public class GCModelProvider extends FabricModelProvider {
         generator.createTrivialCube(GCBlocks.ASTEROID_ALUMINUM_ORE);
         generator.createTrivialCube(GCBlocks.VENUS_ALUMINUM_ORE);
 
+        generator.createTrivialCube(GCBlocks.NIOBIUM_ORE);
+        generator.createTrivialCube(GCBlocks.DEEPSLATE_NIOBIUM_ORE);
+
         generator.createTrivialCube(GCBlocks.MOON_CHEESE_ORE);
 
         generator.createTrivialCube(GCBlocks.LUNAR_SAPPHIRE_ORE);
@@ -347,6 +350,8 @@ public class GCModelProvider extends FabricModelProvider {
         generator.createTrivialCube(GCBlocks.TIN_BLOCK);
         generator.createTrivialCube(GCBlocks.TITANIUM_BLOCK);
         generator.createTrivialCube(GCBlocks.LEAD_BLOCK);
+        generator.createTrivialCube(GCBlocks.NIOBIUM_BLOCK);
+        generator.createTrivialCube(GCBlocks.FERRONIOBIUM_BLOCK);
         generator.createTrivialCube(GCBlocks.LUNAR_SAPPHIRE_BLOCK);
         generator.createTrivialCube(GCBlocks.RAW_METEORIC_IRON_BLOCK);
         generator.createTrivialCube(GCBlocks.RAW_DESH_BLOCK);
@@ -354,6 +359,7 @@ public class GCModelProvider extends FabricModelProvider {
         generator.createTrivialCube(GCBlocks.RAW_TIN_BLOCK);
         generator.createTrivialCube(GCBlocks.RAW_TITANIUM_BLOCK);
         generator.createTrivialCube(GCBlocks.RAW_LEAD_BLOCK);
+        generator.createTrivialCube(GCBlocks.RAW_NIOBIUM_BLOCK);
 
         // CHEESE BLOCKS
         generator.createTrivialCube(GCBlocks.MOON_CHEESE_BLOCK);
@@ -792,6 +798,15 @@ public class GCModelProvider extends FabricModelProvider {
         generator.generateFlatItem(GCItems.RAW_LEAD, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(GCItems.LEAD_INGOT, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(GCItems.LEAD_NUGGET, ModelTemplates.FLAT_ITEM);
+
+        generator.generateFlatItem(GCItems.RAW_NIOBIUM, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.NIOBIUM_OXIDE, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.FERRONIOBIUM_INGOT, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.COMPRESSED_FERRONIOBIUM, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.NIOBIUM_INGOT, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.NIOBIUM_NUGGET, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.COMPRESSED_NIOBIUM, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.SUPERCONDUCTING_COIL, ModelTemplates.FLAT_ITEM);
 
         generator.generateFlatItem(GCItems.RAW_ALUMINUM, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(GCItems.ALUMINUM_INGOT, ModelTemplates.FLAT_ITEM);

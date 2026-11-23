@@ -271,6 +271,8 @@ public interface Constant {
         String VENUS_TIN_ORE = "venus_tin_ore";
         String ALUMINUM_ORE = "aluminum_ore";
         String DEEPSLATE_ALUMINUM_ORE = "deepslate_aluminum_ore";
+        String NIOBIUM_ORE = "niobium_ore";
+        String DEEPSLATE_NIOBIUM_ORE = "deepslate_niobium_ore";
         String VENUS_ALUMINUM_ORE = "venus_aluminum_ore";
         String MOON_CHEESE_ORE = "moon_cheese_ore";
         String LUNAR_SAPPHIRE_ORE = "lunar_sapphire_ore";
@@ -287,6 +289,8 @@ public interface Constant {
         String TIN_BLOCK = "tin_block";
         String TITANIUM_BLOCK = "titanium_block";
         String LEAD_BLOCK = "lead_block";
+        String NIOBIUM_BLOCK = "niobium_block";
+        String FERRONIOBIUM_BLOCK = "ferroniobium_block";
         String LUNAR_SAPPHIRE_BLOCK = "lunar_sapphire_block";
         String OLIVINE_BLOCK = "olivine_block";
         String RAW_METEORIC_IRON_BLOCK = "raw_meteoric_iron_block";
@@ -295,6 +299,7 @@ public interface Constant {
         String RAW_TIN_BLOCK = "raw_tin_block";
         String RAW_TITANIUM_BLOCK = "raw_titanium_block";
         String RAW_LEAD_BLOCK = "raw_lead_block";
+        String RAW_NIOBIUM_BLOCK = "raw_niobium_block";
 
         // Decorative BLocks
         String ALUMINUM_DECORATION = "aluminum_decoration";
@@ -550,6 +555,11 @@ public interface Constant {
         String RAW_TITANIUM = "raw_titanium";
         String TITANIUM_INGOT = "titanium_ingot";
         String TITANIUM_NUGGET = "titanium_nugget";
+        String RAW_NIOBIUM = "raw_niobium";
+        String NIOBIUM_OXIDE = "niobium_oxide";
+        String FERRONIOBIUM_INGOT = "ferroniobium_ingot";
+        String NIOBIUM_INGOT = "niobium_ingot";
+        String NIOBIUM_NUGGET = "niobium_nugget";
         String STEEL_INGOT = "steel_ingot";
         String LUNAR_SAPPHIRE = "lunar_sapphire";
         String OLIVINE_SHARD = "olivine_shard";
@@ -569,6 +579,9 @@ public interface Constant {
         String COMPRESSED_METEORIC_IRON = "compressed_meteoric_iron";
         String COMPRESSED_DESH = "compressed_desh";
         String COMPRESSED_TITANIUM = "compressed_titanium";
+        String COMPRESSED_FERRONIOBIUM = "compressed_ferroniobium";
+        String COMPRESSED_NIOBIUM = "compressed_niobium";
+        String SUPERCONDUCTING_COIL = "superconducting_coil";
         String FLUID_MANIPULATOR = "fluid_manipulator";
         String OXYGEN_CONCENTRATOR = "oxygen_concentrator";
         String OXYGEN_FAN = "oxygen_fan";

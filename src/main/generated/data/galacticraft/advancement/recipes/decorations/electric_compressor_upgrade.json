@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_advanced_wafer": {
+    "has_compressed_ferroniobium": {
       "conditions": {
         "items": [
           {
-            "items": "galacticraft:advanced_wafer"
+            "items": "galacticraft:compressed_ferroniobium"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_advanced_wafer"
+      "has_compressed_ferroniobium"
     ]
   ],
   "rewards": {

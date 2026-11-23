@@ -332,11 +332,13 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         this.tag(ConventionalBlockTags.ORES_IN_GROUND_STONE)
                 .add(GCBlocks.SILICON_ORE)
                 .add(GCBlocks.TIN_ORE)
-                .add(GCBlocks.ALUMINUM_ORE);
+                .add(GCBlocks.ALUMINUM_ORE)
+                .add(GCBlocks.NIOBIUM_ORE);
         this.tag(ConventionalBlockTags.ORES_IN_GROUND_DEEPSLATE)
                 .add(GCBlocks.DEEPSLATE_SILICON_ORE)
                 .add(GCBlocks.DEEPSLATE_TIN_ORE)
-                .add(GCBlocks.DEEPSLATE_ALUMINUM_ORE);
+                .add(GCBlocks.DEEPSLATE_ALUMINUM_ORE)
+                .add(GCBlocks.DEEPSLATE_NIOBIUM_ORE);
         this.tag(GCBlockTags.ORES_IN_GROUND_MOON_ROCK)
                 .add(GCBlocks.MOON_COPPER_ORE)
                 .add(GCBlocks.MOON_TIN_ORE)
@@ -428,6 +430,8 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(GCBlocks.ASTEROID_IRON_ORE)
                 .add(GCBlocks.ALUMINUM_ORE)
                 .add(GCBlocks.DEEPSLATE_ALUMINUM_ORE)
+                .add(GCBlocks.NIOBIUM_ORE)
+                .add(GCBlocks.DEEPSLATE_NIOBIUM_ORE)
                 .add(GCBlocks.ASTEROID_ALUMINUM_ORE)
                 .add(GCBlocks.VENUS_ALUMINUM_ORE)
                 .add(GCBlocks.LUNAR_SAPPHIRE_ORE)
@@ -511,12 +515,16 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(GCBlocks.GALENA_ORE);
         this.tag(GCBlockTags.SOLAR_ORES)
                 .add(GCBlocks.SOLAR_ORE);
+        this.tag(GCBlockTags.NIOBIUM_ORES)
+                .add(GCBlocks.NIOBIUM_ORE)
+                .add(GCBlocks.DEEPSLATE_NIOBIUM_ORE);
         this.tag(ConventionalBlockTags.ORES)
                 .addTag(BlockTags.IRON_ORES)
                 .addTag(BlockTags.COPPER_ORES)
                 .addTag(GCBlockTags.SILICON_ORES)
                 .addTag(GCBlockTags.TIN_ORES)
                 .addTag(GCBlockTags.ALUMINUM_ORES)
+                .addTag(GCBlockTags.NIOBIUM_ORES)
                 .addTag(GCBlockTags.CHEESE_ORES)
                 .addTag(GCBlockTags.LUNAR_SAPPHIRE_ORES)
                 .addTag(GCBlockTags.OLIVINE_ORES)
@@ -541,6 +549,10 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(GCBlocks.TITANIUM_BLOCK);
         this.tag(GCBlockTags.LEAD_BLOCKS)
                 .add(GCBlocks.LEAD_BLOCK);
+        this.tag(GCBlockTags.NIOBIUM_BLOCKS)
+                .add(GCBlocks.NIOBIUM_BLOCK);
+        this.tag(GCBlockTags.FERRONIOBIUM_BLOCKS)
+                .add(GCBlocks.FERRONIOBIUM_BLOCK);
 
         this.tag(GCBlockTags.SILICON_BLOCKS)
                 .add(GCBlocks.SILICON_BLOCK);
@@ -564,6 +576,8 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(GCBlocks.RAW_TITANIUM_BLOCK);
         this.tag(GCBlockTags.RAW_LEAD_BLOCKS)
                 .add(GCBlocks.RAW_LEAD_BLOCK);
+        this.tag(GCBlockTags.RAW_NIOBIUM_BLOCKS)
+                .add(GCBlocks.RAW_NIOBIUM_BLOCK);
 
         this.tag(ConventionalBlockTags.STORAGE_BLOCKS)
                 .addTag(GCBlockTags.TIN_BLOCKS)
@@ -572,6 +586,8 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .addTag(GCBlockTags.DESH_BLOCKS)
                 .addTag(GCBlockTags.TITANIUM_BLOCKS)
                 .addTag(GCBlockTags.LEAD_BLOCKS)
+                .addTag(GCBlockTags.NIOBIUM_BLOCKS)
+                .addTag(GCBlockTags.FERRONIOBIUM_BLOCKS)
                 .addTag(GCBlockTags.SILICON_BLOCKS)
                 .addTag(GCBlockTags.CHEESE_BLOCKS)
                 .addTag(GCBlockTags.LUNAR_SAPPHIRE_BLOCKS)
@@ -581,7 +597,8 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .addTag(GCBlockTags.RAW_METEORIC_IRON_BLOCKS)
                 .addTag(GCBlockTags.RAW_DESH_BLOCKS)
                 .addTag(GCBlockTags.RAW_TITANIUM_BLOCKS)
-                .addTag(GCBlockTags.RAW_LEAD_BLOCKS);
+                .addTag(GCBlockTags.RAW_LEAD_BLOCKS)
+                .addTag(GCBlockTags.RAW_NIOBIUM_BLOCKS);
 
         this.tag(ConventionalBlockTags.STONES)
                 .add(GCBlocks.MOON_SURFACE_ROCK)
@@ -698,6 +715,8 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(GCBlocks.DESH_BLOCK)
                 .add(GCBlocks.TITANIUM_BLOCK)
                 .add(GCBlocks.LEAD_BLOCK)
+                .add(GCBlocks.NIOBIUM_BLOCK)
+                .add(GCBlocks.FERRONIOBIUM_BLOCK)
                 .add(GCBlocks.STEEL_DECORATION.block())
                 .add(GCBlocks.BRONZE_DECORATION.block())
                 .add(GCBlocks.COPPER_DECORATION.block())
@@ -975,6 +994,8 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                         GCBlocks.MARS_TIN_ORE, GCBlocks.VENUS_TIN_ORE,
                         GCBlocks.ALUMINUM_ORE,
                         GCBlocks.DEEPSLATE_ALUMINUM_ORE,
+                        GCBlocks.NIOBIUM_ORE,
+                        GCBlocks.DEEPSLATE_NIOBIUM_ORE,
                         GCBlocks.ASTEROID_ALUMINUM_ORE,
                         GCBlocks.VENUS_ALUMINUM_ORE,
                         GCBlocks.MOON_CHEESE_ORE,
@@ -1029,6 +1050,8 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                         GCBlocks.TIN_BLOCK,
                         GCBlocks.TITANIUM_BLOCK,
                         GCBlocks.LEAD_BLOCK,
+                        GCBlocks.NIOBIUM_BLOCK,
+                        GCBlocks.FERRONIOBIUM_BLOCK,
                         GCBlocks.LUNAR_SAPPHIRE_BLOCK,
                         GCBlocks.OLIVINE_BLOCK,
                         GCBlocks.BUDDING_OLIVINE,
@@ -1038,6 +1061,7 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                         GCBlocks.RAW_TIN_BLOCK,
                         GCBlocks.RAW_TITANIUM_BLOCK,
                         GCBlocks.RAW_LEAD_BLOCK,
+                        GCBlocks.RAW_NIOBIUM_BLOCK,
 
                         GCBlocks.MOON_TURF,
                         GCBlocks.MOON_DIRT,
@@ -1268,6 +1292,11 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 GCBlocks.HANGAR_TERMINAL,
                 GCBlocks.SILICON_ORE,
                 GCBlocks.DEEPSLATE_SILICON_ORE,
+                GCBlocks.NIOBIUM_ORE,
+                GCBlocks.DEEPSLATE_NIOBIUM_ORE,
+                GCBlocks.RAW_NIOBIUM_BLOCK,
+                GCBlocks.NIOBIUM_BLOCK,
+                GCBlocks.FERRONIOBIUM_BLOCK,
                 GCBlocks.ASTEROID_SILICON_ORE,
                 GCBlocks.FALLEN_METEOR,
                 GCBlocks.LUNAR_SAPPHIRE_ORE,

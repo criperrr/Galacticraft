@@ -92,6 +92,7 @@ public class GCItemTags {
     public static final TagKey<Item> LEAD_ORES = commonTag("ores/lead");
     public static final TagKey<Item> LUNAR_SAPPHIRE_ORES = commonTag("ores/lunar_sapphire");
     public static final TagKey<Item> METEORIC_IRON_ORES = commonTag("ores/meteoric_iron");
+    public static final TagKey<Item> NIOBIUM_ORES = commonTag("ores/niobium");
     public static final TagKey<Item> OLIVINE_ORES = commonTag("ores/olivine");
     public static final TagKey<Item> SILICON_ORES = commonTag("ores/silicon");
     public static final TagKey<Item> SOLAR_ORES = commonTag("ores/solar_dust");
@@ -101,9 +102,11 @@ public class GCItemTags {
     public static final TagKey<Item> ALUMINUM_BLOCKS = commonTag("storage_blocks/aluminum");
     public static final TagKey<Item> CHEESE_BLOCKS = commonTag("storage_blocks/cheese");
     public static final TagKey<Item> DESH_BLOCKS = commonTag("storage_blocks/desh");
+    public static final TagKey<Item> FERRONIOBIUM_BLOCKS = commonTag("storage_blocks/ferroniobium");
     public static final TagKey<Item> LEAD_BLOCKS = commonTag("storage_blocks/lead");
     public static final TagKey<Item> LUNAR_SAPPHIRE_BLOCKS = commonTag("storage_blocks/lunar_sapphire");
     public static final TagKey<Item> METEORIC_IRON_BLOCKS = commonTag("storage_blocks/meteoric_iron");
+    public static final TagKey<Item> NIOBIUM_BLOCKS = commonTag("storage_blocks/niobium");
     public static final TagKey<Item> OLIVINE_BLOCKS = commonTag("storage_blocks/olivine");
     public static final TagKey<Item> SILICON_BLOCKS = commonTag("storage_blocks/silicon");
     public static final TagKey<Item> TIN_BLOCKS = commonTag("storage_blocks/tin");
@@ -113,6 +116,7 @@ public class GCItemTags {
     public static final TagKey<Item> RAW_DESH_BLOCKS = commonTag("storage_blocks/raw_desh");
     public static final TagKey<Item> RAW_LEAD_BLOCKS = commonTag("storage_blocks/raw_lead");
     public static final TagKey<Item> RAW_METEORIC_IRON_BLOCKS = commonTag("storage_blocks/raw_meteoric_iron");
+    public static final TagKey<Item> RAW_NIOBIUM_BLOCKS = commonTag("storage_blocks/raw_niobium");
     public static final TagKey<Item> RAW_TIN_BLOCKS = commonTag("storage_blocks/raw_tin");
     public static final TagKey<Item> RAW_TITANIUM_BLOCKS = commonTag("storage_blocks/raw_titanium");
 
@@ -120,14 +124,17 @@ public class GCItemTags {
     public static final TagKey<Item> DESH_RAW_MATERIALS = commonTag("raw_materials/desh");
     public static final TagKey<Item> LEAD_RAW_MATERIALS = commonTag("raw_materials/lead");
     public static final TagKey<Item> METEORIC_IRON_RAW_MATERIALS = commonTag("raw_materials/meteoric_iron");
+    public static final TagKey<Item> NIOBIUM_RAW_MATERIALS = commonTag("raw_materials/niobium");
     public static final TagKey<Item> TIN_RAW_MATERIALS = commonTag("raw_materials/tin");
     public static final TagKey<Item> TITANIUM_RAW_MATERIALS = commonTag("raw_materials/titanium");
 
     public static final TagKey<Item> ALUMINUM_INGOTS = commonTag("ingots/aluminum");
     public static final TagKey<Item> BRONZE_INGOTS = commonTag("ingots/bronze");
     public static final TagKey<Item> DESH_INGOTS = commonTag("ingots/desh");
+    public static final TagKey<Item> FERRONIOBIUM_INGOTS = commonTag("ingots/ferroniobium");
     public static final TagKey<Item> LEAD_INGOTS = commonTag("ingots/lead");
     public static final TagKey<Item> METEORIC_IRON_INGOTS = commonTag("ingots/meteoric_iron");
+    public static final TagKey<Item> NIOBIUM_INGOTS = commonTag("ingots/niobium");
     public static final TagKey<Item> STEEL_INGOTS = commonTag("ingots/steel");
     public static final TagKey<Item> TIN_INGOTS = commonTag("ingots/tin");
     public static final TagKey<Item> TITANIUM_INGOTS = commonTag("ingots/titanium");
@@ -136,6 +143,7 @@ public class GCItemTags {
     public static final TagKey<Item> DESH_NUGGETS = commonTag("nuggets/desh");
     public static final TagKey<Item> LEAD_NUGGETS = commonTag("nuggets/lead");
     public static final TagKey<Item> METEORIC_IRON_NUGGETS = commonTag("nuggets/meteoric_iron");
+    public static final TagKey<Item> NIOBIUM_NUGGETS = commonTag("nuggets/niobium");
     public static final TagKey<Item> TIN_NUGGETS = commonTag("nuggets/tin");
     public static final TagKey<Item> TITANIUM_NUGGETS = commonTag("nuggets/titanium");
 
@@ -144,8 +152,10 @@ public class GCItemTags {
     public static final TagKey<Item> BRONZE_PLATES = commonTag("plates/bronze");
     public static final TagKey<Item> COPPER_PLATES = commonTag("plates/copper");
     public static final TagKey<Item> DESH_PLATES = commonTag("plates/desh");
+    public static final TagKey<Item> FERRONIOBIUM_PLATES = commonTag("plates/ferroniobium");
     public static final TagKey<Item> IRON_PLATES = commonTag("plates/iron");
     public static final TagKey<Item> METEORIC_IRON_PLATES = commonTag("plates/meteoric_iron");
+    public static final TagKey<Item> NIOBIUM_PLATES = commonTag("plates/niobium");
     public static final TagKey<Item> STEEL_PLATES = commonTag("plates/steel");
     public static final TagKey<Item> TIN_PLATES = commonTag("plates/tin");
     public static final TagKey<Item> TITANIUM_PLATES = commonTag("plates/titanium");
@@ -162,6 +172,7 @@ public class GCItemTags {
     public static final TagKey<Item> TIN_CANISTERS = commonTag("canisters/tin");
 
     public static final TagKey<Item> SOLAR_DUSTS = commonTag("dusts/solar");
+    public static final TagKey<Item> NIOBIUM_OXIDE_DUSTS = commonTag("dusts/niobium_oxide");
 
     public static final TagKey<Item> CHEESE_FOODS = commonTag("foods/cheese");
     public static final TagKey<Item> CANNED_FOODS = commonTag("foods/canned");

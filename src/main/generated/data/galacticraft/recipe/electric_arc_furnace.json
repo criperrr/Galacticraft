@@ -2,6 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
+    "C": {
+      "item": "galacticraft:superconducting_coil"
+    },
     "E": {
       "item": "galacticraft:electric_furnace"
     },
@@ -16,7 +19,7 @@
     }
   },
   "pattern": [
-    "HHH",
+    "HCH",
     "HEH",
     "MWM"
   ],

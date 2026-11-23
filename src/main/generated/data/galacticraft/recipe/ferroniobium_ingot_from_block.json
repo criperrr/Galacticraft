@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "ferroniobium_ingot",
+  "ingredients": [
+    {
+      "item": "galacticraft:ferroniobium_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "galacticraft:ferroniobium_ingot"
+  }
+}
