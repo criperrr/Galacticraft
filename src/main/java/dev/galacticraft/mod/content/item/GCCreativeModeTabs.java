@@ -270,21 +270,32 @@ public class GCCreativeModeTabs {
                 output.accept(JUPITER_TIN_ORE);
                 output.accept(JUPITER_IRON_ORE);
                 output.accept(JUPITER_ALUMINUM_ORE);
+                output.accept(JUPITER_NIOBIUM_ORE);
+                output.accept(JUPITER_TITANIUM_ORE);
+                output.accept(JUPITER_PALLADIUM_ORE);
 
                 output.accept(SATURN_COPPER_ORE);
                 output.accept(SATURN_TIN_ORE);
                 output.accept(SATURN_IRON_ORE);
                 output.accept(SATURN_TITANIUM_ORE);
+                output.accept(SATURN_ALUMINUM_ORE);
+                output.accept(SATURN_NIOBIUM_ORE);
+                output.accept(SATURN_MAGNESIUM_ORE);
 
                 output.accept(URANUS_COPPER_ORE);
                 output.accept(URANUS_TIN_ORE);
                 output.accept(URANUS_ALUMINUM_ORE);
                 output.accept(URANUS_TITANIUM_ORE);
+                output.accept(URANUS_IRON_ORE);
+                output.accept(URANUS_NIOBIUM_ORE);
+                output.accept(URANUS_URANIUM_ORE);
 
                 output.accept(NEPTUNE_COPPER_ORE);
                 output.accept(NEPTUNE_TIN_ORE);
                 output.accept(NEPTUNE_IRON_ORE);
                 output.accept(NEPTUNE_TITANIUM_ORE);
+                output.accept(NEPTUNE_ALUMINUM_ORE);
+                output.accept(NEPTUNE_NIOBIUM_ORE);
 
                 // COMPACT MINERAL BLOCKS
                 output.accept(RAW_TIN_BLOCK);
@@ -294,10 +305,14 @@ public class GCCreativeModeTabs {
                 output.accept(RAW_TITANIUM_BLOCK);
                 output.accept(RAW_LEAD_BLOCK);
                 output.accept(RAW_NIOBIUM_BLOCK);
+                output.accept(RAW_PALLADIUM_BLOCK);
+                output.accept(RAW_MAGNESIUM_BLOCK);
+                output.accept(RAW_URANIUM_BLOCK);
 
                 output.accept(SILICON_BLOCK);
                 output.accept(LUNAR_SAPPHIRE_BLOCK);
                 output.accept(OLIVINE_BLOCK);
+                output.accept(LONSDALEITE_BLOCK);
                 output.accept(BUDDING_OLIVINE);
                 output.accept(OLIVINE_CLUSTER);
 
@@ -309,6 +324,9 @@ public class GCCreativeModeTabs {
                 output.accept(LEAD_BLOCK);
                 output.accept(NIOBIUM_BLOCK);
                 output.accept(FERRONIOBIUM_BLOCK);
+                output.accept(PALLADIUM_BLOCK);
+                output.accept(MAGNESIUM_BLOCK);
+                output.accept(URANIUM_BLOCK);
 
                 // CHEESE BLOCKS
                 output.accept(MOON_CHEESE_BLOCK);
@@ -436,6 +454,10 @@ public class GCCreativeModeTabs {
                 output.accept(FluidCanisterItem.getFilledCanister(FLUID_CANISTER, GCFluids.FUEL));
                 output.accept(FluidCanisterItem.getFilledCanister(FLUID_CANISTER, Gases.METHANE));
                 output.accept(FluidCanisterItem.getFilledCanister(FLUID_CANISTER, Gases.OXYGEN));
+                output.accept(FluidCanisterItem.getFilledCanister(FLUID_CANISTER, Gases.SOLAR_VOLATILE_GAS));
+                output.accept(FluidCanisterItem.getFilledCanister(FLUID_CANISTER, Gases.HELIUM_3));
+                output.accept(FluidCanisterItem.getFilledCanister(FLUID_CANISTER, Gases.DEUTERIUM));
+                output.accept(FluidCanisterItem.getFilledCanister(FLUID_CANISTER, Gases.XENON));
                 //output.accept(FluidCanisterItem.getFilledCanister(FLUID_CANISTER, GCFluids.LIQUID_NITROGEN)); // Liquid nitrogen not added yet
 
                 output.accept(SMALL_OXYGEN_TANK);
@@ -501,6 +523,19 @@ public class GCCreativeModeTabs {
                 output.accept(COMPRESSED_TITANIUM);
                 output.accept(COMPRESSED_NIOBIUM);
                 output.accept(SUPERCONDUCTING_COIL);
+                output.accept(RAW_PALLADIUM);
+                output.accept(PALLADIUM_INGOT);
+                output.accept(COMPRESSED_PALLADIUM);
+                output.accept(METALLIC_HYDROGEN_CELL);
+                output.accept(RAW_MAGNESIUM);
+                output.accept(MAGNESIUM_INGOT);
+                output.accept(COMPRESSED_MAGNESIUM);
+                output.accept(HELIUM3_CELL);
+                output.accept(HELIUM3_FUSION_CELL);
+                output.accept(LONSDALEITE_GEM);
+                output.accept(RAW_URANIUM);
+                output.accept(URANIUM_INGOT);
+                output.accept(SUPERIONIC_ICE_CRYSTAL);
 
                 output.accept(TIER_1_HEAVY_DUTY_PLATE);
                 output.accept(TIER_2_HEAVY_DUTY_PLATE);

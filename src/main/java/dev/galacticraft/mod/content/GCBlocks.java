@@ -241,6 +241,9 @@ public class GCBlocks {
     public static final Block JUPITER_TIN_ORE = BLOCKS.registerWithItem(Constant.Block.JUPITER_TIN_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(JUPITER_STONE, 3.5F, 4.0F)));
     public static final Block JUPITER_IRON_ORE = BLOCKS.registerWithItem(Constant.Block.JUPITER_IRON_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(JUPITER_STONE, 4.0F, 4.5F)));
     public static final Block JUPITER_ALUMINUM_ORE = BLOCKS.registerWithItem(Constant.Block.JUPITER_ALUMINUM_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(JUPITER_STONE, 3.8F, 4.0F)));
+    public static final Block JUPITER_NIOBIUM_ORE = BLOCKS.registerWithItem(Constant.Block.JUPITER_NIOBIUM_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(JUPITER_STONE, 4.2F, 5.0F)));
+    public static final Block JUPITER_TITANIUM_ORE = BLOCKS.registerWithItem(Constant.Block.JUPITER_TITANIUM_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(JUPITER_STONE, 4.5F, 5.5F)));
+    public static final Block JUPITER_PALLADIUM_ORE = BLOCKS.registerWithItem(Constant.Block.JUPITER_PALLADIUM_ORE, new DropExperienceBlock(UniformInt.of(2, 5), oreSettings(JUPITER_CORE_BRECCIA, 5.0F, 6.5F)));
 
     // SATURN NATURAL & ORES
     public static final Block SATURN_SURFACE = BLOCKS.registerWithItem(Constant.Block.SATURN_SURFACE, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.SAND).instrument(NoteBlockInstrument.BASEDRUM).strength(1.7F, 3.5F).sound(SoundType.STONE).requiresCorrectToolForDrops()));
@@ -255,6 +258,9 @@ public class GCBlocks {
     public static final Block SATURN_TIN_ORE = BLOCKS.registerWithItem(Constant.Block.SATURN_TIN_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(SATURN_STONE, 3.5F, 4.0F)));
     public static final Block SATURN_IRON_ORE = BLOCKS.registerWithItem(Constant.Block.SATURN_IRON_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(SATURN_STONE, 4.0F, 4.5F)));
     public static final Block SATURN_TITANIUM_ORE = BLOCKS.registerWithItem(Constant.Block.SATURN_TITANIUM_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(SATURN_STONE, 4.2F, 5.0F)));
+    public static final Block SATURN_ALUMINUM_ORE = BLOCKS.registerWithItem(Constant.Block.SATURN_ALUMINUM_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(SATURN_STONE, 3.8F, 4.5F)));
+    public static final Block SATURN_NIOBIUM_ORE = BLOCKS.registerWithItem(Constant.Block.SATURN_NIOBIUM_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(SATURN_STONE, 4.2F, 5.0F)));
+    public static final Block SATURN_MAGNESIUM_ORE = BLOCKS.registerWithItem(Constant.Block.SATURN_MAGNESIUM_ORE, new DropExperienceBlock(UniformInt.of(1, 4), oreSettings(SATURN_STONE, 4.0F, 5.5F)));
 
     // URANUS NATURAL & ORES
     public static final Block URANUS_SURFACE = BLOCKS.registerWithItem(Constant.Block.URANUS_SURFACE, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_BLUE).instrument(NoteBlockInstrument.BASEDRUM).strength(1.8F, 3.5F).sound(SoundType.STONE).requiresCorrectToolForDrops()));
@@ -269,6 +275,9 @@ public class GCBlocks {
     public static final Block URANUS_TIN_ORE = BLOCKS.registerWithItem(Constant.Block.URANUS_TIN_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(URANUS_STONE, 3.5F, 4.0F)));
     public static final Block URANUS_ALUMINUM_ORE = BLOCKS.registerWithItem(Constant.Block.URANUS_ALUMINUM_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(URANUS_STONE, 3.8F, 4.5F)));
     public static final Block URANUS_TITANIUM_ORE = BLOCKS.registerWithItem(Constant.Block.URANUS_TITANIUM_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(URANUS_STONE, 4.2F, 5.0F)));
+    public static final Block URANUS_IRON_ORE = BLOCKS.registerWithItem(Constant.Block.URANUS_IRON_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(URANUS_STONE, 4.0F, 4.5F)));
+    public static final Block URANUS_NIOBIUM_ORE = BLOCKS.registerWithItem(Constant.Block.URANUS_NIOBIUM_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(URANUS_STONE, 4.2F, 5.0F)));
+    public static final Block URANUS_URANIUM_ORE = BLOCKS.registerWithItem(Constant.Block.URANUS_URANIUM_ORE, new DropExperienceBlock(UniformInt.of(2, 6), oreSettings(URANUS_SUPERIONIC_MANTLE_ROCK, 5.0F, 6.5F).lightLevel(s -> 4)));
 
     // NEPTUNE NATURAL & ORES
     public static final Block NEPTUNE_SURFACE = BLOCKS.registerWithItem(Constant.Block.NEPTUNE_SURFACE, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE).instrument(NoteBlockInstrument.BASEDRUM).strength(1.9F, 4.0F).sound(SoundType.STONE).requiresCorrectToolForDrops()));
@@ -283,6 +292,8 @@ public class GCBlocks {
     public static final Block NEPTUNE_TIN_ORE = BLOCKS.registerWithItem(Constant.Block.NEPTUNE_TIN_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(NEPTUNE_STONE, 3.5F, 4.0F)));
     public static final Block NEPTUNE_IRON_ORE = BLOCKS.registerWithItem(Constant.Block.NEPTUNE_IRON_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(NEPTUNE_STONE, 4.0F, 4.5F)));
     public static final Block NEPTUNE_TITANIUM_ORE = BLOCKS.registerWithItem(Constant.Block.NEPTUNE_TITANIUM_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(NEPTUNE_STONE, 4.2F, 5.0F)));
+    public static final Block NEPTUNE_ALUMINUM_ORE = BLOCKS.registerWithItem(Constant.Block.NEPTUNE_ALUMINUM_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(NEPTUNE_STONE, 3.8F, 4.5F)));
+    public static final Block NEPTUNE_NIOBIUM_ORE = BLOCKS.registerWithItem(Constant.Block.NEPTUNE_NIOBIUM_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(NEPTUNE_STONE, 4.2F, 5.0F)));
 
     // ORES
     public static final Block SILICON_ORE = BLOCKS.registerWithItem(Constant.Block.SILICON_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(Blocks.STONE, 3.0F, 3.0F)));
@@ -357,6 +368,10 @@ public class GCBlocks {
     public static final Block LEAD_BLOCK = BLOCKS.registerWithItem(Constant.Block.LEAD_BLOCK, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BLUE).strength(5.0F, 6.0F).sound(SoundType.METAL).requiresCorrectToolForDrops()));
     public static final Block NIOBIUM_BLOCK = BLOCKS.registerWithItem(Constant.Block.NIOBIUM_BLOCK, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_CYAN).strength(5.5F, 7.0F).sound(SoundType.METAL).requiresCorrectToolForDrops()));
     public static final Block FERRONIOBIUM_BLOCK = BLOCKS.registerWithItem(Constant.Block.FERRONIOBIUM_BLOCK, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).strength(5.5F, 7.0F).sound(SoundType.METAL).requiresCorrectToolForDrops()));
+    public static final Block PALLADIUM_BLOCK = BLOCKS.registerWithItem(Constant.Block.PALLADIUM_BLOCK, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).strength(6.0F, 8.0F).sound(SoundType.METAL).requiresCorrectToolForDrops()));
+    public static final Block MAGNESIUM_BLOCK = BLOCKS.registerWithItem(Constant.Block.MAGNESIUM_BLOCK, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).strength(4.5F, 6.0F).sound(SoundType.METAL).requiresCorrectToolForDrops()));
+    public static final Block URANIUM_BLOCK = BLOCKS.registerWithItem(Constant.Block.URANIUM_BLOCK, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GREEN).strength(6.0F, 8.0F).sound(SoundType.METAL).lightLevel(s -> 5).requiresCorrectToolForDrops()));
+    public static final Block LONSDALEITE_BLOCK = BLOCKS.registerWithItem(Constant.Block.LONSDALEITE_BLOCK, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DIAMOND).strength(8.0F, 12.0F).sound(SoundType.AMETHYST).lightLevel(s -> 4).requiresCorrectToolForDrops()));
     public static final Block LUNAR_SAPPHIRE_BLOCK = BLOCKS.registerWithItem(Constant.Block.LUNAR_SAPPHIRE_BLOCK, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE).strength(5.0F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops()));
     public static final Block OLIVINE_BLOCK = BLOCKS.registerWithItem(Constant.Block.OLIVINE_BLOCK, new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GREEN).strength(1.5F, 1.5F).sound(SoundType.AMETHYST).requiresCorrectToolForDrops()));
     public static final Block RAW_METEORIC_IRON_BLOCK = BLOCKS.registerWithItem(Constant.Block.RAW_METEORIC_IRON_BLOCK, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).strength(5.0F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops()));
@@ -366,6 +381,9 @@ public class GCBlocks {
     public static final Block RAW_TITANIUM_BLOCK = BLOCKS.registerWithItem(Constant.Block.RAW_TITANIUM_BLOCK, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.CLAY).strength(5.0F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops()));
     public static final Block RAW_LEAD_BLOCK = BLOCKS.registerWithItem(Constant.Block.RAW_LEAD_BLOCK, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BLUE).strength(5.0F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops()));
     public static final Block RAW_NIOBIUM_BLOCK = BLOCKS.registerWithItem(Constant.Block.RAW_NIOBIUM_BLOCK, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).strength(5.0F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops()));
+    public static final Block RAW_PALLADIUM_BLOCK = BLOCKS.registerWithItem(Constant.Block.RAW_PALLADIUM_BLOCK, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).strength(5.5F, 7.0F).sound(SoundType.STONE).requiresCorrectToolForDrops()));
+    public static final Block RAW_MAGNESIUM_BLOCK = BLOCKS.registerWithItem(Constant.Block.RAW_MAGNESIUM_BLOCK, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).strength(4.5F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops()));
+    public static final Block RAW_URANIUM_BLOCK = BLOCKS.registerWithItem(Constant.Block.RAW_URANIUM_BLOCK, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GREEN).strength(5.5F, 7.0F).sound(SoundType.STONE).lightLevel(s -> 4).requiresCorrectToolForDrops()));
 
     // CHEESE BLOCKS
     public static final Block MOON_CHEESE_BLOCK = BLOCKS.registerWithItem(Constant.Block.MOON_CHEESE_BLOCK, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW).strength(0.5F).sound(SoundType.WOOL)));

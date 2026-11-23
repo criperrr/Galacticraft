@@ -1,0 +1,15 @@
+{
+  "type": "galacticraft:compressing_shapeless",
+  "ingredients": [
+    {
+      "tag": "c:ingots/magnesium"
+    },
+    {
+      "tag": "c:ingots/magnesium"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:compressed_magnesium"
+  }
+}

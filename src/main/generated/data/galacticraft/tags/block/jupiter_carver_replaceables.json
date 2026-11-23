@@ -10,6 +10,9 @@
     "galacticraft:jupiter_copper_ore",
     "galacticraft:jupiter_tin_ore",
     "galacticraft:jupiter_iron_ore",
-    "galacticraft:jupiter_aluminum_ore"
+    "galacticraft:jupiter_aluminum_ore",
+    "galacticraft:jupiter_niobium_ore",
+    "galacticraft:jupiter_titanium_ore",
+    "galacticraft:jupiter_palladium_ore"
   ]
 }

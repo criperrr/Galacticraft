@@ -36,11 +36,14 @@
     "galacticraft:silicon_block",
     "galacticraft:lunar_sapphire_block",
     "galacticraft:mercury_shock_breccia",
-    "galacticraft:jupiter_metallic_hydrogen_rock",
     "galacticraft:jupiter_core_breccia",
-    "galacticraft:saturn_helium_mantle_rock",
+    "galacticraft:jupiter_niobium_ore",
+    "galacticraft:saturn_niobium_ore",
+    "galacticraft:saturn_magnesium_ore",
+    "galacticraft:magnesium_block",
+    "galacticraft:raw_magnesium_block",
     "galacticraft:uranus_superionic_mantle_rock",
-    "galacticraft:uranus_diamond_bearing_rock",
-    "galacticraft:neptune_abyssal_mantle_rock"
+    "galacticraft:uranus_niobium_ore",
+    "galacticraft:neptune_niobium_ore"
   ]
 }

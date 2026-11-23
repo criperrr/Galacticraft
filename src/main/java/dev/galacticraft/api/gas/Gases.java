@@ -145,6 +145,30 @@ public final class Gases {
             Component.translatable(APIConstants.Gas.HELIUM),
             APIConstants.id("gas/helium"), "He"
     );
+    public static final ResourceLocation HELIUM_3_ID = APIConstants.id("helium_3");
+    /**
+     * Helium-3 isotope gas.
+     */
+    public static final Fluid HELIUM_3 = GasFluid.create(
+            Component.translatable(APIConstants.Gas.HELIUM_3),
+            APIConstants.id("gas/helium_3"), "3He"
+    );
+    public static final ResourceLocation DEUTERIUM_ID = APIConstants.id("deuterium");
+    /**
+     * Deuterium gas.
+     */
+    public static final Fluid DEUTERIUM = GasFluid.create(
+            Component.translatable(APIConstants.Gas.DEUTERIUM),
+            APIConstants.id("gas/deuterium"), "D2"
+    );
+    public static final ResourceLocation SOLAR_VOLATILE_GAS_ID = APIConstants.id("solar_volatile_gas");
+    /**
+     * Raw solar wind volatiles desorbed from lunar/mercurian regolith.
+     */
+    public static final Fluid SOLAR_VOLATILE_GAS = GasFluid.create(
+            Component.translatable(APIConstants.Gas.SOLAR_VOLATILE_GAS),
+            APIConstants.id("gas/solar_volatile_gas"), "SV"
+    );
     public static final ResourceLocation NEON_ID = APIConstants.id("neon");
     /**
      * Neon.
@@ -200,6 +224,9 @@ public final class Gases {
         Registry.register(BuiltInRegistries.FLUID, NITROUS_OXIDE_ID, NITROUS_OXIDE);
         Registry.register(BuiltInRegistries.FLUID, NITROGEN_DIOXIDE_ID, NITROGEN_DIOXIDE);
         Registry.register(BuiltInRegistries.FLUID, HELIUM_ID, HELIUM);
+        Registry.register(BuiltInRegistries.FLUID, HELIUM_3_ID, HELIUM_3);
+        Registry.register(BuiltInRegistries.FLUID, DEUTERIUM_ID, DEUTERIUM);
+        Registry.register(BuiltInRegistries.FLUID, SOLAR_VOLATILE_GAS_ID, SOLAR_VOLATILE_GAS);
         Registry.register(BuiltInRegistries.FLUID, NEON_ID, NEON);
         Registry.register(BuiltInRegistries.FLUID, ARGON_ID, ARGON);
         Registry.register(BuiltInRegistries.FLUID, KRYPTON_ID, KRYPTON);

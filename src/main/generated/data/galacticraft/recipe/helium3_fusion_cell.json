@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "galacticraft:helium3_cell"
+    },
+    {
+      "item": "galacticraft:dense_ice"
+    },
+    {
+      "item": "galacticraft:superconducting_coil"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:helium3_fusion_cell"
+  }
+}

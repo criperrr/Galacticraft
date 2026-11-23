@@ -205,13 +205,16 @@ public class GCBlockLootTableProvider extends FabricBlockLootTableProvider {
         this.dropSelf(GCBlocks.JUPITER_STONE);
         this.dropSelf(GCBlocks.JUPITER_RED_STORM_ROCK);
         this.dropSelf(GCBlocks.JUPITER_BANDED_OCHRE_ROCK);
-        this.dropSelf(GCBlocks.JUPITER_METALLIC_HYDROGEN_ROCK);
+        this.add(GCBlocks.JUPITER_METALLIC_HYDROGEN_ROCK, this.createOreDrop(GCBlocks.JUPITER_METALLIC_HYDROGEN_ROCK, GCItems.METALLIC_HYDROGEN_CELL));
         this.dropSelf(GCBlocks.JUPITER_CORE_BRECCIA);
         this.dropSelf(GCBlocks.JUPITER_STONE_BRICKS);
         this.add(GCBlocks.JUPITER_COPPER_ORE, this.createCopperOreDrops(GCBlocks.JUPITER_COPPER_ORE));
         this.add(GCBlocks.JUPITER_TIN_ORE, this.createOreDrop(GCBlocks.JUPITER_TIN_ORE, GCItems.RAW_TIN, 2.0F, 5.0F));
         this.add(GCBlocks.JUPITER_IRON_ORE, this.createOreDrop(GCBlocks.JUPITER_IRON_ORE, Items.RAW_IRON));
         this.add(GCBlocks.JUPITER_ALUMINUM_ORE, this.createOreDrop(GCBlocks.JUPITER_ALUMINUM_ORE, GCItems.RAW_ALUMINUM));
+        this.add(GCBlocks.JUPITER_NIOBIUM_ORE, this.createOreDrop(GCBlocks.JUPITER_NIOBIUM_ORE, GCItems.RAW_NIOBIUM));
+        this.add(GCBlocks.JUPITER_TITANIUM_ORE, this.createOreDrop(GCBlocks.JUPITER_TITANIUM_ORE, GCItems.RAW_TITANIUM));
+        this.add(GCBlocks.JUPITER_PALLADIUM_ORE, this.createOreDrop(GCBlocks.JUPITER_PALLADIUM_ORE, GCItems.RAW_PALLADIUM));
 
         // SATURN
         this.dropSelf(GCBlocks.SATURN_SURFACE);
@@ -226,6 +229,9 @@ public class GCBlockLootTableProvider extends FabricBlockLootTableProvider {
         this.add(GCBlocks.SATURN_TIN_ORE, this.createOreDrop(GCBlocks.SATURN_TIN_ORE, GCItems.RAW_TIN, 2.0F, 5.0F));
         this.add(GCBlocks.SATURN_IRON_ORE, this.createOreDrop(GCBlocks.SATURN_IRON_ORE, Items.RAW_IRON));
         this.add(GCBlocks.SATURN_TITANIUM_ORE, this.createOreDrop(GCBlocks.SATURN_TITANIUM_ORE, GCItems.RAW_TITANIUM));
+        this.add(GCBlocks.SATURN_ALUMINUM_ORE, this.createOreDrop(GCBlocks.SATURN_ALUMINUM_ORE, GCItems.RAW_ALUMINUM));
+        this.add(GCBlocks.SATURN_NIOBIUM_ORE, this.createOreDrop(GCBlocks.SATURN_NIOBIUM_ORE, GCItems.RAW_NIOBIUM));
+        this.add(GCBlocks.SATURN_MAGNESIUM_ORE, this.createOreDrop(GCBlocks.SATURN_MAGNESIUM_ORE, GCItems.RAW_MAGNESIUM));
 
         // URANUS
         this.dropSelf(GCBlocks.URANUS_SURFACE);
@@ -234,12 +240,15 @@ public class GCBlockLootTableProvider extends FabricBlockLootTableProvider {
         this.dropSelf(GCBlocks.URANUS_METHANE_ICE);
         this.dropSelf(GCBlocks.URANUS_VERONA_SCARP_ROCK);
         this.dropSelf(GCBlocks.URANUS_SUPERIONIC_MANTLE_ROCK);
-        this.dropSelf(GCBlocks.URANUS_DIAMOND_BEARING_ROCK);
+        this.add(GCBlocks.URANUS_DIAMOND_BEARING_ROCK, this.createOreDrop(GCBlocks.URANUS_DIAMOND_BEARING_ROCK, GCItems.LONSDALEITE_GEM));
         this.dropSelf(GCBlocks.URANUS_STONE_BRICKS);
         this.add(GCBlocks.URANUS_COPPER_ORE, this.createCopperOreDrops(GCBlocks.URANUS_COPPER_ORE));
         this.add(GCBlocks.URANUS_TIN_ORE, this.createOreDrop(GCBlocks.URANUS_TIN_ORE, GCItems.RAW_TIN, 2.0F, 5.0F));
         this.add(GCBlocks.URANUS_ALUMINUM_ORE, this.createOreDrop(GCBlocks.URANUS_ALUMINUM_ORE, GCItems.RAW_ALUMINUM));
         this.add(GCBlocks.URANUS_TITANIUM_ORE, this.createOreDrop(GCBlocks.URANUS_TITANIUM_ORE, GCItems.RAW_TITANIUM));
+        this.add(GCBlocks.URANUS_IRON_ORE, this.createOreDrop(GCBlocks.URANUS_IRON_ORE, Items.RAW_IRON));
+        this.add(GCBlocks.URANUS_NIOBIUM_ORE, this.createOreDrop(GCBlocks.URANUS_NIOBIUM_ORE, GCItems.RAW_NIOBIUM));
+        this.add(GCBlocks.URANUS_URANIUM_ORE, this.createOreDrop(GCBlocks.URANUS_URANIUM_ORE, GCItems.RAW_URANIUM));
 
         // NEPTUNE
         this.dropSelf(GCBlocks.NEPTUNE_SURFACE);
@@ -248,12 +257,14 @@ public class GCBlockLootTableProvider extends FabricBlockLootTableProvider {
         this.dropSelf(GCBlocks.NEPTUNE_NITROGEN_ICE);
         this.dropSelf(GCBlocks.NEPTUNE_DARK_VORTEX_ROCK);
         this.dropSelf(GCBlocks.NEPTUNE_CRYO_SLATE);
-        this.dropSelf(GCBlocks.NEPTUNE_ABYSSAL_MANTLE_ROCK);
+        this.add(GCBlocks.NEPTUNE_ABYSSAL_MANTLE_ROCK, this.createOreDrop(GCBlocks.NEPTUNE_ABYSSAL_MANTLE_ROCK, GCItems.SUPERIONIC_ICE_CRYSTAL));
         this.dropSelf(GCBlocks.NEPTUNE_STONE_BRICKS);
         this.add(GCBlocks.NEPTUNE_COPPER_ORE, this.createCopperOreDrops(GCBlocks.NEPTUNE_COPPER_ORE));
         this.add(GCBlocks.NEPTUNE_TIN_ORE, this.createOreDrop(GCBlocks.NEPTUNE_TIN_ORE, GCItems.RAW_TIN, 2.0F, 5.0F));
         this.add(GCBlocks.NEPTUNE_IRON_ORE, this.createOreDrop(GCBlocks.NEPTUNE_IRON_ORE, Items.RAW_IRON));
         this.add(GCBlocks.NEPTUNE_TITANIUM_ORE, this.createOreDrop(GCBlocks.NEPTUNE_TITANIUM_ORE, GCItems.RAW_TITANIUM));
+        this.add(GCBlocks.NEPTUNE_ALUMINUM_ORE, this.createOreDrop(GCBlocks.NEPTUNE_ALUMINUM_ORE, GCItems.RAW_ALUMINUM));
+        this.add(GCBlocks.NEPTUNE_NIOBIUM_ORE, this.createOreDrop(GCBlocks.NEPTUNE_NIOBIUM_ORE, GCItems.RAW_NIOBIUM));
         this.dropSelf(GCBlocks.PUMICE);
         this.add(GCBlocks.VAPOR_SPOUT, this.createSingleItemTableWithSilkTouch(GCBlocks.VAPOR_SPOUT, GCBlocks.SOFT_VENUS_ROCK));
         this.add(GCBlocks.CRASHED_PROBE, this.createSilkTouchOnlyTable(GCBlocks.CRASHED_PROBE));
@@ -397,6 +408,10 @@ public class GCBlockLootTableProvider extends FabricBlockLootTableProvider {
         this.dropSelf(GCBlocks.LEAD_BLOCK);
         this.dropSelf(GCBlocks.NIOBIUM_BLOCK);
         this.dropSelf(GCBlocks.FERRONIOBIUM_BLOCK);
+        this.dropSelf(GCBlocks.PALLADIUM_BLOCK);
+        this.dropSelf(GCBlocks.MAGNESIUM_BLOCK);
+        this.dropSelf(GCBlocks.URANIUM_BLOCK);
+        this.dropSelf(GCBlocks.LONSDALEITE_BLOCK);
         this.dropSelf(GCBlocks.LUNAR_SAPPHIRE_BLOCK);
         this.dropSelf(GCBlocks.OLIVINE_BLOCK);
         this.dropSelf(GCBlocks.BUDDING_OLIVINE);
@@ -407,6 +422,9 @@ public class GCBlockLootTableProvider extends FabricBlockLootTableProvider {
         this.dropSelf(GCBlocks.RAW_TITANIUM_BLOCK);
         this.dropSelf(GCBlocks.RAW_LEAD_BLOCK);
         this.dropSelf(GCBlocks.RAW_NIOBIUM_BLOCK);
+        this.dropSelf(GCBlocks.RAW_PALLADIUM_BLOCK);
+        this.dropSelf(GCBlocks.RAW_MAGNESIUM_BLOCK);
+        this.dropSelf(GCBlocks.RAW_URANIUM_BLOCK);
 
         this.dropSelf(GCBlocks.MOON_CHEESE_BLOCK);
         this.dropSelf(GCBlocks.MOON_CHEESE_LOG);

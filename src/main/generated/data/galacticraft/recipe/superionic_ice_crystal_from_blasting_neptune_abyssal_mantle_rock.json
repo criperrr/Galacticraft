@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 120,
+  "experience": 1.5,
+  "group": "superionic_ice_crystal",
+  "ingredient": {
+    "item": "galacticraft:neptune_abyssal_mantle_rock"
+  },
+  "result": {
+    "id": "galacticraft:superionic_ice_crystal"
+  }
+}

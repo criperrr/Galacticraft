@@ -243,6 +243,9 @@ public class GCTranslationProvider extends TranslationProvider {
         this.block(GCBlocks.JUPITER_TIN_ORE, "Jupiter Tin Ore");
         this.block(GCBlocks.JUPITER_IRON_ORE, "Jupiter Iron Ore");
         this.block(GCBlocks.JUPITER_ALUMINUM_ORE, "Jupiter Aluminum Ore");
+        this.block(GCBlocks.JUPITER_NIOBIUM_ORE, "Jupiter Niobium Ore");
+        this.block(GCBlocks.JUPITER_TITANIUM_ORE, "Jupiter Titanium Ore");
+        this.block(GCBlocks.JUPITER_PALLADIUM_ORE, "Jupiter Palladium Ore");
 
         // SATURN NATURAL & ORES
         this.block(GCBlocks.SATURN_SURFACE, "Saturn Surface Rock");
@@ -257,6 +260,9 @@ public class GCTranslationProvider extends TranslationProvider {
         this.block(GCBlocks.SATURN_TIN_ORE, "Saturn Tin Ore");
         this.block(GCBlocks.SATURN_IRON_ORE, "Saturn Iron Ore");
         this.block(GCBlocks.SATURN_TITANIUM_ORE, "Saturn Titanium Ore");
+        this.block(GCBlocks.SATURN_ALUMINUM_ORE, "Saturn Aluminum Ore");
+        this.block(GCBlocks.SATURN_NIOBIUM_ORE, "Saturn Niobium Ore");
+        this.block(GCBlocks.SATURN_MAGNESIUM_ORE, "Saturn Magnesium Ore");
 
         // URANUS NATURAL & ORES
         this.block(GCBlocks.URANUS_SURFACE, "Uranus Surface Rock");
@@ -271,6 +277,9 @@ public class GCTranslationProvider extends TranslationProvider {
         this.block(GCBlocks.URANUS_TIN_ORE, "Uranus Tin Ore");
         this.block(GCBlocks.URANUS_ALUMINUM_ORE, "Uranus Aluminum Ore");
         this.block(GCBlocks.URANUS_TITANIUM_ORE, "Uranus Titanium Ore");
+        this.block(GCBlocks.URANUS_IRON_ORE, "Uranus Iron Ore");
+        this.block(GCBlocks.URANUS_NIOBIUM_ORE, "Uranus Niobium Ore");
+        this.block(GCBlocks.URANUS_URANIUM_ORE, "Uranus Uranium Ore");
 
         // NEPTUNE NATURAL & ORES
         this.block(GCBlocks.NEPTUNE_SURFACE, "Neptune Surface Rock");
@@ -285,6 +294,8 @@ public class GCTranslationProvider extends TranslationProvider {
         this.block(GCBlocks.NEPTUNE_TIN_ORE, "Neptune Tin Ore");
         this.block(GCBlocks.NEPTUNE_IRON_ORE, "Neptune Iron Ore");
         this.block(GCBlocks.NEPTUNE_TITANIUM_ORE, "Neptune Titanium Ore");
+        this.block(GCBlocks.NEPTUNE_ALUMINUM_ORE, "Neptune Aluminum Ore");
+        this.block(GCBlocks.NEPTUNE_NIOBIUM_ORE, "Neptune Niobium Ore");
 
         // MISC DECOR
         this.block(GCBlocks.WALKWAY, "Walkway");
@@ -427,6 +438,10 @@ public class GCTranslationProvider extends TranslationProvider {
         this.block(GCBlocks.LEAD_BLOCK, "Block of Lead");
         this.block(GCBlocks.NIOBIUM_BLOCK, "Block of Niobium");
         this.block(GCBlocks.FERRONIOBIUM_BLOCK, "Block of Ferroniobium");
+        this.block(GCBlocks.PALLADIUM_BLOCK, "Block of Palladium");
+        this.block(GCBlocks.MAGNESIUM_BLOCK, "Block of Magnesium");
+        this.block(GCBlocks.URANIUM_BLOCK, "Block of Uranium");
+        this.block(GCBlocks.LONSDALEITE_BLOCK, "Block of Lonsdaleite");
         this.block(GCBlocks.LUNAR_SAPPHIRE_BLOCK, "Block of Lunar Sapphire");
         this.block(GCBlocks.OLIVINE_BLOCK, "Block of Olivine");
         this.block(GCBlocks.BUDDING_OLIVINE, "Budding Olivine");
@@ -437,6 +452,9 @@ public class GCTranslationProvider extends TranslationProvider {
         this.block(GCBlocks.RAW_TITANIUM_BLOCK, "Block of Raw Titanium");
         this.block(GCBlocks.RAW_LEAD_BLOCK, "Block of Raw Lead");
         this.block(GCBlocks.RAW_NIOBIUM_BLOCK, "Block of Raw Niobium");
+        this.block(GCBlocks.RAW_PALLADIUM_BLOCK, "Block of Raw Palladium");
+        this.block(GCBlocks.RAW_MAGNESIUM_BLOCK, "Block of Raw Magnesium");
+        this.block(GCBlocks.RAW_URANIUM_BLOCK, "Block of Raw Uranium");
 
         // CHEESE BLOCKS
         this.block(GCBlocks.MOON_CHEESE_BLOCK, "Moon Cheese Block");
@@ -532,6 +550,23 @@ public class GCTranslationProvider extends TranslationProvider {
         this.item(GCItems.NIOBIUM_NUGGET, "Niobium Nugget");
         this.item(GCItems.COMPRESSED_NIOBIUM, "Compressed Niobium");
         this.item(GCItems.SUPERCONDUCTING_COIL, "Superconducting Coil");
+
+        this.item(GCItems.RAW_PALLADIUM, "Raw Palladium");
+        this.item(GCItems.PALLADIUM_INGOT, "Palladium Ingot");
+        this.item(GCItems.COMPRESSED_PALLADIUM, "Compressed Palladium");
+        this.item(GCItems.METALLIC_HYDROGEN_CELL, "Metallic Hydrogen Cell");
+
+        this.item(GCItems.RAW_MAGNESIUM, "Raw Magnesium");
+        this.item(GCItems.MAGNESIUM_INGOT, "Magnesium Ingot");
+        this.item(GCItems.COMPRESSED_MAGNESIUM, "Compressed Magnesium");
+        this.item(GCItems.HELIUM3_CELL, "Helium-3 Cell");
+        this.item(GCItems.HELIUM3_FUSION_CELL, "Helium-3 Fusion Cell");
+
+        this.item(GCItems.LONSDALEITE_GEM, "Lonsdaleite Gem");
+        this.item(GCItems.RAW_URANIUM, "Raw Uranium");
+        this.item(GCItems.URANIUM_INGOT, "Uranium Ingot");
+
+        this.item(GCItems.SUPERIONIC_ICE_CRYSTAL, "Superionic Ice Crystal");
 
         this.item(GCItems.RAW_ALUMINUM, "Raw Aluminum");
         this.item(GCItems.ALUMINUM_INGOT, "Aluminum Ingot");
@@ -960,7 +995,9 @@ public class GCTranslationProvider extends TranslationProvider {
         this.add(Gas.ARGON, "Argon");
         this.add(Gas.CARBON_DIOXIDE, "Carbon Dioxide");
         this.add(Gas.CARBON_MONOXIDE, "Carbon Monoxide");
+        this.add(Gas.DEUTERIUM, "Deuterium");
         this.add(Gas.HELIUM, "Helium");
+        this.add(Gas.HELIUM_3, "Helium-3");
         this.add(Gas.HYDROGEN, "Hydrogen");
         this.add(Gas.HYDROGEN_DEUTERIUM_OXIDE, "Hydrogen Deuterium Oxide");
         this.add(Gas.IODINE, "Iodine");
@@ -973,6 +1010,7 @@ public class GCTranslationProvider extends TranslationProvider {
         this.add(Gas.NITROUS_OXIDE, "Nitrous Oxide");
         this.add(Gas.OXYGEN, "Oxygen");
         this.add(Gas.OZONE, "Ozone");
+        this.add(Gas.SOLAR_VOLATILE_GAS, "Solar Volatile Gas");
         this.add(Gas.WATER_VAPOR, "Water Vapor");
         this.add(Gas.XENON, "Xenon");
     }

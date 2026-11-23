@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 120,
+  "experience": 1.2,
+  "group": "uranium_ingot",
+  "ingredient": {
+    "item": "galacticraft:uranus_uranium_ore"
+  },
+  "result": {
+    "id": "galacticraft:uranium_ingot"
+  }
+}

@@ -3,6 +3,9 @@
     "galacticraft:uranus_copper_ore",
     "galacticraft:uranus_tin_ore",
     "galacticraft:uranus_aluminum_ore",
-    "galacticraft:uranus_titanium_ore"
+    "galacticraft:uranus_titanium_ore",
+    "galacticraft:uranus_iron_ore",
+    "galacticraft:uranus_niobium_ore",
+    "galacticraft:uranus_uranium_ore"
   ]
 }

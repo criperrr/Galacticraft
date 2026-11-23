@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 240,
+  "experience": 1.5,
+  "group": "metallic_hydrogen_cell",
+  "ingredient": {
+    "item": "galacticraft:jupiter_metallic_hydrogen_rock"
+  },
+  "result": {
+    "id": "galacticraft:metallic_hydrogen_cell"
+  }
+}

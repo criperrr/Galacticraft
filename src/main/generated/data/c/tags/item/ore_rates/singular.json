@@ -38,11 +38,22 @@
     "galacticraft:mercury_native_iron_ore",
     "galacticraft:jupiter_iron_ore",
     "galacticraft:jupiter_aluminum_ore",
+    "galacticraft:jupiter_niobium_ore",
+    "galacticraft:jupiter_titanium_ore",
+    "galacticraft:jupiter_palladium_ore",
     "galacticraft:saturn_iron_ore",
     "galacticraft:saturn_titanium_ore",
+    "galacticraft:saturn_aluminum_ore",
+    "galacticraft:saturn_niobium_ore",
+    "galacticraft:saturn_magnesium_ore",
     "galacticraft:uranus_aluminum_ore",
     "galacticraft:uranus_titanium_ore",
+    "galacticraft:uranus_iron_ore",
+    "galacticraft:uranus_niobium_ore",
+    "galacticraft:uranus_uranium_ore",
     "galacticraft:neptune_iron_ore",
-    "galacticraft:neptune_titanium_ore"
+    "galacticraft:neptune_titanium_ore",
+    "galacticraft:neptune_aluminum_ore",
+    "galacticraft:neptune_niobium_ore"
   ]
 }

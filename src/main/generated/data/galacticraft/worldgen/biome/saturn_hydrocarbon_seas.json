@@ -37,7 +37,10 @@
       "galacticraft:ore_copper_saturn",
       "galacticraft:ore_tin_saturn",
       "galacticraft:ore_iron_saturn",
-      "galacticraft:ore_titanium_saturn"
+      "galacticraft:ore_titanium_saturn",
+      "galacticraft:ore_aluminum_saturn",
+      "galacticraft:ore_niobium_saturn",
+      "galacticraft:ore_magnesium_saturn"
     ]
   ],
   "has_precipitation": false,
