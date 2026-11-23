@@ -1,0 +1,11 @@
+{
+  "type": "galacticraft:thermal_desorption",
+  "gas_amount_mb": 200,
+  "ingredient": {
+    "item": "galacticraft:moon_basalt"
+  },
+  "primary_byproduct": {
+    "count": 1,
+    "id": "galacticraft:silicon"
+  }
+}

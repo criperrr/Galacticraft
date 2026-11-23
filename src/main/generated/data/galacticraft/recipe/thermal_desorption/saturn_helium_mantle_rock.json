@@ -1,0 +1,7 @@
+{
+  "type": "galacticraft:thermal_desorption",
+  "gas_amount_mb": 1200,
+  "ingredient": {
+    "item": "galacticraft:saturn_helium_mantle_rock"
+  }
+}

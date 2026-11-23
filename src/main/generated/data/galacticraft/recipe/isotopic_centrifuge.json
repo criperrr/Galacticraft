@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "galacticraft:superconducting_coil"
+    },
+    "M": {
+      "item": "galacticraft:fluid_manipulator"
+    },
+    "N": {
+      "item": "galacticraft:compressed_niobium"
+    },
+    "W": {
+      "item": "galacticraft:advanced_wafer"
+    }
+  },
+  "pattern": [
+    "NMN",
+    "NCN",
+    "NWN"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:isotopic_centrifuge"
+  }
+}

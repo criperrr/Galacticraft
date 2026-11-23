@@ -1,0 +1,11 @@
+{
+  "type": "galacticraft:thermal_desorption",
+  "gas_amount_mb": 450,
+  "ingredient": {
+    "item": "galacticraft:mercury_hollow_deposit"
+  },
+  "primary_byproduct": {
+    "count": 1,
+    "id": "galacticraft:silicon"
+  }
+}
