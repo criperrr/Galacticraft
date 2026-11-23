@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_helium3_canister": {
+    "has_saturn_helium_mantle_rock": {
       "conditions": {
         "items": [
           {
-            "items": "galacticraft:helium3_canister"
+            "items": "galacticraft:saturn_helium_mantle_rock"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_helium3_canister"
+      "has_saturn_helium_mantle_rock"
     ]
   ],
   "rewards": {

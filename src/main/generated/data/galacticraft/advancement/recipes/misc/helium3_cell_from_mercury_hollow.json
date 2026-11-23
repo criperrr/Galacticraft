@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_moon_turf": {
+    "has_mercury_hollow_deposit": {
       "conditions": {
         "items": [
           {
-            "items": "galacticraft:moon_turf"
+            "items": "galacticraft:mercury_hollow_deposit"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "galacticraft:raw_solar_volatile_canister_from_blasting_moon_turf"
+        "recipe": "galacticraft:helium3_cell_from_mercury_hollow"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_moon_turf"
+      "has_mercury_hollow_deposit"
     ]
   ],
   "rewards": {
     "recipes": [
-      "galacticraft:raw_solar_volatile_canister_from_blasting_moon_turf"
+      "galacticraft:helium3_cell_from_mercury_hollow"
     ]
   }
 }

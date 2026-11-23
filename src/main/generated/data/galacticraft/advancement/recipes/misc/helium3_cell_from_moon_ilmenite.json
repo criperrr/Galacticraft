@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_neptune_nitrogen_ice": {
+    "has_moon_ilmenite_ore": {
       "conditions": {
         "items": [
           {
-            "items": "galacticraft:neptune_nitrogen_ice"
+            "items": "galacticraft:moon_ilmenite_ore"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "galacticraft:xenon_canister_from_smelting_neptune_nitrogen_ice"
+        "recipe": "galacticraft:helium3_cell_from_moon_ilmenite"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_neptune_nitrogen_ice"
+      "has_moon_ilmenite_ore"
     ]
   ],
   "rewards": {
     "recipes": [
-      "galacticraft:xenon_canister_from_smelting_neptune_nitrogen_ice"
+      "galacticraft:helium3_cell_from_moon_ilmenite"
     ]
   }
 }

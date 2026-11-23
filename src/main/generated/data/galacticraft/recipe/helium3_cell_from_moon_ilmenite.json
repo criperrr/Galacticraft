@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "item": "galacticraft:moon_ilmenite_ore"
+    },
+    "N": {
+      "item": "galacticraft:compressed_niobium"
+    },
+    "S": {
+      "item": "galacticraft:lunar_sapphire"
+    }
+  },
+  "pattern": [
+    "NIN",
+    "ISI",
+    "NIN"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:helium3_cell"
+  }
+}

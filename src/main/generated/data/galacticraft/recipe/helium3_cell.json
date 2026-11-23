@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "H": {
-      "item": "galacticraft:helium3_canister"
+      "item": "galacticraft:saturn_helium_mantle_rock"
     },
     "N": {
       "item": "galacticraft:compressed_niobium"
@@ -18,7 +18,7 @@
     "NSN"
   ],
   "result": {
-    "count": 1,
+    "count": 2,
     "id": "galacticraft:helium3_cell"
   }
 }

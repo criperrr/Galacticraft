@@ -6,7 +6,10 @@
       "item": "galacticraft:helium3_cell"
     },
     {
-      "item": "galacticraft:deuterium_canister"
+      "item": "galacticraft:dense_ice"
+    },
+    {
+      "item": "galacticraft:superconducting_coil"
     }
   ],
   "result": {
