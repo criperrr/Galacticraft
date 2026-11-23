@@ -10,12 +10,15 @@
     },
     "R": {
       "tag": "c:dusts/redstone"
+    },
+    "S": {
+      "tag": "c:gems/lunar_sapphire"
     }
   },
   "pattern": [
-    "RPR",
+    "RSR",
     "PFP",
-    "RPR"
+    "RSR"
   ],
   "result": {
     "count": 1,

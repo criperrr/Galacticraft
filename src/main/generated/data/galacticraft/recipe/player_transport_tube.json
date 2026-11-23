@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "galacticraft:compressed_aluminum"
+    },
+    "F": {
+      "item": "galacticraft:oxygen_fan"
+    },
+    "G": {
+      "item": "galacticraft:vacuum_glass_clear"
+    }
+  },
+  "pattern": [
+    "GAG",
+    "GFG",
+    "GAG"
+  ],
+  "result": {
+    "count": 4,
+    "id": "galacticraft:player_transport_tube"
+  }
+}

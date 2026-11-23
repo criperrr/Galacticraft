@@ -1,0 +1,16 @@
+{
+  "type": "galacticraft:compressing_shapeless",
+  "ingredients": [
+    {
+      "item": "galacticraft:compressed_iron"
+    },
+    {
+      "item": "galacticraft:carbon_fragments"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:compressed_steel"
+  },
+  "time": 100
+}
