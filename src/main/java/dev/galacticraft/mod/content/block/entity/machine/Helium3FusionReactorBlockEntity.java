@@ -71,13 +71,13 @@ import java.util.List;
  * 3x3x3 Multiblock Aneutronic D-3He Magnetic-Hydrodynamic (MHD) Fusion Reactor.
  * <p>
  * Structure (centered 1 block behind the controller):
- * - Bottom & Top layers (y-1, y+1): 8x FUSION_REACTOR_CASING perimeter + 1x FUSION_MAGNET_COIL center
+ * - Bottom and Top layers (y-1, y+1): 8x FUSION_REACTOR_CASING perimeter + 1x FUSION_MAGNET_COIL center
  * - Middle layer (y): 4x FUSION_MAGNET_COIL corners, controller in front center, 3x FUSION_PLASMA_GLASS
  *   (or FUSION_REACTOR_CASING) on the remaining 3 faces, and a hollow air core in the center for the plasma vortex.
  * <p>
- * Reaction: D + 3He -> 4He + p+ + 18.3 MeV (direct MHD conversion, zero neutron radiation).
+ * Reaction: D + 3He -&gt; 4He + p+ + 18.3 MeV (direct MHD conversion, zero neutron radiation).
  * Ramps plasma temperature to 150 MK ignition threshold, then generates 2,500 GJ/t baseline (12.0 T)
- * or 5,000 GJ/t with <2K superfluid Helium-3 Cell cryogenic cooling (18.5 T).
+ * or 5,000 GJ/t with sub-2K superfluid Helium-3 Cell cryogenic cooling (18.5 T).
  */
 public class Helium3FusionReactorBlockEntity extends MachineBlockEntity {
     public static final int HELIUM3_CANISTER_SLOT = 0;
