@@ -249,6 +249,10 @@ public class GalacticraftClient implements ClientModInitializer {
         FluidRenderHandlerRegistry.INSTANCE.register(GCFluids.FUEL, GCFluids.FLOWING_FUEL, fuel);
         FluidRenderHandlerRegistry.INSTANCE.register(GCFluids.SULFURIC_ACID, GCFluids.FLOWING_SULFURIC_ACID, sulfuricAcid);
 
+        for (var gas : dev.galacticraft.api.gas.GasFluid.GAS_FLUIDS) {
+            FluidRenderHandlerRegistry.INSTANCE.register(gas, new SimpleFluidRenderHandler(gas.getTexture(), gas.getTexture(), gas.getTint()));
+        }
+
         BlockRenderLayerMap.INSTANCE.putFluids(RenderType.translucent(), GCFluids.FUEL, GCFluids.FLOWING_FUEL);
         BlockRenderLayerMap.INSTANCE.putFluids(RenderType.translucent(), GCFluids.SULFURIC_ACID, GCFluids.FLOWING_SULFURIC_ACID);
 
