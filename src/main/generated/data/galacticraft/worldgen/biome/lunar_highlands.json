@@ -37,15 +37,23 @@
     [],
     [],
     [
+      "galacticraft:ore_aluminum_highlands_moon",
       "galacticraft:ore_copper_moon",
       "galacticraft:ore_copper_large_moon",
       "galacticraft:ore_tin_small_moon",
       "galacticraft:ore_tin_middle_moon",
+      "galacticraft:ore_aluminum_moon",
+      "galacticraft:ore_silicon_moon",
+      "galacticraft:ore_iron_moon",
+      "galacticraft:ore_niobium_moon",
+      "galacticraft:ore_gold_moon",
+      "galacticraft:ore_redstone_moon",
       "galacticraft:ore_cheese_moon",
       "galacticraft:ore_cheese_large_moon",
       "galacticraft:ore_lunar_sapphire_moon",
       "galacticraft:ore_dirt_moon",
-      "galacticraft:disk_basalt_moon"
+      "galacticraft:disk_basalt_moon",
+      "galacticraft:ore_ilmenite_moon"
     ],
     [
       "galacticraft:moon_olivine_spike_cave"

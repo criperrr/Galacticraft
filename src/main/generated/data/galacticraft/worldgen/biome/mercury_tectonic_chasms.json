@@ -30,7 +30,9 @@
     [],
     [
       "galacticraft:ore_copper_mercury",
-      "galacticraft:ore_titanium_mercury"
+      "galacticraft:ore_titanium_mercury",
+      "galacticraft:ore_niobium_mercury",
+      "galacticraft:ore_lead_mercury"
     ]
   ],
   "has_precipitation": false,

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_mars_titanium_ore": {
+      "conditions": {
+        "items": [
+          {
+            "items": "galacticraft:mars_titanium_ore"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "galacticraft:titanium_ingot_from_smelting_mars_titanium_ore"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_mars_titanium_ore"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "galacticraft:titanium_ingot_from_smelting_mars_titanium_ore"
+    ]
+  }
+}

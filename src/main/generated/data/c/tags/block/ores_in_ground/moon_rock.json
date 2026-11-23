@@ -2,6 +2,12 @@
   "values": [
     "galacticraft:moon_copper_ore",
     "galacticraft:moon_tin_ore",
+    "galacticraft:moon_aluminum_ore",
+    "galacticraft:moon_silicon_ore",
+    "galacticraft:moon_niobium_ore",
+    "galacticraft:moon_gold_ore",
+    "galacticraft:moon_redstone_ore",
+    "galacticraft:moon_iron_ore",
     "galacticraft:moon_cheese_ore",
     "galacticraft:lunar_sapphire_ore"
   ]

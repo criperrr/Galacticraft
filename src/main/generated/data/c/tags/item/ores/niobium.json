@@ -1,6 +1,11 @@
 {
   "values": [
     "galacticraft:niobium_ore",
-    "galacticraft:deepslate_niobium_ore"
+    "galacticraft:deepslate_niobium_ore",
+    "galacticraft:moon_niobium_ore",
+    "galacticraft:mars_niobium_ore",
+    "galacticraft:asteroid_niobium_ore",
+    "galacticraft:mercury_niobium_ore",
+    "galacticraft:venus_niobium_ore"
   ]
 }

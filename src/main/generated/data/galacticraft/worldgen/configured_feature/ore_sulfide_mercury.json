@@ -2,7 +2,7 @@
   "type": "minecraft:ore",
   "config": {
     "discard_chance_on_air_exposure": 0.0,
-    "size": 5,
+    "size": 6,
     "targets": [
       {
         "state": {
@@ -10,6 +10,15 @@
         },
         "target": {
           "block": "galacticraft:mercury_shock_breccia",
+          "predicate_type": "minecraft:block_match"
+        }
+      },
+      {
+        "state": {
+          "Name": "galacticraft:mercury_sulfide_ore"
+        },
+        "target": {
+          "block": "galacticraft:mercury_basalt",
           "predicate_type": "minecraft:block_match"
         }
       }

@@ -29,7 +29,9 @@
     [
       "galacticraft:ore_titanium_mercury",
       "galacticraft:ore_native_iron_mercury",
-      "galacticraft:ore_graphite_mercury"
+      "galacticraft:ore_graphite_mercury",
+      "galacticraft:ore_niobium_mercury",
+      "galacticraft:ore_gold_mercury"
     ],
     [
       "galacticraft:mercury_megabreccia_speleothem"

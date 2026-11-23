@@ -30,7 +30,9 @@
     [],
     [
       "galacticraft:magma_patch_mercury",
-      "galacticraft:ore_native_iron_mercury"
+      "galacticraft:ore_native_iron_mercury",
+      "galacticraft:ore_sulfide_mercury",
+      "galacticraft:ore_gold_mercury"
     ]
   ],
   "has_precipitation": false,

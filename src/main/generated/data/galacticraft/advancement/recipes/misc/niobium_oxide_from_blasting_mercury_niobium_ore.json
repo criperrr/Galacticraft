@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_mercury_niobium_ore": {
+      "conditions": {
+        "items": [
+          {
+            "items": "galacticraft:mercury_niobium_ore"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "galacticraft:niobium_oxide_from_blasting_mercury_niobium_ore"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_mercury_niobium_ore"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "galacticraft:niobium_oxide_from_blasting_mercury_niobium_ore"
+    ]
+  }
+}

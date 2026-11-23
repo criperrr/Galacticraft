@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_asteroid_graphite_ore": {
+      "conditions": {
+        "items": [
+          {
+            "items": "galacticraft:asteroid_graphite_ore"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "galacticraft:carbon_fragments_from_blasting_asteroid_graphite_ore"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_asteroid_graphite_ore"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "galacticraft:carbon_fragments_from_blasting_asteroid_graphite_ore"
+    ]
+  }
+}

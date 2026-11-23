@@ -3,6 +3,11 @@
     "galacticraft:asteroid_iron_ore",
     "galacticraft:asteroid_silicon_ore",
     "galacticraft:asteroid_aluminum_ore",
+    "galacticraft:asteroid_niobium_ore",
+    "galacticraft:asteroid_gold_ore",
+    "galacticraft:asteroid_graphite_ore",
+    "galacticraft:asteroid_copper_ore",
+    "galacticraft:asteroid_redstone_ore",
     "galacticraft:ilmenite_ore"
   ]
 }
