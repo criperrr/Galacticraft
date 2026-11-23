@@ -289,6 +289,17 @@ public class GCMiscRecipeProvider extends FabricRecipeProvider {
                 .emiDefaultRecipe(true)
                 .save(output);
 
+        GCShapedRecipeBuilder.crafting(RecipeCategory.MISC, GCItems.RADIOISOTOPE_CORE, 2)
+                .define('L', GCItemTags.LEAD_INGOTS)
+                .define('C', GCItems.CARBON_FRAGMENTS)
+                .define('U', GCItemTags.URANIUM_INGOTS)
+                .define('A', GCItemTags.LUNAR_SAPPHIRES)
+                .pattern("LCL")
+                .pattern("UAU")
+                .pattern("LCL")
+                .unlockedBy(getHasName(GCItems.URANIUM_INGOT), has(GCItemTags.URANIUM_INGOTS))
+                .save(output, Constant.id("radioisotope_core_from_uranium"));
+
         GCShapedRecipeBuilder.crafting(RecipeCategory.MISC, GCItems.ATOMIC_BATTERY)
                 .define('L', GCItems.LEAD_INGOT)
                 .define('C', GCItems.RADIOISOTOPE_CORE)

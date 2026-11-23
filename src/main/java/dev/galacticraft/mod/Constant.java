@@ -209,6 +209,9 @@ public interface Constant {
         String JUPITER_TIN_ORE = "jupiter_tin_ore";
         String JUPITER_IRON_ORE = "jupiter_iron_ore";
         String JUPITER_ALUMINUM_ORE = "jupiter_aluminum_ore";
+        String JUPITER_NIOBIUM_ORE = "jupiter_niobium_ore";
+        String JUPITER_TITANIUM_ORE = "jupiter_titanium_ore";
+        String JUPITER_PALLADIUM_ORE = "jupiter_palladium_ore";
 
         // Saturn Natural & Ores
         String SATURN_SURFACE = "saturn_surface";
@@ -223,6 +226,9 @@ public interface Constant {
         String SATURN_TIN_ORE = "saturn_tin_ore";
         String SATURN_IRON_ORE = "saturn_iron_ore";
         String SATURN_TITANIUM_ORE = "saturn_titanium_ore";
+        String SATURN_ALUMINUM_ORE = "saturn_aluminum_ore";
+        String SATURN_NIOBIUM_ORE = "saturn_niobium_ore";
+        String SATURN_MAGNESIUM_ORE = "saturn_magnesium_ore";
 
         // Uranus Natural & Ores
         String URANUS_SURFACE = "uranus_surface";
@@ -237,6 +243,9 @@ public interface Constant {
         String URANUS_TIN_ORE = "uranus_tin_ore";
         String URANUS_ALUMINUM_ORE = "uranus_aluminum_ore";
         String URANUS_TITANIUM_ORE = "uranus_titanium_ore";
+        String URANUS_IRON_ORE = "uranus_iron_ore";
+        String URANUS_NIOBIUM_ORE = "uranus_niobium_ore";
+        String URANUS_URANIUM_ORE = "uranus_uranium_ore";
 
         // Neptune Natural & Ores
         String NEPTUNE_SURFACE = "neptune_surface";
@@ -251,6 +260,8 @@ public interface Constant {
         String NEPTUNE_TIN_ORE = "neptune_tin_ore";
         String NEPTUNE_IRON_ORE = "neptune_iron_ore";
         String NEPTUNE_TITANIUM_ORE = "neptune_titanium_ore";
+        String NEPTUNE_ALUMINUM_ORE = "neptune_aluminum_ore";
+        String NEPTUNE_NIOBIUM_ORE = "neptune_niobium_ore";
 
         // Ore
         String MARS_IRON_ORE = "mars_iron_ore";
@@ -319,6 +330,10 @@ public interface Constant {
         String LEAD_BLOCK = "lead_block";
         String NIOBIUM_BLOCK = "niobium_block";
         String FERRONIOBIUM_BLOCK = "ferroniobium_block";
+        String PALLADIUM_BLOCK = "palladium_block";
+        String MAGNESIUM_BLOCK = "magnesium_block";
+        String URANIUM_BLOCK = "uranium_block";
+        String LONSDALEITE_BLOCK = "lonsdaleite_block";
         String LUNAR_SAPPHIRE_BLOCK = "lunar_sapphire_block";
         String OLIVINE_BLOCK = "olivine_block";
         String RAW_METEORIC_IRON_BLOCK = "raw_meteoric_iron_block";
@@ -328,6 +343,9 @@ public interface Constant {
         String RAW_TITANIUM_BLOCK = "raw_titanium_block";
         String RAW_LEAD_BLOCK = "raw_lead_block";
         String RAW_NIOBIUM_BLOCK = "raw_niobium_block";
+        String RAW_PALLADIUM_BLOCK = "raw_palladium_block";
+        String RAW_MAGNESIUM_BLOCK = "raw_magnesium_block";
+        String RAW_URANIUM_BLOCK = "raw_uranium_block";
 
         // Decorative BLocks
         String ALUMINUM_DECORATION = "aluminum_decoration";
@@ -610,6 +628,23 @@ public interface Constant {
         String COMPRESSED_FERRONIOBIUM = "compressed_ferroniobium";
         String COMPRESSED_NIOBIUM = "compressed_niobium";
         String SUPERCONDUCTING_COIL = "superconducting_coil";
+        String RAW_PALLADIUM = "raw_palladium";
+        String PALLADIUM_INGOT = "palladium_ingot";
+        String COMPRESSED_PALLADIUM = "compressed_palladium";
+        String METALLIC_HYDROGEN_CELL = "metallic_hydrogen_cell";
+        String RAW_MAGNESIUM = "raw_magnesium";
+        String MAGNESIUM_INGOT = "magnesium_ingot";
+        String COMPRESSED_MAGNESIUM = "compressed_magnesium";
+        String RAW_SOLAR_VOLATILE_CANISTER = "raw_solar_volatile_canister";
+        String HELIUM3_CANISTER = "helium3_canister";
+        String HELIUM3_CELL = "helium3_cell";
+        String DEUTERIUM_CANISTER = "deuterium_canister";
+        String HELIUM3_FUSION_CELL = "helium3_fusion_cell";
+        String LONSDALEITE_GEM = "lonsdaleite_gem";
+        String RAW_URANIUM = "raw_uranium";
+        String URANIUM_INGOT = "uranium_ingot";
+        String SUPERIONIC_ICE_CRYSTAL = "superionic_ice_crystal";
+        String XENON_CANISTER = "xenon_canister";
         String FLUID_MANIPULATOR = "fluid_manipulator";
         String OXYGEN_CONCENTRATOR = "oxygen_concentrator";
         String OXYGEN_FAN = "oxygen_fan";

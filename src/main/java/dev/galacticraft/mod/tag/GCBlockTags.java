@@ -101,34 +101,44 @@ public class GCBlockTags {
     public static final TagKey<Block> DESH_ORES = commonTag("ores/desh");
     public static final TagKey<Block> LEAD_ORES = commonTag("ores/lead");
     public static final TagKey<Block> LUNAR_SAPPHIRE_ORES = commonTag("ores/lunar_sapphire");
+    public static final TagKey<Block> MAGNESIUM_ORES = commonTag("ores/magnesium");
     public static final TagKey<Block> METEORIC_IRON_ORES = commonTag("ores/meteoric_iron");
     public static final TagKey<Block> NIOBIUM_ORES = commonTag("ores/niobium");
     public static final TagKey<Block> OLIVINE_ORES = commonTag("ores/olivine");
+    public static final TagKey<Block> PALLADIUM_ORES = commonTag("ores/palladium");
     public static final TagKey<Block> SILICON_ORES = commonTag("ores/silicon");
     public static final TagKey<Block> SOLAR_ORES = commonTag("ores/solar_dust");
     public static final TagKey<Block> TIN_ORES = commonTag("ores/tin");
     public static final TagKey<Block> TITANIUM_ORES = commonTag("ores/titanium");
+    public static final TagKey<Block> URANIUM_ORES = commonTag("ores/uranium");
 
     public static final TagKey<Block> ALUMINUM_BLOCKS = commonTag("storage_blocks/aluminum");
     public static final TagKey<Block> CHEESE_BLOCKS = commonTag("storage_blocks/cheese");
     public static final TagKey<Block> DESH_BLOCKS = commonTag("storage_blocks/desh");
     public static final TagKey<Block> FERRONIOBIUM_BLOCKS = commonTag("storage_blocks/ferroniobium");
     public static final TagKey<Block> LEAD_BLOCKS = commonTag("storage_blocks/lead");
+    public static final TagKey<Block> LONSDALEITE_BLOCKS = commonTag("storage_blocks/lonsdaleite");
     public static final TagKey<Block> LUNAR_SAPPHIRE_BLOCKS = commonTag("storage_blocks/lunar_sapphire");
+    public static final TagKey<Block> MAGNESIUM_BLOCKS = commonTag("storage_blocks/magnesium");
     public static final TagKey<Block> METEORIC_IRON_BLOCKS = commonTag("storage_blocks/meteoric_iron");
     public static final TagKey<Block> NIOBIUM_BLOCKS = commonTag("storage_blocks/niobium");
     public static final TagKey<Block> OLIVINE_BLOCKS = commonTag("storage_blocks/olivine");
+    public static final TagKey<Block> PALLADIUM_BLOCKS = commonTag("storage_blocks/palladium");
     public static final TagKey<Block> SILICON_BLOCKS = commonTag("storage_blocks/silicon");
     public static final TagKey<Block> TIN_BLOCKS = commonTag("storage_blocks/tin");
     public static final TagKey<Block> TITANIUM_BLOCKS = commonTag("storage_blocks/titanium");
+    public static final TagKey<Block> URANIUM_BLOCKS = commonTag("storage_blocks/uranium");
 
     public static final TagKey<Block> RAW_ALUMINUM_BLOCKS = commonTag("storage_blocks/raw_aluminum");
     public static final TagKey<Block> RAW_DESH_BLOCKS = commonTag("storage_blocks/raw_desh");
     public static final TagKey<Block> RAW_LEAD_BLOCKS = commonTag("storage_blocks/raw_lead");
+    public static final TagKey<Block> RAW_MAGNESIUM_BLOCKS = commonTag("storage_blocks/raw_magnesium");
     public static final TagKey<Block> RAW_METEORIC_IRON_BLOCKS = commonTag("storage_blocks/raw_meteoric_iron");
     public static final TagKey<Block> RAW_NIOBIUM_BLOCKS = commonTag("storage_blocks/raw_niobium");
+    public static final TagKey<Block> RAW_PALLADIUM_BLOCKS = commonTag("storage_blocks/raw_palladium");
     public static final TagKey<Block> RAW_TIN_BLOCKS = commonTag("storage_blocks/raw_tin");
     public static final TagKey<Block> RAW_TITANIUM_BLOCKS = commonTag("storage_blocks/raw_titanium");
+    public static final TagKey<Block> RAW_URANIUM_BLOCKS = commonTag("storage_blocks/raw_uranium");
 
     public static final TagKey<Block> MACHINES = galacticraftTag("machines");
     public static final TagKey<Block> GLASS_FLUID_PIPES = galacticraftTag("glass_fluid_pipes");

@@ -604,6 +604,20 @@ public class GCMachineRecipes extends FabricRecipeProvider {
                 .requires(GCItemTags.METEORIC_IRON_INGOTS)
                 .save(output, RecipeBuilder.getDefaultRecipeId(GCItems.COMPRESSED_NIOBIUM).withSuffix("_from_meteoric_iron"));
 
+        // Outer Planet Exotic Alloy Plates (Palladium & Magnesium)
+        GCShapelessRecipeBuilder.compressing(GCItems.COMPRESSED_PALLADIUM)
+                .unlockedBy(getHasName(GCItems.PALLADIUM_INGOT), has(GCItemTags.PALLADIUM_INGOTS))
+                .requires(GCItemTags.PALLADIUM_INGOTS)
+                .requires(GCItemTags.PALLADIUM_INGOTS)
+                .emiDefaultRecipe(true)
+                .save(output);
+        GCShapelessRecipeBuilder.compressing(GCItems.COMPRESSED_MAGNESIUM)
+                .unlockedBy(getHasName(GCItems.MAGNESIUM_INGOT), has(GCItemTags.MAGNESIUM_INGOTS))
+                .requires(GCItemTags.MAGNESIUM_INGOTS)
+                .requires(GCItemTags.MAGNESIUM_INGOTS)
+                .emiDefaultRecipe(true)
+                .save(output);
+
         GCShapedRecipeBuilder.compressing(GCItems.TIER_1_HEAVY_DUTY_PLATE, 2)
                 .unlockedBy(getHasName(GCItems.COMPRESSED_FERRONIOBIUM), has(GCItems.COMPRESSED_FERRONIOBIUM))
                 .define('F', GCItems.COMPRESSED_FERRONIOBIUM)

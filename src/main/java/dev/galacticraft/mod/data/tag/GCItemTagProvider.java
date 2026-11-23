@@ -261,6 +261,9 @@ public class GCItemTagProvider extends FabricTagProvider.ItemTagProvider {
         this.copy(GCBlockTags.LEAD_ORES, GCItemTags.LEAD_ORES);
         this.copy(GCBlockTags.SOLAR_ORES, GCItemTags.SOLAR_ORES);
         this.copy(GCBlockTags.NIOBIUM_ORES, GCItemTags.NIOBIUM_ORES);
+        this.copy(GCBlockTags.PALLADIUM_ORES, GCItemTags.PALLADIUM_ORES);
+        this.copy(GCBlockTags.MAGNESIUM_ORES, GCItemTags.MAGNESIUM_ORES);
+        this.copy(GCBlockTags.URANIUM_ORES, GCItemTags.URANIUM_ORES);
 
         this.copy(ConventionalBlockTags.ORES, ConventionalItemTags.ORES);
 
@@ -273,6 +276,10 @@ public class GCItemTagProvider extends FabricTagProvider.ItemTagProvider {
         this.copy(GCBlockTags.LEAD_BLOCKS, GCItemTags.LEAD_BLOCKS);
         this.copy(GCBlockTags.NIOBIUM_BLOCKS, GCItemTags.NIOBIUM_BLOCKS);
         this.copy(GCBlockTags.FERRONIOBIUM_BLOCKS, GCItemTags.FERRONIOBIUM_BLOCKS);
+        this.copy(GCBlockTags.PALLADIUM_BLOCKS, GCItemTags.PALLADIUM_BLOCKS);
+        this.copy(GCBlockTags.MAGNESIUM_BLOCKS, GCItemTags.MAGNESIUM_BLOCKS);
+        this.copy(GCBlockTags.URANIUM_BLOCKS, GCItemTags.URANIUM_BLOCKS);
+        this.copy(GCBlockTags.LONSDALEITE_BLOCKS, GCItemTags.LONSDALEITE_BLOCKS);
 
         this.copy(GCBlockTags.SILICON_BLOCKS, GCItemTags.SILICON_BLOCKS);
         this.copy(GCBlockTags.CHEESE_BLOCKS, GCItemTags.CHEESE_BLOCKS);
@@ -286,6 +293,9 @@ public class GCItemTagProvider extends FabricTagProvider.ItemTagProvider {
         this.copy(GCBlockTags.RAW_TITANIUM_BLOCKS, GCItemTags.RAW_TITANIUM_BLOCKS);
         this.copy(GCBlockTags.RAW_LEAD_BLOCKS, GCItemTags.RAW_LEAD_BLOCKS);
         this.copy(GCBlockTags.RAW_NIOBIUM_BLOCKS, GCItemTags.RAW_NIOBIUM_BLOCKS);
+        this.copy(GCBlockTags.RAW_PALLADIUM_BLOCKS, GCItemTags.RAW_PALLADIUM_BLOCKS);
+        this.copy(GCBlockTags.RAW_MAGNESIUM_BLOCKS, GCItemTags.RAW_MAGNESIUM_BLOCKS);
+        this.copy(GCBlockTags.RAW_URANIUM_BLOCKS, GCItemTags.RAW_URANIUM_BLOCKS);
 
         this.copy(ConventionalBlockTags.STORAGE_BLOCKS, ConventionalItemTags.STORAGE_BLOCKS);
 
@@ -298,9 +308,15 @@ public class GCItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(GCItems.LUNAR_SAPPHIRE);
         this.tag(GCItemTags.OLIVINE_SHARDS)
                 .add(GCItems.OLIVINE_SHARD);
+        this.tag(GCItemTags.LONSDALEITE_GEMS)
+                .add(GCItems.LONSDALEITE_GEM);
+        this.tag(GCItemTags.SUPERIONIC_ICE_CRYSTALS)
+                .add(GCItems.SUPERIONIC_ICE_CRYSTAL);
         this.tag(ConventionalItemTags.GEMS)
                 .addTag(GCItemTags.LUNAR_SAPPHIRES)
-                .addTag(GCItemTags.OLIVINE_SHARDS);
+                .addTag(GCItemTags.OLIVINE_SHARDS)
+                .addTag(GCItemTags.LONSDALEITE_GEMS)
+                .addTag(GCItemTags.SUPERIONIC_ICE_CRYSTALS);
 
         this.tag(GCItemTags.TIN_INGOTS)
                 .add(GCItems.TIN_INGOT);
@@ -318,6 +334,12 @@ public class GCItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(GCItems.NIOBIUM_INGOT);
         this.tag(GCItemTags.FERRONIOBIUM_INGOTS)
                 .add(GCItems.FERRONIOBIUM_INGOT);
+        this.tag(GCItemTags.PALLADIUM_INGOTS)
+                .add(GCItems.PALLADIUM_INGOT);
+        this.tag(GCItemTags.MAGNESIUM_INGOTS)
+                .add(GCItems.MAGNESIUM_INGOT);
+        this.tag(GCItemTags.URANIUM_INGOTS)
+                .add(GCItems.URANIUM_INGOT);
         this.tag(ConventionalItemTags.INGOTS)
                 .addTag(GCItemTags.TIN_INGOTS)
                 .addTag(GCItemTags.ALUMINUM_INGOTS)
@@ -326,7 +348,10 @@ public class GCItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .addTag(GCItemTags.TITANIUM_INGOTS)
                 .addTag(GCItemTags.LEAD_INGOTS)
                 .addTag(GCItemTags.NIOBIUM_INGOTS)
-                .addTag(GCItemTags.FERRONIOBIUM_INGOTS);
+                .addTag(GCItemTags.FERRONIOBIUM_INGOTS)
+                .addTag(GCItemTags.PALLADIUM_INGOTS)
+                .addTag(GCItemTags.MAGNESIUM_INGOTS)
+                .addTag(GCItemTags.URANIUM_INGOTS);
 
         this.tag(GCItemTags.TIN_RAW_MATERIALS)
                 .add(GCItems.RAW_TIN);
@@ -342,6 +367,12 @@ public class GCItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(GCItems.RAW_LEAD);
         this.tag(GCItemTags.NIOBIUM_RAW_MATERIALS)
                 .add(GCItems.RAW_NIOBIUM);
+        this.tag(GCItemTags.PALLADIUM_RAW_MATERIALS)
+                .add(GCItems.RAW_PALLADIUM);
+        this.tag(GCItemTags.MAGNESIUM_RAW_MATERIALS)
+                .add(GCItems.RAW_MAGNESIUM);
+        this.tag(GCItemTags.URANIUM_RAW_MATERIALS)
+                .add(GCItems.RAW_URANIUM);
         this.tag(ConventionalItemTags.RAW_MATERIALS)
                 .addTag(GCItemTags.TIN_RAW_MATERIALS)
                 .addTag(GCItemTags.ALUMINUM_RAW_MATERIALS)
@@ -349,7 +380,10 @@ public class GCItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .addTag(GCItemTags.DESH_RAW_MATERIALS)
                 .addTag(GCItemTags.TITANIUM_RAW_MATERIALS)
                 .addTag(GCItemTags.LEAD_RAW_MATERIALS)
-                .addTag(GCItemTags.NIOBIUM_RAW_MATERIALS);
+                .addTag(GCItemTags.NIOBIUM_RAW_MATERIALS)
+                .addTag(GCItemTags.PALLADIUM_RAW_MATERIALS)
+                .addTag(GCItemTags.MAGNESIUM_RAW_MATERIALS)
+                .addTag(GCItemTags.URANIUM_RAW_MATERIALS);
 
         this.tag(GCItemTags.TIN_NUGGETS)
                 .add(GCItems.TIN_NUGGET);
@@ -396,6 +430,10 @@ public class GCItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(GCItems.COMPRESSED_TITANIUM);
         this.tag(GCItemTags.NIOBIUM_PLATES)
                 .add(GCItems.COMPRESSED_NIOBIUM);
+        this.tag(GCItemTags.PALLADIUM_PLATES)
+                .add(GCItems.COMPRESSED_PALLADIUM);
+        this.tag(GCItemTags.MAGNESIUM_PLATES)
+                .add(GCItems.COMPRESSED_MAGNESIUM);
         this.tag(GCItemTags.TIER_1_HEAVY_DUTY_PLATES)
                 .add(GCItems.TIER_1_HEAVY_DUTY_PLATE);
         this.tag(GCItemTags.TIER_2_HEAVY_DUTY_PLATES)
@@ -418,6 +456,8 @@ public class GCItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .addTag(GCItemTags.DESH_PLATES)
                 .addTag(GCItemTags.TITANIUM_PLATES)
                 .addTag(GCItemTags.NIOBIUM_PLATES)
+                .addTag(GCItemTags.PALLADIUM_PLATES)
+                .addTag(GCItemTags.MAGNESIUM_PLATES)
                 .addTag(GCItemTags.HEAVY_DUTY_PLATES);
 
         this.tag(GCItemTags.STEEL_RODS)
