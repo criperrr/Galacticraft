@@ -118,10 +118,7 @@ public class GCItems {
     public static final Item RAW_MAGNESIUM = registerGeneric(Constant.Item.RAW_MAGNESIUM);
     public static final Item MAGNESIUM_INGOT = registerGeneric(Constant.Item.MAGNESIUM_INGOT);
     public static final Item COMPRESSED_MAGNESIUM = registerGeneric(Constant.Item.COMPRESSED_MAGNESIUM);
-    public static final Item RAW_SOLAR_VOLATILE_CANISTER = registerGeneric(Constant.Item.RAW_SOLAR_VOLATILE_CANISTER);
-    public static final Item HELIUM3_CANISTER = ITEMS.register(Constant.Item.HELIUM3_CANISTER, new Item(new Item.Properties().rarity(Rarity.UNCOMMON)));
     public static final Item HELIUM3_CELL = ITEMS.register(Constant.Item.HELIUM3_CELL, new Item(new Item.Properties().rarity(Rarity.RARE)));
-    public static final Item DEUTERIUM_CANISTER = ITEMS.register(Constant.Item.DEUTERIUM_CANISTER, new Item(new Item.Properties().rarity(Rarity.UNCOMMON)));
     public static final Item HELIUM3_FUSION_CELL = ITEMS.register(Constant.Item.HELIUM3_FUSION_CELL, new Item(new Item.Properties().rarity(Rarity.EPIC)));
 
     public static final Item LONSDALEITE_GEM = ITEMS.register(Constant.Item.LONSDALEITE_GEM, new Item(new Item.Properties().rarity(Rarity.RARE)));
@@ -129,7 +126,6 @@ public class GCItems {
     public static final Item URANIUM_INGOT = registerGeneric(Constant.Item.URANIUM_INGOT);
 
     public static final Item SUPERIONIC_ICE_CRYSTAL = ITEMS.register(Constant.Item.SUPERIONIC_ICE_CRYSTAL, new Item(new Item.Properties().rarity(Rarity.RARE)));
-    public static final Item XENON_CANISTER = ITEMS.register(Constant.Item.XENON_CANISTER, new Item(new Item.Properties().rarity(Rarity.UNCOMMON)));
 
     public static final Item COMPRESSED_COPPER = registerGeneric(Constant.Item.COMPRESSED_COPPER);
     public static final Item COMPRESSED_BRONZE = registerGeneric(Constant.Item.COMPRESSED_BRONZE);

@@ -559,10 +559,7 @@ public class GCTranslationProvider extends TranslationProvider {
         this.item(GCItems.RAW_MAGNESIUM, "Raw Magnesium");
         this.item(GCItems.MAGNESIUM_INGOT, "Magnesium Ingot");
         this.item(GCItems.COMPRESSED_MAGNESIUM, "Compressed Magnesium");
-        this.item(GCItems.RAW_SOLAR_VOLATILE_CANISTER, "Raw Solar Volatile Canister");
-        this.item(GCItems.HELIUM3_CANISTER, "Helium-3 Canister");
         this.item(GCItems.HELIUM3_CELL, "Helium-3 Cell");
-        this.item(GCItems.DEUTERIUM_CANISTER, "Deuterium Canister");
         this.item(GCItems.HELIUM3_FUSION_CELL, "Helium-3 Fusion Cell");
 
         this.item(GCItems.LONSDALEITE_GEM, "Lonsdaleite Gem");
@@ -570,7 +567,6 @@ public class GCTranslationProvider extends TranslationProvider {
         this.item(GCItems.URANIUM_INGOT, "Uranium Ingot");
 
         this.item(GCItems.SUPERIONIC_ICE_CRYSTAL, "Superionic Ice Crystal");
-        this.item(GCItems.XENON_CANISTER, "Xenon Canister");
 
         this.item(GCItems.RAW_ALUMINUM, "Raw Aluminum");
         this.item(GCItems.ALUMINUM_INGOT, "Aluminum Ingot");
@@ -999,7 +995,9 @@ public class GCTranslationProvider extends TranslationProvider {
         this.add(Gas.ARGON, "Argon");
         this.add(Gas.CARBON_DIOXIDE, "Carbon Dioxide");
         this.add(Gas.CARBON_MONOXIDE, "Carbon Monoxide");
+        this.add(Gas.DEUTERIUM, "Deuterium");
         this.add(Gas.HELIUM, "Helium");
+        this.add(Gas.HELIUM_3, "Helium-3");
         this.add(Gas.HYDROGEN, "Hydrogen");
         this.add(Gas.HYDROGEN_DEUTERIUM_OXIDE, "Hydrogen Deuterium Oxide");
         this.add(Gas.IODINE, "Iodine");
@@ -1012,6 +1010,7 @@ public class GCTranslationProvider extends TranslationProvider {
         this.add(Gas.NITROUS_OXIDE, "Nitrous Oxide");
         this.add(Gas.OXYGEN, "Oxygen");
         this.add(Gas.OZONE, "Ozone");
+        this.add(Gas.SOLAR_VOLATILE_GAS, "Solar Volatile Gas");
         this.add(Gas.WATER_VAPOR, "Water Vapor");
         this.add(Gas.XENON, "Xenon");
     }

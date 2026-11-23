@@ -79,69 +79,50 @@ public class GCOreRecipeProvider extends FabricRecipeProvider {
         oreSmeltingAndBlasting(output, List.of(GCBlocks.URANUS_DIAMOND_BEARING_ROCK), GCItems.LONSDALEITE_GEM, 1.5f, 120);
         oreSmeltingAndBlasting(output, List.of(GCItems.RAW_URANIUM, GCBlocks.URANUS_URANIUM_ORE), GCItems.URANIUM_INGOT, 1.2f, 120);
         oreSmeltingAndBlasting(output, List.of(GCBlocks.NEPTUNE_ABYSSAL_MANTLE_ROCK, GCBlocks.NEPTUNE_CRYO_SLATE), GCItems.SUPERIONIC_ICE_CRYSTAL, 1.5f, 120);
-        oreSmeltingAndBlasting(output, List.of(GCBlocks.NEPTUNE_NITROGEN_ICE), GCItems.XENON_CANISTER, 1.0f, 120);
 
-        // Progressive 3-Layer Helium-3 Thermal Desorption & Isotope Extraction
-        // Layer 1 (Moon >700C thermal desorption): Moon Turf / Moon Dirt / Moon Basalt -> Raw Solar Volatile Canister -> Helium-3 Canister
-        oreSmeltingAndBlasting(output, List.of(GCBlocks.MOON_TURF, GCBlocks.MOON_DIRT, GCBlocks.MOON_BASALT), GCItems.RAW_SOLAR_VOLATILE_CANISTER, 0.4f, 100);
-        // Layer 2 (Mercury 3x solar sublimation) & Layer 3 (Saturn Helium Mantle 3.5x) & volatile refinement -> Helium-3 Canister
-        oreSmeltingAndBlasting(output, List.of(GCItems.RAW_SOLAR_VOLATILE_CANISTER, GCBlocks.MERCURY_HOLLOW_DEPOSIT, GCBlocks.SATURN_HELIUM_MANTLE_ROCK), GCItems.HELIUM3_CANISTER, 1.0f, 120);
-        // Heavy water / Dense Ice -> Deuterium Canister
-        oreSmeltingAndBlasting(output, List.of(GCBlocks.DENSE_ICE), GCItems.DEUTERIUM_CANISTER, 0.8f, 100);
-
-        // High-yield Helium-3, Deuterium, Xenon & Fusion Cell crafting routes
-        GCShapedRecipeBuilder.crafting(RecipeCategory.MISC, GCItems.HELIUM3_CANISTER, 2)
-                .define('I', GCBlocks.MOON_ILMENITE_ORE)
-                .define('C', GCItems.TIN_CANISTER)
-                .pattern(" I ")
-                .pattern("ICI")
-                .pattern(" I ")
-                .unlockedBy(getHasName(GCBlocks.MOON_ILMENITE_ORE), has(GCBlocks.MOON_ILMENITE_ORE))
-                .save(output, Constant.id("helium3_canister_from_moon_ilmenite"));
-
-        GCShapedRecipeBuilder.crafting(RecipeCategory.MISC, GCItems.HELIUM3_CANISTER, 3)
-                .define('M', GCBlocks.MERCURY_HOLLOW_DEPOSIT)
-                .define('C', GCItems.TIN_CANISTER)
-                .pattern("MMM")
-                .pattern("CCC")
-                .unlockedBy(getHasName(GCBlocks.MERCURY_HOLLOW_DEPOSIT), has(GCBlocks.MERCURY_HOLLOW_DEPOSIT))
-                .save(output, Constant.id("helium3_canister_from_mercury_hollow"));
-
+        // Progressive 3-Layer Helium-3 Cryogenic Cell Encapsulation (Moon -> Mercury -> Saturn)
+        // Layer 1 (Moon): 4x Moon Ilmenite Ore + Compressed Niobium + Lunar Sapphire -> 1x Helium-3 Cell
         GCShapedRecipeBuilder.crafting(RecipeCategory.MISC, GCItems.HELIUM3_CELL)
-                .define('H', GCItems.HELIUM3_CANISTER)
+                .define('I', GCBlocks.MOON_ILMENITE_ORE)
+                .define('N', GCItems.COMPRESSED_NIOBIUM)
+                .define('S', GCItems.LUNAR_SAPPHIRE)
+                .pattern("NIN")
+                .pattern("ISI")
+                .pattern("NIN")
+                .unlockedBy(getHasName(GCBlocks.MOON_ILMENITE_ORE), has(GCBlocks.MOON_ILMENITE_ORE))
+                .save(output, Constant.id("helium3_cell_from_moon_ilmenite"));
+
+        // Layer 2 (Mercury 3x solar concentration): 2x Mercury Hollow Deposit + Compressed Niobium + Lunar Sapphire -> 1x Helium-3 Cell
+        GCShapedRecipeBuilder.crafting(RecipeCategory.MISC, GCItems.HELIUM3_CELL)
+                .define('M', GCBlocks.MERCURY_HOLLOW_DEPOSIT)
+                .define('N', GCItems.COMPRESSED_NIOBIUM)
+                .define('S', GCItems.LUNAR_SAPPHIRE)
+                .pattern("NMN")
+                .pattern("SNS")
+                .pattern("NMN")
+                .unlockedBy(getHasName(GCBlocks.MERCURY_HOLLOW_DEPOSIT), has(GCBlocks.MERCURY_HOLLOW_DEPOSIT))
+                .save(output, Constant.id("helium3_cell_from_mercury_hollow"));
+
+        // Layer 3 (Saturn 3.5x mantle source): 1x Saturn Helium Mantle Rock + Compressed Niobium + Lunar Sapphire -> 2x Helium-3 Cell
+        GCShapedRecipeBuilder.crafting(RecipeCategory.MISC, GCItems.HELIUM3_CELL, 2)
+                .define('H', GCBlocks.SATURN_HELIUM_MANTLE_ROCK)
                 .define('N', GCItems.COMPRESSED_NIOBIUM)
                 .define('S', GCItems.LUNAR_SAPPHIRE)
                 .pattern("NSN")
                 .pattern("SHS")
                 .pattern("NSN")
-                .unlockedBy(getHasName(GCItems.HELIUM3_CANISTER), has(GCItems.HELIUM3_CANISTER))
+                .unlockedBy(getHasName(GCBlocks.SATURN_HELIUM_MANTLE_ROCK), has(GCBlocks.SATURN_HELIUM_MANTLE_ROCK))
                 .emiDefaultRecipe(true)
                 .save(output);
 
-        GCShapedRecipeBuilder.crafting(RecipeCategory.MISC, GCItems.DEUTERIUM_CANISTER)
-                .define('I', GCBlocks.DENSE_ICE)
-                .define('C', GCItems.TIN_CANISTER)
-                .pattern(" I ")
-                .pattern("ICI")
-                .pattern(" I ")
-                .unlockedBy(getHasName(GCBlocks.DENSE_ICE), has(GCBlocks.DENSE_ICE))
-                .save(output, Constant.id("deuterium_canister_from_dense_ice"));
-
+        // D-3He Aneutronic Fusion Cell synthesis (Helium-3 Cell + Heavy Water Dense Ice + Superconducting Coil)
         GCShapelessRecipeBuilder.crafting(RecipeCategory.MISC, GCItems.HELIUM3_FUSION_CELL)
                 .requires(GCItems.HELIUM3_CELL)
-                .requires(GCItems.DEUTERIUM_CANISTER)
+                .requires(GCBlocks.DENSE_ICE)
+                .requires(GCItems.SUPERCONDUCTING_COIL)
                 .unlockedBy(getHasName(GCItems.HELIUM3_CELL), has(GCItems.HELIUM3_CELL))
                 .emiDefaultRecipe(true)
                 .save(output);
-
-        GCShapedRecipeBuilder.crafting(RecipeCategory.MISC, GCItems.XENON_CANISTER)
-                .define('M', GCBlocks.URANUS_METHANE_ICE)
-                .define('C', GCItems.TIN_CANISTER)
-                .pattern(" M ")
-                .pattern("MCM")
-                .pattern(" M ")
-                .unlockedBy(getHasName(GCBlocks.URANUS_METHANE_ICE), has(GCBlocks.URANUS_METHANE_ICE))
-                .save(output, Constant.id("xenon_canister_from_uranus_methane_ice"));
 
         // Nuggets <-> Ingots
         nineBlockStoragePackingRecipe(output, RecipeCategory.MISC, GCItems.TIN_NUGGET, RecipeCategory.MISC, GCItems.TIN_INGOT, "tin_ingot_from_nuggets", "tin_ingot");

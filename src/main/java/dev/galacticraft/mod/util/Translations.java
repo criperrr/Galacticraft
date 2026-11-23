@@ -318,7 +318,9 @@ public interface Translations {
         String ARGON = "gas.galacticraft.argon";
         String CARBON_DIOXIDE = "gas.galacticraft.carbon_dioxide";
         String CARBON_MONOXIDE = "gas.galacticraft.carbon_monoxide";
+        String DEUTERIUM = "gas.galacticraft.deuterium";
         String HELIUM = "gas.galacticraft.helium";
+        String HELIUM_3 = "gas.galacticraft.helium_3";
         String HYDROGEN = "gas.galacticraft.hydrogen";
         String HYDROGEN_DEUTERIUM_OXIDE = "gas.galacticraft.hydrogen_deuterium_oxide";
         String IODINE = "gas.galacticraft.iodine";
@@ -331,6 +333,7 @@ public interface Translations {
         String NITROUS_OXIDE = "gas.galacticraft.nitrous_oxide";
         String OXYGEN = "gas.galacticraft.oxygen";
         String OZONE = "gas.galacticraft.ozone";
+        String SOLAR_VOLATILE_GAS = "gas.galacticraft.solar_volatile_gas";
         String WATER_VAPOR = "gas.galacticraft.water_vapor";
         String XENON = "gas.galacticraft.xenon";
     }

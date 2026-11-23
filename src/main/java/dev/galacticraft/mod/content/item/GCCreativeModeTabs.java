@@ -454,6 +454,10 @@ public class GCCreativeModeTabs {
                 output.accept(FluidCanisterItem.getFilledCanister(FLUID_CANISTER, GCFluids.FUEL));
                 output.accept(FluidCanisterItem.getFilledCanister(FLUID_CANISTER, Gases.METHANE));
                 output.accept(FluidCanisterItem.getFilledCanister(FLUID_CANISTER, Gases.OXYGEN));
+                output.accept(FluidCanisterItem.getFilledCanister(FLUID_CANISTER, Gases.SOLAR_VOLATILE_GAS));
+                output.accept(FluidCanisterItem.getFilledCanister(FLUID_CANISTER, Gases.HELIUM_3));
+                output.accept(FluidCanisterItem.getFilledCanister(FLUID_CANISTER, Gases.DEUTERIUM));
+                output.accept(FluidCanisterItem.getFilledCanister(FLUID_CANISTER, Gases.XENON));
                 //output.accept(FluidCanisterItem.getFilledCanister(FLUID_CANISTER, GCFluids.LIQUID_NITROGEN)); // Liquid nitrogen not added yet
 
                 output.accept(SMALL_OXYGEN_TANK);
@@ -526,16 +530,12 @@ public class GCCreativeModeTabs {
                 output.accept(RAW_MAGNESIUM);
                 output.accept(MAGNESIUM_INGOT);
                 output.accept(COMPRESSED_MAGNESIUM);
-                output.accept(RAW_SOLAR_VOLATILE_CANISTER);
-                output.accept(HELIUM3_CANISTER);
                 output.accept(HELIUM3_CELL);
-                output.accept(DEUTERIUM_CANISTER);
                 output.accept(HELIUM3_FUSION_CELL);
                 output.accept(LONSDALEITE_GEM);
                 output.accept(RAW_URANIUM);
                 output.accept(URANIUM_INGOT);
                 output.accept(SUPERIONIC_ICE_CRYSTAL);
-                output.accept(XENON_CANISTER);
 
                 output.accept(TIER_1_HEAVY_DUTY_PLATE);
                 output.accept(TIER_2_HEAVY_DUTY_PLATE);

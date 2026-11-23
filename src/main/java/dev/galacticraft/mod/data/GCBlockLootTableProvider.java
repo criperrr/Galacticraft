@@ -223,7 +223,7 @@ public class GCBlockLootTableProvider extends FabricBlockLootTableProvider {
         this.dropSelf(GCBlocks.SATURN_GOLDEN_BAND_ROCK);
         this.dropSelf(GCBlocks.SATURN_RING_ICE_ROCK);
         this.dropSelf(GCBlocks.SATURN_HYDROCARBON_SLATE);
-        this.add(GCBlocks.SATURN_HELIUM_MANTLE_ROCK, this.createOreDrop(GCBlocks.SATURN_HELIUM_MANTLE_ROCK, GCItems.HELIUM3_CANISTER, 1.0F, 2.0F));
+        this.dropSelf(GCBlocks.SATURN_HELIUM_MANTLE_ROCK);
         this.dropSelf(GCBlocks.SATURN_STONE_BRICKS);
         this.add(GCBlocks.SATURN_COPPER_ORE, this.createCopperOreDrops(GCBlocks.SATURN_COPPER_ORE));
         this.add(GCBlocks.SATURN_TIN_ORE, this.createOreDrop(GCBlocks.SATURN_TIN_ORE, GCItems.RAW_TIN, 2.0F, 5.0F));
@@ -354,15 +354,7 @@ public class GCBlockLootTableProvider extends FabricBlockLootTableProvider {
         this.add(GCBlocks.ASTEROID_GRAPHITE_ORE, this.createOreDrop(GCBlocks.ASTEROID_GRAPHITE_ORE, GCItems.CARBON_FRAGMENTS, 2.0F, 4.0F));
         //ILMENITE / TITANIUM
         this.add(GCBlocks.ILMENITE_ORE, this.createOreDrop(GCBlocks.ILMENITE_ORE, GCItems.RAW_TITANIUM));
-        this.add(GCBlocks.MOON_ILMENITE_ORE, this.createOreDrop(GCBlocks.MOON_ILMENITE_ORE, GCItems.RAW_TITANIUM)
-                .withPool(this.applyExplosionCondition(
-                        GCBlocks.MOON_ILMENITE_ORE,
-                        LootPool.lootPool()
-                                .setRolls(ConstantValue.exactly(1.0F))
-                                .when(this.doesNotHaveSilkTouch())
-                                .add(LootItem.lootTableItem(GCItems.RAW_SOLAR_VOLATILE_CANISTER)
-                                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))))
-                )));
+        this.add(GCBlocks.MOON_ILMENITE_ORE, this.createOreDrop(GCBlocks.MOON_ILMENITE_ORE, GCItems.RAW_TITANIUM));
         this.add(GCBlocks.MARS_TITANIUM_ORE, this.createOreDrop(GCBlocks.MARS_TITANIUM_ORE, GCItems.RAW_TITANIUM));
         this.add(GCBlocks.VENUS_TITANIUM_ORE, this.createOreDrop(GCBlocks.VENUS_TITANIUM_ORE, GCItems.RAW_TITANIUM));
         //IRON

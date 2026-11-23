@@ -865,10 +865,7 @@ public class GCModelProvider extends FabricModelProvider {
         generator.generateFlatItem(GCItems.RAW_MAGNESIUM, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(GCItems.MAGNESIUM_INGOT, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(GCItems.COMPRESSED_MAGNESIUM, ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(GCItems.RAW_SOLAR_VOLATILE_CANISTER, ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(GCItems.HELIUM3_CANISTER, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(GCItems.HELIUM3_CELL, ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(GCItems.DEUTERIUM_CANISTER, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(GCItems.HELIUM3_FUSION_CELL, ModelTemplates.FLAT_ITEM);
 
         generator.generateFlatItem(GCItems.LONSDALEITE_GEM, ModelTemplates.FLAT_ITEM);
@@ -876,7 +873,6 @@ public class GCModelProvider extends FabricModelProvider {
         generator.generateFlatItem(GCItems.URANIUM_INGOT, ModelTemplates.FLAT_ITEM);
 
         generator.generateFlatItem(GCItems.SUPERIONIC_ICE_CRYSTAL, ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(GCItems.XENON_CANISTER, ModelTemplates.FLAT_ITEM);
 
         generator.generateFlatItem(GCItems.RAW_ALUMINUM, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(GCItems.ALUMINUM_INGOT, ModelTemplates.FLAT_ITEM);

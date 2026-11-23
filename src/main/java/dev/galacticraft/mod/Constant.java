@@ -635,16 +635,12 @@ public interface Constant {
         String RAW_MAGNESIUM = "raw_magnesium";
         String MAGNESIUM_INGOT = "magnesium_ingot";
         String COMPRESSED_MAGNESIUM = "compressed_magnesium";
-        String RAW_SOLAR_VOLATILE_CANISTER = "raw_solar_volatile_canister";
-        String HELIUM3_CANISTER = "helium3_canister";
         String HELIUM3_CELL = "helium3_cell";
-        String DEUTERIUM_CANISTER = "deuterium_canister";
         String HELIUM3_FUSION_CELL = "helium3_fusion_cell";
         String LONSDALEITE_GEM = "lonsdaleite_gem";
         String RAW_URANIUM = "raw_uranium";
         String URANIUM_INGOT = "uranium_ingot";
         String SUPERIONIC_ICE_CRYSTAL = "superionic_ice_crystal";
-        String XENON_CANISTER = "xenon_canister";
         String FLUID_MANIPULATOR = "fluid_manipulator";
         String OXYGEN_CONCENTRATOR = "oxygen_concentrator";
         String OXYGEN_FAN = "oxygen_fan";
