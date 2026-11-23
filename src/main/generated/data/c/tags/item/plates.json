@@ -6,9 +6,11 @@
     "#c:plates/aluminum",
     "#c:plates/bronze",
     "#c:plates/steel",
+    "#c:plates/ferroniobium",
     "#c:plates/meteoric_iron",
     "#c:plates/desh",
     "#c:plates/titanium",
+    "#c:plates/niobium",
     "#c:plates/heavy_duty"
   ]
 }

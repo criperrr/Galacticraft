@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_compressed_titanium": {
+    "has_superconducting_coil": {
       "conditions": {
         "items": [
           {
-            "items": "galacticraft:compressed_titanium"
+            "items": "galacticraft:superconducting_coil"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_compressed_titanium"
+      "has_superconducting_coil"
     ]
   ],
   "rewards": {

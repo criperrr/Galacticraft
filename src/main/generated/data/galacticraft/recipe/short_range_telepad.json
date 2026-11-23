@@ -2,14 +2,14 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
+    "C": {
+      "item": "galacticraft:superconducting_coil"
+    },
     "W": {
       "item": "galacticraft:beam_core"
     },
     "X": {
       "item": "galacticraft:compressed_titanium"
-    },
-    "Y": {
-      "tag": "c:dusts/redstone"
     },
     "Z": {
       "tag": "c:ender_pearls"
@@ -17,7 +17,7 @@
   },
   "pattern": [
     "XWX",
-    "ZYZ",
+    "ZCZ",
     "XXX"
   ],
   "result": {

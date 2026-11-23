@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_ferroniobium_ingot": {
+      "conditions": {
+        "items": [
+          {
+            "items": "galacticraft:ferroniobium_ingot"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "galacticraft:ferroniobium_block"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_ferroniobium_ingot"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "galacticraft:ferroniobium_block"
+    ]
+  }
+}

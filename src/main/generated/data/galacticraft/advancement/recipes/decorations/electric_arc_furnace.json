@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_meteoric_iron_ingot": {
+    "has_superconducting_coil": {
       "conditions": {
         "items": [
           {
-            "items": "galacticraft:meteoric_iron_ingot"
+            "items": "galacticraft:superconducting_coil"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_meteoric_iron_ingot"
+      "has_superconducting_coil"
     ]
   ],
   "rewards": {

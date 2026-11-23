@@ -5,6 +5,8 @@
     "#c:ingots/meteoric_iron",
     "#c:ingots/desh",
     "#c:ingots/titanium",
-    "#c:ingots/lead"
+    "#c:ingots/lead",
+    "#c:ingots/niobium",
+    "#c:ingots/ferroniobium"
   ]
 }

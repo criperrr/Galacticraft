@@ -1,0 +1,15 @@
+{
+  "type": "galacticraft:compressing_shapeless",
+  "ingredients": [
+    {
+      "tag": "c:ingots/niobium"
+    },
+    {
+      "tag": "c:ingots/meteoric_iron"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:compressed_niobium"
+  }
+}

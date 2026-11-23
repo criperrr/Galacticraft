@@ -5,14 +5,14 @@
     "A": {
       "item": "galacticraft:compressed_aluminum"
     },
-    "S": {
-      "item": "galacticraft:compressed_steel"
+    "F": {
+      "item": "galacticraft:compressed_ferroniobium"
     }
   },
   "pattern": [
-    "S S",
+    "F F",
     " A ",
-    "S S"
+    "F F"
   ],
   "result": {
     "count": 6,

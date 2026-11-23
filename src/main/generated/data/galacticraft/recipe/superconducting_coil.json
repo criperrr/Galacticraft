@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "N": {
+      "tag": "c:ingots/niobium"
+    },
+    "T": {
+      "tag": "c:ingots/tin"
+    },
+    "W": {
+      "item": "galacticraft:heavy_aluminum_wire"
+    }
+  },
+  "pattern": [
+    "NNN",
+    "WWW",
+    "TTT"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:superconducting_coil"
+  }
+}

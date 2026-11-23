@@ -1,7 +1,7 @@
 {
   "type": "galacticraft:fabrication",
   "ingredient": {
-    "item": "minecraft:repeater"
+    "item": "galacticraft:niobium_oxide"
   },
   "result": {
     "count": 1,

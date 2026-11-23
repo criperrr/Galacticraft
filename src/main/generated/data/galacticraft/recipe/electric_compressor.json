@@ -8,19 +8,19 @@
     "B": {
       "item": "galacticraft:compressed_bronze"
     },
+    "F": {
+      "item": "galacticraft:compressed_ferroniobium"
+    },
     "I": {
       "item": "galacticraft:aluminum_wire"
-    },
-    "S": {
-      "item": "galacticraft:compressed_steel"
     },
     "W": {
       "item": "galacticraft:advanced_wafer"
     }
   },
   "pattern": [
-    "SAS",
-    "SBS",
+    "FAF",
+    "FBF",
     "IWI"
   ],
   "result": {
