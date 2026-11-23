@@ -54,7 +54,8 @@
       "dev.galacticraft.mod.gametest.ModularRocketPartTestSuite",
       "dev.galacticraft.mod.gametest.CoreOrphanRecipesTestSuite",
       "dev.galacticraft.mod.gametest.NiobiumMetallurgyTestSuite",
-      "dev.galacticraft.mod.gametest.PlanetaryMultiOreStratigraphyTestSuite"
+      "dev.galacticraft.mod.gametest.PlanetaryMultiOreStratigraphyTestSuite",
+      "dev.galacticraft.mod.gametest.OuterPlanetsExoticMineralogyTestSuite"
     ]
   },
   "custom": {
