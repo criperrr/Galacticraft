@@ -32,6 +32,7 @@ import dev.galacticraft.mod.content.block.entity.machine.RegolithThermalDesorber
 import dev.galacticraft.mod.content.item.GCItems;
 import dev.galacticraft.mod.util.FluidUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 
@@ -51,18 +52,21 @@ public class Helium3ChainTestSuite implements GalacticraftGameTest {
         RegolithThermalDesorberBlockEntity turfDesorber = context.getBlockEntity(turfPos);
         RegolithThermalDesorberBlockEntity noPowerDesorber = context.getBlockEntity(noPowerPos);
 
-        // Pre-heat powered desorbers to target temperature (>700C) and supply energy
+        // Pre-evacuate and pre-heat powered desorbers to target vacuum + temperature (>700C)
+        ilmeniteDesorber.setVacuumPercent(RegolithThermalDesorberBlockEntity.TARGET_VACUUM);
         ilmeniteDesorber.setTemperature(RegolithThermalDesorberBlockEntity.TARGET_TEMPERATURE);
         ilmeniteDesorber.energyStorage().setEnergy(50_000L);
         ilmeniteDesorber.itemStorage().slot(RegolithThermalDesorberBlockEntity.INPUT_SLOT_1)
                 .set(GCBlocks.MOON_ILMENITE_ORE.asItem(), 1);
 
+        turfDesorber.setVacuumPercent(RegolithThermalDesorberBlockEntity.TARGET_VACUUM);
         turfDesorber.setTemperature(RegolithThermalDesorberBlockEntity.TARGET_TEMPERATURE);
         turfDesorber.energyStorage().setEnergy(50_000L);
         turfDesorber.itemStorage().slot(RegolithThermalDesorberBlockEntity.INPUT_SLOT_1)
                 .set(GCBlocks.MOON_TURF.asItem(), 1);
 
         // Unpowered desorber must NOT consume input or emit gas (transactional safety)
+        noPowerDesorber.setVacuumPercent(RegolithThermalDesorberBlockEntity.TARGET_VACUUM);
         noPowerDesorber.setTemperature(RegolithThermalDesorberBlockEntity.TARGET_TEMPERATURE);
         noPowerDesorber.energyStorage().setEnergy(0L);
         noPowerDesorber.itemStorage().slot(RegolithThermalDesorberBlockEntity.INPUT_SLOT_1)
@@ -125,11 +129,22 @@ public class Helium3ChainTestSuite implements GalacticraftGameTest {
         noCoilCentrifuge.fluidStorage().slot(IsotopicCentrifugeBlockEntity.INPUT_GAS_TANK)
                 .set(Gases.SOLAR_VOLATILE_GAS, 500L * FluidUtil.MILLIBUCKET);
 
-        context.runAfterDelay(30, () -> {
+        // Allow 40 ticks for rotor spin-up (40k RPM) + isotopic separation cycles
+        context.runAfterDelay(45, () -> {
             FluidResourceSlot outTank = centrifuge.fluidStorage().slot(IsotopicCentrifugeBlockEntity.OUTPUT_GAS_TANK);
+            FluidResourceSlot tailingsTank = centrifuge.fluidStorage().slot(IsotopicCentrifugeBlockEntity.TAILINGS_GAS_TANK);
             FluidResourceSlot inTank = centrifuge.fluidStorage().slot(IsotopicCentrifugeBlockEntity.INPUT_GAS_TANK);
+
+            if (centrifuge.getRotorRpm() < IsotopicCentrifugeBlockEntity.TARGET_RPM) {
+                context.fail("Expected Isotopic Centrifuge rotor to spin up >= 40000 RPM, got " + centrifuge.getRotorRpm());
+                return;
+            }
             if (outTank.isEmpty() || outTank.getResource() != Gases.HELIUM_3) {
                 context.fail("Expected Isotopic Centrifuge with SUPERCONDUCTING_COIL to produce HELIUM_3 gas, got " + outTank.getResource() + " (" + outTank.getAmount() + ")");
+                return;
+            }
+            if (tailingsTank.isEmpty() || tailingsTank.getResource() != Gases.HELIUM) {
+                context.fail("Expected Isotopic Centrifuge to separate 4He tailings into secondary tank, got " + tailingsTank.getResource());
                 return;
             }
             if (inTank.getAmount() >= 500L * FluidUtil.MILLIBUCKET) {
@@ -144,29 +159,46 @@ public class Helium3ChainTestSuite implements GalacticraftGameTest {
         });
     }
 
-    @GameTest(template = EMPTY_STRUCTURE, timeoutTicks = 160)
+    @GameTest(template = EMPTY_STRUCTURE, timeoutTicks = 200)
     public void aneutronicFusionReactorMhdTest(GameTestHelper context) {
-        BlockPos basePos = new BlockPos(0, 1, 0);
-        BlockPos cryoPos = new BlockPos(2, 1, 0);
+        // Standalone controller (no multiblock) must refuse to ignite
+        BlockPos standaloneRel = new BlockPos(0, 2, 0);
+        context.setBlock(standaloneRel, GCBlocks.HELIUM3_FUSION_REACTOR);
+        Helium3FusionReactorBlockEntity standaloneReactor = context.getBlockEntity(standaloneRel);
+        standaloneReactor.itemStorage().slot(Helium3FusionReactorBlockEntity.COIL_SLOT).set(GCItems.SUPERCONDUCTING_COIL, 1);
+        standaloneReactor.fluidStorage().slot(Helium3FusionReactorBlockEntity.HELIUM3_TANK).set(Gases.HELIUM_3, 1000L * FluidUtil.MILLIBUCKET);
+        standaloneReactor.fluidStorage().slot(Helium3FusionReactorBlockEntity.DEUTERIUM_TANK).set(Gases.DEUTERIUM, 1000L * FluidUtil.MILLIBUCKET);
 
-        context.setBlock(basePos, GCBlocks.HELIUM3_FUSION_REACTOR);
-        context.setBlock(cryoPos, GCBlocks.HELIUM3_FUSION_REACTOR);
+        // Two complete 3x3x3 toroidal multiblocks (baseline vs <2K cryo)
+        BlockPos baseRel = new BlockPos(4, 2, 1);
+        BlockPos cryoRel = new BlockPos(8, 2, 1);
+        Helium3FusionReactorBlockEntity.buildMultiblock(context.getLevel(), context.absolutePos(baseRel), Direction.NORTH);
+        Helium3FusionReactorBlockEntity.buildMultiblock(context.getLevel(), context.absolutePos(cryoRel), Direction.NORTH);
 
-        Helium3FusionReactorBlockEntity baseReactor = context.getBlockEntity(basePos);
-        Helium3FusionReactorBlockEntity cryoReactor = context.getBlockEntity(cryoPos);
+        Helium3FusionReactorBlockEntity baseReactor = context.getBlockEntity(baseRel);
+        Helium3FusionReactorBlockEntity cryoReactor = context.getBlockEntity(cryoRel);
 
-        // Baseline MHD reactor: D2 + 3He + SUPERCONDUCTING_COIL -> 2,500 GJ/t
+        // Baseline MHD reactor: 3x3x3 torus + D2 + 3He + SUPERCONDUCTING_COIL -> 2,500 GJ/t
         baseReactor.itemStorage().slot(Helium3FusionReactorBlockEntity.COIL_SLOT).set(GCItems.SUPERCONDUCTING_COIL, 1);
         baseReactor.fluidStorage().slot(Helium3FusionReactorBlockEntity.HELIUM3_TANK).set(Gases.HELIUM_3, 1000L * FluidUtil.MILLIBUCKET);
         baseReactor.fluidStorage().slot(Helium3FusionReactorBlockEntity.DEUTERIUM_TANK).set(Gases.DEUTERIUM, 1000L * FluidUtil.MILLIBUCKET);
 
-        // Cryo <2K MHD reactor: D2 + 3He + SUPERCONDUCTING_COIL + HELIUM3_CELL -> 5,000 GJ/t
+        // Cryo <2K MHD reactor: 3x3x3 torus + D2 + 3He + SUPERCONDUCTING_COIL + HELIUM3_CELL -> 5,000 GJ/t
         cryoReactor.itemStorage().slot(Helium3FusionReactorBlockEntity.COIL_SLOT).set(GCItems.SUPERCONDUCTING_COIL, 1);
         cryoReactor.itemStorage().slot(Helium3FusionReactorBlockEntity.CRYO_COOLANT_SLOT).set(GCItems.HELIUM3_CELL, 1);
         cryoReactor.fluidStorage().slot(Helium3FusionReactorBlockEntity.HELIUM3_TANK).set(Gases.HELIUM_3, 1000L * FluidUtil.MILLIBUCKET);
         cryoReactor.fluidStorage().slot(Helium3FusionReactorBlockEntity.DEUTERIUM_TANK).set(Gases.DEUTERIUM, 1000L * FluidUtil.MILLIBUCKET);
 
-        context.runAfterDelay(20, () -> {
+        // Wait 30 ticks for 150 MK plasma ignition ramp + active MHD burn
+        context.runAfterDelay(30, () -> {
+            if (standaloneReactor.isMultiblockFormed() || standaloneReactor.getActiveGenerationRate() > 0) {
+                context.fail("Standalone Fusion Reactor without 3x3x3 multiblock must NOT ignite or generate energy");
+                return;
+            }
+            if (!baseReactor.isMultiblockFormed() || !cryoReactor.isMultiblockFormed()) {
+                context.fail("Expected 3x3x3 Fusion Reactor multiblocks to form cleanly (26/26)");
+                return;
+            }
             if (baseReactor.getActiveGenerationRate() < Helium3FusionReactorBlockEntity.BASE_GENERATION_RATE) {
                 context.fail("Expected baseline MHD fusion output >= 2500 GJ/t, got " + baseReactor.getActiveGenerationRate());
                 return;
@@ -184,7 +216,7 @@ public class Helium3ChainTestSuite implements GalacticraftGameTest {
             cryoReactor.itemStorage().slot(Helium3FusionReactorBlockEntity.COIL_SLOT).extractOne();
 
             context.runAfterDelay(5, () -> {
-                context.assertBlockPresent(GCBlocks.HELIUM3_FUSION_REACTOR, cryoPos);
+                context.assertBlockPresent(GCBlocks.HELIUM3_FUSION_REACTOR, cryoRel);
                 if (cryoReactor.getActiveGenerationRate() != 0) {
                     context.fail("Expected quench-safe shutdown to drop generation to 0 GJ/t without explosion, got " + cryoReactor.getActiveGenerationRate());
                     return;
