@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "item": "galacticraft:vacuum_glass_strong"
+    },
+    "N": {
+      "item": "galacticraft:compressed_niobium"
+    },
+    "S": {
+      "item": "galacticraft:lunar_sapphire"
+    }
+  },
+  "pattern": [
+    "NGN",
+    "GSG",
+    "NGN"
+  ],
+  "result": {
+    "count": 4,
+    "id": "galacticraft:fusion_plasma_glass"
+  }
+}

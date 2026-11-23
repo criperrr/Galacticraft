@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "N": {
+      "item": "galacticraft:compressed_niobium"
+    },
+    "P": {
+      "item": "galacticraft:heavy_plating_t2"
+    },
+    "T": {
+      "item": "galacticraft:compressed_titanium"
+    }
+  },
+  "pattern": [
+    "NTN",
+    "TPT",
+    "NTN"
+  ],
+  "result": {
+    "count": 4,
+    "id": "galacticraft:fusion_reactor_casing"
+  }
+}
