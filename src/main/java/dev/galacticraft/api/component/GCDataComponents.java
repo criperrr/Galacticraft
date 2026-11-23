@@ -28,6 +28,7 @@ import dev.galacticraft.api.APIConstants;
 import dev.galacticraft.api.fluid.FluidData;
 import dev.galacticraft.api.rocket.RocketData;
 import dev.galacticraft.api.rocket.part.data.PartIntegrity;
+import dev.galacticraft.api.rocket.part.data.RocketPartComposition;
 import dev.galacticraft.api.rocket.part.data.RocketPartStats;
 import dev.galacticraft.api.rocket.part.modular.RocketPartConfig;
 import dev.galacticraft.api.util.StreamCodecs;
@@ -91,6 +92,9 @@ public class GCDataComponents {
     public static final DataComponentType<RocketPartConfig> ROCKET_PART_CONFIG = register("rocket_part_config", b -> b
             .persistent(RocketPartConfig.CODEC)
             .networkSynchronized(RocketPartConfig.STREAM_CODEC));
+    public static final DataComponentType<RocketPartComposition> ROCKET_PART_COMPOSITION = register("rocket_part_composition", b -> b
+            .persistent(RocketPartComposition.CODEC)
+            .networkSynchronized(RocketPartComposition.STREAM_CODEC));
 
     private static <T> DataComponentType<T> register(String id, UnaryOperator<DataComponentType.Builder<T>> op) {
         return Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, APIConstants.id(id), op.apply(DataComponentType.builder()).build());

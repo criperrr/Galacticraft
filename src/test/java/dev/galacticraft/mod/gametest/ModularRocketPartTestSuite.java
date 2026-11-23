@@ -25,6 +25,9 @@ package dev.galacticraft.mod.gametest;
 import dev.galacticraft.api.component.GCDataComponents;
 import dev.galacticraft.api.multiblock.BoundsShape;
 import dev.galacticraft.api.rocket.part.data.PartIntegrity;
+import dev.galacticraft.api.rocket.part.data.RocketMaterialProfile;
+import dev.galacticraft.api.rocket.part.data.RocketMaterialTrait;
+import dev.galacticraft.api.rocket.part.data.RocketPartComposition;
 import dev.galacticraft.api.rocket.part.data.RocketPartStats;
 import dev.galacticraft.api.rocket.part.modular.FootprintMode;
 import dev.galacticraft.api.rocket.part.modular.RocketLivery;
@@ -52,10 +55,14 @@ import dev.galacticraft.mod.content.rocket.part.RocketPartSpec;
 import dev.galacticraft.mod.content.rocket.part.SchematicGridLayout;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -64,6 +71,7 @@ import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunk;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
@@ -478,6 +486,117 @@ public class ModularRocketPartTestSuite implements GalacticraftGameTest {
                 "Expected lateral booster origin " + expectedLateralOrigin + " beside radial decoupler, got " + resolvedOrigin);
         helper.assertTrue(ModularRocketPartBlockItem.canPlaceFootprint(level, resolvedOrigin, boosterConfig, Direction.NORTH),
                 "Expected lateral booster footprint at " + resolvedOrigin + " to be unobstructed");
+
+        helper.succeed();
+    }
+
+    @GameTest(template = PLATFORM_ARENA)
+    public void testRocketPartCompositionPlacementNbtAndDropRoundtrip(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        BlockPos padRel = new BlockPos(8, 1, 8);
+        BlockPos padAbs = helper.absolutePos(padRel);
+        helper.setBlock(padRel, GCBlocks.REINFORCED_LAUNCH_PAD.defaultBlockState());
+
+        RocketPartSpec geminiSpec = RocketPartCatalog.getInstance().getPart("capsule_gemini_3x3_2b");
+        helper.assertTrue(geminiSpec != null, "Expected capsule_gemini_3x3_2b in RocketPartCatalog");
+        RocketPartConfig geminiConfig = geminiSpec.toConfig(RocketLivery.ORANGE);
+
+        RocketPartComposition hybridComposition = new RocketPartComposition(List.of(
+                RocketPartComposition.SlotMaterialEntry.of(
+                        1,
+                        RocketMaterialProfile.SlotRole.COMMAND_NOSE_RECOVERY,
+                        BuiltInRegistries.ITEM.getKey(GCItems.OLIVINE_SHARD),
+                        List.of(RocketMaterialTrait.ABLATIVE_TPS)
+                ),
+                RocketPartComposition.SlotMaterialEntry.of(
+                        3,
+                        RocketMaterialProfile.SlotRole.STRUCTURAL_HULL,
+                        BuiltInRegistries.ITEM.getKey(GCItems.COMPRESSED_TITANIUM),
+                        List.of(RocketMaterialTrait.AEROSPACE_GRADE)
+                ),
+                RocketPartComposition.SlotMaterialEntry.of(
+                        4,
+                        RocketMaterialProfile.SlotRole.COMMAND_VIEWPORT,
+                        BuiltInRegistries.ITEM.getKey(GCBlocks.OLIVINE_GLASS.asItem()),
+                        List.of(RocketMaterialTrait.REFRACTORY_CANOPY)
+                ),
+                RocketPartComposition.SlotMaterialEntry.of(
+                        5,
+                        RocketMaterialProfile.SlotRole.STRUCTURAL_HULL,
+                        BuiltInRegistries.ITEM.getKey(GCItems.LEAD_INGOT),
+                        List.of(RocketMaterialTrait.ACID_RADIATION_SHIELD)
+                ),
+                RocketPartComposition.SlotMaterialEntry.of(
+                        7,
+                        RocketMaterialProfile.SlotRole.COMMAND_AVIONICS,
+                        BuiltInRegistries.ITEM.getKey(GCItems.HELIUM3_FUSION_CELL),
+                        List.of(RocketMaterialTrait.ANEUTRONIC_BOARD_REACTOR)
+                )
+        ));
+
+        ItemStack capsuleStack = ModularRocketPartBlockItem.createConfiguredStack(
+                geminiConfig,
+                null,
+                PartIntegrity.pristine(150.0),
+                hybridComposition
+        );
+        helper.assertTrue(hybridComposition.equals(capsuleStack.get(GCDataComponents.ROCKET_PART_COMPOSITION)),
+                "Expected ROCKET_PART_COMPOSITION on newly created ItemStack");
+
+        // Place via ModularRocketPartBlockItem.place(...) onto the launch pad
+        BlockHitResult hitPadTop = new BlockHitResult(
+                Vec3.atCenterOf(padAbs).add(0.0, 0.5, 0.0),
+                Direction.UP,
+                padAbs,
+                false
+        );
+        BlockPlaceContext placeContext = new BlockPlaceContext(level, null, InteractionHand.MAIN_HAND, capsuleStack, hitPadTop);
+        InteractionResult placeResult = ((ModularRocketPartBlockItem) capsuleStack.getItem()).place(placeContext);
+        helper.assertTrue(placeResult.consumesAction(), "Expected ModularRocketPartBlockItem.place() to succeed");
+
+        BlockPos masterRel = padRel.above();
+        BlockPos masterAbs = padAbs.above();
+        ModularRocketPartBlockEntity placedBe = requireModularPart(helper, masterRel);
+        helper.assertTrue(hybridComposition.equals(placedBe.getComposition()),
+                "Expected placed ModularRocketPartBlockEntity to preserve exact RocketPartComposition");
+
+        // Verify NBT save/load + update tag roundtrip
+        CompoundTag savedTag = placedBe.saveWithoutMetadata(level.registryAccess());
+        CompoundTag updateTag = placedBe.getUpdateTag(level.registryAccess());
+        helper.assertTrue(savedTag.contains("PartComposition"), "Expected PartComposition in saved NBT");
+        helper.assertTrue(updateTag.contains("PartComposition"), "Expected PartComposition in client update tag");
+
+        ModularRocketPartBlockEntity reloadedBe = new ModularRocketPartBlockEntity(masterAbs, level.getBlockState(masterAbs));
+        reloadedBe.loadWithComponents(savedTag, level.registryAccess());
+        helper.assertTrue(hybridComposition.equals(reloadedBe.getComposition()),
+                "Expected NBT-reloaded BlockEntity to preserve exact RocketPartComposition");
+
+        // Verify pick-block (master and proxy) preserves composition
+        ItemStack masterClone = level.getBlockState(masterAbs).getBlock().getCloneItemStack(level, masterAbs, level.getBlockState(masterAbs));
+        helper.assertTrue(hybridComposition.equals(masterClone.get(GCDataComponents.ROCKET_PART_COMPOSITION)),
+                "Expected master pick-block clone stack to preserve RocketPartComposition");
+        BlockPos proxyPos = placedBe.getOccupiedProxies().getFirst();
+        ItemStack proxyClone = placedBe.getProxyCloneItemStack(level, proxyPos);
+        helper.assertTrue(hybridComposition.equals(proxyClone.get(GCDataComponents.ROCKET_PART_COMPOSITION)),
+                "Expected proxy pick-block clone stack to preserve RocketPartComposition");
+
+        // Break/teardown with dropItem=true and verify dropped ItemEntity preserves exact composition & traits
+        placedBe.tearDown(level, masterAbs, null, true);
+        List<ItemEntity> drops = level.getEntitiesOfClass(ItemEntity.class, new AABB(masterAbs).inflate(2.5));
+        helper.assertTrue(drops.size() == 1, "Expected exactly 1 dropped ItemEntity after teardown, got " + drops.size());
+
+        ItemStack droppedStack = drops.getFirst().getItem();
+        RocketPartComposition droppedComp = droppedStack.get(GCDataComponents.ROCKET_PART_COMPOSITION);
+        helper.assertTrue(hybridComposition.equals(droppedComp),
+                "Expected dropped ItemStack to preserve exact RocketPartComposition, got " + droppedComp);
+        helper.assertTrue(droppedComp.hasTrait(RocketMaterialTrait.AEROSPACE_GRADE)
+                        && droppedComp.hasTrait(RocketMaterialTrait.ACID_RADIATION_SHIELD)
+                        && droppedComp.hasTrait(RocketMaterialTrait.REFRACTORY_CANOPY)
+                        && droppedComp.hasTrait(RocketMaterialTrait.ABLATIVE_TPS)
+                        && droppedComp.hasTrait(RocketMaterialTrait.ANEUTRONIC_BOARD_REACTOR),
+                "Expected dropped ItemStack composition to retain all 5 hybrid traits");
+        helper.assertTrue(PartIntegrity.pristine(150.0).equals(droppedStack.get(GCDataComponents.PART_INTEGRITY)),
+                "Expected dropped ItemStack to preserve custom PartIntegrity");
 
         helper.succeed();
     }

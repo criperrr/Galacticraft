@@ -26,6 +26,7 @@ import dev.galacticraft.api.component.GCDataComponents;
 import dev.galacticraft.api.multiblock.BoundsShape;
 import dev.galacticraft.api.rocket.part.data.PartDamageState;
 import dev.galacticraft.api.rocket.part.data.PartIntegrity;
+import dev.galacticraft.api.rocket.part.data.RocketPartComposition;
 import dev.galacticraft.api.rocket.part.data.RocketPartStats;
 import dev.galacticraft.api.rocket.part.modular.FootprintMode;
 import dev.galacticraft.api.rocket.part.modular.RocketPartCategory;
@@ -65,6 +66,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayDeque;
 import java.util.List;
@@ -109,11 +111,27 @@ public class ModularRocketPartBlockItem extends BlockItem {
      * physical stats and pristine structural integrity.
      */
     public static @NotNull ItemStack createConfiguredStack(@NotNull RocketPartConfig config) {
+        return createConfiguredStack(config, null, null, null);
+    }
+
+    /**
+     * Creates a configured {@link ItemStack} with optional custom physical stats, integrity, and
+     * per-slot {@link RocketPartComposition}.
+     */
+    public static @NotNull ItemStack createConfiguredStack(
+            @NotNull RocketPartConfig config,
+            @Nullable RocketPartStats stats,
+            @Nullable PartIntegrity integrity,
+            @Nullable RocketPartComposition composition
+    ) {
         Objects.requireNonNull(config, "config");
         ItemStack stack = new ItemStack(ModularRocketPartBlock.getBlockForCategory(config.category()));
         stack.set(GCDataComponents.ROCKET_PART_CONFIG, config);
-        stack.set(GCDataComponents.ROCKET_PART_STATS, RocketPartCostCalculator.calculate(config).stats());
-        stack.set(GCDataComponents.PART_INTEGRITY, PartIntegrity.pristine());
+        stack.set(GCDataComponents.ROCKET_PART_STATS, stats != null ? stats : RocketPartCostCalculator.calculate(config).stats());
+        stack.set(GCDataComponents.PART_INTEGRITY, integrity != null ? integrity : PartIntegrity.pristine());
+        if (composition != null && !composition.isEmpty()) {
+            stack.set(GCDataComponents.ROCKET_PART_COMPOSITION, composition);
+        }
         return stack;
     }
 
@@ -262,7 +280,8 @@ public class ModularRocketPartBlockItem extends BlockItem {
         if (level.getBlockEntity(origin) instanceof ModularRocketPartBlockEntity be) {
             RocketPartStats stats = stack.get(GCDataComponents.ROCKET_PART_STATS);
             PartIntegrity integrity = stack.get(GCDataComponents.PART_INTEGRITY);
-            be.initializePart(config, stats, integrity, facing);
+            RocketPartComposition composition = stack.get(GCDataComponents.ROCKET_PART_COMPOSITION);
+            be.initializePart(config, stats, integrity, composition, facing);
         }
 
         if (!level.isClientSide && player != null) {

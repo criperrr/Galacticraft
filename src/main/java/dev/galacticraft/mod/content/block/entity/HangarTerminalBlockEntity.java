@@ -1030,7 +1030,8 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
             if (this.level.getBlockEntity(origin) instanceof ModularRocketPartBlockEntity partBe) {
                 RocketPartStats stats = stack.get(GCDataComponents.ROCKET_PART_STATS);
                 PartIntegrity integrity = stack.get(GCDataComponents.PART_INTEGRITY);
-                partBe.initializePart(cfg, stats, integrity, facing);
+                var composition = stack.get(GCDataComponents.ROCKET_PART_COMPOSITION);
+                partBe.initializePart(cfg, stats, integrity, composition, facing);
             }
 
             if (!creative) {
@@ -1109,7 +1110,8 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
             if (this.level.getBlockEntity(origin) instanceof ModularRocketPartBlockEntity partBe) {
                 RocketPartStats stats = stack.get(GCDataComponents.ROCKET_PART_STATS);
                 PartIntegrity integrity = stack.get(GCDataComponents.PART_INTEGRITY);
-                partBe.initializePart(cfg, stats, integrity, facing);
+                var composition = stack.get(GCDataComponents.ROCKET_PART_COMPOSITION);
+                partBe.initializePart(cfg, stats, integrity, composition, facing);
             }
 
             this.rocketSlots.setItem(i, ItemStack.EMPTY);
