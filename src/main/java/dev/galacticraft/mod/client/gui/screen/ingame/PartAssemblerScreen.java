@@ -24,6 +24,10 @@ package dev.galacticraft.mod.client.gui.screen.ingame;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import dev.galacticraft.api.rocket.part.data.PartIntegrity;
+import dev.galacticraft.api.rocket.part.data.RocketMaterialProfile;
+import dev.galacticraft.api.rocket.part.data.RocketMaterialTrait;
+import dev.galacticraft.api.rocket.part.data.RocketPartComposition;
 import dev.galacticraft.api.rocket.part.data.RocketPartStats;
 import dev.galacticraft.api.rocket.part.modular.RocketLivery;
 import dev.galacticraft.api.rocket.part.modular.RocketPartCategory;
@@ -31,6 +35,7 @@ import dev.galacticraft.api.rocket.part.modular.RocketPartConfig;
 import dev.galacticraft.machinelib.client.api.screen.MachineScreen;
 import dev.galacticraft.mod.client.render.rocket.part.RocketPartGuiPreviewRenderer;
 import dev.galacticraft.mod.content.block.entity.RocketWorkbenchBlockEntity;
+import dev.galacticraft.mod.content.rocket.part.RocketMaterialRegistry;
 import dev.galacticraft.mod.content.rocket.part.RocketPartCatalog;
 import dev.galacticraft.mod.content.rocket.part.RocketPartCostCalculator;
 import dev.galacticraft.mod.content.rocket.part.RocketPartCostCalculator.CostProfile;
@@ -51,6 +56,8 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
@@ -73,8 +80,9 @@ public class PartAssemblerScreen extends MachineScreen<RocketWorkbenchBlockEntit
     private static final int PANEL_OFFSET_X = 4;
     private static final int PANEL_WIDTH = 138;
     private static final int PREVIEW_HEIGHT_NORMAL = 74;
-    private static final int PREVIEW_HEIGHT_COMPACT = 56;
-    private static final int PANEL_BASE_CONTROLS_HEIGHT = 166;
+    private static final int PREVIEW_HEIGHT_COMPACT = 50;
+    private static final int PANEL_BASE_CONTROLS_HEIGHT = 186;
+    private static final int STATS_BOX_HEIGHT = 70;
     private static final double DROPLETS_PER_BUCKET = 81_000.0;
 
     private static final float PREVIEW_DEFAULT_YAW = 225.0F;
@@ -98,6 +106,7 @@ public class PartAssemblerScreen extends MachineScreen<RocketWorkbenchBlockEntit
     private static final int COLOR_TEXT_SKY = 0xFF7DD3FC;
     private static final int COLOR_TEXT_GOLD = 0xFFFACC15;
     private static final int COLOR_TEXT_OK = 0xFF4ADE80;
+    private static final int COLOR_TEXT_BAD = 0xFFF87171;
     private static final int COLOR_TEXT_GHOST_COUNT = 0xFF93C5FD;
 
     private static final RocketLivery[] LIVERIES = RocketLivery.values();
@@ -132,7 +141,7 @@ public class PartAssemblerScreen extends MachineScreen<RocketWorkbenchBlockEntit
     }
 
     private int getPreviewHeight() {
-        return this.height >= 248 ? PREVIEW_HEIGHT_NORMAL : PREVIEW_HEIGHT_COMPACT;
+        return this.height >= 268 ? PREVIEW_HEIGHT_NORMAL : PREVIEW_HEIGHT_COMPACT;
     }
 
     private int getPanelHeight() {
@@ -408,13 +417,35 @@ public class PartAssemblerScreen extends MachineScreen<RocketWorkbenchBlockEntit
                 RocketPartConfig config = this.menu.be.getResolvedModularConfig();
                 int multiplier = config != null ? RocketPartCostCalculator.calculate(config).slotItemMultiplier() : 1;
                 int required = req.requiredCount(multiplier);
-                ItemStack hintStack = this.cycleHintStack(req);
-                List<Component> lines = new ArrayList<>(2);
+                RocketMaterialProfile cycledProfile = this.cycleHintProfile(req);
+                ItemStack hintStack = cycledProfile != null
+                        ? RocketMaterialRegistry.createDisplayStack(cycledProfile)
+                        : this.cycleHintStack(req);
+                List<Component> lines = new ArrayList<>(5);
                 lines.add(Component.literal(req.hintLabel()).withStyle(ChatFormatting.AQUA));
                 if (!hintStack.isEmpty()) {
+                    Style matStyle = cycledProfile != null
+                            ? Style.EMPTY.withColor(cycledProfile.rgbColor())
+                            : Style.EMPTY.withColor(ChatFormatting.WHITE);
                     lines.add(Component.literal("Requires: ").withStyle(ChatFormatting.GRAY)
                             .append(Component.literal(required + "x ").withStyle(ChatFormatting.GOLD))
-                            .append(hintStack.getHoverName().copy().withStyle(ChatFormatting.WHITE)));
+                            .append(Component.literal(cycledProfile != null ? cycledProfile.displayName() : hintStack.getHoverName().getString())
+                                    .setStyle(matStyle)));
+                }
+                if (cycledProfile != null) {
+                    Component quickMod = formatProfileQuickModifiers(cycledProfile);
+                    if (quickMod != null) {
+                        lines.add(quickMod);
+                    }
+                    for (RocketMaterialTrait trait : cycledProfile.traits()) {
+                        lines.add(Component.literal(" \u2726 [" + trait.displayName() + "]")
+                                .setStyle(Style.EMPTY.withColor(trait.rgbColor())));
+                    }
+                }
+                int optionCount = req.acceptedProfiles().size();
+                if (optionCount > 1) {
+                    lines.add(Component.literal(optionCount + " compatible materials accepted")
+                            .withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.ITALIC));
                 }
                 graphics.renderComponentTooltip(this.font, lines, mouseX, mouseY);
                 return;
@@ -459,6 +490,22 @@ public class PartAssemblerScreen extends MachineScreen<RocketWorkbenchBlockEntit
                         Component.literal(family.variants().size() + (family.variants().size() == 1 ? " variant" : " parametric variants"))
                                 .withStyle(ChatFormatting.GRAY)
                 );
+                graphics.renderComponentTooltip(this.font, lines, mouseX, mouseY);
+                return;
+            }
+        }
+
+        // Detailed live telemetry & active traits tooltip when hovering the stats readout box
+        int statsX = px + 5;
+        int statsY = cy + 90;
+        int statsW = PANEL_WIDTH - 10;
+        if (mouseIn(mouseX, mouseY, statsX, statsY, statsW, STATS_BOX_HEIGHT)) {
+            RocketPartConfig config = this.menu.be.getResolvedModularConfig();
+            if (config != null) {
+                RocketPartComposition previewComp = this.menu.be.getPreviewComposition();
+                CostProfile baseCost = RocketPartCostCalculator.calculate(config);
+                CostProfile liveCost = previewComp.isEmpty() ? baseCost : RocketPartCostCalculator.calculate(config, previewComp);
+                List<Component> lines = buildLiveTelemetryTooltip(config, previewComp, baseCost, liveCost);
                 graphics.renderComponentTooltip(this.font, lines, mouseX, mouseY);
             }
         }
@@ -528,8 +575,10 @@ public class PartAssemblerScreen extends MachineScreen<RocketWorkbenchBlockEntit
                     graphics.pose().popPose();
                 }
             } else {
-                boolean satisfied = req.ingredient().test(present) && present.getCount() >= required;
-                int indicatorColor = satisfied ? COLOR_TEXT_OK : COLOR_TEXT_GOLD;
+                boolean compatible = req.matches(present);
+                int indicatorColor = !compatible
+                        ? COLOR_TEXT_BAD
+                        : (present.getCount() >= required ? COLOR_TEXT_OK : COLOR_TEXT_GOLD);
                 graphics.fill(sx, sy + 15, sx + 16, sy + 16, indicatorColor);
             }
         }
@@ -546,7 +595,11 @@ public class PartAssemblerScreen extends MachineScreen<RocketWorkbenchBlockEntit
             return;
         }
 
-        CostProfile cost = RocketPartCostCalculator.calculate(config);
+        CostProfile baseCost = RocketPartCostCalculator.calculate(config);
+        RocketPartComposition previewComp = this.menu.be.getPreviewComposition();
+        boolean hasPreview = !previewComp.isEmpty();
+        CostProfile cost = hasPreview ? RocketPartCostCalculator.calculate(config, previewComp) : baseCost;
+        RocketPartStats baseStats = baseCost.stats();
         RocketPartStats stats = cost.stats();
 
         int px = this.getPanelX();
@@ -674,39 +727,111 @@ public class PartAssemblerScreen extends MachineScreen<RocketWorkbenchBlockEntit
             graphics.drawCenteredString(this.font, dimSummary, px + PANEL_WIDTH / 2, fixedY + 23, COLOR_TEXT_SKY);
         }
 
-        // Live telemetry & cost readout box
+        // Live Tinkers' telemetry, green/red deltas & active traits readout box
         int statsX = px + 5;
         int statsY = cy + 90;
         int statsW = PANEL_WIDTH - 10;
-        int statsH = 50;
+        int statsH = STATS_BOX_HEIGHT;
         graphics.fill(statsX, statsY, statsX + statsW, statsY + statsH, COLOR_BG_INSET);
-        graphics.renderOutline(statsX, statsY, statsW, statsH, COLOR_BORDER_SECTION);
+        graphics.renderOutline(statsX, statsY, statsW, statsH, hasPreview ? COLOR_ACCENT_CYAN : COLOR_BORDER_SECTION);
 
-        String massLine = String.format(Locale.ROOT, "Mass: %.1f kg", stats.dryWeightKg());
-        graphics.drawString(this.font, massLine, statsX + 4, statsY + 4, COLOR_TEXT_PRIMARY, false);
+        // Line 1: Dry Mass + green/red % delta
+        String massText = String.format(Locale.ROOT, "Mass: %.1fkg", stats.dryWeightKg());
+        graphics.drawString(this.font, massText, statsX + 4, statsY + 4, COLOR_TEXT_PRIMARY, false);
+        if (hasPreview && baseStats.dryWeightKg() > 0.0) {
+            int massPct = (int) Math.round(((stats.dryWeightKg() - baseStats.dryWeightKg()) / baseStats.dryWeightKg()) * 100.0);
+            if (massPct != 0) {
+                String delta = (massPct > 0 ? "+" : "") + massPct + "%";
+                int deltaColor = massPct < 0 ? COLOR_TEXT_OK : COLOR_TEXT_BAD;
+                graphics.drawString(this.font, delta, statsX + statsW - 4 - this.font.width(delta), statsY + 4, deltaColor, false);
+            }
+        }
 
-        String perfLine;
-        int perfColor;
+        // Line 2: Thrust / Fuel / Max Integrity + green/red % delta
         if (stats.thrustKn() > 0.0) {
-            perfLine = String.format(Locale.ROOT, "Thrust: %.1f kN", stats.thrustKn());
-            perfColor = COLOR_TEXT_GOLD;
+            String thrustText = String.format(Locale.ROOT, "Thrust: %.0fkN", stats.thrustKn());
+            graphics.drawString(this.font, thrustText, statsX + 4, statsY + 14, COLOR_TEXT_GOLD, false);
+            if (hasPreview && baseStats.thrustKn() > 0.0) {
+                int thrustPct = (int) Math.round(((stats.thrustKn() - baseStats.thrustKn()) / baseStats.thrustKn()) * 100.0);
+                if (thrustPct != 0) {
+                    String delta = (thrustPct > 0 ? "+" : "") + thrustPct + "%";
+                    int deltaColor = thrustPct > 0 ? COLOR_TEXT_OK : COLOR_TEXT_BAD;
+                    graphics.drawString(this.font, delta, statsX + statsW - 4 - this.font.width(delta), statsY + 14, deltaColor, false);
+                }
+            }
         } else if (stats.fuelCapacityDroplets() > 0L) {
             double buckets = stats.fuelCapacityDroplets() / DROPLETS_PER_BUCKET;
-            perfLine = String.format(Locale.ROOT, "Fuel: %.1f B", buckets);
-            perfColor = COLOR_TEXT_SKY;
+            String fuelText = String.format(Locale.ROOT, "Fuel: %.1fB", buckets);
+            graphics.drawString(this.font, fuelText, statsX + 4, statsY + 14, COLOR_TEXT_SKY, false);
+            if (hasPreview && baseStats.fuelCapacityDroplets() > 0L) {
+                int capPct = (int) Math.round(((double) (stats.fuelCapacityDroplets() - baseStats.fuelCapacityDroplets())
+                        / (double) baseStats.fuelCapacityDroplets()) * 100.0);
+                if (capPct != 0) {
+                    String delta = (capPct > 0 ? "+" : "") + capPct + "%";
+                    int deltaColor = capPct > 0 ? COLOR_TEXT_OK : COLOR_TEXT_BAD;
+                    graphics.drawString(this.font, delta, statsX + statsW - 4 - this.font.width(delta), statsY + 14, deltaColor, false);
+                }
+            }
         } else {
-            perfLine = String.format(Locale.ROOT, "%.0fK / %.0f atm", stats.thermalToleranceKelvin(), stats.pressureToleranceAtm());
-            perfColor = COLOR_TEXT_MUTED;
+            String integText = String.format(Locale.ROOT, "Integ: %.0f", cost.maxIntegrity());
+            graphics.drawString(this.font, integText, statsX + 4, statsY + 14, COLOR_TEXT_SKY, false);
+            if (hasPreview) {
+                int integPct = (int) Math.round(((cost.maxIntegrity() - PartIntegrity.DEFAULT_MAX_INTEGRITY)
+                        / PartIntegrity.DEFAULT_MAX_INTEGRITY) * 100.0);
+                if (integPct != 0) {
+                    String delta = (integPct > 0 ? "+" : "") + integPct + "%";
+                    int deltaColor = integPct > 0 ? COLOR_TEXT_OK : COLOR_TEXT_BAD;
+                    graphics.drawString(this.font, delta, statsX + statsW - 4 - this.font.width(delta), statsY + 14, deltaColor, false);
+                }
+            }
         }
-        graphics.drawString(this.font, perfLine, statsX + 4, statsY + 14, perfColor, false);
 
+        // Line 3: Thermal tolerance + green/red K delta
+        String thermalText = String.format(Locale.ROOT, "Temp: %.0fK", stats.thermalToleranceKelvin());
+        graphics.drawString(this.font, thermalText, statsX + 4, statsY + 24, COLOR_TEXT_PRIMARY, false);
+        if (hasPreview) {
+            int dK = (int) Math.round(stats.thermalToleranceKelvin() - baseStats.thermalToleranceKelvin());
+            if (dK != 0) {
+                String delta = (dK > 0 ? "+" : "") + dK + "K";
+                int deltaColor = dK > 0 ? COLOR_TEXT_OK : COLOR_TEXT_BAD;
+                graphics.drawString(this.font, delta, statsX + statsW - 4 - this.font.width(delta), statsY + 24, deltaColor, false);
+            }
+        }
+
+        // Line 4: Pressure tolerance + green/red % delta
+        String presText = String.format(Locale.ROOT, "Pres: %.1fatm", stats.pressureToleranceAtm());
+        graphics.drawString(this.font, presText, statsX + 4, statsY + 34, COLOR_TEXT_PRIMARY, false);
+        if (hasPreview && baseStats.pressureToleranceAtm() > 0.0) {
+            int pPct = (int) Math.round(((stats.pressureToleranceAtm() - baseStats.pressureToleranceAtm())
+                    / baseStats.pressureToleranceAtm()) * 100.0);
+            if (pPct != 0) {
+                String delta = (pPct > 0 ? "+" : "") + pPct + "%";
+                int deltaColor = pPct > 0 ? COLOR_TEXT_OK : COLOR_TEXT_BAD;
+                graphics.drawString(this.font, delta, statsX + statsW - 4 - this.font.width(delta), statsY + 34, deltaColor, false);
+            }
+        }
+
+        // Line 5: Crafting requirement / Boil-Off / Aneutronic Power highlight
         int seconds = Math.max(1, Math.round(cost.assemblyTimeTicks() / 20.0F));
-        String reqLine = String.format(Locale.ROOT, "Req x%d/slot (%ds)", cost.slotItemMultiplier(), seconds);
-        graphics.drawString(this.font, reqLine, statsX + 4, statsY + 24, COLOR_TEXT_SKY, false);
+        if (hasPreview && (config.category() == RocketPartCategory.TANK || cost.boilOffMultiplier() < 0.999) && cost.boilOffMultiplier() < 0.999) {
+            String boilText = cost.boilOffMultiplier() <= 0.001
+                    ? String.format(Locale.ROOT, "x%d | Boil: 0%%", cost.slotItemMultiplier())
+                    : String.format(Locale.ROOT, "x%d | Boil: %.2fx", cost.slotItemMultiplier(), cost.boilOffMultiplier());
+            graphics.drawString(this.font, boilText, statsX + 4, statsY + 44, COLOR_TEXT_OK, false);
+        } else if (hasPreview && previewComp.hasTrait(RocketMaterialTrait.ANEUTRONIC_BOARD_REACTOR)) {
+            String pwrText = String.format(Locale.ROOT, "x%d | +%dGJ/t", cost.slotItemMultiplier(), RocketPartCostCalculator.ANEUTRONIC_BOARD_REACTOR_GEN_PER_TICK);
+            graphics.drawString(this.font, pwrText, statsX + 4, statsY + 44, COLOR_TEXT_SKY, false);
+        } else {
+            String reqLine = String.format(Locale.ROOT, "Req x%d/slot (%ds)", cost.slotItemMultiplier(), seconds);
+            graphics.drawString(this.font, reqLine, statsX + 4, statsY + 44, COLOR_TEXT_MUTED, false);
+        }
 
-        // Walkable interior / radial / dimensions badge
-        int badgeY = statsY + 35;
-        if (config.walkableInterior()) {
+        // Line 6: Active Trait chips strip (when materials with traits are installed) OR part badge
+        int badgeY = statsY + 55;
+        List<RocketMaterialTrait> activeTraits = hasPreview ? previewComp.allTraits() : List.of();
+        if (!activeTraits.isEmpty()) {
+            this.drawActiveTraitStrip(graphics, statsX + 3, badgeY, statsW - 6, activeTraits);
+        } else if (config.walkableInterior()) {
             graphics.fill(statsX + 3, badgeY, statsX + statsW - 3, badgeY + 12, 0xFF143826);
             graphics.renderOutline(statsX + 3, badgeY, statsW - 6, 12, 0xFF34D399);
             graphics.drawCenteredString(this.font, "Walkable Interior", statsX + statsW / 2, badgeY + 2, COLOR_TEXT_OK);
@@ -720,6 +845,25 @@ public class PartAssemblerScreen extends MachineScreen<RocketWorkbenchBlockEntit
                     : String.format(Locale.ROOT, "Footprint: %dx%d | %db", config.diameter(), config.diameter(), config.heightBlocks());
             graphics.drawString(this.font, dimLine, statsX + 4, badgeY + 2, COLOR_TEXT_MUTED, false);
         }
+    }
+
+    private void drawActiveTraitStrip(GuiGraphics graphics, int x, int y, int width, List<RocketMaterialTrait> traits) {
+        graphics.fill(x, y, x + width, y + 12, 0xFF101B29);
+        graphics.renderOutline(x, y, width, 12, COLOR_BORDER_SECTION);
+        String countLabel = traits.size() + (traits.size() == 1 ? " Trait" : " Traits");
+        int countW = this.font.width(countLabel);
+        int chipMaxX = x + width - countW - 6;
+        int cursorX = x + 3;
+        for (RocketMaterialTrait trait : traits) {
+            if (cursorX + 10 > chipMaxX) {
+                break;
+            }
+            int argb = 0xFF000000 | trait.rgbColor();
+            graphics.fill(cursorX, y + 2, cursorX + 8, y + 10, argb);
+            graphics.renderOutline(cursorX, y + 2, 8, 8, 0x80000000);
+            cursorX += 10;
+        }
+        graphics.drawString(this.font, countLabel, x + width - countW - 3, y + 2, COLOR_TEXT_SKY, false);
     }
 
     private void drawParametricRow(GuiGraphics graphics, int panelX, int rowY, String label, String value) {
@@ -964,7 +1108,26 @@ public class PartAssemblerScreen extends MachineScreen<RocketWorkbenchBlockEntit
         return options.get(Math.floorMod(idx + delta, options.size()));
     }
 
+    private @Nullable RocketMaterialProfile cycleHintProfile(SlotRequirement req) {
+        List<RocketMaterialProfile> profiles = req.acceptedProfiles();
+        if (profiles.isEmpty()) {
+            return null;
+        }
+        if (profiles.size() == 1) {
+            return profiles.getFirst();
+        }
+        long slotTick = (System.currentTimeMillis() / 1200L);
+        return profiles.get((int) Math.floorMod(slotTick, profiles.size()));
+    }
+
     private ItemStack cycleHintStack(SlotRequirement req) {
+        RocketMaterialProfile profile = this.cycleHintProfile(req);
+        if (profile != null) {
+            ItemStack stack = RocketMaterialRegistry.createDisplayStack(profile);
+            if (!stack.isEmpty()) {
+                return stack;
+            }
+        }
         ItemStack[] stacks = req.displayStacks();
         if (stacks.length == 0) {
             return ItemStack.EMPTY;
@@ -972,8 +1135,149 @@ public class PartAssemblerScreen extends MachineScreen<RocketWorkbenchBlockEntit
         if (stacks.length == 1) {
             return stacks[0];
         }
-        long slotTick = (System.currentTimeMillis() / 1500L);
+        long slotTick = (System.currentTimeMillis() / 1200L);
         return stacks[(int) Math.floorMod(slotTick, stacks.length)];
+    }
+
+    private static @Nullable Component formatProfileQuickModifiers(RocketMaterialProfile profile) {
+        MutableComponent line = Component.empty();
+        int count = 0;
+
+        int massPct = (int) Math.round(profile.massModifier() * 100.0);
+        if (massPct != 0) {
+            line.append(Component.literal((massPct > 0 ? "+" : "") + massPct + "% Mass")
+                    .withStyle(massPct < 0 ? ChatFormatting.GREEN : ChatFormatting.RED));
+            count++;
+        }
+        int thermalK = (int) Math.round(profile.thermalBonusKelvin());
+        if (thermalK != 0) {
+            if (count > 0) {
+                line.append(Component.literal(" | ").withStyle(ChatFormatting.DARK_GRAY));
+            }
+            line.append(Component.literal((thermalK > 0 ? "+" : "") + thermalK + "K")
+                    .withStyle(thermalK > 0 ? ChatFormatting.GREEN : ChatFormatting.RED));
+            count++;
+        }
+        if (Math.abs(profile.pressureMultiplier() - 1.0) >= 0.01) {
+            if (count > 0) {
+                line.append(Component.literal(" | ").withStyle(ChatFormatting.DARK_GRAY));
+            }
+            line.append(Component.literal(String.format(Locale.ROOT, "%.2fx atm", profile.pressureMultiplier()))
+                    .withStyle(profile.pressureMultiplier() > 1.0 ? ChatFormatting.GREEN : ChatFormatting.RED));
+            count++;
+        }
+        if (profile.boilOffMultiplier() < 0.999) {
+            if (count > 0) {
+                line.append(Component.literal(" | ").withStyle(ChatFormatting.DARK_GRAY));
+            }
+            String boil = profile.boilOffMultiplier() <= 0.001 ? "0% Boil-Off" : String.format(Locale.ROOT, "%.2fx Boil", profile.boilOffMultiplier());
+            line.append(Component.literal(boil).withStyle(ChatFormatting.AQUA));
+            count++;
+        }
+        int thrustPct = (int) Math.round(profile.thrustBonus() * 100.0);
+        if (thrustPct != 0) {
+            if (count > 0) {
+                line.append(Component.literal(" | ").withStyle(ChatFormatting.DARK_GRAY));
+            }
+            line.append(Component.literal("+" + thrustPct + "% Thrust").withStyle(ChatFormatting.GOLD));
+            count++;
+        }
+        int capPct = (int) Math.round(profile.capacityBonus() * 100.0);
+        if (capPct != 0) {
+            if (count > 0) {
+                line.append(Component.literal(" | ").withStyle(ChatFormatting.DARK_GRAY));
+            }
+            line.append(Component.literal("+" + capPct + "% Cap").withStyle(ChatFormatting.YELLOW));
+            count++;
+        }
+        return count > 0 ? line : null;
+    }
+
+    private static List<Component> buildLiveTelemetryTooltip(
+            RocketPartConfig config,
+            RocketPartComposition composition,
+            CostProfile baseCost,
+            CostProfile liveCost
+    ) {
+        List<Component> lines = new ArrayList<>();
+        RocketPartStats base = baseCost.stats();
+        RocketPartStats live = liveCost.stats();
+        boolean modified = !composition.isEmpty();
+
+        lines.add(Component.literal(modified ? "Live Material Telemetry Preview" : "Baseline Part Telemetry")
+                .withStyle(ChatFormatting.AQUA));
+
+        lines.add(formatComparisonLine("Dry Mass", String.format(Locale.ROOT, "%.1f kg", live.dryWeightKg()),
+                base.dryWeightKg(), live.dryWeightKg(), true, modified));
+        if (live.thrustKn() > 0.0) {
+            lines.add(formatComparisonLine("Thrust", String.format(Locale.ROOT, "%.1f kN", live.thrustKn()),
+                    base.thrustKn(), live.thrustKn(), false, modified));
+        }
+        if (live.fuelCapacityDroplets() > 0L) {
+            lines.add(formatComparisonLine("Propellant", String.format(Locale.ROOT, "%.1f B", live.fuelCapacityDroplets() / DROPLETS_PER_BUCKET),
+                    base.fuelCapacityDroplets(), live.fuelCapacityDroplets(), false, modified));
+        }
+        int dK = (int) Math.round(live.thermalToleranceKelvin() - base.thermalToleranceKelvin());
+        MutableComponent tempLine = Component.literal("Thermal: ").withStyle(ChatFormatting.GRAY)
+                .append(Component.literal(String.format(Locale.ROOT, "%,.0f K", live.thermalToleranceKelvin())).withStyle(ChatFormatting.WHITE));
+        if (modified && dK != 0) {
+            tempLine.append(Component.literal(" (" + (dK > 0 ? "+" : "") + dK + " K)")
+                    .withStyle(dK > 0 ? ChatFormatting.GREEN : ChatFormatting.RED));
+        }
+        lines.add(tempLine);
+
+        lines.add(formatComparisonLine("Pressure", String.format(Locale.ROOT, "%.1f atm", live.pressureToleranceAtm()),
+                base.pressureToleranceAtm(), live.pressureToleranceAtm(), false, modified));
+        lines.add(formatComparisonLine("Max Integrity", String.format(Locale.ROOT, "%.0f", liveCost.maxIntegrity()),
+                PartIntegrity.DEFAULT_MAX_INTEGRITY, liveCost.maxIntegrity(), false, modified));
+
+        if (config.category() == RocketPartCategory.TANK || liveCost.boilOffMultiplier() < 0.999) {
+            MutableComponent boilLine = Component.literal("Boil-Off: ").withStyle(ChatFormatting.GRAY);
+            if (liveCost.boilOffMultiplier() <= 0.001) {
+                boilLine.append(Component.literal("0.00x (Zero)").withStyle(ChatFormatting.AQUA));
+            } else {
+                boilLine.append(Component.literal(String.format(Locale.ROOT, "%.2fx", liveCost.boilOffMultiplier()))
+                        .withStyle(liveCost.boilOffMultiplier() < 1.0 ? ChatFormatting.GREEN : ChatFormatting.WHITE));
+            }
+            lines.add(boilLine);
+        }
+
+        if (modified) {
+            List<RocketMaterialTrait> traits = composition.allTraits();
+            if (!traits.isEmpty()) {
+                lines.add(Component.literal("Active Engineering Traits:").withStyle(ChatFormatting.GRAY));
+                for (RocketMaterialTrait trait : traits) {
+                    lines.add(Component.literal(" \u2726 [" + trait.displayName() + "]")
+                            .setStyle(Style.EMPTY.withColor(trait.rgbColor()))
+                            .append(Component.literal(": " + trait.description()).withStyle(ChatFormatting.GRAY)));
+                }
+            }
+        } else {
+            lines.add(Component.literal("Place materials in the grid to preview stats & traits")
+                    .withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.ITALIC));
+        }
+        return lines;
+    }
+
+    private static Component formatComparisonLine(
+            String label,
+            String valueText,
+            double baseVal,
+            double liveVal,
+            boolean lowerIsBetter,
+            boolean modified
+    ) {
+        MutableComponent line = Component.literal(label + ": ").withStyle(ChatFormatting.GRAY)
+                .append(Component.literal(valueText).withStyle(ChatFormatting.WHITE));
+        if (modified && baseVal > 0.0) {
+            int pct = (int) Math.round(((liveVal - baseVal) / baseVal) * 100.0);
+            if (pct != 0) {
+                boolean beneficial = lowerIsBetter ? pct < 0 : pct > 0;
+                line.append(Component.literal(" (" + (pct > 0 ? "+" : "") + pct + "%)")
+                        .withStyle(beneficial ? ChatFormatting.GREEN : ChatFormatting.RED));
+            }
+        }
+        return line;
     }
 
     private static String liveryShortCode(RocketLivery livery) {

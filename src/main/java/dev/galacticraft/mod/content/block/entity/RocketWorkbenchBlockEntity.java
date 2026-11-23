@@ -25,6 +25,7 @@ package dev.galacticraft.mod.content.block.entity;
 import com.mojang.datafixers.util.Pair;
 import dev.galacticraft.api.component.GCDataComponents;
 import dev.galacticraft.api.rocket.part.data.PartIntegrity;
+import dev.galacticraft.api.rocket.part.data.RocketPartComposition;
 import dev.galacticraft.api.rocket.part.modular.RocketLivery;
 import dev.galacticraft.api.rocket.part.modular.RocketPartCategory;
 import dev.galacticraft.api.rocket.part.modular.RocketPartConfig;
@@ -111,6 +112,7 @@ public class RocketWorkbenchBlockEntity extends BasicRecipeMachineBlockEntity<Pa
     private int modularProgress = 0;
     private int modularMaxProgress = 0;
     private @Nullable String lastModularModelId = null;
+    private @Nullable RocketPartComposition lastModularComposition = null;
 
     public static final StorageSpec SPEC = StorageSpec.of(
             MachineItemStorage.builder()
@@ -219,10 +221,11 @@ public class RocketWorkbenchBlockEntity extends BasicRecipeMachineBlockEntity<Pa
     public @NotNull MachineStatus tick(@NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull ProfilerFiller profiler) {
         RocketPartCategory modularCategory = this.getActiveSchematicCategory();
         if (modularCategory == null) {
-            if (this.modularProgress != 0 || this.modularMaxProgress != 0 || this.lastModularModelId != null) {
+            if (this.modularProgress != 0 || this.modularMaxProgress != 0 || this.lastModularModelId != null || this.lastModularComposition != null) {
                 this.modularProgress = 0;
                 this.modularMaxProgress = 0;
                 this.lastModularModelId = null;
+                this.lastModularComposition = null;
             }
             return super.tick(level, pos, state, profiler);
         }
@@ -242,29 +245,41 @@ public class RocketWorkbenchBlockEntity extends BasicRecipeMachineBlockEntity<Pa
             this.modularProgress = 0;
             this.modularMaxProgress = 0;
             this.lastModularModelId = null;
+            this.lastModularComposition = null;
             return MachineStatuses.INVALID_RECIPE;
         }
 
         if (!config.modelId().equals(this.lastModularModelId)) {
             this.lastModularModelId = config.modelId();
+            this.lastModularComposition = null;
             this.modularProgress = 0;
         }
 
-        CostProfile cost = RocketPartCostCalculator.calculate(config);
-        this.modularMaxProgress = cost.assemblyTimeTicks();
+        CostProfile baseCost = RocketPartCostCalculator.calculate(config);
+        this.modularMaxProgress = baseCost.assemblyTimeTicks();
 
-        SchematicGridLayout layout = SchematicGridLayout.forCategory(config.category());
+        SchematicGridLayout layout = SchematicGridLayout.forConfig(config);
         SlottedStorageAccess<Item, ItemResourceSlot> gridStorage = this.itemStorage().subStorage(INPUT_GRID_START, INPUT_GRID_LEN);
 
         profiler.push("modular_match");
-        boolean gridMatches = layout.matchesGrid(gridStorage, cost.slotItemMultiplier());
+        boolean gridMatches = layout.matchesGrid(gridStorage, baseCost.slotItemMultiplier());
         profiler.pop();
         if (!gridMatches) {
             this.modularProgress = 0;
+            this.lastModularComposition = null;
             return MachineStatuses.INVALID_RECIPE;
         }
 
-        ItemStack assembled = createModularOutputStack(config, cost);
+        RocketPartComposition composition = layout.extractComposition(gridStorage);
+        if (!composition.equals(this.lastModularComposition)) {
+            this.lastModularComposition = composition;
+            this.modularProgress = 0;
+        }
+
+        CostProfile cost = RocketPartCostCalculator.calculate(config, composition);
+        this.modularMaxProgress = cost.assemblyTimeTicks();
+
+        ItemStack assembled = createModularOutputStack(config, cost, composition);
         ItemStack scrap = new ItemStack(GCItems.ALUMINUM_NUGGET, cost.scrapCount());
         boolean canFitOutput = this.itemStorage().slot(OUTPUT_SLOT)
                 .canInsert(assembled.getItem(), assembled.getComponentsPatch(), assembled.getCount());
@@ -291,17 +306,25 @@ public class RocketWorkbenchBlockEntity extends BasicRecipeMachineBlockEntity<Pa
                         .insert(scrap.getItem(), scrap.getComponentsPatch(), scrap.getCount());
             }
             this.modularProgress = 0;
+            this.lastModularComposition = null;
             this.setChanged();
         }
         profiler.pop();
         return GCMachineStatuses.FABRICATING;
     }
 
-    private static @NotNull ItemStack createModularOutputStack(@NotNull RocketPartConfig config, @NotNull CostProfile cost) {
+    private static @NotNull ItemStack createModularOutputStack(
+            @NotNull RocketPartConfig config,
+            @NotNull CostProfile cost,
+            @Nullable RocketPartComposition composition
+    ) {
         ItemStack stack = new ItemStack(ModularRocketPartBlock.getBlockForCategory(config.category()));
         stack.set(GCDataComponents.ROCKET_PART_CONFIG, config);
         stack.set(GCDataComponents.ROCKET_PART_STATS, cost.stats());
-        stack.set(GCDataComponents.PART_INTEGRITY, PartIntegrity.pristine(100.0));
+        stack.set(GCDataComponents.PART_INTEGRITY, PartIntegrity.pristine(cost.maxIntegrity()));
+        if (composition != null && !composition.isEmpty()) {
+            stack.set(GCDataComponents.ROCKET_PART_COMPOSITION, composition);
+        }
         return stack;
     }
 
@@ -314,7 +337,23 @@ public class RocketWorkbenchBlockEntity extends BasicRecipeMachineBlockEntity<Pa
     }
 
     public @NotNull SchematicGridLayout getActiveGridLayout() {
-        return SchematicGridLayout.forSchematic(this.itemStorage().getItem(SCHEMATIC_SLOT));
+        return SchematicGridLayout.forWorkbench(
+                this.itemStorage().getItem(SCHEMATIC_SLOT),
+                this.getResolvedModularConfig()
+        );
+    }
+
+    /**
+     * Extracts the live {@link RocketPartComposition} represented by any compatible items currently
+     * placed in the active modular crafting slots (used for real-time GUI telemetry previews).
+     */
+    public @NotNull RocketPartComposition getPreviewComposition() {
+        SchematicGridLayout layout = this.getActiveGridLayout();
+        if (!layout.isModular()) {
+            return RocketPartComposition.EMPTY;
+        }
+        SlottedStorageAccess<Item, ItemResourceSlot> gridStorage = this.itemStorage().subStorage(INPUT_GRID_START, INPUT_GRID_LEN);
+        return layout.extractComposition(gridStorage);
     }
 
     /**

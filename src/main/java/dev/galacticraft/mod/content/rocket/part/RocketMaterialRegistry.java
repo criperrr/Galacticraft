@@ -26,14 +26,20 @@ import dev.galacticraft.api.gas.Gases;
 import dev.galacticraft.api.rocket.part.data.RocketMaterialProfile;
 import dev.galacticraft.api.rocket.part.data.RocketMaterialProfile.SlotRole;
 import dev.galacticraft.api.rocket.part.data.RocketMaterialTrait;
+import dev.galacticraft.api.rocket.part.data.RocketPartComposition;
 import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.content.GCBlocks;
+import dev.galacticraft.mod.content.item.FluidCanisterItem;
 import dev.galacticraft.mod.content.item.GCItems;
 import dev.galacticraft.mod.tag.GCItemTags;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -41,11 +47,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Central aerospace material catalog mapping all 14 structural materials and functional
@@ -142,6 +150,107 @@ public final class RocketMaterialRegistry {
             }
         }
         return Optional.empty();
+    }
+
+    /**
+     * Resolves the {@link RocketMaterialProfile} corresponding to a persisted
+     * {@link RocketPartComposition.SlotMaterialEntry}, disambiguating fluid-bearing items
+     * (such as Helium-3 filled {@code FLUID_CANISTER} vs generic {@code FLUID_CANISTER})
+     * via the entry's recorded {@link SlotRole} and {@link RocketMaterialTrait}s.
+     */
+    public static @NotNull Optional<RocketMaterialProfile> resolve(@Nullable RocketPartComposition.SlotMaterialEntry entry) {
+        if (entry == null) {
+            return Optional.empty();
+        }
+        SlotRole role = SlotRole.byName(entry.slotRole());
+        List<RocketMaterialProfile> candidates = role != null ? profilesForRole(role) : allProfiles();
+        Optional<RocketMaterialProfile> matched = matchEntryInCandidates(entry, candidates);
+        if (matched.isPresent() || role == null) {
+            return matched;
+        }
+        return matchEntryInCandidates(entry, allProfiles());
+    }
+
+    private static Optional<RocketMaterialProfile> matchEntryInCandidates(
+            RocketPartComposition.SlotMaterialEntry entry,
+            List<RocketMaterialProfile> candidates
+    ) {
+        ResourceLocation itemId = entry.itemId();
+        Item item = BuiltInRegistries.ITEM.get(itemId);
+        ItemStack probeStack = item != Items.AIR ? new ItemStack(item) : ItemStack.EMPTY;
+        Set<RocketMaterialTrait> entryTraits = entry.traits().isEmpty()
+                ? Collections.emptySet()
+                : new HashSet<>(entry.traits());
+
+        // Pass 1: exact trait set match on matching item/tag
+        for (RocketMaterialProfile profile : candidates) {
+            if (!matchesItemOrTag(profile, itemId, probeStack)) {
+                continue;
+            }
+            if (entryTraits.isEmpty()) {
+                if (profile.traits().isEmpty() && !profile.requiresFluid()) {
+                    return Optional.of(profile);
+                }
+            } else if (profile.traits().size() == entryTraits.size() && entryTraits.containsAll(profile.traits())) {
+                return Optional.of(profile);
+            }
+        }
+
+        // Pass 2: profile traits are a non-empty subset of entry traits (handles extra contextual traits like AERODYNAMIC_SEPARATION)
+        if (!entryTraits.isEmpty()) {
+            RocketMaterialProfile best = null;
+            int bestOverlap = 0;
+            for (RocketMaterialProfile profile : candidates) {
+                if (!matchesItemOrTag(profile, itemId, probeStack) || profile.traits().isEmpty()) {
+                    continue;
+                }
+                if (entryTraits.containsAll(profile.traits()) && profile.traits().size() > bestOverlap) {
+                    best = profile;
+                    bestOverlap = profile.traits().size();
+                }
+            }
+            if (best != null) {
+                return Optional.of(best);
+            }
+        }
+
+        // Pass 3: fallback to first non-fluid profile matching item/tag
+        for (RocketMaterialProfile profile : candidates) {
+            if (!profile.requiresFluid() && matchesItemOrTag(profile, itemId, probeStack)) {
+                return Optional.of(profile);
+            }
+        }
+        return Optional.empty();
+    }
+
+    private static boolean matchesItemOrTag(RocketMaterialProfile profile, ResourceLocation itemId, ItemStack probeStack) {
+        if (profile.itemIds().contains(itemId)) {
+            return true;
+        }
+        return profile.itemTag() != null && !probeStack.isEmpty() && probeStack.is(profile.itemTag());
+    }
+
+    /**
+     * Builds a representative display {@link ItemStack} for GUI ghost icons and tooltips,
+     * pre-filling fluid containers when {@link RocketMaterialProfile#requiredFluidId()} is set.
+     */
+    public static @NotNull ItemStack createDisplayStack(@NotNull RocketMaterialProfile profile) {
+        Objects.requireNonNull(profile, "profile");
+        ResourceLocation primaryId = profile.primaryItemId();
+        if (primaryId == null) {
+            return ItemStack.EMPTY;
+        }
+        Item item = BuiltInRegistries.ITEM.get(primaryId);
+        if (item == Items.AIR) {
+            return ItemStack.EMPTY;
+        }
+        if (profile.requiredFluidId() != null && item instanceof FluidCanisterItem) {
+            Fluid fluid = BuiltInRegistries.FLUID.get(profile.requiredFluidId());
+            if (fluid != Fluids.EMPTY) {
+                return FluidCanisterItem.getFilledCanister(item, fluid);
+            }
+        }
+        return new ItemStack(item);
     }
 
     private static CatalogState getState() {
@@ -845,7 +954,7 @@ public final class RocketMaterialRegistry {
 
         all.add(RocketMaterialProfile.builder(Constant.id("full_solar_panel"), "Full Solar Panel")
                 .item(GCItems.FULL_SOLAR_PANEL)
-                .roles(SlotRole.UTILITY_ACTUATOR)
+                .roles(SlotRole.UTILITY_ACTUATOR, SlotRole.COMMAND_AVIONICS)
                 .massModifier(0.0)
                 .thermalBonusKelvin(120.0)
                 .pressureMultiplier(1.05)
@@ -855,7 +964,7 @@ public final class RocketMaterialRegistry {
 
         all.add(RocketMaterialProfile.builder(Constant.id("solar_array_panel"), "Venusian Solar Array Panel")
                 .item(GCItems.SOLAR_ARRAY_PANEL)
-                .roles(SlotRole.UTILITY_ACTUATOR)
+                .roles(SlotRole.UTILITY_ACTUATOR, SlotRole.COMMAND_AVIONICS)
                 .massModifier(-0.08)
                 .thermalBonusKelvin(350.0)
                 .pressureMultiplier(1.30)
@@ -875,7 +984,7 @@ public final class RocketMaterialRegistry {
 
         all.add(RocketMaterialProfile.builder(Constant.id("atomic_battery_cell"), "Atomic Battery Cell")
                 .item(GCItems.ATOMIC_BATTERY)
-                .roles(SlotRole.UTILITY_ACTUATOR, SlotRole.UTILITY_CONTROL)
+                .roles(SlotRole.UTILITY_ACTUATOR, SlotRole.UTILITY_CONTROL, SlotRole.COMMAND_AVIONICS)
                 .massModifier(0.12)
                 .thermalBonusKelvin(300.0)
                 .pressureMultiplier(1.35)
