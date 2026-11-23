@@ -27,6 +27,7 @@ import dev.galacticraft.api.component.GCDataComponents;
 import dev.galacticraft.api.multiblock.BoundsShape;
 import dev.galacticraft.api.multiblock.MultiVoxelMaster;
 import dev.galacticraft.api.rocket.part.data.PartIntegrity;
+import dev.galacticraft.api.rocket.part.data.RocketPartComposition;
 import dev.galacticraft.api.rocket.part.data.RocketPartStats;
 import dev.galacticraft.api.rocket.part.modular.FootprintMode;
 import dev.galacticraft.api.rocket.part.modular.RocketPartCategory;
@@ -82,6 +83,7 @@ public class ModularRocketPartBlockEntity extends BlockEntity implements MultiVo
     private static final String TAG_CONFIG = "PartConfig";
     private static final String TAG_STATS = "PartStats";
     private static final String TAG_INTEGRITY = "PartIntegrity";
+    private static final String TAG_COMPOSITION = "PartComposition";
     private static final String TAG_HATCH_OPEN = "HatchOpen";
     private static final String TAG_ANIM_ACTIVE = "AnimActive";
     private static final String TAG_OCCUPIED_PROXIES = "OccupiedProxies";
@@ -90,6 +92,7 @@ public class ModularRocketPartBlockEntity extends BlockEntity implements MultiVo
     private RocketPartConfig config;
     private @Nullable RocketPartStats stats;
     private @Nullable PartIntegrity integrity;
+    private @Nullable RocketPartComposition composition;
     private final List<BlockPos> occupiedProxies = new ArrayList<>();
     private @Nullable BlockPos assembledTerminalPos = null;
     private boolean hatchOpen = false;
@@ -116,6 +119,10 @@ public class ModularRocketPartBlockEntity extends BlockEntity implements MultiVo
 
     public @Nullable PartIntegrity getIntegrity() {
         return this.integrity;
+    }
+
+    public @Nullable RocketPartComposition getComposition() {
+        return this.composition;
     }
 
     public @NotNull List<BlockPos> getOccupiedProxies() {
@@ -236,12 +243,28 @@ public class ModularRocketPartBlockEntity extends BlockEntity implements MultiVo
             @Nullable PartIntegrity integrity,
             @NotNull Direction facing
     ) {
+        this.initializePart(config, stats, integrity, null, facing);
+    }
+
+    /**
+     * Initializes this part's configuration, stats, integrity, and material composition upon
+     * placement, spawning and chunk-linking all multi-voxel {@link RocketPartBoundsBlock} proxy
+     * cells on the server.
+     */
+    public void initializePart(
+            @NotNull RocketPartConfig config,
+            @Nullable RocketPartStats stats,
+            @Nullable PartIntegrity integrity,
+            @Nullable RocketPartComposition composition,
+            @NotNull Direction facing
+    ) {
         Objects.requireNonNull(config, "config");
         Objects.requireNonNull(facing, "facing");
 
         this.config = config;
         this.stats = stats != null ? stats : RocketPartCostCalculator.calculate(config).stats();
         this.integrity = integrity != null ? integrity : PartIntegrity.pristine();
+        this.composition = (composition != null && !composition.isEmpty()) ? composition : null;
         this.hatchOpen = false;
         this.tornDown = false;
 
@@ -384,7 +407,8 @@ public class ModularRocketPartBlockEntity extends BlockEntity implements MultiVo
     }
 
     /**
-     * Builds a single configured {@link ItemStack} preserving this part's configuration, stats, and integrity.
+     * Builds a single configured {@link ItemStack} preserving this part's configuration, stats,
+     * integrity, and material composition.
      */
     public @NotNull ItemStack createConfiguredStack() {
         ItemStack stack = new ItemStack(ModularRocketPartBlock.getBlockForCategory(this.config.category()));
@@ -395,6 +419,9 @@ public class ModularRocketPartBlockEntity extends BlockEntity implements MultiVo
         stack.set(GCDataComponents.ROCKET_PART_STATS, resolvedStats);
         PartIntegrity resolvedIntegrity = this.integrity != null ? this.integrity : PartIntegrity.pristine();
         stack.set(GCDataComponents.PART_INTEGRITY, resolvedIntegrity);
+        if (this.composition != null && !this.composition.isEmpty()) {
+            stack.set(GCDataComponents.ROCKET_PART_COMPOSITION, this.composition);
+        }
         return stack;
     }
 
@@ -487,6 +514,12 @@ public class ModularRocketPartBlockEntity extends BlockEntity implements MultiVo
                     .ifPresent(encoded -> tag.put(TAG_INTEGRITY, encoded));
         }
 
+        if (this.composition != null && !this.composition.isEmpty()) {
+            RocketPartComposition.CODEC.encodeStart(NbtOps.INSTANCE, this.composition)
+                    .resultOrPartial(err -> LOGGER.error("Failed to save RocketPartComposition at {}: {}", this.worldPosition, err))
+                    .ifPresent(encoded -> tag.put(TAG_COMPOSITION, encoded));
+        }
+
         tag.putBoolean(TAG_HATCH_OPEN, this.hatchOpen);
         tag.putBoolean(TAG_ANIM_ACTIVE, this.animationActive);
         if (this.assembledTerminalPos != null) {
@@ -526,6 +559,15 @@ public class ModularRocketPartBlockEntity extends BlockEntity implements MultiVo
                     .orElse(null);
         } else {
             this.integrity = null;
+        }
+
+        if (tag.contains(TAG_COMPOSITION)) {
+            RocketPartComposition loaded = RocketPartComposition.CODEC.parse(NbtOps.INSTANCE, tag.get(TAG_COMPOSITION))
+                    .resultOrPartial(err -> LOGGER.error("Failed to load RocketPartComposition at {}: {}", this.worldPosition, err))
+                    .orElse(null);
+            this.composition = (loaded != null && !loaded.isEmpty()) ? loaded : null;
+        } else {
+            this.composition = null;
         }
 
         this.hatchOpen = tag.getBoolean(TAG_HATCH_OPEN);
