@@ -58,7 +58,7 @@ public class GCFluidTagProvider extends FabricTagProvider.FluidTagProvider {
                 .addTag(GCFluidTags.SULFURIC_ACID);
 
         this.getOrCreateTagBuilder(GCFluidTags.LIQUID_OXYGEN)
-                .add(GCFluids.LIQUID_OXYGEN);
+                .add(Gases.OXYGEN);
         this.getOrCreateTagBuilder(GCFluidTags.OXYGEN)
                 .add(Gases.OXYGEN);
 

@@ -13,6 +13,9 @@
     "galacticraft:mercury_native_iron_ore",
     "galacticraft:mercury_graphite_ore",
     "galacticraft:mercury_sulfide_ore",
+    "galacticraft:mercury_niobium_ore",
+    "galacticraft:mercury_gold_ore",
+    "galacticraft:mercury_lead_ore",
     "minecraft:packed_ice"
   ]
 }

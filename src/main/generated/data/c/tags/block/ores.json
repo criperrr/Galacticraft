@@ -2,6 +2,8 @@
   "values": [
     "#minecraft:iron_ores",
     "#minecraft:copper_ores",
+    "#minecraft:gold_ores",
+    "#minecraft:redstone_ores",
     "#c:ores/silicon",
     "#c:ores/tin",
     "#c:ores/aluminum",
@@ -15,6 +17,8 @@
     "#c:ores/lead",
     "#c:ores/solar_dust",
     "galacticraft:mercury_graphite_ore",
+    "galacticraft:mars_graphite_ore",
+    "galacticraft:asteroid_graphite_ore",
     "galacticraft:mercury_sulfide_ore"
   ]
 }

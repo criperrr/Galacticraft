@@ -40,8 +40,6 @@ public class GCFluids {
     public static final FlowingFluid SULFURIC_ACID = new SulfuricAcidFluid.Still();
     public static final FlowingFluid FLOWING_SULFURIC_ACID = new SulfuricAcidFluid.Flowing();
 
-    public static final Fluid LIQUID_OXYGEN = new OxygenFluid();
-
     public static void register() {
         register(Constant.Fluid.CRUDE_OIL_STILL, CRUDE_OIL);
         register(Constant.Fluid.CRUDE_OIL_FLOWING, FLOWING_CRUDE_OIL);
@@ -49,7 +47,6 @@ public class GCFluids {
         register(Constant.Fluid.FUEL_FLOWING, FLOWING_FUEL);
         register(Constant.Fluid.SULFURIC_ACID_STILL, SULFURIC_ACID);
         register(Constant.Fluid.SULFURIC_ACID_FLOWING, FLOWING_SULFURIC_ACID);
-        register(Constant.Fluid.LIQUID_OXYGEN, LIQUID_OXYGEN);
     }
 
     public static void registerFluidVariantAttributes() {
@@ -70,12 +67,6 @@ public class GCFluids {
                         .setStyle(Constant.Text.GREEN_STYLE),
                 FluidConstants.WATER_VISCOSITY,
                 false
-        ));
-        FluidVariantAttributes.register(LIQUID_OXYGEN, new GCFluidAttribute(
-                Component.translatable("block.galacticraft.oxygen")
-                        .setStyle(Constant.Text.AQUA_STYLE),
-                500,
-                true
         ));
     }
 

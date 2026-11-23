@@ -209,6 +209,13 @@ public class GCCreativeModeTabs {
                 output.accept(LUNASLATE_COPPER_ORE);
                 output.accept(MOON_TIN_ORE);
                 output.accept(LUNASLATE_TIN_ORE);
+                output.accept(MOON_ALUMINUM_ORE);
+                output.accept(MOON_SILICON_ORE);
+                output.accept(MOON_ILMENITE_ORE);
+                output.accept(MOON_NIOBIUM_ORE);
+                output.accept(MOON_GOLD_ORE);
+                output.accept(MOON_REDSTONE_ORE);
+                output.accept(MOON_IRON_ORE);
                 output.accept(MOON_CHEESE_ORE);
                 output.accept(LUNAR_SAPPHIRE_ORE);
                 output.accept(OLIVINE_BASALT);
@@ -218,16 +225,44 @@ public class GCCreativeModeTabs {
                 output.accept(MARS_IRON_ORE);
                 output.accept(MARS_COPPER_ORE);
                 output.accept(MARS_TIN_ORE);
+                output.accept(MARS_SILICON_ORE);
+                output.accept(MARS_ALUMINUM_ORE);
+                output.accept(MARS_NIOBIUM_ORE);
+                output.accept(MARS_GOLD_ORE);
+                output.accept(MARS_REDSTONE_ORE);
+                output.accept(MARS_TITANIUM_ORE);
+                output.accept(MARS_GRAPHITE_ORE);
                 output.accept(DESH_ORE);
 
                 output.accept(ASTEROID_IRON_ORE);
                 output.accept(ASTEROID_SILICON_ORE);
                 output.accept(ASTEROID_ALUMINUM_ORE);
+                output.accept(ASTEROID_NIOBIUM_ORE);
+                output.accept(ASTEROID_GOLD_ORE);
+                output.accept(ASTEROID_GRAPHITE_ORE);
+                output.accept(ASTEROID_COPPER_ORE);
+                output.accept(ASTEROID_REDSTONE_ORE);
                 output.accept(ILMENITE_ORE);
+
+                output.accept(MERCURY_ALUMINUM_ORE);
+                output.accept(MERCURY_COPPER_ORE);
+                output.accept(MERCURY_TITANIUM_ORE);
+                output.accept(MERCURY_NATIVE_IRON_ORE);
+                output.accept(MERCURY_GRAPHITE_ORE);
+                output.accept(MERCURY_SULFIDE_ORE);
+                output.accept(MERCURY_NIOBIUM_ORE);
+                output.accept(MERCURY_GOLD_ORE);
+                output.accept(MERCURY_LEAD_ORE);
 
                 output.accept(VENUS_COPPER_ORE);
                 output.accept(VENUS_TIN_ORE);
                 output.accept(VENUS_ALUMINUM_ORE);
+                output.accept(VENUS_IRON_ORE);
+                output.accept(VENUS_NIOBIUM_ORE);
+                output.accept(VENUS_GOLD_ORE);
+                output.accept(VENUS_REDSTONE_ORE);
+                output.accept(VENUS_SILICON_ORE);
+                output.accept(VENUS_TITANIUM_ORE);
                 output.accept(GALENA_ORE);
                 output.accept(SOLAR_ORE);
 
@@ -400,7 +435,7 @@ public class GCCreativeModeTabs {
                 output.accept(FluidCanisterItem.getFilledCanister(FLUID_CANISTER, GCFluids.CRUDE_OIL));
                 output.accept(FluidCanisterItem.getFilledCanister(FLUID_CANISTER, GCFluids.FUEL));
                 output.accept(FluidCanisterItem.getFilledCanister(FLUID_CANISTER, Gases.METHANE));
-                output.accept(FluidCanisterItem.getFilledCanister(FLUID_CANISTER, GCFluids.LIQUID_OXYGEN));
+                output.accept(FluidCanisterItem.getFilledCanister(FLUID_CANISTER, Gases.OXYGEN));
                 //output.accept(FluidCanisterItem.getFilledCanister(FLUID_CANISTER, GCFluids.LIQUID_NITROGEN)); // Liquid nitrogen not added yet
 
                 output.accept(SMALL_OXYGEN_TANK);

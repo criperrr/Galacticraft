@@ -12,6 +12,11 @@
     },
     {
       "type": "directory",
+      "source": "gas",
+      "prefix": "gas/"
+    },
+    {
+      "type": "directory",
       "source": "model",
       "prefix": "model/"
     },

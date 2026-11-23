@@ -164,21 +164,19 @@ public class AsteroidChunkGenerator extends ChunkGenerator {
         this.coreHandler.addBlock(new SpecialAsteroidBlock(GCBlocks.ASTEROID_ROCK_1, 7, 0.3));
         this.coreHandler.addBlock(new SpecialAsteroidBlock(GCBlocks.ASTEROID_ROCK, 11, 0.25));
 
-        //!ConfigManagerAst.disableAluminumGen
-        if (true)
-            this.coreHandler.addBlock(new SpecialAsteroidBlock(GCBlocks.ASTEROID_ALUMINUM_ORE, 5, 0.2));
-        //!ConfigManagerAsteroids.disableIlmeniteGen
-        if (true)
-            this.coreHandler.addBlock(new SpecialAsteroidBlock(GCBlocks.ILMENITE_ORE, 4, 0.15));
-        //!ConfigManagerAsteroids.disableIronGen
-        if (true)
-            this.coreHandler.addBlock(new SpecialAsteroidBlock(GCBlocks.ASTEROID_IRON_ORE, 3, 0.2));
-        //ConfigManagerCore.enableSiliconOreGen
-        if (true)
-            this.coreHandler.addBlock(new SpecialAsteroidBlock(GCBlocks.ASTEROID_SILICON_ORE, 2, 0.15));
-        //Solid Meteoric Iron - has no config to disable
+        // Multi-ore asteroid belt stratigraphy (M-type metallic, S-type silicate, C-type carbonaceous)
+        this.coreHandler.addBlock(new SpecialAsteroidBlock(GCBlocks.ILMENITE_ORE, 8, 0.22));
+        this.coreHandler.addBlock(new SpecialAsteroidBlock(GCBlocks.ASTEROID_IRON_ORE, 8, 0.22));
+        this.coreHandler.addBlock(new SpecialAsteroidBlock(GCBlocks.ASTEROID_NIOBIUM_ORE, 5, 0.18));
+        this.coreHandler.addBlock(new SpecialAsteroidBlock(GCBlocks.ASTEROID_GOLD_ORE, 5, 0.18));
+        this.coreHandler.addBlock(new SpecialAsteroidBlock(GCBlocks.ASTEROID_ALUMINUM_ORE, 4, 0.18));
+        this.coreHandler.addBlock(new SpecialAsteroidBlock(GCBlocks.ASTEROID_SILICON_ORE, 4, 0.16));
+        this.coreHandler.addBlock(new SpecialAsteroidBlock(GCBlocks.ASTEROID_GRAPHITE_ORE, 3, 0.16));
+        this.coreHandler.addBlock(new SpecialAsteroidBlock(GCBlocks.ASTEROID_COPPER_ORE, 2, 0.14));
+        this.coreHandler.addBlock(new SpecialAsteroidBlock(GCBlocks.ASTEROID_REDSTONE_ORE, 1, 0.12));
+        // Solid Meteoric Iron - has no config to disable
         this.coreHandler.addBlock(new SpecialAsteroidBlock(GCBlocks.METEORIC_IRON_BLOCK, 2, 0.13));
-        //Diamond ore - has no config to disable
+        // Diamond ore - has no config to disable
         this.coreHandler.addBlock(new SpecialAsteroidBlock(Blocks.DIAMOND_ORE, 1, 0.1));
 
         this.shellHandler = new SpecialAsteroidBlockHandler();
@@ -429,9 +427,9 @@ public class AsteroidChunkGenerator extends ChunkGenerator {
                     if (this.rand.nextInt(ILMENITE_CHANCE) == 0) {
                         block = GCBlocks.ILMENITE_ORE;
                     } else if (this.rand.nextInt(IRON_CHANCE) == 0) {
-                        block = GCBlocks.MARS_IRON_ORE;
+                        block = GCBlocks.ASTEROID_IRON_ORE;
                     } else if (this.rand.nextInt(ALUMINUM_CHANCE) == 0) {
-                        block = GCBlocks.ALUMINUM_ORE;
+                        block = GCBlocks.ASTEROID_ALUMINUM_ORE;
                     }
 
                     chunkAccess.setBlockState(new BlockPos(px, y, pz), block.defaultBlockState(), false);

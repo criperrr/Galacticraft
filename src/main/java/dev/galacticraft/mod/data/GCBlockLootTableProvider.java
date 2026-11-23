@@ -195,6 +195,9 @@ public class GCBlockLootTableProvider extends FabricBlockLootTableProvider {
         this.dropSelf(GCBlocks.MERCURY_NATIVE_IRON_ORE);
         this.dropSelf(GCBlocks.MERCURY_GRAPHITE_ORE);
         this.dropSelf(GCBlocks.MERCURY_SULFIDE_ORE);
+        this.add(GCBlocks.MERCURY_NIOBIUM_ORE, this.createOreDrop(GCBlocks.MERCURY_NIOBIUM_ORE, GCItems.RAW_NIOBIUM));
+        this.add(GCBlocks.MERCURY_GOLD_ORE, this.createOreDrop(GCBlocks.MERCURY_GOLD_ORE, Items.RAW_GOLD));
+        this.add(GCBlocks.MERCURY_LEAD_ORE, this.createOreDrop(GCBlocks.MERCURY_LEAD_ORE, GCItems.RAW_LEAD));
 
         // JUPITER
         this.dropSelf(GCBlocks.JUPITER_SURFACE);
@@ -314,6 +317,8 @@ public class GCBlockLootTableProvider extends FabricBlockLootTableProvider {
         //ALUMINUM
         this.add(GCBlocks.ALUMINUM_ORE, this.createOreDrop(GCBlocks.ALUMINUM_ORE, GCItems.RAW_ALUMINUM));
         this.add(GCBlocks.DEEPSLATE_ALUMINUM_ORE, this.createOreDrop(GCBlocks.DEEPSLATE_ALUMINUM_ORE, GCItems.RAW_ALUMINUM));
+        this.add(GCBlocks.MOON_ALUMINUM_ORE, this.createOreDrop(GCBlocks.MOON_ALUMINUM_ORE, GCItems.RAW_ALUMINUM));
+        this.add(GCBlocks.MARS_ALUMINUM_ORE, this.createOreDrop(GCBlocks.MARS_ALUMINUM_ORE, GCItems.RAW_ALUMINUM));
         this.add(GCBlocks.ASTEROID_ALUMINUM_ORE, this.createOreDrop(GCBlocks.ASTEROID_ALUMINUM_ORE, GCItems.RAW_ALUMINUM));
         this.add(GCBlocks.VENUS_ALUMINUM_ORE, this.createOreDrop(GCBlocks.VENUS_ALUMINUM_ORE, GCItems.RAW_ALUMINUM));
         //CHEESE
@@ -322,25 +327,51 @@ public class GCBlockLootTableProvider extends FabricBlockLootTableProvider {
         this.add(GCBlocks.MOON_COPPER_ORE, this.createCopperOreDrops(GCBlocks.MOON_COPPER_ORE));
         this.add(GCBlocks.LUNASLATE_COPPER_ORE, this.createCopperOreDrops(GCBlocks.LUNASLATE_COPPER_ORE));
         this.add(GCBlocks.MARS_COPPER_ORE, this.createCopperOreDrops(GCBlocks.MARS_COPPER_ORE));
+        this.add(GCBlocks.ASTEROID_COPPER_ORE, this.createCopperOreDrops(GCBlocks.ASTEROID_COPPER_ORE));
         this.add(GCBlocks.VENUS_COPPER_ORE, this.createCopperOreDrops(GCBlocks.VENUS_COPPER_ORE));
         //DESH
         this.add(GCBlocks.DESH_ORE, this.createOreDrop(GCBlocks.DESH_ORE, GCItems.RAW_DESH));
         //GALENA
         this.add(GCBlocks.GALENA_ORE, this.createOreDrop(GCBlocks.GALENA_ORE, GCItems.RAW_LEAD));
-        //ILMENITE
+        //GOLD
+        this.add(GCBlocks.MOON_GOLD_ORE, this.createOreDrop(GCBlocks.MOON_GOLD_ORE, Items.RAW_GOLD));
+        this.add(GCBlocks.MARS_GOLD_ORE, this.createOreDrop(GCBlocks.MARS_GOLD_ORE, Items.RAW_GOLD));
+        this.add(GCBlocks.ASTEROID_GOLD_ORE, this.createOreDrop(GCBlocks.ASTEROID_GOLD_ORE, Items.RAW_GOLD));
+        this.add(GCBlocks.VENUS_GOLD_ORE, this.createOreDrop(GCBlocks.VENUS_GOLD_ORE, Items.RAW_GOLD));
+        //GRAPHITE
+        this.add(GCBlocks.MARS_GRAPHITE_ORE, this.createOreDrop(GCBlocks.MARS_GRAPHITE_ORE, GCItems.CARBON_FRAGMENTS, 2.0F, 4.0F));
+        this.add(GCBlocks.ASTEROID_GRAPHITE_ORE, this.createOreDrop(GCBlocks.ASTEROID_GRAPHITE_ORE, GCItems.CARBON_FRAGMENTS, 2.0F, 4.0F));
+        //ILMENITE / TITANIUM
         this.add(GCBlocks.ILMENITE_ORE, this.createOreDrop(GCBlocks.ILMENITE_ORE, GCItems.RAW_TITANIUM));
+        this.add(GCBlocks.MOON_ILMENITE_ORE, this.createOreDrop(GCBlocks.MOON_ILMENITE_ORE, GCItems.RAW_TITANIUM));
+        this.add(GCBlocks.MARS_TITANIUM_ORE, this.createOreDrop(GCBlocks.MARS_TITANIUM_ORE, GCItems.RAW_TITANIUM));
+        this.add(GCBlocks.VENUS_TITANIUM_ORE, this.createOreDrop(GCBlocks.VENUS_TITANIUM_ORE, GCItems.RAW_TITANIUM));
         //IRON
+        this.add(GCBlocks.MOON_IRON_ORE, this.createOreDrop(GCBlocks.MOON_IRON_ORE, Items.RAW_IRON));
         this.add(GCBlocks.MARS_IRON_ORE, this.createOreDrop(GCBlocks.MARS_IRON_ORE, Items.RAW_IRON));
         this.add(GCBlocks.ASTEROID_IRON_ORE, this.createOreDrop(GCBlocks.ASTEROID_IRON_ORE, Items.RAW_IRON));
+        this.add(GCBlocks.VENUS_IRON_ORE, this.createOreDrop(GCBlocks.VENUS_IRON_ORE, Items.RAW_IRON));
         //NIOBIUM
         this.add(GCBlocks.NIOBIUM_ORE, this.createOreDrop(GCBlocks.NIOBIUM_ORE, GCItems.RAW_NIOBIUM));
         this.add(GCBlocks.DEEPSLATE_NIOBIUM_ORE, this.createOreDrop(GCBlocks.DEEPSLATE_NIOBIUM_ORE, GCItems.RAW_NIOBIUM));
+        this.add(GCBlocks.MOON_NIOBIUM_ORE, this.createOreDrop(GCBlocks.MOON_NIOBIUM_ORE, GCItems.RAW_NIOBIUM));
+        this.add(GCBlocks.MARS_NIOBIUM_ORE, this.createOreDrop(GCBlocks.MARS_NIOBIUM_ORE, GCItems.RAW_NIOBIUM));
+        this.add(GCBlocks.ASTEROID_NIOBIUM_ORE, this.createOreDrop(GCBlocks.ASTEROID_NIOBIUM_ORE, GCItems.RAW_NIOBIUM));
+        this.add(GCBlocks.VENUS_NIOBIUM_ORE, this.createOreDrop(GCBlocks.VENUS_NIOBIUM_ORE, GCItems.RAW_NIOBIUM));
+        //REDSTONE
+        this.add(GCBlocks.MOON_REDSTONE_ORE, this.createRedstoneOreDrops(GCBlocks.MOON_REDSTONE_ORE));
+        this.add(GCBlocks.MARS_REDSTONE_ORE, this.createRedstoneOreDrops(GCBlocks.MARS_REDSTONE_ORE));
+        this.add(GCBlocks.ASTEROID_REDSTONE_ORE, this.createRedstoneOreDrops(GCBlocks.ASTEROID_REDSTONE_ORE));
+        this.add(GCBlocks.VENUS_REDSTONE_ORE, this.createRedstoneOreDrops(GCBlocks.VENUS_REDSTONE_ORE));
         //SAPPHIRE
         this.add(GCBlocks.LUNAR_SAPPHIRE_ORE, this.createOreDrop(GCBlocks.LUNAR_SAPPHIRE_ORE, GCItems.LUNAR_SAPPHIRE));
         //SILICON
         this.add(GCBlocks.SILICON_ORE, this.createOreDrop(GCBlocks.SILICON_ORE, GCItems.SILICON, 4.0F, 6.0F));
         this.add(GCBlocks.DEEPSLATE_SILICON_ORE, this.createOreDrop(GCBlocks.DEEPSLATE_SILICON_ORE, GCItems.SILICON, 4.0F, 6.0F));
+        this.add(GCBlocks.MOON_SILICON_ORE, this.createOreDrop(GCBlocks.MOON_SILICON_ORE, GCItems.SILICON, 4.0F, 6.0F));
+        this.add(GCBlocks.MARS_SILICON_ORE, this.createOreDrop(GCBlocks.MARS_SILICON_ORE, GCItems.SILICON, 4.0F, 6.0F));
         this.add(GCBlocks.ASTEROID_SILICON_ORE, this.createOreDrop(GCBlocks.ASTEROID_SILICON_ORE, GCItems.SILICON, 4.0F, 6.0F));
+        this.add(GCBlocks.VENUS_SILICON_ORE, this.createOreDrop(GCBlocks.VENUS_SILICON_ORE, GCItems.SILICON, 4.0F, 6.0F));
         //SOLAR
         this.add(GCBlocks.SOLAR_ORE, this.createOreDrop(GCBlocks.SOLAR_ORE, GCItems.SOLAR_DUST));
         //TIN

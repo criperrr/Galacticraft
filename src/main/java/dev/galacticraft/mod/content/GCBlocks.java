@@ -59,6 +59,7 @@ import net.fabricmc.fabric.api.registry.FlattenableBlockRegistry;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.BlockGetter;
@@ -223,6 +224,9 @@ public class GCBlocks {
     public static final Block MERCURY_NATIVE_IRON_ORE = BLOCKS.registerWithItem(Constant.Block.MERCURY_NATIVE_IRON_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(MERCURY_SHOCK_BRECCIA, 5.0F, 5.0F)));
     public static final Block MERCURY_GRAPHITE_ORE = BLOCKS.registerWithItem(Constant.Block.MERCURY_GRAPHITE_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(MERCURY_BASALT, 3.0F, 3.0F)));
     public static final Block MERCURY_SULFIDE_ORE = BLOCKS.registerWithItem(Constant.Block.MERCURY_SULFIDE_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(MERCURY_SHOCK_BRECCIA, 4.5F, 4.5F)));
+    public static final Block MERCURY_NIOBIUM_ORE = BLOCKS.registerWithItem(Constant.Block.MERCURY_NIOBIUM_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(MERCURY_BASALT, 4.0F, 4.0F)));
+    public static final Block MERCURY_GOLD_ORE = BLOCKS.registerWithItem(Constant.Block.MERCURY_GOLD_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(MERCURY_BASALT, 3.8F, 4.0F)));
+    public static final Block MERCURY_LEAD_ORE = BLOCKS.registerWithItem(Constant.Block.MERCURY_LEAD_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(MERCURY_BASALT, 3.5F, 3.5F)));
 
     // JUPITER NATURAL & ORES
     public static final Block JUPITER_SURFACE = BLOCKS.registerWithItem(Constant.Block.JUPITER_SURFACE, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_ORANGE).instrument(NoteBlockInstrument.BASEDRUM).strength(1.8F, 3.5F).sound(SoundType.STONE).requiresCorrectToolForDrops()));
@@ -294,6 +298,13 @@ public class GCBlocks {
     public static final Block LUNASLATE_COPPER_ORE = BLOCKS.registerWithItem(Constant.Block.LUNASLATE_COPPER_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(LUNASLATE, 5.0F, 5.0F)));
     public static final Block MOON_TIN_ORE = BLOCKS.registerWithItem(Constant.Block.MOON_TIN_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(MOON_ROCK, 3.0F, 5.0F)));
     public static final Block LUNASLATE_TIN_ORE = BLOCKS.registerWithItem(Constant.Block.LUNASLATE_TIN_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(LUNASLATE, 5.0F, 5.0F)));
+    public static final Block MOON_ALUMINUM_ORE = BLOCKS.registerWithItem(Constant.Block.MOON_ALUMINUM_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(MOON_ROCK, 3.0F, 5.0F)));
+    public static final Block MOON_SILICON_ORE = BLOCKS.registerWithItem(Constant.Block.MOON_SILICON_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(MOON_ROCK, 3.2F, 5.0F)));
+    public static final Block MOON_ILMENITE_ORE = BLOCKS.registerWithItem(Constant.Block.MOON_ILMENITE_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(MOON_BASALT, 4.0F, 6.0F)));
+    public static final Block MOON_NIOBIUM_ORE = BLOCKS.registerWithItem(Constant.Block.MOON_NIOBIUM_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(MOON_ROCK, 3.5F, 5.0F)));
+    public static final Block MOON_GOLD_ORE = BLOCKS.registerWithItem(Constant.Block.MOON_GOLD_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(MOON_ROCK, 3.5F, 5.0F)));
+    public static final Block MOON_REDSTONE_ORE = BLOCKS.registerWithItem(Constant.Block.MOON_REDSTONE_ORE, new DropExperienceBlock(UniformInt.of(1, 5), oreSettings(MOON_ROCK, 3.0F, 5.0F)));
+    public static final Block MOON_IRON_ORE = BLOCKS.registerWithItem(Constant.Block.MOON_IRON_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(MOON_ROCK, 3.0F, 5.0F)));
     public static final Block MOON_CHEESE_ORE = BLOCKS.registerWithItem(Constant.Block.MOON_CHEESE_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(MOON_ROCK, 3.0F, 5.0F)));
     public static final Block LUNAR_SAPPHIRE_ORE = BLOCKS.registerWithItem(Constant.Block.LUNAR_SAPPHIRE_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(MOON_ROCK, 3.0F, 5.0F)));
     public static final Block FALLEN_METEOR = BLOCKS.registerWithItem(Constant.Block.FALLEN_METEOR, new FallenMeteorBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).strength(2.0F, 6.0F).randomTicks().noOcclusion().sound(SoundType.BASALT).requiresCorrectToolForDrops()));
@@ -301,16 +312,34 @@ public class GCBlocks {
     public static final Block MARS_IRON_ORE = BLOCKS.registerWithItem(Constant.Block.MARS_IRON_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(MARS_STONE, 3.5F, 3.0F)));
     public static final Block MARS_COPPER_ORE = BLOCKS.registerWithItem(Constant.Block.MARS_COPPER_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(MARS_STONE, 5.0F, 5.0F)));
     public static final Block MARS_TIN_ORE = BLOCKS.registerWithItem(Constant.Block.MARS_TIN_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(MARS_STONE, 5.0F, 5.0F)));
+    public static final Block MARS_SILICON_ORE = BLOCKS.registerWithItem(Constant.Block.MARS_SILICON_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(MARS_STONE, 3.5F, 4.0F)));
+    public static final Block MARS_ALUMINUM_ORE = BLOCKS.registerWithItem(Constant.Block.MARS_ALUMINUM_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(MARS_STONE, 3.5F, 4.0F)));
+    public static final Block MARS_NIOBIUM_ORE = BLOCKS.registerWithItem(Constant.Block.MARS_NIOBIUM_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(MARS_STONE, 4.0F, 4.5F)));
+    public static final Block MARS_GOLD_ORE = BLOCKS.registerWithItem(Constant.Block.MARS_GOLD_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(MARS_STONE, 3.5F, 4.0F)));
+    public static final Block MARS_REDSTONE_ORE = BLOCKS.registerWithItem(Constant.Block.MARS_REDSTONE_ORE, new DropExperienceBlock(UniformInt.of(1, 5), oreSettings(MARS_STONE, 3.5F, 4.0F)));
+    public static final Block MARS_TITANIUM_ORE = BLOCKS.registerWithItem(Constant.Block.MARS_TITANIUM_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(MARS_STONE, 4.5F, 5.0F)));
+    public static final Block MARS_GRAPHITE_ORE = BLOCKS.registerWithItem(Constant.Block.MARS_GRAPHITE_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(MARS_STONE, 3.0F, 3.5F)));
     public static final Block DESH_ORE = BLOCKS.registerWithItem(Constant.Block.DESH_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(MARS_STONE, 3.0F, 5.0F)));
 
     public static final Block ASTEROID_IRON_ORE = BLOCKS.registerWithItem(Constant.Block.ASTEROID_IRON_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(ASTEROID_ROCK, 3.5F, 3.0F)));
     public static final Block ASTEROID_ALUMINUM_ORE = BLOCKS.registerWithItem(Constant.Block.ASTEROID_ALUMINUM_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(ASTEROID_ROCK, 3.5F, 3.0F)));
     public static final Block ILMENITE_ORE = BLOCKS.registerWithItem(Constant.Block.ILMENITE_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(ASTEROID_ROCK, 3.0F, 5.0F)));
     public static final Block ASTEROID_SILICON_ORE = BLOCKS.registerWithItem(Constant.Block.ASTEROID_SILICON_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(ASTEROID_ROCK, 3.5F, 3.0F)));
+    public static final Block ASTEROID_NIOBIUM_ORE = BLOCKS.registerWithItem(Constant.Block.ASTEROID_NIOBIUM_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(ASTEROID_ROCK, 4.0F, 4.5F)));
+    public static final Block ASTEROID_GOLD_ORE = BLOCKS.registerWithItem(Constant.Block.ASTEROID_GOLD_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(ASTEROID_ROCK, 3.5F, 4.0F)));
+    public static final Block ASTEROID_GRAPHITE_ORE = BLOCKS.registerWithItem(Constant.Block.ASTEROID_GRAPHITE_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(ASTEROID_ROCK, 3.0F, 3.5F)));
+    public static final Block ASTEROID_COPPER_ORE = BLOCKS.registerWithItem(Constant.Block.ASTEROID_COPPER_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(ASTEROID_ROCK, 3.5F, 3.5F)));
+    public static final Block ASTEROID_REDSTONE_ORE = BLOCKS.registerWithItem(Constant.Block.ASTEROID_REDSTONE_ORE, new DropExperienceBlock(UniformInt.of(1, 5), oreSettings(ASTEROID_ROCK, 3.5F, 3.5F)));
 
     public static final Block VENUS_COPPER_ORE = BLOCKS.registerWithItem(Constant.Block.VENUS_COPPER_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(SOFT_VENUS_ROCK, 5.0F, 5.0F)));
     public static final Block VENUS_TIN_ORE = BLOCKS.registerWithItem(Constant.Block.VENUS_TIN_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(SOFT_VENUS_ROCK, 5.0F, 5.0F)));
     public static final Block VENUS_ALUMINUM_ORE = BLOCKS.registerWithItem(Constant.Block.VENUS_ALUMINUM_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(SOFT_VENUS_ROCK, 3.5F, 3.0F)));
+    public static final Block VENUS_IRON_ORE = BLOCKS.registerWithItem(Constant.Block.VENUS_IRON_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(SOFT_VENUS_ROCK, 3.5F, 3.5F)));
+    public static final Block VENUS_NIOBIUM_ORE = BLOCKS.registerWithItem(Constant.Block.VENUS_NIOBIUM_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(HARD_VENUS_ROCK, 4.0F, 4.5F)));
+    public static final Block VENUS_GOLD_ORE = BLOCKS.registerWithItem(Constant.Block.VENUS_GOLD_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(SOFT_VENUS_ROCK, 3.5F, 4.0F)));
+    public static final Block VENUS_REDSTONE_ORE = BLOCKS.registerWithItem(Constant.Block.VENUS_REDSTONE_ORE, new DropExperienceBlock(UniformInt.of(1, 5), oreSettings(SOFT_VENUS_ROCK, 3.5F, 4.0F)));
+    public static final Block VENUS_SILICON_ORE = BLOCKS.registerWithItem(Constant.Block.VENUS_SILICON_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(SOFT_VENUS_ROCK, 3.5F, 4.0F)));
+    public static final Block VENUS_TITANIUM_ORE = BLOCKS.registerWithItem(Constant.Block.VENUS_TITANIUM_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(HARD_VENUS_ROCK, 4.5F, 5.0F)));
     public static final Block GALENA_ORE = BLOCKS.registerWithItem(Constant.Block.GALENA_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(HARD_VENUS_ROCK, 3.0F, 5.0F)));
     public static final Block SOLAR_ORE = BLOCKS.registerWithItem(Constant.Block.SOLAR_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(SOFT_VENUS_ROCK, 3.0F, 5.0F)));
     public static final Block BUDDING_OLIVINE = BLOCKS.registerWithItem(Constant.Block.BUDDING_OLIVINE, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GREEN).strength(1.5F, 1.5F).sound(SoundType.AMETHYST).requiresCorrectToolForDrops()));

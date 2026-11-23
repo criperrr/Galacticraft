@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.85,
+  "group": "lead_ingot",
+  "ingredient": {
+    "item": "galacticraft:mercury_lead_ore"
+  },
+  "result": {
+    "id": "galacticraft:lead_ingot"
+  }
+}
