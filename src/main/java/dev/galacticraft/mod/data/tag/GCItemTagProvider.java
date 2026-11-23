@@ -247,6 +247,8 @@ public class GCItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         this.copy(BlockTags.IRON_ORES, ItemTags.IRON_ORES);
         this.copy(BlockTags.COPPER_ORES, ItemTags.COPPER_ORES);
+        this.copy(BlockTags.GOLD_ORES, ItemTags.GOLD_ORES);
+        this.copy(BlockTags.REDSTONE_ORES, ItemTags.REDSTONE_ORES);
         this.copy(GCBlockTags.SILICON_ORES, GCItemTags.SILICON_ORES);
         this.copy(GCBlockTags.TIN_ORES, GCItemTags.TIN_ORES);
         this.copy(GCBlockTags.ALUMINUM_ORES, GCItemTags.ALUMINUM_ORES);

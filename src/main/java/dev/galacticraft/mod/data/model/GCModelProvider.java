@@ -168,6 +168,9 @@ public class GCModelProvider extends FabricModelProvider {
         generator.createTrivialCube(GCBlocks.MERCURY_NATIVE_IRON_ORE);
         generator.createTrivialCube(GCBlocks.MERCURY_GRAPHITE_ORE);
         generator.createTrivialCube(GCBlocks.MERCURY_SULFIDE_ORE);
+        generator.createTrivialCube(GCBlocks.MERCURY_NIOBIUM_ORE);
+        generator.createTrivialCube(GCBlocks.MERCURY_GOLD_ORE);
+        generator.createTrivialCube(GCBlocks.MERCURY_LEAD_ORE);
 
         // JUPITER NATURAL & ORES
         generator.createTrivialCube(GCBlocks.JUPITER_SURFACE);
@@ -298,17 +301,23 @@ public class GCModelProvider extends FabricModelProvider {
         generator.createGlassBlocks(GCBlocks.MOON_GLASS, GCBlocks.MOON_GLASS_PANE);
 
         // ORES
+        generator.createTrivialCube(GCBlocks.MOON_IRON_ORE);
         generator.createTrivialCube(GCBlocks.MARS_IRON_ORE);
         generator.createTrivialCube(GCBlocks.ASTEROID_IRON_ORE);
+        generator.createTrivialCube(GCBlocks.VENUS_IRON_ORE);
 
         generator.createTrivialCube(GCBlocks.MOON_COPPER_ORE);
         generator.createTrivialCube(GCBlocks.LUNASLATE_COPPER_ORE);
         generator.createTrivialCube(GCBlocks.MARS_COPPER_ORE);
+        generator.createTrivialCube(GCBlocks.ASTEROID_COPPER_ORE);
         generator.createTrivialCube(GCBlocks.VENUS_COPPER_ORE);
 
         generator.createTrivialCube(GCBlocks.SILICON_ORE);
         generator.createTrivialCube(GCBlocks.DEEPSLATE_SILICON_ORE);
+        generator.createTrivialCube(GCBlocks.MOON_SILICON_ORE);
+        generator.createTrivialCube(GCBlocks.MARS_SILICON_ORE);
         generator.createTrivialCube(GCBlocks.ASTEROID_SILICON_ORE);
+        generator.createTrivialCube(GCBlocks.VENUS_SILICON_ORE);
 
         generator.createTrivialCube(GCBlocks.TIN_ORE);
         generator.createTrivialCube(GCBlocks.DEEPSLATE_TIN_ORE);
@@ -319,11 +328,30 @@ public class GCModelProvider extends FabricModelProvider {
 
         generator.createTrivialCube(GCBlocks.ALUMINUM_ORE);
         generator.createTrivialCube(GCBlocks.DEEPSLATE_ALUMINUM_ORE);
+        generator.createTrivialCube(GCBlocks.MOON_ALUMINUM_ORE);
+        generator.createTrivialCube(GCBlocks.MARS_ALUMINUM_ORE);
         generator.createTrivialCube(GCBlocks.ASTEROID_ALUMINUM_ORE);
         generator.createTrivialCube(GCBlocks.VENUS_ALUMINUM_ORE);
 
         generator.createTrivialCube(GCBlocks.NIOBIUM_ORE);
         generator.createTrivialCube(GCBlocks.DEEPSLATE_NIOBIUM_ORE);
+        generator.createTrivialCube(GCBlocks.MOON_NIOBIUM_ORE);
+        generator.createTrivialCube(GCBlocks.MARS_NIOBIUM_ORE);
+        generator.createTrivialCube(GCBlocks.ASTEROID_NIOBIUM_ORE);
+        generator.createTrivialCube(GCBlocks.VENUS_NIOBIUM_ORE);
+
+        generator.createTrivialCube(GCBlocks.MOON_GOLD_ORE);
+        generator.createTrivialCube(GCBlocks.MARS_GOLD_ORE);
+        generator.createTrivialCube(GCBlocks.ASTEROID_GOLD_ORE);
+        generator.createTrivialCube(GCBlocks.VENUS_GOLD_ORE);
+
+        generator.createTrivialCube(GCBlocks.MOON_REDSTONE_ORE);
+        generator.createTrivialCube(GCBlocks.MARS_REDSTONE_ORE);
+        generator.createTrivialCube(GCBlocks.ASTEROID_REDSTONE_ORE);
+        generator.createTrivialCube(GCBlocks.VENUS_REDSTONE_ORE);
+
+        generator.createTrivialCube(GCBlocks.MARS_GRAPHITE_ORE);
+        generator.createTrivialCube(GCBlocks.ASTEROID_GRAPHITE_ORE);
 
         generator.createTrivialCube(GCBlocks.MOON_CHEESE_ORE);
 
@@ -332,6 +360,9 @@ public class GCModelProvider extends FabricModelProvider {
         generator.createTrivialCube(GCBlocks.DESH_ORE);
 
         generator.createTrivialCube(GCBlocks.ILMENITE_ORE);
+        generator.createTrivialCube(GCBlocks.MOON_ILMENITE_ORE);
+        generator.createTrivialCube(GCBlocks.MARS_TITANIUM_ORE);
+        generator.createTrivialCube(GCBlocks.VENUS_TITANIUM_ORE);
 
         generator.createTrivialCube(GCBlocks.GALENA_ORE);
 

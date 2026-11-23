@@ -68,6 +68,9 @@ public class MercuryBiomes {
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_NATIVE_IRON_MERCURY);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_GRAPHITE_MERCURY);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_SULFIDE_MERCURY);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_NIOBIUM_MERCURY);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_GOLD_MERCURY);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_LEAD_MERCURY);
     }
 
     // ==========================================
@@ -143,6 +146,8 @@ public class MercuryBiomes {
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_TITANIUM_MERCURY);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_NATIVE_IRON_MERCURY);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_GRAPHITE_MERCURY);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_NIOBIUM_MERCURY);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_GOLD_MERCURY);
         return mercury(featureLookup, carverLookup, generation, 2.0F);
     }
 
@@ -155,6 +160,8 @@ public class MercuryBiomes {
         generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MERCURY_TECTONIC_FISSURE_CARVER);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_COPPER_MERCURY);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_TITANIUM_MERCURY);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_NIOBIUM_MERCURY);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_LEAD_MERCURY);
         return mercury(featureLookup, carverLookup, generation, 2.0F);
     }
 
@@ -167,6 +174,8 @@ public class MercuryBiomes {
         generation.addFeature(GenerationStep.Decoration.LAKES, GCPlacedFeatures.MERCURY_LAVA_LAKE);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.MAGMA_PATCH_MERCURY);
         generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_NATIVE_IRON_MERCURY);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_SULFIDE_MERCURY);
+        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_GOLD_MERCURY);
         return mercury(featureLookup, carverLookup, generation, 2.0F);
     }
 
