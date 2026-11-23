@@ -116,30 +116,30 @@ public class RocketWorkbenchBlockEntity extends BasicRecipeMachineBlockEntity<Pa
 
     public static final StorageSpec SPEC = StorageSpec.of(
             MachineItemStorage.builder()
-                    // Slot 0: Charge / Battery
+                    // Slot 0: Charge / Battery (below energy capacitor bar)
                     .add(ItemResourceSlot.builder(TransferType.TRANSFER)
-                            .pos(8, 62)
+                            .pos(7, 74)
                             .capacity(1)
                             .filter(ResourceFilters.CAN_EXTRACT_ENERGY)
                             .icon(Pair.of(InventoryMenu.BLOCK_ATLAS, Constant.SlotSprite.ENERGY))
                     )
                     // Slot 1: Schematic Blueprint (NON-CONSUMED, sits outside inputSlots)
                     .add(ItemResourceSlot.builder(TransferType.INPUT)
-                            .pos(104, 53)
+                            .pos(149, 25)
                             .capacity(1)
                             .filter(ResourceFilters.itemTag(GCItemTags.ROCKET_SCHEMATICS))
                             .icon(Pair.of(InventoryMenu.BLOCK_ATLAS, Constant.SlotSprite.ROCKET_CONE))
                     )
-                    // Slots 2..10: 3x3 Component Crafting Grid
-                    .add3x3Grid(TransferType.INPUT, 30, 17)
+                    // Slots 2..10: Dynamic Blueprint / Legacy 3x3 Component Crafting Grid
+                    .add3x3Grid(TransferType.INPUT, 54, 38)
                     // Slot 11: Manufactured Rocket Part Output
                     .add(ItemResourceSlot.builder(TransferType.OUTPUT)
-                            .pos(148, 22)
+                            .pos(149, 63)
                             .capacity(1)
                     )
                     // Slot 12: Scrap Metal Byproduct Output
                     .add(ItemResourceSlot.builder(TransferType.OUTPUT)
-                            .pos(148, 48)
+                            .pos(149, 92)
                             .capacity(64)
                     ),
             MachineEnergyStorage.spec(ENERGY_CAPACITY, ENERGY_CONSUMPTION_RATE * 4, 0)

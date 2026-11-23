@@ -56,18 +56,18 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Defines Tinkers'-style dynamic crafting grid silhouettes, GUI slot coordinates, and multi-material
- * per-slot requirements for each {@link RocketPartCategory} and specialized part family inside the
- * Rocket Part Builder.
+ * Defines Tinkers'-style dynamic crafting grid silhouettes, anatomical blueprint slot coordinates,
+ * multi-material per-slot requirements, and component explanations for each {@link RocketPartCategory}
+ * and specialized part family inside the Rocket Part Builder.
  *
  * <p>Grid indices {@code 0..8} map directly to {@code RocketWorkbenchBlockEntity} storage slots
- * {@code 2..10}. All active GUI coordinates stay strictly within the crafting region
- * {@code x in [30..84], y in [17..71]} with at least 18 px slot spacing so active slots never overlap.
+ * {@code 2..10}. All active GUI coordinates stay strictly within the CAD blueprint bay
+ * {@code x in [28..116], y in [20..92]} with at least 18 px slot spacing so active slots never overlap.
  */
 public final class SchematicGridLayout {
     public static final int GRID_SIZE = 9;
-    public static final int GRID_ORIGIN_X = 30;
-    public static final int GRID_ORIGIN_Y = 17;
+    public static final int GRID_ORIGIN_X = 54;
+    public static final int GRID_ORIGIN_Y = 38;
     public static final int SLOT_STEP = 18;
     public static final int MAX_SLOT_STACK_SIZE = 64;
 
@@ -178,8 +178,19 @@ public final class SchematicGridLayout {
             @NotNull SlotRole role,
             @NotNull List<RocketMaterialProfile> acceptedProfiles,
             int baseCount,
-            @NotNull String hintLabel
+            @NotNull String hintLabel,
+            @NotNull String hudName,
+            @NotNull String description
     ) {
+        public SlotRequirement(
+                @NotNull SlotRole role,
+                @NotNull List<RocketMaterialProfile> acceptedProfiles,
+                int baseCount,
+                @NotNull String hintLabel
+        ) {
+            this(role, acceptedProfiles, baseCount, hintLabel, hintLabel, role.displayName());
+        }
+
         public SlotRequirement {
             Objects.requireNonNull(role, "role");
             Objects.requireNonNull(acceptedProfiles, "acceptedProfiles");
@@ -191,6 +202,8 @@ public final class SchematicGridLayout {
                 throw new IllegalArgumentException("baseCount must be >= 1, got " + baseCount);
             }
             Objects.requireNonNull(hintLabel, "hintLabel");
+            Objects.requireNonNull(hudName, "hudName");
+            Objects.requireNonNull(description, "description");
         }
 
         /**
@@ -522,156 +535,220 @@ public final class SchematicGridLayout {
         };
     }
 
-    // COMMAND: 5 active slots [1, 3, 4, 5, 7] — capsule / nose-cone pyramid silhouette
+    // COMMAND: 5 active slots [1, 3, 4, 5, 7] — conical space capsule silhouette
     private static SchematicGridLayout buildCommandLayout() {
         return new Builder(RocketPartCategory.COMMAND)
-                .slot(1, 48, 17, SlotRole.COMMAND_NOSE_RECOVERY,
+                .slot(1, 73, 22, SlotRole.COMMAND_NOSE_RECOVERY,
                         orderedProfiles(SlotRole.COMMAND_NOSE_RECOVERY, Constant.id("tier_1_heavy_duty_plate")),
-                        2, "Nose Recovery / Heat Shield")
-                .slot(3, 30, 35, SlotRole.STRUCTURAL_HULL,
+                        2, "Nose Recovery / Heat Shield",
+                        "Topo / Escudo", "Paraquedas de pouso ou escudo TPS")
+                .slot(3, 35, 52, SlotRole.STRUCTURAL_HULL,
                         orderedProfiles(SlotRole.STRUCTURAL_HULL, Constant.id("compressed_aluminum")),
-                        2, "Port Hull Plate")
-                .slot(4, 48, 35, SlotRole.COMMAND_VIEWPORT,
+                        2, "Port Hull Plate",
+                        "Casco Bombordo", "Massa seca, calor e press\u00e3o (esq.)")
+                .slot(4, 73, 52, SlotRole.COMMAND_VIEWPORT,
                         orderedProfiles(SlotRole.COMMAND_VIEWPORT, Constant.id("vacuum_glass_viewport")),
-                        1, "Viewport / Optics")
-                .slot(5, 66, 35, SlotRole.STRUCTURAL_HULL,
+                        1, "Viewport / Optics",
+                        "Visor / \u00d3ptica", "C\u00fapula de press\u00e3o, calor ou HUD")
+                .slot(5, 111, 52, SlotRole.STRUCTURAL_HULL,
                         orderedProfiles(SlotRole.STRUCTURAL_HULL, Constant.id("compressed_aluminum")),
-                        2, "Starboard Hull Plate")
-                .slot(7, 48, 53, SlotRole.COMMAND_AVIONICS,
+                        2, "Starboard Hull Plate",
+                        "Casco Estibordo", "Aceita liga h\u00edbrida com bombordo")
+                .slot(7, 73, 84, SlotRole.COMMAND_AVIONICS,
                         orderedProfiles(SlotRole.COMMAND_AVIONICS, Constant.id("advanced_wafer_computer")),
-                        1, "Avionics & Power Core")
+                        1, "Avionics & Power Core",
+                        "N\u00facleo Avi\u00f4nica", "Computador, telemetria ou fus\u00e3o He-3")
                 .build();
     }
 
-    // ENGINE: 6 active slots [1, 3, 4, 6, 7, 8] — bell nozzle silhouette
+    // ENGINE: 6 active slots [1, 3, 4, 6, 7, 8] — flared bell nozzle silhouette
     private static SchematicGridLayout buildEngineLayout(String family) {
         List<RocketMaterialProfile> chamberProfiles;
         String chamberHint;
+        String chamberHudName;
+        String chamberDesc;
         if (family.contains("ntr") || family.contains("nerva")) {
             chamberProfiles = filteredProfiles(SlotRole.ENGINE_CHAMBER, ENGINE_CHAMBER_NERVA, Constant.id("nuclear_thermal_core"));
             chamberHint = "NERVA Reactor / DFD Core";
+            chamberHudName = "N\u00facleo NERVA";
+            chamberDesc = "Ur\u00e2nio/RTG f\u00edssil ou plasma DFD He-3";
         } else if (family.contains("ion") || family.contains("plasma") || family.contains("vasimr")) {
             chamberProfiles = filteredProfiles(SlotRole.ENGINE_CHAMBER, ENGINE_CHAMBER_ELECTRIC, Constant.id("ion_beam_core"));
             chamberHint = "Plasma Emitter / DFD Core";
+            chamberHudName = "Emissor Plasma";
+            chamberDesc = "Beam Core/Safira ou plasma DFD He-3";
         } else if (!family.isEmpty()) {
             chamberProfiles = filteredProfiles(SlotRole.ENGINE_CHAMBER, ENGINE_CHAMBER_CHEMICAL, Constant.id("tin_canister_cell"));
             chamberHint = "Combustion Chamber";
+            chamberHudName = "C\u00e2mara Queima";
+            chamberDesc = "Press\u00e3o de c\u00e2mara e cat\u00e1lise";
         } else {
             chamberProfiles = orderedProfiles(SlotRole.ENGINE_CHAMBER, Constant.id("tin_canister_cell"));
             chamberHint = "Combustion Chamber / Core";
+            chamberHudName = "C\u00e2mara / N\u00facleo";
+            chamberDesc = "Ciclo propulsivo, f\u00edssil ou DFD";
         }
 
         return new Builder(RocketPartCategory.ENGINE)
-                .slot(1, 48, 17, SlotRole.ENGINE_INJECTOR,
+                .slot(1, 73, 21, SlotRole.ENGINE_INJECTOR,
                         orderedProfiles(SlotRole.ENGINE_INJECTOR, Constant.id("basic_wafer_avionics")),
-                        1, "Injector & Control")
-                .slot(3, 39, 35, SlotRole.ENGINE_TURBOPUMP,
+                        1, "Injector & Control",
+                        "Injetor / Controle", "Acelera\u00e7\u00e3o, igni\u00e7\u00e3o e efici\u00eancia")
+                .slot(3, 46, 48, SlotRole.ENGINE_TURBOPUMP,
                         orderedProfiles(SlotRole.ENGINE_TURBOPUMP, Constant.id("oxygen_vent_turbopump")),
-                        1, "Turbopump / Feed")
-                .slot(4, 57, 35, SlotRole.ENGINE_CHAMBER,
+                        1, "Turbopump / Feed",
+                        "Turbobomba", "Vaz\u00e3o e ciclo Staged (+35% kN)")
+                .slot(4, 100, 48, SlotRole.ENGINE_CHAMBER,
                         chamberProfiles,
-                        1, chamberHint)
-                .slot(6, 30, 53, SlotRole.STRUCTURAL_HULL,
+                        1, chamberHint,
+                        chamberHudName, chamberDesc)
+                .slot(6, 34, 86, SlotRole.STRUCTURAL_HULL,
                         orderedProfiles(SlotRole.STRUCTURAL_HULL, Constant.id("compressed_steel")),
-                        2, "Nozzle Skirt (L)")
-                .slot(7, 48, 53, SlotRole.ENGINE_NOZZLE_THROAT,
+                        2, "Nozzle Skirt (L)",
+                        "Saia Bocal (E)", "C-103 (+K) ou Pal\u00e1dio (+empuxo)")
+                .slot(7, 73, 76, SlotRole.ENGINE_NOZZLE_THROAT,
                         orderedProfiles(SlotRole.ENGINE_NOZZLE_THROAT, Constant.id("tier_1_heavy_duty_plate")),
-                        2, "Nozzle Thermal Throat")
-                .slot(8, 66, 53, SlotRole.STRUCTURAL_HULL,
+                        2, "Nozzle Thermal Throat",
+                        "Garganta T\u00e9rmica", "Ponto mais quente: limite (K)")
+                .slot(8, 112, 86, SlotRole.STRUCTURAL_HULL,
                         orderedProfiles(SlotRole.STRUCTURAL_HULL, Constant.id("compressed_steel")),
-                        2, "Nozzle Skirt (R)")
+                        2, "Nozzle Skirt (R)",
+                        "Saia Bocal (D)", "Aceita liga h\u00edbrida com esquerda")
                 .build();
     }
 
-    // TANK: 6 active slots [0, 2, 3, 5, 6, 8] — tall pressurized cylinder silhouette
+    // TANK: 6 active slots [0, 2, 3, 5, 6, 8] — tall pressurized cryogenic cylinder silhouette
     private static SchematicGridLayout buildTankLayout() {
         List<RocketMaterialProfile> hullProfiles = orderedProfiles(SlotRole.STRUCTURAL_HULL, Constant.id("compressed_aluminum"));
         List<RocketMaterialProfile> cellProfiles = orderedProfiles(SlotRole.TANK_PROPELLANT_CELL, Constant.id("tin_canister_cell"));
         List<RocketMaterialProfile> valveProfiles = orderedProfiles(SlotRole.TANK_LOWER_VALVE, Constant.id("tier_1_heavy_duty_plate"));
 
         return new Builder(RocketPartCategory.TANK)
-                .slot(0, 36, 17, SlotRole.STRUCTURAL_HULL, hullProfiles, 2, "Upper Tank Ring (L)")
-                .slot(2, 60, 17, SlotRole.STRUCTURAL_HULL, hullProfiles, 2, "Upper Tank Ring (R)")
-                .slot(3, 36, 35, SlotRole.TANK_PROPELLANT_CELL, cellProfiles, 2, "Propellant Cell & Cryo")
-                .slot(5, 60, 35, SlotRole.TANK_PROPELLANT_CELL, cellProfiles, 2, "Propellant Cell & Cryo")
-                .slot(6, 36, 53, SlotRole.TANK_LOWER_VALVE, valveProfiles, 2, "Lower Bulkhead & Valves")
-                .slot(8, 60, 53, SlotRole.TANK_LOWER_VALVE, valveProfiles, 2, "Lower Bulkhead & Valves")
+                .slot(0, 44, 24, SlotRole.STRUCTURAL_HULL, hullProfiles, 2, "Upper Tank Ring (L)",
+                        "Anel Superior (E)", "Casco: massa seca e press\u00e3o")
+                .slot(2, 102, 24, SlotRole.STRUCTURAL_HULL, hullProfiles, 2, "Upper Tank Ring (R)",
+                        "Anel Superior (D)", "Aceita liga h\u00edbrida ou COPV")
+                .slot(3, 44, 56, SlotRole.TANK_PROPELLANT_CELL, cellProfiles, 2, "Propellant Cell & Cryo",
+                        "C\u00e9lula Cryo (E)", "Volume, SOFI ou He-3 (<2K 0% boil)")
+                .slot(5, 102, 56, SlotRole.TANK_PROPELLANT_CELL, cellProfiles, 2, "Propellant Cell & Cryo",
+                        "C\u00e9lula Cryo (D)", "Segunda c\u00e9lula ou isolamento")
+                .slot(6, 44, 88, SlotRole.TANK_LOWER_VALVE, valveProfiles, 2, "Lower Bulkhead & Valves",
+                        "Antepara / V\u00e1lv. (E)", "V\u00e1lvula, bomba ou cryocooler")
+                .slot(8, 102, 88, SlotRole.TANK_LOWER_VALVE, valveProfiles, 2, "Lower Bulkhead & Valves",
+                        "Antepara / V\u00e1lv. (D)", "Refor\u00e7o inferior e vaz\u00e3o")
                 .build();
     }
 
-    // ADAPTER: 4 active slots [1, 3, 5, 7] — trapezoid / transition collar silhouette
+    // ADAPTER: 4 active slots [1, 3, 5, 7] — tapered frustum / interstage collar silhouette
     private static SchematicGridLayout buildAdapterLayout() {
         return new Builder(RocketPartCategory.ADAPTER)
-                .slot(1, 48, 17, SlotRole.STRUCTURAL_HULL,
+                .slot(1, 73, 22, SlotRole.STRUCTURAL_HULL,
                         orderedProfiles(SlotRole.STRUCTURAL_HULL, Constant.id("compressed_aluminum")),
-                        2, "Upper Collar")
-                .slot(3, 30, 35, SlotRole.STRUCTURAL_HULL,
+                        2, "Upper Collar",
+                        "Colar Superior", "Interface superior de acoplamento")
+                .slot(3, 38, 56, SlotRole.STRUCTURAL_HULL,
                         orderedProfiles(SlotRole.STRUCTURAL_HULL, Constant.id("compressed_steel")),
-                        2, "Transition Strut / Fairing")
-                .slot(5, 66, 35, SlotRole.STRUCTURAL_HULL,
+                        2, "Transition Strut / Fairing",
+                        "Longarina (E)", "Carbono libera separa\u00e7\u00e3o aero")
+                .slot(5, 108, 56, SlotRole.STRUCTURAL_HULL,
                         orderedProfiles(SlotRole.STRUCTURAL_HULL, Constant.id("compressed_steel")),
-                        2, "Transition Strut / Fairing")
-                .slot(7, 48, 53, SlotRole.ADAPTER_BASE_RING,
+                        2, "Transition Strut / Fairing",
+                        "Longarina (D)", "Rigidez estrutural e peso morto")
+                .slot(7, 73, 88, SlotRole.ADAPTER_BASE_RING,
                         orderedProfiles(SlotRole.ADAPTER_BASE_RING, Constant.id("tier_1_heavy_duty_plate")),
-                        2, "Base Ring / Blast Shield")
+                        2, "Base Ring / Blast Shield",
+                        "Anel Base / TPS", "Resiste jato do est\u00e1gio superior")
                 .build();
     }
 
-    // PAYLOAD: 5 active slots [0, 2, 4, 6, 8] — hollow fairing bay & mounting core
+    // PAYLOAD: 5 active slots [0, 2, 4, 6, 8] — split clamshell fairing & scientific core
     private static SchematicGridLayout buildPayloadLayout() {
         List<RocketMaterialProfile> upperHull = orderedProfiles(SlotRole.STRUCTURAL_HULL, Constant.id("compressed_aluminum"));
         List<RocketMaterialProfile> lowerHull = orderedProfiles(SlotRole.STRUCTURAL_HULL, Constant.id("compressed_steel"));
         List<RocketMaterialProfile> coreProfiles = orderedProfiles(SlotRole.PAYLOAD_CORE, Constant.id("basic_wafer_avionics"));
 
         return new Builder(RocketPartCategory.PAYLOAD)
-                .slot(0, 30, 17, SlotRole.STRUCTURAL_HULL, upperHull, 2, "Upper Fairing (L)")
-                .slot(2, 66, 17, SlotRole.STRUCTURAL_HULL, upperHull, 2, "Upper Fairing (R)")
-                .slot(4, 48, 35, SlotRole.PAYLOAD_CORE, coreProfiles, 1, "Payload & Cryo Core")
-                .slot(6, 30, 53, SlotRole.STRUCTURAL_HULL, lowerHull, 2, "Lower Bulkhead (L)")
-                .slot(8, 66, 53, SlotRole.STRUCTURAL_HULL, lowerHull, 2, "Lower Bulkhead (R)")
+                .slot(0, 38, 24, SlotRole.STRUCTURAL_HULL, upperHull, 2, "Upper Fairing (L)",
+                        "Coifa Sup. (E)", "Prote\u00e7\u00e3o aerodin\u00e2mica superior")
+                .slot(2, 108, 24, SlotRole.STRUCTURAL_HULL, upperHull, 2, "Upper Fairing (R)",
+                        "Coifa Sup. (D)", "Metade direita da carenagem")
+                .slot(4, 73, 56, SlotRole.PAYLOAD_CORE, coreProfiles, 1, "Payload & Cryo Core",
+                        "N\u00facleo de Carga", "Ba\u00fa, sensores ou cofre mK He-3")
+                .slot(6, 38, 88, SlotRole.STRUCTURAL_HULL, lowerHull, 2, "Lower Bulkhead (L)",
+                        "Antepara Base (E)", "Base estrutural esquerda")
+                .slot(8, 108, 88, SlotRole.STRUCTURAL_HULL, lowerHull, 2, "Lower Bulkhead (R)",
+                        "Antepara Base (D)", "Base estrutural direita")
                 .build();
     }
 
-    // UTILITY: 4 active slots [1, 3, 4, 5] — precision cross / actuator array
+    // UTILITY: 4 active slots [1, 3, 4, 5] — pylon mount, central hub & bilateral wing/actuators
     private static SchematicGridLayout buildUtilityLayout(String family) {
         List<RocketMaterialProfile> mountProfiles = orderedProfiles(SlotRole.UTILITY_MOUNT, Constant.id("compressed_steel"));
         List<RocketMaterialProfile> actuatorProfiles;
         List<RocketMaterialProfile> controlProfiles;
         String actuatorHint;
         String controlHint;
+        String actuatorHudName;
+        String controlHudName;
+        String actuatorDesc;
+        String controlDesc;
 
         if (family.contains("power_solar_array")) {
             actuatorProfiles = filteredProfiles(SlotRole.UTILITY_ACTUATOR, UTILITY_ACTUATOR_SOLAR, Constant.id("full_solar_panel"));
             controlProfiles = orderedProfiles(SlotRole.UTILITY_CONTROL, Constant.id("basic_wafer_avionics"));
             actuatorHint = "Solar Panel Wing";
             controlHint = "Power Controller";
+            actuatorHudName = "Asa Solar";
+            controlHudName = "Controlador";
+            actuatorDesc = "Painel solar (escala gera\u00e7\u00e3o GJ/t)";
+            controlDesc = "Regulador de pot\u00eancia ou fus\u00e3o He-3";
         } else if (family.contains("power_rtg")) {
             actuatorProfiles = orderedProfiles(SlotRole.STRUCTURAL_HULL, Constant.id("lead_shielding"));
             controlProfiles = filteredProfiles(SlotRole.UTILITY_CONTROL, UTILITY_CONTROL_RTG, Constant.id("nuclear_thermal_core"));
             actuatorHint = "Radiation Shielding";
             controlHint = "RTG / Fusion Core";
+            actuatorHudName = "Blindagem";
+            controlHudName = "N\u00facleo RTG/He-3";
+            actuatorDesc = "Blindagem lateral (Chumbo ou liga)";
+            controlDesc = "RTG f\u00edssil ou reator aneutr\u00f4nico He-3";
         } else if (family.contains("power_battery_bank")) {
             actuatorProfiles = filteredProfiles(SlotRole.UTILITY_ACTUATOR, UTILITY_ACTUATOR_BATTERY, Constant.id("standard_battery_cell"));
             controlProfiles = filteredProfiles(SlotRole.UTILITY_CONTROL, UTILITY_CONTROL_BATTERY, Constant.id("standard_battery_cell"));
             actuatorHint = "Battery Cell Bank";
             controlHint = "Power Bus Core";
+            actuatorHudName = "Banco Bateria";
+            controlHudName = "Barramento";
+            actuatorDesc = "C\u00e9lulas de bateria / at\u00f4mica";
+            controlDesc = "Bobina Nb3Sn ou fus\u00e3o He-3";
         } else if (family.contains("thermal_radiator")) {
             actuatorProfiles = filteredProfiles(SlotRole.UTILITY_ACTUATOR, UTILITY_ACTUATOR_RADIATOR, Constant.id("compressed_aluminum"));
             controlProfiles = orderedProfiles(SlotRole.UTILITY_CONTROL, Constant.id("basic_wafer_avionics"));
             actuatorHint = "Radiator Fin";
             controlHint = "Thermal Control Core";
+            actuatorHudName = "Aleta Radiador";
+            controlHudName = "Controle T\u00e9rmico";
+            actuatorDesc = "Dissipa\u00e7\u00e3o de calor (Al/Cu/SOFI)";
+            controlDesc = "Gest\u00e3o t\u00e9rmica e sensores";
         } else {
             actuatorProfiles = orderedProfiles(SlotRole.UTILITY_ACTUATOR, Constant.id("compressed_steel"));
             controlProfiles = orderedProfiles(SlotRole.UTILITY_CONTROL, Constant.id("basic_wafer_avionics"));
             actuatorHint = "Actuator / Panel";
             controlHint = "Control / Power Core";
+            actuatorHudName = "Atuador / Bra\u00e7o";
+            controlHudName = "N\u00facleo Controle";
+            actuatorDesc = "Bra\u00e7o mec\u00e2nico ou painel lateral";
+            controlDesc = "Avi\u00f4nica, controle ou energia He-3";
         }
 
         return new Builder(RocketPartCategory.UTILITY)
-                .slot(1, 48, 22, SlotRole.UTILITY_MOUNT, mountProfiles, 1, "Precision Mount")
-                .slot(3, 30, 40, SlotRole.UTILITY_ACTUATOR, actuatorProfiles, 1, actuatorHint)
-                .slot(4, 48, 40, SlotRole.UTILITY_CONTROL, controlProfiles, 1, controlHint)
-                .slot(5, 66, 40, SlotRole.UTILITY_ACTUATOR, actuatorProfiles, 1, actuatorHint)
+                .slot(1, 73, 25, SlotRole.UTILITY_MOUNT, mountProfiles, 1, "Precision Mount",
+                        "Suporte Topo", "Fixa\u00e7\u00e3o estrutural e absor\u00e7\u00e3o")
+                .slot(3, 36, 63, SlotRole.UTILITY_ACTUATOR, actuatorProfiles, 1, actuatorHint,
+                        actuatorHudName + " (E)", actuatorDesc)
+                .slot(4, 73, 63, SlotRole.UTILITY_CONTROL, controlProfiles, 1, controlHint,
+                        controlHudName, controlDesc)
+                .slot(5, 110, 63, SlotRole.UTILITY_ACTUATOR, actuatorProfiles, 1, actuatorHint,
+                        actuatorHudName + " (D)", actuatorDesc)
                 .build();
     }
 
@@ -748,7 +825,9 @@ public final class SchematicGridLayout {
                 SlotRole role,
                 List<RocketMaterialProfile> acceptedProfiles,
                 int baseCount,
-                String hintLabel
+                String hintLabel,
+                String hudName,
+                String description
         ) {
             if (index < 0 || index >= GRID_SIZE) {
                 throw new IllegalArgumentException("Grid slot index out of range: " + index);
@@ -756,7 +835,7 @@ public final class SchematicGridLayout {
             this.activeMask[index] = true;
             this.slotX[index] = x;
             this.slotY[index] = y;
-            this.requirements[index] = new SlotRequirement(role, acceptedProfiles, baseCount, hintLabel);
+            this.requirements[index] = new SlotRequirement(role, acceptedProfiles, baseCount, hintLabel, hudName, description);
             return this;
         }
 
