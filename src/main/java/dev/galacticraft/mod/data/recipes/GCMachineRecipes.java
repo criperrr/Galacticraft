@@ -22,11 +22,14 @@
 
 package dev.galacticraft.mod.data.recipes;
 
+import dev.galacticraft.api.gas.Gases;
 import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.api.block.entity.PipeColor;
 import dev.galacticraft.mod.api.data.recipe.CircuitFabricatorRecipeBuilder;
+import dev.galacticraft.mod.api.data.recipe.FusionReactorRecipeBuilder;
 import dev.galacticraft.mod.api.data.recipe.GCShapedRecipeBuilder;
 import dev.galacticraft.mod.api.data.recipe.GCShapelessRecipeBuilder;
+import dev.galacticraft.mod.api.data.recipe.ThermalDesorptionRecipeBuilder;
 import dev.galacticraft.mod.content.GCBlocks;
 import dev.galacticraft.mod.content.item.GCItems;
 import dev.galacticraft.mod.tag.GCItemTags;
@@ -294,6 +297,76 @@ public class GCMachineRecipes extends FabricRecipeProvider {
                 .pattern("SCS")
                 .pattern("SFS")
                 .unlockedBy(getHasName(GCItems.CRUDE_OIL_BUCKET), has(GCItems.CRUDE_OIL_BUCKET))
+                .emiDefaultRecipe(true)
+                .save(output);
+
+        GCShapedRecipeBuilder.crafting(RecipeCategory.DECORATIONS, GCBlocks.REGOLITH_THERMAL_DESORBER)
+                .define('T', GCItems.COMPRESSED_TITANIUM)
+                .define('F', GCBlocks.ELECTRIC_FURNACE)
+                .define('M', GCItems.FLUID_MANIPULATOR)
+                .define('W', GCItems.ADVANCED_WAFER)
+                .pattern("TMT")
+                .pattern("TFT")
+                .pattern("TWT")
+                .unlockedBy(getHasName(GCItems.COMPRESSED_TITANIUM), has(GCItems.COMPRESSED_TITANIUM))
+                .emiDefaultRecipe(true)
+                .save(output);
+
+        GCShapedRecipeBuilder.crafting(RecipeCategory.DECORATIONS, GCBlocks.ISOTOPIC_CENTRIFUGE)
+                .define('N', GCItems.COMPRESSED_NIOBIUM)
+                .define('C', GCItems.SUPERCONDUCTING_COIL)
+                .define('M', GCItems.FLUID_MANIPULATOR)
+                .define('W', GCItems.ADVANCED_WAFER)
+                .pattern("NMN")
+                .pattern("NCN")
+                .pattern("NWN")
+                .unlockedBy(getHasName(GCItems.SUPERCONDUCTING_COIL), has(GCItems.SUPERCONDUCTING_COIL))
+                .emiDefaultRecipe(true)
+                .save(output);
+
+        GCShapedRecipeBuilder.crafting(RecipeCategory.DECORATIONS, GCBlocks.HELIUM3_FUSION_REACTOR)
+                .define('N', GCItems.COMPRESSED_NIOBIUM)
+                .define('C', GCItems.SUPERCONDUCTING_COIL)
+                .define('H', GCItems.HELIUM3_CELL)
+                .define('S', GCItems.LUNAR_SAPPHIRE)
+                .define('W', GCItems.ADVANCED_WAFER)
+                .pattern("NCN")
+                .pattern("SHS")
+                .pattern("NWN")
+                .unlockedBy(getHasName(GCItems.HELIUM3_CELL), has(GCItems.HELIUM3_CELL))
+                .emiDefaultRecipe(true)
+                .save(output);
+
+        GCShapedRecipeBuilder.crafting(RecipeCategory.DECORATIONS, GCBlocks.FUSION_REACTOR_CASING, 4)
+                .define('N', GCItems.COMPRESSED_NIOBIUM)
+                .define('T', GCItems.COMPRESSED_TITANIUM)
+                .define('P', GCItems.TIER_2_HEAVY_DUTY_PLATE)
+                .pattern("NTN")
+                .pattern("TPT")
+                .pattern("NTN")
+                .unlockedBy(getHasName(GCItems.COMPRESSED_NIOBIUM), has(GCItems.COMPRESSED_NIOBIUM))
+                .emiDefaultRecipe(true)
+                .save(output);
+
+        GCShapedRecipeBuilder.crafting(RecipeCategory.DECORATIONS, GCBlocks.FUSION_MAGNET_COIL, 2)
+                .define('N', GCItems.COMPRESSED_NIOBIUM)
+                .define('C', GCItems.SUPERCONDUCTING_COIL)
+                .define('K', GCItems.COMPRESSED_COPPER)
+                .pattern("NKN")
+                .pattern("KCK")
+                .pattern("NKN")
+                .unlockedBy(getHasName(GCItems.SUPERCONDUCTING_COIL), has(GCItems.SUPERCONDUCTING_COIL))
+                .emiDefaultRecipe(true)
+                .save(output);
+
+        GCShapedRecipeBuilder.crafting(RecipeCategory.DECORATIONS, GCBlocks.FUSION_PLASMA_GLASS, 4)
+                .define('G', GCBlocks.STRONG_VACUUM_GLASS)
+                .define('S', GCItems.LUNAR_SAPPHIRE)
+                .define('N', GCItems.COMPRESSED_NIOBIUM)
+                .pattern("NGN")
+                .pattern("GSG")
+                .pattern("NGN")
+                .unlockedBy(getHasName(GCItems.LUNAR_SAPPHIRE), has(GCItems.LUNAR_SAPPHIRE))
                 .emiDefaultRecipe(true)
                 .save(output);
 
@@ -661,6 +734,38 @@ public class GCMachineRecipes extends FabricRecipeProvider {
                 .requires(GCItemTags.SOLAR_DUSTS)
                 .emiDefaultRecipe(true)
                 .save(output);
+
+        // Regolith Thermal Desorber Recipes (Vacuum heating >700C -> SOLAR_VOLATILE_GAS + solid byproducts)
+        ThermalDesorptionRecipeBuilder.create(GCBlocks.MOON_TURF, 100L)
+                .primaryByproduct(GCItems.SILICON, 1)
+                .time(80)
+                .save(output, Constant.id("moon_turf"));
+        ThermalDesorptionRecipeBuilder.create(GCBlocks.MOON_DIRT, 100L)
+                .primaryByproduct(GCItems.SILICON, 1)
+                .time(80)
+                .save(output, Constant.id("moon_dirt"));
+        ThermalDesorptionRecipeBuilder.create(GCBlocks.MOON_BASALT, 200L)
+                .primaryByproduct(GCItems.SILICON, 1)
+                .time(100)
+                .save(output, Constant.id("moon_basalt"));
+        ThermalDesorptionRecipeBuilder.create(GCBlocks.MOON_ILMENITE_ORE, 1000L)
+                .primaryByproduct(GCItems.RAW_TITANIUM, 1)
+                .secondaryByproduct(GCItems.SILICON, 1)
+                .time(120)
+                .save(output, Constant.id("moon_ilmenite_ore"));
+        ThermalDesorptionRecipeBuilder.create(GCBlocks.MERCURY_HOLLOW_DEPOSIT, 450L)
+                .primaryByproduct(GCItems.SILICON, 1)
+                .time(100)
+                .save(output, Constant.id("mercury_hollow_deposit"));
+        ThermalDesorptionRecipeBuilder.create(GCBlocks.SATURN_HELIUM_MANTLE_ROCK, 1200L)
+                .time(100)
+                .save(output, Constant.id("saturn_helium_mantle_rock"));
+
+        // Aneutronic D-3He MHD Fusion Reactor Recipe
+        FusionReactorRecipeBuilder.create(Gases.HELIUM_3_ID, 10L, Gases.DEUTERIUM_ID, 10L, 2500L)
+                .cycleTicks(40)
+                .outputCell(GCItems.HELIUM3_FUSION_CELL)
+                .save(output, Constant.id("d_he3_mhd_fusion"));
     }
 
     @Override

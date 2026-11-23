@@ -1,0 +1,12 @@
+{
+  "type": "galacticraft:thermal_desorption",
+  "gas_amount_mb": 100,
+  "ingredient": {
+    "item": "galacticraft:moon_turf"
+  },
+  "primary_byproduct": {
+    "count": 1,
+    "id": "galacticraft:silicon"
+  },
+  "processing_time": 80
+}

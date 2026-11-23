@@ -1,0 +1,88 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "casing": "galacticraft:block/fusion_reactor_casing",
+    "coil": "galacticraft:block/fusion_magnet_coil",
+    "particle": "galacticraft:block/fusion_reactor_casing"
+  },
+  "elements": [
+    {
+      "name": "inner_hull",
+      "from": [1.5, 1.5, 1.5],
+      "to": [14.5, 14.5, 14.5],
+      "faces": {
+        "north": {"texture": "#casing"},
+        "south": {"texture": "#casing"},
+        "east": {"texture": "#casing"},
+        "west": {"texture": "#casing"},
+        "up": {"texture": "#casing"},
+        "down": {"texture": "#casing"}
+      }
+    },
+    {
+      "name": "bottom_girder_x",
+      "from": [0, 0, 1],
+      "to": [16, 2.5, 15],
+      "faces": {
+        "north": {"texture": "#casing"},
+        "south": {"texture": "#casing"},
+        "east": {"texture": "#casing"},
+        "west": {"texture": "#casing"},
+        "up": {"texture": "#casing"},
+        "down": {"texture": "#casing"}
+      }
+    },
+    {
+      "name": "bottom_girder_z",
+      "from": [1, 0, 0],
+      "to": [15, 2.5, 16],
+      "faces": {
+        "north": {"texture": "#casing"},
+        "south": {"texture": "#casing"},
+        "east": {"texture": "#casing"},
+        "west": {"texture": "#casing"},
+        "up": {"texture": "#casing"},
+        "down": {"texture": "#casing"}
+      }
+    },
+    {
+      "name": "top_girder_x",
+      "from": [0, 13.5, 1],
+      "to": [16, 16, 15],
+      "faces": {
+        "north": {"texture": "#casing"},
+        "south": {"texture": "#casing"},
+        "east": {"texture": "#casing"},
+        "west": {"texture": "#casing"},
+        "up": {"texture": "#casing"},
+        "down": {"texture": "#casing"}
+      }
+    },
+    {
+      "name": "top_girder_z",
+      "from": [1, 13.5, 0],
+      "to": [15, 16, 16],
+      "faces": {
+        "north": {"texture": "#casing"},
+        "south": {"texture": "#casing"},
+        "east": {"texture": "#casing"},
+        "west": {"texture": "#casing"},
+        "up": {"texture": "#casing"},
+        "down": {"texture": "#casing"}
+      }
+    },
+    {
+      "name": "mid_accent_band",
+      "from": [0.5, 7, 0.5],
+      "to": [15.5, 9, 15.5],
+      "faces": {
+        "north": {"texture": "#coil"},
+        "south": {"texture": "#coil"},
+        "east": {"texture": "#coil"},
+        "west": {"texture": "#coil"},
+        "up": {"texture": "#casing"},
+        "down": {"texture": "#casing"}
+      }
+    }
+  ]
+}

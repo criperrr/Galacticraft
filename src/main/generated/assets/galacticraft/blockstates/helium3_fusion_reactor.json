@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "active=false": {
+      "model": "galacticraft:machine/helium3_fusion_reactor"
+    },
+    "active=true": {
+      "model": "galacticraft:machine/helium3_fusion_reactor_active"
+    }
+  }
+}

@@ -421,6 +421,12 @@ public class GCCreativeModeTabs {
                 output.accept(ELECTRIC_FURNACE);
                 output.accept(ELECTRIC_ARC_FURNACE);
                 output.accept(REFINERY);
+                output.accept(REGOLITH_THERMAL_DESORBER);
+                output.accept(ISOTOPIC_CENTRIFUGE);
+                output.accept(HELIUM3_FUSION_REACTOR);
+                output.accept(FUSION_REACTOR_CASING);
+                output.accept(FUSION_MAGNET_COIL);
+                output.accept(FUSION_PLASMA_GLASS);
                 output.accept(FUEL_LOADER);
                 output.accept(OXYGEN_COLLECTOR);
                 output.accept(OXYGEN_SEALER);

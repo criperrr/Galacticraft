@@ -1,0 +1,101 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "coil": "galacticraft:block/fusion_magnet_coil",
+    "casing": "galacticraft:block/fusion_reactor_casing",
+    "particle": "galacticraft:block/fusion_magnet_coil"
+  },
+  "elements": [
+    {
+      "name": "central_core",
+      "from": [3, 1, 3],
+      "to": [13, 15, 13],
+      "faces": {
+        "north": {"texture": "#coil"},
+        "south": {"texture": "#coil"},
+        "east": {"texture": "#coil"},
+        "west": {"texture": "#coil"},
+        "up": {"texture": "#casing"},
+        "down": {"texture": "#casing"}
+      }
+    },
+    {
+      "name": "bottom_flange",
+      "from": [1, 0, 1],
+      "to": [15, 2, 15],
+      "faces": {
+        "north": {"texture": "#casing"},
+        "south": {"texture": "#casing"},
+        "east": {"texture": "#casing"},
+        "west": {"texture": "#casing"},
+        "up": {"texture": "#casing"},
+        "down": {"texture": "#casing"}
+      }
+    },
+    {
+      "name": "top_flange",
+      "from": [1, 14, 1],
+      "to": [15, 16, 15],
+      "faces": {
+        "north": {"texture": "#casing"},
+        "south": {"texture": "#casing"},
+        "east": {"texture": "#casing"},
+        "west": {"texture": "#casing"},
+        "up": {"texture": "#casing"},
+        "down": {"texture": "#casing"}
+      }
+    },
+    {
+      "name": "winding_rib_lower",
+      "from": [0.5, 4, 2],
+      "to": [15.5, 6.5, 14],
+      "faces": {
+        "north": {"texture": "#coil"},
+        "south": {"texture": "#coil"},
+        "east": {"texture": "#coil"},
+        "west": {"texture": "#coil"},
+        "up": {"texture": "#coil"},
+        "down": {"texture": "#coil"}
+      }
+    },
+    {
+      "name": "winding_rib_lower_cross",
+      "from": [2, 4, 0.5],
+      "to": [14, 6.5, 15.5],
+      "faces": {
+        "north": {"texture": "#coil"},
+        "south": {"texture": "#coil"},
+        "east": {"texture": "#coil"},
+        "west": {"texture": "#coil"},
+        "up": {"texture": "#coil"},
+        "down": {"texture": "#coil"}
+      }
+    },
+    {
+      "name": "winding_rib_upper",
+      "from": [0.5, 9.5, 2],
+      "to": [15.5, 12, 14],
+      "faces": {
+        "north": {"texture": "#coil"},
+        "south": {"texture": "#coil"},
+        "east": {"texture": "#coil"},
+        "west": {"texture": "#coil"},
+        "up": {"texture": "#coil"},
+        "down": {"texture": "#coil"}
+      }
+    },
+    {
+      "name": "winding_rib_upper_cross",
+      "from": [2, 9.5, 0.5],
+      "to": [14, 12, 15.5],
+      "faces": {
+        "north": {"texture": "#coil"},
+        "south": {"texture": "#coil"},
+        "east": {"texture": "#coil"},
+        "west": {"texture": "#coil"},
+        "up": {"texture": "#coil"},
+        "down": {"texture": "#coil"}
+      }
+    }
+  ]
+}

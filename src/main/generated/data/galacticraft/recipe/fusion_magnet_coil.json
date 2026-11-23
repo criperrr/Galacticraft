@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "galacticraft:superconducting_coil"
+    },
+    "K": {
+      "item": "galacticraft:compressed_copper"
+    },
+    "N": {
+      "item": "galacticraft:compressed_niobium"
+    }
+  },
+  "pattern": [
+    "NKN",
+    "KCK",
+    "NKN"
+  ],
+  "result": {
+    "count": 2,
+    "id": "galacticraft:fusion_magnet_coil"
+  }
+}

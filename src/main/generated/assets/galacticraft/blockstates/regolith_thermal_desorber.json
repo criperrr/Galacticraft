@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "active=false": {
+      "model": "galacticraft:machine/regolith_thermal_desorber"
+    },
+    "active=true": {
+      "model": "galacticraft:machine/regolith_thermal_desorber_active"
+    }
+  }
+}

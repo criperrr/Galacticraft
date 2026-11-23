@@ -1,0 +1,16 @@
+{
+  "type": "galacticraft:thermal_desorption",
+  "gas_amount_mb": 1000,
+  "ingredient": {
+    "item": "galacticraft:moon_ilmenite_ore"
+  },
+  "primary_byproduct": {
+    "count": 1,
+    "id": "galacticraft:raw_titanium"
+  },
+  "processing_time": 120,
+  "secondary_byproduct": {
+    "count": 1,
+    "id": "galacticraft:silicon"
+  }
+}

@@ -573,6 +573,43 @@ public class GCModelProvider extends FabricModelProvider {
                         .build()
         );
 
+        createActiveMachine(generator, GCBlocks.REGOLITH_THERMAL_DESORBER,
+                TextureProvider.builder(Constant.MOD_ID)
+                        .sides("block/machine_side")
+                        .front("block/regolith_thermal_desorber_active")
+                        .build(),
+                TextureProvider.builder(Constant.MOD_ID)
+                        .sides("block/machine_side")
+                        .front("block/regolith_thermal_desorber")
+                        .build()
+        );
+
+        createActiveMachine(generator, GCBlocks.ISOTOPIC_CENTRIFUGE,
+                TextureProvider.builder(Constant.MOD_ID)
+                        .sides("block/machine_side")
+                        .front("block/isotopic_centrifuge_active")
+                        .build(),
+                TextureProvider.builder(Constant.MOD_ID)
+                        .sides("block/machine_side")
+                        .front("block/isotopic_centrifuge")
+                        .build()
+        );
+
+        createActiveMachine(generator, GCBlocks.HELIUM3_FUSION_REACTOR,
+                TextureProvider.builder(Constant.MOD_ID)
+                        .sides("block/machine_side")
+                        .front("block/helium3_fusion_reactor_active")
+                        .build(),
+                TextureProvider.builder(Constant.MOD_ID)
+                        .sides("block/machine_side")
+                        .front("block/helium3_fusion_reactor")
+                        .build()
+        );
+
+        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(GCBlocks.FUSION_REACTOR_CASING, Constant.id("block/fusion_reactor_casing")));
+        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(GCBlocks.FUSION_MAGNET_COIL, Constant.id("block/fusion_magnet_coil")));
+        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(GCBlocks.FUSION_PLASMA_GLASS, Constant.id("block/fusion_plasma_glass")));
+
         createFullCubeActiveMachine(generator, GCBlocks.OXYGEN_COLLECTOR);
         createFullCubeActiveMachine(generator, GCBlocks.OXYGEN_BUBBLE_DISTRIBUTOR);
 

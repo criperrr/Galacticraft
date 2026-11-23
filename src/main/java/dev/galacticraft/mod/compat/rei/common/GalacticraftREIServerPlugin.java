@@ -45,6 +45,9 @@ public class GalacticraftREIServerPlugin implements REIServerPlugin {
     public static final CategoryIdentifier<DefaultCanningDisplay> CANNING = CategoryIdentifier.of(Constant.MOD_ID, "plugins/" + Constant.Recipe.CANNING);
 //    public static final CategoryIdentifier<DefaultCompressingDisplay> COAL_GENERATOR_FUEL = CategoryIdentifier.of(Constant.MOD_ID, "plugins/coal_generator_fuel");
     public static final CategoryIdentifier<DefaultRocketDisplay> ROCKET = CategoryIdentifier.of(Constant.MOD_ID, "plugins/" + Constant.Recipe.ROCKET);
+    public static final CategoryIdentifier<Helium3ProcessDisplay> THERMAL_DESORPTION = CategoryIdentifier.of(Constant.MOD_ID, "plugins/" + Constant.Recipe.THERMAL_DESORPTION);
+    public static final CategoryIdentifier<Helium3ProcessDisplay> ISOTOPIC_SEPARATION = CategoryIdentifier.of(Constant.MOD_ID, "plugins/isotopic_separation");
+    public static final CategoryIdentifier<Helium3ProcessDisplay> MHD_FUSION = CategoryIdentifier.of(Constant.MOD_ID, "plugins/" + Constant.Recipe.FUSION_REACTOR);
 
     @Override
     public void registerDisplaySerializer(DisplaySerializerRegistry registry) {

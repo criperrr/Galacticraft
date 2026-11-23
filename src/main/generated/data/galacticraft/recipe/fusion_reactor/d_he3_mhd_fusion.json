@@ -1,0 +1,12 @@
+{
+  "type": "galacticraft:fusion_reactor",
+  "energy_per_tick": 2500,
+  "output_cell": {
+    "count": 1,
+    "id": "galacticraft:helium3_fusion_cell"
+  },
+  "primary_gas": "galacticraft:helium_3",
+  "primary_gas_mb": 10,
+  "secondary_gas": "galacticraft:deuterium",
+  "secondary_gas_mb": 10
+}

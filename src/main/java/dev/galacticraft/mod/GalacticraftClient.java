@@ -126,6 +126,9 @@ public class GalacticraftClient implements ClientModInitializer {
         MenuScreens.register(GCMenuTypes.GEOTHERMAL_GENERATOR, GeothermalGeneratorScreen::new);
         MenuScreens.register(GCMenuTypes.CIRCUIT_FABRICATOR, CircuitFabricatorScreen::new);
         MenuScreens.register(GCMenuTypes.REFINERY, RefineryScreen::new);
+        MenuScreens.register(GCMenuTypes.REGOLITH_THERMAL_DESORBER, RegolithThermalDesorberScreen::new);
+        MenuScreens.register(GCMenuTypes.ISOTOPIC_CENTRIFUGE, IsotopicCentrifugeScreen::new);
+        MenuScreens.register(GCMenuTypes.HELIUM3_FUSION_REACTOR, Helium3FusionReactorScreen::new);
         MenuScreens.register(GCMenuTypes.ELECTRIC_FURNACE, ElectricFurnaceScreen::new);
         MenuScreens.register(GCMenuTypes.ELECTRIC_ARC_FURNACE, ElectricArcFurnaceScreen::new);
         MenuScreens.register(GCMenuTypes.COMPRESSOR, CompressorScreen::new);
@@ -204,7 +207,7 @@ public class GalacticraftClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(GCBlocks.CAVERNOUS_VINES_PLANT, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(GCBlocks.OLIVINE_CLUSTER, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(GCBlocks.MOON_CHEESE_LEAVES, RenderType.cutoutMipped());
-        BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.translucent(), GCBlocks.VACUUM_GLASS, GCBlocks.CLEAR_VACUUM_GLASS, GCBlocks.STRONG_VACUUM_GLASS);
+        BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.translucent(), GCBlocks.VACUUM_GLASS, GCBlocks.CLEAR_VACUUM_GLASS, GCBlocks.STRONG_VACUUM_GLASS, GCBlocks.FUSION_PLASMA_GLASS);
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.translucent(), GCBlocks.CRYOGENIC_CHAMBER, GCBlocks.CRYOGENIC_CHAMBER_PART, GCBlocks.PLAYER_TRANSPORT_TUBE);
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.translucent(), GCBlocks.OLIVINE_GLASS, GCBlocks.OLIVINE_GLASS_PANE, GCBlocks.MOON_GLASS, GCBlocks.MOON_GLASS_PANE);
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.cutout(), GCBlocks.MOON_WEED, GCBlocks.MOON_SHRUBS, GCBlocks.MOON_TANGLE);

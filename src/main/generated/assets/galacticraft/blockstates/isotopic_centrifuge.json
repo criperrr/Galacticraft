@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "active=false": {
+      "model": "galacticraft:machine/isotopic_centrifuge"
+    },
+    "active=true": {
+      "model": "galacticraft:machine/isotopic_centrifuge_active"
+    }
+  }
+}

@@ -22,6 +22,7 @@
 
 package dev.galacticraft.mod.compat.rei.client;
 
+import dev.galacticraft.api.gas.Gases;
 import dev.galacticraft.machinelib.api.menu.RecipeMachineMenu;
 import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.api.block.entity.PipeColor;
@@ -30,6 +31,9 @@ import dev.galacticraft.mod.client.gui.screen.ingame.CompressorScreen;
 import dev.galacticraft.mod.client.gui.screen.ingame.ElectricArcFurnaceScreen;
 import dev.galacticraft.mod.client.gui.screen.ingame.ElectricCompressorScreen;
 import dev.galacticraft.mod.client.gui.screen.ingame.ElectricFurnaceScreen;
+import dev.galacticraft.mod.client.gui.screen.ingame.Helium3FusionReactorScreen;
+import dev.galacticraft.mod.client.gui.screen.ingame.IsotopicCentrifugeScreen;
+import dev.galacticraft.mod.client.gui.screen.ingame.RegolithThermalDesorberScreen;
 import dev.galacticraft.mod.compat.PipeColorVariants;
 import dev.galacticraft.mod.compat.rei.client.category.DefaultCanningCategory;
 import dev.galacticraft.mod.compat.rei.client.category.DefaultCompressingCategory;
@@ -38,6 +42,7 @@ import dev.galacticraft.mod.compat.rei.client.category.DefaultRocketCategory;
 import dev.galacticraft.mod.compat.rei.client.category.ElectricArcFurnaceCategory;
 import dev.galacticraft.mod.compat.rei.client.category.ElectricCompressingCategory;
 import dev.galacticraft.mod.compat.rei.client.category.ElectricFurnaceCategory;
+import dev.galacticraft.mod.compat.rei.client.category.Helium3ProcessCategory;
 import dev.galacticraft.mod.compat.rei.client.display.CompressingDisplayVisibilityPredicate;
 import dev.galacticraft.mod.compat.rei.client.filler.EmergencyKitRecipeFiller;
 import dev.galacticraft.mod.compat.rei.common.GalacticraftREIServerPlugin;
@@ -46,10 +51,12 @@ import dev.galacticraft.mod.content.GCBlocks;
 import dev.galacticraft.mod.content.block.entity.machine.*;
 import dev.galacticraft.mod.content.item.GCItems;
 import dev.galacticraft.mod.recipe.FabricationRecipe;
+import dev.galacticraft.mod.recipe.FusionReactorRecipe;
 import dev.galacticraft.mod.recipe.GCRecipes;
 import dev.galacticraft.mod.recipe.RocketRecipe;
 import dev.galacticraft.mod.recipe.ShapedCompressingRecipe;
 import dev.galacticraft.mod.recipe.ShapelessCompressingRecipe;
+import dev.galacticraft.mod.recipe.ThermalDesorptionRecipe;
 import dev.galacticraft.mod.screen.FoodCannerMenu;
 import dev.galacticraft.mod.screen.RocketWorkbenchMenu;
 import me.shedaniel.math.Rectangle;
@@ -62,6 +69,7 @@ import me.shedaniel.rei.api.client.registry.screen.ScreenRegistry;
 import me.shedaniel.rei.api.client.registry.transfer.TransferHandlerRegistry;
 import me.shedaniel.rei.api.client.registry.transfer.simple.SimpleTransferHandler;
 import me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes;
+import me.shedaniel.rei.api.common.util.EntryIngredients;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import me.shedaniel.rei.plugin.client.categories.crafting.filler.CraftingRecipeFiller;
 import me.shedaniel.rei.plugin.common.BuiltinPlugin;
@@ -93,6 +101,9 @@ public class GalacticraftREIClientPlugin implements REIClientPlugin {
         registry.add(new ElectricArcFurnaceCategory());
         registry.add(new DefaultCanningCategory());
         registry.add(new DefaultRocketCategory());
+        registry.add(new Helium3ProcessCategory(GalacticraftREIServerPlugin.THERMAL_DESORPTION, GCBlocks.REGOLITH_THERMAL_DESORBER, Component.translatable(GCBlocks.REGOLITH_THERMAL_DESORBER.getDescriptionId())));
+        registry.add(new Helium3ProcessCategory(GalacticraftREIServerPlugin.ISOTOPIC_SEPARATION, GCBlocks.ISOTOPIC_CENTRIFUGE, Component.translatable(GCBlocks.ISOTOPIC_CENTRIFUGE.getDescriptionId())));
+        registry.add(new Helium3ProcessCategory(GalacticraftREIServerPlugin.MHD_FUSION, GCBlocks.HELIUM3_FUSION_REACTOR, Component.translatable(GCBlocks.HELIUM3_FUSION_REACTOR.getDescriptionId())));
 
         registry.addWorkstations(GalacticraftREIServerPlugin.FABRICATION, EntryStacks.of(GCBlocks.CIRCUIT_FABRICATOR));
         registry.addWorkstations(GalacticraftREIServerPlugin.COMPRESSING, EntryStacks.of(GCBlocks.COMPRESSOR));
@@ -101,6 +112,9 @@ public class GalacticraftREIClientPlugin implements REIClientPlugin {
         registry.addWorkstations(GalacticraftREIServerPlugin.ROCKET, EntryStacks.of(GCBlocks.ROCKET_WORKBENCH));
         registry.addWorkstations(GalacticraftREIServerPlugin.ELECTRIC_SMELTING, EntryStacks.of(GCBlocks.ELECTRIC_FURNACE));
         registry.addWorkstations(GalacticraftREIServerPlugin.ELECTRIC_BLASTING, EntryStacks.of(GCBlocks.ELECTRIC_ARC_FURNACE));
+        registry.addWorkstations(GalacticraftREIServerPlugin.THERMAL_DESORPTION, EntryStacks.of(GCBlocks.REGOLITH_THERMAL_DESORBER));
+        registry.addWorkstations(GalacticraftREIServerPlugin.ISOTOPIC_SEPARATION, EntryStacks.of(GCBlocks.ISOTOPIC_CENTRIFUGE));
+        registry.addWorkstations(GalacticraftREIServerPlugin.MHD_FUSION, EntryStacks.of(GCBlocks.HELIUM3_FUSION_REACTOR));
         registry.addWorkstations(BuiltinPlugin.FUEL, EntryStacks.of(GCBlocks.COMPRESSOR));
 
         for (CraftingRecipeFiller<?> filler : CRAFTING_RECIPE_FILLERS) {
@@ -123,6 +137,40 @@ public class GalacticraftREIClientPlugin implements REIClientPlugin {
         registry.registerRecipeFiller(SmeltingRecipe.class, RecipeType.SMELTING, ElectricFurnaceDisplay::new);
         registry.registerRecipeFiller(BlastingRecipe.class, RecipeType.BLASTING, ElectricArcFurnaceDisplay::new);
         registry.registerRecipeFiller(RocketRecipe.class, GCRecipes.ROCKET_TYPE, DefaultRocketDisplay::new);
+        registry.registerRecipeFiller(ThermalDesorptionRecipe.class, GCRecipes.THERMAL_DESORPTION_TYPE, Helium3ProcessDisplay::fromThermalDesorption);
+        registry.registerRecipeFiller(FusionReactorRecipe.class, GCRecipes.FUSION_REACTOR_TYPE, Helium3ProcessDisplay::fromFusionReactor);
+
+        // Isotopic Centrifuge separation displays (Helium-3 & Deuterium routes)
+        registry.add(new Helium3ProcessDisplay(
+                GalacticraftREIServerPlugin.ISOTOPIC_SEPARATION,
+                java.util.List.of(Helium3ProcessDisplay.gasAndCanister(Gases.SOLAR_VOLATILE_GAS, 50L), EntryIngredients.of(GCItems.SUPERCONDUCTING_COIL)),
+                java.util.List.of(Helium3ProcessDisplay.gasAndCanister(Gases.HELIUM_3, 20L), Helium3ProcessDisplay.gasAndCanister(Gases.HELIUM, 30L)),
+                "40k RPM | 20mB 3He + 30mB 4He"
+        ));
+        registry.add(new Helium3ProcessDisplay(
+                GalacticraftREIServerPlugin.ISOTOPIC_SEPARATION,
+                java.util.List.of(EntryIngredients.of(GCBlocks.DENSE_ICE), EntryIngredients.of(GCItems.SUPERCONDUCTING_COIL)),
+                java.util.List.of(Helium3ProcessDisplay.gasAndCanister(Gases.DEUTERIUM, 250L)),
+                "40k RPM | 250mB Deuterium"
+        ));
+        registry.add(new Helium3ProcessDisplay(
+                GalacticraftREIServerPlugin.ISOTOPIC_SEPARATION,
+                java.util.List.of(EntryIngredients.of(GCBlocks.SATURN_HELIUM_MANTLE_ROCK), EntryIngredients.of(GCItems.SUPERCONDUCTING_COIL)),
+                java.util.List.of(Helium3ProcessDisplay.gasAndCanister(Gases.HELIUM_3, 350L)),
+                "40k RPM | 350mB 3He"
+        ));
+        registry.add(new Helium3ProcessDisplay(
+                GalacticraftREIServerPlugin.ISOTOPIC_SEPARATION,
+                java.util.List.of(EntryIngredients.of(GCBlocks.MOON_ILMENITE_ORE), EntryIngredients.of(GCItems.SUPERCONDUCTING_COIL)),
+                java.util.List.of(Helium3ProcessDisplay.gasAndCanister(Gases.HELIUM_3, 200L), EntryIngredients.of(GCItems.TITANIUM_NUGGET)),
+                "40k RPM | 200mB 3He"
+        ));
+        registry.add(new Helium3ProcessDisplay(
+                GalacticraftREIServerPlugin.ISOTOPIC_SEPARATION,
+                java.util.List.of(EntryIngredients.of(GCBlocks.MERCURY_HOLLOW_DEPOSIT), EntryIngredients.of(GCItems.SUPERCONDUCTING_COIL)),
+                java.util.List.of(Helium3ProcessDisplay.gasAndCanister(Gases.HELIUM_3, 150L), EntryIngredients.of(GCItems.SILICON)),
+                "40k RPM | 150mB 3He"
+        ));
 
         registry.registerDisplayGenerator(GalacticraftREIServerPlugin.CANNING, new CanningDisplayGenerator());
         registry.registerDisplayGenerator(BuiltinPlugin.CRAFTING, new FlagDisplayGenerator());
@@ -201,6 +249,21 @@ public class GalacticraftREIClientPlugin implements REIClientPlugin {
                 ),
                 ElectricArcFurnaceScreen.class,
                 GalacticraftREIServerPlugin.ELECTRIC_BLASTING
+        );
+        registry.registerContainerClickArea(
+                new Rectangle(58, 37, 44, 10),
+                RegolithThermalDesorberScreen.class,
+                GalacticraftREIServerPlugin.THERMAL_DESORPTION
+        );
+        registry.registerContainerClickArea(
+                new Rectangle(90, 27, 28, 10),
+                IsotopicCentrifugeScreen.class,
+                GalacticraftREIServerPlugin.ISOTOPIC_SEPARATION
+        );
+        registry.registerContainerClickArea(
+                new Rectangle(78, 73, 88, 10),
+                Helium3FusionReactorScreen.class,
+                GalacticraftREIServerPlugin.MHD_FUSION
         );
     }
 
