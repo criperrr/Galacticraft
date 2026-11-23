@@ -52,6 +52,9 @@ public class GCOrePlacedFeatures {
     public static final ResourceKey<PlacedFeature> ORE_ALUMINUM_MIDDLE = key("ore_aluminum_middle");
     public static final ResourceKey<PlacedFeature> ORE_ALUMINUM_SMALL = key("ore_aluminum_small");
 
+    public static final ResourceKey<PlacedFeature> ORE_NIOBIUM = key("ore_niobium");
+    public static final ResourceKey<PlacedFeature> ORE_NIOBIUM_DEEP = key("ore_niobium_deep");
+
     // MOON
     public static final ResourceKey<PlacedFeature> BASALT_DISK_MOON = key("disk_basalt_moon");
     public static final ResourceKey<PlacedFeature> ORE_DIRT_MOON = key("ore_dirt_moon");
@@ -134,6 +137,8 @@ public class GCOrePlacedFeatures {
             context.getGenerationSettings().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ORE_TIN_SMALL);
             context.getGenerationSettings().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ORE_ALUMINUM_MIDDLE);
             context.getGenerationSettings().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ORE_ALUMINUM_SMALL);
+            context.getGenerationSettings().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ORE_NIOBIUM);
+            context.getGenerationSettings().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ORE_NIOBIUM_DEEP);
         });
     }
 
@@ -148,6 +153,8 @@ public class GCOrePlacedFeatures {
         context.register(ORE_TIN_SMALL, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_TIN_SMALL), modifiersWithCount(11, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(80)))));
         context.register(ORE_ALUMINUM_MIDDLE, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_ALUMINUM), modifiersWithCount(9, HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-32), VerticalAnchor.absolute(0)))));
         context.register(ORE_ALUMINUM_SMALL, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_ALUMINUM_SMALL), modifiersWithCount(30, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(32)))));
+        context.register(ORE_NIOBIUM, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_NIOBIUM), modifiersWithCount(7, HeightRangePlacement.triangle(VerticalAnchor.absolute(-16), VerticalAnchor.absolute(48)))));
+        context.register(ORE_NIOBIUM_DEEP, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_NIOBIUM_DEEP), modifiersWithCount(8, HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(0)))));
 
         // MOON (aligned with GC4 BiomeDecoratorMoon: copper, tin, sapphire strictly subterranean below Y=58)
         context.register(BASALT_DISK_MOON, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.BASALT_DISK_MOON), modifiersWithCount(14, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(58)))));

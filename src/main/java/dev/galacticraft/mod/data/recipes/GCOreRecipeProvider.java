@@ -64,6 +64,7 @@ public class GCOreRecipeProvider extends FabricRecipeProvider {
         oreSmeltingAndBlasting(output, List.of(GCItems.RAW_DESH, GCBlocks.DESH_ORE), GCItems.DESH_INGOT, 0.85f, 100);
         oreSmeltingAndBlasting(output, List.of(GCItems.RAW_TITANIUM, GCBlocks.ILMENITE_ORE, GCBlocks.MERCURY_TITANIUM_ORE, GCBlocks.SATURN_TITANIUM_ORE, GCBlocks.URANUS_TITANIUM_ORE, GCBlocks.NEPTUNE_TITANIUM_ORE), GCItems.TITANIUM_INGOT, 1.0f, 100);
         oreSmeltingAndBlasting(output, List.of(GCItems.RAW_LEAD, GCBlocks.GALENA_ORE), GCItems.LEAD_INGOT, 0.85f, 100);
+        oreSmeltingAndBlasting(output, List.of(GCItems.RAW_NIOBIUM, GCBlocks.NIOBIUM_ORE, GCBlocks.DEEPSLATE_NIOBIUM_ORE), GCItems.NIOBIUM_OXIDE, 0.85f, 100);
         oreSmeltingAndBlasting(output, List.of(GCBlocks.SOLAR_ORE), GCItems.SOLAR_DUST, 0.7f, 100);
         oreSmeltingAndBlasting(output, List.of(GCBlocks.OLIVINE_BASALT, GCBlocks.RICH_OLIVINE_BASALT), GCItems.OLIVINE_SHARD, 0.5f, 100);
         oreSmeltingAndBlasting(output, List.of(GCBlocks.MERCURY_GRAPHITE_ORE), GCItems.CARBON_FRAGMENTS, 0.2f, 100);
@@ -76,6 +77,7 @@ public class GCOreRecipeProvider extends FabricRecipeProvider {
         nineBlockStoragePackingRecipe(output, RecipeCategory.MISC, GCItems.DESH_NUGGET, RecipeCategory.MISC, GCItems.DESH_INGOT, "desh_ingot_from_nuggets", "desh_ingot");
         nineBlockStoragePackingRecipe(output, RecipeCategory.MISC, GCItems.TITANIUM_NUGGET, RecipeCategory.MISC, GCItems.TITANIUM_INGOT, "titanium_ingot_from_nuggets", "titanium_ingot");
         nineBlockStoragePackingRecipe(output, RecipeCategory.MISC, GCItems.LEAD_NUGGET, RecipeCategory.MISC, GCItems.LEAD_INGOT, "lead_ingot_from_nuggets", "lead_ingot");
+        nineBlockStoragePackingRecipe(output, RecipeCategory.MISC, GCItems.NIOBIUM_NUGGET, RecipeCategory.MISC, GCItems.NIOBIUM_INGOT, "niobium_ingot_from_nuggets", "niobium_ingot");
 
         // Ingots <-> Blocks
         nineBlockStorageUnpackingRecipe(output, RecipeCategory.MISC, GCItems.SILICON, RecipeCategory.BUILDING_BLOCKS, GCBlocks.SILICON_BLOCK, "silicon_from_block", "silicon");
@@ -87,12 +89,15 @@ public class GCOreRecipeProvider extends FabricRecipeProvider {
         nineBlockStorageUnpackingRecipe(output, RecipeCategory.MISC, GCItems.DESH_INGOT, RecipeCategory.BUILDING_BLOCKS, GCBlocks.DESH_BLOCK, "desh_ingot_from_block", "desh_ingot");
         nineBlockStorageUnpackingRecipe(output, RecipeCategory.MISC, GCItems.TITANIUM_INGOT, RecipeCategory.BUILDING_BLOCKS, GCBlocks.TITANIUM_BLOCK, "titanium_ingot_from_block", "titanium_ingot");
         nineBlockStorageUnpackingRecipe(output, RecipeCategory.MISC, GCItems.LEAD_INGOT, RecipeCategory.BUILDING_BLOCKS, GCBlocks.LEAD_BLOCK, "lead_ingot_from_block", "lead_ingot");
+        nineBlockStorageUnpackingRecipe(output, RecipeCategory.MISC, GCItems.NIOBIUM_INGOT, RecipeCategory.BUILDING_BLOCKS, GCBlocks.NIOBIUM_BLOCK, "niobium_ingot_from_block", "niobium_ingot");
+        nineBlockStorageUnpackingRecipe(output, RecipeCategory.MISC, GCItems.FERRONIOBIUM_INGOT, RecipeCategory.BUILDING_BLOCKS, GCBlocks.FERRONIOBIUM_BLOCK, "ferroniobium_ingot_from_block", "ferroniobium_ingot");
         nineBlockStorageUnpackingRecipe(output, RecipeCategory.MISC, GCItems.RAW_TIN, RecipeCategory.BUILDING_BLOCKS, GCBlocks.RAW_TIN_BLOCK, "raw_tin_from_block", "raw_tin");
         nineBlockStorageUnpackingRecipe(output, RecipeCategory.MISC, GCItems.RAW_ALUMINUM, RecipeCategory.BUILDING_BLOCKS, GCBlocks.RAW_ALUMINUM_BLOCK, "raw_aluminum_from_block", "raw_aluminum");
         nineBlockStorageUnpackingRecipe(output, RecipeCategory.MISC, GCItems.RAW_METEORIC_IRON, RecipeCategory.BUILDING_BLOCKS, GCBlocks.RAW_METEORIC_IRON_BLOCK, "raw_meteoric_iron_from_block", "raw_meteoric_iron");
         nineBlockStorageUnpackingRecipe(output, RecipeCategory.MISC, GCItems.RAW_DESH, RecipeCategory.BUILDING_BLOCKS, GCBlocks.RAW_DESH_BLOCK, "raw_desh_from_block", "raw_desh");
         nineBlockStorageUnpackingRecipe(output, RecipeCategory.MISC, GCItems.RAW_TITANIUM, RecipeCategory.BUILDING_BLOCKS, GCBlocks.RAW_TITANIUM_BLOCK, "raw_titanium_from_block", "raw_titanium");
         nineBlockStorageUnpackingRecipe(output, RecipeCategory.MISC, GCItems.RAW_LEAD, RecipeCategory.BUILDING_BLOCKS, GCBlocks.RAW_LEAD_BLOCK, "raw_lead_from_block", "raw_lead");
+        nineBlockStorageUnpackingRecipe(output, RecipeCategory.MISC, GCItems.RAW_NIOBIUM, RecipeCategory.BUILDING_BLOCKS, GCBlocks.RAW_NIOBIUM_BLOCK, "raw_niobium_from_block", "raw_niobium");
 
         crystalBlockStorageRecipe(output, GCItems.OLIVINE_SHARD, RecipeCategory.MISC, GCBlocks.OLIVINE_BLOCK, "olivine_block_from_shards", null, true);
         GCShapelessRecipeBuilder.crafting(RecipeCategory.MISC, GCItems.OLIVINE_SHARD, 4)

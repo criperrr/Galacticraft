@@ -391,15 +391,26 @@ public class GCMiscRecipeProvider extends FabricRecipeProvider {
                 .emiDefaultRecipe(true)
                 .save(output);
 
+        GCShapedRecipeBuilder.crafting(RecipeCategory.MISC, GCItems.SUPERCONDUCTING_COIL)
+                .define('N', GCItemTags.NIOBIUM_INGOTS)
+                .define('W', GCBlocks.HEAVY_ALUMINUM_WIRE)
+                .define('T', GCItemTags.TIN_INGOTS)
+                .pattern("NNN")
+                .pattern("WWW")
+                .pattern("TTT")
+                .unlockedBy(getHasName(GCItems.NIOBIUM_INGOT), has(GCItemTags.NIOBIUM_INGOTS))
+                .emiDefaultRecipe(true)
+                .save(output);
+
         GCShapedRecipeBuilder.crafting(RecipeCategory.TRANSPORTATION, GCBlocks.SHORT_RANGE_TELEPAD)
                 .define('W', GCItems.BEAM_CORE)
                 .define('X', GCItems.COMPRESSED_TITANIUM)
-                .define('Y', ConventionalItemTags.REDSTONE_DUSTS)
+                .define('C', GCItems.SUPERCONDUCTING_COIL)
                 .define('Z', ConventionalItemTags.ENDER_PEARLS)
                 .pattern("XWX")
-                .pattern("ZYZ")
+                .pattern("ZCZ")
                 .pattern("XXX")
-                .unlockedBy(getHasName(GCItems.COMPRESSED_TITANIUM), has(GCItems.COMPRESSED_TITANIUM))
+                .unlockedBy(getHasName(GCItems.SUPERCONDUCTING_COIL), has(GCItems.SUPERCONDUCTING_COIL))
                 .emiDefaultRecipe(true)
                 .save(output);
 

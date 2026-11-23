@@ -202,6 +202,8 @@ public class GCCreativeModeTabs {
                 output.accept(DEEPSLATE_TIN_ORE);
                 output.accept(ALUMINUM_ORE);
                 output.accept(DEEPSLATE_ALUMINUM_ORE);
+                output.accept(NIOBIUM_ORE);
+                output.accept(DEEPSLATE_NIOBIUM_ORE);
 
                 output.accept(MOON_COPPER_ORE);
                 output.accept(LUNASLATE_COPPER_ORE);
@@ -256,6 +258,7 @@ public class GCCreativeModeTabs {
                 output.accept(RAW_DESH_BLOCK);
                 output.accept(RAW_TITANIUM_BLOCK);
                 output.accept(RAW_LEAD_BLOCK);
+                output.accept(RAW_NIOBIUM_BLOCK);
 
                 output.accept(SILICON_BLOCK);
                 output.accept(LUNAR_SAPPHIRE_BLOCK);
@@ -269,6 +272,8 @@ public class GCCreativeModeTabs {
                 output.accept(DESH_BLOCK);
                 output.accept(TITANIUM_BLOCK);
                 output.accept(LEAD_BLOCK);
+                output.accept(NIOBIUM_BLOCK);
+                output.accept(FERRONIOBIUM_BLOCK);
 
                 // CHEESE BLOCKS
                 output.accept(MOON_CHEESE_BLOCK);
@@ -426,6 +431,8 @@ public class GCCreativeModeTabs {
                 output.accept(RAW_DESH);
                 output.accept(RAW_TITANIUM);
                 output.accept(RAW_LEAD);
+                output.accept(RAW_NIOBIUM);
+                output.accept(NIOBIUM_OXIDE);
                 output.accept(SILICON);
                 output.accept(LUNAR_SAPPHIRE);
                 output.accept(OLIVINE_SHARD);
@@ -436,6 +443,7 @@ public class GCCreativeModeTabs {
                 output.accept(DESH_NUGGET);
                 output.accept(TITANIUM_NUGGET);
                 output.accept(LEAD_NUGGET);
+                output.accept(NIOBIUM_NUGGET);
 
                 output.accept(TIN_INGOT);
                 output.accept(ALUMINUM_INGOT);
@@ -443,6 +451,8 @@ public class GCCreativeModeTabs {
                 output.accept(DESH_INGOT);
                 output.accept(TITANIUM_INGOT);
                 output.accept(LEAD_INGOT);
+                output.accept(FERRONIOBIUM_INGOT);
+                output.accept(NIOBIUM_INGOT);
 
                 output.accept(COMPRESSED_IRON);
                 output.accept(COMPRESSED_COPPER);
@@ -450,9 +460,12 @@ public class GCCreativeModeTabs {
                 output.accept(COMPRESSED_ALUMINUM);
                 output.accept(COMPRESSED_STEEL);
                 output.accept(COMPRESSED_BRONZE);
+                output.accept(COMPRESSED_FERRONIOBIUM);
                 output.accept(COMPRESSED_METEORIC_IRON);
                 output.accept(COMPRESSED_DESH);
                 output.accept(COMPRESSED_TITANIUM);
+                output.accept(COMPRESSED_NIOBIUM);
+                output.accept(SUPERCONDUCTING_COIL);
 
                 output.accept(TIER_1_HEAVY_DUTY_PLATE);
                 output.accept(TIER_2_HEAVY_DUTY_PLATE);

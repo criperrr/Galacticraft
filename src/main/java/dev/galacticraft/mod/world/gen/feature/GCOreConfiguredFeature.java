@@ -63,6 +63,7 @@ public class GCOreConfiguredFeature {
     public static final List<OreConfiguration.TargetBlockState> TIN_ORES = List.of(OreConfiguration.target(STONE_ORE_REPLACEABLE, GCBlocks.TIN_ORE.defaultBlockState()), OreConfiguration.target(DEEPSLATE_ORE_REPLACEABLE, GCBlocks.DEEPSLATE_TIN_ORE.defaultBlockState()));
     public static final List<OreConfiguration.TargetBlockState> ALUMINUM_ORES = List.of(OreConfiguration.target(STONE_ORE_REPLACEABLE, GCBlocks.ALUMINUM_ORE.defaultBlockState()), OreConfiguration.target(DEEPSLATE_ORE_REPLACEABLE, GCBlocks.DEEPSLATE_ALUMINUM_ORE.defaultBlockState()));
     public static final List<OreConfiguration.TargetBlockState> SILICON_ORES = List.of(OreConfiguration.target(STONE_ORE_REPLACEABLE, GCBlocks.SILICON_ORE.defaultBlockState()), OreConfiguration.target(DEEPSLATE_ORE_REPLACEABLE, GCBlocks.DEEPSLATE_SILICON_ORE.defaultBlockState()));
+    public static final List<OreConfiguration.TargetBlockState> NIOBIUM_ORES = List.of(OreConfiguration.target(STONE_ORE_REPLACEABLE, GCBlocks.NIOBIUM_ORE.defaultBlockState()), OreConfiguration.target(DEEPSLATE_ORE_REPLACEABLE, GCBlocks.DEEPSLATE_NIOBIUM_ORE.defaultBlockState()));
 
     public static final List<OreConfiguration.TargetBlockState> COPPER_ORES_MOON = List.of(OreConfiguration.target(MOON_ROCK_ORE_REPLACEABLE, GCBlocks.MOON_COPPER_ORE.defaultBlockState()), OreConfiguration.target(LUNASLATE_ORE_REPLACEABLE, GCBlocks.LUNASLATE_COPPER_ORE.defaultBlockState()));
     public static final List<OreConfiguration.TargetBlockState> TIN_ORES_MOON = List.of(OreConfiguration.target(MOON_ROCK_ORE_REPLACEABLE, GCBlocks.MOON_TIN_ORE.defaultBlockState()), OreConfiguration.target(LUNASLATE_ORE_REPLACEABLE, GCBlocks.LUNASLATE_TIN_ORE.defaultBlockState()));
@@ -105,6 +106,9 @@ public class GCOreConfiguredFeature {
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_ALUMINUM = key("ore_aluminum");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_ALUMINUM_SMALL = key("ore_aluminum_small");
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_NIOBIUM = key("ore_niobium");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_NIOBIUM_DEEP = key("ore_niobium_deep");
 
     // MOON
     public static final ResourceKey<ConfiguredFeature<?, ?>> BASALT_DISK_MOON = key("basalt_disk_moon");
@@ -190,6 +194,8 @@ public class GCOreConfiguredFeature {
         context.register(ORE_TIN_SMALL, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(TIN_ORES, 3)));
         context.register(ORE_ALUMINUM, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(ALUMINUM_ORES, 7)));
         context.register(ORE_ALUMINUM_SMALL, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(ALUMINUM_ORES, 3)));
+        context.register(ORE_NIOBIUM, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(NIOBIUM_ORES, 6)));
+        context.register(ORE_NIOBIUM_DEEP, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(NIOBIUM_ORES, 9)));
 
         // MOON (GC4 BiomeDecoratorMoon + Addons)
         context.register(BASALT_DISK_MOON, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(BASE_STONE_MOON, GCBlocks.MOON_BASALT.defaultBlockState(), 33)));

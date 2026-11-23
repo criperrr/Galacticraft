@@ -366,6 +366,9 @@ public class GCTranslationProvider extends TranslationProvider {
         this.block(GCBlocks.ASTEROID_ALUMINUM_ORE, "Asteroid Aluminum Ore");
         this.block(GCBlocks.VENUS_ALUMINUM_ORE, "Venus Aluminum Ore");
 
+        this.block(GCBlocks.NIOBIUM_ORE, "Niobium Ore");
+        this.block(GCBlocks.DEEPSLATE_NIOBIUM_ORE, "Deepslate Niobium Ore");
+
         this.block(GCBlocks.MOON_CHEESE_ORE, "Moon Cheese Ore");
 
         this.block(GCBlocks.LUNAR_SAPPHIRE_ORE, "Lunar Sapphire Ore");
@@ -390,6 +393,8 @@ public class GCTranslationProvider extends TranslationProvider {
         this.block(GCBlocks.TIN_BLOCK, "Block of Tin");
         this.block(GCBlocks.TITANIUM_BLOCK, "Block of Titanium");
         this.block(GCBlocks.LEAD_BLOCK, "Block of Lead");
+        this.block(GCBlocks.NIOBIUM_BLOCK, "Block of Niobium");
+        this.block(GCBlocks.FERRONIOBIUM_BLOCK, "Block of Ferroniobium");
         this.block(GCBlocks.LUNAR_SAPPHIRE_BLOCK, "Block of Lunar Sapphire");
         this.block(GCBlocks.OLIVINE_BLOCK, "Block of Olivine");
         this.block(GCBlocks.BUDDING_OLIVINE, "Budding Olivine");
@@ -399,6 +404,7 @@ public class GCTranslationProvider extends TranslationProvider {
         this.block(GCBlocks.RAW_TIN_BLOCK, "Block of Raw Tin");
         this.block(GCBlocks.RAW_TITANIUM_BLOCK, "Block of Raw Titanium");
         this.block(GCBlocks.RAW_LEAD_BLOCK, "Block of Raw Lead");
+        this.block(GCBlocks.RAW_NIOBIUM_BLOCK, "Block of Raw Niobium");
 
         // CHEESE BLOCKS
         this.block(GCBlocks.MOON_CHEESE_BLOCK, "Moon Cheese Block");
@@ -485,6 +491,15 @@ public class GCTranslationProvider extends TranslationProvider {
         this.item(GCItems.RAW_LEAD, "Raw Lead");
         this.item(GCItems.LEAD_INGOT, "Lead Ingot");
         this.item(GCItems.LEAD_NUGGET, "Lead Nugget");
+
+        this.item(GCItems.RAW_NIOBIUM, "Raw Niobium");
+        this.item(GCItems.NIOBIUM_OXIDE, "Niobium Oxide");
+        this.item(GCItems.FERRONIOBIUM_INGOT, "Ferroniobium Ingot");
+        this.item(GCItems.COMPRESSED_FERRONIOBIUM, "Compressed Ferroniobium");
+        this.item(GCItems.NIOBIUM_INGOT, "Niobium Ingot");
+        this.item(GCItems.NIOBIUM_NUGGET, "Niobium Nugget");
+        this.item(GCItems.COMPRESSED_NIOBIUM, "Compressed Niobium");
+        this.item(GCItems.SUPERCONDUCTING_COIL, "Superconducting Coil");
 
         this.item(GCItems.RAW_ALUMINUM, "Raw Aluminum");
         this.item(GCItems.ALUMINUM_INGOT, "Aluminum Ingot");
@@ -777,6 +792,7 @@ public class GCTranslationProvider extends TranslationProvider {
         this.tag(GCItemTags.LEAD_ORES, "Lead Ores");
         this.tag(GCItemTags.LUNAR_SAPPHIRE_ORES, "Lunar Sapphire Ores");
         this.tag(GCItemTags.METEORIC_IRON_ORES, "Meteoric Iron Ores");
+        this.tag(GCItemTags.NIOBIUM_ORES, "Niobium Ores");
         this.tag(GCItemTags.OLIVINE_ORES, "Olivine Ores");
         this.tag(GCItemTags.SILICON_ORES, "Silicon Ores");
         this.tag(GCItemTags.SOLAR_ORES, "Solar Dust Ores");
@@ -785,8 +801,10 @@ public class GCTranslationProvider extends TranslationProvider {
 
         this.tag(GCItemTags.ALUMINUM_BLOCKS, "Aluminum Blocks");
         this.tag(GCItemTags.DESH_BLOCKS, "Desh Blocks");
+        this.tag(GCItemTags.FERRONIOBIUM_BLOCKS, "Ferroniobium Blocks");
         this.tag(GCItemTags.LEAD_BLOCKS, "Lead Blocks");
         this.tag(GCItemTags.METEORIC_IRON_BLOCKS, "Meteoric Iron Blocks");
+        this.tag(GCItemTags.NIOBIUM_BLOCKS, "Niobium Blocks");
         this.tag(GCItemTags.TIN_BLOCKS, "Tin Blocks");
         this.tag(GCItemTags.TITANIUM_BLOCKS, "Titanium Blocks");
 
@@ -799,14 +817,17 @@ public class GCTranslationProvider extends TranslationProvider {
         this.tag(GCItemTags.RAW_DESH_BLOCKS, "Raw Desh Blocks");
         this.tag(GCItemTags.RAW_LEAD_BLOCKS, "Raw Lead Blocks");
         this.tag(GCItemTags.RAW_METEORIC_IRON_BLOCKS, "Raw Meteoric Iron Blocks");
+        this.tag(GCItemTags.RAW_NIOBIUM_BLOCKS, "Raw Niobium Blocks");
         this.tag(GCItemTags.RAW_TIN_BLOCKS, "Raw Tin Blocks");
         this.tag(GCItemTags.RAW_TITANIUM_BLOCKS, "Raw Titanium Blocks");
 
         this.tag(GCItemTags.ALUMINUM_INGOTS, "Aluminum Ingots");
         this.tag(GCItemTags.BRONZE_INGOTS, "Bronze Ingots");
         this.tag(GCItemTags.DESH_INGOTS, "Desh Ingots");
+        this.tag(GCItemTags.FERRONIOBIUM_INGOTS, "Ferroniobium Ingots");
         this.tag(GCItemTags.LEAD_INGOTS, "Lead Ingots");
         this.tag(GCItemTags.METEORIC_IRON_INGOTS, "Meteoric Iron Ingots");
+        this.tag(GCItemTags.NIOBIUM_INGOTS, "Niobium Ingots");
         this.tag(GCItemTags.STEEL_INGOTS, "Steel Ingots");
         this.tag(GCItemTags.TIN_INGOTS, "Tin Ingots");
         this.tag(GCItemTags.TITANIUM_INGOTS, "Titanium Ingots");
@@ -815,6 +836,7 @@ public class GCTranslationProvider extends TranslationProvider {
         this.tag(GCItemTags.DESH_RAW_MATERIALS, "Raw Desh");
         this.tag(GCItemTags.LEAD_RAW_MATERIALS, "Raw Lead");
         this.tag(GCItemTags.METEORIC_IRON_RAW_MATERIALS, "Raw Meteoric Iron");
+        this.tag(GCItemTags.NIOBIUM_RAW_MATERIALS, "Raw Niobium");
         this.tag(GCItemTags.TIN_RAW_MATERIALS, "Raw Tin");
         this.tag(GCItemTags.TITANIUM_RAW_MATERIALS, "Raw Titanium");
 
@@ -822,6 +844,7 @@ public class GCTranslationProvider extends TranslationProvider {
         this.tag(GCItemTags.DESH_NUGGETS, "Desh Nuggets");
         this.tag(GCItemTags.LEAD_NUGGETS, "Lead Nuggets");
         this.tag(GCItemTags.METEORIC_IRON_NUGGETS, "Meteoric Iron Nuggets");
+        this.tag(GCItemTags.NIOBIUM_NUGGETS, "Niobium Nuggets");
         this.tag(GCItemTags.TIN_NUGGETS, "Tin Nuggets");
         this.tag(GCItemTags.TITANIUM_NUGGETS, "Titanium Nuggets");
 
@@ -830,8 +853,10 @@ public class GCTranslationProvider extends TranslationProvider {
         this.tag(GCItemTags.BRONZE_PLATES, "Compressed Bronze");
         this.tag(GCItemTags.COPPER_PLATES, "Compressed Copper");
         this.tag(GCItemTags.DESH_PLATES, "Compressed Desh");
+        this.tag(GCItemTags.FERRONIOBIUM_PLATES, "Compressed Ferroniobium");
         this.tag(GCItemTags.IRON_PLATES, "Compressed Iron");
         this.tag(GCItemTags.METEORIC_IRON_PLATES, "Compressed Meteoric Iron");
+        this.tag(GCItemTags.NIOBIUM_PLATES, "Compressed Niobium");
         this.tag(GCItemTags.STEEL_PLATES, "Compressed Steel");
         this.tag(GCItemTags.TIN_PLATES, "Compressed Tin");
         this.tag(GCItemTags.TITANIUM_PLATES, "Compressed Titanium");
@@ -848,6 +873,7 @@ public class GCTranslationProvider extends TranslationProvider {
         this.tag(GCItemTags.TIN_CANISTERS, "Tin Canisters");
 
         this.tag(GCItemTags.SOLAR_DUSTS, "Solar Dusts");
+        this.tag(GCItemTags.NIOBIUM_OXIDE_DUSTS, "Niobium Oxide Dusts");
 
         this.tag(GCItemTags.CHEESE_FOODS, "Cheese Foods");
         this.tag(GCItemTags.CANNED_FOODS, "Canned Foods");

@@ -130,37 +130,38 @@ public class GCMachineRecipes extends FabricRecipeProvider {
 
         GCShapedRecipeBuilder.crafting(RecipeCategory.DECORATIONS, GCBlocks.ELECTRIC_ARC_FURNACE)
                 .define('H', GCItems.TIER_1_HEAVY_DUTY_PLATE)
+                .define('C', GCItems.SUPERCONDUCTING_COIL)
                 .define('E', GCBlocks.ELECTRIC_FURNACE)
                 .define('M', GCItems.METEORIC_IRON_INGOT)
                 .define('W', GCItems.ADVANCED_WAFER)
-                .pattern("HHH")
+                .pattern("HCH")
                 .pattern("HEH")
                 .pattern("MWM")
-                .unlockedBy(getHasName(GCItems.METEORIC_IRON_INGOT), has(GCItems.METEORIC_IRON_INGOT))
+                .unlockedBy(getHasName(GCItems.SUPERCONDUCTING_COIL), has(GCItems.SUPERCONDUCTING_COIL))
                 .emiDefaultRecipe(true)
                 .save(output);
 
         GCShapedRecipeBuilder.crafting(RecipeCategory.DECORATIONS, GCBlocks.ELECTRIC_COMPRESSOR)
-                .define('S', GCItems.COMPRESSED_STEEL)
+                .define('F', GCItems.COMPRESSED_FERRONIOBIUM)
                 .define('A', Items.ANVIL)
                 .define('B', GCItems.COMPRESSED_BRONZE)
                 .define('W', GCItems.ADVANCED_WAFER)
                 .define('I', GCBlocks.ALUMINUM_WIRE)
-                .pattern("SAS")
-                .pattern("SBS")
+                .pattern("FAF")
+                .pattern("FBF")
                 .pattern("IWI")
-                .unlockedBy(getHasName(GCItems.ADVANCED_WAFER), has(GCItems.ADVANCED_WAFER))
+                .unlockedBy(getHasName(GCItems.COMPRESSED_FERRONIOBIUM), has(GCItems.COMPRESSED_FERRONIOBIUM))
                 .save(output);
         GCShapedRecipeBuilder.crafting(RecipeCategory.DECORATIONS, GCBlocks.ELECTRIC_COMPRESSOR)
-                .define('S', GCItems.COMPRESSED_STEEL)
+                .define('F', GCItems.COMPRESSED_FERRONIOBIUM)
                 .define('T', GCItems.COMPRESSED_TIN)
                 .define('C', GCBlocks.COMPRESSOR)
                 .define('W', GCItems.ADVANCED_WAFER)
                 .define('I', GCBlocks.ALUMINUM_WIRE)
-                .pattern("STS")
-                .pattern("SCS")
+                .pattern("FTF")
+                .pattern("FCF")
                 .pattern("IWI")
-                .unlockedBy(getHasName(GCItems.ADVANCED_WAFER), has(GCItems.ADVANCED_WAFER))
+                .unlockedBy(getHasName(GCItems.COMPRESSED_FERRONIOBIUM), has(GCItems.COMPRESSED_FERRONIOBIUM))
                 .save(output, RecipeBuilder.getDefaultRecipeId(GCBlocks.ELECTRIC_COMPRESSOR).withSuffix("_upgrade"));
 
         GCShapedRecipeBuilder.crafting(RecipeCategory.DECORATIONS, GCBlocks.ELECTRIC_FURNACE)
@@ -178,10 +179,11 @@ public class GCMachineRecipes extends FabricRecipeProvider {
         GCShapedRecipeBuilder.crafting(RecipeCategory.DECORATIONS, GCBlocks.ENERGY_STORAGE_MODULE)
                 .define('S', GCItems.COMPRESSED_STEEL)
                 .define('B', GCItems.BATTERY)
+                .define('C', GCItems.SUPERCONDUCTING_COIL)
                 .pattern("SSS")
-                .pattern("BBB")
+                .pattern("BCB")
                 .pattern("SSS")
-                .unlockedBy(getHasName(GCItems.BATTERY), has(GCItems.BATTERY))
+                .unlockedBy(getHasName(GCItems.SUPERCONDUCTING_COIL), has(GCItems.SUPERCONDUCTING_COIL))
                 .emiDefaultRecipe(true)
                 .save(output);
 
@@ -569,12 +571,46 @@ public class GCMachineRecipes extends FabricRecipeProvider {
                 .emiDefaultRecipe(true)
                 .save(output);
 
+        // Niobium Metallurgy (Aluminothermic, Carbothermic, HSLA & C-103 Superalloy)
+        GCShapelessRecipeBuilder.compressing(GCItems.FERRONIOBIUM_INGOT)
+                .unlockedBy(getHasName(GCItems.NIOBIUM_OXIDE), has(GCItems.NIOBIUM_OXIDE))
+                .requires(GCItems.NIOBIUM_OXIDE)
+                .requires(GCItemTags.ALUMINUM_INGOTS)
+                .requires(ConventionalItemTags.IRON_INGOTS)
+                .emiDefaultRecipe(true)
+                .save(output);
+        GCShapelessRecipeBuilder.compressing(GCItems.COMPRESSED_FERRONIOBIUM)
+                .unlockedBy(getHasName(GCItems.FERRONIOBIUM_INGOT), has(GCItemTags.FERRONIOBIUM_INGOTS))
+                .requires(GCItemTags.FERRONIOBIUM_INGOTS)
+                .requires(GCItemTags.FERRONIOBIUM_INGOTS)
+                .emiDefaultRecipe(true)
+                .save(output);
+        GCShapelessRecipeBuilder.compressing(GCItems.NIOBIUM_INGOT)
+                .unlockedBy(getHasName(GCItems.NIOBIUM_OXIDE), has(GCItems.NIOBIUM_OXIDE))
+                .requires(GCItems.NIOBIUM_OXIDE)
+                .requires(GCItems.CARBON_FRAGMENTS)
+                .time(300)
+                .emiDefaultRecipe(true)
+                .save(output);
+        GCShapelessRecipeBuilder.compressing(GCItems.COMPRESSED_NIOBIUM)
+                .unlockedBy(getHasName(GCItems.NIOBIUM_INGOT), has(GCItemTags.NIOBIUM_INGOTS))
+                .requires(GCItemTags.NIOBIUM_INGOTS)
+                .requires(GCItemTags.TITANIUM_INGOTS)
+                .emiDefaultRecipe(true)
+                .save(output);
+        GCShapelessRecipeBuilder.compressing(GCItems.COMPRESSED_NIOBIUM)
+                .unlockedBy(getHasName(GCItems.NIOBIUM_INGOT), has(GCItemTags.NIOBIUM_INGOTS))
+                .requires(GCItemTags.NIOBIUM_INGOTS)
+                .requires(GCItemTags.METEORIC_IRON_INGOTS)
+                .save(output, RecipeBuilder.getDefaultRecipeId(GCItems.COMPRESSED_NIOBIUM).withSuffix("_from_meteoric_iron"));
+
         GCShapedRecipeBuilder.compressing(GCItems.TIER_1_HEAVY_DUTY_PLATE, 2)
-                .unlockedBy(getHasName(GCItems.COMPRESSED_BRONZE), has(GCItems.COMPRESSED_BRONZE))
+                .unlockedBy(getHasName(GCItems.COMPRESSED_FERRONIOBIUM), has(GCItems.COMPRESSED_FERRONIOBIUM))
+                .define('F', GCItems.COMPRESSED_FERRONIOBIUM)
                 .define('S', GCItems.COMPRESSED_STEEL)
                 .define('A', GCItems.COMPRESSED_ALUMINUM)
                 .define('B', GCItems.COMPRESSED_BRONZE)
-                .pattern("SAB")
+                .pattern("FAB")
                 .pattern("SAB")
                 .emiDefaultRecipe(true)
                 .save(output);
@@ -599,7 +635,7 @@ public class GCMachineRecipes extends FabricRecipeProvider {
                 .emiDefaultRecipe(true)
                 .save(output);
         CircuitFabricatorRecipeBuilder.create(GCItems.ADVANCED_WAFER)
-                .requires(Items.REPEATER)
+                .requires(GCItems.NIOBIUM_OXIDE)
                 .emiDefaultRecipe(true)
                 .save(output);
 

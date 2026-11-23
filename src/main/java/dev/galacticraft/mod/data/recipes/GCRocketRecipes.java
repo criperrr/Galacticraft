@@ -65,22 +65,22 @@ public class GCRocketRecipes extends FabricRecipeProvider {
         // Modular Platform Blocks
         GCShapedRecipeBuilder.crafting(RecipeCategory.BUILDING_BLOCKS, GCBlocks.REINFORCED_LAUNCH_PAD, 4)
                 .define('P', GCItems.TIER_1_HEAVY_DUTY_PLATE)
-                .define('S', GCItems.COMPRESSED_STEEL)
+                .define('F', GCItems.COMPRESSED_FERRONIOBIUM)
                 .define('I', GCItems.COMPRESSED_IRON)
                 .pattern("PPP")
-                .pattern("SSS")
+                .pattern("FFF")
                 .pattern("III")
-                .unlockedBy(getHasName(GCItems.TIER_1_HEAVY_DUTY_PLATE), has(GCItems.TIER_1_HEAVY_DUTY_PLATE))
+                .unlockedBy(getHasName(GCItems.COMPRESSED_FERRONIOBIUM), has(GCItems.COMPRESSED_FERRONIOBIUM))
                 .emiDefaultRecipe(true)
                 .save(output);
 
         GCShapedRecipeBuilder.crafting(RecipeCategory.BUILDING_BLOCKS, GCBlocks.GANTRY_TRUSS, 6)
-                .define('S', GCItems.COMPRESSED_STEEL)
+                .define('F', GCItems.COMPRESSED_FERRONIOBIUM)
                 .define('A', GCItems.COMPRESSED_ALUMINUM)
-                .pattern("S S")
+                .pattern("F F")
                 .pattern(" A ")
-                .pattern("S S")
-                .unlockedBy(getHasName(GCItems.COMPRESSED_STEEL), has(GCItems.COMPRESSED_STEEL))
+                .pattern("F F")
+                .unlockedBy(getHasName(GCItems.COMPRESSED_FERRONIOBIUM), has(GCItems.COMPRESSED_FERRONIOBIUM))
                 .emiDefaultRecipe(true)
                 .save(output);
 
