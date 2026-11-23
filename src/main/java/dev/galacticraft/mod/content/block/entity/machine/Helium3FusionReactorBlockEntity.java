@@ -40,6 +40,7 @@ import dev.galacticraft.machinelib.api.util.EnergySource;
 import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.content.GCBlockEntityTypes;
 import dev.galacticraft.mod.content.GCBlocks;
+import dev.galacticraft.mod.content.block.machine.FusionReactorPartBlock;
 import dev.galacticraft.mod.content.item.GCItems;
 import dev.galacticraft.mod.machine.GCMachineStatuses;
 import dev.galacticraft.mod.recipe.FusionReactorRecipe;
@@ -252,9 +253,45 @@ public class Helium3FusionReactorBlockEntity extends MachineBlockEntity {
             }
         }
 
+        boolean previouslyFormed = this.multiblockFormed;
         this.validStructureBlocks = valid;
         this.multiblockFormed = (valid == REQUIRED_MULTIBLOCK_BLOCKS);
+        if (this.multiblockFormed != previouslyFormed && !level.isClientSide) {
+            setStructureFormedState(level, core, controllerPos, this.multiblockFormed);
+        }
         return valid;
+    }
+
+    public void unformMultiblock(Level level) {
+        if (this.multiblockFormed) {
+            this.multiblockFormed = false;
+            this.validStructureBlocks = 0;
+            this.burnTime = 0;
+            this.activeGenerationRate = 0L;
+            this.cryoCooled = false;
+            BlockPos core = getCorePos(this.worldPosition, this.getBlockState());
+            setStructureFormedState(level, core, this.worldPosition, false);
+            if (level instanceof ServerLevel serverLevel) {
+                this.syncRenderState(serverLevel, this.worldPosition, this.getBlockState());
+            }
+        }
+    }
+
+    private static void setStructureFormedState(Level level, BlockPos core, BlockPos controllerPos, boolean formed) {
+        for (int dy = -1; dy <= 1; dy++) {
+            for (int dx = -1; dx <= 1; dx++) {
+                for (int dz = -1; dz <= 1; dz++) {
+                    BlockPos p = core.offset(dx, dy, dz);
+                    if (p.equals(controllerPos) || (dx == 0 && dy == 0 && dz == 0)) {
+                        continue;
+                    }
+                    BlockState bs = level.getBlockState(p);
+                    if (bs.getBlock() instanceof FusionReactorPartBlock && bs.getValue(FusionReactorPartBlock.FORMED) != formed) {
+                        level.setBlock(p, bs.setValue(FusionReactorPartBlock.FORMED, formed), 3);
+                    }
+                }
+            }
+        }
     }
 
     @Override

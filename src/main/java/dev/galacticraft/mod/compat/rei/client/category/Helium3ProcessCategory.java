@@ -22,6 +22,8 @@
 
 package dev.galacticraft.mod.compat.rei.client.category;
 
+import dev.galacticraft.mod.Constant;
+import dev.galacticraft.mod.compat.rei.common.GalacticraftREIServerPlugin;
 import dev.galacticraft.mod.compat.rei.common.display.Helium3ProcessDisplay;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
@@ -35,6 +37,7 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.NotNull;
 
@@ -73,27 +76,87 @@ public class Helium3ProcessCategory implements DisplayCategory<Helium3ProcessDis
         List<Widget> widgets = new ArrayList<>();
         widgets.add(Widgets.createRecipeBase(bounds));
 
-        // Summary header label
-        widgets.add(Widgets.createLabel(new Point(bounds.getCenterX(), bounds.y + 6),
-                Component.literal(display.getSummary())).noShadow().color(0xFF404040, 0xFFBBBBBB));
+        int ox = bounds.x + 4;
+        int oy = bounds.y + 4;
 
-        int slotY = bounds.y + 24;
-        int inputX = bounds.x + 10;
+        // Blit the actual machine GUI upper panel (cropped cleanly below title bar: u=4, v=18, w=168, h=82)
+        ResourceLocation bgTex = this.getMachineTexture();
+        widgets.add(Widgets.createTexturedWidget(bgTex, ox, oy, 4, 18, 168, 82));
+
         List<EntryIngredient> inputs = display.getInputEntries();
-        for (int i = 0; i < inputs.size(); i++) {
-            widgets.add(Widgets.createSlot(new Point(inputX + i * 20, slotY)).markInput().entries(inputs.get(i)));
-        }
-
-        int arrowX = inputX + Math.max(1, inputs.size()) * 20 + 4;
-        widgets.add(Widgets.createArrow(new Point(arrowX, slotY + 1)).animationDurationTicks(40));
-
-        int outputX = arrowX + 28;
         List<EntryIngredient> outputs = display.getOutputEntries();
-        for (int i = 0; i < outputs.size(); i++) {
-            widgets.add(Widgets.createSlot(new Point(outputX + i * 20, slotY)).markOutput().entries(outputs.get(i)));
+
+        if (this.id.equals(GalacticraftREIServerPlugin.THERMAL_DESORPTION)) {
+            // Input regolith in INPUT_SLOT_1 (36, 26 -> rel 32, 8)
+            if (!inputs.isEmpty()) {
+                widgets.add(Widgets.createSlot(new Point(ox + 32, oy + 8)).disableBackground().markInput().entries(inputs.get(0)));
+            }
+            // Animated arrow between input and outputs
+            widgets.add(Widgets.createArrow(new Point(ox + 64, oy + 18)).animationDurationTicks(60));
+            // Gas output in GAS_TANK area (148, 20 -> rel 144, 18) + byproducts in BYPRODUCT_SLOT_1/2 (108, 26 / 48 -> rel 104, 8 / 30)
+            if (!outputs.isEmpty()) {
+                widgets.add(Widgets.createSlot(new Point(ox + 144, oy + 18)).disableBackground().markOutput().entries(outputs.get(0)));
+            }
+            if (outputs.size() > 1) {
+                widgets.add(Widgets.createSlot(new Point(ox + 104, oy + 8)).disableBackground().markOutput().entries(outputs.get(1)));
+            }
+            if (outputs.size() > 2) {
+                widgets.add(Widgets.createSlot(new Point(ox + 104, oy + 30)).disableBackground().markOutput().entries(outputs.get(2)));
+            }
+            // Compact telemetry bar inside machine panel
+            widgets.add(Widgets.createLabel(new Point(ox + 84, oy + 72),
+                    Component.literal(display.getSummary())).noShadow().color(0xFF404040, 0xFFBBBBBB));
+        } else if (this.id.equals(GalacticraftREIServerPlugin.ISOTOPIC_SEPARATION)) {
+            // Input (gas in left tank 32,20 -> rel 28,18 OR solid in 68,52 -> rel 64,34) + Coil in 68,22 -> rel 64,4
+            if (!inputs.isEmpty()) {
+                widgets.add(Widgets.createSlot(new Point(ox + 28, oy + 18)).disableBackground().markInput().entries(inputs.get(0)));
+            }
+            if (inputs.size() > 1) {
+                widgets.add(Widgets.createSlot(new Point(ox + 64, oy + 4)).disableBackground().markInput().entries(inputs.get(1)));
+            }
+            widgets.add(Widgets.createArrow(new Point(ox + 88, oy + 6)).animationDurationTicks(40));
+            // Primary gas output in 3He tank (126,20 -> rel 122,18), secondary in 4He tank (150,20 -> rel 146,18) or byproduct slot (98,52 -> rel 94,34)
+            if (!outputs.isEmpty()) {
+                widgets.add(Widgets.createSlot(new Point(ox + 122, oy + 18)).disableBackground().markOutput().entries(outputs.get(0)));
+            }
+            if (outputs.size() > 1) {
+                widgets.add(Widgets.createSlot(new Point(ox + 146, oy + 18)).disableBackground().markOutput().entries(outputs.get(1)));
+            }
+            widgets.add(Widgets.createLabel(new Point(ox + 84, oy + 72),
+                    Component.literal(display.getSummary())).noShadow().color(0xFF007B9E, 0xFF55E6FF));
+        } else {
+            // MHD Fusion Reactor: 3He (32,20 -> 28,18), D2 (54,20 -> 50,18), Coil (82,22 -> 78,4), Cryo <2K (82,48 -> 78,30) -> Output/Charge (148,35 -> 144,17)
+            if (!inputs.isEmpty()) {
+                widgets.add(Widgets.createSlot(new Point(ox + 28, oy + 18)).disableBackground().markInput().entries(inputs.get(0)));
+            }
+            if (inputs.size() > 1) {
+                widgets.add(Widgets.createSlot(new Point(ox + 50, oy + 18)).disableBackground().markInput().entries(inputs.get(1)));
+            }
+            if (inputs.size() > 2) {
+                widgets.add(Widgets.createSlot(new Point(ox + 78, oy + 4)).disableBackground().markInput().entries(inputs.get(2)));
+            }
+            if (inputs.size() > 3) {
+                widgets.add(Widgets.createSlot(new Point(ox + 78, oy + 30)).disableBackground().markInput().entries(inputs.get(3)));
+            }
+            widgets.add(Widgets.createArrow(new Point(ox + 108, oy + 17)).animationDurationTicks(40));
+            if (!outputs.isEmpty()) {
+                widgets.add(Widgets.createSlot(new Point(ox + 144, oy + 17)).disableBackground().markOutput().entries(outputs.get(0)));
+            }
+            widgets.add(Widgets.createLabel(new Point(ox + 84, oy + 72),
+                    Component.literal(display.getSummary())).noShadow().color(0xFF1B8A3A, 0xFF64FFDA));
         }
 
         return widgets;
+    }
+
+    private ResourceLocation getMachineTexture() {
+        if (this.id.equals(GalacticraftREIServerPlugin.THERMAL_DESORPTION)) {
+            return Constant.ScreenTexture.REGOLITH_THERMAL_DESORBER_SCREEN;
+        }
+        if (this.id.equals(GalacticraftREIServerPlugin.ISOTOPIC_SEPARATION)) {
+            return Constant.ScreenTexture.ISOTOPIC_CENTRIFUGE_SCREEN;
+        }
+        return Constant.ScreenTexture.HELIUM3_FUSION_REACTOR_SCREEN;
     }
 
     @Override
@@ -103,6 +166,6 @@ public class Helium3ProcessCategory implements DisplayCategory<Helium3ProcessDis
 
     @Override
     public int getDisplayHeight() {
-        return 52;
+        return 90;
     }
 }

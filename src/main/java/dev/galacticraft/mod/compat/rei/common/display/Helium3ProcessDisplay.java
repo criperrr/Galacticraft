@@ -82,7 +82,7 @@ public class Helium3ProcessDisplay extends BasicDisplay {
         List<EntryIngredient> outputs = List.of(
                 EntryIngredients.of(GCItems.HELIUM3_FUSION_CELL)
         );
-        String summary = "3x3x3 Torus | " + recipe.getEnergyPerTick() + "-" + (recipe.getEnergyPerTick() * 2) + " GJ/t (<2K)";
+        String summary = "3x3x3 Torus | " + recipe.getEnergyPerTick() + "-" + (recipe.getEnergyPerTick() * 2) + " GJ/t";
         return new Helium3ProcessDisplay(GalacticraftREIServerPlugin.MHD_FUSION, inputs, outputs, summary);
     }
 

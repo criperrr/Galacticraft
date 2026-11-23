@@ -145,31 +145,31 @@ public class GalacticraftREIClientPlugin implements REIClientPlugin {
                 GalacticraftREIServerPlugin.ISOTOPIC_SEPARATION,
                 java.util.List.of(Helium3ProcessDisplay.gasAndCanister(Gases.SOLAR_VOLATILE_GAS, 50L), EntryIngredients.of(GCItems.SUPERCONDUCTING_COIL)),
                 java.util.List.of(Helium3ProcessDisplay.gasAndCanister(Gases.HELIUM_3, 20L), Helium3ProcessDisplay.gasAndCanister(Gases.HELIUM, 30L)),
-                "40k RPM | 50 mB SV -> 20 mB 3He + 30 mB 4He"
+                "40k RPM | 20mB 3He + 30mB 4He"
         ));
         registry.add(new Helium3ProcessDisplay(
                 GalacticraftREIServerPlugin.ISOTOPIC_SEPARATION,
                 java.util.List.of(EntryIngredients.of(GCBlocks.DENSE_ICE), EntryIngredients.of(GCItems.SUPERCONDUCTING_COIL)),
                 java.util.List.of(Helium3ProcessDisplay.gasAndCanister(Gases.DEUTERIUM, 250L)),
-                "40k RPM | Dense Ice -> 250 mB Deuterium (D2)"
+                "40k RPM | 250mB Deuterium"
         ));
         registry.add(new Helium3ProcessDisplay(
                 GalacticraftREIServerPlugin.ISOTOPIC_SEPARATION,
                 java.util.List.of(EntryIngredients.of(GCBlocks.SATURN_HELIUM_MANTLE_ROCK), EntryIngredients.of(GCItems.SUPERCONDUCTING_COIL)),
                 java.util.List.of(Helium3ProcessDisplay.gasAndCanister(Gases.HELIUM_3, 350L)),
-                "40k RPM | Saturn Mantle -> 350 mB 3He"
+                "40k RPM | 350mB 3He"
         ));
         registry.add(new Helium3ProcessDisplay(
                 GalacticraftREIServerPlugin.ISOTOPIC_SEPARATION,
                 java.util.List.of(EntryIngredients.of(GCBlocks.MOON_ILMENITE_ORE), EntryIngredients.of(GCItems.SUPERCONDUCTING_COIL)),
                 java.util.List.of(Helium3ProcessDisplay.gasAndCanister(Gases.HELIUM_3, 200L), EntryIngredients.of(GCItems.TITANIUM_NUGGET)),
-                "40k RPM | Moon Ilmenite -> 200 mB 3He"
+                "40k RPM | 200mB 3He"
         ));
         registry.add(new Helium3ProcessDisplay(
                 GalacticraftREIServerPlugin.ISOTOPIC_SEPARATION,
                 java.util.List.of(EntryIngredients.of(GCBlocks.MERCURY_HOLLOW_DEPOSIT), EntryIngredients.of(GCItems.SUPERCONDUCTING_COIL)),
                 java.util.List.of(Helium3ProcessDisplay.gasAndCanister(Gases.HELIUM_3, 150L), EntryIngredients.of(GCItems.SILICON)),
-                "40k RPM | Mercury Hollow -> 150 mB 3He"
+                "40k RPM | 150mB 3He"
         ));
 
         registry.registerDisplayGenerator(GalacticraftREIServerPlugin.CANNING, new CanningDisplayGenerator());
