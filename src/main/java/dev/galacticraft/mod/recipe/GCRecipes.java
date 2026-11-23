@@ -34,6 +34,8 @@ public class GCRecipes {
     public static final RecipeType<CompressingRecipe> COMPRESSING_TYPE = new GCRecipeType<>();
     public static final RecipeType<RocketRecipe> ROCKET_TYPE = new GCRecipeType<>();
     public static final RecipeType<PartAssemblerRecipe> PART_ASSEMBLER_TYPE = new GCRecipeType<>();
+    public static final RecipeType<ThermalDesorptionRecipe> THERMAL_DESORPTION_TYPE = new GCRecipeType<>();
+    public static final RecipeType<FusionReactorRecipe> FUSION_REACTOR_TYPE = new GCRecipeType<>();
 
     public static final FabricationRecipe.Serializer FABRICATION_SERIALIZER = FabricationRecipe.Serializer.INSTANCE;
     public static final RecipeSerializer<FlagRecipe> FLAG_SERIALIZER = new SimpleCraftingRecipeSerializer<>(FlagRecipe::new);
@@ -41,6 +43,8 @@ public class GCRecipes {
     public static final ShapedCompressingRecipe.Serializer SHAPED_COMPRESSING_SERIALIZER = ShapedCompressingRecipe.Serializer.INSTANCE;
     public static final RocketRecipe.Serializer ROCKET_SERIALIZER = RocketRecipe.Serializer.INSTANCE;
     public static final PartAssemblerRecipe.Serializer PART_ASSEMBLER_SERIALIZER = PartAssemblerRecipe.Serializer.INSTANCE;
+    public static final ThermalDesorptionRecipe.Serializer THERMAL_DESORPTION_SERIALIZER = ThermalDesorptionRecipe.Serializer.INSTANCE;
+    public static final FusionReactorRecipe.Serializer FUSION_REACTOR_SERIALIZER = FusionReactorRecipe.Serializer.INSTANCE;
     public static final RecipeSerializer<EmergencyKitRecipe> EMERGENCY_KIT_SERIALIZER = new SimpleCraftingRecipeSerializer<>(EmergencyKitRecipe::new);
 
     public static void register() {
@@ -48,12 +52,16 @@ public class GCRecipes {
         Registry.register(BuiltInRegistries.RECIPE_TYPE, Constant.id(Constant.Recipe.COMPRESSING), COMPRESSING_TYPE);
         Registry.register(BuiltInRegistries.RECIPE_TYPE, Constant.id(Constant.Recipe.ROCKET), ROCKET_TYPE);
         Registry.register(BuiltInRegistries.RECIPE_TYPE, Constant.id(Constant.Recipe.PART_ASSEMBLER), PART_ASSEMBLER_TYPE);
+        Registry.register(BuiltInRegistries.RECIPE_TYPE, Constant.id(Constant.Recipe.THERMAL_DESORPTION), THERMAL_DESORPTION_TYPE);
+        Registry.register(BuiltInRegistries.RECIPE_TYPE, Constant.id(Constant.Recipe.FUSION_REACTOR), FUSION_REACTOR_TYPE);
         Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, Constant.id(Constant.Recipe.Serializer.FABRICATION), FABRICATION_SERIALIZER);
         Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, Constant.id(Constant.Recipe.Serializer.FLAG), FLAG_SERIALIZER);
         Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, Constant.id(Constant.Recipe.Serializer.COMPRESSING_SHAPELESS), SHAPELESS_COMPRESSING_SERIALIZER);
         Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, Constant.id(Constant.Recipe.Serializer.COMPRESSING_SHAPED), SHAPED_COMPRESSING_SERIALIZER);
         Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, Constant.id(Constant.Recipe.Serializer.ROCKET), ROCKET_SERIALIZER);
         Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, Constant.id(Constant.Recipe.Serializer.PART_ASSEMBLER), PART_ASSEMBLER_SERIALIZER);
+        Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, Constant.id(Constant.Recipe.Serializer.THERMAL_DESORPTION), THERMAL_DESORPTION_SERIALIZER);
+        Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, Constant.id(Constant.Recipe.Serializer.FUSION_REACTOR), FUSION_REACTOR_SERIALIZER);
         Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, Constant.id(Constant.Recipe.Serializer.EMERGENCY_KIT), EMERGENCY_KIT_SERIALIZER);
     }
 }

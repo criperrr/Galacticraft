@@ -119,7 +119,7 @@ public class GCItems {
     public static final Item MAGNESIUM_INGOT = registerGeneric(Constant.Item.MAGNESIUM_INGOT);
     public static final Item COMPRESSED_MAGNESIUM = registerGeneric(Constant.Item.COMPRESSED_MAGNESIUM);
     public static final Item HELIUM3_CELL = ITEMS.register(Constant.Item.HELIUM3_CELL, new Item(new Item.Properties().rarity(Rarity.RARE)));
-    public static final Item HELIUM3_FUSION_CELL = ITEMS.register(Constant.Item.HELIUM3_FUSION_CELL, new Item(new Item.Properties().rarity(Rarity.EPIC)));
+    public static final BatteryItem HELIUM3_FUSION_CELL = ITEMS.register(Constant.Item.HELIUM3_FUSION_CELL, new BatteryItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC), 1_000_000L, 5_000L));
 
     public static final Item LONSDALEITE_GEM = ITEMS.register(Constant.Item.LONSDALEITE_GEM, new Item(new Item.Properties().rarity(Rarity.RARE)));
     public static final Item RAW_URANIUM = registerGeneric(Constant.Item.RAW_URANIUM);

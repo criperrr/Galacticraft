@@ -80,6 +80,16 @@ public final class GCMachineStatuses {
     public static final MachineStatus NO_FOOD = MachineStatus.create(Translations.MachineStatus.NO_FOOD, ChatFormatting.RED, MachineStatus.Type.MISSING_ITEMS);
     public static final MachineStatus MISSING_EMPTY_CAN = MachineStatus.create(Translations.MachineStatus.MISSING_EMPTY_CAN, ChatFormatting.RED, MachineStatus.Type.MISSING_ITEMS);
 
+    // Helium-3 Extraction & Aneutronic MHD Fusion
+    public static final MachineStatus DESORBING = MachineStatus.create(Translations.MachineStatus.DESORBING, ChatFormatting.GOLD, MachineStatus.Type.WORKING);
+    public static final MachineStatus SEPARATING = MachineStatus.create(Translations.MachineStatus.SEPARATING, ChatFormatting.AQUA, MachineStatus.Type.WORKING);
+    public static final MachineStatus FUSING = MachineStatus.create(Translations.MachineStatus.FUSING, ChatFormatting.GREEN, MachineStatus.Type.WORKING);
+    public static final MachineStatus FUSING_CRYO = MachineStatus.create(Translations.MachineStatus.FUSING_CRYO, ChatFormatting.AQUA, MachineStatus.Type.WORKING);
+    public static final MachineStatus MISSING_COIL = MachineStatus.create(Translations.MachineStatus.MISSING_COIL, ChatFormatting.RED, MachineStatus.Type.MISSING_ITEMS);
+    public static final MachineStatus MISSING_FUSION_FUEL = MachineStatus.create(Translations.MachineStatus.MISSING_FUSION_FUEL, ChatFormatting.RED, MachineStatus.Type.MISSING_FLUIDS);
+    public static final MachineStatus GAS_TANK_FULL = MachineStatus.create(Translations.MachineStatus.GAS_TANK_FULL, ChatFormatting.GOLD, MachineStatus.Type.OUTPUT_FULL);
+    public static final MachineStatus MAGNETIC_QUENCH_SAFE = MachineStatus.create(Translations.MachineStatus.MAGNETIC_QUENCH_SAFE, ChatFormatting.YELLOW, MachineStatus.Type.OTHER);
+
     public static void register() {
     }
 }

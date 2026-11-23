@@ -508,6 +508,9 @@ public class GCTranslationProvider extends TranslationProvider {
         this.block(GCBlocks.ELECTRIC_FURNACE, "Electric Furnace");
         this.block(GCBlocks.ELECTRIC_ARC_FURNACE, "Electric Arc Furnace");
         this.block(GCBlocks.REFINERY, "Refinery");
+        this.block(GCBlocks.REGOLITH_THERMAL_DESORBER, "Regolith Thermal Desorber");
+        this.block(GCBlocks.ISOTOPIC_CENTRIFUGE, "Isotopic Centrifuge");
+        this.block(GCBlocks.HELIUM3_FUSION_REACTOR, "Helium-3 Fusion Reactor");
         this.block(GCBlocks.OXYGEN_COLLECTOR, "Oxygen Collector");
         this.block(GCBlocks.OXYGEN_DETECTOR, "Oxygen Detector");
         this.block(GCBlocks.OXYGEN_SEALER, "Oxygen Sealer");
@@ -1273,6 +1276,9 @@ public class GCTranslationProvider extends TranslationProvider {
         this.blockDesc(GCBlocks.REFINERY, "Refines crude oil into fuel used by rockets and vehicles.");
         this.blockDesc(GCBlocks.CRASHED_PROBE, "A damaged probe that landed on Venus. Salvageable for radioisotope parts.");
         this.blockDesc(GCBlocks.GEOTHERMAL_GENERATOR, "Harnesses geothermal energy from vapor spouts to generate electricity.");
+        this.blockDesc(GCBlocks.REGOLITH_THERMAL_DESORBER, "Heats lunar and mercurian regolith above 700°C in vacuum to desorb solar volatile gases and recover titanium and silicon.");
+        this.blockDesc(GCBlocks.ISOTOPIC_CENTRIFUGE, "Magnetically separates Helium-3 from solar volatile gas and enriched planetary ores using a superconducting coil.");
+        this.blockDesc(GCBlocks.HELIUM3_FUSION_REACTOR, "Aneutronic D-3He MHD fusion reactor generating 2,500-5,000 GJ/t cleanly with zero radiation or meltdown risk.");
 
         this.add(Tooltip.CREATIVE_ONLY, "Creative Only");
         this.add(Tooltip.ENERGY_REMAINING, "Energy Remaining: %s");
@@ -1451,6 +1457,14 @@ public class GCTranslationProvider extends TranslationProvider {
         this.add(MachineStatus.TRANSFERRING_CAN, "Transferring Can");
         this.add(MachineStatus.NO_FOOD, "No Food");
         this.add(MachineStatus.MISSING_EMPTY_CAN, "Missing Empty Can");
+        this.add(MachineStatus.DESORBING, "Desorbing Volatiles");
+        this.add(MachineStatus.SEPARATING, "Separating Isotopes");
+        this.add(MachineStatus.FUSING, "MHD Fusion Active");
+        this.add(MachineStatus.FUSING_CRYO, "MHD Fusion (<2K Cryo)");
+        this.add(MachineStatus.MISSING_COIL, "Missing Superconducting Coil");
+        this.add(MachineStatus.MISSING_FUSION_FUEL, "Missing D / 3He Gas");
+        this.add(MachineStatus.GAS_TANK_FULL, "Gas Tank Full");
+        this.add(MachineStatus.MAGNETIC_QUENCH_SAFE, "Quench-Safe Shutdown");
     }
 
     protected void generateCelestialSelectionTranslations() {

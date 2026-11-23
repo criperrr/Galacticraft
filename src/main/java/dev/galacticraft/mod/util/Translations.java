@@ -416,6 +416,14 @@ public interface Translations {
         String TRANSFERRING_CAN = "ui.galacticraft.status.transferring_can";
         String NO_FOOD = "ui.galacticraft.status.no_food";
         String MISSING_EMPTY_CAN = "ui.galacticraft.status.missing_empty_can";
+        String DESORBING = "ui.galacticraft.status.desorbing";
+        String SEPARATING = "ui.galacticraft.status.separating";
+        String FUSING = "ui.galacticraft.status.fusing";
+        String FUSING_CRYO = "ui.galacticraft.status.fusing_cryo";
+        String MISSING_COIL = "ui.galacticraft.status.missing_coil";
+        String MISSING_FUSION_FUEL = "ui.galacticraft.status.missing_fusion_fuel";
+        String GAS_TANK_FULL = "ui.galacticraft.status.gas_tank_full";
+        String MAGNETIC_QUENCH_SAFE = "ui.galacticraft.status.magnetic_quench_safe";
     }
 
     interface CelestialSelection {

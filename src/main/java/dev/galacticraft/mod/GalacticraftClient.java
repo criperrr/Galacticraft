@@ -126,6 +126,9 @@ public class GalacticraftClient implements ClientModInitializer {
         MenuScreens.register(GCMenuTypes.GEOTHERMAL_GENERATOR, GeothermalGeneratorScreen::new);
         MenuScreens.register(GCMenuTypes.CIRCUIT_FABRICATOR, CircuitFabricatorScreen::new);
         MenuScreens.register(GCMenuTypes.REFINERY, RefineryScreen::new);
+        MenuScreens.register(GCMenuTypes.REGOLITH_THERMAL_DESORBER, RegolithThermalDesorberScreen::new);
+        MenuScreens.register(GCMenuTypes.ISOTOPIC_CENTRIFUGE, IsotopicCentrifugeScreen::new);
+        MenuScreens.register(GCMenuTypes.HELIUM3_FUSION_REACTOR, Helium3FusionReactorScreen::new);
         MenuScreens.register(GCMenuTypes.ELECTRIC_FURNACE, ElectricFurnaceScreen::new);
         MenuScreens.register(GCMenuTypes.ELECTRIC_ARC_FURNACE, ElectricArcFurnaceScreen::new);
         MenuScreens.register(GCMenuTypes.COMPRESSOR, CompressorScreen::new);

@@ -56,6 +56,9 @@ public class GCBlockEntityTypes {
     public static final BlockEntityType<ElectricFurnaceBlockEntity> ELECTRIC_FURNACE = register(Constant.Block.ELECTRIC_FURNACE, ElectricFurnaceBlockEntity::new, GCBlocks.ELECTRIC_FURNACE);
     public static final BlockEntityType<ElectricArcFurnaceBlockEntity> ELECTRIC_ARC_FURNACE = register(Constant.Block.ELECTRIC_ARC_FURNACE, ElectricArcFurnaceBlockEntity::new, GCBlocks.ELECTRIC_ARC_FURNACE);
     public static final BlockEntityType<RefineryBlockEntity> REFINERY = register(Constant.Block.REFINERY, RefineryBlockEntity::new, GCBlocks.REFINERY);
+    public static final BlockEntityType<RegolithThermalDesorberBlockEntity> REGOLITH_THERMAL_DESORBER = register(Constant.Block.REGOLITH_THERMAL_DESORBER, RegolithThermalDesorberBlockEntity::new, GCBlocks.REGOLITH_THERMAL_DESORBER);
+    public static final BlockEntityType<IsotopicCentrifugeBlockEntity> ISOTOPIC_CENTRIFUGE = register(Constant.Block.ISOTOPIC_CENTRIFUGE, IsotopicCentrifugeBlockEntity::new, GCBlocks.ISOTOPIC_CENTRIFUGE);
+    public static final BlockEntityType<Helium3FusionReactorBlockEntity> HELIUM3_FUSION_REACTOR = register(Constant.Block.HELIUM3_FUSION_REACTOR, Helium3FusionReactorBlockEntity::new, GCBlocks.HELIUM3_FUSION_REACTOR);
     public static final BlockEntityType<FoodCannerBlockEntity> FOOD_CANNER = register(Constant.Block.FOOD_CANNER, FoodCannerBlockEntity::new, GCBlocks.FOOD_CANNER);
 
     // OXYGEN MACHINES

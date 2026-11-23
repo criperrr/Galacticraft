@@ -476,6 +476,9 @@ public class GCBlockLootTableProvider extends FabricBlockLootTableProvider {
         this.dropSelf(GCBlocks.ELECTRIC_FURNACE);
         this.dropSelf(GCBlocks.ELECTRIC_ARC_FURNACE);
         this.dropSelf(GCBlocks.REFINERY);
+        this.dropSelf(GCBlocks.REGOLITH_THERMAL_DESORBER);
+        this.dropSelf(GCBlocks.ISOTOPIC_CENTRIFUGE);
+        this.dropSelf(GCBlocks.HELIUM3_FUSION_REACTOR);
         this.dropSelf(GCBlocks.OXYGEN_COLLECTOR);
         this.dropSelf(GCBlocks.OXYGEN_DETECTOR);
         this.dropSelf(GCBlocks.OXYGEN_SEALER);

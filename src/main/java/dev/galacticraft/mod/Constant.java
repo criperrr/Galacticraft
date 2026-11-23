@@ -534,6 +534,9 @@ public interface Constant {
         String ADVANCED_SOLAR_PANEL = "advanced_solar_panel";
         String COAL_GENERATOR = "coal_generator";
         String GEOTHERMAL_GENERATOR = "geothermal_generator";
+        String REGOLITH_THERMAL_DESORBER = "regolith_thermal_desorber";
+        String ISOTOPIC_CENTRIFUGE = "isotopic_centrifuge";
+        String HELIUM3_FUSION_REACTOR = "helium3_fusion_reactor";
         String ENERGY_STORAGE_MODULE = "energy_storage_module";
         String ENERGY_STORAGE_CLUSTER = "energy_storage_cluster";
         String ALUMINUM_WIRE = "aluminum_wire";
@@ -811,6 +814,9 @@ public interface Constant {
         ResourceLocation GEOTHERMAL_GENERATOR_SCREEN = id("textures/gui/coal_generator_screen.png");
         ResourceLocation SOLAR_PANEL_SCREEN = id("textures/gui/solar_panel_screen.png");
         ResourceLocation REFINERY_SCREEN = id("textures/gui/refinery_screen.png");
+        ResourceLocation REGOLITH_THERMAL_DESORBER_SCREEN = id("textures/gui/regolith_thermal_desorber_screen.png");
+        ResourceLocation ISOTOPIC_CENTRIFUGE_SCREEN = id("textures/gui/isotopic_centrifuge_screen.png");
+        ResourceLocation HELIUM3_FUSION_REACTOR_SCREEN = id("textures/gui/helium3_fusion_reactor_screen.png");
         ResourceLocation ENERGY_STORAGE_MODULE_SCREEN = id("textures/gui/energy_storage_module_screen.png");
         ResourceLocation OXYGEN_COLLECTOR_SCREEN = id("textures/gui/oxygen_collector_screen.png");
         ResourceLocation ROCKET_SELECTION = id("textures/gui/rocket_part_selection.png");
@@ -1432,6 +1438,9 @@ public interface Constant {
         String PET_INVENTORY_MENU = "pet_inventory_menu";
         String ENERGY_STORAGE_MODULE_MENU = "energy_storage_module_menu";
         String REFINERY_MENU = "refinery_menu";
+        String REGOLITH_THERMAL_DESORBER_MENU = "regolith_thermal_desorber_menu";
+        String ISOTOPIC_CENTRIFUGE_MENU = "isotopic_centrifuge_menu";
+        String HELIUM3_FUSION_REACTOR_MENU = "helium3_fusion_reactor_menu";
         String ELECTRIC_FURNACE_MENU = "electric_furnace_menu";
         String ELECTRIC_ARC_FURNACE_MENU = "electric_arc_furnace_menu";
         String OXYGEN_COLLECTOR_MENU = "oxygen_collector_menu";
@@ -1576,6 +1585,8 @@ public interface Constant {
         String CANNING = "canning";
         String ROCKET = "rocket";
         String PART_ASSEMBLER = "part_assembler";
+        String THERMAL_DESORPTION = "thermal_desorption";
+        String FUSION_REACTOR = "fusion_reactor";
 
         interface Serializer {
             String FABRICATION = "fabrication";
@@ -1585,6 +1596,8 @@ public interface Constant {
             String CANNING = "canning";
             String ROCKET = "rocket";
             String PART_ASSEMBLER = "part_assembler";
+            String THERMAL_DESORPTION = "thermal_desorption";
+            String FUSION_REACTOR = "fusion_reactor";
             String EMERGENCY_KIT = "crafting_special_emergencykit";
         }
     }
