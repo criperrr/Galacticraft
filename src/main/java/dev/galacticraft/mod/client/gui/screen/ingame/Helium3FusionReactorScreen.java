@@ -98,6 +98,9 @@ public class Helium3FusionReactorScreen extends MachineScreen<Helium3FusionReact
         } else if (rate > 0) {
             label = rate + " GJ/t" + (this.menu.isCryoCooled() ? " <2K" : "");
             textColor = this.menu.isCryoCooled() ? 0xFF00838F : 0xFF1B8A3A;
+        } else if (tempMk >= Helium3FusionReactorBlockEntity.IGNITION_TEMP_MK) {
+            label = "CAPACITOR FULL";
+            textColor = 0xFF1B8A3A;
         } else if (tempMk > 0) {
             label = "IGNITING " + tempMk + "MK";
             textColor = 0xFFE65100;

@@ -57,7 +57,6 @@ import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.InventoryMenu;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -283,6 +282,7 @@ public class Helium3FusionReactorBlockEntity extends MachineBlockEntity {
             this.activeGenerationRate = 0L;
             this.cryoCooled = false;
             this.coolPlasma();
+            this.syncRenderState(level, pos, state);
             return wasActive ? GCMachineStatuses.MAGNETIC_QUENCH_SAFE : GCMachineStatuses.MULTIBLOCK_INCOMPLETE;
         }
 
@@ -294,10 +294,12 @@ public class Helium3FusionReactorBlockEntity extends MachineBlockEntity {
                 this.activeGenerationRate = 0L;
                 this.cryoCooled = false;
                 this.coolPlasma();
+                this.syncRenderState(level, pos, state);
                 return GCMachineStatuses.MAGNETIC_QUENCH_SAFE;
             }
             this.activeGenerationRate = 0L;
             this.cryoCooled = false;
+            this.syncRenderState(level, pos, state);
             return GCMachineStatuses.MISSING_COIL;
         }
 
@@ -357,28 +359,28 @@ public class Helium3FusionReactorBlockEntity extends MachineBlockEntity {
 
         this.spawnCoreParticles(level, pos, state, this.cryoCooled);
 
-        // Synthesize Helium-3 Fusion Cell into empty output slot during active fusion
-        ItemResourceSlot outputSlot = this.itemStorage().slot(OUTPUT_CELL_SLOT);
-        if (outputSlot.isEmpty()) {
-            this.cellSynthesisProgress++;
-            if (this.cellSynthesisProgress >= CELL_SYNTHESIS_TICKS) {
-                ItemStack outStack = recipe != null && !recipe.getOutputCell().isEmpty()
-                        ? recipe.getOutputCell()
-                        : new ItemStack(GCItems.HELIUM3_FUSION_CELL);
-                if (outputSlot.canInsert(outStack.getItem(), 1)) {
-                    outputSlot.insert(outStack.getItem(), 1);
-                    this.cellSynthesisProgress = 0;
-                    this.setChanged();
-                }
-            }
-        } else {
-            this.cellSynthesisProgress = 0;
-        }
-
         if (this.energyStorage().isFull()) {
+            this.syncRenderState(level, pos, state);
             return MachineStatuses.CAPACITOR_FULL;
         }
+        this.syncRenderState(level, pos, state);
         return this.cryoCooled ? GCMachineStatuses.FUSING_CRYO : GCMachineStatuses.FUSING;
+    }
+
+    private boolean lastSyncedFormed = false;
+    private boolean lastSyncedFusing = false;
+    private boolean lastSyncedCryo = false;
+
+    private void syncRenderState(ServerLevel level, BlockPos pos, BlockState state) {
+        boolean fusingNow = this.burnTime > 0 && this.multiblockFormed;
+        if (this.lastSyncedFormed != this.multiblockFormed
+                || this.lastSyncedFusing != fusingNow
+                || this.lastSyncedCryo != this.cryoCooled) {
+            this.lastSyncedFormed = this.multiblockFormed;
+            this.lastSyncedFusing = fusingNow;
+            this.lastSyncedCryo = this.cryoCooled;
+            level.sendBlockUpdated(pos, state, state, 3);
+        }
     }
 
     private void spawnCoreParticles(ServerLevel level, BlockPos pos, BlockState state, boolean cryo) {
@@ -458,6 +460,8 @@ public class Helium3FusionReactorBlockEntity extends MachineBlockEntity {
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider lookup) {
         super.saveAdditional(tag, lookup);
+        tag.putBoolean("multiblock_formed", this.multiblockFormed);
+        tag.putBoolean("cryo_cooled", this.cryoCooled);
         tag.putInt("plasma_temp_mk", this.plasmaTempMk);
         tag.putInt("burn_time", this.burnTime);
         tag.putInt("burn_duration", this.burnDuration);
@@ -467,10 +471,22 @@ public class Helium3FusionReactorBlockEntity extends MachineBlockEntity {
     @Override
     public void loadAdditional(CompoundTag tag, HolderLookup.Provider lookup) {
         super.loadAdditional(tag, lookup);
+        this.multiblockFormed = tag.getBoolean("multiblock_formed");
+        this.cryoCooled = tag.getBoolean("cryo_cooled");
         this.plasmaTempMk = tag.getInt("plasma_temp_mk");
         this.burnTime = tag.getInt("burn_time");
         this.burnDuration = tag.contains("burn_duration") ? Math.max(1, tag.getInt("burn_duration")) : DEFAULT_CYCLE_TICKS;
         this.cellSynthesisProgress = tag.getInt("cell_synthesis_progress");
+    }
+
+    @Override
+    public @NotNull CompoundTag getUpdateTag(HolderLookup.Provider lookup) {
+        CompoundTag tag = super.getUpdateTag(lookup);
+        tag.putBoolean("multiblock_formed", this.multiblockFormed);
+        tag.putBoolean("cryo_cooled", this.cryoCooled);
+        tag.putInt("plasma_temp_mk", this.plasmaTempMk);
+        tag.putInt("burn_time", this.burnTime);
+        return tag;
     }
 
     @Override

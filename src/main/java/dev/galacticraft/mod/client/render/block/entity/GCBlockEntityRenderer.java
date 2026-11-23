@@ -36,6 +36,7 @@ public class GCBlockEntityRenderer {
         BlockEntityRenderers.register(GCBlockEntityTypes.FLAG, FlagBlockEntityRenderer::new);
         BlockEntityRenderers.register(GCBlockEntityTypes.HANGAR_TERMINAL, HangarTerminalBlockEntityRenderer::new);
         BlockEntityRenderers.register(GCBlockEntityTypes.MODULAR_ROCKET_PART, ModularRocketPartBlockEntityRenderer::new);
+        BlockEntityRenderers.register(GCBlockEntityTypes.HELIUM3_FUSION_REACTOR, Helium3FusionReactorRenderer::new);
         //BlockEntityRenderers.register(GCBlockEntityTypes.CANNED_FOOD, CannedFoodBlockEntityRenderer::new);
     }
 }

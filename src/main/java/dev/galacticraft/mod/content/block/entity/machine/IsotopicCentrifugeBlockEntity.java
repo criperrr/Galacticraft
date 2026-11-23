@@ -107,7 +107,8 @@ public class IsotopicCentrifugeBlockEntity extends MachineBlockEntity {
                     ItemResourceSlot.builder(TransferType.PROCESSING)
                             .pos(126, 74)
                             .capacity(1)
-                            .filter(ResourceFilters.canInsertFluid(Gases.HELIUM_3))
+                            .filter((item, components) -> ResourceFilters.canInsertFluid(Gases.HELIUM_3).test(item, components)
+                                    || ResourceFilters.canInsertFluid(Gases.DEUTERIUM).test(item, components))
                             .icon(Pair.of(InventoryMenu.BLOCK_ATLAS, Constant.SlotSprite.BUCKET)),
                     ItemResourceSlot.builder(TransferType.OUTPUT)
                             .pos(98, 52),
@@ -130,7 +131,7 @@ public class IsotopicCentrifugeBlockEntity extends MachineBlockEntity {
                     FluidResourceSlot.builder(TransferType.OUTPUT)
                             .pos(126, 20)
                             .capacity(GAS_TANK_CAPACITY)
-                            .filter(ResourceFilters.ofResource(Gases.HELIUM_3)),
+                            .filter((fluid, components) -> fluid == Gases.HELIUM_3 || fluid == Gases.DEUTERIUM),
                     FluidResourceSlot.builder(TransferType.OUTPUT)
                             .pos(150, 20)
                             .capacity(GAS_TANK_CAPACITY)
@@ -193,8 +194,8 @@ public class IsotopicCentrifugeBlockEntity extends MachineBlockEntity {
                 return GCMachineStatuses.GAS_TANK_FULL;
             }
         } else {
-            long solidGasDroplets = solidSpec.helium3Mb * FluidUtil.MILLIBUCKET;
-            if (outputTank.tryInsert(Gases.HELIUM_3, solidGasDroplets) < solidGasDroplets) {
+            long solidGasDroplets = solidSpec.gasMb * FluidUtil.MILLIBUCKET;
+            if (outputTank.tryInsert(solidSpec.outputGas, solidGasDroplets) < solidGasDroplets) {
                 this.spinDown();
                 return GCMachineStatuses.GAS_TANK_FULL;
             }
@@ -236,17 +237,19 @@ public class IsotopicCentrifugeBlockEntity extends MachineBlockEntity {
             return GCMachineStatuses.SEPARATING;
         }
 
-        // Direct solid mineral isotopic extraction
+        // Direct solid mineral / dense ice isotopic extraction
         this.maxProgress = SOLID_CYCLE_TICKS;
         this.progress++;
         if (this.progress >= SOLID_CYCLE_TICKS) {
-            long solidGasDroplets = solidSpec.helium3Mb * FluidUtil.MILLIBUCKET;
+            long solidGasDroplets = solidSpec.gasMb * FluidUtil.MILLIBUCKET;
             solidSlot.extractOne();
-            outputTank.insert(Gases.HELIUM_3, solidGasDroplets);
-            long he4Tailings = (solidSpec.helium3Mb / 2L) * FluidUtil.MILLIBUCKET;
-            long he4Space = tailingsTank.tryInsert(Gases.HELIUM, he4Tailings);
-            if (he4Space > 0) {
-                tailingsTank.insert(Gases.HELIUM, he4Space);
+            outputTank.insert(solidSpec.outputGas, solidGasDroplets);
+            if (solidSpec.outputGas == Gases.HELIUM_3) {
+                long he4Tailings = (solidSpec.gasMb / 2L) * FluidUtil.MILLIBUCKET;
+                long he4Space = tailingsTank.tryInsert(Gases.HELIUM, he4Tailings);
+                if (he4Space > 0) {
+                    tailingsTank.insert(Gases.HELIUM, he4Space);
+                }
             }
             if (solidSpec.byproduct != null) {
                 this.itemStorage().slot(BYPRODUCT_SLOT).insert(solidSpec.byproduct, 1);
@@ -269,25 +272,28 @@ public class IsotopicCentrifugeBlockEntity extends MachineBlockEntity {
     }
 
     private static @Nullable SolidSeparationSpec getSolidSeparationSpec(Item item) {
+        if (item == GCBlocks.DENSE_ICE.asItem()) {
+            return new SolidSeparationSpec(Gases.DEUTERIUM, 250L, null);
+        }
         if (item == GCBlocks.SATURN_HELIUM_MANTLE_ROCK.asItem()) {
-            return new SolidSeparationSpec(350L, null);
+            return new SolidSeparationSpec(Gases.HELIUM_3, 350L, null);
         }
         if (item == GCBlocks.MOON_ILMENITE_ORE.asItem()) {
-            return new SolidSeparationSpec(200L, GCItems.TITANIUM_NUGGET);
+            return new SolidSeparationSpec(Gases.HELIUM_3, 200L, GCItems.TITANIUM_NUGGET);
         }
         if (item == GCBlocks.MERCURY_HOLLOW_DEPOSIT.asItem()) {
-            return new SolidSeparationSpec(150L, GCItems.SILICON);
+            return new SolidSeparationSpec(Gases.HELIUM_3, 150L, GCItems.SILICON);
         }
         if (item == GCBlocks.MOON_BASALT.asItem()) {
-            return new SolidSeparationSpec(40L, GCItems.SILICON);
+            return new SolidSeparationSpec(Gases.HELIUM_3, 40L, GCItems.SILICON);
         }
         if (item == GCBlocks.MOON_TURF.asItem() || item == GCBlocks.MOON_DIRT.asItem()) {
-            return new SolidSeparationSpec(20L, GCItems.SILICON);
+            return new SolidSeparationSpec(Gases.HELIUM_3, 20L, GCItems.SILICON);
         }
         return null;
     }
 
-    private record SolidSeparationSpec(long helium3Mb, @Nullable Item byproduct) {
+    private record SolidSeparationSpec(net.minecraft.world.level.material.Fluid outputGas, long gasMb, @Nullable Item byproduct) {
     }
 
     public int getRotorRpm() {
