@@ -1927,11 +1927,11 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
             if (this.fuelTank) {
                 return variant.isOf(GCFluids.FUEL);
             }
-            return variant.isOf(GCFluids.LIQUID_OXYGEN) || variant.isOf(Gases.OXYGEN);
+            return variant.isOf(Gases.OXYGEN);
         }
 
         private FluidVariant canonicalVariant() {
-            return FluidVariant.of(this.fuelTank ? GCFluids.FUEL : GCFluids.LIQUID_OXYGEN);
+            return FluidVariant.of(this.fuelTank ? GCFluids.FUEL : Gases.OXYGEN);
         }
 
         private long currentStored() {

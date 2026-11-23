@@ -25,7 +25,6 @@ package dev.galacticraft.mod.util;
 import dev.galacticraft.api.fluid.FluidData;
 import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.client.util.ColorUtil;
-import dev.galacticraft.mod.content.GCFluids;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariantAttributes;
 import net.minecraft.client.Minecraft;
@@ -115,12 +114,7 @@ public class TooltipUtil {
 
     public static void appendCanisterRemainingTooltip(String resourceId, FluidData data, long capacity, List<Component> tooltip) {
         if (data != null && !data.variant().isBlank()) {
-            Component fluidName;
-            if (data.variant().getFluid().isSame(GCFluids.LIQUID_OXYGEN)) {
-                fluidName = Component.translatable(Translations.Tooltip.FLUID_CANISTER_LOX);
-            } else {
-                fluidName = FluidVariantAttributes.getName(data.variant()).plainCopy();
-            }
+            Component fluidName = FluidVariantAttributes.getName(data.variant()).plainCopy();
             appendLabeledTooltip(resourceId, fluidName, TooltipUtil.formatFluidRemaining(data.amount(), capacity), tooltip);
         } else {
             tooltip.add(Component.translatable(Translations.Tooltip.FLUID_CANISTER_EMPTY).setStyle(Constant.Text.DARK_GRAY_STYLE));

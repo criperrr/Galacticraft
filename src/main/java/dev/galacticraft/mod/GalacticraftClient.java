@@ -278,7 +278,7 @@ public class GalacticraftClient implements ClientModInitializer {
 
                 // Manual colors
                 if (data.variant().isOf(Gases.METHANE)) return 0xFF80FFFF;
-                if (data.variant().isOf(GCFluids.LIQUID_OXYGEN)) return 0xFFD76453;
+                if (data.variant().isOf(Gases.OXYGEN)) return 0xFF82E0FF;
 
                 // Try to average the texture color
                 TextureAtlasSprite sprite = FluidVariantRendering.getSprite(variant);
