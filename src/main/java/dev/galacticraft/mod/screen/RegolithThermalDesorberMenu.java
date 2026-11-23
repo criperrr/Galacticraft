@@ -32,6 +32,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class RegolithThermalDesorberMenu extends MachineMenu<RegolithThermalDesorberBlockEntity> {
     private int temperature;
+    private int vacuumPercent;
     private int progress;
     private int maxProgress = 100;
 
@@ -40,13 +41,14 @@ public class RegolithThermalDesorberMenu extends MachineMenu<RegolithThermalDeso
     }
 
     public RegolithThermalDesorberMenu(int syncId, @NotNull Inventory inventory, @NotNull BlockPos pos) {
-        super(GCMenuTypes.REGOLITH_THERMAL_DESORBER, syncId, inventory, pos, 8, 84);
+        super(GCMenuTypes.REGOLITH_THERMAL_DESORBER, syncId, inventory, pos, 8, 110);
     }
 
     @Override
     public void registerData(@NotNull MenuData data) {
         super.registerData(data);
         data.registerInt(this.be::getTemperature, this::setTemperature);
+        data.registerInt(this.be::getVacuumPercent, this::setVacuumPercent);
         data.registerInt(this.be::getProgress, this::setProgress);
         data.registerInt(this.be::getMaxProgress, this::setMaxProgress);
     }
@@ -57,6 +59,14 @@ public class RegolithThermalDesorberMenu extends MachineMenu<RegolithThermalDeso
 
     public void setTemperature(int temperature) {
         this.temperature = temperature;
+    }
+
+    public int getVacuumPercent() {
+        return this.vacuumPercent;
+    }
+
+    public void setVacuumPercent(int vacuumPercent) {
+        this.vacuumPercent = vacuumPercent;
     }
 
     public int getProgress() {

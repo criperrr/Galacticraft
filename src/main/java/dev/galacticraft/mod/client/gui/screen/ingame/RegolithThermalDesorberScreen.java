@@ -37,8 +37,10 @@ import net.minecraft.world.entity.player.Inventory;
 public class RegolithThermalDesorberScreen extends MachineScreen<RegolithThermalDesorberBlockEntity, RegolithThermalDesorberMenu> {
     public RegolithThermalDesorberScreen(RegolithThermalDesorberMenu handler, Inventory inv, Component title) {
         super(handler, title, Constant.ScreenTexture.REGOLITH_THERMAL_DESORBER_SCREEN);
+        this.imageWidth = 176;
+        this.imageHeight = 192;
         this.capacitorX = 8;
-        this.capacitorY = 8;
+        this.capacitorY = 20;
     }
 
     @Override
@@ -46,19 +48,37 @@ public class RegolithThermalDesorberScreen extends MachineScreen<RegolithThermal
         super.renderMachineBackground(graphics, mouseX, mouseY, delta);
 
         // Progress bar between input and byproduct slots
-        int barX = this.leftPos + 62;
-        int barY = this.topPos + 38;
-        int barW = 28;
-        int barH = 6;
-        graphics.fill(barX, barY, barX + barW, barY + barH, 0xFF2B2B30);
+        int barX = this.leftPos + 58;
+        int barY = this.topPos + 37;
+        int barW = 44;
+        int barH = 8;
+        graphics.fill(barX, barY, barX + barW, barY + barH, 0xFF23252B);
         int fill = Mth.clamp((int) ((float) this.menu.getProgress() / (float) this.menu.getMaxProgress() * barW), 0, barW);
         if (fill > 0) {
-            graphics.fill(barX, barY, barX + fill, barY + barH, 0xFFE6A23C);
+            graphics.fill(barX, barY, barX + fill, barY + barH, 0xFFE89A2C);
         }
 
-        // Thermal indicator (>700C threshold)
+        // Temperature readout (>700C threshold)
         int temp = this.menu.getTemperature();
-        int tempColor = temp >= RegolithThermalDesorberBlockEntity.TARGET_TEMPERATURE ? 0xFFFF7A26 : 0xFFAAAAAA;
-        graphics.drawString(this.font, temp + "°C", this.leftPos + 62, this.topPos + 24, tempColor, false);
+        int tempColor = temp >= RegolithThermalDesorberBlockEntity.TARGET_TEMPERATURE ? 0xFFFF6E1A : 0xFF555555;
+        graphics.drawString(this.font, temp + "°C", this.leftPos + 58, this.topPos + 24, tempColor, false);
+
+        // Vacuum chamber gauge
+        int vac = this.menu.getVacuumPercent();
+        int vacColor = vac >= RegolithThermalDesorberBlockEntity.TARGET_VACUUM ? 0xFF1E88E5 : 0xFF606060;
+        graphics.drawString(this.font, "VAC " + vac + "%", this.leftPos + 58, this.topPos + 50, vacColor, false);
+
+        int vacBarY = this.topPos + 61;
+        graphics.fill(barX, vacBarY, barX + barW, vacBarY + 5, 0xFF23252B);
+        int vacFill = Mth.clamp((int) ((float) vac / (float) RegolithThermalDesorberBlockEntity.MAX_VACUUM * barW), 0, barW);
+        if (vacFill > 0) {
+            graphics.fill(barX, vacBarY, barX + vacFill, vacBarY + 5, 0xFF3FA9F5);
+        }
+
+        // Bottom info line
+        String stage = vac < RegolithThermalDesorberBlockEntity.TARGET_VACUUM
+                ? "Evacuating..."
+                : (temp < RegolithThermalDesorberBlockEntity.TARGET_TEMPERATURE ? "Heating >700°C" : "Vacuum Desorbing");
+        graphics.drawString(this.font, stage, this.leftPos + 34, this.topPos + 96, 0xFF404040, false);
     }
 }

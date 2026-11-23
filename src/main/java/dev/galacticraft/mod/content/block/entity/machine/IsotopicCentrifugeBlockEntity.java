@@ -65,44 +65,57 @@ public class IsotopicCentrifugeBlockEntity extends MachineBlockEntity {
     public static final int INPUT_CANISTER_SLOT = 3;
     public static final int OUTPUT_CANISTER_SLOT = 4;
     public static final int BYPRODUCT_SLOT = 5;
+    public static final int TAILINGS_CANISTER_SLOT = 6;
 
     public static final int INPUT_GAS_TANK = 0;
     public static final int OUTPUT_GAS_TANK = 1;
+    public static final int TAILINGS_GAS_TANK = 2;
 
     public static final long ENERGY_CAPACITY = 60_000L;
     public static final long ENERGY_CONSUMPTION = 110L;
     public static final long GAS_TANK_CAPACITY = FluidUtil.bucketsToDroplets(16);
 
     public static final long GAS_INPUT_PER_CYCLE_MB = 50L;
-    public static final long GAS_OUTPUT_PER_CYCLE_MB = 20L;
+    public static final long GAS_HE3_OUTPUT_MB = 20L;
+    public static final long GAS_HE4_TAILINGS_MB = 30L;
     public static final int GAS_CYCLE_TICKS = 10;
     public static final int SOLID_CYCLE_TICKS = 60;
+
+    public static final int TARGET_RPM = 40_000;
+    public static final int MAX_RPM = 60_000;
+    public static final int RPM_ACCEL = 2_500;
+    public static final int RPM_DECAY = 1_500;
 
     private static final StorageSpec SPEC = StorageSpec.of(
             MachineItemStorage.spec(
                     ItemResourceSlot.builder(TransferType.TRANSFER)
-                            .pos(8, 62)
+                            .pos(8, 74)
                             .capacity(1)
                             .filter(ResourceFilters.CAN_EXTRACT_ENERGY)
                             .icon(Pair.of(InventoryMenu.BLOCK_ATLAS, Constant.SlotSprite.ENERGY)),
                     ItemResourceSlot.builder(TransferType.PROCESSING)
-                            .pos(74, 18)
+                            .pos(68, 22)
                             .capacity(1)
                             .filter(ResourceFilters.ofResource(GCItems.SUPERCONDUCTING_COIL)),
                     ItemResourceSlot.builder(TransferType.INPUT)
-                            .pos(74, 46),
+                            .pos(68, 52),
                     ItemResourceSlot.builder(TransferType.PROCESSING)
-                            .pos(42, 62)
+                            .pos(32, 74)
                             .capacity(1)
                             .filter(ResourceFilters.canExtractFluid(Gases.SOLAR_VOLATILE_GAS))
                             .icon(Pair.of(InventoryMenu.BLOCK_ATLAS, Constant.SlotSprite.BUCKET)),
                     ItemResourceSlot.builder(TransferType.PROCESSING)
-                            .pos(152, 62)
+                            .pos(126, 74)
                             .capacity(1)
                             .filter(ResourceFilters.canInsertFluid(Gases.HELIUM_3))
                             .icon(Pair.of(InventoryMenu.BLOCK_ATLAS, Constant.SlotSprite.BUCKET)),
                     ItemResourceSlot.builder(TransferType.OUTPUT)
-                            .pos(106, 46)
+                            .pos(98, 52),
+                    ItemResourceSlot.builder(TransferType.PROCESSING)
+                            .pos(150, 74)
+                            .capacity(1)
+                            .filter(ResourceFilters.canInsertFluid(Gases.HELIUM))
+                            .icon(Pair.of(InventoryMenu.BLOCK_ATLAS, Constant.SlotSprite.BUCKET))
             ),
             MachineEnergyStorage.spec(
                     ENERGY_CAPACITY,
@@ -111,17 +124,22 @@ public class IsotopicCentrifugeBlockEntity extends MachineBlockEntity {
             ),
             MachineFluidStorage.spec(
                     FluidResourceSlot.builder(TransferType.INPUT)
-                            .pos(42, 8)
+                            .pos(32, 20)
                             .capacity(GAS_TANK_CAPACITY)
                             .filter(ResourceFilters.ofResource(Gases.SOLAR_VOLATILE_GAS)),
                     FluidResourceSlot.builder(TransferType.OUTPUT)
-                            .pos(152, 8)
+                            .pos(126, 20)
                             .capacity(GAS_TANK_CAPACITY)
-                            .filter(ResourceFilters.ofResource(Gases.HELIUM_3))
+                            .filter(ResourceFilters.ofResource(Gases.HELIUM_3)),
+                    FluidResourceSlot.builder(TransferType.OUTPUT)
+                            .pos(150, 20)
+                            .capacity(GAS_TANK_CAPACITY)
+                            .filter(ResourceFilters.ofResource(Gases.HELIUM))
             )
     );
 
     private final FluidSource fluidSource = new FluidSource(this);
+    private int rotorRpm = 0;
     private int progress = 0;
     private int maxProgress = GAS_CYCLE_TICKS;
 
@@ -135,6 +153,7 @@ public class IsotopicCentrifugeBlockEntity extends MachineBlockEntity {
         this.chargeFromSlot(CHARGE_SLOT);
         this.takeFluidFromSlot(INPUT_CANISTER_SLOT, INPUT_GAS_TANK, Gases.SOLAR_VOLATILE_GAS);
         this.drainFluidToSlot(OUTPUT_CANISTER_SLOT, OUTPUT_GAS_TANK);
+        this.drainFluidToSlot(TAILINGS_CANISTER_SLOT, TAILINGS_GAS_TANK);
     }
 
     @Override
@@ -146,71 +165,107 @@ public class IsotopicCentrifugeBlockEntity extends MachineBlockEntity {
         ItemResourceSlot coilSlot = this.itemStorage().slot(COIL_SLOT);
         if (coilSlot.isEmpty() || coilSlot.getResource() != GCItems.SUPERCONDUCTING_COIL) {
             this.progress = 0;
+            this.spinDown();
             return GCMachineStatuses.MISSING_COIL;
         }
 
         FluidResourceSlot inputTank = this.fluidStorage().slot(INPUT_GAS_TANK);
         FluidResourceSlot outputTank = this.fluidStorage().slot(OUTPUT_GAS_TANK);
+        FluidResourceSlot tailingsTank = this.fluidStorage().slot(TAILINGS_GAS_TANK);
 
         long gasInputDroplets = GAS_INPUT_PER_CYCLE_MB * FluidUtil.MILLIBUCKET;
-        long gasOutputDroplets = GAS_OUTPUT_PER_CYCLE_MB * FluidUtil.MILLIBUCKET;
+        long he3OutputDroplets = GAS_HE3_OUTPUT_MB * FluidUtil.MILLIBUCKET;
+        long he4OutputDroplets = GAS_HE4_TAILINGS_MB * FluidUtil.MILLIBUCKET;
 
-        // Primary mode: Magnetic isotopic separation of SOLAR_VOLATILE_GAS -> HELIUM_3
-        if (!inputTank.isEmpty() && inputTank.getResource() == Gases.SOLAR_VOLATILE_GAS && inputTank.getAmount() >= gasInputDroplets) {
-            this.maxProgress = GAS_CYCLE_TICKS;
-            if (outputTank.tryInsert(Gases.HELIUM_3, gasOutputDroplets) < gasOutputDroplets) {
+        boolean hasGasJob = !inputTank.isEmpty() && inputTank.getResource() == Gases.SOLAR_VOLATILE_GAS && inputTank.getAmount() >= gasInputDroplets;
+        ItemResourceSlot solidSlot = this.itemStorage().slot(SOLID_INPUT_SLOT);
+        SolidSeparationSpec solidSpec = !hasGasJob && !solidSlot.isEmpty() ? getSolidSeparationSpec(solidSlot.getResource()) : null;
+
+        if (!hasGasJob && solidSpec == null) {
+            this.progress = 0;
+            this.spinDown();
+            return MachineStatuses.INVALID_RECIPE;
+        }
+
+        if (hasGasJob) {
+            if (outputTank.tryInsert(Gases.HELIUM_3, he3OutputDroplets) < he3OutputDroplets) {
+                this.spinDown();
                 return GCMachineStatuses.GAS_TANK_FULL;
             }
-            if (!this.energyStorage().canExtract(ENERGY_CONSUMPTION)) {
-                return MachineStatuses.NOT_ENOUGH_ENERGY;
+        } else {
+            long solidGasDroplets = solidSpec.helium3Mb * FluidUtil.MILLIBUCKET;
+            if (outputTank.tryInsert(Gases.HELIUM_3, solidGasDroplets) < solidGasDroplets) {
+                this.spinDown();
+                return GCMachineStatuses.GAS_TANK_FULL;
             }
+            ItemResourceSlot byproductSlot = this.itemStorage().slot(BYPRODUCT_SLOT);
+            if (solidSpec.byproduct != null && !byproductSlot.canInsert(solidSpec.byproduct, 1)) {
+                this.spinDown();
+                return MachineStatuses.OUTPUT_FULL;
+            }
+        }
 
-            this.energyStorage().extract(ENERGY_CONSUMPTION);
+        if (!this.energyStorage().canExtract(ENERGY_CONSUMPTION)) {
+            this.spinDown();
+            return MachineStatuses.NOT_ENOUGH_ENERGY;
+        }
+
+        this.energyStorage().extract(ENERGY_CONSUMPTION);
+
+        // Stage 1: Spin up magnetic centrifuge rotor to >= 40,000 RPM for 3u vs 4u mass separation
+        if (this.rotorRpm < TARGET_RPM) {
+            this.rotorRpm = Math.min(MAX_RPM, this.rotorRpm + RPM_ACCEL);
+            return GCMachineStatuses.SPINNING_UP;
+        }
+        this.rotorRpm = Math.min(MAX_RPM, this.rotorRpm + 500);
+
+        if (hasGasJob) {
+            this.maxProgress = GAS_CYCLE_TICKS;
             this.progress++;
             if (this.progress >= GAS_CYCLE_TICKS) {
                 inputTank.extract(Gases.SOLAR_VOLATILE_GAS, gasInputDroplets);
-                outputTank.insert(Gases.HELIUM_3, gasOutputDroplets);
+                outputTank.insert(Gases.HELIUM_3, he3OutputDroplets);
+                // Vent/capture depleted 4He tailings into secondary tank when space is available
+                long he4Space = tailingsTank.tryInsert(Gases.HELIUM, he4OutputDroplets);
+                if (he4Space > 0) {
+                    tailingsTank.insert(Gases.HELIUM, he4Space);
+                }
                 this.progress = 0;
                 this.setChanged();
             }
             return GCMachineStatuses.SEPARATING;
         }
 
-        // Secondary mode: Direct solid mineral isotopic extraction
-        ItemResourceSlot solidSlot = this.itemStorage().slot(SOLID_INPUT_SLOT);
-        if (!solidSlot.isEmpty()) {
-            SolidSeparationSpec solidSpec = getSolidSeparationSpec(solidSlot.getResource());
-            if (solidSpec != null) {
-                this.maxProgress = SOLID_CYCLE_TICKS;
-                long solidGasDroplets = solidSpec.helium3Mb * FluidUtil.MILLIBUCKET;
-                if (outputTank.tryInsert(Gases.HELIUM_3, solidGasDroplets) < solidGasDroplets) {
-                    return GCMachineStatuses.GAS_TANK_FULL;
-                }
-                ItemResourceSlot byproductSlot = this.itemStorage().slot(BYPRODUCT_SLOT);
-                if (solidSpec.byproduct != null && !byproductSlot.canInsert(solidSpec.byproduct, 1)) {
-                    return MachineStatuses.OUTPUT_FULL;
-                }
-                if (!this.energyStorage().canExtract(ENERGY_CONSUMPTION)) {
-                    return MachineStatuses.NOT_ENOUGH_ENERGY;
-                }
-
-                this.energyStorage().extract(ENERGY_CONSUMPTION);
-                this.progress++;
-                if (this.progress >= SOLID_CYCLE_TICKS) {
-                    solidSlot.extractOne();
-                    outputTank.insert(Gases.HELIUM_3, solidGasDroplets);
-                    if (solidSpec.byproduct != null) {
-                        byproductSlot.insert(solidSpec.byproduct, 1);
-                    }
-                    this.progress = 0;
-                    this.setChanged();
-                }
-                return GCMachineStatuses.SEPARATING;
+        // Direct solid mineral isotopic extraction
+        this.maxProgress = SOLID_CYCLE_TICKS;
+        this.progress++;
+        if (this.progress >= SOLID_CYCLE_TICKS) {
+            long solidGasDroplets = solidSpec.helium3Mb * FluidUtil.MILLIBUCKET;
+            solidSlot.extractOne();
+            outputTank.insert(Gases.HELIUM_3, solidGasDroplets);
+            long he4Tailings = (solidSpec.helium3Mb / 2L) * FluidUtil.MILLIBUCKET;
+            long he4Space = tailingsTank.tryInsert(Gases.HELIUM, he4Tailings);
+            if (he4Space > 0) {
+                tailingsTank.insert(Gases.HELIUM, he4Space);
             }
+            if (solidSpec.byproduct != null) {
+                this.itemStorage().slot(BYPRODUCT_SLOT).insert(solidSpec.byproduct, 1);
+            }
+            this.progress = 0;
+            this.setChanged();
         }
+        return GCMachineStatuses.SEPARATING;
+    }
 
-        this.progress = 0;
-        return MachineStatuses.INVALID_RECIPE;
+    @Override
+    protected void tickDisabled(@NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull ProfilerFiller profiler) {
+        this.spinDown();
+    }
+
+    private void spinDown() {
+        if (this.rotorRpm > 0) {
+            this.rotorRpm = Math.max(0, this.rotorRpm - RPM_DECAY);
+        }
     }
 
     private static @Nullable SolidSeparationSpec getSolidSeparationSpec(Item item) {
@@ -235,6 +290,14 @@ public class IsotopicCentrifugeBlockEntity extends MachineBlockEntity {
     private record SolidSeparationSpec(long helium3Mb, @Nullable Item byproduct) {
     }
 
+    public int getRotorRpm() {
+        return this.rotorRpm;
+    }
+
+    public void setRotorRpm(int rotorRpm) {
+        this.rotorRpm = rotorRpm;
+    }
+
     public int getProgress() {
         return this.progress;
     }
@@ -246,6 +309,7 @@ public class IsotopicCentrifugeBlockEntity extends MachineBlockEntity {
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider lookup) {
         super.saveAdditional(tag, lookup);
+        tag.putInt("rotor_rpm", this.rotorRpm);
         tag.putInt("progress", this.progress);
         tag.putInt("max_progress", this.maxProgress);
     }
@@ -253,6 +317,7 @@ public class IsotopicCentrifugeBlockEntity extends MachineBlockEntity {
     @Override
     public void loadAdditional(CompoundTag tag, HolderLookup.Provider lookup) {
         super.loadAdditional(tag, lookup);
+        this.rotorRpm = tag.getInt("rotor_rpm");
         this.progress = tag.getInt("progress");
         this.maxProgress = tag.contains("max_progress") ? Math.max(1, tag.getInt("max_progress")) : GAS_CYCLE_TICKS;
     }

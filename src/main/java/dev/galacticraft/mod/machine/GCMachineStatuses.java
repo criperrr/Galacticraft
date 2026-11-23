@@ -89,6 +89,10 @@ public final class GCMachineStatuses {
     public static final MachineStatus MISSING_FUSION_FUEL = MachineStatus.create(Translations.MachineStatus.MISSING_FUSION_FUEL, ChatFormatting.RED, MachineStatus.Type.MISSING_FLUIDS);
     public static final MachineStatus GAS_TANK_FULL = MachineStatus.create(Translations.MachineStatus.GAS_TANK_FULL, ChatFormatting.GOLD, MachineStatus.Type.OUTPUT_FULL);
     public static final MachineStatus MAGNETIC_QUENCH_SAFE = MachineStatus.create(Translations.MachineStatus.MAGNETIC_QUENCH_SAFE, ChatFormatting.YELLOW, MachineStatus.Type.OTHER);
+    public static final MachineStatus MULTIBLOCK_INCOMPLETE = MachineStatus.create(Translations.MachineStatus.MULTIBLOCK_INCOMPLETE, ChatFormatting.RED, MachineStatus.Type.OTHER);
+    public static final MachineStatus SPINNING_UP = MachineStatus.create(Translations.MachineStatus.SPINNING_UP, ChatFormatting.YELLOW, MachineStatus.Type.PARTIALLY_WORKING);
+    public static final MachineStatus IGNITING_PLASMA = MachineStatus.create(Translations.MachineStatus.IGNITING_PLASMA, ChatFormatting.GOLD, MachineStatus.Type.PARTIALLY_WORKING);
+    public static final MachineStatus EVACUATING_CHAMBER = MachineStatus.create(Translations.MachineStatus.EVACUATING_CHAMBER, ChatFormatting.YELLOW, MachineStatus.Type.PARTIALLY_WORKING);
 
     public static void register() {
     }

@@ -424,6 +424,10 @@ public interface Translations {
         String MISSING_FUSION_FUEL = "ui.galacticraft.status.missing_fusion_fuel";
         String GAS_TANK_FULL = "ui.galacticraft.status.gas_tank_full";
         String MAGNETIC_QUENCH_SAFE = "ui.galacticraft.status.magnetic_quench_safe";
+        String MULTIBLOCK_INCOMPLETE = "ui.galacticraft.status.multiblock_incomplete";
+        String SPINNING_UP = "ui.galacticraft.status.spinning_up";
+        String IGNITING_PLASMA = "ui.galacticraft.status.igniting_plasma";
+        String EVACUATING_CHAMBER = "ui.galacticraft.status.evacuating_chamber";
     }
 
     interface CelestialSelection {

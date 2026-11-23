@@ -537,6 +537,9 @@ public interface Constant {
         String REGOLITH_THERMAL_DESORBER = "regolith_thermal_desorber";
         String ISOTOPIC_CENTRIFUGE = "isotopic_centrifuge";
         String HELIUM3_FUSION_REACTOR = "helium3_fusion_reactor";
+        String FUSION_REACTOR_CASING = "fusion_reactor_casing";
+        String FUSION_MAGNET_COIL = "fusion_magnet_coil";
+        String FUSION_PLASMA_GLASS = "fusion_plasma_glass";
         String ENERGY_STORAGE_MODULE = "energy_storage_module";
         String ENERGY_STORAGE_CLUSTER = "energy_storage_cluster";
         String ALUMINUM_WIRE = "aluminum_wire";

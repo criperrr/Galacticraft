@@ -31,6 +31,7 @@ import net.minecraft.world.entity.player.Inventory;
 import org.jetbrains.annotations.NotNull;
 
 public class IsotopicCentrifugeMenu extends MachineMenu<IsotopicCentrifugeBlockEntity> {
+    private int rotorRpm;
     private int progress;
     private int maxProgress = 10;
 
@@ -39,14 +40,23 @@ public class IsotopicCentrifugeMenu extends MachineMenu<IsotopicCentrifugeBlockE
     }
 
     public IsotopicCentrifugeMenu(int syncId, @NotNull Inventory inventory, @NotNull BlockPos pos) {
-        super(GCMenuTypes.ISOTOPIC_CENTRIFUGE, syncId, inventory, pos, 8, 84);
+        super(GCMenuTypes.ISOTOPIC_CENTRIFUGE, syncId, inventory, pos, 8, 110);
     }
 
     @Override
     public void registerData(@NotNull MenuData data) {
         super.registerData(data);
+        data.registerInt(this.be::getRotorRpm, this::setRotorRpm);
         data.registerInt(this.be::getProgress, this::setProgress);
         data.registerInt(this.be::getMaxProgress, this::setMaxProgress);
+    }
+
+    public int getRotorRpm() {
+        return this.rotorRpm;
+    }
+
+    public void setRotorRpm(int rotorRpm) {
+        this.rotorRpm = rotorRpm;
     }
 
     public int getProgress() {

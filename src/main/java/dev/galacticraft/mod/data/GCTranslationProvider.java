@@ -511,6 +511,9 @@ public class GCTranslationProvider extends TranslationProvider {
         this.block(GCBlocks.REGOLITH_THERMAL_DESORBER, "Regolith Thermal Desorber");
         this.block(GCBlocks.ISOTOPIC_CENTRIFUGE, "Isotopic Centrifuge");
         this.block(GCBlocks.HELIUM3_FUSION_REACTOR, "Helium-3 Fusion Reactor");
+        this.block(GCBlocks.FUSION_REACTOR_CASING, "MHD Fusion Casing");
+        this.block(GCBlocks.FUSION_MAGNET_COIL, "Superconducting Toroid Coil");
+        this.block(GCBlocks.FUSION_PLASMA_GLASS, "MHD Plasma Containment Glass");
         this.block(GCBlocks.OXYGEN_COLLECTOR, "Oxygen Collector");
         this.block(GCBlocks.OXYGEN_DETECTOR, "Oxygen Detector");
         this.block(GCBlocks.OXYGEN_SEALER, "Oxygen Sealer");
@@ -1278,7 +1281,10 @@ public class GCTranslationProvider extends TranslationProvider {
         this.blockDesc(GCBlocks.GEOTHERMAL_GENERATOR, "Harnesses geothermal energy from vapor spouts to generate electricity.");
         this.blockDesc(GCBlocks.REGOLITH_THERMAL_DESORBER, "Heats lunar and mercurian regolith above 700°C in vacuum to desorb solar volatile gases and recover titanium and silicon.");
         this.blockDesc(GCBlocks.ISOTOPIC_CENTRIFUGE, "Magnetically separates Helium-3 from solar volatile gas and enriched planetary ores using a superconducting coil.");
-        this.blockDesc(GCBlocks.HELIUM3_FUSION_REACTOR, "Aneutronic D-3He MHD fusion reactor generating 2,500-5,000 GJ/t cleanly with zero radiation or meltdown risk.");
+        this.blockDesc(GCBlocks.HELIUM3_FUSION_REACTOR, "3x3x3 multiblock aneutronic D-3He MHD fusion reactor controller generating 2,500-5,000 GJ/t cleanly with zero radiation.");
+        this.blockDesc(GCBlocks.FUSION_REACTOR_CASING, "Niobium-titanium structural containment casing for the 3x3x3 Helium-3 Fusion Reactor torus.");
+        this.blockDesc(GCBlocks.FUSION_MAGNET_COIL, "Nb3Sn superconducting toroidal field magnet required at the 4 corners and top/bottom core of the Helium-3 Fusion Reactor.");
+        this.blockDesc(GCBlocks.FUSION_PLASMA_GLASS, "Sapphire-reinforced vacuum window for viewing the live MHD plasma core inside the Helium-3 Fusion Reactor.");
 
         this.add(Tooltip.CREATIVE_ONLY, "Creative Only");
         this.add(Tooltip.ENERGY_REMAINING, "Energy Remaining: %s");
@@ -1465,6 +1471,10 @@ public class GCTranslationProvider extends TranslationProvider {
         this.add(MachineStatus.MISSING_FUSION_FUEL, "Missing D / 3He Gas");
         this.add(MachineStatus.GAS_TANK_FULL, "Gas Tank Full");
         this.add(MachineStatus.MAGNETIC_QUENCH_SAFE, "Quench-Safe Shutdown");
+        this.add(MachineStatus.MULTIBLOCK_INCOMPLETE, "Torus Structure Incomplete");
+        this.add(MachineStatus.SPINNING_UP, "Spinning Up Rotor");
+        this.add(MachineStatus.IGNITING_PLASMA, "Igniting MHD Plasma");
+        this.add(MachineStatus.EVACUATING_CHAMBER, "Evacuating Vacuum Chamber");
     }
 
     protected void generateCelestialSelectionTranslations() {

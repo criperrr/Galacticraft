@@ -606,6 +606,10 @@ public class GCModelProvider extends FabricModelProvider {
                         .build()
         );
 
+        generator.createTrivialCube(GCBlocks.FUSION_REACTOR_CASING);
+        generator.createTrivialCube(GCBlocks.FUSION_MAGNET_COIL);
+        generator.createTrivialCube(GCBlocks.FUSION_PLASMA_GLASS);
+
         createFullCubeActiveMachine(generator, GCBlocks.OXYGEN_COLLECTOR);
         createFullCubeActiveMachine(generator, GCBlocks.OXYGEN_BUBBLE_DISTRIBUTOR);
 

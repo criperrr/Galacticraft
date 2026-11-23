@@ -337,6 +337,39 @@ public class GCMachineRecipes extends FabricRecipeProvider {
                 .emiDefaultRecipe(true)
                 .save(output);
 
+        GCShapedRecipeBuilder.crafting(RecipeCategory.DECORATIONS, GCBlocks.FUSION_REACTOR_CASING, 4)
+                .define('N', GCItems.COMPRESSED_NIOBIUM)
+                .define('T', GCItems.COMPRESSED_TITANIUM)
+                .define('P', GCItems.TIER_2_HEAVY_DUTY_PLATE)
+                .pattern("NTN")
+                .pattern("TPT")
+                .pattern("NTN")
+                .unlockedBy(getHasName(GCItems.COMPRESSED_NIOBIUM), has(GCItems.COMPRESSED_NIOBIUM))
+                .emiDefaultRecipe(true)
+                .save(output);
+
+        GCShapedRecipeBuilder.crafting(RecipeCategory.DECORATIONS, GCBlocks.FUSION_MAGNET_COIL, 2)
+                .define('N', GCItems.COMPRESSED_NIOBIUM)
+                .define('C', GCItems.SUPERCONDUCTING_COIL)
+                .define('K', GCItems.COMPRESSED_COPPER)
+                .pattern("NKN")
+                .pattern("KCK")
+                .pattern("NKN")
+                .unlockedBy(getHasName(GCItems.SUPERCONDUCTING_COIL), has(GCItems.SUPERCONDUCTING_COIL))
+                .emiDefaultRecipe(true)
+                .save(output);
+
+        GCShapedRecipeBuilder.crafting(RecipeCategory.DECORATIONS, GCBlocks.FUSION_PLASMA_GLASS, 4)
+                .define('G', GCBlocks.STRONG_VACUUM_GLASS)
+                .define('S', GCItems.LUNAR_SAPPHIRE)
+                .define('N', GCItems.COMPRESSED_NIOBIUM)
+                .pattern("NGN")
+                .pattern("GSG")
+                .pattern("NGN")
+                .unlockedBy(getHasName(GCItems.LUNAR_SAPPHIRE), has(GCItems.LUNAR_SAPPHIRE))
+                .emiDefaultRecipe(true)
+                .save(output);
+
         GCShapedRecipeBuilder.crafting(RecipeCategory.DECORATIONS, GCBlocks.FUEL_LOADER)
                 .define('U', GCItems.COMPRESSED_COPPER)
                 .define('C', GCItems.TIN_CANISTER)

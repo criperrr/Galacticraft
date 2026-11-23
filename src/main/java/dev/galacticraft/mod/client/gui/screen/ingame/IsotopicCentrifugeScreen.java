@@ -37,22 +37,45 @@ import net.minecraft.world.entity.player.Inventory;
 public class IsotopicCentrifugeScreen extends MachineScreen<IsotopicCentrifugeBlockEntity, IsotopicCentrifugeMenu> {
     public IsotopicCentrifugeScreen(IsotopicCentrifugeMenu handler, Inventory inv, Component title) {
         super(handler, title, Constant.ScreenTexture.ISOTOPIC_CENTRIFUGE_SCREEN);
+        this.imageWidth = 176;
+        this.imageHeight = 192;
         this.capacitorX = 8;
-        this.capacitorY = 8;
+        this.capacitorY = 20;
     }
 
     @Override
     protected void renderMachineBackground(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
         super.renderMachineBackground(graphics, mouseX, mouseY, delta);
 
-        int barX = this.leftPos + 100;
-        int barY = this.topPos + 24;
-        int barW = 42;
-        int barH = 6;
-        graphics.fill(barX, barY, barX + barW, barY + barH, 0xFF2B2B30);
+        // Separation progress bar
+        int barX = this.leftPos + 90;
+        int barY = this.topPos + 27;
+        int barW = 28;
+        int barH = 8;
+        graphics.fill(barX, barY, barX + barW, barY + barH, 0xFF23252B);
         int fill = Mth.clamp((int) ((float) this.menu.getProgress() / (float) this.menu.getMaxProgress() * barW), 0, barW);
         if (fill > 0) {
-            graphics.fill(barX, barY, barX + fill, barY + barH, 0xFF55E6FF);
+            graphics.fill(barX, barY, barX + fill, barY + barH, 0xFF39D5FF);
         }
+
+        // Rotor RPM readout & bar
+        int rpm = this.menu.getRotorRpm();
+        int rpmColor = rpm >= IsotopicCentrifugeBlockEntity.TARGET_RPM ? 0xFF007B9E : 0xFF555555;
+        graphics.drawString(this.font, (rpm / 1000) + "k RPM", this.leftPos + 56, this.topPos + 76, rpmColor, false);
+
+        int rpmBarX = this.leftPos + 56;
+        int rpmBarY = this.topPos + 87;
+        int rpmBarW = 62;
+        graphics.fill(rpmBarX, rpmBarY, rpmBarX + rpmBarW, rpmBarY + 5, 0xFF23252B);
+        int rpmFill = Mth.clamp((int) ((float) rpm / (float) IsotopicCentrifugeBlockEntity.MAX_RPM * rpmBarW), 0, rpmBarW);
+        if (rpmFill > 0) {
+            int barCol = rpm >= IsotopicCentrifugeBlockEntity.TARGET_RPM ? 0xFF2AE8FF : 0xFFE6A23C;
+            graphics.fill(rpmBarX, rpmBarY, rpmBarX + rpmFill, rpmBarY + 5, barCol);
+        }
+
+        // Tank labels
+        graphics.drawString(this.font, "SV", this.leftPos + 35, this.topPos + 95, 0xFF705820, false);
+        graphics.drawString(this.font, "3He", this.leftPos + 126, this.topPos + 95, 0xFF007B9E, false);
+        graphics.drawString(this.font, "4He", this.leftPos + 150, this.topPos + 95, 0xFF606060, false);
     }
 }

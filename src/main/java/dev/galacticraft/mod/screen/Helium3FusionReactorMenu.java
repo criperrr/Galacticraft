@@ -31,6 +31,9 @@ import net.minecraft.world.entity.player.Inventory;
 import org.jetbrains.annotations.NotNull;
 
 public class Helium3FusionReactorMenu extends MachineMenu<Helium3FusionReactorBlockEntity> {
+    private int validStructureBlocks;
+    private boolean multiblockFormed;
+    private int plasmaTempMk;
     private int burnTime;
     private int burnDuration = 40;
     private int activeGenerationRate;
@@ -42,17 +45,44 @@ public class Helium3FusionReactorMenu extends MachineMenu<Helium3FusionReactorBl
     }
 
     public Helium3FusionReactorMenu(int syncId, @NotNull Inventory inventory, @NotNull BlockPos pos) {
-        super(GCMenuTypes.HELIUM3_FUSION_REACTOR, syncId, inventory, pos, 8, 84);
+        super(GCMenuTypes.HELIUM3_FUSION_REACTOR, syncId, inventory, pos, 8, 110);
     }
 
     @Override
     public void registerData(@NotNull MenuData data) {
         super.registerData(data);
+        data.registerInt(this.be::getValidStructureBlocks, this::setValidStructureBlocks);
+        data.registerBoolean(this.be::isMultiblockFormed, this::setMultiblockFormed);
+        data.registerInt(this.be::getPlasmaTempMk, this::setPlasmaTempMk);
         data.registerInt(this.be::getBurnTime, this::setBurnTime);
         data.registerInt(this.be::getBurnDuration, this::setBurnDuration);
         data.registerInt(this.be::getActiveGenerationRate, this::setActiveGenerationRate);
         data.registerBoolean(this.be::isCryoCooled, this::setCryoCooled);
         data.registerInt(this.be::getCellSynthesisProgress, this::setCellSynthesisProgress);
+    }
+
+    public int getValidStructureBlocks() {
+        return this.validStructureBlocks;
+    }
+
+    public void setValidStructureBlocks(int validStructureBlocks) {
+        this.validStructureBlocks = validStructureBlocks;
+    }
+
+    public boolean isMultiblockFormed() {
+        return this.multiblockFormed;
+    }
+
+    public void setMultiblockFormed(boolean multiblockFormed) {
+        this.multiblockFormed = multiblockFormed;
+    }
+
+    public int getPlasmaTempMk() {
+        return this.plasmaTempMk;
+    }
+
+    public void setPlasmaTempMk(int plasmaTempMk) {
+        this.plasmaTempMk = plasmaTempMk;
     }
 
     public int getBurnTime() {

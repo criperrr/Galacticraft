@@ -79,26 +79,31 @@ public class RegolithThermalDesorberBlockEntity extends MachineBlockEntity {
     public static final int AMBIENT_TEMPERATURE = 20;
     public static final int TARGET_TEMPERATURE = 700;
     public static final int MAX_TEMPERATURE = 850;
-    public static final int HEAT_RATE = 15;
+    public static final int HEAT_RATE = 18;
     public static final int COOL_RATE = 10;
+
+    public static final int TARGET_VACUUM = 90;
+    public static final int MAX_VACUUM = 100;
+    public static final int VACUUM_PUMP_RATE = 5;
+    public static final int VACUUM_DECAY_RATE = 2;
 
     private static final StorageSpec SPEC = StorageSpec.of(
             MachineItemStorage.spec(
                     ItemResourceSlot.builder(TransferType.TRANSFER)
-                            .pos(8, 62)
+                            .pos(8, 74)
                             .capacity(1)
                             .filter(ResourceFilters.CAN_EXTRACT_ENERGY)
                             .icon(Pair.of(InventoryMenu.BLOCK_ATLAS, Constant.SlotSprite.ENERGY)),
                     ItemResourceSlot.builder(TransferType.INPUT)
-                            .pos(38, 22),
+                            .pos(36, 26),
                     ItemResourceSlot.builder(TransferType.INPUT)
-                            .pos(38, 44),
+                            .pos(36, 48),
                     ItemResourceSlot.builder(TransferType.OUTPUT)
-                            .pos(98, 22),
+                            .pos(108, 26),
                     ItemResourceSlot.builder(TransferType.OUTPUT)
-                            .pos(98, 44),
+                            .pos(108, 48),
                     ItemResourceSlot.builder(TransferType.PROCESSING)
-                            .pos(152, 62)
+                            .pos(148, 74)
                             .capacity(1)
                             .filter(ResourceFilters.canInsertFluid(Gases.SOLAR_VOLATILE_GAS))
                             .icon(Pair.of(InventoryMenu.BLOCK_ATLAS, Constant.SlotSprite.BUCKET))
@@ -110,7 +115,7 @@ public class RegolithThermalDesorberBlockEntity extends MachineBlockEntity {
             ),
             MachineFluidStorage.spec(
                     FluidResourceSlot.builder(TransferType.OUTPUT)
-                            .pos(152, 8)
+                            .pos(148, 20)
                             .capacity(GAS_TANK_CAPACITY)
                             .filter(ResourceFilters.ofResource(Gases.SOLAR_VOLATILE_GAS))
             )
@@ -118,6 +123,7 @@ public class RegolithThermalDesorberBlockEntity extends MachineBlockEntity {
 
     private final FluidSource fluidSource = new FluidSource(this);
     private int temperature = AMBIENT_TEMPERATURE;
+    private int vacuumPercent = 0;
     private int progress = 0;
     private int maxProgress = 100;
 
@@ -182,11 +188,21 @@ public class RegolithThermalDesorberBlockEntity extends MachineBlockEntity {
 
         this.energyStorage().extract(ENERGY_CONSUMPTION);
 
+        // Stage 1: Evacuate vacuum chamber before high-temperature volatile desorption
+        if (this.vacuumPercent < TARGET_VACUUM) {
+            this.vacuumPercent = Math.min(MAX_VACUUM, this.vacuumPercent + VACUUM_PUMP_RATE);
+            this.temperature = Math.min(TARGET_TEMPERATURE / 2, this.temperature + HEAT_RATE / 2);
+            return GCMachineStatuses.EVACUATING_CHAMBER;
+        }
+        this.vacuumPercent = Math.min(MAX_VACUUM, this.vacuumPercent + 2);
+
+        // Stage 2: Heat chamber above 700C in vacuum
         if (this.temperature < TARGET_TEMPERATURE) {
             this.temperature = Math.min(MAX_TEMPERATURE, this.temperature + HEAT_RATE);
             return GCMachineStatuses.WARMING_UP;
         }
 
+        // Stage 3: Desorb solar volatile gas + separate mineral byproducts
         this.temperature = Math.min(MAX_TEMPERATURE, this.temperature + 5);
         this.progress++;
 
@@ -215,6 +231,9 @@ public class RegolithThermalDesorberBlockEntity extends MachineBlockEntity {
     private void coolDown() {
         if (this.temperature > AMBIENT_TEMPERATURE) {
             this.temperature = Math.max(AMBIENT_TEMPERATURE, this.temperature - COOL_RATE);
+        }
+        if (this.vacuumPercent > 0) {
+            this.vacuumPercent = Math.max(0, this.vacuumPercent - VACUUM_DECAY_RATE);
         }
     }
 
@@ -245,6 +264,14 @@ public class RegolithThermalDesorberBlockEntity extends MachineBlockEntity {
         this.temperature = temperature;
     }
 
+    public int getVacuumPercent() {
+        return this.vacuumPercent;
+    }
+
+    public void setVacuumPercent(int vacuumPercent) {
+        this.vacuumPercent = vacuumPercent;
+    }
+
     public int getProgress() {
         return this.progress;
     }
@@ -257,6 +284,7 @@ public class RegolithThermalDesorberBlockEntity extends MachineBlockEntity {
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider lookup) {
         super.saveAdditional(tag, lookup);
         tag.putInt("temperature", this.temperature);
+        tag.putInt("vacuum_percent", this.vacuumPercent);
         tag.putInt("progress", this.progress);
         tag.putInt("max_progress", this.maxProgress);
     }
@@ -265,6 +293,7 @@ public class RegolithThermalDesorberBlockEntity extends MachineBlockEntity {
     public void loadAdditional(CompoundTag tag, HolderLookup.Provider lookup) {
         super.loadAdditional(tag, lookup);
         this.temperature = tag.contains("temperature") ? tag.getInt("temperature") : AMBIENT_TEMPERATURE;
+        this.vacuumPercent = tag.getInt("vacuum_percent");
         this.progress = tag.getInt("progress");
         this.maxProgress = tag.contains("max_progress") ? Math.max(1, tag.getInt("max_progress")) : 100;
     }
