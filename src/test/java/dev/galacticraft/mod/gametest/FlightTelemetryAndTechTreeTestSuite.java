@@ -27,15 +27,19 @@ import dev.galacticraft.api.component.GCDataComponents;
 import dev.galacticraft.api.component.OrbitalSurveyData;
 import dev.galacticraft.api.component.TelemetryData;
 import dev.galacticraft.api.registry.AddonRegistries;
+import dev.galacticraft.api.rocket.part.modular.RocketLivery;
+import dev.galacticraft.api.rocket.part.modular.RocketPartConfig;
 import dev.galacticraft.api.universe.celestialbody.CelestialBody;
 import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.content.GCBlocks;
 import dev.galacticraft.mod.content.GCCelestialBodies;
+import dev.galacticraft.mod.content.block.entity.ModularRocketPartBlockEntity;
 import dev.galacticraft.mod.content.block.entity.machine.AerospaceRdTerminalBlockEntity;
 import dev.galacticraft.mod.content.block.entity.machine.TelemetryAnalyzerBlockEntity;
 import dev.galacticraft.mod.content.entity.orbital.FlightTelemetryEngine;
 import dev.galacticraft.mod.content.entity.orbital.ReactiveSampleContainmentHandler;
 import dev.galacticraft.mod.content.item.GCItems;
+import dev.galacticraft.mod.content.rocket.part.RocketPartCatalog;
 import dev.galacticraft.mod.content.rocket.physics.PlanetaryEnvironment;
 import dev.galacticraft.mod.research.ResearchCatalog;
 import dev.galacticraft.mod.research.ResearchDomain;
@@ -45,11 +49,17 @@ import dev.galacticraft.mod.research.ResearchNode;
 import dev.galacticraft.mod.research.ResearchRecipeGate;
 import dev.galacticraft.mod.research.TeamResearchState;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameType;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 
@@ -188,6 +198,32 @@ public class FlightTelemetryAndTechTreeTestSuite implements GalacticraftGameTest
                 || ReactiveSampleContainmentHandler.isReactiveSample(new ItemStack(GCItems.RAW_DESH))) {
             context.fail("ReactiveSampleContainmentHandler classification mismatch");
             return;
+        }
+
+        // 6. Multi-voxel proxy interaction: clicking an outer RocketPartBoundsBlock of a 3x3 science module accepts BLANK_DATA_DRIVE!
+        var cameraSpec = RocketPartCatalog.getInstance().getPart("science_orbital_camera_multispectral_3x3_2b");
+        if (cameraSpec != null) {
+            BlockPos masterRel = new BlockPos(2, 1, 2);
+            context.setBlock(masterRel, GCBlocks.ROCKET_PART_PAYLOAD);
+            ModularRocketPartBlockEntity camBe = context.getBlockEntity(masterRel);
+            RocketPartConfig camCfg = cameraSpec.toConfig(RocketLivery.WHITE);
+            camBe.initializePart(camCfg, null, null, Direction.NORTH);
+            if (camBe.getOccupiedProxies().isEmpty()) {
+                context.fail("Expected 3x3 science_orbital_camera_multispectral to spawn proxy voxels");
+                return;
+            }
+            BlockPos proxyWorld = camBe.getOccupiedProxies().get(0);
+            Player mockPlayer = context.makeMockPlayer(GameType.SURVIVAL);
+            ItemStack drive = new ItemStack(GCItems.BLANK_DATA_DRIVE);
+            mockPlayer.setItemInHand(InteractionHand.MAIN_HAND, drive);
+            BlockHitResult hit = new BlockHitResult(Vec3.atCenterOf(proxyWorld), Direction.NORTH, proxyWorld, false);
+            var interaction = context.getLevel().getBlockState(proxyWorld).useItemOn(
+                    drive, context.getLevel(), mockPlayer, InteractionHand.MAIN_HAND, hit);
+            if (!interaction.consumesAction() || !camBe.getScienceDrive().is(GCItems.RECORDED_DATA_DRIVE)) {
+                context.fail("Right-clicking outer proxy voxel of 3x3 science module with BLANK_DATA_DRIVE must insert & record drive, got "
+                        + interaction + " / stored=" + camBe.getScienceDrive());
+                return;
+            }
         }
 
         context.succeed();
