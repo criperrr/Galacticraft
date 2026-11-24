@@ -56,7 +56,8 @@
       "dev.galacticraft.mod.gametest.NiobiumMetallurgyTestSuite",
       "dev.galacticraft.mod.gametest.PlanetaryMultiOreStratigraphyTestSuite",
       "dev.galacticraft.mod.gametest.OuterPlanetsExoticMineralogyTestSuite",
-      "dev.galacticraft.mod.gametest.Helium3ChainTestSuite"
+      "dev.galacticraft.mod.gametest.Helium3ChainTestSuite",
+      "dev.galacticraft.mod.gametest.MetallurgicalCompositeMachinesTestSuite"
     ]
   },
   "custom": {
