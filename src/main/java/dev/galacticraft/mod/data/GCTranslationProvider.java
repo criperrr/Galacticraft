@@ -128,6 +128,7 @@ public class GCTranslationProvider extends TranslationProvider {
         this.block(GCBlocks.LIQUID_METHANE, "Liquid Methane");
         this.block(GCBlocks.MONOPROPELLANT, "Monopropellant (Hydrazine)");
         this.block(GCBlocks.LIQUID_XENON, "Liquid Xenon");
+        this.block(GCBlocks.PROPELLANT_GAS, "Propellant Vapor");
 
         // DECORATION BLOCKS
         this.decorationSet(GCBlocks.ALUMINUM_DECORATION, "Aluminum Decoration");

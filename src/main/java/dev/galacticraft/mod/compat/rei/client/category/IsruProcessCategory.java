@@ -75,30 +75,49 @@ public class IsruProcessCategory implements DisplayCategory<IsruProcessDisplay> 
         widgets.add(Widgets.createRecipeBase(bounds));
 
         int ox = bounds.x + 6;
-        int oy = bounds.y + 8;
+        int oy = bounds.y + 6;
+        int centerX = bounds.x + bounds.width / 2;
 
         List<EntryIngredient> inputs = display.getInputEntries();
         List<EntryIngredient> outputs = display.getOutputEntries();
 
         if (this.id.equals(GalacticraftREIServerPlugin.ELECTROLYTIC)) {
+            widgets.add(Widgets.createLabel(new Point(ox + 22, oy + 4), Component.literal("FEED"))
+                    .noShadow().color(0xFF607080, 0xFF90A4B8));
+            widgets.add(Widgets.createLabel(new Point(ox + 114, oy + 4), Component.literal("OUTPUTS"))
+                    .noShadow().color(0xFF607080, 0xFF90A4B8));
+
             if (!inputs.isEmpty()) {
-                widgets.add(Widgets.createSlot(new Point(ox + 10, oy + 18)).markInput().entries(inputs.get(0)));
+                widgets.add(Widgets.createSlot(new Point(ox + 14, oy + 18)).markInput().entries(inputs.get(0)));
             }
-            widgets.add(Widgets.createArrow(new Point(ox + 38, oy + 18)).animationDurationTicks(40));
+            widgets.add(Widgets.createArrow(new Point(ox + 44, oy + 18)).animationDurationTicks(40));
             for (int i = 0; i < Math.min(outputs.size(), 3); i++) {
-                widgets.add(Widgets.createSlot(new Point(ox + 74 + i * 24, oy + 18)).markOutput().entries(outputs.get(i)));
+                widgets.add(Widgets.createSlot(new Point(ox + 82 + i * 24, oy + 18)).markOutput().entries(outputs.get(i)));
             }
-            widgets.add(Widgets.createLabel(new Point(ox + 82, oy + 52),
+            widgets.add(Widgets.createLabel(new Point(centerX, oy + 52),
                     Component.literal(display.getSummary())).noShadow().color(0xFF1D6C8A, 0xFF7BE8FF));
         } else {
-            for (int i = 0; i < Math.min(inputs.size(), 3); i++) {
-                widgets.add(Widgets.createSlot(new Point(ox + 4 + i * 21, oy + 18)).markInput().entries(inputs.get(i)));
+            widgets.add(Widgets.createLabel(new Point(ox + 28, oy + 4), Component.literal("REAGENTS"))
+                    .noShadow().color(0xFF607080, 0xFF90A4B8));
+            if (display.hasCatalyst()) {
+                widgets.add(Widgets.createLabel(new Point(ox + 66, oy + 4), Component.literal("CAT"))
+                        .noShadow().color(0xFFB88628, 0xFFFFD866));
             }
-            widgets.add(Widgets.createArrow(new Point(ox + 72, oy + 18)).animationDurationTicks(45));
+            widgets.add(Widgets.createLabel(new Point(ox + 136, oy + 4), Component.literal("PRODUCTS"))
+                    .noShadow().color(0xFF607080, 0xFF90A4B8));
+
+            int reagentCount = display.hasCatalyst() ? Math.max(0, inputs.size() - 1) : inputs.size();
+            for (int i = 0; i < Math.min(reagentCount, 2); i++) {
+                widgets.add(Widgets.createSlot(new Point(ox + 8 + i * 22, oy + 18)).markInput().entries(inputs.get(i)));
+            }
+            if (display.hasCatalyst() && !inputs.isEmpty()) {
+                widgets.add(Widgets.createSlot(new Point(ox + 58, oy + 18)).markInput().entries(inputs.get(inputs.size() - 1)));
+            }
+            widgets.add(Widgets.createArrow(new Point(ox + 84, oy + 18)).animationDurationTicks(45));
             for (int i = 0; i < Math.min(outputs.size(), 2); i++) {
-                widgets.add(Widgets.createSlot(new Point(ox + 106 + i * 24, oy + 18)).markOutput().entries(outputs.get(i)));
+                widgets.add(Widgets.createSlot(new Point(ox + 118 + i * 22, oy + 18)).markOutput().entries(outputs.get(i)));
             }
-            widgets.add(Widgets.createLabel(new Point(ox + 82, oy + 52),
+            widgets.add(Widgets.createLabel(new Point(centerX, oy + 52),
                     Component.literal(display.getSummary())).noShadow().color(0xFF1B7050, 0xFF66F2BA));
         }
 

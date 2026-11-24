@@ -144,6 +144,10 @@ public class SealerManager {
         sealedBlocks = newSealedBlocks;
     }
 
+    public boolean isBlockSealed(BlockPos pos) {
+        return this.sealedBlocks.contains(pos);
+    }
+
     public void addSealer(OxygenSealerBlockEntity sealer) {
         BlockPos pos = sealer.getBlockPos();
         Constant.LOGGER.info("Adding sealer at {} in dimension {}", pos, level.dimension().location());

@@ -136,19 +136,63 @@ public class SabatierChemicalReactorScreen extends MachineScreen<SabatierChemica
         int tempTextColor = hot ? 0xFFC65102 : 0xFF525A66;
         graphics.drawString(this.font, tempStr, this.leftPos + 98 - this.font.width(tempStr) / 2, this.topPos + 84, tempTextColor, false);
 
+        // Subtle ghost labels inside empty catalyst / solid reagent slots
+        if (this.menu.itemStorage.slot(SabatierChemicalReactorBlockEntity.CATALYST_SLOT).isEmpty()) {
+            graphics.drawString(this.font, "CAT", this.leftPos + 77, this.topPos + 27, 0xFF8C7A52, false);
+        }
+        if (this.menu.itemStorage.slot(SabatierChemicalReactorBlockEntity.SOLID_REAGENT_SLOT).isEmpty()) {
+            graphics.drawString(this.font, "ORE", this.leftPos + 77, this.topPos + 56, 0xFF7A8598, false);
+        }
+
         // Bottom obsidian OLED chemical formula bar
         int lcdY = this.topPos + 100;
         String equation = getEquationText(reactionCode);
         int eqColor = reacting ? 0xFF5CF2C8 : (reactionCode != 0 ? 0xFFFFBA5A : 0xFF6B7B90);
         graphics.drawString(this.font, equation, this.leftPos + 88 - this.font.width(equation) / 2, lcdY, eqColor, false);
 
-        // Rich hover tooltip on reactor core / thermal bar
-        if (mouseIn(mouseX, mouseY, this.leftPos + 96, this.topPos + 42, 27, 42)) {
+        // Hover tooltip strictly on the reactor core OLED (never overlaps slots or REI thermal bar)
+        if (mouseIn(mouseX, mouseY, this.leftPos + 101, this.topPos + 44, 19, 24)) {
             this.setTooltipForNextRenderPass(List.of(
                     Component.literal("Catalytic Sabatier Reactor Bed").withStyle(ChatFormatting.GOLD).getVisualOrderText(),
                     Component.literal("Bed Temp: " + temp + "°C / " + targetTemp + "°C").withStyle(hot ? ChatFormatting.GREEN : ChatFormatting.YELLOW).getVisualOrderText(),
                     Component.literal("Catalyst: " + (catTier == 2 ? "Palladium (1.5x Speed)" : (catTier == 1 ? "Niobium (1.0x)" : "None"))).withStyle(ChatFormatting.AQUA).getVisualOrderText(),
                     Component.literal("Cycle: " + equation + " | 110 GJ/t").withStyle(ChatFormatting.GRAY).getVisualOrderText()
+            ));
+        } else if (this.menu.itemStorage.slot(SabatierChemicalReactorBlockEntity.CATALYST_SLOT).isEmpty()
+                && mouseIn(mouseX, mouseY, this.leftPos + 76, this.topPos + 22, 18, 18)) {
+            this.setTooltipForNextRenderPass(List.of(
+                    Component.literal("Catalyst Slot (Not Consumed)").withStyle(ChatFormatting.GOLD).getVisualOrderText(),
+                    Component.literal("Niobium Ingot (1.0x) or Palladium Ingot (1.5x)").withStyle(ChatFormatting.GRAY).getVisualOrderText()
+            ));
+        } else if (this.menu.itemStorage.slot(SabatierChemicalReactorBlockEntity.SOLID_REAGENT_SLOT).isEmpty()
+                && mouseIn(mouseX, mouseY, this.leftPos + 76, this.topPos + 51, 18, 18)) {
+            this.setTooltipForNextRenderPass(List.of(
+                    Component.literal("Solid Reagent Slot (Optional)").withStyle(ChatFormatting.YELLOW).getVisualOrderText(),
+                    Component.literal("Mercury Sulfide Ore + Water -> Sulfuric Acid").withStyle(ChatFormatting.GRAY).getVisualOrderText()
+            ));
+        } else if (this.menu.itemStorage.slot(SabatierChemicalReactorBlockEntity.REAGENT_A_CANISTER_SLOT).isEmpty()
+                && mouseIn(mouseX, mouseY, this.leftPos + 29, this.topPos + 75, 18, 18)) {
+            this.setTooltipForNextRenderPass(List.of(
+                    Component.literal("Reagent Tank A Input").withStyle(ChatFormatting.AQUA).getVisualOrderText(),
+                    Component.literal("Insert CO2, N2, Xenon, or Water Canister/Bucket").withStyle(ChatFormatting.GRAY).getVisualOrderText()
+            ));
+        } else if (this.menu.itemStorage.slot(SabatierChemicalReactorBlockEntity.REAGENT_B_CANISTER_SLOT).isEmpty()
+                && mouseIn(mouseX, mouseY, this.leftPos + 51, this.topPos + 75, 18, 18)) {
+            this.setTooltipForNextRenderPass(List.of(
+                    Component.literal("Reagent Tank B Input").withStyle(ChatFormatting.AQUA).getVisualOrderText(),
+                    Component.literal("Insert LH2, H2, or LOX Canister/Bucket").withStyle(ChatFormatting.GRAY).getVisualOrderText()
+            ));
+        } else if (this.menu.itemStorage.slot(SabatierChemicalReactorBlockEntity.PRODUCT_A_CANISTER_SLOT).isEmpty()
+                && mouseIn(mouseX, mouseY, this.leftPos + 127, this.topPos + 75, 18, 18)) {
+            this.setTooltipForNextRenderPass(List.of(
+                    Component.literal("Primary Product Drain").withStyle(ChatFormatting.GREEN).getVisualOrderText(),
+                    Component.literal("Insert Empty Bucket or Fluid Canister").withStyle(ChatFormatting.GRAY).getVisualOrderText()
+            ));
+        } else if (this.menu.itemStorage.slot(SabatierChemicalReactorBlockEntity.PRODUCT_B_CANISTER_SLOT).isEmpty()
+                && mouseIn(mouseX, mouseY, this.leftPos + 151, this.topPos + 75, 18, 18)) {
+            this.setTooltipForNextRenderPass(List.of(
+                    Component.literal("Secondary Product Drain").withStyle(ChatFormatting.GREEN).getVisualOrderText(),
+                    Component.literal("Insert Empty Bucket or Fluid Canister").withStyle(ChatFormatting.GRAY).getVisualOrderText()
             ));
         }
     }

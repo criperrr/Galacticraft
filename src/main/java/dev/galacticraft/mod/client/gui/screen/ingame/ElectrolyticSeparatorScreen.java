@@ -136,6 +136,11 @@ public class ElectrolyticSeparatorScreen extends MachineScreen<ElectrolyticSepar
         int textX = this.leftPos + 75 - this.font.width(electricText) / 2;
         graphics.drawString(this.font, electricText, textX, this.topPos + 84, textColor, false);
 
+        // Subtle "ICE" ghost label inside empty SOLID_ICE_SLOT (67, 24) so players instantly know its purpose
+        if (this.menu.itemStorage.slot(ElectrolyticSeparatorBlockEntity.SOLID_ICE_SLOT).isEmpty()) {
+            graphics.drawString(this.font, "ICE", this.leftPos + 68, this.topPos + 28, 0xFF7FA6C4, false);
+        }
+
         // Bottom obsidian OLED badge strip aligned directly under the 4 fluid tanks
         int lcdY = this.topPos + 100;
         graphics.drawString(this.font, "H2O", this.leftPos + 29, lcdY, 0xFF58B0FF, false);
@@ -144,14 +149,44 @@ public class ElectrolyticSeparatorScreen extends MachineScreen<ElectrolyticSepar
         graphics.drawString(this.font, "LOX", this.leftPos + 128, lcdY, 0xFF5CC4FF, false);
         graphics.drawString(this.font, "D2", this.leftPos + 155, lcdY, 0xFF93AAFF, false);
 
-        // Hover tooltip over electrolysis viewport
-        if (mouseIn(mouseX, mouseY, this.leftPos + 52, this.topPos + 44, 46, 36)) {
+        // Hover tooltip strictly over the PEM cell viewport (never overlaps slots or REI progress bar)
+        if (mouseIn(mouseX, mouseY, this.leftPos + 54, this.topPos + 46, 42, 22)) {
             this.setTooltipForNextRenderPass(List.of(
                     Component.literal("PEM Cryogenic Electrolyzer").withStyle(ChatFormatting.AQUA).getVisualOrderText(),
-                    Component.literal("2 H₂O → 2 LH₂ + LOX").withStyle(ChatFormatting.GRAY).getVisualOrderText(),
-                    Component.literal("Dense Ice yields trace D₂ gas").withStyle(ChatFormatting.BLUE).getVisualOrderText(),
+                    Component.literal("2 H2O -> 2 LH2 + LOX").withStyle(ChatFormatting.GRAY).getVisualOrderText(),
+                    Component.literal("Dense Ice yields trace Deuterium (D2)").withStyle(ChatFormatting.BLUE).getVisualOrderText(),
                     Component.literal(String.format("Stack: %.2f V | %d A | 120 GJ/t", mv / 1000.0F, amps))
                             .withStyle(active ? ChatFormatting.GREEN : ChatFormatting.DARK_GRAY).getVisualOrderText()
+            ));
+        } else if (this.menu.itemStorage.slot(ElectrolyticSeparatorBlockEntity.SOLID_ICE_SLOT).isEmpty()
+                && mouseIn(mouseX, mouseY, this.leftPos + 66, this.topPos + 23, 18, 18)) {
+            this.setTooltipForNextRenderPass(List.of(
+                    Component.literal("Cryo Ice Feedstock").withStyle(ChatFormatting.AQUA).getVisualOrderText(),
+                    Component.literal("Insert Dense Ice, Blue Ice, Packed Ice, or Ice").withStyle(ChatFormatting.GRAY).getVisualOrderText()
+            ));
+        } else if (this.menu.itemStorage.slot(ElectrolyticSeparatorBlockEntity.WATER_BUCKET_SLOT).isEmpty()
+                && mouseIn(mouseX, mouseY, this.leftPos + 29, this.topPos + 75, 18, 18)) {
+            this.setTooltipForNextRenderPass(List.of(
+                    Component.literal("Water Input Slot").withStyle(ChatFormatting.BLUE).getVisualOrderText(),
+                    Component.literal("Insert Water Bucket or Fluid Canister").withStyle(ChatFormatting.GRAY).getVisualOrderText()
+            ));
+        } else if (this.menu.itemStorage.slot(ElectrolyticSeparatorBlockEntity.LH2_CANISTER_SLOT).isEmpty()
+                && mouseIn(mouseX, mouseY, this.leftPos + 103, this.topPos + 75, 18, 18)) {
+            this.setTooltipForNextRenderPass(List.of(
+                    Component.literal("Liquid Hydrogen (LH2) Drain").withStyle(ChatFormatting.AQUA).getVisualOrderText(),
+                    Component.literal("Insert Empty Bucket or Fluid Canister").withStyle(ChatFormatting.GRAY).getVisualOrderText()
+            ));
+        } else if (this.menu.itemStorage.slot(ElectrolyticSeparatorBlockEntity.LOX_CANISTER_SLOT).isEmpty()
+                && mouseIn(mouseX, mouseY, this.leftPos + 127, this.topPos + 75, 18, 18)) {
+            this.setTooltipForNextRenderPass(List.of(
+                    Component.literal("Liquid Oxygen (LOX) Drain").withStyle(ChatFormatting.AQUA).getVisualOrderText(),
+                    Component.literal("Insert Empty Bucket or Fluid Canister").withStyle(ChatFormatting.GRAY).getVisualOrderText()
+            ));
+        } else if (this.menu.itemStorage.slot(ElectrolyticSeparatorBlockEntity.DEUTERIUM_CANISTER_SLOT).isEmpty()
+                && mouseIn(mouseX, mouseY, this.leftPos + 151, this.topPos + 75, 18, 18)) {
+            this.setTooltipForNextRenderPass(List.of(
+                    Component.literal("Deuterium Gas (D2) Drain").withStyle(ChatFormatting.BLUE).getVisualOrderText(),
+                    Component.literal("Insert Empty Fluid Canister").withStyle(ChatFormatting.GRAY).getVisualOrderText()
             ));
         }
     }

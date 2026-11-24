@@ -99,27 +99,31 @@ public class GCBlocks {
     public static final LiquidBlock LIQUID_OXYGEN = BLOCKS.register(Constant.Block.LIQUID_OXYGEN,
             new CryogenicFluidBlock(GCFluids.LIQUID_OXYGEN, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_BLUE)
                     .noCollission().pushReaction(PushReaction.DESTROY).replaceable().liquid()
-                    .strength(50.0F, 50.0F).noLootTable(), 4));
+                    .strength(50.0F, 50.0F).noLootTable(), 4, PropellantGasBlock.GasKind.OXYGEN, -183.0));
 
     public static final LiquidBlock LIQUID_HYDROGEN = BLOCKS.register(Constant.Block.LIQUID_HYDROGEN,
             new CryogenicFluidBlock(GCFluids.LIQUID_HYDROGEN, BlockBehaviour.Properties.of().mapColor(MapColor.ICE)
                     .noCollission().pushReaction(PushReaction.DESTROY).ignitedByLava().replaceable().liquid()
-                    .strength(50.0F, 50.0F).noLootTable(), 6));
+                    .strength(50.0F, 50.0F).noLootTable(), 6, PropellantGasBlock.GasKind.HYDROGEN, -253.0));
 
     public static final LiquidBlock LIQUID_METHANE = BLOCKS.register(Constant.Block.LIQUID_METHANE,
             new CryogenicFluidBlock(GCFluids.LIQUID_METHANE, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_CYAN)
                     .noCollission().pushReaction(PushReaction.DESTROY).ignitedByLava().replaceable().liquid()
-                    .strength(50.0F, 50.0F).noLootTable(), 3));
+                    .strength(50.0F, 50.0F).noLootTable(), 3, PropellantGasBlock.GasKind.METHANE, -161.5));
 
     public static final LiquidBlock MONOPROPELLANT = BLOCKS.register(Constant.Block.MONOPROPELLANT,
             new HypergolicFluidBlock(GCFluids.MONOPROPELLANT, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_MAGENTA)
                     .noCollission().pushReaction(PushReaction.DESTROY).ignitedByLava().replaceable().liquid()
-                    .strength(50.0F, 50.0F).noLootTable()));
+                    .strength(50.0F, 50.0F).noLootTable(), PropellantGasBlock.GasKind.HYDRAZINE, 113.5));
 
     public static final LiquidBlock LIQUID_XENON = BLOCKS.register(Constant.Block.LIQUID_XENON,
             new CryogenicFluidBlock(GCFluids.LIQUID_XENON, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE)
                     .noCollission().pushReaction(PushReaction.DESTROY).replaceable().liquid()
-                    .strength(50.0F, 50.0F).noLootTable(), 3));
+                    .strength(50.0F, 50.0F).noLootTable(), 3, PropellantGasBlock.GasKind.XENON, -108.0));
+
+    public static final Block PROPELLANT_GAS = BLOCKS.register(Constant.Block.PROPELLANT_GAS,
+            new PropellantGasBlock(BlockBehaviour.Properties.of()
+                    .noCollission().replaceable().air().noLootTable().randomTicks()));
 
     // DECORATION BLOCKS
     public static final DecorationSet ALUMINUM_DECORATION = BLOCKS.registerDecoration(Constant.Block.ALUMINUM_DECORATION, BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).instrument(NoteBlockInstrument.BASEDRUM).strength(2.0F, 3.0F).requiresCorrectToolForDrops(), 2.5F, 3.0F);

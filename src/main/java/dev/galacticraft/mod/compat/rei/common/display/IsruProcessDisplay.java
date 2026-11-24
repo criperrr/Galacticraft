@@ -24,7 +24,6 @@ package dev.galacticraft.mod.compat.rei.common.display;
 
 import dev.architectury.fluid.FluidStack;
 import dev.galacticraft.mod.compat.rei.common.GalacticraftREIServerPlugin;
-import dev.galacticraft.mod.content.item.FluidCanisterItem;
 import dev.galacticraft.mod.content.item.GCItems;
 import dev.galacticraft.mod.recipe.CentrifugeRecipe;
 import dev.galacticraft.mod.recipe.ElectrolyticRecipe;
@@ -34,7 +33,6 @@ import me.shedaniel.rei.api.common.display.basic.BasicDisplay;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
@@ -45,27 +43,24 @@ import java.util.List;
 public class IsruProcessDisplay extends BasicDisplay {
     private final CategoryIdentifier<IsruProcessDisplay> category;
     private final String summary;
+    private final boolean hasCatalyst;
 
     public IsruProcessDisplay(
             CategoryIdentifier<IsruProcessDisplay> category,
             List<EntryIngredient> inputs,
             List<EntryIngredient> outputs,
-            String summary
+            String summary,
+            boolean hasCatalyst
     ) {
         super(inputs, outputs);
         this.category = category;
         this.summary = summary;
+        this.hasCatalyst = hasCatalyst;
     }
 
-    public static EntryIngredient fluidAndCanister(Fluid fluid, long mb) {
+    public static EntryIngredient pureFluid(Fluid fluid, long mb) {
         long archAmount = Math.max(1L, mb * FluidStack.bucketAmount() / 1000L);
-        EntryIngredient.Builder builder = EntryIngredient.builder()
-                .add(EntryStacks.of(FluidStack.create(fluid, archAmount)));
-        ItemStack canister = FluidCanisterItem.getFilledCanister(GCItems.FLUID_CANISTER, fluid);
-        if (!canister.isEmpty()) {
-            builder.add(EntryStacks.of(canister));
-        }
-        return builder.build();
+        return EntryIngredient.of(EntryStacks.of(FluidStack.create(fluid, archAmount)));
     }
 
     public static IsruProcessDisplay fromElectrolytic(RecipeHolder<ElectrolyticRecipe> holder) {
@@ -74,48 +69,48 @@ public class IsruProcessDisplay extends BasicDisplay {
         if (recipe.usesSolidInput()) {
             inputs.add(EntryIngredients.ofIngredient(recipe.getSolidInput()));
         } else if (recipe.getInputFluid() != null && recipe.getInputFluid() != Fluids.EMPTY) {
-            inputs.add(fluidAndCanister(recipe.getInputFluid(), recipe.getInputFluidMb()));
+            inputs.add(pureFluid(recipe.getInputFluid(), recipe.getInputFluidMb()));
         }
 
         List<EntryIngredient> outputs = new ArrayList<>();
-        outputs.add(fluidAndCanister(recipe.getPrimaryOutputFluid(), recipe.getPrimaryOutputMb()));
-        outputs.add(fluidAndCanister(recipe.getSecondaryOutputFluid(), recipe.getSecondaryOutputMb()));
+        outputs.add(pureFluid(recipe.getPrimaryOutputFluid(), recipe.getPrimaryOutputMb()));
+        outputs.add(pureFluid(recipe.getSecondaryOutputFluid(), recipe.getSecondaryOutputMb()));
         Fluid trace = recipe.getTraceGasFluid();
         if (trace != null && trace != Fluids.EMPTY && recipe.getTraceGasMb() > 0L) {
-            outputs.add(fluidAndCanister(trace, recipe.getTraceGasMb()));
+            outputs.add(pureFluid(trace, recipe.getTraceGasMb()));
         }
 
         String summary = recipe.getPrimaryOutputMb() + "mB LH2 + " + recipe.getSecondaryOutputMb() + "mB LOX"
-                + (recipe.getTraceGasMb() > 0L ? " + " + recipe.getTraceGasMb() + "mB D2" : "")
-                + " | " + recipe.getEnergyPerTick() + " GJ/t";
-        return new IsruProcessDisplay(GalacticraftREIServerPlugin.ELECTROLYTIC, inputs, outputs, summary);
+                + (recipe.getTraceGasMb() > 0L ? " + " + recipe.getTraceGasMb() + "mB D2" : "");
+        return new IsruProcessDisplay(GalacticraftREIServerPlugin.ELECTROLYTIC, inputs, outputs, summary, false);
     }
 
     public static IsruProcessDisplay fromSabatier(RecipeHolder<SabatierRecipe> holder) {
         SabatierRecipe recipe = holder.value();
         List<EntryIngredient> inputs = new ArrayList<>();
-        inputs.add(fluidAndCanister(recipe.getReagentA(), recipe.getReagentAMb()));
+        inputs.add(pureFluid(recipe.getReagentA(), recipe.getReagentAMb()));
         Fluid reagentB = recipe.getReagentB();
         if (reagentB != null && reagentB != Fluids.EMPTY && recipe.getReagentBMb() > 0L) {
-            inputs.add(fluidAndCanister(reagentB, recipe.getReagentBMb()));
+            inputs.add(pureFluid(reagentB, recipe.getReagentBMb()));
         } else if (!recipe.getSolidReagent().isEmpty()) {
             inputs.add(EntryIngredients.ofIngredient(recipe.getSolidReagent()));
         }
-        if (!recipe.getCatalyst().isEmpty()) {
+        boolean catalystPresent = !recipe.getCatalyst().isEmpty();
+        if (catalystPresent) {
             inputs.add(EntryIngredients.ofIngredient(recipe.getCatalyst()));
         }
 
         List<EntryIngredient> outputs = new ArrayList<>();
-        outputs.add(fluidAndCanister(recipe.getProductA(), recipe.getProductAMb()));
+        outputs.add(pureFluid(recipe.getProductA(), recipe.getProductAMb()));
         Fluid productB = recipe.getProductB();
         if (productB != null && productB != Fluids.EMPTY && recipe.getProductBMb() > 0L) {
-            outputs.add(fluidAndCanister(productB, recipe.getProductBMb()));
+            outputs.add(pureFluid(productB, recipe.getProductBMb()));
         }
 
         String label = recipe.getFormulaLabel().isBlank()
                 ? (recipe.getTargetTempC() + "°C | " + recipe.getEnergyPerTick() + " GJ/t")
-                : (recipe.getFormulaLabel() + " | " + recipe.getTargetTempC() + "°C");
-        return new IsruProcessDisplay(GalacticraftREIServerPlugin.SABATIER, inputs, outputs, label);
+                : (recipe.getFormulaLabel().replace(" -> ", "->") + " (" + recipe.getTargetTempC() + "°C)");
+        return new IsruProcessDisplay(GalacticraftREIServerPlugin.SABATIER, inputs, outputs, label, catalystPresent);
     }
 
     public static Helium3ProcessDisplay toCentrifugeDisplay(RecipeHolder<CentrifugeRecipe> holder) {
@@ -127,7 +122,7 @@ public class IsruProcessDisplay extends BasicDisplay {
         List<EntryIngredient> outputs = new ArrayList<>();
         Fluid gas = recipe.getOutputGas();
         if (gas != null && gas != Fluids.EMPTY && recipe.getOutputGasMb() > 0L) {
-            outputs.add(Helium3ProcessDisplay.gasAndCanister(gas, recipe.getOutputGasMb()));
+            outputs.add(pureFluid(gas, recipe.getOutputGasMb()));
         }
         if (!recipe.getOutputItem().isEmpty()) {
             outputs.add(EntryIngredients.of(recipe.getOutputItem()));
@@ -143,6 +138,10 @@ public class IsruProcessDisplay extends BasicDisplay {
 
     public String getSummary() {
         return this.summary;
+    }
+
+    public boolean hasCatalyst() {
+        return this.hasCatalyst;
     }
 
     @Override

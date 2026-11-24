@@ -434,6 +434,7 @@ public interface Constant {
         String LIQUID_METHANE = "liquid_methane";
         String MONOPROPELLANT = "monopropellant";
         String LIQUID_XENON = "liquid_xenon";
+        String PROPELLANT_GAS = "propellant_gas";
 
         // Machines
         String CIRCUIT_FABRICATOR = "circuit_fabricator";

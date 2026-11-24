@@ -184,6 +184,20 @@ public class AtmosphericFractionatorScreen extends MachineScreen<AtmosphericFrac
                         Component.literal("Turbine Intake: " + intakePct + "% | 100 GJ/t").withStyle(ChatFormatting.GREEN).getVisualOrderText()
                 ));
             }
+        } else {
+            for (int ch = 0; ch < 4; ch++) {
+                int slotIdx = AtmosphericFractionatorBlockEntity.CANISTER_SLOT_0 + ch;
+                if (this.menu.itemStorage.slot(slotIdx).isEmpty()
+                        && mouseIn(mouseX, mouseY, this.leftPos + TANK_X[ch] - 1, this.topPos + 75, 18, 18)) {
+                    String sym = getFluidShortSymbol(this.menu.getChannelFluidId(ch));
+                    String gasLabel = sym.isEmpty() ? "Channel " + (ch + 1) : sym + " Output";
+                    this.setTooltipForNextRenderPass(List.of(
+                            Component.literal(gasLabel + " Drain").withStyle(ChatFormatting.AQUA).getVisualOrderText(),
+                            Component.literal("Insert Empty Fluid Canister").withStyle(ChatFormatting.GRAY).getVisualOrderText()
+                    ));
+                    break;
+                }
+            }
         }
     }
 

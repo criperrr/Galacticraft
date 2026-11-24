@@ -286,12 +286,12 @@ public class GalacticraftREIClientPlugin implements REIClientPlugin {
                 GalacticraftREIServerPlugin.COMPOSITE_AUTOCLAVE
         );
         registry.registerContainerClickArea(
-                new Rectangle(64, 24, 38, 44),
+                new Rectangle(52, 73, 46, 8),
                 ElectrolyticSeparatorScreen.class,
                 GalacticraftREIServerPlugin.ELECTROLYTIC
         );
         registry.registerContainerClickArea(
-                new Rectangle(76, 22, 42, 46),
+                new Rectangle(75, 74, 47, 7),
                 SabatierChemicalReactorScreen.class,
                 GalacticraftREIServerPlugin.SABATIER
         );

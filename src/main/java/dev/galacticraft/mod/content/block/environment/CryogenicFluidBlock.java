@@ -24,23 +24,78 @@ package dev.galacticraft.mod.content.block.environment;
 
 import dev.galacticraft.mod.particle.GCParticleTypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FlowingFluid;
 
 /**
- * Cryogenic propellant liquid block (LOX, LH2, LCH4, LXe) that induces frostbite freeze ticks
- * on unprotected entities and vents crisp boil-off vapor particles when exposed to ambient air.
+ * Cryogenic propellant liquid block (LOX, LH2, LCH4, LXe) that induces frostbite freeze ticks,
+ * vents boil-off vapor plumes, and realistically evaporates in vacuum or whenever ambient temperature
+ * exceeds its boiling point — trapping the evaporated gas inside airtight domes/rooms.
  */
 public class CryogenicFluidBlock extends LiquidBlock {
     private final int freezeRate;
+    private final PropellantGasBlock.GasKind gasKind;
+    private final double boilingPointC;
 
-    public CryogenicFluidBlock(FlowingFluid fluid, Properties properties, int freezeRate) {
+    public CryogenicFluidBlock(
+            FlowingFluid fluid,
+            Properties properties,
+            int freezeRate,
+            PropellantGasBlock.GasKind gasKind,
+            double boilingPointC
+    ) {
         super(fluid, properties);
         this.freezeRate = freezeRate;
+        this.gasKind = gasKind;
+        this.boilingPointC = boilingPointC;
+    }
+
+    public PropellantGasBlock.GasKind getGasKind() {
+        return this.gasKind;
+    }
+
+    public double getBoilingPointC() {
+        return this.boilingPointC;
+    }
+
+    @Override
+    protected boolean isRandomlyTicking(BlockState state) {
+        return true;
+    }
+
+    @Override
+    protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
+        super.onPlace(state, level, pos, oldState, movedByPiston);
+        if (!level.isClientSide && PropellantEvaporation.shouldEvaporate(level, pos, this.boilingPointC)) {
+            int delay = PropellantEvaporation.computeBoilDelayTicks(level, pos, this.boilingPointC);
+            level.scheduleTick(pos, this, delay);
+        }
+    }
+
+    @Override
+    protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean movedByPiston) {
+        super.neighborChanged(state, level, pos, neighborBlock, neighborPos, movedByPiston);
+        if (!level.isClientSide && PropellantEvaporation.shouldEvaporate(level, pos, this.boilingPointC)) {
+            int delay = PropellantEvaporation.computeBoilDelayTicks(level, pos, this.boilingPointC);
+            level.scheduleTick(pos, this, delay);
+        }
+    }
+
+    @Override
+    protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        PropellantEvaporation.evaporateLiquidBlock(level, pos, state, this.gasKind, this.boilingPointC);
+    }
+
+    @Override
+    protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        super.randomTick(state, level, pos, random);
+        PropellantEvaporation.evaporateLiquidBlock(level, pos, state, this.gasKind, this.boilingPointC);
     }
 
     @Override
@@ -54,11 +109,16 @@ public class CryogenicFluidBlock extends LiquidBlock {
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         super.animateTick(state, level, pos, random);
-        if (random.nextFloat() < 0.22F && level.getBlockState(pos.above()).isAir()) {
+        boolean boiling = PropellantEvaporation.shouldEvaporate(level, pos, this.boilingPointC);
+        float chance = boiling ? 0.55F : 0.18F;
+        if (random.nextFloat() < chance && !level.getBlockState(pos.above()).isCollisionShapeFullBlock(level, pos.above())) {
             double x = pos.getX() + random.nextDouble();
             double y = pos.getY() + 0.92;
             double z = pos.getZ() + random.nextDouble();
-            level.addParticle(GCParticleTypes.CRYOGENIC_PARTICLE, x, y, z, 0.0, 0.025, 0.0);
+            level.addParticle(GCParticleTypes.CRYOGENIC_PARTICLE, x, y, z, 0.0, boiling ? 0.055 : 0.02, 0.0);
+            if (boiling) {
+                level.addParticle(this.gasKind.createMistParticle(), x, y + 0.08, z, (random.nextDouble() - 0.5) * 0.02, 0.04, (random.nextDouble() - 0.5) * 0.02);
+            }
         }
     }
 }

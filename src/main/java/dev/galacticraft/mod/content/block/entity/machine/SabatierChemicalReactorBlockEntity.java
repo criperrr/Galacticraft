@@ -38,6 +38,7 @@ import dev.galacticraft.machinelib.api.transfer.TransferType;
 import dev.galacticraft.machinelib.api.util.FluidSource;
 import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.content.GCBlockEntityTypes;
+import dev.galacticraft.mod.content.GCBlocks;
 import dev.galacticraft.mod.content.GCFluids;
 import dev.galacticraft.mod.content.item.GCItems;
 import dev.galacticraft.mod.machine.GCMachineStatuses;
@@ -129,7 +130,8 @@ public class SabatierChemicalReactorBlockEntity extends MachineBlockEntity {
                             .capacity(1)
                             .filter((item, components) -> item == GCItems.NIOBIUM_INGOT || item == GCItems.PALLADIUM_INGOT),
                     ItemResourceSlot.builder(TransferType.INPUT)
-                            .pos(77, 52),
+                            .pos(77, 52)
+                            .filter((item, components) -> item == GCBlocks.MERCURY_SULFIDE_ORE.asItem()),
                     ItemResourceSlot.builder(TransferType.PROCESSING)
                             .pos(128, 76)
                             .capacity(1)

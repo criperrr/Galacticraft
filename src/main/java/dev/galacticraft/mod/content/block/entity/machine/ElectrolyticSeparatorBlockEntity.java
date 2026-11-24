@@ -39,6 +39,7 @@ import dev.galacticraft.machinelib.api.transfer.TransferType;
 import dev.galacticraft.machinelib.api.util.FluidSource;
 import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.content.GCBlockEntityTypes;
+import dev.galacticraft.mod.content.GCBlocks;
 import dev.galacticraft.mod.content.GCFluids;
 import dev.galacticraft.mod.machine.GCMachineStatuses;
 import dev.galacticraft.mod.recipe.ElectrolyticRecipe;
@@ -58,6 +59,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
@@ -105,7 +107,11 @@ public class ElectrolyticSeparatorBlockEntity extends MachineBlockEntity {
                             .filter(ResourceFilters.canExtractFluid(Fluids.WATER))
                             .icon(Pair.of(InventoryMenu.BLOCK_ATLAS, Constant.SlotSprite.BUCKET)),
                     ItemResourceSlot.builder(TransferType.INPUT)
-                            .pos(67, 24),
+                            .pos(67, 24)
+                            .filter((item, components) -> item == GCBlocks.DENSE_ICE.asItem()
+                                    || item == Items.BLUE_ICE
+                                    || item == Items.PACKED_ICE
+                                    || item == Items.ICE),
                     ItemResourceSlot.builder(TransferType.PROCESSING)
                             .pos(104, 76)
                             .capacity(1)

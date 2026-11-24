@@ -700,6 +700,7 @@ public class GCModelProvider extends FabricModelProvider {
         generator.createNonTemplateModelBlock(GCBlocks.LIQUID_METHANE);
         generator.createNonTemplateModelBlock(GCBlocks.MONOPROPELLANT);
         generator.createNonTemplateModelBlock(GCBlocks.LIQUID_XENON);
+        generator.createAirLikeBlock(GCBlocks.PROPELLANT_GAS, GCItems.FLUID_CANISTER);
 
         generator.createTrivialCube(GCBlocks.AIR_LOCK_FRAME);
         this.createAirLockController(generator);
