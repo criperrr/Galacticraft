@@ -59,7 +59,8 @@
       "dev.galacticraft.mod.gametest.Helium3ChainTestSuite",
       "dev.galacticraft.mod.gametest.MetallurgicalCompositeMachinesTestSuite",
       "dev.galacticraft.mod.gametest.IsruPropellantMachinesTestSuite",
-      "dev.galacticraft.mod.gametest.EmergentPhysicsAndRefurbishmentTestSuite"
+      "dev.galacticraft.mod.gametest.EmergentPhysicsAndRefurbishmentTestSuite",
+      "dev.galacticraft.mod.gametest.InSituResearchLaboratoriesTestSuite"
     ]
   },
   "custom": {
