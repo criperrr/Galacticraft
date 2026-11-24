@@ -79,10 +79,14 @@ public class AccessoryItem extends Item implements Accessory {
         return false;
     }
 
-    public AccessoryItem(Properties settings, Holder<SoundEvent> equipSound) {
-        super(settings.stacksTo(1));
+    protected AccessoryItem(Properties settings, Holder<SoundEvent> equipSound, boolean forceSingleStack) {
+        super(forceSingleStack ? settings.stacksTo(1) : settings);
         this.equipSound = equipSound;
         DispenserBlock.registerBehavior(this, DISPENSE_ITEM_BEHAVIOR);
+    }
+
+    public AccessoryItem(Properties settings, Holder<SoundEvent> equipSound) {
+        this(settings, equipSound, true);
     }
 
     public AccessoryItem(Properties settings) {
@@ -112,7 +116,18 @@ public class AccessoryItem extends Item implements Accessory {
                 if (!level.isClientSide()) {
                     player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()));
                 }
-                player.galacticraft$onEquipAccessory(itemStack2, itemStack);
+                ItemStack toEquip = itemStack.copyWithCount(1);
+                player.galacticraft$onEquipAccessory(itemStack2, toEquip);
+                if (itemStack.getCount() > 1) {
+                    if (!player.isCreative()) {
+                        itemStack.shrink(1);
+                    }
+                    inv.setItem(slot, toEquip);
+                    if (!itemStack2.isEmpty()) {
+                        player.getInventory().placeItemBackInInventory(itemStack2.copyAndClear());
+                    }
+                    return InteractionResultHolder.sidedSuccess(itemStack, level.isClientSide());
+                }
                 ItemStack itemStack3 = itemStack2.isEmpty() ? itemStack : itemStack2.copyAndClear();
                 ItemStack itemStack4 = player.isCreative() ? itemStack.copy() : itemStack.copyAndClear();
                 inv.setItem(slot, itemStack4);

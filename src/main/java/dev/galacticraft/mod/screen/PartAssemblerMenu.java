@@ -48,7 +48,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class PartAssemblerMenu extends RecipeMachineMenu<PartAssemblerRecipeInput, PartAssemblerRecipe, RocketWorkbenchBlockEntity> {
     private static final int PLAYER_INV_X = 8;
-    private static final int PLAYER_INV_Y = 84;
+    private static final int PLAYER_INV_Y = 122;
 
     private int syncedEffectiveProgress;
     private int syncedEffectiveMaxProgress;

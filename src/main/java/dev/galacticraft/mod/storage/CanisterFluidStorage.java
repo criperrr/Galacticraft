@@ -29,6 +29,7 @@ import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleVariantItemStorage;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.ItemStack;
 
 import static dev.galacticraft.api.component.GCDataComponents.FLUID_DATA;
@@ -69,8 +70,10 @@ public class CanisterFluidStorage extends SingleVariantItemStorage<FluidVariant>
 
         if (newAmount <= 0 || newResource.isBlank()) {
             stack.remove(FLUID_DATA);
-        }  else {
+            stack.remove(DataComponents.MAX_STACK_SIZE);
+        } else {
             stack.set(FLUID_DATA, new FluidData(newResource, newAmount));
+            stack.set(DataComponents.MAX_STACK_SIZE, 1);
         }
 
         return ItemVariant.of(stack);

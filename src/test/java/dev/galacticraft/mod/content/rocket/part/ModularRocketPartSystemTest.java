@@ -531,7 +531,7 @@ class ModularRocketPartSystemTest {
     }
 
     @Test
-    @DisplayName("SchematicGridLayout defines 6 distinct category silhouettes (4..6 slots) and DEFAULT_3X3 (9 slots) inside [30..84]x[17..71] without overlap")
+    @DisplayName("SchematicGridLayout defines 6 distinct category silhouettes (4..6 slots) and DEFAULT_3X3 (9 slots) inside CAD bay [28..116]x[20..92] without overlap")
     void schematicGridLayoutsAreDistinctAndValid() {
         SchematicGridLayout defaultLayout = SchematicGridLayout.DEFAULT_3X3;
         assertFalse(defaultLayout.isModular());
@@ -572,10 +572,10 @@ class ModularRocketPartSystemTest {
             }
             int x = layout.slotX(i);
             int y = layout.slotY(i);
-            assertTrue(x >= 30 && x <= 84,
-                    "Slot " + i + " X coordinate " + x + " must fall inside [30..84]");
-            assertTrue(y >= 17 && y <= 71,
-                    "Slot " + i + " Y coordinate " + y + " must fall inside [17..71]");
+            assertTrue(x >= 28 && x <= 116,
+                    "Slot " + i + " X coordinate " + x + " must fall inside [28..116]");
+            assertTrue(y >= 20 && y <= 92,
+                    "Slot " + i + " Y coordinate " + y + " must fall inside [20..92]");
 
             if (requireRequirements) {
                 SchematicGridLayout.SlotRequirement req = layout.requirement(i);

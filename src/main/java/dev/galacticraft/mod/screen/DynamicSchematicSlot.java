@@ -99,7 +99,7 @@ public class DynamicSchematicSlot extends StorageSlot {
         }
         if (layout.isModular() && !stack.isEmpty()) {
             SlotRequirement req = layout.requirement(this.gridIndex);
-            if (req != null && !req.ingredient().test(stack)) {
+            if (req != null && !req.matches(stack)) {
                 return false;
             }
         }

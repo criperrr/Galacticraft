@@ -23,6 +23,7 @@
 package dev.galacticraft.mod.gametest;
 
 import dev.galacticraft.api.component.GCDataComponents;
+import dev.galacticraft.api.gas.Gases;
 import dev.galacticraft.api.multiblock.BoundsShape;
 import dev.galacticraft.api.rocket.part.data.PartIntegrity;
 import dev.galacticraft.api.rocket.part.data.RocketMaterialProfile;
@@ -46,6 +47,7 @@ import dev.galacticraft.mod.content.block.platform.HangarTerminalBlock;
 import dev.galacticraft.mod.content.block.platform.PlatformBlueprint;
 import dev.galacticraft.mod.content.block.platform.PlatformBlueprintRegistry;
 import dev.galacticraft.mod.content.block.rocket.ModularRocketPartBlock;
+import dev.galacticraft.mod.content.item.FluidCanisterItem;
 import dev.galacticraft.mod.content.item.GCItems;
 import dev.galacticraft.mod.content.item.ModularRocketPartBlockItem;
 import dev.galacticraft.mod.content.rocket.part.RocketPartCatalog;
@@ -290,8 +292,8 @@ public class ModularRocketPartTestSuite implements GalacticraftGameTest {
                         && resolvedConfig.livery() == RocketLivery.ORANGE,
                 "Expected 3x3->1x1x1 ORANGE adapter config, got " + resolvedConfig);
 
-        CostProfile cost = RocketPartCostCalculator.calculate(resolvedConfig);
-        SchematicGridLayout layout = SchematicGridLayout.forCategory(RocketPartCategory.ADAPTER);
+        CostProfile baseCost = RocketPartCostCalculator.calculate(resolvedConfig);
+        SchematicGridLayout layout = SchematicGridLayout.forConfig(resolvedConfig);
         helper.assertTrue(layout.isModular() && layout.activeSlotCount() == 4,
                 "Expected ADAPTER SchematicGridLayout to have 4 active silhouette slots");
 
@@ -307,9 +309,14 @@ public class ModularRocketPartTestSuite implements GalacticraftGameTest {
             helper.assertTrue(req != null, "Expected SlotRequirement for active ADAPTER grid slot " + i);
             ItemStack requiredItem = req.primaryDisplayStack();
             helper.assertTrue(!requiredItem.isEmpty(), "Expected non-empty ingredient display stack for slot " + i);
-            int requiredCount = req.requiredCount(cost.slotItemMultiplier());
+            int requiredCount = req.requiredCount(baseCost.slotItemMultiplier());
             be.itemStorage().slot(machineSlot).set(requiredItem.getItem(), requiredCount);
         }
+
+        RocketPartComposition expectedComposition = be.getPreviewComposition();
+        helper.assertTrue(expectedComposition.size() == 4,
+                "Expected live preview composition to capture all 4 active ADAPTER slots, got " + expectedComposition.size());
+        CostProfile cost = RocketPartCostCalculator.calculate(resolvedConfig, expectedComposition);
 
         int waitTicks = cost.assemblyTimeTicks() + 5;
         helper.runAfterDelay(waitTicks, () -> {
@@ -328,13 +335,17 @@ public class ModularRocketPartTestSuite implements GalacticraftGameTest {
             helper.assertTrue(outConfig.diameter() == 3 && outConfig.topDiameter() == 1 && outConfig.livery() == RocketLivery.ORANGE,
                     "Expected diameter=3, topDiameter=1, livery=ORANGE on crafted output");
 
+            RocketPartComposition outComp = outputStack.get(GCDataComponents.ROCKET_PART_COMPOSITION);
+            helper.assertTrue(expectedComposition.equals(outComp),
+                    "Expected crafted ROCKET_PART_COMPOSITION " + expectedComposition + ", got " + outComp);
+
             RocketPartStats outStats = outputStack.get(GCDataComponents.ROCKET_PART_STATS);
             helper.assertTrue(cost.stats().equals(outStats),
-                    "Expected crafted ROCKET_PART_STATS " + cost.stats() + ", got " + outStats);
+                    "Expected crafted parametric ROCKET_PART_STATS " + cost.stats() + ", got " + outStats);
 
             PartIntegrity outIntegrity = outputStack.get(GCDataComponents.PART_INTEGRITY);
-            helper.assertTrue(PartIntegrity.pristine(100.0).equals(outIntegrity),
-                    "Expected crafted PART_INTEGRITY pristine(100.0), got " + outIntegrity);
+            helper.assertTrue(PartIntegrity.pristine(cost.maxIntegrity()).equals(outIntegrity),
+                    "Expected crafted PART_INTEGRITY pristine(" + cost.maxIntegrity() + "), got " + outIntegrity);
 
             // 2. Verify SCHEMATIC_SLOT still holds PART_SCHEMATIC_ADAPTER (non-consumed!)
             ItemResourceSlot schematicSlot = be.itemStorage().slot(RocketWorkbenchBlockEntity.SCHEMATIC_SLOT);
@@ -599,6 +610,256 @@ public class ModularRocketPartTestSuite implements GalacticraftGameTest {
                 "Expected dropped ItemStack to preserve custom PartIntegrity");
 
         helper.succeed();
+    }
+
+    @GameTest(template = PLATFORM_ARENA, timeoutTicks = 400)
+    public void testTinkersGeminiMaterialComparisonAndHybridHull(GameTestHelper helper) {
+        BlockPos wbBasicRel = new BlockPos(4, 1, 8);
+        BlockPos wbAdvRel = new BlockPos(8, 1, 8);
+        BlockPos wbHybridRel = new BlockPos(12, 1, 8);
+        helper.setBlock(wbBasicRel, GCBlocks.ROCKET_WORKBENCH.defaultBlockState());
+        helper.setBlock(wbAdvRel, GCBlocks.ROCKET_WORKBENCH.defaultBlockState());
+        helper.setBlock(wbHybridRel, GCBlocks.ROCKET_WORKBENCH.defaultBlockState());
+
+        RocketWorkbenchBlockEntity wbBasic = requireWorkbench(helper, wbBasicRel);
+        RocketWorkbenchBlockEntity wbAdv = requireWorkbench(helper, wbAdvRel);
+        RocketWorkbenchBlockEntity wbHybrid = requireWorkbench(helper, wbHybridRel);
+
+        for (RocketWorkbenchBlockEntity wb : List.of(wbBasic, wbAdv, wbHybrid)) {
+            wb.energyStorage().setEnergy(RocketWorkbenchBlockEntity.ENERGY_CAPACITY);
+            wb.itemStorage().slot(RocketWorkbenchBlockEntity.SCHEMATIC_SLOT).set(GCItems.PART_SCHEMATIC_COMMAND, 1);
+            wb.setModularSelection("capsule_gemini", 3, 3, 2, RocketLivery.WHITE);
+        }
+
+        RocketPartConfig geminiConfig = wbBasic.getResolvedModularConfig();
+        helper.assertTrue(geminiConfig != null && "capsule_gemini_3x3_2b".equals(geminiConfig.modelId()),
+                "Expected capsule_gemini_3x3_2b config, got " + geminiConfig);
+        CostProfile baseCost = RocketPartCostCalculator.calculate(geminiConfig);
+        int mult = baseCost.slotItemMultiplier();
+        int hullCount = 2 * mult;
+        int noseCount = 2 * mult;
+
+        // 1. Basic Gemini: COMPRESSED_ALUMINUM + GLASS + BASIC_WAFER + PARACHUTE
+        wbBasic.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 1).set(GCItems.PARACHUTE, noseCount);
+        wbBasic.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 3).set(GCItems.COMPRESSED_ALUMINUM, hullCount);
+        wbBasic.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 4).set(Items.GLASS, mult);
+        wbBasic.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 5).set(GCItems.COMPRESSED_ALUMINUM, hullCount);
+        wbBasic.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 7).set(GCItems.BASIC_WAFER, mult);
+
+        // 2. Advanced Gemini: COMPRESSED_TITANIUM + OLIVINE_GLASS + ADVANCED_WAFER + PARACHUTE
+        wbAdv.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 1).set(GCItems.PARACHUTE, noseCount);
+        wbAdv.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 3).set(GCItems.COMPRESSED_TITANIUM, hullCount);
+        wbAdv.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 4).set(GCBlocks.OLIVINE_GLASS.asItem(), mult);
+        wbAdv.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 5).set(GCItems.COMPRESSED_TITANIUM, hullCount);
+        wbAdv.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 7).set(GCItems.ADVANCED_WAFER, mult);
+
+        // 3. Hybrid Hull Gemini: COMPRESSED_TITANIUM (Port) + LEAD_INGOT (Starboard) + OLIVINE_GLASS + ADVANCED_WAFER
+        wbHybrid.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 1).set(GCItems.PARACHUTE, noseCount);
+        wbHybrid.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 3).set(GCItems.COMPRESSED_TITANIUM, hullCount);
+        wbHybrid.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 4).set(GCBlocks.OLIVINE_GLASS.asItem(), mult);
+        wbHybrid.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 5).set(GCItems.LEAD_INGOT, hullCount);
+        wbHybrid.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 7).set(GCItems.ADVANCED_WAFER, mult);
+
+        int waitTicks = baseCost.assemblyTimeTicks() + 10;
+        helper.runAfterDelay(waitTicks, () -> {
+            ItemStack basicStack = wbBasic.itemStorage().getItem(RocketWorkbenchBlockEntity.OUTPUT_SLOT);
+            ItemStack advStack = wbAdv.itemStorage().getItem(RocketWorkbenchBlockEntity.OUTPUT_SLOT);
+            ItemStack hybridStack = wbHybrid.itemStorage().getItem(RocketWorkbenchBlockEntity.OUTPUT_SLOT);
+
+            helper.assertTrue(!basicStack.isEmpty() && !advStack.isEmpty() && !hybridStack.isEmpty(),
+                    "Expected all 3 Gemini capsules to finish fabrication");
+
+            RocketPartStats basicStats = basicStack.get(GCDataComponents.ROCKET_PART_STATS);
+            RocketPartStats advStats = advStack.get(GCDataComponents.ROCKET_PART_STATS);
+            RocketPartStats hybridStats = hybridStack.get(GCDataComponents.ROCKET_PART_STATS);
+            RocketPartComposition advComp = advStack.get(GCDataComponents.ROCKET_PART_COMPOSITION);
+            RocketPartComposition hybridComp = hybridStack.get(GCDataComponents.ROCKET_PART_COMPOSITION);
+            PartIntegrity basicInteg = basicStack.get(GCDataComponents.PART_INTEGRITY);
+            PartIntegrity advInteg = advStack.get(GCDataComponents.PART_INTEGRITY);
+
+            helper.assertTrue(basicStats != null && advStats != null && hybridStats != null, "Expected non-null stats on all crafted capsules");
+            helper.assertTrue(advComp != null && hybridComp != null, "Expected non-null composition on crafted capsules");
+
+            helper.assertTrue(advStats.dryWeightKg() < basicStats.dryWeightKg(),
+                    "Expected Titanium Gemini (" + advStats.dryWeightKg() + " kg) to be lighter than Aluminum Gemini (" + basicStats.dryWeightKg() + " kg)");
+            helper.assertTrue(advStats.pressureToleranceAtm() > basicStats.pressureToleranceAtm() * 2.0,
+                    "Expected Titanium+Olivine pressure (" + advStats.pressureToleranceAtm() + ") > 2x Aluminum+Glass (" + basicStats.pressureToleranceAtm() + ")");
+            helper.assertTrue(advStats.thermalToleranceKelvin() > basicStats.thermalToleranceKelvin() + 1500.0,
+                    "Expected Titanium+Olivine thermal (" + advStats.thermalToleranceKelvin() + " K) >> Aluminum+Glass (" + basicStats.thermalToleranceKelvin() + " K)");
+            helper.assertTrue(advInteg != null && basicInteg != null && advInteg.maxIntegrity() > basicInteg.maxIntegrity(),
+                    "Expected Titanium+Olivine max integrity > Aluminum+Glass");
+
+            helper.assertTrue(advComp.hasTrait(RocketMaterialTrait.AEROSPACE_GRADE)
+                            && advComp.hasTrait(RocketMaterialTrait.REFRACTORY_CANOPY)
+                            && advComp.hasTrait(RocketMaterialTrait.FLIGHT_COMPUTER),
+                    "Expected AEROSPACE_GRADE, REFRACTORY_CANOPY, FLIGHT_COMPUTER on advanced Gemini, got " + advComp.allTraits());
+
+            helper.assertTrue(hybridComp.hasTrait(RocketMaterialTrait.AEROSPACE_GRADE)
+                            && hybridComp.hasTrait(RocketMaterialTrait.ACID_RADIATION_SHIELD),
+                    "Expected hybrid hull to retain BOTH AEROSPACE_GRADE and ACID_RADIATION_SHIELD, got " + hybridComp.allTraits());
+            helper.assertTrue(hybridStats.dryWeightKg() > advStats.dryWeightKg(),
+                    "Expected Titanium+Lead hybrid (" + hybridStats.dryWeightKg() + " kg) to be heavier than pure Titanium (" + advStats.dryWeightKg() + " kg)");
+            helper.assertTrue(hybridStats.thermalToleranceKelvin() < advStats.thermalToleranceKelvin()
+                            && hybridStats.thermalToleranceKelvin() > basicStats.thermalToleranceKelvin(),
+                    "Expected Titanium+Lead thermal (" + hybridStats.thermalToleranceKelvin() + " K) between basic and pure Titanium");
+
+            List<net.minecraft.network.chat.Component> summaryLines = new ArrayList<>();
+            ModularRocketPartBlockItem.buildHoverTooltip(hybridStack, RocketPartCategory.COMMAND, summaryLines, false);
+            String summaryText = summaryLines.stream().map(net.minecraft.network.chat.Component::getString).reduce("", (a, b) -> a + "\n" + b);
+            helper.assertTrue(summaryText.contains("Aerospace Grade") && summaryText.contains("Acid & Radiation Shield")
+                            && summaryText.contains("Hold SHIFT"),
+                    "Expected hybrid tooltip summary to list both traits and SHIFT hint");
+
+            List<net.minecraft.network.chat.Component> shiftLines = new ArrayList<>();
+            ModularRocketPartBlockItem.buildHoverTooltip(hybridStack, RocketPartCategory.COMMAND, shiftLines, true);
+            String shiftText = shiftLines.stream().map(net.minecraft.network.chat.Component::getString).reduce("", (a, b) -> a + "\n" + b);
+            helper.assertTrue(shiftText.contains("Port Hull Plate") && shiftText.contains("Starboard Hull Plate")
+                            && shiftText.contains("Compressed Titanium") && shiftText.contains("Lead Shielding"),
+                    "Expected SHIFT tooltip to expand per-slot breakdown for hybrid hull");
+
+            helper.succeed();
+        });
+    }
+
+    @GameTest(template = PLATFORM_ARENA, timeoutTicks = 400)
+    public void testTinkersHelium3TankCommandUtilityAndEngines(GameTestHelper helper) {
+        BlockPos wbTankRel = new BlockPos(3, 1, 8);
+        BlockPos wbCmdRel = new BlockPos(6, 1, 8);
+        BlockPos wbUtilRel = new BlockPos(9, 1, 8);
+        BlockPos wbNervaRel = new BlockPos(12, 1, 8);
+        BlockPos wbVasimrRel = new BlockPos(12, 1, 5);
+
+        for (BlockPos p : List.of(wbTankRel, wbCmdRel, wbUtilRel, wbNervaRel, wbVasimrRel)) {
+            helper.setBlock(p, GCBlocks.ROCKET_WORKBENCH.defaultBlockState());
+        }
+
+        RocketWorkbenchBlockEntity wbTank = requireWorkbench(helper, wbTankRel);
+        RocketWorkbenchBlockEntity wbCmd = requireWorkbench(helper, wbCmdRel);
+        RocketWorkbenchBlockEntity wbUtil = requireWorkbench(helper, wbUtilRel);
+        RocketWorkbenchBlockEntity wbNerva = requireWorkbench(helper, wbNervaRel);
+        RocketWorkbenchBlockEntity wbVasimr = requireWorkbench(helper, wbVasimrRel);
+
+        for (RocketWorkbenchBlockEntity wb : List.of(wbTank, wbCmd, wbUtil, wbNerva, wbVasimr)) {
+            wb.energyStorage().setEnergy(RocketWorkbenchBlockEntity.ENERGY_CAPACITY);
+        }
+
+        // 1. Cryogenic Tank with Helium-3 filled FLUID_CANISTER + HELIUM3_CELL -> SUPERFLUID_CRYO_2K & 0.0 boil-off
+        wbTank.itemStorage().slot(RocketWorkbenchBlockEntity.SCHEMATIC_SLOT).set(GCItems.PART_SCHEMATIC_TANK, 1);
+        wbTank.setModularSelection("tank_hydrolox_supercryo", 1, 1, 1, RocketLivery.ORANGE);
+        RocketPartConfig tankCfg = wbTank.getResolvedModularConfig();
+        int tankMult = RocketPartCostCalculator.calculate(tankCfg).slotItemMultiplier();
+        ItemStack he3Canister = FluidCanisterItem.getFilledCanister(GCItems.FLUID_CANISTER, Gases.HELIUM_3);
+        wbTank.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 0).set(GCItems.COMPRESSED_TITANIUM, 2 * tankMult);
+        wbTank.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 2).set(GCItems.COMPRESSED_TITANIUM, 2 * tankMult);
+        wbTank.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 3)
+                .set(he3Canister.getItem(), he3Canister.getComponentsPatch(), 1);
+        wbTank.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 5).set(GCItems.HELIUM3_CELL, 2 * tankMult);
+        wbTank.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 6).set(GCItems.ATMOSPHERIC_VALVE, 2 * tankMult);
+        wbTank.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 8).set(GCItems.FLUID_MANIPULATOR, 2 * tankMult);
+
+        // 2. Command Capsule with HELIUM3_FUSION_CELL -> ANEUTRONIC_BOARD_REACTOR
+        wbCmd.itemStorage().slot(RocketWorkbenchBlockEntity.SCHEMATIC_SLOT).set(GCItems.PART_SCHEMATIC_COMMAND, 1);
+        wbCmd.setModularSelection("capsule_vostok", 1, 1, 1, RocketLivery.WHITE);
+        int cmdMult = RocketPartCostCalculator.calculate(wbCmd.getResolvedModularConfig()).slotItemMultiplier();
+        wbCmd.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 1).set(GCItems.PARACHUTE, 2 * cmdMult);
+        wbCmd.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 3).set(GCItems.COMPRESSED_TITANIUM, 2 * cmdMult);
+        wbCmd.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 4).set(GCBlocks.OLIVINE_GLASS.asItem(), cmdMult);
+        wbCmd.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 5).set(GCItems.COMPRESSED_TITANIUM, 2 * cmdMult);
+        wbCmd.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 7).set(GCItems.HELIUM3_FUSION_CELL, cmdMult);
+
+        // 3. Utility RTG with HELIUM3_FUSION_CELL + Titanium (no heavy lead shielding) -> ANEUTRONIC_BOARD_REACTOR
+        wbUtil.itemStorage().slot(RocketWorkbenchBlockEntity.SCHEMATIC_SLOT).set(GCItems.PART_SCHEMATIC_UTILITY, 1);
+        wbUtil.setModularSelection("power_rtg", 1, 1, 1, RocketLivery.WHITE);
+        int utilMult = RocketPartCostCalculator.calculate(wbUtil.getResolvedModularConfig()).slotItemMultiplier();
+        wbUtil.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 1).set(GCItems.COMPRESSED_TITANIUM, utilMult);
+        wbUtil.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 3).set(GCItems.COMPRESSED_TITANIUM, utilMult);
+        wbUtil.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 4).set(GCItems.HELIUM3_FUSION_CELL, utilMult);
+        wbUtil.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 5).set(GCItems.COMPRESSED_TITANIUM, utilMult);
+
+        // 4. NERVA Engine with HELIUM3_CELL -> ANEUTRONIC_HE3_PLASMA
+        wbNerva.itemStorage().slot(RocketWorkbenchBlockEntity.SCHEMATIC_SLOT).set(GCItems.PART_SCHEMATIC_ENGINE, 1);
+        wbNerva.setModularSelection("engine_ntr_nerva", 3, 3, 2, RocketLivery.WHITE);
+        RocketPartConfig nervaCfg = wbNerva.getResolvedModularConfig();
+        int nervaMult = RocketPartCostCalculator.calculate(nervaCfg).slotItemMultiplier();
+        wbNerva.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 1).set(GCItems.SUPERCONDUCTING_COIL, nervaMult);
+        wbNerva.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 3).set(GCItems.FLUID_MANIPULATOR, nervaMult);
+        wbNerva.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 4).set(GCItems.HELIUM3_CELL, nervaMult);
+        wbNerva.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 6).set(GCItems.COMPRESSED_NIOBIUM, 2 * nervaMult);
+        wbNerva.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 7).set(GCItems.OLIVINE_SHARD, 2 * nervaMult);
+        wbNerva.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 8).set(GCItems.COMPRESSED_NIOBIUM, 2 * nervaMult);
+
+        // 5. VASIMR Engine with HELIUM3_CELL -> ANEUTRONIC_HE3_PLASMA
+        wbVasimr.itemStorage().slot(RocketWorkbenchBlockEntity.SCHEMATIC_SLOT).set(GCItems.PART_SCHEMATIC_ENGINE, 1);
+        wbVasimr.setModularSelection("engine_plasma_vasimr", 3, 3, 2, RocketLivery.BLUE);
+        RocketPartConfig vasimrCfg = wbVasimr.getResolvedModularConfig();
+        int vasimrMult = RocketPartCostCalculator.calculate(vasimrCfg).slotItemMultiplier();
+        wbVasimr.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 1).set(GCItems.SUPERCONDUCTING_COIL, vasimrMult);
+        wbVasimr.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 3).set(GCItems.FLUID_MANIPULATOR, vasimrMult);
+        wbVasimr.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 4).set(GCItems.HELIUM3_CELL, vasimrMult);
+        wbVasimr.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 6).set(GCItems.COMPRESSED_NIOBIUM, 2 * vasimrMult);
+        wbVasimr.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 7).set(GCItems.COMPRESSED_NIOBIUM, 2 * vasimrMult);
+        wbVasimr.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 8).set(GCItems.COMPRESSED_NIOBIUM, 2 * vasimrMult);
+
+        int maxTicks = Math.max(
+                RocketPartCostCalculator.calculate(nervaCfg).assemblyTimeTicks(),
+                Math.max(
+                        RocketPartCostCalculator.calculate(vasimrCfg).assemblyTimeTicks(),
+                        RocketPartCostCalculator.calculate(tankCfg).assemblyTimeTicks()
+                )
+        ) + 15;
+
+        helper.runAfterDelay(maxTicks, () -> {
+            // Tank checks
+            ItemStack tankOut = wbTank.itemStorage().getItem(RocketWorkbenchBlockEntity.OUTPUT_SLOT);
+            helper.assertTrue(!tankOut.isEmpty(), "Expected He-3 cryo tank to finish fabrication");
+            RocketPartComposition tankComp = tankOut.get(GCDataComponents.ROCKET_PART_COMPOSITION);
+            helper.assertTrue(tankComp != null && tankComp.hasTrait(RocketMaterialTrait.SUPERFLUID_CRYO_2K),
+                    "Expected SUPERFLUID_CRYO_2K on He-3 cryo tank");
+            CostProfile tankFinal = RocketPartCostCalculator.calculate(tankOut.get(GCDataComponents.ROCKET_PART_CONFIG), tankComp);
+            helper.assertTrue(tankFinal.boilOffMultiplier() == 0.0,
+                    "Expected zero boil-off (0.0) on He-3 superfluid cryo tank, got " + tankFinal.boilOffMultiplier());
+            List<net.minecraft.network.chat.Component> tankTooltip = new ArrayList<>();
+            ModularRocketPartBlockItem.buildHoverTooltip(tankOut, RocketPartCategory.TANK, tankTooltip, true);
+            String tankTipText = tankTooltip.stream().map(net.minecraft.network.chat.Component::getString).reduce("", (a, b) -> a + "\n" + b);
+            helper.assertTrue(tankTipText.contains("Superfluid Cryo <2K") && tankTipText.contains("0.00x (Zero)"),
+                    "Expected tank tooltip to display Superfluid Cryo <2K and 0.00x (Zero) boil-off");
+
+            // Command & Utility checks
+            ItemStack cmdOut = wbCmd.itemStorage().getItem(RocketWorkbenchBlockEntity.OUTPUT_SLOT);
+            ItemStack utilOut = wbUtil.itemStorage().getItem(RocketWorkbenchBlockEntity.OUTPUT_SLOT);
+            helper.assertTrue(!cmdOut.isEmpty() && !utilOut.isEmpty(), "Expected He-3 command & utility parts to finish fabrication");
+            RocketPartComposition cmdComp = cmdOut.get(GCDataComponents.ROCKET_PART_COMPOSITION);
+            RocketPartComposition utilComp = utilOut.get(GCDataComponents.ROCKET_PART_COMPOSITION);
+            helper.assertTrue(cmdComp != null && cmdComp.hasTrait(RocketMaterialTrait.ANEUTRONIC_BOARD_REACTOR),
+                    "Expected ANEUTRONIC_BOARD_REACTOR on Command capsule with HELIUM3_FUSION_CELL");
+            helper.assertTrue(utilComp != null && utilComp.hasTrait(RocketMaterialTrait.ANEUTRONIC_BOARD_REACTOR),
+                    "Expected ANEUTRONIC_BOARD_REACTOR on Utility RTG with HELIUM3_FUSION_CELL");
+            helper.assertTrue(RocketPartCostCalculator.calculateEnergyGenerationPerTick(cmdOut.get(GCDataComponents.ROCKET_PART_CONFIG), cmdComp) >= 120L,
+                    "Expected >= 120 GJ/t onboard power from ANEUTRONIC_BOARD_REACTOR");
+
+            // NERVA & VASIMR DFD checks
+            ItemStack nervaOut = wbNerva.itemStorage().getItem(RocketWorkbenchBlockEntity.OUTPUT_SLOT);
+            ItemStack vasimrOut = wbVasimr.itemStorage().getItem(RocketWorkbenchBlockEntity.OUTPUT_SLOT);
+            helper.assertTrue(!nervaOut.isEmpty() && !vasimrOut.isEmpty(), "Expected NERVA and VASIMR DFD engines to finish fabrication");
+            RocketPartComposition nervaComp = nervaOut.get(GCDataComponents.ROCKET_PART_COMPOSITION);
+            RocketPartComposition vasimrComp = vasimrOut.get(GCDataComponents.ROCKET_PART_COMPOSITION);
+            helper.assertTrue(nervaComp != null && nervaComp.hasTrait(RocketMaterialTrait.ANEUTRONIC_HE3_PLASMA),
+                    "Expected ANEUTRONIC_HE3_PLASMA on NERVA engine with HELIUM3_CELL");
+            helper.assertTrue(vasimrComp != null && vasimrComp.hasTrait(RocketMaterialTrait.ANEUTRONIC_HE3_PLASMA),
+                    "Expected ANEUTRONIC_HE3_PLASMA on VASIMR engine with HELIUM3_CELL");
+
+            RocketPartStats nervaBase = RocketPartCostCalculator.calculate(nervaCfg).stats();
+            RocketPartStats nervaFinal = nervaOut.get(GCDataComponents.ROCKET_PART_STATS);
+            helper.assertTrue(nervaFinal != null && nervaFinal.thrustKn() > nervaBase.thrustKn() * 1.5,
+                    "Expected NERVA DFD thrust (" + (nervaFinal != null ? nervaFinal.thrustKn() : 0) + ") >> base (" + nervaBase.thrustKn() + ")");
+
+            RocketPartStats vasimrBase = RocketPartCostCalculator.calculate(vasimrCfg).stats();
+            RocketPartStats vasimrFinal = vasimrOut.get(GCDataComponents.ROCKET_PART_STATS);
+            helper.assertTrue(vasimrFinal != null && vasimrFinal.thrustKn() > vasimrBase.thrustKn() * 1.5,
+                    "Expected VASIMR DFD thrust (" + (vasimrFinal != null ? vasimrFinal.thrustKn() : 0) + ") >> base (" + vasimrBase.thrustKn() + ")");
+
+            helper.succeed();
+        });
     }
 
     private static ModularRocketPartBlockEntity requireModularPart(GameTestHelper helper, BlockPos relPos) {
