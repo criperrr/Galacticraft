@@ -38,6 +38,8 @@ import dev.galacticraft.mod.content.block.entity.machine.AtmosphericFractionator
 import dev.galacticraft.mod.content.block.entity.machine.ElectrolyticSeparatorBlockEntity;
 import dev.galacticraft.mod.content.block.entity.machine.IsotopicCentrifugeBlockEntity;
 import dev.galacticraft.mod.content.block.entity.machine.SabatierChemicalReactorBlockEntity;
+import dev.galacticraft.mod.content.block.environment.PropellantEvaporation;
+import dev.galacticraft.mod.content.block.environment.PropellantGasBlock;
 import dev.galacticraft.mod.content.item.GCItems;
 import dev.galacticraft.mod.machine.GCMachineStatuses;
 import dev.galacticraft.mod.util.FluidUtil;
@@ -50,6 +52,8 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import team.reborn.energy.api.EnergyStorage;
 
@@ -434,5 +438,152 @@ public class IsruPropellantMachinesTestSuite implements GalacticraftGameTest {
             }
             context.succeed();
         });
+    }
+
+    @GameTest(template = EMPTY_STRUCTURE, timeoutTicks = 120)
+    public void propellantEvaporationOpenVsDomeContainmentTest(GameTestHelper context) {
+        // 1) Open-air LOX on temperate Overworld (+20C > -183C) must boil away to AIR
+        BlockPos openLoxPos = new BlockPos(0, 2, 0);
+        context.setBlock(openLoxPos, GCBlocks.LIQUID_OXYGEN);
+
+        // 2) Enclosed 5x5x5 Vacuum Glass dome (origin x=3..7, y=1..5, z=0..4; interior x=4..6, y=2..4, z=1..3)
+        buildAirtightGlassBox(context, 3, 1, 0, 7, 5, 4);
+        BlockPos domeCenter = new BlockPos(5, 2, 2);
+        BlockPos domeUpper = new BlockPos(5, 4, 2);
+        BlockPos domeWallBreach = new BlockPos(3, 3, 2);
+        BlockPos outsideDome = new BlockPos(2, 3, 2);
+
+        // Simulate unsealed vacuum interior before LOX release
+        context.getLevel().setBreathable(context.absolutePos(domeUpper), false);
+        context.setBlock(domeCenter, GCBlocks.LIQUID_OXYGEN);
+
+        context.runAfterDelay(35, () -> {
+            if (!context.getBlockState(openLoxPos).isAir()) {
+                context.fail("Expected open-air LIQUID_OXYGEN to evaporate completely to AIR, found " + context.getBlockState(openLoxPos));
+                return;
+            }
+
+            BlockState trappedCenter = context.getBlockState(domeCenter);
+            BlockState trappedUpper = context.getBlockState(domeUpper);
+            if (!trappedCenter.is(GCBlocks.PROPELLANT_GAS) || trappedCenter.getValue(PropellantGasBlock.GAS) != PropellantGasBlock.GasKind.OXYGEN) {
+                context.fail("Expected LIQUID_OXYGEN inside closed dome to evaporate into trapped OXYGEN PropellantGasBlock, found " + trappedCenter);
+                return;
+            }
+            if (!trappedUpper.is(GCBlocks.PROPELLANT_GAS) || trappedUpper.getValue(PropellantGasBlock.GAS) != PropellantGasBlock.GasKind.OXYGEN) {
+                context.fail("Expected evaporated OXYGEN gas to expand and fill upper interior of closed dome, found " + trappedUpper);
+                return;
+            }
+            if (!context.getLevel().isBreathable(context.absolutePos(domeUpper))) {
+                context.fail("Expected trapped OXYGEN vapor inside closed dome to make interior breathable");
+                return;
+            }
+            if (context.getBlockState(outsideDome).is(GCBlocks.PROPELLANT_GAS)) {
+                context.fail("Trapped dome gas must NOT leak outside airtight glass walls");
+                return;
+            }
+
+            // 3) Breach the dome wall -> gas must depressurize and vent cleanly to AIR
+            context.setBlock(domeWallBreach, Blocks.AIR);
+            context.runAfterDelay(15, () -> {
+                if (!context.getBlockState(domeCenter).isAir() || !context.getBlockState(domeUpper).isAir()) {
+                    context.fail("Expected breaching dome wall to vent all trapped PropellantGasBlock to AIR, got center="
+                            + context.getBlockState(domeCenter) + ", upper=" + context.getBlockState(domeUpper));
+                    return;
+                }
+                context.succeed();
+            });
+        });
+    }
+
+    @GameTest(template = EMPTY_STRUCTURE, timeoutTicks = 120)
+    public void propellantThermodynamicsAndBuoyancyTest(GameTestHelper context) {
+        Registry<CelestialBody<?, ?>> bodies = context.getLevel().registryAccess().registryOrThrow(AddonRegistries.CELESTIAL_BODY);
+        CelestialBody<?, ?> moon = bodies.get(GCCelestialBodies.MOON);
+        CelestialBody<?, ?> mars = bodies.get(GCCelestialBodies.MARS);
+        CelestialBody<?, ?> venus = bodies.get(GCCelestialBodies.VENUS);
+        CelestialBody<?, ?> saturn = bodies.get(GCCelestialBodies.SATURN);
+        CelestialBody<?, ?> neptune = bodies.get(GCCelestialBodies.NEPTUNE);
+
+        // Verify real planetary thermodynamic stability thresholds
+        if (PropellantEvaporation.shouldEvaporateInAtmosphere(neptune, -183.0)) {
+            context.fail("Expected LIQUID_OXYGEN (-183C) to remain stably liquid on Neptune (-200C, 7.5 bar)");
+            return;
+        }
+        if (!PropellantEvaporation.shouldEvaporateInAtmosphere(mars, -183.0)
+                || !PropellantEvaporation.shouldEvaporateInAtmosphere(moon, -183.0)) {
+            context.fail("Expected LIQUID_OXYGEN to evaporate on Mars and Moon");
+            return;
+        }
+        if (PropellantEvaporation.shouldEvaporateInAtmosphere(saturn, -108.0)) {
+            context.fail("Expected LIQUID_XENON (-108C) to remain stably liquid on Saturn (-140C, 8.5 bar)");
+            return;
+        }
+        if (!PropellantEvaporation.shouldEvaporateInAtmosphere(moon, 113.5)
+                || !PropellantEvaporation.shouldEvaporateInAtmosphere(venus, 113.5)) {
+            context.fail("Expected MONOPROPELLANT (+113.5C) to evaporate in Moon vacuum and Venus (+462C)");
+            return;
+        }
+
+        // Hydrazine stays liquid on temperate Overworld, but evaporates when Lava is adjacent
+        BlockPos stableMonoPos = new BlockPos(0, 2, 0);
+        BlockPos heatedMonoPos = new BlockPos(2, 2, 0);
+        BlockPos lavaPos = new BlockPos(3, 2, 0);
+        context.setBlock(stableMonoPos, GCBlocks.MONOPROPELLANT);
+        context.setBlock(heatedMonoPos, GCBlocks.MONOPROPELLANT);
+        context.setBlock(lavaPos, Blocks.LAVA);
+
+        // Two 5x5x5 interior domes (125 blocks > 64 expansion budget) to verify true molar buoyancy stratification
+        buildAirtightGlassBox(context, 0, 1, 3, 6, 7, 9); // interior x=1..5, y=2..6, z=4..8
+        BlockPos h2Source = new BlockPos(3, 4, 6);
+        BlockPos h2Ceiling = new BlockPos(3, 6, 6);
+        BlockPos h2FloorCorner = new BlockPos(1, 2, 4);
+        context.setBlock(h2Source, GCBlocks.LIQUID_HYDROGEN);
+
+        buildAirtightGlassBox(context, 8, 1, 3, 14, 7, 9); // interior x=9..13, y=2..6, z=4..8
+        BlockPos xeSource = new BlockPos(11, 4, 6);
+        BlockPos xeFloor = new BlockPos(11, 2, 6);
+        BlockPos xeCeilingCorner = new BlockPos(9, 6, 4);
+        context.setBlock(xeSource, GCBlocks.LIQUID_XENON);
+
+        context.runAfterDelay(40, () -> {
+            if (!context.getBlockState(stableMonoPos).is(GCBlocks.MONOPROPELLANT)) {
+                context.fail("Expected MONOPROPELLANT away from heat on temperate Overworld to remain liquid");
+                return;
+            }
+            if (context.getBlockState(heatedMonoPos).is(GCBlocks.MONOPROPELLANT)) {
+                context.fail("Expected MONOPROPELLANT adjacent to LAVA to evaporate");
+                return;
+            }
+            BlockState h2Top = context.getBlockState(h2Ceiling);
+            if (!h2Top.is(GCBlocks.PROPELLANT_GAS) || h2Top.getValue(PropellantGasBlock.GAS) != PropellantGasBlock.GasKind.HYDROGEN) {
+                context.fail("Expected evaporated HYDROGEN to rise to dome ceiling, found " + h2Top);
+                return;
+            }
+            if (!context.getBlockState(h2FloorCorner).isAir()) {
+                context.fail("Expected buoyant HYDROGEN to stratify at ceiling leaving distant floor corner clear, found " + context.getBlockState(h2FloorCorner));
+                return;
+            }
+            BlockState xeBot = context.getBlockState(xeFloor);
+            if (!xeBot.is(GCBlocks.PROPELLANT_GAS) || xeBot.getValue(PropellantGasBlock.GAS) != PropellantGasBlock.GasKind.XENON) {
+                context.fail("Expected evaporated XENON to pool at dome floor, found " + xeBot);
+                return;
+            }
+            if (!context.getBlockState(xeCeilingCorner).isAir()) {
+                context.fail("Expected dense XENON to pool along floor leaving distant ceiling corner clear, found " + context.getBlockState(xeCeilingCorner));
+                return;
+            }
+            context.succeed();
+        });
+    }
+
+    private static void buildAirtightGlassBox(GameTestHelper context, int minX, int minY, int minZ, int maxX, int maxY, int maxZ) {
+        for (int x = minX; x <= maxX; x++) {
+            for (int y = minY; y <= maxY; y++) {
+                for (int z = minZ; z <= maxZ; z++) {
+                    boolean boundary = x == minX || x == maxX || y == minY || y == maxY || z == minZ || z == maxZ;
+                    context.setBlock(new BlockPos(x, y, z), boundary ? GCBlocks.VACUUM_GLASS : Blocks.AIR);
+                }
+            }
+        }
     }
 }
