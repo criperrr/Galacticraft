@@ -935,6 +935,92 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
     }
 
     /**
+     * Executes an automated telemetry probe sortie for an assembled rocket on this pad carrying
+     * {@code science_*} modules and a {@code BLANK_DATA_DRIVE}. Validates emergent flight physics
+     * via {@link RocketFlightValidator}: if thermal/pressure/acid limits are exceeded and a
+     * {@code science_flight_recorder} is mounted, records a <b>+200%</b> {@code THERMAL_FAILURE}
+     * black-box drive!
+     */
+    public dev.galacticraft.mod.content.entity.orbital.FlightTelemetryEngine.ProbeMissionResult executeTelemetryProbeSortie(
+            PlanetaryEnvironment destination,
+            @Nullable dev.galacticraft.api.universe.celestialbody.CelestialBody<?, ?> destinationBody,
+            @Nullable ServerPlayer operator
+    ) {
+        if (!(this.level instanceof net.minecraft.server.level.ServerLevel serverLevel) || !this.formed) {
+            return new dev.galacticraft.mod.content.entity.orbital.FlightTelemetryEngine.ProbeMissionResult(
+                    ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, "Pad not formed");
+        }
+        RocketPadSummary summary = this.scanRocketOnPad();
+        List<String> scienceModules = new ArrayList<>();
+        ModularRocketPartBlockEntity driveCarrier = null;
+        for (MountedRocketPart part : summary.parts()) {
+            if (this.level.isLoaded(part.pos())
+                    && this.level.getBlockEntity(part.pos()) instanceof ModularRocketPartBlockEntity partBe
+                    && !partBe.isRemoved()
+                    && partBe.isSciencePayloadModule()) {
+                scienceModules.add(partBe.getConfig().familyId());
+                if (driveCarrier == null && partBe.getScienceDrive().is(dev.galacticraft.mod.content.item.GCItems.BLANK_DATA_DRIVE)) {
+                    driveCarrier = partBe;
+                }
+            }
+        }
+
+        ItemStack inputDrive = driveCarrier != null ? driveCarrier.getScienceDrive() : ItemStack.EMPTY;
+        if (inputDrive.isEmpty() && operator != null) {
+            for (int i = 0; i < operator.getInventory().getContainerSize(); i++) {
+                ItemStack s = operator.getInventory().getItem(i);
+                if (s.is(dev.galacticraft.mod.content.item.GCItems.BLANK_DATA_DRIVE)) {
+                    inputDrive = s.copyWithCount(1);
+                    if (!operator.isCreative()) {
+                        s.shrink(1);
+                    }
+                    break;
+                }
+            }
+        }
+
+        RocketFlightValidator.FlightValidationReport report = this.evaluateFlight(destination);
+        boolean thermalOrStructuralFailure = !report.thermalSafe() || !report.pressureSafe() || report.acidHazard();
+
+        var result = dev.galacticraft.mod.content.entity.orbital.FlightTelemetryEngine.executeProbeMission(
+                serverLevel,
+                destination,
+                destinationBody,
+                scienceModules,
+                inputDrive,
+                thermalOrStructuralFailure,
+                this.getPadCenterPos()
+        );
+
+        if (driveCarrier != null && result.hasRecordedDrive()) {
+            driveCarrier.setScienceDrive(result.recordedDrive());
+        } else if (result.hasRecordedDrive()) {
+            if (operator != null) {
+                if (!operator.getInventory().add(result.recordedDrive().copy())) {
+                    operator.drop(result.recordedDrive().copy(), false);
+                }
+            } else {
+                Block.popResource(serverLevel, this.getPadCenterPos().above(), result.recordedDrive().copy());
+            }
+        }
+        if (!result.orbitalSurveyMap().isEmpty()) {
+            if (operator != null && !operator.getInventory().add(result.orbitalSurveyMap().copy())) {
+                operator.drop(result.orbitalSurveyMap().copy(), false);
+            } else if (operator == null) {
+                Block.popResource(serverLevel, this.getPadCenterPos().above(), result.orbitalSurveyMap().copy());
+            }
+        }
+        if (!result.harvestedSample().isEmpty()) {
+            if (operator != null && !operator.getInventory().add(result.harvestedSample().copy())) {
+                operator.drop(result.harvestedSample().copy(), false);
+            } else if (operator == null) {
+                Block.popResource(serverLevel, this.getPadCenterPos().above(), result.harvestedSample().copy());
+            }
+        }
+        return result;
+    }
+
+    /**
      * Applies environmental stress (thermal overload, hyperbaric pressure, and Venusian sulfuric
      * acid corrosion) for {@code exposureSeconds} to all mounted parts on this platform.
      *

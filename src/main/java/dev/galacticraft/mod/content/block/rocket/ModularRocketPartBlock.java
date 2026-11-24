@@ -32,7 +32,9 @@ import dev.galacticraft.mod.content.item.ModularRocketPartBlockItem;
 import dev.galacticraft.mod.content.rocket.part.RocketPartCatalog;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -168,13 +170,32 @@ public class ModularRocketPartBlock extends BaseEntityBlock {
     }
 
     @Override
-    protected @NotNull InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
-        if (level.getBlockEntity(pos) instanceof ModularRocketPartBlockEntity be && be.getConfig().walkableInterior()) {
-            if (level.isClientSide) {
-                return InteractionResult.SUCCESS;
+    protected @NotNull ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if (level.getBlockEntity(pos) instanceof ModularRocketPartBlockEntity be && be.isSciencePayloadModule()) {
+            ItemInteractionResult res = be.handleScienceModuleInteraction(level, player, hand, stack);
+            if (res != ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION) {
+                return res;
             }
-            be.toggleHatch();
-            return InteractionResult.CONSUME;
+        }
+        return super.useItemOn(stack, state, level, pos, player, hand, hit);
+    }
+
+    @Override
+    protected @NotNull InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
+        if (level.getBlockEntity(pos) instanceof ModularRocketPartBlockEntity be) {
+            if (be.isSciencePayloadModule() && !be.getScienceDrive().isEmpty()) {
+                ItemInteractionResult res = be.handleScienceModuleInteraction(level, player, InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+                if (res.consumesAction()) {
+                    return InteractionResult.sidedSuccess(level.isClientSide);
+                }
+            }
+            if (be.getConfig().walkableInterior()) {
+                if (level.isClientSide) {
+                    return InteractionResult.SUCCESS;
+                }
+                be.toggleHatch();
+                return InteractionResult.CONSUME;
+            }
         }
         return InteractionResult.PASS;
     }

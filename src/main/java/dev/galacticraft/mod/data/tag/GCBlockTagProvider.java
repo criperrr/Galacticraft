@@ -947,6 +947,7 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 GCBlocks.ZERO_G_RESEARCH_CHAMBER,
                 GCBlocks.AEROSPACE_RD_TERMINAL,
                 GCBlocks.RESEARCH_DATA_LINK,
+                GCBlocks.TELEMETRY_ANALYZER,
                 GCBlocks.FUSION_REACTOR_CASING,
                 GCBlocks.FUSION_MAGNET_COIL,
                 GCBlocks.FUSION_PLASMA_GLASS,

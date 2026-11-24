@@ -143,6 +143,7 @@ public class GalacticraftClient implements ClientModInitializer {
         MenuScreens.register(GCMenuTypes.ZERO_G_RESEARCH_CHAMBER, ZeroGResearchChamberScreen::new);
         MenuScreens.register(GCMenuTypes.AEROSPACE_RD_TERMINAL, AerospaceRdTerminalScreen::new);
         MenuScreens.register(GCMenuTypes.RESEARCH_DATA_LINK, ResearchDataLinkScreen::new);
+        MenuScreens.register(GCMenuTypes.TELEMETRY_ANALYZER, TelemetryAnalyzerScreen::new);
         MenuScreens.register(GCMenuTypes.ELECTRIC_FURNACE, ElectricFurnaceScreen::new);
         MenuScreens.register(GCMenuTypes.ELECTRIC_ARC_FURNACE, ElectricArcFurnaceScreen::new);
         MenuScreens.register(GCMenuTypes.COMPRESSOR, CompressorScreen::new);

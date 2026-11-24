@@ -130,6 +130,7 @@ public class GCDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(BootstrapDataProvider.create("Rocket Upgrades", GCRocketParts::bootstrapUpgrade));
 
         pack.addProvider(GCOxygenBlockProvider::new);
+        pack.addProvider(GCResearchTreeProvider::new);
 
         // models
         pack.addProvider(GCModelProvider::new);

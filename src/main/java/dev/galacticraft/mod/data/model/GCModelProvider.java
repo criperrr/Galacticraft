@@ -690,6 +690,7 @@ public class GCModelProvider extends FabricModelProvider {
         createActiveHandcraftedMachineBlock(generator, GCBlocks.ZERO_G_RESEARCH_CHAMBER);
         createActiveHandcraftedMachineBlock(generator, GCBlocks.AEROSPACE_RD_TERMINAL);
         createActiveHandcraftedMachineBlock(generator, GCBlocks.RESEARCH_DATA_LINK);
+        createActiveHandcraftedMachineBlock(generator, GCBlocks.TELEMETRY_ANALYZER);
 
         generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(GCBlocks.FUSION_REACTOR_CASING, Constant.id("block/fusion_reactor_casing")));
         generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(GCBlocks.FUSION_MAGNET_COIL, Constant.id("block/fusion_magnet_coil")));
@@ -1083,6 +1084,10 @@ public class GCModelProvider extends FabricModelProvider {
         generator.generateFlatItem(GCItems.LASER_COMM_TRANSPONDER, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(GCItems.TELEMETRY_COPROCESSOR_CARD, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(GCItems.QUANTUM_ARCHIVE_CORE, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.BLANK_DATA_DRIVE, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.RECORDED_DATA_DRIVE, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.BLANK_SCHEMATIC_DISC, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.ORBITAL_SURVEY_MAP, ModelTemplates.FLAT_ITEM);
 
         for (Item flag : GCItems.FLAGS.colorMap().values()) {
             GCModelTemplates.FLAG_INVENTORY.create(ModelLocationUtils.getModelLocation(flag), new TextureMapping(), generator.output);

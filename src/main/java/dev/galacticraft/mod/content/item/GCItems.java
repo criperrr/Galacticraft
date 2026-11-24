@@ -357,6 +357,12 @@ public class GCItems {
     public static final Item PART_SCHEMATIC_PAYLOAD = ITEMS.register(Constant.Item.PART_SCHEMATIC_PAYLOAD, new PartCategorySchematicItem(RocketPartCategory.PAYLOAD, new Item.Properties().stacksTo(1)));
     public static final Item PART_SCHEMATIC_UTILITY = ITEMS.register(Constant.Item.PART_SCHEMATIC_UTILITY, new PartCategorySchematicItem(RocketPartCategory.UTILITY, new Item.Properties().stacksTo(1)));
 
+    // FLIGHT TELEMETRY, DATA DRIVES & ORBITAL SURVEY CARTOGRAPHY
+    public static final Item BLANK_DATA_DRIVE = ITEMS.register(Constant.Item.BLANK_DATA_DRIVE, new BlankDataDriveItem(new Item.Properties().stacksTo(16)));
+    public static final Item RECORDED_DATA_DRIVE = ITEMS.register(Constant.Item.RECORDED_DATA_DRIVE, new RecordedDataDriveItem(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON).fireResistant()));
+    public static final Item BLANK_SCHEMATIC_DISC = ITEMS.register(Constant.Item.BLANK_SCHEMATIC_DISC, new BlankSchematicDiscItem(new Item.Properties().stacksTo(16)));
+    public static final Item ORBITAL_SURVEY_MAP = ITEMS.register(Constant.Item.ORBITAL_SURVEY_MAP, new OrbitalSurveyMapItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
+
     public static final Item TIER_2_ROCKET_SCHEMATIC = ITEMS.register(Constant.Item.TIER_2_ROCKET_SCHEMATIC, new SchematicItem(new Item.Properties()));
     public static final Item CARGO_ROCKET_SCHEMATIC = ITEMS.register(Constant.Item.CARGO_ROCKET_SCHEMATIC, new SchematicItem(new Item.Properties()));
     public static final Item MOON_BUGGY_SCHEMATIC = ITEMS.register(Constant.Item.MOON_BUGGY_SCHEMATIC, new SchematicItem(new Item.Properties()));

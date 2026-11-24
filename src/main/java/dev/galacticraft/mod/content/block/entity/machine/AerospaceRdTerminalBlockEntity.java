@@ -82,7 +82,7 @@ public class AerospaceRdTerminalBlockEntity extends MachineBlockEntity {
                             .icon(Pair.of(InventoryMenu.BLOCK_ATLAS, Constant.SlotSprite.ENERGY)),
                     ItemResourceSlot.builder(TransferType.INPUT)
                             .pos(204, 192)
-                            .filter((item, c) -> item == Items.PAPER || item == GCItems.BASIC_WAFER || item == GCItems.ADVANCED_WAFER),
+                            .filter((item, c) -> item == GCItems.BLANK_SCHEMATIC_DISC || item == Items.PAPER || item == GCItems.BASIC_WAFER || item == GCItems.ADVANCED_WAFER),
                     ItemResourceSlot.builder(TransferType.OUTPUT)
                             .pos(244, 192),
                     ItemResourceSlot.builder(TransferType.INPUT)
@@ -167,6 +167,9 @@ public class AerospaceRdTerminalBlockEntity extends MachineBlockEntity {
         }
 
         long cost = this.upgradeTier >= 1 ? Math.round(ETCH_ENERGY_COST * 0.85) : ETCH_ENERGY_COST;
+        if (mediaSlot.getResource() == GCItems.BLANK_SCHEMATIC_DISC) {
+            cost = Math.round(cost * 0.75);
+        }
         try (Transaction tx = Transaction.openOuter()) {
             if (!player.isCreative()) {
                 long drawn = this.energyStorage().extract(cost, tx);

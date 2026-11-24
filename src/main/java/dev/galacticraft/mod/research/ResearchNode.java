@@ -22,7 +22,9 @@
 
 package dev.galacticraft.mod.research;
 
+import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
@@ -52,9 +54,32 @@ public record ResearchNode(
         @NotNull String title,
         @NotNull String summary,
         @NotNull List<String> unlocks,
-        @NotNull ResourceLocation iconItemId
+        @NotNull ResourceLocation iconItemId,
+        @NotNull List<ResourceLocation> unlockedRecipes
 ) {
-    public static final Codec<ResearchNode> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+    public ResearchNode(
+            @NotNull ResourceLocation id,
+            int era,
+            @NotNull ResearchBranch branch,
+            @NotNull ResearchDomain domain,
+            int spCost,
+            int requiredDomainPoints,
+            @Nullable String requiredMilestone,
+            int gridX,
+            int gridY,
+            @NotNull List<ResourceLocation> prerequisites,
+            @NotNull ResearchLocationRequirement locationRequirement,
+            @NotNull String sourceLabName,
+            @NotNull String title,
+            @NotNull String summary,
+            @NotNull List<String> unlocks,
+            @NotNull ResourceLocation iconItemId
+    ) {
+        this(id, era, branch, domain, spCost, requiredDomainPoints, requiredMilestone, gridX, gridY,
+                prerequisites, locationRequirement, sourceLabName, title, summary, unlocks, iconItemId, List.of());
+    }
+
+    private static final MapCodec<ResearchNode> BASE_MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             ResourceLocation.CODEC.fieldOf("id").forGetter(ResearchNode::id),
             Codec.INT.fieldOf("era").forGetter(ResearchNode::era),
             ResearchBranch.CODEC.fieldOf("branch").forGetter(ResearchNode::branch),
@@ -73,6 +98,22 @@ public record ResearchNode(
             ResourceLocation.CODEC.fieldOf("icon_item").forGetter(ResearchNode::iconItemId)
     ).apply(instance, (id, era, branch, domain, spCost, domPts, milestone, gx, gy, prereqs, loc, lab, title, summary, unlocks, icon) ->
             new ResearchNode(id, era, branch, domain, spCost, domPts, milestone.orElse(null), gx, gy, prereqs, loc, lab, title, summary, unlocks, icon)));
+
+    private static final MapCodec<List<ResourceLocation>> UNLOCKED_RECIPES_MAP_CODEC =
+            ResourceLocation.CODEC.listOf().optionalFieldOf("unlocked_recipes", List.of());
+
+    public static final Codec<ResearchNode> CODEC = Codec.mapPair(BASE_MAP_CODEC, UNLOCKED_RECIPES_MAP_CODEC)
+            .codec()
+            .xmap(
+                    pair -> pair.getFirst().withUnlockedRecipes(pair.getSecond()),
+                    node -> Pair.of(node, node.unlockedRecipes())
+            );
+
+    public @NotNull ResearchNode withUnlockedRecipes(@NotNull List<ResourceLocation> recipes) {
+        return new ResearchNode(this.id, this.era, this.branch, this.domain, this.spCost, this.requiredDomainPoints,
+                this.requiredMilestone, this.gridX, this.gridY, this.prerequisites, this.locationRequirement,
+                this.sourceLabName, this.title, this.summary, this.unlocks, this.iconItemId, List.copyOf(recipes));
+    }
 
     public boolean hasMilestoneRequirement() {
         return this.requiredMilestone != null && !this.requiredMilestone.isEmpty();

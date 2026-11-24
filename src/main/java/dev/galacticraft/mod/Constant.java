@@ -557,6 +557,7 @@ public interface Constant {
         String ZERO_G_RESEARCH_CHAMBER = "zero_g_research_chamber";
         String AEROSPACE_RD_TERMINAL = "aerospace_rd_terminal";
         String RESEARCH_DATA_LINK = "research_data_link";
+        String TELEMETRY_ANALYZER = "telemetry_analyzer";
         String FUSION_REACTOR_CASING = "fusion_reactor_casing";
         String FUSION_MAGNET_COIL = "fusion_magnet_coil";
         String FUSION_PLASMA_GLASS = "fusion_plasma_glass";
@@ -865,6 +866,11 @@ public interface Constant {
 
         String TELEMETRY_COPROCESSOR_CARD = "telemetry_coprocessor_card";
         String QUANTUM_ARCHIVE_CORE = "quantum_archive_core";
+
+        String BLANK_DATA_DRIVE = "blank_data_drive";
+        String RECORDED_DATA_DRIVE = "recorded_data_drive";
+        String BLANK_SCHEMATIC_DISC = "blank_schematic_disc";
+        String ORBITAL_SURVEY_MAP = "orbital_survey_map";
     }
 
     interface Particle {
@@ -907,6 +913,7 @@ public interface Constant {
         ResourceLocation ZERO_G_RESEARCH_CHAMBER_SCREEN = id("textures/gui/zero_g_research_chamber_screen.png");
         ResourceLocation AEROSPACE_RD_TERMINAL_SCREEN = id("textures/gui/aerospace_rd_terminal_screen.png");
         ResourceLocation RESEARCH_DATA_LINK_SCREEN = id("textures/gui/research_data_link_screen.png");
+        ResourceLocation TELEMETRY_ANALYZER_SCREEN = id("textures/gui/telemetry_analyzer_screen.png");
         ResourceLocation ENERGY_STORAGE_MODULE_SCREEN = id("textures/gui/energy_storage_module_screen.png");
         ResourceLocation OXYGEN_COLLECTOR_SCREEN = id("textures/gui/oxygen_collector_screen.png");
         ResourceLocation ROCKET_SELECTION = id("textures/gui/rocket_part_selection.png");
@@ -1545,6 +1552,7 @@ public interface Constant {
         String ZERO_G_RESEARCH_CHAMBER_MENU = "zero_g_research_chamber_menu";
         String AEROSPACE_RD_TERMINAL_MENU = "aerospace_rd_terminal_menu";
         String RESEARCH_DATA_LINK_MENU = "research_data_link_menu";
+        String TELEMETRY_ANALYZER_MENU = "telemetry_analyzer_menu";
         String ELECTRIC_FURNACE_MENU = "electric_furnace_menu";
         String ELECTRIC_ARC_FURNACE_MENU = "electric_arc_furnace_menu";
         String OXYGEN_COLLECTOR_MENU = "oxygen_collector_menu";
@@ -1697,6 +1705,7 @@ public interface Constant {
         String ELECTROLYTIC = "electrolytic";
         String SABATIER = "sabatier";
         String CENTRIFUGE = "centrifuge";
+        String TELEMETRY_ANALYSIS = "telemetry_analysis";
 
         interface Serializer {
             String FABRICATION = "fabrication";
@@ -1714,6 +1723,7 @@ public interface Constant {
             String ELECTROLYTIC = "electrolytic";
             String SABATIER = "sabatier";
             String CENTRIFUGE = "centrifuge";
+            String TELEMETRY_ANALYSIS = "telemetry_analysis";
             String EMERGENCY_KIT = "crafting_special_emergencykit";
         }
     }

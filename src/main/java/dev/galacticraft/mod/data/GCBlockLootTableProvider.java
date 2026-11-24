@@ -508,6 +508,7 @@ public class GCBlockLootTableProvider extends FabricBlockLootTableProvider {
         this.dropSelf(GCBlocks.ZERO_G_RESEARCH_CHAMBER);
         this.dropSelf(GCBlocks.AEROSPACE_RD_TERMINAL);
         this.dropSelf(GCBlocks.RESEARCH_DATA_LINK);
+        this.dropSelf(GCBlocks.TELEMETRY_ANALYZER);
 
         this.add(GCBlocks.AIR_LOCK_SEAL, noDrop());
 

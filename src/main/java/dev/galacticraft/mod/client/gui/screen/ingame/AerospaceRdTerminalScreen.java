@@ -30,6 +30,7 @@ import dev.galacticraft.mod.network.c2s.ResearchTerminalActionPayload;
 import dev.galacticraft.mod.research.AstroDiscovery;
 import dev.galacticraft.mod.research.ClientResearchCache;
 import dev.galacticraft.mod.research.ExperimentRecord;
+import dev.galacticraft.mod.research.ResearchBranch;
 import dev.galacticraft.mod.research.ResearchCatalog;
 import dev.galacticraft.mod.research.ResearchDomain;
 import dev.galacticraft.mod.research.ResearchMilestone;
@@ -100,6 +101,7 @@ public class AerospaceRdTerminalScreen extends MachineScreen<AerospaceRdTerminal
     private static final String[] PLANET_FILTERS = {"ALL", "Earth", "Moon", "Mars", "Venus", "Mercury", "Orbit", "Outer"};
 
     private int activeView = VIEW_TREE;
+    private int branchFilterIdx = 0; // 0 = ALL, 1..5 = ResearchBranch.values()[idx - 1]
     private @Nullable ResourceLocation selectedNodeId = ResearchCatalog.EARTH_PROTOTYPING;
 
     // Pan & Zoom camera centered directly on (0, 0) core hub
@@ -297,7 +299,10 @@ public class AerospaceRdTerminalScreen extends MachineScreen<AerospaceRdTerminal
             }
         }
 
-        // Draw all 55 spaced constellation nodes
+        // Draw all 55 spaced constellation nodes (dimming non-matching branches when a branch filter is active)
+        ResearchBranch activeBranchFilter = this.branchFilterIdx > 0
+                ? ResearchBranch.values()[this.branchFilterIdx - 1]
+                : null;
         for (ResearchNode node : ResearchCatalog.allNodes()) {
             int nx = nodeScreenX(vpX, node);
             int ny = nodeScreenY(vpY, node);
@@ -305,6 +310,7 @@ public class AerospaceRdTerminalScreen extends MachineScreen<AerospaceRdTerminal
                 continue;
             }
 
+            boolean branchMatched = activeBranchFilter == null || node.branch() == activeBranchFilter || (node.gridX() == 0 && node.gridY() == 0);
             boolean isCoreHub = node.gridX() == 0 && node.gridY() == 0;
             boolean unlocked = ClientResearchCache.isUnlocked(node.id());
             boolean selected = node.id().equals(this.selectedNodeId);
@@ -315,10 +321,13 @@ public class AerospaceRdTerminalScreen extends MachineScreen<AerospaceRdTerminal
                 graphics.renderOutline(nx - 2, ny - 2, nw + 4, nh + 4, 0x8838BDF8);
             }
 
-            int bgCol = unlocked ? 0xFF0E3829 : (selected ? 0xFF1A3A58 : (canResearch ? 0xFF11283B : 0xFF0E1722));
+            int bgCol = !branchMatched ? 0xFF0A1018
+                    : (unlocked ? 0xFF0E3829 : (selected ? 0xFF1A3A58 : (canResearch ? 0xFF11283B : 0xFF0E1722)));
             int borderCol;
             if (selected) {
                 borderCol = 0xFFFFFFFF;
+            } else if (!branchMatched) {
+                borderCol = 0xFF1B2838;
             } else if (unlocked) {
                 borderCol = 0xFF34D399;
             } else if (canResearch) {
@@ -377,6 +386,22 @@ public class AerospaceRdTerminalScreen extends MachineScreen<AerospaceRdTerminal
         }
 
         graphics.disableScissor();
+
+        // Top overlay strip on KSP viewport: 5-Branch Filter Pills (ALL + 5 Branches)
+        int bfx = vpX + 3;
+        int bfy = vpY + 3;
+        ResearchBranch[] branches = ResearchBranch.values();
+        for (int i = 0; i <= branches.length; i++) {
+            String lbl = i == 0 ? "ALL" : branches[i - 1].tabLabel();
+            int accent = i == 0 ? 0xFF38BDF8 : branches[i - 1].accentColor();
+            int bw = Math.max(22, this.font.width(lbl) + 6);
+            boolean active = this.branchFilterIdx == i;
+            boolean hov = mouseIn(mouseX, mouseY, bfx, bfy, bw, 11);
+            graphics.fill(bfx, bfy, bfx + bw, bfy + 11, active ? 0xEE143248 : (hov ? 0xDD112334 : 0xCC0A131E));
+            graphics.renderOutline(bfx, bfy, bw, 11, active ? accent : 0xFF283A52);
+            graphics.drawString(this.font, lbl, bfx + 3, bfy + 2, active ? accent : 0xFF94A3B8, false);
+            bfx += bw + 2;
+        }
 
         // Bottom-left overlay controls on KSP viewport: zoom info + Reset View button
         graphics.fill(vpX + 4, vpY + vpH - 14, vpX + 104, vpY + vpH - 3, 0xCC0A131E);
@@ -666,6 +691,31 @@ public class AerospaceRdTerminalScreen extends MachineScreen<AerospaceRdTerminal
         return out;
     }
 
+    private void focusBranch(@Nullable ResearchBranch branch) {
+        if (branch == null) {
+            this.zoom = DEFAULT_ZOOM;
+            this.panX = VP_W * 0.5F - (NODE_W * 0.5F) * this.zoom;
+            this.panY = VP_H * 0.5F - (NODE_H * 0.5F) * this.zoom;
+            return;
+        }
+        List<ResearchNode> nodes = ResearchCatalog.nodesForBranch(branch);
+        if (nodes.isEmpty()) {
+            return;
+        }
+        float sumX = 0.0F;
+        float sumY = 0.0F;
+        for (ResearchNode n : nodes) {
+            sumX += n.gridX() * COL_STEP + NODE_W * 0.5F;
+            sumY += n.gridY() * ROW_STEP + NODE_H * 0.5F;
+        }
+        float avgX = sumX / nodes.size();
+        float avgY = sumY / nodes.size();
+        this.zoom = 0.56F;
+        this.panX = Mth.clamp(VP_W * 0.5F - avgX * this.zoom, -1350.0F, 1350.0F);
+        this.panY = Mth.clamp(VP_H * 0.5F - avgY * this.zoom, -980.0F, 980.0F);
+        this.selectedNodeId = nodes.get(0).id();
+    }
+
     private int worldToScreenX(int vpX, float worldX) {
         return vpX + Math.round(worldX * this.zoom + this.panX);
     }
@@ -768,8 +818,23 @@ public class AerospaceRdTerminalScreen extends MachineScreen<AerospaceRdTerminal
             int vpX = x + VP_X;
             int vpY = y + VP_Y;
             if (this.activeView == VIEW_TREE && mouseIn(mx, my, vpX, vpY, VP_W, VP_H)) {
+                // 5-Branch filter pill strip across top of Tech Tree viewport
+                int bfx = vpX + 3;
+                int bfy = vpY + 3;
+                ResearchBranch[] branches = ResearchBranch.values();
+                for (int i = 0; i <= branches.length; i++) {
+                    String lbl = i == 0 ? "ALL" : branches[i - 1].tabLabel();
+                    int bw = Math.max(22, this.font.width(lbl) + 6);
+                    if (mouseIn(mx, my, bfx, bfy, bw, 11)) {
+                        this.branchFilterIdx = i;
+                        focusBranch(i == 0 ? null : branches[i - 1]);
+                        return true;
+                    }
+                    bfx += bw + 2;
+                }
                 // Center button snaps cleanly back onto (0, 0) Core Hub
                 if (mouseIn(mx, my, vpX + VP_W - 48, vpY + VP_H - 15, 44, 12)) {
+                    this.branchFilterIdx = 0;
                     this.zoom = DEFAULT_ZOOM;
                     this.panX = VP_W * 0.5F - (NODE_W * 0.5F) * this.zoom;
                     this.panY = VP_H * 0.5F - (NODE_H * 0.5F) * this.zoom;

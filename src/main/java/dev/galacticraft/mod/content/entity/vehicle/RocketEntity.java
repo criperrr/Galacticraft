@@ -45,6 +45,7 @@ import dev.galacticraft.mod.content.GCStats;
 import dev.galacticraft.mod.content.advancements.GCTriggers;
 import dev.galacticraft.mod.content.block.special.launchpad.AbstractLaunchPad;
 import dev.galacticraft.mod.content.entity.data.GCEntityDataSerializers;
+import dev.galacticraft.mod.content.entity.orbital.FlightTelemetryEngine;
 import dev.galacticraft.mod.content.item.GCItems;
 import dev.galacticraft.mod.content.rocket.physics.PlanetaryEnvironment;
 import dev.galacticraft.mod.content.rocket.physics.PropellantType;
@@ -467,6 +468,16 @@ public class RocketEntity extends AdvancedVehicle implements Rocket, IgnoreShift
         if (this.crashed) return;
         this.crashed = true;
 
+        if (this.level() instanceof ServerLevel serverLevel) {
+            ServerPlayer pilot = this.getFirstPassenger() instanceof ServerPlayer sp ? sp : null;
+            FlightTelemetryEngine.onRocketThermalFailure(
+                    serverLevel,
+                    this.position(),
+                    pilot,
+                    "Structural impact failure (v=" + String.format(java.util.Locale.ROOT, "%.2f", preMoveDelta.length()) + ")"
+            );
+        }
+
         if (hasExplosiveUpgradeAndPayload()) {
             doExplosivePayloadCrashInstant();
         } else {
@@ -629,6 +640,10 @@ public class RocketEntity extends AdvancedVehicle implements Rocket, IgnoreShift
         else this.timeSinceLaunch = 0;
 
         if (isOnFire()) {
+            if (this.level() instanceof ServerLevel serverLevel) {
+                ServerPlayer pilot = this.getFirstPassenger() instanceof ServerPlayer sp ? sp : null;
+                FlightTelemetryEngine.onRocketThermalFailure(serverLevel, this.position(), pilot, "Thermal ignition / fire failure");
+            }
             for (int i = 0; i < 4; i++) {
                 level().explode(this,
                         this.position().x + (level().random.nextDouble() - 0.5 * 4),
@@ -704,6 +719,9 @@ public class RocketEntity extends AdvancedVehicle implements Rocket, IgnoreShift
 
                 if (passenger instanceof ServerPlayer player) {
                     player.awardStat(GCStats.LAUNCH_ROCKET);
+                    if (this.level() instanceof ServerLevel serverLevel) {
+                        FlightTelemetryEngine.onRocketAscent(serverLevel, player);
+                    }
                 }
 
                 BlockPos dockPos = this.getLinkedPad();
@@ -746,6 +764,9 @@ public class RocketEntity extends AdvancedVehicle implements Rocket, IgnoreShift
 
                 for (Entity entity : getPassengers()) {
                     if (entity instanceof ServerPlayer serverPlayer) {
+                        if (this.level() instanceof ServerLevel serverLevel) {
+                            FlightTelemetryEngine.onRocketReachOrbit(serverLevel, serverPlayer);
+                        }
                         GCServerPlayer gcPlayer = GCServerPlayer.get(serverPlayer);
                         gcPlayer.setRocketStacks(NonNullList.withSize(2, ItemStack.EMPTY)); // TODO un-hardcode this
                         gcPlayer.setFuel(this.tank.getAmount());

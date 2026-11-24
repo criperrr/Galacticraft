@@ -1,0 +1,73 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "particle": "galacticraft:block/telemetry_analyzer",
+    "front": "galacticraft:block/telemetry_analyzer",
+    "side": "galacticraft:block/machine_side",
+    "top": "galacticraft:block/machine",
+    "dark": "galacticraft:block/titanium_block",
+    "glass": "galacticraft:block/vacuum_glass"
+  },
+  "elements": [
+    {
+      "from": [1, 0, 1],
+      "to": [15, 10, 15],
+      "faces": {
+        "north": {"texture": "#front"},
+        "south": {"texture": "#side"},
+        "east": {"texture": "#side"},
+        "west": {"texture": "#side"},
+        "up": {"texture": "#top"},
+        "down": {"texture": "#dark"}
+      }
+    },
+    {
+      "from": [2, 10, 4],
+      "to": [14, 15, 14],
+      "faces": {
+        "north": {"texture": "#front"},
+        "south": {"texture": "#dark"},
+        "east": {"texture": "#dark"},
+        "west": {"texture": "#dark"},
+        "up": {"texture": "#top"},
+        "down": {"texture": "#dark"}
+      }
+    },
+    {
+      "from": [3, 10.5, 2],
+      "to": [13, 14.5, 4.2],
+      "faces": {
+        "north": {"texture": "#glass"},
+        "south": {"texture": "#glass"},
+        "east": {"texture": "#dark"},
+        "west": {"texture": "#dark"},
+        "up": {"texture": "#dark"},
+        "down": {"texture": "#dark"}
+      }
+    },
+    {
+      "from": [0, 0, 0],
+      "to": [2, 2, 16],
+      "faces": {
+        "north": {"texture": "#dark"},
+        "south": {"texture": "#dark"},
+        "east": {"texture": "#dark"},
+        "west": {"texture": "#dark"},
+        "up": {"texture": "#dark"},
+        "down": {"texture": "#dark"}
+      }
+    },
+    {
+      "from": [14, 0, 0],
+      "to": [16, 2, 16],
+      "faces": {
+        "north": {"texture": "#dark"},
+        "south": {"texture": "#dark"},
+        "east": {"texture": "#dark"},
+        "west": {"texture": "#dark"},
+        "up": {"texture": "#dark"},
+        "down": {"texture": "#dark"}
+      }
+    }
+  ]
+}
