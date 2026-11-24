@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "active=false": {
+      "model": "galacticraft:machine/vacuum_metallurgic_infuser"
+    },
+    "active=true": {
+      "model": "galacticraft:machine/vacuum_metallurgic_infuser_active"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": {
+      "item": "galacticraft:compressed_desh"
+    },
+    "S": {
+      "item": "galacticraft:compressed_steel"
+    },
+    "T": {
+      "item": "galacticraft:ambient_thermal_controller"
+    },
+    "V": {
+      "item": "galacticraft:atmospheric_valve"
+    }
+  },
+  "pattern": [
+    "SVS",
+    "DTD",
+    "SDS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:composite_autoclave"
+  }
+}

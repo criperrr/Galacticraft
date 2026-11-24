@@ -1,0 +1,13 @@
+{
+  "type": "galacticraft:metallurgic_infusing",
+  "base_ingredient": {
+    "tag": "c:ingots/niobium"
+  },
+  "infusion_amount": 20,
+  "infusion_type": "titanium",
+  "processing_time": 120,
+  "result": {
+    "count": 1,
+    "id": "galacticraft:compressed_niobium"
+  }
+}

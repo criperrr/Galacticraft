@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "active=false": {
+      "model": "galacticraft:machine/composite_autoclave"
+    },
+    "active=true": {
+      "model": "galacticraft:machine/composite_autoclave_active"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "galacticraft:composite_autoclave",
+  "ingredients": [
+    {
+      "item": "galacticraft:isothermal_fabric"
+    },
+    {
+      "item": "galacticraft:desh_ingot"
+    }
+  ],
+  "processing_time": 100,
+  "result": {
+    "count": 1,
+    "id": "galacticraft:sofi_insulation"
+  },
+  "target_pressure_bar": 10,
+  "target_temperature": 350
+}

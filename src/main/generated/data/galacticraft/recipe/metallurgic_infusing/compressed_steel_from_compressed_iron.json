@@ -1,0 +1,12 @@
+{
+  "type": "galacticraft:metallurgic_infusing",
+  "base_ingredient": {
+    "item": "galacticraft:compressed_iron"
+  },
+  "infusion_type": "carbon",
+  "processing_time": 90,
+  "result": {
+    "count": 2,
+    "id": "galacticraft:compressed_steel"
+  }
+}

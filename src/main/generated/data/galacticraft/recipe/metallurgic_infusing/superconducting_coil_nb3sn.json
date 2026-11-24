@@ -1,0 +1,13 @@
+{
+  "type": "galacticraft:metallurgic_infusing",
+  "base_ingredient": {
+    "tag": "c:ingots/niobium"
+  },
+  "infusion_amount": 20,
+  "infusion_type": "tin",
+  "processing_time": 140,
+  "result": {
+    "count": 1,
+    "id": "galacticraft:superconducting_coil"
+  }
+}

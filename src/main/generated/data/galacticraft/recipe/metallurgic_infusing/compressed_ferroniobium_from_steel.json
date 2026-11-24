@@ -1,0 +1,12 @@
+{
+  "type": "galacticraft:metallurgic_infusing",
+  "base_ingredient": {
+    "item": "galacticraft:compressed_steel"
+  },
+  "infusion_amount": 20,
+  "infusion_type": "niobium_oxide",
+  "result": {
+    "count": 1,
+    "id": "galacticraft:compressed_ferroniobium"
+  }
+}
