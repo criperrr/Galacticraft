@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "galacticraft:item/aerospace_manual"
-  }
+  "parent": "minecraft:builtin/entity"
 }
