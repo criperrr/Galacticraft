@@ -34,7 +34,6 @@ import dev.galacticraft.api.rocket.part.modular.RocketPartConfig;
 import dev.galacticraft.machinelib.client.api.screen.MachineScreen;
 import dev.galacticraft.mod.client.render.rocket.part.RocketPartGuiPreviewRenderer;
 import dev.galacticraft.mod.content.block.entity.RocketWorkbenchBlockEntity;
-import dev.galacticraft.mod.content.rocket.part.RocketMaterialRegistry;
 import dev.galacticraft.mod.content.rocket.part.RocketPartCatalog;
 import dev.galacticraft.mod.content.rocket.part.RocketPartCostCalculator;
 import dev.galacticraft.mod.content.rocket.part.RocketPartCostCalculator.CostProfile;
@@ -556,38 +555,15 @@ public class PartAssemblerScreen extends MachineScreen<RocketWorkbenchBlockEntit
         }
         RocketPartConfig config = this.menu.be.getResolvedModularConfig();
         int multiplier = config != null ? RocketPartCostCalculator.calculate(config).slotItemMultiplier() : 1;
-        RocketMaterialProfile cycledProfile = this.cycleHintProfile(req);
-        ItemStack hintStack = cycledProfile != null
-                ? RocketMaterialRegistry.createDisplayStack(cycledProfile)
-                : this.cycleHintStack(req);
-        int required = req.requiredCount(multiplier, hintStack);
-        List<Component> lines = new ArrayList<>(6);
+        int required = req.requiredCount(multiplier);
+        List<Component> lines = new ArrayList<>(4);
         lines.add(Component.literal(req.hudName()).withStyle(ChatFormatting.AQUA));
         lines.add(Component.literal(req.description()).withStyle(ChatFormatting.GRAY));
-        if (!hintStack.isEmpty()) {
-            Style matStyle = cycledProfile != null
-                    ? Style.EMPTY.withColor(cycledProfile.rgbColor())
-                    : Style.EMPTY.withColor(ChatFormatting.WHITE);
-            lines.add(Component.literal("Ex.: ").withStyle(ChatFormatting.DARK_GRAY)
-                    .append(Component.literal(required + "x ").withStyle(ChatFormatting.GOLD))
-                    .append(Component.literal(cycledProfile != null ? cycledProfile.displayName() : hintStack.getHoverName().getString())
-                            .setStyle(matStyle)));
-        }
-        if (cycledProfile != null) {
-            Component quickMod = formatProfileQuickModifiers(cycledProfile);
-            if (quickMod != null) {
-                lines.add(quickMod);
-            }
-            for (RocketMaterialTrait trait : cycledProfile.traits()) {
-                lines.add(Component.literal(" \u2726 [" + trait.displayName() + "]")
-                        .setStyle(Style.EMPTY.withColor(trait.rgbColor())));
-            }
-        }
+        lines.add(Component.literal("Quantidade base: ").withStyle(ChatFormatting.DARK_GRAY)
+                .append(Component.literal(required + "x").withStyle(ChatFormatting.GOLD)));
         int optionCount = req.acceptedProfiles().size();
-        if (optionCount > 1) {
-            lines.add(Component.literal(optionCount + " materiais compat\u00edveis aceitos")
-                    .withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.ITALIC));
-        }
+        lines.add(Component.literal(optionCount + " materiais aceitos (consulte o Comp\u00eandio)")
+                .withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.ITALIC));
         graphics.renderComponentTooltip(this.font, lines, mouseX, mouseY);
     }
 
@@ -820,24 +796,15 @@ public class PartAssemblerScreen extends MachineScreen<RocketWorkbenchBlockEntit
                 continue;
             }
             if (present.isEmpty()) {
-                ItemStack hint = this.cycleHintStack(req);
-                if (!hint.isEmpty()) {
-                    int hintRequired = req.requiredCount(multiplier, hint);
-                    graphics.renderFakeItem(hint, sx, sy);
-                    graphics.pose().pushPose();
-                    graphics.pose().translate(0.0F, 0.0F, 200.0F);
-                    graphics.fill(sx, sy, sx + 16, sy + 16, 0x800B192C);
-                    String countLabel = String.valueOf(hintRequired);
-                    graphics.drawString(
-                            this.font,
-                            countLabel,
-                            sx + 16 - this.font.width(countLabel),
-                            sy + 8,
-                            COLOR_TEXT_GHOST_COUNT,
-                            true
-                    );
-                    graphics.pose().popPose();
-                }
+                String countLabel = "x" + required;
+                graphics.drawString(
+                        this.font,
+                        countLabel,
+                        sx + 16 - this.font.width(countLabel),
+                        sy + 8,
+                        COLOR_TEXT_GHOST_COUNT,
+                        false
+                );
             } else {
                 boolean compatible = req.matches(present);
                 int indicatorColor = !compatible
@@ -1381,91 +1348,6 @@ public class PartAssemblerScreen extends MachineScreen<RocketWorkbenchBlockEntit
             idx = 0;
         }
         return options.get(Math.floorMod(idx + delta, options.size()));
-    }
-
-    private @Nullable RocketMaterialProfile cycleHintProfile(SlotRequirement req) {
-        List<RocketMaterialProfile> profiles = req.acceptedProfiles();
-        if (profiles.isEmpty()) {
-            return null;
-        }
-        if (profiles.size() == 1) {
-            return profiles.getFirst();
-        }
-        long slotTick = (System.currentTimeMillis() / 1200L);
-        return profiles.get((int) Math.floorMod(slotTick, profiles.size()));
-    }
-
-    private ItemStack cycleHintStack(SlotRequirement req) {
-        RocketMaterialProfile profile = this.cycleHintProfile(req);
-        if (profile != null) {
-            ItemStack stack = RocketMaterialRegistry.createDisplayStack(profile);
-            if (!stack.isEmpty()) {
-                return stack;
-            }
-        }
-        ItemStack[] stacks = req.displayStacks();
-        if (stacks.length == 0) {
-            return ItemStack.EMPTY;
-        }
-        if (stacks.length == 1) {
-            return stacks[0];
-        }
-        long slotTick = (System.currentTimeMillis() / 1200L);
-        return stacks[(int) Math.floorMod(slotTick, stacks.length)];
-    }
-
-    private static @Nullable Component formatProfileQuickModifiers(RocketMaterialProfile profile) {
-        MutableComponent line = Component.empty();
-        int count = 0;
-
-        int massPct = (int) Math.round(profile.massModifier() * 100.0);
-        if (massPct != 0) {
-            line.append(Component.literal((massPct > 0 ? "+" : "") + massPct + "% Mass")
-                    .withStyle(massPct < 0 ? ChatFormatting.GREEN : ChatFormatting.RED));
-            count++;
-        }
-        int thermalK = (int) Math.round(profile.thermalBonusKelvin());
-        if (thermalK != 0) {
-            if (count > 0) {
-                line.append(Component.literal(" | ").withStyle(ChatFormatting.DARK_GRAY));
-            }
-            line.append(Component.literal((thermalK > 0 ? "+" : "") + thermalK + "K")
-                    .withStyle(thermalK > 0 ? ChatFormatting.GREEN : ChatFormatting.RED));
-            count++;
-        }
-        if (Math.abs(profile.pressureMultiplier() - 1.0) >= 0.01) {
-            if (count > 0) {
-                line.append(Component.literal(" | ").withStyle(ChatFormatting.DARK_GRAY));
-            }
-            line.append(Component.literal(String.format(Locale.ROOT, "%.2fx atm", profile.pressureMultiplier()))
-                    .withStyle(profile.pressureMultiplier() > 1.0 ? ChatFormatting.GREEN : ChatFormatting.RED));
-            count++;
-        }
-        if (profile.boilOffMultiplier() < 0.999) {
-            if (count > 0) {
-                line.append(Component.literal(" | ").withStyle(ChatFormatting.DARK_GRAY));
-            }
-            String boil = profile.boilOffMultiplier() <= 0.001 ? "0% Boil-Off" : String.format(Locale.ROOT, "%.2fx Boil", profile.boilOffMultiplier());
-            line.append(Component.literal(boil).withStyle(ChatFormatting.AQUA));
-            count++;
-        }
-        int thrustPct = (int) Math.round(profile.thrustBonus() * 100.0);
-        if (thrustPct != 0) {
-            if (count > 0) {
-                line.append(Component.literal(" | ").withStyle(ChatFormatting.DARK_GRAY));
-            }
-            line.append(Component.literal("+" + thrustPct + "% Thrust").withStyle(ChatFormatting.GOLD));
-            count++;
-        }
-        int capPct = (int) Math.round(profile.capacityBonus() * 100.0);
-        if (capPct != 0) {
-            if (count > 0) {
-                line.append(Component.literal(" | ").withStyle(ChatFormatting.DARK_GRAY));
-            }
-            line.append(Component.literal("+" + capPct + "% Cap").withStyle(ChatFormatting.YELLOW));
-            count++;
-        }
-        return count > 0 ? line : null;
     }
 
     private static List<Component> buildLiveTelemetryTooltip(
