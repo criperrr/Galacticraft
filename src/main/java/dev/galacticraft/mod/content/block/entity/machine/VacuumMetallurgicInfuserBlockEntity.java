@@ -55,6 +55,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -99,6 +100,8 @@ public class VacuumMetallurgicInfuserBlockEntity extends MachineBlockEntity {
             )
     );
 
+    private final RecipeManager.CachedCheck<MetallurgicInfusingRecipe.Input, MetallurgicInfusingRecipe> quickCheck =
+            RecipeManager.createCheck(GCRecipes.METALLURGIC_INFUSING_TYPE);
     private String infusionType = INFUSION_NONE;
     private int infusionAmount = 0;
     private int progress = 0;
@@ -158,8 +161,7 @@ public class VacuumMetallurgicInfuserBlockEntity extends MachineBlockEntity {
         Item baseItem = baseSlot.getResource();
         ItemStack baseStack = new ItemStack(baseItem, 1);
         MetallurgicInfusingRecipe.Input recipeInput = new MetallurgicInfusingRecipe.Input(baseStack, this.infusionType, this.infusionAmount);
-        Optional<RecipeHolder<MetallurgicInfusingRecipe>> match = level.getRecipeManager()
-                .getRecipeFor(GCRecipes.METALLURGIC_INFUSING_TYPE, recipeInput, level);
+        Optional<RecipeHolder<MetallurgicInfusingRecipe>> match = this.quickCheck.getRecipeFor(recipeInput, level);
 
         if (match.isEmpty()) {
             this.progress = 0;

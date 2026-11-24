@@ -61,6 +61,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
@@ -154,6 +155,8 @@ public class ElectrolyticSeparatorBlockEntity extends MachineBlockEntity {
     );
 
     private final FluidSource fluidSource = new FluidSource(this);
+    private final RecipeManager.CachedCheck<ElectrolyticRecipe.Input, ElectrolyticRecipe> quickCheck =
+            RecipeManager.createCheck(GCRecipes.ELECTROLYTIC_TYPE);
     private int progress = 0;
     private int maxProgress = 20;
     private int electrodeAmps = 0;
@@ -191,13 +194,13 @@ public class ElectrolyticSeparatorBlockEntity extends MachineBlockEntity {
             ElectrolyticRecipe.Input solidInput = new ElectrolyticRecipe.Input(
                     Fluids.EMPTY, 0L, new ItemStack(iceSlot.getResource(), 1)
             );
-            match = level.getRecipeManager().getRecipeFor(GCRecipes.ELECTROLYTIC_TYPE, solidInput, level);
+            match = this.quickCheck.getRecipeFor(solidInput, level);
         }
         if (match.isEmpty() && !waterTank.isEmpty()) {
             ElectrolyticRecipe.Input fluidInput = new ElectrolyticRecipe.Input(
                     waterTank.getResource(), waterTank.getAmount(), ItemStack.EMPTY
             );
-            match = level.getRecipeManager().getRecipeFor(GCRecipes.ELECTROLYTIC_TYPE, fluidInput, level);
+            match = this.quickCheck.getRecipeFor(fluidInput, level);
         }
 
         if (match.isEmpty()) {

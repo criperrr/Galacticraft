@@ -53,6 +53,7 @@ import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -110,6 +111,8 @@ public class CompositeAutoclaveBlockEntity extends MachineBlockEntity {
             )
     );
 
+    private final RecipeManager.CachedCheck<CompositeAutoclaveRecipe.Input, CompositeAutoclaveRecipe> quickCheck =
+            RecipeManager.createCheck(GCRecipes.COMPOSITE_AUTOCLAVE_TYPE);
     private int temperature = AMBIENT_TEMPERATURE;
     private int pressureBar = AMBIENT_PRESSURE_BAR;
     private int targetTemperature = 450;
@@ -129,14 +132,26 @@ public class CompositeAutoclaveBlockEntity extends MachineBlockEntity {
 
     @Override
     protected @NotNull MachineStatus tick(@NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull ProfilerFiller profiler) {
+        boolean hasAnyInput = false;
+        for (int i = 0; i < GRID_SIZE; i++) {
+            if (!this.itemStorage().slot(GRID_START + i).isEmpty()) {
+                hasAnyInput = true;
+                break;
+            }
+        }
+        if (!hasAnyInput) {
+            this.progress = 0;
+            this.coolAndDepressurize();
+            return MachineStatuses.INVALID_RECIPE;
+        }
+
         List<ItemStack> gridStacks = new ArrayList<>(GRID_SIZE);
         for (int i = 0; i < GRID_SIZE; i++) {
             ItemResourceSlot slot = this.itemStorage().slot(GRID_START + i);
             gridStacks.add(slot.isEmpty() ? ItemStack.EMPTY : new ItemStack(slot.getResource(), 1));
         }
         CompositeAutoclaveRecipe.Input recipeInput = new CompositeAutoclaveRecipe.Input(gridStacks);
-        Optional<RecipeHolder<CompositeAutoclaveRecipe>> match = level.getRecipeManager()
-                .getRecipeFor(GCRecipes.COMPOSITE_AUTOCLAVE_TYPE, recipeInput, level);
+        Optional<RecipeHolder<CompositeAutoclaveRecipe>> match = this.quickCheck.getRecipeFor(recipeInput, level);
 
         if (match.isEmpty()) {
             this.progress = 0;
