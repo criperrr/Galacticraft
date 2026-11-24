@@ -1,0 +1,246 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "particle": "galacticraft:block/research_workbench",
+    "front": "galacticraft:block/research_workbench",
+    "side": "galacticraft:block/machine_side",
+    "top": "galacticraft:block/machine",
+    "dark": "galacticraft:block/titanium_block",
+    "glass": "galacticraft:block/vacuum_glass"
+  },
+  "elements": [
+    {
+      "from": [
+        1,
+        0,
+        1
+      ],
+      "to": [
+        3,
+        11,
+        3
+      ],
+      "faces": {
+        "north": {
+          "texture": "#dark"
+        },
+        "south": {
+          "texture": "#dark"
+        },
+        "east": {
+          "texture": "#dark"
+        },
+        "west": {
+          "texture": "#dark"
+        },
+        "up": {
+          "texture": "#dark"
+        },
+        "down": {
+          "texture": "#dark"
+        }
+      }
+    },
+    {
+      "from": [
+        13,
+        0,
+        1
+      ],
+      "to": [
+        15,
+        11,
+        3
+      ],
+      "faces": {
+        "north": {
+          "texture": "#dark"
+        },
+        "south": {
+          "texture": "#dark"
+        },
+        "east": {
+          "texture": "#dark"
+        },
+        "west": {
+          "texture": "#dark"
+        },
+        "up": {
+          "texture": "#dark"
+        },
+        "down": {
+          "texture": "#dark"
+        }
+      }
+    },
+    {
+      "from": [
+        1,
+        0,
+        13
+      ],
+      "to": [
+        3,
+        11,
+        15
+      ],
+      "faces": {
+        "north": {
+          "texture": "#dark"
+        },
+        "south": {
+          "texture": "#dark"
+        },
+        "east": {
+          "texture": "#dark"
+        },
+        "west": {
+          "texture": "#dark"
+        },
+        "up": {
+          "texture": "#dark"
+        },
+        "down": {
+          "texture": "#dark"
+        }
+      }
+    },
+    {
+      "from": [
+        13,
+        0,
+        13
+      ],
+      "to": [
+        15,
+        11,
+        15
+      ],
+      "faces": {
+        "north": {
+          "texture": "#dark"
+        },
+        "south": {
+          "texture": "#dark"
+        },
+        "east": {
+          "texture": "#dark"
+        },
+        "west": {
+          "texture": "#dark"
+        },
+        "up": {
+          "texture": "#dark"
+        },
+        "down": {
+          "texture": "#dark"
+        }
+      }
+    },
+    {
+      "from": [
+        3,
+        3,
+        2
+      ],
+      "to": [
+        13,
+        11,
+        14
+      ],
+      "faces": {
+        "north": {
+          "texture": "#front"
+        },
+        "south": {
+          "texture": "#side"
+        },
+        "east": {
+          "texture": "#side"
+        },
+        "west": {
+          "texture": "#side"
+        },
+        "up": {
+          "texture": "#side"
+        },
+        "down": {
+          "texture": "#side"
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        11,
+        0
+      ],
+      "to": [
+        16,
+        13.5,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#side"
+        },
+        "south": {
+          "texture": "#side"
+        },
+        "east": {
+          "texture": "#side"
+        },
+        "west": {
+          "texture": "#side"
+        },
+        "up": {
+          "texture": "#top"
+        },
+        "down": {
+          "texture": "#side"
+        }
+      }
+    },
+    {
+      "from": [
+        2,
+        13.5,
+        4
+      ],
+      "to": [
+        14,
+        15,
+        13
+      ],
+      "faces": {
+        "north": {
+          "texture": "#front"
+        },
+        "south": {
+          "texture": "#front"
+        },
+        "east": {
+          "texture": "#front"
+        },
+        "west": {
+          "texture": "#front"
+        },
+        "up": {
+          "texture": "#front"
+        },
+        "down": {
+          "texture": "#front"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8,
+          13.5,
+          8
+        ],
+        "axis": "x",
+        "angle": 22.5
+      }
+    }
+  ]
+}

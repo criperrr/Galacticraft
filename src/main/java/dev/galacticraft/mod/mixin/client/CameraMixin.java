@@ -24,6 +24,7 @@ package dev.galacticraft.mod.mixin.client;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
+import dev.galacticraft.mod.client.render.astro.ClientTelescopeController;
 import dev.galacticraft.mod.content.block.entity.CryogenicChamberBlockEntity;
 import dev.galacticraft.mod.content.block.entity.CryogenicChamberPartBlockEntity;
 import dev.galacticraft.mod.content.block.special.CryogenicChamberBlock;
@@ -76,6 +77,11 @@ public abstract class CameraMixin {
 
     @Inject(method = "setup", at = @At("TAIL"))
     private void gc$rotateCamera(BlockGetter blockGetter, Entity entity, boolean detached, boolean thirdPersonReverse, float partialTicks, CallbackInfo ci) {
+        if (ClientTelescopeController.isActive()) {
+            this.setRotation(ClientTelescopeController.getAimYaw(), ClientTelescopeController.getAimPitch());
+            this.setPosition(ClientTelescopeController.getCameraPosition());
+            return;
+        }
         if (entity instanceof Player player && player.isInCryoSleep()) {
             var x = Mth.floor(entity.getX());
             var y = Mth.floor(entity.getY());

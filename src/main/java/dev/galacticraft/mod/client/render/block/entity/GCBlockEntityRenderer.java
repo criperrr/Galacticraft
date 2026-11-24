@@ -37,6 +37,13 @@ public class GCBlockEntityRenderer {
         BlockEntityRenderers.register(GCBlockEntityTypes.HANGAR_TERMINAL, HangarTerminalBlockEntityRenderer::new);
         BlockEntityRenderers.register(GCBlockEntityTypes.MODULAR_ROCKET_PART, ModularRocketPartBlockEntityRenderer::new);
         BlockEntityRenderers.register(GCBlockEntityTypes.HELIUM3_FUSION_REACTOR, Helium3FusionReactorRenderer::new);
+        BlockEntityRenderers.register(GCBlockEntityTypes.OBSERVATORY_TELESCOPE, PlanetaryLabRenderers.TelescopeRenderer::new);
+        BlockEntityRenderers.register(GCBlockEntityTypes.RESEARCH_WORKBENCH, PlanetaryLabRenderers.WorkbenchRenderer::new);
+        BlockEntityRenderers.register(GCBlockEntityTypes.GEOLOGICAL_ANALYZER, PlanetaryLabRenderers.GeoAnalyzerRenderer::new);
+        BlockEntityRenderers.register(GCBlockEntityTypes.ENVIRONMENTAL_TEST_CHAMBER, PlanetaryLabRenderers.EnvChamberRenderer::new);
+        BlockEntityRenderers.register(GCBlockEntityTypes.ZERO_G_RESEARCH_CHAMBER, PlanetaryLabRenderers.ZeroGRenderer::new);
+        BlockEntityRenderers.register(GCBlockEntityTypes.RESEARCH_DATA_LINK, PlanetaryLabRenderers.DataLinkRenderer::new);
+        BlockEntityRenderers.register(GCBlockEntityTypes.AEROSPACE_RD_TERMINAL, PlanetaryLabRenderers.RdTerminalRenderer::new);
         //BlockEntityRenderers.register(GCBlockEntityTypes.CANNED_FOOD, CannedFoodBlockEntityRenderer::new);
     }
 }

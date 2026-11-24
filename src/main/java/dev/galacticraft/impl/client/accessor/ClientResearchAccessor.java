@@ -34,4 +34,11 @@ import java.util.List;
 @ApiStatus.Internal
 public interface ClientResearchAccessor extends ResearchAccessor {
     void galacticraft$updateResearch(boolean add, List<ResourceLocation> ids);
+
+    default void galacticraft$applyResearchSnapshot(
+            java.util.Set<ResourceLocation> unlockedNodes,
+            java.util.Map<String, Integer> domainPoints,
+            java.util.Set<ResourceLocation> mappedBodies
+    ) {
+    }
 }

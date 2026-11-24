@@ -530,6 +530,13 @@ public class GCTranslationProvider extends TranslationProvider {
         this.block(GCBlocks.ATMOSPHERIC_FRACTIONATOR, "Atmospheric Fractionator");
         this.block(GCBlocks.SABATIER_CHEMICAL_REACTOR, "Sabatier Chemical Reactor");
         this.block(GCBlocks.AERO_REFURBISHMENT_BENCH, "Aerospace Refurbishment Bench");
+        this.block(GCBlocks.RESEARCH_WORKBENCH, "Research & Prototyping Workbench");
+        this.block(GCBlocks.OBSERVATORY_TELESCOPE, "Planetary Observatory Telescope");
+        this.block(GCBlocks.GEOLOGICAL_ANALYZER, "Geological & Chemical Analyzer");
+        this.block(GCBlocks.ENVIRONMENTAL_TEST_CHAMBER, "Environmental Test Chamber");
+        this.block(GCBlocks.ZERO_G_RESEARCH_CHAMBER, "Zero-G Research Chamber");
+        this.block(GCBlocks.AEROSPACE_RD_TERMINAL, "Aerospace R&D Terminal");
+        this.block(GCBlocks.RESEARCH_DATA_LINK, "Interplanetary Research Data Link");
         this.block(GCBlocks.FUSION_REACTOR_CASING, "MHD Fusion Casing");
         this.block(GCBlocks.FUSION_MAGNET_COIL, "Superconducting Toroid Coil");
         this.block(GCBlocks.FUSION_PLASMA_GLASS, "MHD Plasma Containment Glass");
@@ -575,6 +582,41 @@ public class GCTranslationProvider extends TranslationProvider {
         this.item(GCItems.NIOBIUM_NUGGET, "Niobium Nugget");
         this.item(GCItems.COMPRESSED_NIOBIUM, "Compressed Niobium");
         this.item(GCItems.SUPERCONDUCTING_COIL, "Superconducting Coil");
+
+        // BENCH-SPECIFIC LABORATORY UPGRADES
+        this.item(GCItems.OPTICAL_ACHROMAT_LENS, "Optical Achromat Lens");
+        this.item(GCItems.SAPPHIRE_CASSEGRAIN_MIRROR, "Sapphire Cassegrain Mirror");
+        this.item(GCItems.LONSDALEITE_PRIMARY_MIRROR, "Lonsdaleite Primary Mirror");
+        this.item(GCItems.EQUATORIAL_SIDEREAL_DRIVE, "Equatorial Sidereal Drive");
+        this.item(GCItems.ADAPTIVE_OPTICS_ACTUATOR, "Adaptive Optics Actuator");
+        this.item(GCItems.INFRARED_BOLOMETER_ARRAY, "Infrared Bolometer Array");
+
+        this.item(GCItems.PRECISION_VERNIER_CALIPER, "Precision Vernier Caliper");
+        this.item(GCItems.OPTICAL_BLUEPRINT_PROJECTOR, "Optical Blueprint Projector");
+        this.item(GCItems.CAD_HOLOGRAPHIC_STYLUS, "CAD Holographic Stylus");
+
+        this.item(GCItems.TUNABLE_DIODE_LASER, "Tunable Diode Laser");
+        this.item(GCItems.UV_EXCIMER_LASER, "UV Excimer Laser");
+        this.item(GCItems.DIFFRACTION_GRATING_PRISM, "Diffraction Grating Prism");
+        this.item(GCItems.QUADRUPOLE_MASS_FILTER, "Quadrupole Mass Filter");
+
+        this.item(GCItems.TURBOMOLECULAR_VACUUM_PUMP, "Turbomolecular Vacuum Pump");
+        this.item(GCItems.HYPERBARIC_PISTON_MANIFOLD, "Hyperbaric Piston Manifold");
+        this.item(GCItems.REGENERATIVE_THERMAL_EXCHANGER, "Regenerative Thermal Exchanger");
+        this.item(GCItems.ABLATIVE_ACID_LINER, "Ablative Acid Liner");
+
+        this.item(GCItems.ELECTROMAGNETIC_STABILIZER_RING, "Electromagnetic Stabilizer Ring");
+        this.item(GCItems.SUPERCONDUCTING_CONFINEMENT_COIL, "Superconducting Confinement Coil");
+        this.item(GCItems.GYROSCOPIC_DAMPENING_GIMBAL, "Gyroscopic Dampening Gimbal");
+        this.item(GCItems.HELIUM_DILUTION_CRYOSTAT, "Helium Dilution Cryostat");
+
+        this.item(GCItems.LOW_NOISE_RF_AMPLIFIER, "Low-Noise RF Amplifier");
+        this.item(GCItems.DEEP_SPACE_KA_BAND_FEED, "Deep-Space Ka-Band Feed");
+        this.item(GCItems.PHASE_LOCKED_LOOP_MODULE, "Phase-Locked Loop Module");
+        this.item(GCItems.LASER_COMM_TRANSPONDER, "Laser Comm Transponder");
+
+        this.item(GCItems.TELEMETRY_COPROCESSOR_CARD, "Telemetry Coprocessor Card");
+        this.item(GCItems.QUANTUM_ARCHIVE_CORE, "Quantum Archive Core");
 
         this.item(GCItems.RAW_PALLADIUM, "Raw Palladium");
         this.item(GCItems.PALLADIUM_INGOT, "Palladium Ingot");
@@ -1526,6 +1568,18 @@ public class GCTranslationProvider extends TranslationProvider {
         this.add(MachineStatus.REFURBISHING, "Refurbishing Rocket Part");
         this.add(MachineStatus.APPLYING_COATING, "Applying Protective Coating");
         this.add(MachineStatus.PART_ALREADY_NOMINAL, "Part Already 100% Nominal");
+        this.add(MachineStatus.RESEARCHING, "Prototyping & Researching");
+        this.add(MachineStatus.MISSING_SPECIMEN, "Insert Research Specimen");
+        this.add(MachineStatus.OBSERVING_SKY, "Tracking Orbital Ephemeris");
+        this.add(MachineStatus.SKY_OBSTRUCTED, "Sky View Obstructed");
+        this.add(MachineStatus.WAITING_FOR_NIGHT, "Waiting for Night Sky");
+        this.add(MachineStatus.ATMOSPHERE_TOO_DENSE, "Atmosphere Too Dense");
+        this.add(MachineStatus.ANALYZING_SPECIMEN, "Running Mass Spectroscopy");
+        this.add(MachineStatus.RUNNING_ENV_TEST, "Running Environmental Stress Test");
+        this.add(MachineStatus.MICROGRAVITY_SYNTHESIS, "Microgravity Synthesis (0.0G)");
+        this.add(MachineStatus.GRAVITY_TOO_HIGH, "Gravity Too High (Requires 0.0G)");
+        this.add(MachineStatus.UPLINK_ACTIVE, "Interplanetary Uplink Active");
+        this.add(MachineStatus.MISSING_FREQUENCY_MODULE, "Missing Frequency Module");
     }
 
     protected void generateCelestialSelectionTranslations() {

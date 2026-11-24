@@ -60,6 +60,13 @@ public class GCMenuTypes {
     public static final MenuType<AtmosphericFractionatorMenu> ATMOSPHERIC_FRACTIONATOR = SynchronizedMenuType.create(AtmosphericFractionatorMenu::new);
     public static final MenuType<SabatierChemicalReactorMenu> SABATIER_CHEMICAL_REACTOR = SynchronizedMenuType.create(SabatierChemicalReactorMenu::new);
     public static final MenuType<AeroRefurbishmentBenchMenu> AERO_REFURBISHMENT_BENCH = SynchronizedMenuType.create(AeroRefurbishmentBenchMenu::new);
+    public static final MenuType<ResearchWorkbenchMenu> RESEARCH_WORKBENCH = SynchronizedMenuType.create(ResearchWorkbenchMenu::new);
+    public static final MenuType<ObservatoryTelescopeMenu> OBSERVATORY_TELESCOPE = SynchronizedMenuType.create(ObservatoryTelescopeMenu::new);
+    public static final MenuType<GeologicalAnalyzerMenu> GEOLOGICAL_ANALYZER = SynchronizedMenuType.create(GeologicalAnalyzerMenu::new);
+    public static final MenuType<EnvironmentalTestChamberMenu> ENVIRONMENTAL_TEST_CHAMBER = SynchronizedMenuType.create(EnvironmentalTestChamberMenu::new);
+    public static final MenuType<ZeroGResearchChamberMenu> ZERO_G_RESEARCH_CHAMBER = SynchronizedMenuType.create(ZeroGResearchChamberMenu::new);
+    public static final MenuType<AerospaceRdTerminalMenu> AEROSPACE_RD_TERMINAL = SynchronizedMenuType.create(AerospaceRdTerminalMenu::new);
+    public static final MenuType<ResearchDataLinkMenu> RESEARCH_DATA_LINK = SynchronizedMenuType.create(ResearchDataLinkMenu::new);
 
     public static final MenuType<OxygenCollectorMenu> OXYGEN_COLLECTOR = SynchronizedMenuType.create(OxygenCollectorMenu::new);
     public static final MenuType<OxygenDetectorMenu> OXYGEN_DETECTOR = SynchronizedMenuType.create(OxygenDetectorMenu::new);
@@ -111,6 +118,13 @@ public class GCMenuTypes {
         Registry.register(BuiltInRegistries.MENU, Constant.id(Constant.Menu.ATMOSPHERIC_FRACTIONATOR_MENU), ATMOSPHERIC_FRACTIONATOR);
         Registry.register(BuiltInRegistries.MENU, Constant.id(Constant.Menu.SABATIER_CHEMICAL_REACTOR_MENU), SABATIER_CHEMICAL_REACTOR);
         Registry.register(BuiltInRegistries.MENU, Constant.id(Constant.Menu.AERO_REFURBISHMENT_BENCH_MENU), AERO_REFURBISHMENT_BENCH);
+        Registry.register(BuiltInRegistries.MENU, Constant.id(Constant.Menu.RESEARCH_WORKBENCH_MENU), RESEARCH_WORKBENCH);
+        Registry.register(BuiltInRegistries.MENU, Constant.id(Constant.Menu.OBSERVATORY_TELESCOPE_MENU), OBSERVATORY_TELESCOPE);
+        Registry.register(BuiltInRegistries.MENU, Constant.id(Constant.Menu.GEOLOGICAL_ANALYZER_MENU), GEOLOGICAL_ANALYZER);
+        Registry.register(BuiltInRegistries.MENU, Constant.id(Constant.Menu.ENVIRONMENTAL_TEST_CHAMBER_MENU), ENVIRONMENTAL_TEST_CHAMBER);
+        Registry.register(BuiltInRegistries.MENU, Constant.id(Constant.Menu.ZERO_G_RESEARCH_CHAMBER_MENU), ZERO_G_RESEARCH_CHAMBER);
+        Registry.register(BuiltInRegistries.MENU, Constant.id(Constant.Menu.AEROSPACE_RD_TERMINAL_MENU), AEROSPACE_RD_TERMINAL);
+        Registry.register(BuiltInRegistries.MENU, Constant.id(Constant.Menu.RESEARCH_DATA_LINK_MENU), RESEARCH_DATA_LINK);
 
         Registry.register(BuiltInRegistries.MENU, Constant.id(Constant.Menu.OXYGEN_COLLECTOR_MENU), OXYGEN_COLLECTOR);
         Registry.register(BuiltInRegistries.MENU, Constant.id(Constant.Menu.OXYGEN_DETECTOR_MENU), OXYGEN_DETECTOR);

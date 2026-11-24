@@ -1,0 +1,237 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "particle": "galacticraft:block/geological_analyzer",
+    "front": "galacticraft:block/geological_analyzer",
+    "side": "galacticraft:block/machine_side",
+    "top": "galacticraft:block/machine",
+    "dark": "galacticraft:block/titanium_block",
+    "glass": "galacticraft:block/vacuum_glass"
+  },
+  "elements": [
+    {
+      "from": [
+        1,
+        0,
+        1
+      ],
+      "to": [
+        15,
+        7,
+        15
+      ],
+      "faces": {
+        "north": {
+          "texture": "#front"
+        },
+        "south": {
+          "texture": "#side"
+        },
+        "east": {
+          "texture": "#side"
+        },
+        "west": {
+          "texture": "#side"
+        },
+        "up": {
+          "texture": "#top"
+        },
+        "down": {
+          "texture": "#side"
+        }
+      }
+    },
+    {
+      "from": [
+        4,
+        7,
+        4
+      ],
+      "to": [
+        12,
+        8.5,
+        12
+      ],
+      "faces": {
+        "north": {
+          "texture": "#dark"
+        },
+        "south": {
+          "texture": "#dark"
+        },
+        "east": {
+          "texture": "#dark"
+        },
+        "west": {
+          "texture": "#dark"
+        },
+        "up": {
+          "texture": "#dark"
+        },
+        "down": {
+          "texture": "#dark"
+        }
+      }
+    },
+    {
+      "from": [
+        1.2,
+        7,
+        1.2
+      ],
+      "to": [
+        2.8,
+        15,
+        2.8
+      ],
+      "faces": {
+        "north": {
+          "texture": "#dark"
+        },
+        "south": {
+          "texture": "#dark"
+        },
+        "east": {
+          "texture": "#dark"
+        },
+        "west": {
+          "texture": "#dark"
+        },
+        "up": {
+          "texture": "#dark"
+        },
+        "down": {
+          "texture": "#dark"
+        }
+      }
+    },
+    {
+      "from": [
+        13.2,
+        7,
+        1.2
+      ],
+      "to": [
+        14.8,
+        15,
+        2.8
+      ],
+      "faces": {
+        "north": {
+          "texture": "#dark"
+        },
+        "south": {
+          "texture": "#dark"
+        },
+        "east": {
+          "texture": "#dark"
+        },
+        "west": {
+          "texture": "#dark"
+        },
+        "up": {
+          "texture": "#dark"
+        },
+        "down": {
+          "texture": "#dark"
+        }
+      }
+    },
+    {
+      "from": [
+        1.2,
+        7,
+        13.2
+      ],
+      "to": [
+        2.8,
+        15,
+        14.8
+      ],
+      "faces": {
+        "north": {
+          "texture": "#dark"
+        },
+        "south": {
+          "texture": "#dark"
+        },
+        "east": {
+          "texture": "#dark"
+        },
+        "west": {
+          "texture": "#dark"
+        },
+        "up": {
+          "texture": "#dark"
+        },
+        "down": {
+          "texture": "#dark"
+        }
+      }
+    },
+    {
+      "from": [
+        13.2,
+        7,
+        13.2
+      ],
+      "to": [
+        14.8,
+        15,
+        14.8
+      ],
+      "faces": {
+        "north": {
+          "texture": "#dark"
+        },
+        "south": {
+          "texture": "#dark"
+        },
+        "east": {
+          "texture": "#dark"
+        },
+        "west": {
+          "texture": "#dark"
+        },
+        "up": {
+          "texture": "#dark"
+        },
+        "down": {
+          "texture": "#dark"
+        }
+      }
+    },
+    {
+      "from": [
+        1,
+        14.5,
+        1
+      ],
+      "to": [
+        15,
+        16,
+        15
+      ],
+      "faces": {
+        "north": {
+          "texture": "#dark"
+        },
+        "south": {
+          "texture": "#dark"
+        },
+        "east": {
+          "texture": "#dark"
+        },
+        "west": {
+          "texture": "#dark"
+        },
+        "up": {
+          "texture": "#top"
+        },
+        "down": {
+          "texture": "#dark"
+        }
+      }
+    }
+  ]
+}

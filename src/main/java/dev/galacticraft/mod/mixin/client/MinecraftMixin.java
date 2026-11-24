@@ -25,6 +25,7 @@ package dev.galacticraft.mod.mixin.client;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.GalacticraftClient;
+import dev.galacticraft.mod.client.render.astro.ClientTelescopeController;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.main.GameConfig;
 import net.minecraft.resources.ResourceKey;
@@ -45,5 +46,20 @@ public class MinecraftMixin {
     private ResourceKey<Level> galacticraft$preventCreativeMusic(ResourceKey<Level> original) {
         // Return Level.NETHER to prevent the creative music from playing
         return original.location().getNamespace().equals(Constant.MOD_ID) ? Level.NETHER : original;
+    }
+
+    @Inject(method = "handleKeybinds", at = @At("HEAD"), cancellable = true)
+    private void gc$lockKeybindsInTelescope(CallbackInfo ci) {
+        if (ClientTelescopeController.isActive()) {
+            ci.cancel();
+        }
+    }
+
+    @Inject(method = "pauseGame", at = @At("HEAD"), cancellable = true)
+    private void gc$exitTelescopeOnEscape(boolean pauseOnly, CallbackInfo ci) {
+        if (ClientTelescopeController.isActive()) {
+            ClientTelescopeController.exitEyepiece();
+            ci.cancel();
+        }
     }
 }

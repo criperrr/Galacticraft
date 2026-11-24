@@ -431,6 +431,13 @@ public class GCCreativeModeTabs {
                 output.accept(ATMOSPHERIC_FRACTIONATOR);
                 output.accept(SABATIER_CHEMICAL_REACTOR);
                 output.accept(AERO_REFURBISHMENT_BENCH);
+                output.accept(RESEARCH_WORKBENCH);
+                output.accept(OBSERVATORY_TELESCOPE);
+                output.accept(GEOLOGICAL_ANALYZER);
+                output.accept(ENVIRONMENTAL_TEST_CHAMBER);
+                output.accept(ZERO_G_RESEARCH_CHAMBER);
+                output.accept(AEROSPACE_RD_TERMINAL);
+                output.accept(RESEARCH_DATA_LINK);
                 output.accept(FUSION_REACTOR_CASING);
                 output.accept(FUSION_MAGNET_COIL);
                 output.accept(FUSION_PLASMA_GLASS);
@@ -595,6 +602,35 @@ public class GCCreativeModeTabs {
                 output.accept(FLUID_MANIPULATOR);
                 output.accept(AMBIENT_THERMAL_CONTROLLER);
                 output.accept(ORION_DRIVE);
+
+                // BENCH-SPECIFIC LABORATORY UPGRADES
+                output.accept(OPTICAL_ACHROMAT_LENS);
+                output.accept(SAPPHIRE_CASSEGRAIN_MIRROR);
+                output.accept(LONSDALEITE_PRIMARY_MIRROR);
+                output.accept(EQUATORIAL_SIDEREAL_DRIVE);
+                output.accept(ADAPTIVE_OPTICS_ACTUATOR);
+                output.accept(INFRARED_BOLOMETER_ARRAY);
+                output.accept(PRECISION_VERNIER_CALIPER);
+                output.accept(OPTICAL_BLUEPRINT_PROJECTOR);
+                output.accept(CAD_HOLOGRAPHIC_STYLUS);
+                output.accept(TUNABLE_DIODE_LASER);
+                output.accept(UV_EXCIMER_LASER);
+                output.accept(DIFFRACTION_GRATING_PRISM);
+                output.accept(QUADRUPOLE_MASS_FILTER);
+                output.accept(TURBOMOLECULAR_VACUUM_PUMP);
+                output.accept(HYPERBARIC_PISTON_MANIFOLD);
+                output.accept(REGENERATIVE_THERMAL_EXCHANGER);
+                output.accept(ABLATIVE_ACID_LINER);
+                output.accept(ELECTROMAGNETIC_STABILIZER_RING);
+                output.accept(SUPERCONDUCTING_CONFINEMENT_COIL);
+                output.accept(GYROSCOPIC_DAMPENING_GIMBAL);
+                output.accept(HELIUM_DILUTION_CRYOSTAT);
+                output.accept(LOW_NOISE_RF_AMPLIFIER);
+                output.accept(DEEP_SPACE_KA_BAND_FEED);
+                output.accept(PHASE_LOCKED_LOOP_MODULE);
+                output.accept(LASER_COMM_TRANSPONDER);
+                output.accept(TELEMETRY_COPROCESSOR_CARD);
+                output.accept(QUANTUM_ARCHIVE_CORE);
 
                 // FOOD
                 output.accept(MOON_CHEESE_CURD);

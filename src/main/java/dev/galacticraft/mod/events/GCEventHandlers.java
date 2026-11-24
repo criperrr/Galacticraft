@@ -81,6 +81,7 @@ public class GCEventHandlers {
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
             recoverPlayerFromUnavailableDimension(server, handler.player);
             CapeSelectionPayload.sendCapeSnapshot(handler.player);
+            dev.galacticraft.mod.research.ResearchManager.syncToPlayer(handler.player);
         });
 
         ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {

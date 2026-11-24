@@ -24,6 +24,7 @@ package dev.galacticraft.mod.mixin.client;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import dev.galacticraft.mod.client.render.astro.AstroSpyglassManager;
+import dev.galacticraft.mod.client.render.astro.ClientTelescopeController;
 import dev.galacticraft.mod.misc.cape.CapeMode;
 import dev.galacticraft.mod.misc.cape.CapesClientState;
 import net.fabricmc.api.EnvType;
@@ -64,6 +65,9 @@ public abstract class AbstractClientPlayerMixin {
 
     @ModifyReturnValue(method = "getFieldOfViewModifier", at = @At("RETURN"))
     private float gc$modifyAstroSpyglassFov(float original) {
+        if (ClientTelescopeController.isActive()) {
+            return AstroSpyglassManager.getFovMultiplier();
+        }
         return original * AstroSpyglassManager.getFovMultiplier();
     }
 }

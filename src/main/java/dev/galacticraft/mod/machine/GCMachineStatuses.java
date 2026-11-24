@@ -111,6 +111,20 @@ public final class GCMachineStatuses {
     public static final MachineStatus SYNTHESIZING = MachineStatus.create(Translations.MachineStatus.SYNTHESIZING, ChatFormatting.GREEN, MachineStatus.Type.WORKING);
     public static final MachineStatus MISSING_CATALYST = MachineStatus.create(Translations.MachineStatus.MISSING_CATALYST, ChatFormatting.RED, MachineStatus.Type.MISSING_ITEMS);
 
+    // Planetary Laboratories & In-Situ Research
+    public static final MachineStatus RESEARCHING = MachineStatus.create(Translations.MachineStatus.RESEARCHING, ChatFormatting.AQUA, MachineStatus.Type.WORKING);
+    public static final MachineStatus MISSING_SPECIMEN = MachineStatus.create(Translations.MachineStatus.MISSING_SPECIMEN, ChatFormatting.RED, MachineStatus.Type.MISSING_ITEMS);
+    public static final MachineStatus OBSERVING_SKY = MachineStatus.create(Translations.MachineStatus.OBSERVING_SKY, ChatFormatting.LIGHT_PURPLE, MachineStatus.Type.WORKING);
+    public static final MachineStatus SKY_OBSTRUCTED = MachineStatus.create(Translations.MachineStatus.SKY_OBSTRUCTED, ChatFormatting.RED, MachineStatus.Type.OTHER);
+    public static final MachineStatus WAITING_FOR_NIGHT = MachineStatus.create(Translations.MachineStatus.WAITING_FOR_NIGHT, ChatFormatting.YELLOW, MachineStatus.Type.OTHER);
+    public static final MachineStatus ATMOSPHERE_TOO_DENSE = MachineStatus.create(Translations.MachineStatus.ATMOSPHERE_TOO_DENSE, ChatFormatting.DARK_RED, MachineStatus.Type.OTHER);
+    public static final MachineStatus ANALYZING_SPECIMEN = MachineStatus.create(Translations.MachineStatus.ANALYZING_SPECIMEN, ChatFormatting.GREEN, MachineStatus.Type.WORKING);
+    public static final MachineStatus RUNNING_ENV_TEST = MachineStatus.create(Translations.MachineStatus.RUNNING_ENV_TEST, ChatFormatting.GOLD, MachineStatus.Type.WORKING);
+    public static final MachineStatus MICROGRAVITY_SYNTHESIS = MachineStatus.create(Translations.MachineStatus.MICROGRAVITY_SYNTHESIS, ChatFormatting.AQUA, MachineStatus.Type.WORKING);
+    public static final MachineStatus GRAVITY_TOO_HIGH = MachineStatus.create(Translations.MachineStatus.GRAVITY_TOO_HIGH, ChatFormatting.DARK_RED, MachineStatus.Type.OTHER);
+    public static final MachineStatus UPLINK_ACTIVE = MachineStatus.create(Translations.MachineStatus.UPLINK_ACTIVE, ChatFormatting.GREEN, MachineStatus.Type.WORKING);
+    public static final MachineStatus MISSING_FREQUENCY_MODULE = MachineStatus.create(Translations.MachineStatus.MISSING_FREQUENCY_MODULE, ChatFormatting.RED, MachineStatus.Type.MISSING_ITEMS);
+
     // Sector 3: Aerospace Refurbishment & Protective Coating
     public static final MachineStatus REFURBISHING = MachineStatus.create(Translations.MachineStatus.REFURBISHING, ChatFormatting.GREEN, MachineStatus.Type.WORKING);
     public static final MachineStatus APPLYING_COATING = MachineStatus.create(Translations.MachineStatus.APPLYING_COATING, ChatFormatting.AQUA, MachineStatus.Type.WORKING);

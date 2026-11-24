@@ -136,6 +136,13 @@ public class GalacticraftClient implements ClientModInitializer {
         MenuScreens.register(GCMenuTypes.ATMOSPHERIC_FRACTIONATOR, AtmosphericFractionatorScreen::new);
         MenuScreens.register(GCMenuTypes.SABATIER_CHEMICAL_REACTOR, SabatierChemicalReactorScreen::new);
         MenuScreens.register(GCMenuTypes.AERO_REFURBISHMENT_BENCH, AeroRefurbishmentBenchScreen::new);
+        MenuScreens.register(GCMenuTypes.RESEARCH_WORKBENCH, ResearchWorkbenchScreen::new);
+        MenuScreens.register(GCMenuTypes.OBSERVATORY_TELESCOPE, ObservatoryTelescopeScreen::new);
+        MenuScreens.register(GCMenuTypes.GEOLOGICAL_ANALYZER, GeologicalAnalyzerScreen::new);
+        MenuScreens.register(GCMenuTypes.ENVIRONMENTAL_TEST_CHAMBER, EnvironmentalTestChamberScreen::new);
+        MenuScreens.register(GCMenuTypes.ZERO_G_RESEARCH_CHAMBER, ZeroGResearchChamberScreen::new);
+        MenuScreens.register(GCMenuTypes.AEROSPACE_RD_TERMINAL, AerospaceRdTerminalScreen::new);
+        MenuScreens.register(GCMenuTypes.RESEARCH_DATA_LINK, ResearchDataLinkScreen::new);
         MenuScreens.register(GCMenuTypes.ELECTRIC_FURNACE, ElectricFurnaceScreen::new);
         MenuScreens.register(GCMenuTypes.ELECTRIC_ARC_FURNACE, ElectricArcFurnaceScreen::new);
         MenuScreens.register(GCMenuTypes.COMPRESSOR, CompressorScreen::new);
@@ -189,6 +196,7 @@ public class GalacticraftClient implements ClientModInitializer {
         GCBlockEntityRenderer.register();
         GCClientPacketReceiver.register();
         GCEntityModelLayer.register();
+        dev.galacticraft.mod.client.render.astro.ClientTelescopeController.registerEvents();
         registerFeatureRenderers();
         GalacticraftRocketPartRenderers.register();
         GCKeyBinds.register();

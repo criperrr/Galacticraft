@@ -39,8 +39,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Mixin(ServerPlayer.class)
@@ -49,11 +51,39 @@ public abstract class ServerPlayerMixin implements ServerResearchAccessor {
     public abstract boolean isCreative();
 
     private final @Unique Set<ResourceLocation> unlockedRecipes = new HashSet<>();
+    private final @Unique Map<String, Integer> domainPoints = new HashMap<>();
+    private final @Unique Set<ResourceLocation> mappedBodies = new HashSet<>();
 
     @Override
     public boolean galacticraft$isUnlocked(ResourceLocation id) {
         if (this.isCreative()) return true;
         return this.unlockedRecipes.contains(id);
+    }
+
+    @Override
+    public @org.jetbrains.annotations.NotNull Set<ResourceLocation> galacticraft$getUnlockedResearch() {
+        return Collections.unmodifiableSet(this.unlockedRecipes);
+    }
+
+    @Override
+    public int galacticraft$getDomainPoints(@org.jetbrains.annotations.NotNull String domainId) {
+        return this.domainPoints.getOrDefault(domainId, 0);
+    }
+
+    @Override
+    public @org.jetbrains.annotations.NotNull Map<String, Integer> galacticraft$getAllDomainPoints() {
+        return Collections.unmodifiableMap(this.domainPoints);
+    }
+
+    @Override
+    public boolean galacticraft$isCelestialBodyMapped(@org.jetbrains.annotations.NotNull ResourceLocation bodyId) {
+        if (this.isCreative()) return true;
+        return this.mappedBodies.contains(bodyId);
+    }
+
+    @Override
+    public @org.jetbrains.annotations.NotNull Set<ResourceLocation> galacticraft$getMappedCelestialBodies() {
+        return Collections.unmodifiableSet(this.mappedBodies);
     }
 
     @Override
@@ -72,12 +102,55 @@ public abstract class ServerPlayerMixin implements ServerResearchAccessor {
         ServerPlayNetworking.send((ServerPlayer) (Object) this, new ResearchUpdatePayload(false, List.of(ids)));
     }
 
+    @Override
+    public void galacticraft$addDomainPoints(@org.jetbrains.annotations.NotNull String domainId, int delta) {
+        int next = Math.max(0, this.domainPoints.getOrDefault(domainId, 0) + delta);
+        this.domainPoints.put(domainId, next);
+    }
+
+    @Override
+    public void galacticraft$markCelestialBodyMapped(@org.jetbrains.annotations.NotNull ResourceLocation bodyId) {
+        this.mappedBodies.add(bodyId);
+    }
+
+    @Override
+    public void galacticraft$applyResearchState(
+            @org.jetbrains.annotations.NotNull Set<ResourceLocation> unlockedNodes,
+            @org.jetbrains.annotations.NotNull Map<String, Integer> domainPoints,
+            @org.jetbrains.annotations.NotNull Set<ResourceLocation> mappedBodies
+    ) {
+        this.unlockedRecipes.clear();
+        this.unlockedRecipes.addAll(unlockedNodes);
+        this.domainPoints.clear();
+        this.domainPoints.putAll(domainPoints);
+        this.mappedBodies.clear();
+        this.mappedBodies.addAll(mappedBodies);
+    }
+
     @Inject(method = "readAdditionalSaveData", at = @At("RETURN"))
     private void galacticraft_readCustomDataFromNbt(CompoundTag nbt, CallbackInfo ci) {
         this.unlockedRecipes.clear();
         ListTag list = nbt.getList("gcResearch", Tag.TAG_STRING);
         for (int i = 0; i < list.size(); i++) {
-            this.unlockedRecipes.add(ResourceLocation.parse(list.getString(i)));
+            ResourceLocation parsed = ResourceLocation.tryParse(list.getString(i));
+            if (parsed != null) {
+                this.unlockedRecipes.add(parsed);
+            }
+        }
+        this.domainPoints.clear();
+        if (nbt.contains("gcResearchDomains", Tag.TAG_COMPOUND)) {
+            CompoundTag domainsTag = nbt.getCompound("gcResearchDomains");
+            for (String key : domainsTag.getAllKeys()) {
+                this.domainPoints.put(key, domainsTag.getInt(key));
+            }
+        }
+        this.mappedBodies.clear();
+        ListTag mappedList = nbt.getList("gcMappedBodies", Tag.TAG_STRING);
+        for (int i = 0; i < mappedList.size(); i++) {
+            ResourceLocation parsed = ResourceLocation.tryParse(mappedList.getString(i));
+            if (parsed != null) {
+                this.mappedBodies.add(parsed);
+            }
         }
     }
 
@@ -88,5 +161,17 @@ public abstract class ServerPlayerMixin implements ServerResearchAccessor {
             list.add(StringTag.valueOf(id.toString()));
         }
         nbt.put("gcResearch", list);
+
+        CompoundTag domainsTag = new CompoundTag();
+        for (Map.Entry<String, Integer> entry : this.domainPoints.entrySet()) {
+            domainsTag.putInt(entry.getKey(), entry.getValue());
+        }
+        nbt.put("gcResearchDomains", domainsTag);
+
+        ListTag mappedList = new ListTag();
+        for (ResourceLocation id : this.mappedBodies) {
+            mappedList.add(StringTag.valueOf(id.toString()));
+        }
+        nbt.put("gcMappedBodies", mappedList);
     }
 }
