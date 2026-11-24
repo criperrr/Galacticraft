@@ -549,6 +549,7 @@ public interface Constant {
         String ELECTROLYTIC_SEPARATOR = "electrolytic_separator";
         String ATMOSPHERIC_FRACTIONATOR = "atmospheric_fractionator";
         String SABATIER_CHEMICAL_REACTOR = "sabatier_chemical_reactor";
+        String AERO_REFURBISHMENT_BENCH = "aero_refurbishment_bench";
         String FUSION_REACTOR_CASING = "fusion_reactor_casing";
         String FUSION_MAGNET_COIL = "fusion_magnet_coil";
         String FUSION_PLASMA_GLASS = "fusion_plasma_glass";
@@ -856,6 +857,7 @@ public interface Constant {
         ResourceLocation ELECTROLYTIC_SEPARATOR_SCREEN = id("textures/gui/electrolytic_separator_screen.png");
         ResourceLocation ATMOSPHERIC_FRACTIONATOR_SCREEN = id("textures/gui/atmospheric_fractionator_screen.png");
         ResourceLocation SABATIER_CHEMICAL_REACTOR_SCREEN = id("textures/gui/sabatier_chemical_reactor_screen.png");
+        ResourceLocation AERO_REFURBISHMENT_BENCH_SCREEN = id("textures/gui/aero_refurbishment_bench_screen.png");
         ResourceLocation ENERGY_STORAGE_MODULE_SCREEN = id("textures/gui/energy_storage_module_screen.png");
         ResourceLocation OXYGEN_COLLECTOR_SCREEN = id("textures/gui/oxygen_collector_screen.png");
         ResourceLocation ROCKET_SELECTION = id("textures/gui/rocket_part_selection.png");
@@ -1486,6 +1488,7 @@ public interface Constant {
         String ELECTROLYTIC_SEPARATOR_MENU = "electrolytic_separator_menu";
         String ATMOSPHERIC_FRACTIONATOR_MENU = "atmospheric_fractionator_menu";
         String SABATIER_CHEMICAL_REACTOR_MENU = "sabatier_chemical_reactor_menu";
+        String AERO_REFURBISHMENT_BENCH_MENU = "aero_refurbishment_bench_menu";
         String ELECTRIC_FURNACE_MENU = "electric_furnace_menu";
         String ELECTRIC_ARC_FURNACE_MENU = "electric_arc_furnace_menu";
         String OXYGEN_COLLECTOR_MENU = "oxygen_collector_menu";

@@ -39,6 +39,8 @@ import dev.galacticraft.mod.content.item.ModularRocketPartBlockItem;
 import dev.galacticraft.mod.content.rocket.part.RocketPartCatalog;
 import dev.galacticraft.mod.content.rocket.part.RocketPartCostCalculator;
 import dev.galacticraft.mod.content.rocket.part.RocketPartSpec;
+import dev.galacticraft.mod.content.rocket.physics.PlanetaryEnvironment;
+import dev.galacticraft.mod.content.rocket.physics.RocketFlightValidator;
 import dev.galacticraft.mod.network.c2s.BuildRocketFromInventoryPayload;
 import dev.galacticraft.mod.network.c2s.HangarTerminalActionPayload;
 import dev.galacticraft.mod.network.c2s.HangarTerminalActionPayload.Action;
@@ -199,6 +201,11 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
     private TerminalButton creativeFillButton;
     private TerminalButton axisGuideButton;
     private TerminalButton disassembleCompactButton;
+    private TerminalButton destCycleButton;
+
+    // Pre-flight emergent physics destination simulator index (defaults to Moon = 1)
+    private int simDestinationIndex = 1;
+    private @Nullable RocketFlightValidator.FlightValidationReport lastFlightReport = null;
 
     // Formed-mode active tab
     private FormedTab activeTab = FormedTab.ASSEMBLY;
@@ -458,6 +465,16 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
                 Component.literal("Desmontar Pad"),
                 ButtonStyle.DANGER_DISASSEMBLE,
                 btn -> this.sendAction(Action.DISASSEMBLE, 0)
+        ));
+
+        this.destCycleButton = this.addRenderableWidget(new TerminalButton(
+                x + 216, y + 4, 96, 13,
+                Component.empty(),
+                ButtonStyle.STANDARD,
+                btn -> {
+                    this.simDestinationIndex = (this.simDestinationIndex + 1) % PlanetaryEnvironment.SOLAR_SYSTEM_PRESETS.size();
+                    this.refreshState(false);
+                }
         ));
 
         if (formed && !this.initializedTabSelection) {
@@ -759,6 +776,12 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
                     this.leftPos + VAB_INFO_X + 4,
                     assemblyTab ? ry + 153 : ry + 183
             );
+        }
+        if (this.destCycleButton != null) {
+            this.destCycleButton.visible = formed;
+            this.destCycleButton.active = formed;
+            PlanetaryEnvironment dest = this.getSelectedSimulationDestination();
+            this.destCycleButton.setMessage(Component.literal("Sim: " + dest.displayName() + " >"));
         }
     }
 
@@ -1164,6 +1187,8 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
                         mouseX,
                         mouseY
                 );
+            } else if (this.lastFlightReport != null && this.isHoveringPhysicsReadout(mouseX, mouseY)) {
+                graphics.renderComponentTooltip(this.font, this.buildFlightReportTooltip(this.lastFlightReport), mouseX, mouseY);
             }
         }
     }
@@ -1262,7 +1287,7 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
         int sizeBoxW = 86;
         graphics.fill(sizeBoxX, sizeBoxY, sizeBoxX + sizeBoxW, sizeBoxY + 18, COLOR_BG_INSET);
         graphics.renderOutline(sizeBoxX, sizeBoxY, sizeBoxW, 18, COLOR_BORDER_SECTION);
-        String sizeLabel = size.getSerializedName() + "  (T" + size.maxTier() + ")";
+        String sizeLabel = size.getSerializedName() + "  (Ø" + size.diameter() + "m)";
         graphics.drawCenteredString(this.font, sizeLabel, sizeBoxX + sizeBoxW / 2, sizeBoxY + 5, COLOR_TEXT_PRIMARY);
 
         int detectedSpan = be.getDetectedPadSpan();
@@ -1577,6 +1602,42 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
         drawMiniBadge(graphics, boxX + 25, boxY + 77, "TNK", telemetry.hasTank);
         drawMiniBadge(graphics, boxX + 47, boxY + 77, "ENG", telemetry.hasEngine);
         drawMiniBadge(graphics, boxX + 69, boxY + 77, "TWR", telemetry.twr >= 1.0 && telemetry.diameterOk);
+
+        // Live emergent physics pre-flight simulation summary for selected destination
+        PlanetaryEnvironment simDest = this.getSelectedSimulationDestination();
+        RocketFlightValidator.FlightValidationReport report = this.evaluateCurrentVehicleReport(be, showingDraft, simDest);
+        this.lastFlightReport = report;
+
+        int simX = rx + 4;
+        int simY = ry + 172;
+        int simW = VAB_INFO_W - 8;
+        int simH = 32;
+        boolean crit = report.hasCriticalHazards();
+        int simBorder = crit ? 0xFFEF4444 : (report.hazards().isEmpty() ? 0xFF22C55E : 0xFFF59E0B);
+        graphics.fill(simX, simY, simX + simW, simY + simH, COLOR_BG_INSET);
+        graphics.renderOutline(simX, simY, simW, simH, simBorder);
+        String destLine = this.font.plainSubstrByWidth(
+                String.format(java.util.Locale.ROOT, "%s TWR:%.2f", simDest.displayName(),
+                        Double.isFinite(report.destinationTwr()) ? report.destinationTwr() : 99.9),
+                simW - 6
+        );
+        graphics.drawString(this.font, destLine, simX + 3, simY + 3,
+                report.canLiftoffDestination() ? COLOR_TEXT_OK : COLOR_TEXT_ERROR, false);
+
+        String statusLine;
+        int statusColor;
+        if (report.hazards().isEmpty()) {
+            statusLine = "Física: NOMINAL";
+            statusColor = COLOR_TEXT_OK;
+        } else {
+            RocketFlightValidator.FlightHazard top = report.hazards().getFirst();
+            statusLine = this.font.plainSubstrByWidth(top.summary(), simW - 6);
+            statusColor = top.severity() == RocketFlightValidator.HazardSeverity.CRITICAL ? COLOR_TEXT_ERROR : COLOR_TEXT_AMBER;
+        }
+        graphics.drawString(this.font, statusLine, simX + 3, simY + 13, statusColor, false);
+
+        String extraLine = String.format(java.util.Locale.ROOT, "Sol:%.2fx %d alrt", report.solarIrradianceFactor(), report.hazards().size());
+        graphics.drawString(this.font, this.font.plainSubstrByWidth(extraLine, simW - 6), simX + 3, simY + 22, COLOR_TEXT_MUTED, false);
     }
 
     private void renderRocketTabMode(GuiGraphics graphics, int x, int y, int mouseX, int mouseY, HangarTerminalBlockEntity be) {
@@ -1824,6 +1885,108 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
         drawMiniBadge(graphics, boxX + 25, boxY + 77, "TNK", summary.hasTank());
         drawMiniBadge(graphics, boxX + 47, boxY + 77, "ENG", summary.hasEngine());
         drawMiniBadge(graphics, boxX + 69, boxY + 77, "TWR", summary.twr() >= 1.0 && summary.diameterWithinLimit());
+
+        this.lastFlightReport = this.evaluateCurrentVehicleReport(be, false, this.getSelectedSimulationDestination());
+    }
+
+    private PlanetaryEnvironment getSelectedSimulationDestination() {
+        int idx = Math.floorMod(this.simDestinationIndex, PlanetaryEnvironment.SOLAR_SYSTEM_PRESETS.size());
+        return PlanetaryEnvironment.SOLAR_SYSTEM_PRESETS.get(idx);
+    }
+
+    private RocketFlightValidator.FlightValidationReport evaluateCurrentVehicleReport(
+            HangarTerminalBlockEntity be,
+            boolean useDraft,
+            PlanetaryEnvironment destination
+    ) {
+        PlanetaryEnvironment origin = PlanetaryEnvironment.fromLevel(be.getLevel());
+        if (useDraft && !this.vabDraft.isEmpty()) {
+            List<ItemStack> stacks = new ArrayList<>(this.vabDraft.size());
+            for (VabEntry entry : this.vabDraft) {
+                stacks.add(entry.icon);
+            }
+            RocketFlightValidator.VehicleSnapshot draftSnap = RocketFlightValidator.VehicleSnapshot.fromStacks(stacks, 0L, 0L, null);
+            return RocketFlightValidator.evaluate(draftSnap, origin, destination);
+        }
+        return be.evaluateFlight(destination);
+    }
+
+    private boolean isHoveringPhysicsReadout(int mouseX, int mouseY) {
+        if (this.destCycleButton != null && this.destCycleButton.visible && this.destCycleButton.isHovered()) {
+            return true;
+        }
+        int rx = this.leftPos + VAB_INFO_X + 4;
+        int ry = this.topPos + VAB_INFO_Y;
+        int rw = VAB_INFO_W - 8;
+        if (mouseX >= rx && mouseX < rx + rw && mouseY >= ry + 16 && mouseY < ry + 108) {
+            return true;
+        }
+        if (this.activeTab == FormedTab.ASSEMBLY && mouseX >= rx && mouseX < rx + rw && mouseY >= ry + 172 && mouseY < ry + 204) {
+            return true;
+        }
+        int sx = this.leftPos + RKT_SYS_X + 5;
+        int sy = this.topPos + RKT_SYS_Y + 130;
+        return this.activeTab == FormedTab.ROCKET && mouseX >= sx && mouseX < sx + RKT_SYS_W - 10 && mouseY >= sy && mouseY < sy + 72;
+    }
+
+    private List<Component> buildFlightReportTooltip(RocketFlightValidator.FlightValidationReport report) {
+        List<Component> lines = new ArrayList<>();
+        PlanetaryEnvironment dest = report.destination();
+        lines.add(Component.literal("Simulação Física: " + report.origin().displayName() + " \u2192 " + dest.displayName())
+                .withStyle(net.minecraft.ChatFormatting.AQUA));
+        lines.add(Component.literal(String.format(
+                java.util.Locale.ROOT,
+                "T/W Origem: %.2f (%.2fG) | Destino: %.2f (%.2fG)",
+                Double.isFinite(report.originTwr()) ? report.originTwr() : 99.99,
+                report.origin().gravityG(),
+                Double.isFinite(report.destinationTwr()) ? report.destinationTwr() : 99.99,
+                dest.gravityG()
+        )).withStyle(report.canLiftoffOrigin() && report.canLiftoffDestination()
+                ? net.minecraft.ChatFormatting.GREEN : net.minecraft.ChatFormatting.RED));
+        lines.add(Component.literal(String.format(
+                java.util.Locale.ROOT,
+                "\u0394v Máx: %.0f / %.0f m/s (Isp: %.0fs)",
+                report.maxDeltaV(), report.requiredDeltaV(), report.effectiveIspSeconds()
+        )).withStyle(report.hasEnoughDeltaV() ? net.minecraft.ChatFormatting.GREEN : net.minecraft.ChatFormatting.YELLOW));
+        lines.add(Component.literal(String.format(
+                java.util.Locale.ROOT,
+                "Térmica: %.0f K vs %.0f K | Pressão: %.1f vs %.1f atm",
+                report.minThermalToleranceKelvin(), report.destinationPeakTempKelvin(),
+                report.minPressureToleranceAtm(), report.destinationPressureAtm()
+        )).withStyle(report.thermalSafe() && report.pressureSafe()
+                ? net.minecraft.ChatFormatting.GREEN : net.minecraft.ChatFormatting.RED));
+        if (dest.corrosiveAcid()) {
+            lines.add(Component.literal("Corrosão H2SO4 (Vênus): " + (report.acidProtected() ? "BLINDADO" : "SEM PROTEÇÃO (dano contínuo!)"))
+                    .withStyle(report.acidProtected() ? net.minecraft.ChatFormatting.GREEN : net.minecraft.ChatFormatting.RED));
+        }
+        lines.add(Component.literal(String.format(
+                java.util.Locale.ROOT,
+                "Solar (1/r\u00b2): %.4fx | Energia: %+d GJ/t%s",
+                report.solarIrradianceFactor(),
+                report.netPowerPerTick(),
+                report.dfdBurnPowerGenPerTick() > 0L ? (" (DFD +" + report.dfdBurnPowerGenPerTick() + " GJ/t)") : ""
+        )).withStyle(report.powerDeficit() ? net.minecraft.ChatFormatting.YELLOW : net.minecraft.ChatFormatting.AQUA));
+        String cryoStr = report.superfluidCryo2kActive()
+                ? "Boil-Off: 0.0x (Superfluido 3He <2K)"
+                : (report.zeroBoilOffActive()
+                ? "Boil-Off: 0.0x (Cryocooler Ativo)"
+                : (report.boilOffDropletsPerMinute() > 0.0
+                ? String.format(java.util.Locale.ROOT, "Boil-Off: %.2f B/min", report.boilOffDropletsPerMinute() / RocketFlightValidator.DROPLETS_PER_BUCKET)
+                : "Boil-Off: 0.0x (Não Criogênico)"));
+        lines.add(Component.literal(cryoStr + " | Prop: " + report.propellantStatusMessage())
+                .withStyle(report.propellantCompatible() ? net.minecraft.ChatFormatting.GRAY : net.minecraft.ChatFormatting.RED));
+        if (!report.hazards().isEmpty()) {
+            lines.add(Component.literal("Alertas (" + report.hazards().size() + "):").withStyle(net.minecraft.ChatFormatting.GOLD));
+            for (RocketFlightValidator.FlightHazard hazard : report.hazards()) {
+                net.minecraft.ChatFormatting color = switch (hazard.severity()) {
+                    case CRITICAL -> net.minecraft.ChatFormatting.RED;
+                    case WARNING -> net.minecraft.ChatFormatting.YELLOW;
+                    case INFO -> net.minecraft.ChatFormatting.GRAY;
+                };
+                lines.add(Component.literal(" \u2022 " + hazard.summary()).withStyle(color));
+            }
+        }
+        return lines;
     }
 
     private void drawResourceGauge(

@@ -430,6 +430,7 @@ public class GCCreativeModeTabs {
                 output.accept(ELECTROLYTIC_SEPARATOR);
                 output.accept(ATMOSPHERIC_FRACTIONATOR);
                 output.accept(SABATIER_CHEMICAL_REACTOR);
+                output.accept(AERO_REFURBISHMENT_BENCH);
                 output.accept(FUSION_REACTOR_CASING);
                 output.accept(FUSION_MAGNET_COIL);
                 output.accept(FUSION_PLASMA_GLASS);

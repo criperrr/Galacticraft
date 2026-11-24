@@ -785,14 +785,25 @@ public class CelestialSelectionScreen extends CelestialScreen {
                 boolean canReach = !disabled && this.canReachWithRocket(this.selectedBody);
                 int tierColor = canReach ? GREEN : RED;
 
-                texture.blit(this.width / 2 - 30, LHS + 11, 30, 11, TOPBAR_U, TOPBAR_V, 30, TOPBAR_HEIGHT, tierColor);
-                texture.blit(this.width / 2, LHS + 11, 30, 11, TOPBAR_U + TOPBAR_WIDTH - 30, TOPBAR_V, 30, TOPBAR_HEIGHT, tierColor);
+                texture.blit(this.width / 2 - 42, LHS + 11, 42, 11, TOPBAR_U, TOPBAR_V, 30, TOPBAR_HEIGHT, tierColor);
+                texture.blit(this.width / 2, LHS + 11, 42, 11, TOPBAR_U + TOPBAR_WIDTH - 30, TOPBAR_V, 30, TOPBAR_HEIGHT, tierColor);
 
-                Component tierText = disabled
+                dev.galacticraft.mod.content.rocket.physics.PlanetaryEnvironment env =
+                        dev.galacticraft.mod.content.rocket.physics.PlanetaryEnvironment.fromCelestialBody(
+                                this.selectedBody.getKey(this.celestialBodies).location(),
+                                this.selectedBody
+                        );
+                Component envText = disabled
                         ? Component.literal("Disabled")
-                        : Component.translatable(Translations.CelestialSelection.TIER, tiered.accessWeight(this.selectedBody.config()) == -1 ? "?" : tiered.accessWeight(this.selectedBody.config()));
+                        : Component.literal(String.format(
+                                java.util.Locale.ROOT,
+                                "%.2fG %.0fK %.0fatm",
+                                env.gravityG(),
+                                env.peakTempKelvin(),
+                                env.pressureAtm()
+                        ));
 
-                texture.drawCenteredText(tierText, this.width / 2, LHS + 13, canReach ? GREY4 : RED3, false);
+                texture.drawCenteredText(envText, this.width / 2, LHS + 13, canReach ? GREY4 : RED3, false);
             }
 
             Component title = this.isSatellite(this.selectedBody)

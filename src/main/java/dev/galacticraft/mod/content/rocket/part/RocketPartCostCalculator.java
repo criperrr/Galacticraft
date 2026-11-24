@@ -440,6 +440,9 @@ public final class RocketPartCostCalculator {
     }
 
     private static SlotWeights weightsForSlot(RocketPartCategory category, int slotIndex, @Nullable SlotRole role) {
+        if (role == SlotRole.PROTECTIVE_COATING || slotIndex >= 9) {
+            return new SlotWeights(1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0);
+        }
         return switch (category) {
             case COMMAND -> switch (slotIndex) {
                 case 1 -> new SlotWeights(0.25, 1.00, 0.35, 0.20, 0.0, 0.0, 0.0);

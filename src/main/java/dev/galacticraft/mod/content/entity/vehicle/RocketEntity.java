@@ -46,6 +46,9 @@ import dev.galacticraft.mod.content.advancements.GCTriggers;
 import dev.galacticraft.mod.content.block.special.launchpad.AbstractLaunchPad;
 import dev.galacticraft.mod.content.entity.data.GCEntityDataSerializers;
 import dev.galacticraft.mod.content.item.GCItems;
+import dev.galacticraft.mod.content.rocket.physics.PlanetaryEnvironment;
+import dev.galacticraft.mod.content.rocket.physics.PropellantType;
+import dev.galacticraft.mod.content.rocket.physics.RocketFlightValidator;
 import dev.galacticraft.mod.events.RocketEvents;
 import dev.galacticraft.mod.network.s2c.OpenCelestialScreenPayload;
 import dev.galacticraft.mod.particle.EntityParticleOption;
@@ -640,6 +643,21 @@ public class RocketEntity extends AdvancedVehicle implements Rocket, IgnoreShift
 
         Entity passenger = getFirstPassenger();
 
+        // Cryogenic boil-off for uninsulated legacy rocket tank when holding cryogenic fluids
+        if (!this.isTankEmpty() && (this.level().getGameTime() % 20L) == 0L) {
+            Fluid loadedFluid = this.tank.getResource().getFluid();
+            double boilRatePerMin = PropellantType.baseBoilOffFractionForFluid(loadedFluid);
+            if (boilRatePerMin > 0.0) {
+                PlanetaryEnvironment env = PlanetaryEnvironment.fromLevel(this.level());
+                double tempFactor = Math.clamp(env.meanTempKelvin() / 293.15, 0.20, 3.0);
+                long boilLoss = Math.max(1L, Math.round((this.tank.getAmount() * boilRatePerMin * tempFactor) / 60.0));
+                try (Transaction t = Transaction.openOuter()) {
+                    this.tank.extract(this.tank.getResource(), boilLoss, t);
+                    t.commit();
+                }
+            }
+        }
+
         if (getLaunchStage() == LaunchStage.IGNITED) {
             timeBeforeLaunch--;
 
@@ -651,8 +669,30 @@ public class RocketEntity extends AdvancedVehicle implements Rocket, IgnoreShift
                 return;
             }
 
+            // Emergent physics T/W check: rocket cannot lift off if thrust <= wetMass * g_local
+            PlanetaryEnvironment launchEnv = PlanetaryEnvironment.fromLevel(this.level());
+            double localTwr = this.computeCurrentTwr(launchEnv.gravityG());
+            if (!debugMode && launchEnv.gravityG() > 0.001 && localTwr <= 1.0) {
+                if (getTimeAsState() % 20 == 0 && passenger instanceof ServerPlayer player) {
+                    player.displayClientMessage(
+                            Component.literal(String.format(
+                                    java.util.Locale.ROOT,
+                                    "T/W %.2f <= 1.00 em %s (%.2fG) — empuxo insuficiente!",
+                                    localTwr,
+                                    launchEnv.displayName(),
+                                    launchEnv.gravityG()
+                            )),
+                            true
+                    );
+                }
+                if (getTimeAsState() >= getPreLaunchWait()) {
+                    this.setLaunchStage(LaunchStage.IDLE);
+                }
+                return;
+            }
+
             try (Transaction t = Transaction.openOuter()) {
-                this.getTank().extract(FluidVariant.of(GCFluids.FUEL), FluidConstants.NUGGET, t);
+                this.getTank().extract(this.getTank().getResource(), FluidConstants.NUGGET, t);
                 t.commit();
             }
 
@@ -684,11 +724,13 @@ public class RocketEntity extends AdvancedVehicle implements Rocket, IgnoreShift
             }
 
         } else if (getLaunchStage() == LaunchStage.LAUNCHED) {
-            if (!debugMode && (isTankEmpty() || !this.getTank().getResource().getFluid().is(GCFluidTags.FUEL))) {
+            Fluid currentFluid = this.getTank().getResource().getFluid();
+            boolean validFuel = currentFluid.is(GCFluidTags.FUEL) || PropellantType.isRocketPropellantFluid(currentFluid);
+            if (!debugMode && (isTankEmpty() || !validFuel)) {
                 this.setLaunchStage(LaunchStage.FAILED);
             } else {
                 try (Transaction t = Transaction.openOuter()) {
-                    this.getTank().extract(FluidVariant.of(GCFluids.FUEL), FluidConstants.NUGGET, t);
+                    this.getTank().extract(this.getTank().getResource(), FluidConstants.NUGGET, t);
                     t.commit();
                 }
 
@@ -769,6 +811,21 @@ public class RocketEntity extends AdvancedVehicle implements Rocket, IgnoreShift
                 GCTriggers.LAUNCH_ROCKET.trigger(player);
             }
         }
+    }
+
+    /**
+     * Evaluates the legacy rocket entity's thrust-to-weight ratio against local gravity ({@code g}).
+     * Standard single-engine rockets easily clear Earth (1.0G) and Mars/Moon/Venus, while heavy
+     * hyper-gravity planets such as Jupiter (2.36G) require booster augmentation.
+     */
+    public double computeCurrentTwr(double gravityG) {
+        RocketData data = this.getRocketData();
+        boolean hasBooster = data.booster().isPresent();
+        double dryMassKg = hasBooster ? 3200.0 : 2400.0;
+        double fuelBuckets = this.tank.getAmount() / RocketFlightValidator.DROPLETS_PER_BUCKET;
+        double propMassKg = fuelBuckets * 25.0; // scaled legacy 100-bucket internal tank
+        double thrustKn = hasBooster ? 135.0 : 58.0;
+        return RocketFlightValidator.computeTwr(thrustKn, dryMassKg + propMassKg, gravityG);
     }
 
     public void tickInAir() {

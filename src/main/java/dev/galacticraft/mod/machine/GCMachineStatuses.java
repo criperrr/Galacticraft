@@ -111,6 +111,11 @@ public final class GCMachineStatuses {
     public static final MachineStatus SYNTHESIZING = MachineStatus.create(Translations.MachineStatus.SYNTHESIZING, ChatFormatting.GREEN, MachineStatus.Type.WORKING);
     public static final MachineStatus MISSING_CATALYST = MachineStatus.create(Translations.MachineStatus.MISSING_CATALYST, ChatFormatting.RED, MachineStatus.Type.MISSING_ITEMS);
 
+    // Sector 3: Aerospace Refurbishment & Protective Coating
+    public static final MachineStatus REFURBISHING = MachineStatus.create(Translations.MachineStatus.REFURBISHING, ChatFormatting.GREEN, MachineStatus.Type.WORKING);
+    public static final MachineStatus APPLYING_COATING = MachineStatus.create(Translations.MachineStatus.APPLYING_COATING, ChatFormatting.AQUA, MachineStatus.Type.WORKING);
+    public static final MachineStatus PART_ALREADY_NOMINAL = MachineStatus.create(Translations.MachineStatus.PART_ALREADY_NOMINAL, ChatFormatting.YELLOW, MachineStatus.Type.OTHER);
+
     public static void register() {
     }
 }

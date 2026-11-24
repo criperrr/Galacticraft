@@ -447,6 +447,9 @@ public interface Translations {
         String HEATING_CATALYST = "ui.galacticraft.status.heating_catalyst";
         String SYNTHESIZING = "ui.galacticraft.status.synthesizing";
         String MISSING_CATALYST = "ui.galacticraft.status.missing_catalyst";
+        String REFURBISHING = "ui.galacticraft.status.refurbishing";
+        String APPLYING_COATING = "ui.galacticraft.status.applying_coating";
+        String PART_ALREADY_NOMINAL = "ui.galacticraft.status.part_already_nominal";
     }
 
     interface CelestialSelection {

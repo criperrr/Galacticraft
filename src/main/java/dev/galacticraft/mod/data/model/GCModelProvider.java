@@ -672,6 +672,17 @@ public class GCModelProvider extends FabricModelProvider {
                         .build()
         );
 
+        createActiveMachine(generator, GCBlocks.AERO_REFURBISHMENT_BENCH,
+                TextureProvider.builder(Constant.MOD_ID)
+                        .sides("block/machine_side")
+                        .front("block/aero_refurbishment_bench_active")
+                        .build(),
+                TextureProvider.builder(Constant.MOD_ID)
+                        .sides("block/machine_side")
+                        .front("block/aero_refurbishment_bench")
+                        .build()
+        );
+
         generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(GCBlocks.FUSION_REACTOR_CASING, Constant.id("block/fusion_reactor_casing")));
         generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(GCBlocks.FUSION_MAGNET_COIL, Constant.id("block/fusion_magnet_coil")));
         generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(GCBlocks.FUSION_PLASMA_GLASS, Constant.id("block/fusion_plasma_glass")));

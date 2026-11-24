@@ -454,6 +454,19 @@ public class GCMachineRecipes extends FabricRecipeProvider {
                 .emiDefaultRecipe(true)
                 .save(output);
 
+        GCShapedRecipeBuilder.crafting(RecipeCategory.DECORATIONS, GCBlocks.AERO_REFURBISHMENT_BENCH)
+                .define('T', GCItems.COMPRESSED_TITANIUM)
+                .define('W', GCItems.STANDARD_WRENCH)
+                .define('R', GCBlocks.ROCKET_WORKBENCH)
+                .define('B', GCItems.BEAM_CORE)
+                .define('C', GCItems.ADVANCED_WAFER)
+                .pattern("TWT")
+                .pattern("BRB")
+                .pattern("TCT")
+                .unlockedBy(getHasName(GCBlocks.ROCKET_WORKBENCH), has(GCBlocks.ROCKET_WORKBENCH))
+                .emiDefaultRecipe(true)
+                .save(output);
+
         GCShapedRecipeBuilder.crafting(RecipeCategory.DECORATIONS, GCBlocks.FUEL_LOADER)
                 .define('U', GCItems.COMPRESSED_COPPER)
                 .define('C', GCItems.TIN_CANISTER)
