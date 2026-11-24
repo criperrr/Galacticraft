@@ -752,7 +752,7 @@ public class ModularRocketPartTestSuite implements GalacticraftGameTest {
         wbTank.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 0).set(GCItems.COMPRESSED_TITANIUM, 2 * tankMult);
         wbTank.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 2).set(GCItems.COMPRESSED_TITANIUM, 2 * tankMult);
         wbTank.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 3)
-                .set(he3Canister.getItem(), he3Canister.getComponentsPatch(), 2 * tankMult);
+                .set(he3Canister.getItem(), he3Canister.getComponentsPatch(), 1);
         wbTank.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 5).set(GCItems.HELIUM3_CELL, 2 * tankMult);
         wbTank.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 6).set(GCItems.ATMOSPHERIC_VALVE, 2 * tankMult);
         wbTank.itemStorage().slot(RocketWorkbenchBlockEntity.INPUT_GRID_START + 8).set(GCItems.FLUID_MANIPULATOR, 2 * tankMult);

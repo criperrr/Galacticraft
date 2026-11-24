@@ -255,6 +255,10 @@ class TinkersPartAssemblerTest {
         assertTrue(normalText.contains("SOFI Insulation"), "Expected SOFI_INSULATION trait");
         assertTrue(normalText.contains("Hold SHIFT to inspect 6 sub-components"), "Expected SHIFT prompt");
         assertFalse(normalText.contains("Sub-Component Breakdown"), "Breakdown must stay collapsed without SHIFT");
+        for (Component line : normal) {
+            assertTrue(line.getString().length() <= 54,
+                    "Normal tooltip line must stay compact to prevent screen overflow: " + line.getString());
+        }
 
         // SHIFT expanded tooltip
         List<Component> shifted = new ArrayList<>();
@@ -262,10 +266,35 @@ class TinkersPartAssemblerTest {
         String shiftText = joinLines(shifted);
         assertTrue(shiftText.contains("Sub-Component Breakdown (6 slots):"), "Expected SHIFT breakdown header");
         assertTrue(shiftText.contains("Upper Tank Ring (L): Compressed Titanium"), "Expected slot 0 detail");
-        assertTrue(shiftText.contains("Propellant Cell & Cryo: Helium-3 Cryo Canister"), "Expected slot 3 He-3 detail");
+        assertTrue(shiftText.contains("Propellant Cell & Cryo:"), "Expected slot 3 He-3 header");
+        assertTrue(shiftText.contains("Helium-3 Cryo Canister"), "Expected slot 3 He-3 material name");
         assertTrue(shiftText.contains("0% Boil-Off"), "Expected 0% Boil-Off per-slot delta");
         assertTrue(shiftText.contains("-20% Mass"), "Expected -20% Mass contribution for Titanium hull slot");
         assertFalse(shiftText.contains("Hold SHIFT"), "SHIFT prompt must not show while SHIFT is held");
+        for (Component line : shifted) {
+            assertTrue(line.getString().length() <= 54,
+                    "SHIFT tooltip line must stay compact to prevent screen overflow: " + line.getString());
+        }
+
+        // Parachute & empty Fluid Canister stack to 16; filled Fluid Canister remains individual (stack 1)
+        assertEquals(16, GCItems.PARACHUTE.getDefaultMaxStackSize());
+        assertEquals(16, GCItems.FLUID_CANISTER.getDefaultMaxStackSize());
+        assertEquals(16, new ItemStack(GCItems.FLUID_CANISTER).getMaxStackSize());
+        ItemStack filledHe3Canister = FluidCanisterItem.getFilledCanister(GCItems.FLUID_CANISTER, Gases.HELIUM_3);
+        assertEquals(1, filledHe3Canister.getMaxStackSize());
+        for (net.minecraft.world.item.DyeColor dye : net.minecraft.world.item.DyeColor.values()) {
+            assertEquals(16, GCItems.DYED_PARACHUTES.get(dye).getDefaultMaxStackSize());
+        }
+        RocketPartConfig orion = RocketPartCatalog.getInstance().getPart("capsule_orion_5x5_3b").toConfig(RocketLivery.WHITE);
+        SchematicGridLayout orionLayout = SchematicGridLayout.forConfig(orion);
+        SlotRequirement noseSlot = orionLayout.requirement(1);
+        SlotRequirement avionicsSlot = orionLayout.requirement(7);
+        assertEquals(8, noseSlot.requiredCount(4, new ItemStack(GCItems.PARACHUTE)));
+        assertEquals(16, noseSlot.requiredCount(16, new ItemStack(GCItems.PARACHUTE)));
+        assertEquals(1, avionicsSlot.requiredCount(16, new ItemStack(GCItems.HELIUM3_FUSION_CELL)));
+        SlotRequirement tankCellSlot = SchematicGridLayout.forConfig(tankCfg).requirement(3);
+        assertEquals(1, tankCellSlot.requiredCount(4, filledHe3Canister));
+        assertEquals(8, tankCellSlot.requiredCount(4, new ItemStack(GCItems.FLUID_CANISTER)));
     }
 
     private static String joinLines(List<Component> lines) {
