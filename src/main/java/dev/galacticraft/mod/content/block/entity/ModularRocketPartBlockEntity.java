@@ -279,6 +279,14 @@ public class ModularRocketPartBlockEntity extends BlockEntity implements MultiVo
                 this.scienceDrive = FlightTelemetryEngine.createRecordedDataDrive(env, body, normMod,
                         dev.galacticraft.api.component.TelemetryData.EventType.ORBITAL_SCAN, null);
                 player.displayClientMessage(Component.literal("[MULTISPECTRAL CAMERA] Generated Orbital Survey Map & Telemetry Drive!").withStyle(ChatFormatting.AQUA), true);
+            } else if (!this.isAssembledOnPlatform()
+                    && (normMod.equals(FlightTelemetryEngine.MOD_SPECTROMETER)
+                    || normMod.equals(FlightTelemetryEngine.MOD_RADIATION_COUNTER)
+                    || normMod.equals(FlightTelemetryEngine.MOD_MAGNETOMETER))) {
+                var evt = FlightTelemetryEngine.resolveDefaultEventForModule(normMod);
+                this.scienceDrive = FlightTelemetryEngine.createRecordedDataDrive(env, body, normMod, evt, null);
+                player.displayClientMessage(Component.literal("[SCIENCE BAY] Captured " + evt.displayName()
+                        + " data for " + env.displayName() + "! Right-click with empty hand to retrieve.").withStyle(ChatFormatting.GREEN), true);
             } else {
                 this.scienceDrive = new ItemStack(GCItems.BLANK_DATA_DRIVE);
                 player.displayClientMessage(Component.literal("[SCIENCE BAY] Loaded Blank Data Drive into " + normMod + ".").withStyle(ChatFormatting.AQUA), true);
@@ -584,7 +592,21 @@ public class ModularRocketPartBlockEntity extends BlockEntity implements MultiVo
     }
 
     @Override
+    public ItemInteractionResult onProxyUseItemOn(ItemStack stack, Level level, BlockPos proxyPos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if (this.isSciencePayloadModule()) {
+            return this.handleScienceModuleInteraction(level, player, hand, stack);
+        }
+        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+    }
+
+    @Override
     public InteractionResult onProxyUse(Level level, BlockPos proxyPos, Player player, BlockHitResult hit) {
+        if (this.isSciencePayloadModule() && !this.scienceDrive.isEmpty()) {
+            ItemInteractionResult res = this.handleScienceModuleInteraction(level, player, InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+            if (res.consumesAction()) {
+                return InteractionResult.sidedSuccess(level.isClientSide);
+            }
+        }
         if (this.config.walkableInterior()) {
             if (level.isClientSide) {
                 return InteractionResult.SUCCESS;
