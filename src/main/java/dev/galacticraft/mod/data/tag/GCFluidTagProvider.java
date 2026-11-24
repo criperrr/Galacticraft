@@ -58,14 +58,46 @@ public class GCFluidTagProvider extends FabricTagProvider.FluidTagProvider {
                 .addTag(GCFluidTags.SULFURIC_ACID);
 
         this.getOrCreateTagBuilder(GCFluidTags.LIQUID_OXYGEN)
-                .add(Gases.OXYGEN);
+                .add(Gases.OXYGEN)
+                .add(GCFluids.LIQUID_OXYGEN)
+                .add(GCFluids.FLOWING_LIQUID_OXYGEN);
         this.getOrCreateTagBuilder(GCFluidTags.OXYGEN)
                 .add(Gases.OXYGEN);
+
+        this.getOrCreateTagBuilder(GCFluidTags.LIQUID_HYDROGEN)
+                .add(GCFluids.LIQUID_HYDROGEN)
+                .add(GCFluids.FLOWING_LIQUID_HYDROGEN);
+        this.getOrCreateTagBuilder(GCFluidTags.LIQUID_HYDROGEN_COMMON)
+                .addTag(GCFluidTags.LIQUID_HYDROGEN);
+
+        this.getOrCreateTagBuilder(GCFluidTags.LIQUID_METHANE)
+                .add(GCFluids.LIQUID_METHANE)
+                .add(GCFluids.FLOWING_LIQUID_METHANE);
+        this.getOrCreateTagBuilder(GCFluidTags.LIQUID_METHANE_COMMON)
+                .addTag(GCFluidTags.LIQUID_METHANE);
+
+        this.getOrCreateTagBuilder(GCFluidTags.MONOPROPELLANT)
+                .add(GCFluids.MONOPROPELLANT)
+                .add(GCFluids.FLOWING_MONOPROPELLANT);
+        this.getOrCreateTagBuilder(GCFluidTags.MONOPROPELLANT_COMMON)
+                .addTag(GCFluidTags.MONOPROPELLANT);
+
+        this.getOrCreateTagBuilder(GCFluidTags.LIQUID_XENON)
+                .add(GCFluids.LIQUID_XENON)
+                .add(GCFluids.FLOWING_LIQUID_XENON);
+        this.getOrCreateTagBuilder(GCFluidTags.LIQUID_XENON_COMMON)
+                .addTag(GCFluidTags.LIQUID_XENON);
 
         this.getOrCreateTagBuilder(GCFluidTags.NON_BREATHABLE)
                 .addTag(GCFluidTags.OIL)
                 .addTag(GCFluidTags.FUEL)
                 .addTag(GCFluidTags.SULFURIC_ACID)
+                .add(GCFluids.LIQUID_OXYGEN)
+                .add(GCFluids.FLOWING_LIQUID_OXYGEN)
+                .addTag(GCFluidTags.LIQUID_HYDROGEN)
+                .addTag(GCFluidTags.LIQUID_METHANE)
+                .addTag(GCFluidTags.MONOPROPELLANT)
+                .addTag(GCFluidTags.LIQUID_XENON)
                 .addOptionalTag(FluidTags.WATER);
 
         // Add fluids here so they can't be inserted into the Fluid Canister

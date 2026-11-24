@@ -429,6 +429,11 @@ public interface Constant {
         String FUEL = "fuel";
         String CRUDE_OIL = "crude_oil";
         String SULFURIC_ACID = "sulfuric_acid";
+        String LIQUID_OXYGEN = "liquid_oxygen";
+        String LIQUID_HYDROGEN = "liquid_hydrogen";
+        String LIQUID_METHANE = "liquid_methane";
+        String MONOPROPELLANT = "monopropellant";
+        String LIQUID_XENON = "liquid_xenon";
 
         // Machines
         String CIRCUIT_FABRICATOR = "circuit_fabricator";
@@ -540,6 +545,9 @@ public interface Constant {
         String VACUUM_METALLURGIC_INFUSER = "vacuum_metallurgic_infuser";
         String CHEMICAL_LEACHING_PLANT = "chemical_leaching_plant";
         String COMPOSITE_AUTOCLAVE = "composite_autoclave";
+        String ELECTROLYTIC_SEPARATOR = "electrolytic_separator";
+        String ATMOSPHERIC_FRACTIONATOR = "atmospheric_fractionator";
+        String SABATIER_CHEMICAL_REACTOR = "sabatier_chemical_reactor";
         String FUSION_REACTOR_CASING = "fusion_reactor_casing";
         String FUSION_MAGNET_COIL = "fusion_magnet_coil";
         String FUSION_PLASMA_GLASS = "fusion_plasma_glass";
@@ -576,6 +584,16 @@ public interface Constant {
         String BACTERIAL_ACID_STILL = "bacterial_acid_still";
         String SULFURIC_ACID_FLOWING = "sulfuric_acid_flowing";
         String SULFURIC_ACID_STILL = "sulfuric_acid_still";
+        String LIQUID_OXYGEN_FLOWING = "liquid_oxygen_flowing";
+        String LIQUID_OXYGEN_STILL = "liquid_oxygen_still";
+        String LIQUID_HYDROGEN_FLOWING = "liquid_hydrogen_flowing";
+        String LIQUID_HYDROGEN_STILL = "liquid_hydrogen_still";
+        String LIQUID_METHANE_FLOWING = "liquid_methane_flowing";
+        String LIQUID_METHANE_STILL = "liquid_methane_still";
+        String MONOPROPELLANT_FLOWING = "monopropellant_flowing";
+        String MONOPROPELLANT_STILL = "monopropellant_still";
+        String LIQUID_XENON_FLOWING = "liquid_xenon_flowing";
+        String LIQUID_XENON_STILL = "liquid_xenon_still";
         String OXYGEN_GAS = "oxygen_gas";
         String LIQUID_OXYGEN = "liquid_oxygen";
 
@@ -735,6 +753,11 @@ public interface Constant {
         String CRUDE_OIL_BUCKET = "crude_oil_bucket";
         String FUEL_BUCKET = "fuel_bucket";
         String SULFURIC_ACID_BUCKET = "sulfuric_acid_bucket";
+        String LIQUID_OXYGEN_BUCKET = "liquid_oxygen_bucket";
+        String LIQUID_HYDROGEN_BUCKET = "liquid_hydrogen_bucket";
+        String LIQUID_METHANE_BUCKET = "liquid_methane_bucket";
+        String MONOPROPELLANT_BUCKET = "monopropellant_bucket";
+        String LIQUID_XENON_BUCKET = "liquid_xenon_bucket";
 
         //GC INVENTORY
         String PARACHUTE = "parachute";
@@ -829,6 +852,9 @@ public interface Constant {
         ResourceLocation VACUUM_METALLURGIC_INFUSER_SCREEN = id("textures/gui/vacuum_metallurgic_infuser_screen.png");
         ResourceLocation CHEMICAL_LEACHING_PLANT_SCREEN = id("textures/gui/chemical_leaching_plant_screen.png");
         ResourceLocation COMPOSITE_AUTOCLAVE_SCREEN = id("textures/gui/composite_autoclave_screen.png");
+        ResourceLocation ELECTROLYTIC_SEPARATOR_SCREEN = id("textures/gui/electrolytic_separator_screen.png");
+        ResourceLocation ATMOSPHERIC_FRACTIONATOR_SCREEN = id("textures/gui/atmospheric_fractionator_screen.png");
+        ResourceLocation SABATIER_CHEMICAL_REACTOR_SCREEN = id("textures/gui/sabatier_chemical_reactor_screen.png");
         ResourceLocation ENERGY_STORAGE_MODULE_SCREEN = id("textures/gui/energy_storage_module_screen.png");
         ResourceLocation OXYGEN_COLLECTOR_SCREEN = id("textures/gui/oxygen_collector_screen.png");
         ResourceLocation ROCKET_SELECTION = id("textures/gui/rocket_part_selection.png");
@@ -1456,6 +1482,9 @@ public interface Constant {
         String VACUUM_METALLURGIC_INFUSER_MENU = "vacuum_metallurgic_infuser_menu";
         String CHEMICAL_LEACHING_PLANT_MENU = "chemical_leaching_plant_menu";
         String COMPOSITE_AUTOCLAVE_MENU = "composite_autoclave_menu";
+        String ELECTROLYTIC_SEPARATOR_MENU = "electrolytic_separator_menu";
+        String ATMOSPHERIC_FRACTIONATOR_MENU = "atmospheric_fractionator_menu";
+        String SABATIER_CHEMICAL_REACTOR_MENU = "sabatier_chemical_reactor_menu";
         String ELECTRIC_FURNACE_MENU = "electric_furnace_menu";
         String ELECTRIC_ARC_FURNACE_MENU = "electric_arc_furnace_menu";
         String OXYGEN_COLLECTOR_MENU = "oxygen_collector_menu";
@@ -1605,6 +1634,9 @@ public interface Constant {
         String METALLURGIC_INFUSING = "metallurgic_infusing";
         String CHEMICAL_LEACHING = "chemical_leaching";
         String COMPOSITE_AUTOCLAVE = "composite_autoclave";
+        String ELECTROLYTIC = "electrolytic";
+        String SABATIER = "sabatier";
+        String CENTRIFUGE = "centrifuge";
 
         interface Serializer {
             String FABRICATION = "fabrication";
@@ -1619,6 +1651,9 @@ public interface Constant {
             String METALLURGIC_INFUSING = "metallurgic_infusing";
             String CHEMICAL_LEACHING = "chemical_leaching";
             String COMPOSITE_AUTOCLAVE = "composite_autoclave";
+            String ELECTROLYTIC = "electrolytic";
+            String SABATIER = "sabatier";
+            String CENTRIFUGE = "centrifuge";
             String EMERGENCY_KIT = "crafting_special_emergencykit";
         }
     }

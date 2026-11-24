@@ -62,6 +62,9 @@ public class GCBlockEntityTypes {
     public static final BlockEntityType<VacuumMetallurgicInfuserBlockEntity> VACUUM_METALLURGIC_INFUSER = register(Constant.Block.VACUUM_METALLURGIC_INFUSER, VacuumMetallurgicInfuserBlockEntity::new, GCBlocks.VACUUM_METALLURGIC_INFUSER);
     public static final BlockEntityType<ChemicalLeachingPlantBlockEntity> CHEMICAL_LEACHING_PLANT = register(Constant.Block.CHEMICAL_LEACHING_PLANT, ChemicalLeachingPlantBlockEntity::new, GCBlocks.CHEMICAL_LEACHING_PLANT);
     public static final BlockEntityType<CompositeAutoclaveBlockEntity> COMPOSITE_AUTOCLAVE = register(Constant.Block.COMPOSITE_AUTOCLAVE, CompositeAutoclaveBlockEntity::new, GCBlocks.COMPOSITE_AUTOCLAVE);
+    public static final BlockEntityType<ElectrolyticSeparatorBlockEntity> ELECTROLYTIC_SEPARATOR = register(Constant.Block.ELECTROLYTIC_SEPARATOR, ElectrolyticSeparatorBlockEntity::new, GCBlocks.ELECTROLYTIC_SEPARATOR);
+    public static final BlockEntityType<AtmosphericFractionatorBlockEntity> ATMOSPHERIC_FRACTIONATOR = register(Constant.Block.ATMOSPHERIC_FRACTIONATOR, AtmosphericFractionatorBlockEntity::new, GCBlocks.ATMOSPHERIC_FRACTIONATOR);
+    public static final BlockEntityType<SabatierChemicalReactorBlockEntity> SABATIER_CHEMICAL_REACTOR = register(Constant.Block.SABATIER_CHEMICAL_REACTOR, SabatierChemicalReactorBlockEntity::new, GCBlocks.SABATIER_CHEMICAL_REACTOR);
     public static final BlockEntityType<FoodCannerBlockEntity> FOOD_CANNER = register(Constant.Block.FOOD_CANNER, FoodCannerBlockEntity::new, GCBlocks.FOOD_CANNER);
 
     // OXYGEN MACHINES

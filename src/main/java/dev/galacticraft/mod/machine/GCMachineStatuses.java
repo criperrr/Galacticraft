@@ -102,6 +102,15 @@ public final class GCMachineStatuses {
     public static final MachineStatus PRESSURIZING = MachineStatus.create(Translations.MachineStatus.PRESSURIZING, ChatFormatting.YELLOW, MachineStatus.Type.PARTIALLY_WORKING);
     public static final MachineStatus CURING = MachineStatus.create(Translations.MachineStatus.CURING, ChatFormatting.GOLD, MachineStatus.Type.WORKING);
 
+    // Sector 2: ISRU Chemistry & Liquid Propellants
+    public static final MachineStatus ELECTROLYZING = MachineStatus.create(Translations.MachineStatus.ELECTROLYZING, ChatFormatting.AQUA, MachineStatus.Type.WORKING);
+    public static final MachineStatus MISSING_FEEDSTOCK = MachineStatus.create(Translations.MachineStatus.MISSING_FEEDSTOCK, ChatFormatting.RED, MachineStatus.Type.MISSING_RESOURCE);
+    public static final MachineStatus FRACTIONATING = MachineStatus.create(Translations.MachineStatus.FRACTIONATING, ChatFormatting.AQUA, MachineStatus.Type.WORKING);
+    public static final MachineStatus NO_ATMOSPHERE = MachineStatus.create(Translations.MachineStatus.NO_ATMOSPHERE, ChatFormatting.DARK_RED, MachineStatus.Type.MISSING_RESOURCE);
+    public static final MachineStatus HEATING_CATALYST = MachineStatus.create(Translations.MachineStatus.HEATING_CATALYST, ChatFormatting.GOLD, MachineStatus.Type.PARTIALLY_WORKING);
+    public static final MachineStatus SYNTHESIZING = MachineStatus.create(Translations.MachineStatus.SYNTHESIZING, ChatFormatting.GREEN, MachineStatus.Type.WORKING);
+    public static final MachineStatus MISSING_CATALYST = MachineStatus.create(Translations.MachineStatus.MISSING_CATALYST, ChatFormatting.RED, MachineStatus.Type.MISSING_ITEMS);
+
     public static void register() {
     }
 }

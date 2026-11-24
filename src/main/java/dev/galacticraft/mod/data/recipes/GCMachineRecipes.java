@@ -25,13 +25,16 @@ package dev.galacticraft.mod.data.recipes;
 import dev.galacticraft.api.gas.Gases;
 import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.api.block.entity.PipeColor;
+import dev.galacticraft.mod.api.data.recipe.CentrifugeRecipeBuilder;
 import dev.galacticraft.mod.api.data.recipe.ChemicalLeachingRecipeBuilder;
 import dev.galacticraft.mod.api.data.recipe.CircuitFabricatorRecipeBuilder;
 import dev.galacticraft.mod.api.data.recipe.CompositeAutoclaveRecipeBuilder;
+import dev.galacticraft.mod.api.data.recipe.ElectrolyticRecipeBuilder;
 import dev.galacticraft.mod.api.data.recipe.FusionReactorRecipeBuilder;
 import dev.galacticraft.mod.api.data.recipe.GCShapedRecipeBuilder;
 import dev.galacticraft.mod.api.data.recipe.GCShapelessRecipeBuilder;
 import dev.galacticraft.mod.api.data.recipe.MetallurgicInfusingRecipeBuilder;
+import dev.galacticraft.mod.api.data.recipe.SabatierRecipeBuilder;
 import dev.galacticraft.mod.api.data.recipe.ThermalDesorptionRecipeBuilder;
 import dev.galacticraft.mod.content.GCBlocks;
 import dev.galacticraft.mod.content.GCFluids;
@@ -409,6 +412,45 @@ public class GCMachineRecipes extends FabricRecipeProvider {
                 .pattern("DTD")
                 .pattern("SDS")
                 .unlockedBy(getHasName(GCItems.COMPRESSED_DESH), has(GCItems.COMPRESSED_DESH))
+                .emiDefaultRecipe(true)
+                .save(output);
+
+        GCShapedRecipeBuilder.crafting(RecipeCategory.DECORATIONS, GCBlocks.ELECTROLYTIC_SEPARATOR)
+                .define('S', GCItems.COMPRESSED_STEEL)
+                .define('C', GCItems.SUPERCONDUCTING_COIL)
+                .define('M', GCItems.FLUID_MANIPULATOR)
+                .define('P', GCBlocks.GLASS_FLUID_PIPE)
+                .define('W', GCItems.ADVANCED_WAFER)
+                .pattern("SPS")
+                .pattern("CMC")
+                .pattern("SWS")
+                .unlockedBy(getHasName(GCItems.FLUID_MANIPULATOR), has(GCItems.FLUID_MANIPULATOR))
+                .emiDefaultRecipe(true)
+                .save(output);
+
+        GCShapedRecipeBuilder.crafting(RecipeCategory.DECORATIONS, GCBlocks.ATMOSPHERIC_FRACTIONATOR)
+                .define('D', GCItems.COMPRESSED_DESH)
+                .define('V', GCItems.ATMOSPHERIC_VALVE)
+                .define('F', GCItems.OXYGEN_FAN)
+                .define('O', GCItems.OXYGEN_CONCENTRATOR)
+                .define('W', GCItems.ADVANCED_WAFER)
+                .pattern("DVD")
+                .pattern("FOF")
+                .pattern("DWD")
+                .unlockedBy(getHasName(GCItems.ATMOSPHERIC_VALVE), has(GCItems.ATMOSPHERIC_VALVE))
+                .emiDefaultRecipe(true)
+                .save(output);
+
+        GCShapedRecipeBuilder.crafting(RecipeCategory.DECORATIONS, GCBlocks.SABATIER_CHEMICAL_REACTOR)
+                .define('T', GCItems.COMPRESSED_TITANIUM)
+                .define('N', GCItems.COMPRESSED_NIOBIUM)
+                .define('M', GCItems.FLUID_MANIPULATOR)
+                .define('H', GCItems.AMBIENT_THERMAL_CONTROLLER)
+                .define('W', GCItems.ADVANCED_WAFER)
+                .pattern("TMT")
+                .pattern("NHN")
+                .pattern("TWT")
+                .unlockedBy(getHasName(GCItems.COMPRESSED_NIOBIUM), has(GCItems.COMPRESSED_NIOBIUM))
                 .emiDefaultRecipe(true)
                 .save(output);
 
@@ -911,6 +953,144 @@ public class GCMachineRecipes extends FabricRecipeProvider {
                 .pressure(10)
                 .time(100)
                 .save(output, Constant.id("sofi_insulation"));
+
+        // Electrolytic Separator Recipes (120 GJ/t, 2 H2O -> 2 LH2 + 1 LOX + trace Deuterium from planetary ice)
+        ElectrolyticRecipeBuilder.fromFluid(Fluids.WATER, 200L, GCFluids.LIQUID_HYDROGEN, 200L, GCFluids.LIQUID_OXYGEN, 100L)
+                .time(20)
+                .energyPerTick(120L)
+                .save(output, Constant.id("water_electrolysis"));
+        ElectrolyticRecipeBuilder.fromSolid(GCBlocks.DENSE_ICE, GCFluids.LIQUID_HYDROGEN, 500L, GCFluids.LIQUID_OXYGEN, 250L)
+                .traceGas(Gases.DEUTERIUM, 25L)
+                .time(40)
+                .energyPerTick(120L)
+                .save(output, Constant.id("dense_ice_electrolysis"));
+        ElectrolyticRecipeBuilder.fromSolid(Items.BLUE_ICE, GCFluids.LIQUID_HYDROGEN, 400L, GCFluids.LIQUID_OXYGEN, 200L)
+                .traceGas(Gases.DEUTERIUM, 15L)
+                .time(36)
+                .energyPerTick(120L)
+                .save(output, Constant.id("blue_ice_electrolysis"));
+        ElectrolyticRecipeBuilder.fromSolid(Items.PACKED_ICE, GCFluids.LIQUID_HYDROGEN, 250L, GCFluids.LIQUID_OXYGEN, 125L)
+                .traceGas(Gases.DEUTERIUM, 8L)
+                .time(30)
+                .energyPerTick(120L)
+                .save(output, Constant.id("packed_ice_electrolysis"));
+        ElectrolyticRecipeBuilder.fromSolid(Items.ICE, GCFluids.LIQUID_HYDROGEN, 150L, GCFluids.LIQUID_OXYGEN, 75L)
+                .traceGas(Gases.DEUTERIUM, 4L)
+                .time(25)
+                .energyPerTick(120L)
+                .save(output, Constant.id("ice_electrolysis"));
+
+        // Sabatier Chemical Reactor Recipes (110 GJ/t, catalytic synthesis with Nb/Pd bed; Pd grants 1.5x speed)
+        SabatierRecipeBuilder.create(Gases.CARBON_DIOXIDE, 100L, GCFluids.LIQUID_METHANE, 100L)
+                .reagentB(GCFluids.LIQUID_HYDROGEN, 400L)
+                .productB(Fluids.WATER, 200L)
+                .catalyst(GCItems.NIOBIUM_INGOT, GCItems.PALLADIUM_INGOT)
+                .targetTemp(350)
+                .time(40)
+                .energyPerTick(110L)
+                .formula("CO2 + 4 LH2 -> CH4 + 2 H2O")
+                .save(output, Constant.id("sabatier_methalox_lh2"));
+        SabatierRecipeBuilder.create(Gases.CARBON_DIOXIDE, 100L, GCFluids.LIQUID_METHANE, 100L)
+                .reagentB(Gases.HYDROGEN, 400L)
+                .productB(Fluids.WATER, 200L)
+                .catalyst(GCItems.NIOBIUM_INGOT, GCItems.PALLADIUM_INGOT)
+                .targetTemp(350)
+                .time(40)
+                .energyPerTick(110L)
+                .formula("CO2 + 4 H2 -> CH4 + 2 H2O")
+                .save(output, Constant.id("sabatier_methalox_h2"));
+        SabatierRecipeBuilder.create(Gases.NITROGEN, 100L, GCFluids.MONOPROPELLANT, 100L)
+                .reagentB(GCFluids.LIQUID_HYDROGEN, 200L)
+                .catalyst(GCItems.NIOBIUM_INGOT, GCItems.PALLADIUM_INGOT)
+                .targetTemp(420)
+                .time(45)
+                .energyPerTick(110L)
+                .formula("N2 + 2 LH2 -> N2H4")
+                .save(output, Constant.id("hydrazine_monopropellant_lh2"));
+        SabatierRecipeBuilder.create(Gases.NITROGEN, 100L, GCFluids.MONOPROPELLANT, 100L)
+                .reagentB(Gases.HYDROGEN, 200L)
+                .catalyst(GCItems.NIOBIUM_INGOT, GCItems.PALLADIUM_INGOT)
+                .targetTemp(420)
+                .time(45)
+                .energyPerTick(110L)
+                .formula("N2 + 2 H2 -> N2H4")
+                .save(output, Constant.id("hydrazine_monopropellant_h2"));
+        SabatierRecipeBuilder.create(Fluids.WATER, 250L, GCFluids.SULFURIC_ACID, 250L)
+                .solidReagent(GCBlocks.MERCURY_SULFIDE_ORE)
+                .catalyst(GCItems.NIOBIUM_INGOT, GCItems.PALLADIUM_INGOT)
+                .targetTemp(300)
+                .time(50)
+                .energyPerTick(110L)
+                .formula("HgS + H2O -> H2SO4")
+                .save(output, Constant.id("sulfuric_acid_from_mercury_sulfide"));
+        SabatierRecipeBuilder.create(Gases.XENON, 100L, GCFluids.LIQUID_XENON, 100L)
+                .reagentB(GCFluids.LIQUID_OXYGEN, 50L)
+                .productB(Gases.OXYGEN, 50L)
+                .catalyst(GCItems.NIOBIUM_INGOT, GCItems.PALLADIUM_INGOT)
+                .targetTemp(180)
+                .time(35)
+                .energyPerTick(110L)
+                .formula("Xe + LOX -> LXe + O2")
+                .save(output, Constant.id("cryo_xenon_condensation"));
+
+        // Isotopic Centrifuge Recipes (magnetic separation, radioisotope refinement, and metal scrap recovery)
+        CentrifugeRecipeBuilder.create(GCBlocks.DENSE_ICE)
+                .outputGas(Gases.DEUTERIUM, 250L)
+                .time(60)
+                .save(output, Constant.id("deuterium_from_dense_ice"));
+        CentrifugeRecipeBuilder.create(GCBlocks.SATURN_HELIUM_MANTLE_ROCK)
+                .outputGas(Gases.HELIUM_3, 350L)
+                .time(60)
+                .save(output, Constant.id("helium3_from_saturn_mantle"));
+        CentrifugeRecipeBuilder.create(GCBlocks.MOON_ILMENITE_ORE)
+                .outputGas(Gases.HELIUM_3, 200L)
+                .outputItem(GCItems.TITANIUM_NUGGET, 1)
+                .time(60)
+                .save(output, Constant.id("helium3_from_moon_ilmenite"));
+        CentrifugeRecipeBuilder.create(GCBlocks.MERCURY_HOLLOW_DEPOSIT)
+                .outputGas(Gases.HELIUM_3, 150L)
+                .outputItem(GCItems.SILICON, 1)
+                .time(60)
+                .save(output, Constant.id("helium3_from_mercury_hollow"));
+        CentrifugeRecipeBuilder.create(GCBlocks.MOON_BASALT)
+                .outputGas(Gases.HELIUM_3, 40L)
+                .outputItem(GCItems.SILICON, 1)
+                .time(60)
+                .save(output, Constant.id("helium3_from_moon_basalt"));
+        CentrifugeRecipeBuilder.create(GCBlocks.MOON_TURF)
+                .outputGas(Gases.HELIUM_3, 20L)
+                .outputItem(GCItems.SILICON, 1)
+                .time(60)
+                .save(output, Constant.id("helium3_from_moon_turf"));
+        CentrifugeRecipeBuilder.create(GCBlocks.MOON_DIRT)
+                .outputGas(Gases.HELIUM_3, 20L)
+                .outputItem(GCItems.SILICON, 1)
+                .time(60)
+                .save(output, Constant.id("helium3_from_moon_dirt"));
+        CentrifugeRecipeBuilder.create(GCBlocks.MERCURY_SULFIDE_ORE)
+                .outputItem(GCItems.RADIOISOTOPE_CORE, 1)
+                .time(80)
+                .save(output, Constant.id("radioisotope_core_from_mercury_sulfide"));
+        CentrifugeRecipeBuilder.create(GCItems.URANIUM_INGOT)
+                .outputItem(GCItems.RADIOISOTOPE_CORE, 2)
+                .time(80)
+                .save(output, Constant.id("radioisotope_core_from_uranium"));
+        CentrifugeRecipeBuilder.create(GCItems.TIN_CANISTER)
+                .outputItem(GCItems.TIN_INGOT, 2)
+                .time(40)
+                .save(output, Constant.id("scrap_tin_canister"));
+        CentrifugeRecipeBuilder.create(GCItems.COPPER_CANISTER)
+                .outputItem(Items.COPPER_INGOT, 2)
+                .time(40)
+                .save(output, Constant.id("scrap_copper_canister"));
+        CentrifugeRecipeBuilder.create(GCItems.EMPTY_CAN)
+                .outputItem(GCItems.TIN_INGOT, 1)
+                .time(30)
+                .save(output, Constant.id("scrap_empty_can"));
+        CentrifugeRecipeBuilder.create(GCBlocks.ALUMINUM_WIRE)
+                .outputItem(GCItems.ALUMINUM_INGOT, 1)
+                .time(40)
+                .save(output, Constant.id("scrap_aluminum_wire"));
     }
 
     @Override

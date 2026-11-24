@@ -39,6 +39,9 @@ public class GCRecipes {
     public static final RecipeType<MetallurgicInfusingRecipe> METALLURGIC_INFUSING_TYPE = new GCRecipeType<>();
     public static final RecipeType<ChemicalLeachingRecipe> CHEMICAL_LEACHING_TYPE = new GCRecipeType<>();
     public static final RecipeType<CompositeAutoclaveRecipe> COMPOSITE_AUTOCLAVE_TYPE = new GCRecipeType<>();
+    public static final RecipeType<ElectrolyticRecipe> ELECTROLYTIC_TYPE = new GCRecipeType<>();
+    public static final RecipeType<SabatierRecipe> SABATIER_TYPE = new GCRecipeType<>();
+    public static final RecipeType<CentrifugeRecipe> CENTRIFUGE_TYPE = new GCRecipeType<>();
 
     public static final FabricationRecipe.Serializer FABRICATION_SERIALIZER = FabricationRecipe.Serializer.INSTANCE;
     public static final RecipeSerializer<FlagRecipe> FLAG_SERIALIZER = new SimpleCraftingRecipeSerializer<>(FlagRecipe::new);
@@ -51,6 +54,9 @@ public class GCRecipes {
     public static final MetallurgicInfusingRecipe.Serializer METALLURGIC_INFUSING_SERIALIZER = MetallurgicInfusingRecipe.Serializer.INSTANCE;
     public static final ChemicalLeachingRecipe.Serializer CHEMICAL_LEACHING_SERIALIZER = ChemicalLeachingRecipe.Serializer.INSTANCE;
     public static final CompositeAutoclaveRecipe.Serializer COMPOSITE_AUTOCLAVE_SERIALIZER = CompositeAutoclaveRecipe.Serializer.INSTANCE;
+    public static final ElectrolyticRecipe.Serializer ELECTROLYTIC_SERIALIZER = ElectrolyticRecipe.Serializer.INSTANCE;
+    public static final SabatierRecipe.Serializer SABATIER_SERIALIZER = SabatierRecipe.Serializer.INSTANCE;
+    public static final CentrifugeRecipe.Serializer CENTRIFUGE_SERIALIZER = CentrifugeRecipe.Serializer.INSTANCE;
     public static final RecipeSerializer<EmergencyKitRecipe> EMERGENCY_KIT_SERIALIZER = new SimpleCraftingRecipeSerializer<>(EmergencyKitRecipe::new);
 
     public static void register() {
@@ -63,6 +69,9 @@ public class GCRecipes {
         Registry.register(BuiltInRegistries.RECIPE_TYPE, Constant.id(Constant.Recipe.METALLURGIC_INFUSING), METALLURGIC_INFUSING_TYPE);
         Registry.register(BuiltInRegistries.RECIPE_TYPE, Constant.id(Constant.Recipe.CHEMICAL_LEACHING), CHEMICAL_LEACHING_TYPE);
         Registry.register(BuiltInRegistries.RECIPE_TYPE, Constant.id(Constant.Recipe.COMPOSITE_AUTOCLAVE), COMPOSITE_AUTOCLAVE_TYPE);
+        Registry.register(BuiltInRegistries.RECIPE_TYPE, Constant.id(Constant.Recipe.ELECTROLYTIC), ELECTROLYTIC_TYPE);
+        Registry.register(BuiltInRegistries.RECIPE_TYPE, Constant.id(Constant.Recipe.SABATIER), SABATIER_TYPE);
+        Registry.register(BuiltInRegistries.RECIPE_TYPE, Constant.id(Constant.Recipe.CENTRIFUGE), CENTRIFUGE_TYPE);
         Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, Constant.id(Constant.Recipe.Serializer.FABRICATION), FABRICATION_SERIALIZER);
         Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, Constant.id(Constant.Recipe.Serializer.FLAG), FLAG_SERIALIZER);
         Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, Constant.id(Constant.Recipe.Serializer.COMPRESSING_SHAPELESS), SHAPELESS_COMPRESSING_SERIALIZER);
@@ -74,6 +83,9 @@ public class GCRecipes {
         Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, Constant.id(Constant.Recipe.Serializer.METALLURGIC_INFUSING), METALLURGIC_INFUSING_SERIALIZER);
         Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, Constant.id(Constant.Recipe.Serializer.CHEMICAL_LEACHING), CHEMICAL_LEACHING_SERIALIZER);
         Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, Constant.id(Constant.Recipe.Serializer.COMPOSITE_AUTOCLAVE), COMPOSITE_AUTOCLAVE_SERIALIZER);
+        Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, Constant.id(Constant.Recipe.Serializer.ELECTROLYTIC), ELECTROLYTIC_SERIALIZER);
+        Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, Constant.id(Constant.Recipe.Serializer.SABATIER), SABATIER_SERIALIZER);
+        Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, Constant.id(Constant.Recipe.Serializer.CENTRIFUGE), CENTRIFUGE_SERIALIZER);
         Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, Constant.id(Constant.Recipe.Serializer.EMERGENCY_KIT), EMERGENCY_KIT_SERIALIZER);
     }
 }

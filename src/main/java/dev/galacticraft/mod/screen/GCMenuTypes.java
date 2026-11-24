@@ -56,6 +56,9 @@ public class GCMenuTypes {
     public static final MenuType<VacuumMetallurgicInfuserMenu> VACUUM_METALLURGIC_INFUSER = SynchronizedMenuType.create(VacuumMetallurgicInfuserMenu::new);
     public static final MenuType<ChemicalLeachingPlantMenu> CHEMICAL_LEACHING_PLANT = SynchronizedMenuType.create(ChemicalLeachingPlantMenu::new);
     public static final MenuType<CompositeAutoclaveMenu> COMPOSITE_AUTOCLAVE = SynchronizedMenuType.create(CompositeAutoclaveMenu::new);
+    public static final MenuType<ElectrolyticSeparatorMenu> ELECTROLYTIC_SEPARATOR = SynchronizedMenuType.create(ElectrolyticSeparatorMenu::new);
+    public static final MenuType<AtmosphericFractionatorMenu> ATMOSPHERIC_FRACTIONATOR = SynchronizedMenuType.create(AtmosphericFractionatorMenu::new);
+    public static final MenuType<SabatierChemicalReactorMenu> SABATIER_CHEMICAL_REACTOR = SynchronizedMenuType.create(SabatierChemicalReactorMenu::new);
 
     public static final MenuType<OxygenCollectorMenu> OXYGEN_COLLECTOR = SynchronizedMenuType.create(OxygenCollectorMenu::new);
     public static final MenuType<OxygenDetectorMenu> OXYGEN_DETECTOR = SynchronizedMenuType.create(OxygenDetectorMenu::new);
@@ -103,6 +106,9 @@ public class GCMenuTypes {
         Registry.register(BuiltInRegistries.MENU, Constant.id(Constant.Menu.VACUUM_METALLURGIC_INFUSER_MENU), VACUUM_METALLURGIC_INFUSER);
         Registry.register(BuiltInRegistries.MENU, Constant.id(Constant.Menu.CHEMICAL_LEACHING_PLANT_MENU), CHEMICAL_LEACHING_PLANT);
         Registry.register(BuiltInRegistries.MENU, Constant.id(Constant.Menu.COMPOSITE_AUTOCLAVE_MENU), COMPOSITE_AUTOCLAVE);
+        Registry.register(BuiltInRegistries.MENU, Constant.id(Constant.Menu.ELECTROLYTIC_SEPARATOR_MENU), ELECTROLYTIC_SEPARATOR);
+        Registry.register(BuiltInRegistries.MENU, Constant.id(Constant.Menu.ATMOSPHERIC_FRACTIONATOR_MENU), ATMOSPHERIC_FRACTIONATOR);
+        Registry.register(BuiltInRegistries.MENU, Constant.id(Constant.Menu.SABATIER_CHEMICAL_REACTOR_MENU), SABATIER_CHEMICAL_REACTOR);
 
         Registry.register(BuiltInRegistries.MENU, Constant.id(Constant.Menu.OXYGEN_COLLECTOR_MENU), OXYGEN_COLLECTOR);
         Registry.register(BuiltInRegistries.MENU, Constant.id(Constant.Menu.OXYGEN_DETECTOR_MENU), OXYGEN_DETECTOR);

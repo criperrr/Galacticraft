@@ -281,11 +281,13 @@ public class GCCelestialBodies {
                         .gas(Gases.HYDROGEN_ID, 898000.000)
                         .gas(Gases.HELIUM_ID, 102000.000)
                         .gas(Gases.METHANE_ID, 3000.000)
+                        .gas(Gases.HELIUM_3_ID, 180.000)
                         .gas(Gases.WATER_VAPOR_ID, 40.000)
                         .gas(Gases.HYDROGEN_DEUTERIUM_OXIDE_ID, 28.000)
                         .gas(Gases.NEON_ID, 20.000)
                         .gas(Gases.ARGON_ID, 9.100)
                         .gas(Gases.CARBON_MONOXIDE_ID, 1.600)
+                        .gas(Gases.XENON_ID, 1.200)
                         .build(),
                 2.36F,
                 GCCelestialHandlers.DEFAULT,
@@ -315,8 +317,10 @@ public class GCCelestialBodies {
                         .gas(Gases.HYDROGEN_ID, 963000.000)
                         .gas(Gases.HELIUM_ID, 32500.000)
                         .gas(Gases.METHANE_ID, 4500.000)
+                        .gas(Gases.HELIUM_3_ID, 350.000)
                         .gas(Gases.HYDROGEN_DEUTERIUM_OXIDE_ID, 110.000)
                         .gas(Gases.WATER_VAPOR_ID, 20.000)
+                        .gas(Gases.XENON_ID, 1.800)
                         .gas(Gases.CARBON_MONOXIDE_ID, 1.000)
                         .build(),
                 0.916F,
@@ -347,8 +351,10 @@ public class GCCelestialBodies {
                         .gas(Gases.HYDROGEN_ID, 825000.000)
                         .gas(Gases.HELIUM_ID, 152000.000)
                         .gas(Gases.METHANE_ID, 23000.000)
+                        .gas(Gases.HELIUM_3_ID, 260.000)
                         .gas(Gases.HYDROGEN_DEUTERIUM_OXIDE_ID, 148.000)
                         .gas(Gases.WATER_VAPOR_ID, 15.000)
+                        .gas(Gases.XENON_ID, 2.500)
                         .gas(Gases.CARBON_MONOXIDE_ID, 0.500)
                         .build(),
                 0.886F,
@@ -376,7 +382,9 @@ public class GCCelestialBodies {
                         .gas(Gases.HELIUM_ID, 190000.000)
                         .gas(Gases.METHANE_ID, 15000.000)
                         .gas(Gases.NITROGEN_ID, 300.000)
+                        .gas(Gases.HELIUM_3_ID, 280.000)
                         .gas(Gases.HYDROGEN_DEUTERIUM_OXIDE_ID, 192.000)
+                        .gas(Gases.XENON_ID, 4.000)
                         .gas(Gases.CARBON_MONOXIDE_ID, 1.500)
                         .build(),
                 1.14F,
