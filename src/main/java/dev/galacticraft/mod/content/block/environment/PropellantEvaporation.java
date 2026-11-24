@@ -51,10 +51,10 @@ import java.util.Set;
 
 /**
  * Real-world cryogenic and volatile propellant evaporation thermodynamics and airtight dome containment.
- * - Propellant liquids evaporate when exposed to vacuum (< 0.05 bar) or temperatures above their boiling point.
+ * - Propellant liquids evaporate when exposed to vacuum (under 0.05 bar) or temperatures above their boiling point.
  * - Open-air evaporation vents harmlessly to air with vapor plumes.
- * - Evaporation inside an enclosed dome or room (<= 512 airtight blocks) traps the vapor as PropellantGasBlock,
- *   stratified by molar buoyancy (H2/CH4 rise, O2 fills evenly & grants breathability, Xe/Hydrazine pool low).
+ * - Evaporation inside an enclosed dome or room (up to 512 airtight blocks) traps the vapor as PropellantGasBlock,
+ *   stratified by molar buoyancy (H2/CH4 rise, O2 fills evenly and grants breathability, Xe/Hydrazine pool low).
  * - Breaching the dome wall depressurizes and vents all connected trapped gas cleanly to air.
  */
 public final class PropellantEvaporation {
@@ -174,7 +174,7 @@ public final class PropellantEvaporation {
 
     /**
      * Bounded BFS matching SealerManager's airtight boundary semantics.
-     * Returns all enclosed interior positions if the volume is airtight and <= maxVolume, or null if open/leaking.
+     * Returns all enclosed interior positions if the volume is airtight and at most maxVolume, or null if open/leaking.
      */
     public static @Nullable List<BlockPos> findEnclosedDomeVolume(Level level, BlockPos origin, int maxVolume) {
         Set<BlockPos> visited = new HashSet<>();
