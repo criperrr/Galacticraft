@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": {
+      "item": "galacticraft:compressed_desh"
+    },
+    "F": {
+      "item": "galacticraft:oxygen_fan"
+    },
+    "O": {
+      "item": "galacticraft:oxygen_concentrator"
+    },
+    "V": {
+      "item": "galacticraft:atmospheric_valve"
+    },
+    "W": {
+      "item": "galacticraft:advanced_wafer"
+    }
+  },
+  "pattern": [
+    "DVD",
+    "FOF",
+    "DWD"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:atmospheric_fractionator"
+  }
+}

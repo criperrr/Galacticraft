@@ -99,6 +99,9 @@ public class GCTranslationProvider extends TranslationProvider {
         this.add(RecipeCategory.METALLURGIC_INFUSING, "Vacuum Metallurgic Infusing");
         this.add(RecipeCategory.CHEMICAL_LEACHING, "Chemical Acid Leaching");
         this.add(RecipeCategory.COMPOSITE_AUTOCLAVE, "Composite Autoclave Curing");
+        this.add(RecipeCategory.ELECTROLYTIC, "Electrolytic Separation");
+        this.add(RecipeCategory.SABATIER, "Sabatier Chemical Synthesis");
+        this.add(RecipeCategory.CENTRIFUGE, "Isotopic Centrifugation");
         this.add(RecipeCategory.ELECTRIC_ARC_FURNACE_BONUS_CHANCE, "%s%% Chance");
     }
 
@@ -120,6 +123,12 @@ public class GCTranslationProvider extends TranslationProvider {
         this.block(GCBlocks.CRUDE_OIL, "Crude Oil");
         this.block(GCBlocks.FUEL, "Fuel");
         this.block(GCBlocks.SULFURIC_ACID, "Sulfuric Acid");
+        this.block(GCBlocks.LIQUID_OXYGEN, "Liquid Oxygen");
+        this.block(GCBlocks.LIQUID_HYDROGEN, "Liquid Hydrogen");
+        this.block(GCBlocks.LIQUID_METHANE, "Liquid Methane");
+        this.block(GCBlocks.MONOPROPELLANT, "Monopropellant (Hydrazine)");
+        this.block(GCBlocks.LIQUID_XENON, "Liquid Xenon");
+        this.block(GCBlocks.PROPELLANT_GAS, "Propellant Vapor");
 
         // DECORATION BLOCKS
         this.decorationSet(GCBlocks.ALUMINUM_DECORATION, "Aluminum Decoration");
@@ -517,6 +526,9 @@ public class GCTranslationProvider extends TranslationProvider {
         this.block(GCBlocks.VACUUM_METALLURGIC_INFUSER, "Vacuum Metallurgic Infuser");
         this.block(GCBlocks.CHEMICAL_LEACHING_PLANT, "Chemical Leaching Plant");
         this.block(GCBlocks.COMPOSITE_AUTOCLAVE, "Composite Autoclave");
+        this.block(GCBlocks.ELECTROLYTIC_SEPARATOR, "Electrolytic Separator");
+        this.block(GCBlocks.ATMOSPHERIC_FRACTIONATOR, "Atmospheric Fractionator");
+        this.block(GCBlocks.SABATIER_CHEMICAL_REACTOR, "Sabatier Chemical Reactor");
         this.block(GCBlocks.FUSION_REACTOR_CASING, "MHD Fusion Casing");
         this.block(GCBlocks.FUSION_MAGNET_COIL, "Superconducting Toroid Coil");
         this.block(GCBlocks.FUSION_PLASMA_GLASS, "MHD Plasma Containment Glass");
@@ -713,6 +725,11 @@ public class GCTranslationProvider extends TranslationProvider {
         this.item(GCItems.CRUDE_OIL_BUCKET, "Oil Bucket");
         this.item(GCItems.FUEL_BUCKET, "Fuel Bucket");
         this.item(GCItems.SULFURIC_ACID_BUCKET, "Sulfuric Acid Bucket");
+        this.item(GCItems.LIQUID_OXYGEN_BUCKET, "Liquid Oxygen Bucket");
+        this.item(GCItems.LIQUID_HYDROGEN_BUCKET, "Liquid Hydrogen Bucket");
+        this.item(GCItems.LIQUID_METHANE_BUCKET, "Liquid Methane Bucket");
+        this.item(GCItems.MONOPROPELLANT_BUCKET, "Monopropellant Bucket");
+        this.item(GCItems.LIQUID_XENON_BUCKET, "Liquid Xenon Bucket");
 
         // GALACTICRAFT INVENTORY
         this.item(GCItems.PARACHUTE, "Parachute");
@@ -1001,6 +1018,14 @@ public class GCTranslationProvider extends TranslationProvider {
         this.tag(GCFluidTags.SULFURIC_ACID, "Galacticraft Sulfuric Acid");
         this.tag(GCFluidTags.SULFURIC_ACID_COMMON, "Sulfuric Acid");
         this.tag(GCFluidTags.LIQUID_OXYGEN, "Liquid Oxygen");
+        this.tag(GCFluidTags.LIQUID_HYDROGEN, "Galacticraft Liquid Hydrogen");
+        this.tag(GCFluidTags.LIQUID_HYDROGEN_COMMON, "Liquid Hydrogen");
+        this.tag(GCFluidTags.LIQUID_METHANE, "Galacticraft Liquid Methane");
+        this.tag(GCFluidTags.LIQUID_METHANE_COMMON, "Liquid Methane");
+        this.tag(GCFluidTags.MONOPROPELLANT, "Galacticraft Monopropellant");
+        this.tag(GCFluidTags.MONOPROPELLANT_COMMON, "Monopropellant");
+        this.tag(GCFluidTags.LIQUID_XENON, "Galacticraft Liquid Xenon");
+        this.tag(GCFluidTags.LIQUID_XENON_COMMON, "Liquid Xenon");
         this.tag(GCFluidTags.OXYGEN, "Oxygen");
         this.tag(GCFluidTags.NON_BREATHABLE, "Non-Breathable Fluids");
         this.tag(GCFluidTags.FLUID_CANISTER_EXCLUSIONS, "Excluded from Fluid Canisters");
@@ -1490,6 +1515,13 @@ public class GCTranslationProvider extends TranslationProvider {
         this.add(MachineStatus.MISSING_LEACHING_FLUID, "Missing Leaching Fluid");
         this.add(MachineStatus.PRESSURIZING, "Pressurizing Autoclave");
         this.add(MachineStatus.CURING, "Curing Aerospace Composite");
+        this.add(MachineStatus.ELECTROLYZING, "Electrolyzing Propellants");
+        this.add(MachineStatus.MISSING_FEEDSTOCK, "Missing Water / Ice");
+        this.add(MachineStatus.FRACTIONATING, "Fractionating Atmosphere");
+        this.add(MachineStatus.NO_ATMOSPHERE, "No Atmosphere (Vacuum)");
+        this.add(MachineStatus.HEATING_CATALYST, "Heating Catalyst Bed");
+        this.add(MachineStatus.SYNTHESIZING, "Synthesizing Propellant");
+        this.add(MachineStatus.MISSING_CATALYST, "Missing Nb / Pd Catalyst");
     }
 
     protected void generateCelestialSelectionTranslations() {

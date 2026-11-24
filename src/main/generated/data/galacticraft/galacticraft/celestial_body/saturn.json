@@ -7,10 +7,12 @@
       "composition": {
         "galacticraft:carbon_monoxide": 1.0,
         "galacticraft:helium": 32500.0,
+        "galacticraft:helium_3": 350.0,
         "galacticraft:hydrogen": 963000.0,
         "galacticraft:hydrogen_deuterium_oxide": 110.0,
         "galacticraft:methane": 4500.0,
-        "galacticraft:water_vapor": 20.0
+        "galacticraft:water_vapor": 20.0,
+        "galacticraft:xenon": 1.8
       },
       "pressure": 8.5,
       "temperature": -140.0

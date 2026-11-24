@@ -482,6 +482,9 @@ public class GCBlockLootTableProvider extends FabricBlockLootTableProvider {
         this.dropSelf(GCBlocks.VACUUM_METALLURGIC_INFUSER);
         this.dropSelf(GCBlocks.CHEMICAL_LEACHING_PLANT);
         this.dropSelf(GCBlocks.COMPOSITE_AUTOCLAVE);
+        this.dropSelf(GCBlocks.ELECTROLYTIC_SEPARATOR);
+        this.dropSelf(GCBlocks.ATMOSPHERIC_FRACTIONATOR);
+        this.dropSelf(GCBlocks.SABATIER_CHEMICAL_REACTOR);
         this.dropSelf(GCBlocks.FUSION_REACTOR_CASING);
         this.dropSelf(GCBlocks.FUSION_MAGNET_COIL);
         this.dropSelf(GCBlocks.FUSION_PLASMA_GLASS);

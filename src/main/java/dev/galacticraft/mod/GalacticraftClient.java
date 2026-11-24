@@ -132,6 +132,9 @@ public class GalacticraftClient implements ClientModInitializer {
         MenuScreens.register(GCMenuTypes.VACUUM_METALLURGIC_INFUSER, VacuumMetallurgicInfuserScreen::new);
         MenuScreens.register(GCMenuTypes.CHEMICAL_LEACHING_PLANT, ChemicalLeachingPlantScreen::new);
         MenuScreens.register(GCMenuTypes.COMPOSITE_AUTOCLAVE, CompositeAutoclaveScreen::new);
+        MenuScreens.register(GCMenuTypes.ELECTROLYTIC_SEPARATOR, ElectrolyticSeparatorScreen::new);
+        MenuScreens.register(GCMenuTypes.ATMOSPHERIC_FRACTIONATOR, AtmosphericFractionatorScreen::new);
+        MenuScreens.register(GCMenuTypes.SABATIER_CHEMICAL_REACTOR, SabatierChemicalReactorScreen::new);
         MenuScreens.register(GCMenuTypes.ELECTRIC_FURNACE, ElectricFurnaceScreen::new);
         MenuScreens.register(GCMenuTypes.ELECTRIC_ARC_FURNACE, ElectricArcFurnaceScreen::new);
         MenuScreens.register(GCMenuTypes.COMPRESSOR, CompressorScreen::new);
@@ -250,10 +253,35 @@ public class GalacticraftClient implements ClientModInitializer {
                 Constant.Fluid.fluidId(Constant.Fluid.SULFURIC_ACID_STILL),
                 Constant.Fluid.fluidId(Constant.Fluid.SULFURIC_ACID_FLOWING)
         );
+        FluidRenderHandler liquidOxygen = new SimpleFluidRenderHandler(
+                Constant.Fluid.fluidId(Constant.Fluid.LIQUID_OXYGEN_STILL),
+                Constant.Fluid.fluidId(Constant.Fluid.LIQUID_OXYGEN_FLOWING)
+        );
+        FluidRenderHandler liquidHydrogen = new SimpleFluidRenderHandler(
+                Constant.Fluid.fluidId(Constant.Fluid.LIQUID_HYDROGEN_STILL),
+                Constant.Fluid.fluidId(Constant.Fluid.LIQUID_HYDROGEN_FLOWING)
+        );
+        FluidRenderHandler liquidMethane = new SimpleFluidRenderHandler(
+                Constant.Fluid.fluidId(Constant.Fluid.LIQUID_METHANE_STILL),
+                Constant.Fluid.fluidId(Constant.Fluid.LIQUID_METHANE_FLOWING)
+        );
+        FluidRenderHandler monopropellant = new SimpleFluidRenderHandler(
+                Constant.Fluid.fluidId(Constant.Fluid.MONOPROPELLANT_STILL),
+                Constant.Fluid.fluidId(Constant.Fluid.MONOPROPELLANT_FLOWING)
+        );
+        FluidRenderHandler liquidXenon = new SimpleFluidRenderHandler(
+                Constant.Fluid.fluidId(Constant.Fluid.LIQUID_XENON_STILL),
+                Constant.Fluid.fluidId(Constant.Fluid.LIQUID_XENON_FLOWING)
+        );
 
         FluidRenderHandlerRegistry.INSTANCE.register(GCFluids.CRUDE_OIL, GCFluids.FLOWING_CRUDE_OIL, oil);
         FluidRenderHandlerRegistry.INSTANCE.register(GCFluids.FUEL, GCFluids.FLOWING_FUEL, fuel);
         FluidRenderHandlerRegistry.INSTANCE.register(GCFluids.SULFURIC_ACID, GCFluids.FLOWING_SULFURIC_ACID, sulfuricAcid);
+        FluidRenderHandlerRegistry.INSTANCE.register(GCFluids.LIQUID_OXYGEN, GCFluids.FLOWING_LIQUID_OXYGEN, liquidOxygen);
+        FluidRenderHandlerRegistry.INSTANCE.register(GCFluids.LIQUID_HYDROGEN, GCFluids.FLOWING_LIQUID_HYDROGEN, liquidHydrogen);
+        FluidRenderHandlerRegistry.INSTANCE.register(GCFluids.LIQUID_METHANE, GCFluids.FLOWING_LIQUID_METHANE, liquidMethane);
+        FluidRenderHandlerRegistry.INSTANCE.register(GCFluids.MONOPROPELLANT, GCFluids.FLOWING_MONOPROPELLANT, monopropellant);
+        FluidRenderHandlerRegistry.INSTANCE.register(GCFluids.LIQUID_XENON, GCFluids.FLOWING_LIQUID_XENON, liquidXenon);
 
         for (var gas : dev.galacticraft.api.gas.GasFluid.GAS_FLUIDS) {
             FluidRenderHandlerRegistry.INSTANCE.register(gas, new SimpleFluidRenderHandler(gas.getTexture(), gas.getTexture(), gas.getTint()));
@@ -261,6 +289,11 @@ public class GalacticraftClient implements ClientModInitializer {
 
         BlockRenderLayerMap.INSTANCE.putFluids(RenderType.translucent(), GCFluids.FUEL, GCFluids.FLOWING_FUEL);
         BlockRenderLayerMap.INSTANCE.putFluids(RenderType.translucent(), GCFluids.SULFURIC_ACID, GCFluids.FLOWING_SULFURIC_ACID);
+        BlockRenderLayerMap.INSTANCE.putFluids(RenderType.translucent(), GCFluids.LIQUID_OXYGEN, GCFluids.FLOWING_LIQUID_OXYGEN);
+        BlockRenderLayerMap.INSTANCE.putFluids(RenderType.translucent(), GCFluids.LIQUID_HYDROGEN, GCFluids.FLOWING_LIQUID_HYDROGEN);
+        BlockRenderLayerMap.INSTANCE.putFluids(RenderType.translucent(), GCFluids.LIQUID_METHANE, GCFluids.FLOWING_LIQUID_METHANE);
+        BlockRenderLayerMap.INSTANCE.putFluids(RenderType.translucent(), GCFluids.MONOPROPELLANT, GCFluids.FLOWING_MONOPROPELLANT);
+        BlockRenderLayerMap.INSTANCE.putFluids(RenderType.translucent(), GCFluids.LIQUID_XENON, GCFluids.FLOWING_LIQUID_XENON);
 
         ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> FallenMeteorBlock.colorMultiplier(state, world, pos), GCBlocks.FALLEN_METEOR);
         ColorProviderRegistry.ITEM.register((stack, layer) -> layer != 1 ? -1 : ColorUtil.getRainbowOpaque(), GCItems.INFINITE_BATTERY, GCItems.INFINITE_OXYGEN_TANK);
@@ -283,6 +316,16 @@ public class GalacticraftClient implements ClientModInitializer {
                 if (color != -1) return color;
 
                 // Manual colors
+                if (data.variant().isOf(GCFluids.LIQUID_OXYGEN)) return 0xFF66D8FF;
+                if (data.variant().isOf(GCFluids.LIQUID_HYDROGEN)) return 0xFFC2F5FF;
+                if (data.variant().isOf(GCFluids.LIQUID_METHANE)) return 0xFF47E3A8;
+                if (data.variant().isOf(GCFluids.MONOPROPELLANT)) return 0xFFFF9A36;
+                if (data.variant().isOf(GCFluids.LIQUID_XENON)) return 0xFFB078FF;
+                if (data.variant().isOf(Gases.CARBON_DIOXIDE)) return 0xFFD98B5A;
+                if (data.variant().isOf(Gases.NITROGEN)) return 0xFF6BA6FF;
+                if (data.variant().isOf(Gases.HYDROGEN)) return 0xFFD2FAFF;
+                if (data.variant().isOf(Gases.HELIUM)) return 0xFFFFE599;
+                if (data.variant().isOf(Gases.ARGON)) return 0xFFB59CFF;
                 if (data.variant().isOf(Gases.METHANE)) return 0xFF80FFFF;
                 if (data.variant().isOf(Gases.OXYGEN)) return 0xFF82E0FF;
                 if (data.variant().isOf(Gases.HELIUM_3)) return 0xFF7CE8FF;

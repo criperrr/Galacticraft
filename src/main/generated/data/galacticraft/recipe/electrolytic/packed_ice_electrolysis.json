@@ -1,0 +1,13 @@
+{
+  "type": "galacticraft:electrolytic",
+  "primary_output_fluid": "galacticraft:liquid_hydrogen_still",
+  "primary_output_mb": 250,
+  "processing_time": 30,
+  "secondary_output_fluid": "galacticraft:liquid_oxygen_still",
+  "secondary_output_mb": 125,
+  "solid_input": {
+    "item": "minecraft:packed_ice"
+  },
+  "trace_gas_fluid": "galacticraft:deuterium",
+  "trace_gas_mb": 8
+}

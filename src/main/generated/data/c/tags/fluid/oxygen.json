@@ -1,5 +1,7 @@
 {
   "values": [
-    "galacticraft:oxygen"
+    "galacticraft:oxygen",
+    "galacticraft:liquid_oxygen_still",
+    "galacticraft:liquid_oxygen_flowing"
   ]
 }

@@ -1,0 +1,22 @@
+{
+  "type": "galacticraft:sabatier",
+  "catalyst": [
+    {
+      "item": "galacticraft:niobium_ingot"
+    },
+    {
+      "item": "galacticraft:palladium_ingot"
+    }
+  ],
+  "formula": "Xe + LOX -> LXe + O2",
+  "processing_time": 35,
+  "product_a": "galacticraft:liquid_xenon_still",
+  "product_a_mb": 100,
+  "product_b": "galacticraft:oxygen",
+  "product_b_mb": 50,
+  "reagent_a": "galacticraft:xenon",
+  "reagent_a_mb": 100,
+  "reagent_b": "galacticraft:liquid_oxygen_still",
+  "reagent_b_mb": 50,
+  "target_temp_c": 180
+}

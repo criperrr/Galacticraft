@@ -639,6 +639,39 @@ public class GCModelProvider extends FabricModelProvider {
                         .build()
         );
 
+        createActiveMachine(generator, GCBlocks.ELECTROLYTIC_SEPARATOR,
+                TextureProvider.builder(Constant.MOD_ID)
+                        .sides("block/machine_side")
+                        .front("block/electrolytic_separator_active")
+                        .build(),
+                TextureProvider.builder(Constant.MOD_ID)
+                        .sides("block/machine_side")
+                        .front("block/electrolytic_separator")
+                        .build()
+        );
+
+        createActiveMachine(generator, GCBlocks.ATMOSPHERIC_FRACTIONATOR,
+                TextureProvider.builder(Constant.MOD_ID)
+                        .sides("block/machine_side")
+                        .front("block/atmospheric_fractionator_active")
+                        .build(),
+                TextureProvider.builder(Constant.MOD_ID)
+                        .sides("block/machine_side")
+                        .front("block/atmospheric_fractionator")
+                        .build()
+        );
+
+        createActiveMachine(generator, GCBlocks.SABATIER_CHEMICAL_REACTOR,
+                TextureProvider.builder(Constant.MOD_ID)
+                        .sides("block/machine_side")
+                        .front("block/sabatier_chemical_reactor_active")
+                        .build(),
+                TextureProvider.builder(Constant.MOD_ID)
+                        .sides("block/machine_side")
+                        .front("block/sabatier_chemical_reactor")
+                        .build()
+        );
+
         generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(GCBlocks.FUSION_REACTOR_CASING, Constant.id("block/fusion_reactor_casing")));
         generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(GCBlocks.FUSION_MAGNET_COIL, Constant.id("block/fusion_magnet_coil")));
         generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(GCBlocks.FUSION_PLASMA_GLASS, Constant.id("block/fusion_plasma_glass")));
@@ -662,6 +695,12 @@ public class GCModelProvider extends FabricModelProvider {
         generator.createNonTemplateModelBlock(GCBlocks.CRUDE_OIL);
         generator.createNonTemplateModelBlock(GCBlocks.FUEL);
         generator.createNonTemplateModelBlock(GCBlocks.SULFURIC_ACID);
+        generator.createNonTemplateModelBlock(GCBlocks.LIQUID_OXYGEN);
+        generator.createNonTemplateModelBlock(GCBlocks.LIQUID_HYDROGEN);
+        generator.createNonTemplateModelBlock(GCBlocks.LIQUID_METHANE);
+        generator.createNonTemplateModelBlock(GCBlocks.MONOPROPELLANT);
+        generator.createNonTemplateModelBlock(GCBlocks.LIQUID_XENON);
+        generator.createAirLikeBlock(GCBlocks.PROPELLANT_GAS, GCItems.FLUID_CANISTER);
 
         generator.createTrivialCube(GCBlocks.AIR_LOCK_FRAME);
         this.createAirLockController(generator);
@@ -1081,6 +1120,11 @@ public class GCModelProvider extends FabricModelProvider {
         generator.generateFlatItem(GCItems.CRUDE_OIL_BUCKET, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(GCItems.FUEL_BUCKET, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(GCItems.SULFURIC_ACID_BUCKET, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.LIQUID_OXYGEN_BUCKET, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.LIQUID_HYDROGEN_BUCKET, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.LIQUID_METHANE_BUCKET, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.MONOPROPELLANT_BUCKET, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.LIQUID_XENON_BUCKET, ModelTemplates.FLAT_ITEM);
 
         // GALACTICRAFT INVENTORY
         generator.generateFlatItem(GCItems.PARACHUTE, ModelTemplates.FLAT_ITEM);

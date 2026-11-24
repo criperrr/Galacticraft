@@ -338,6 +338,11 @@ public class GCItems {
     public static final Item CRUDE_OIL_BUCKET = ITEMS.register(Constant.Item.CRUDE_OIL_BUCKET, new BucketItem(GCFluids.CRUDE_OIL, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
     public static final Item FUEL_BUCKET = ITEMS.register(Constant.Item.FUEL_BUCKET, new BucketItem(GCFluids.FUEL, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
     public static final Item SULFURIC_ACID_BUCKET = ITEMS.register(Constant.Item.SULFURIC_ACID_BUCKET, new BucketItem(GCFluids.SULFURIC_ACID, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
+    public static final Item LIQUID_OXYGEN_BUCKET = ITEMS.register(Constant.Item.LIQUID_OXYGEN_BUCKET, new BucketItem(GCFluids.LIQUID_OXYGEN, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
+    public static final Item LIQUID_HYDROGEN_BUCKET = ITEMS.register(Constant.Item.LIQUID_HYDROGEN_BUCKET, new BucketItem(GCFluids.LIQUID_HYDROGEN, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
+    public static final Item LIQUID_METHANE_BUCKET = ITEMS.register(Constant.Item.LIQUID_METHANE_BUCKET, new BucketItem(GCFluids.LIQUID_METHANE, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
+    public static final Item MONOPROPELLANT_BUCKET = ITEMS.register(Constant.Item.MONOPROPELLANT_BUCKET, new BucketItem(GCFluids.MONOPROPELLANT, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
+    public static final Item LIQUID_XENON_BUCKET = ITEMS.register(Constant.Item.LIQUID_XENON_BUCKET, new BucketItem(GCFluids.LIQUID_XENON, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
 
     // CANNED FOOD
     public static final CannedFoodItem EMPTY_CAN = ITEMS.register(Constant.Item.EMPTY_CAN, new CannedFoodItem(new Item.Properties().food(null)));
@@ -376,6 +381,11 @@ public class GCItems {
         DispenserBlock.registerBehavior(FUEL_BUCKET, DispenserBlock.DISPENSER_REGISTRY.get(Items.WATER_BUCKET));
         DispenserBlock.registerBehavior(CRUDE_OIL_BUCKET, DispenserBlock.DISPENSER_REGISTRY.get(Items.WATER_BUCKET));
         DispenserBlock.registerBehavior(SULFURIC_ACID_BUCKET, DispenserBlock.DISPENSER_REGISTRY.get(Items.WATER_BUCKET));
+        DispenserBlock.registerBehavior(LIQUID_OXYGEN_BUCKET, DispenserBlock.DISPENSER_REGISTRY.get(Items.WATER_BUCKET));
+        DispenserBlock.registerBehavior(LIQUID_HYDROGEN_BUCKET, DispenserBlock.DISPENSER_REGISTRY.get(Items.WATER_BUCKET));
+        DispenserBlock.registerBehavior(LIQUID_METHANE_BUCKET, DispenserBlock.DISPENSER_REGISTRY.get(Items.WATER_BUCKET));
+        DispenserBlock.registerBehavior(MONOPROPELLANT_BUCKET, DispenserBlock.DISPENSER_REGISTRY.get(Items.WATER_BUCKET));
+        DispenserBlock.registerBehavior(LIQUID_XENON_BUCKET, DispenserBlock.DISPENSER_REGISTRY.get(Items.WATER_BUCKET));
 
         DispenserBlock.registerBehavior(MOON_VILLAGER_SPAWN_EGG, DispenserBlock.DISPENSER_REGISTRY.get(Items.CREEPER_SPAWN_EGG));
         DispenserBlock.registerBehavior(EVOLVED_ZOMBIE_SPAWN_EGG, DispenserBlock.DISPENSER_REGISTRY.get(Items.CREEPER_SPAWN_EGG));

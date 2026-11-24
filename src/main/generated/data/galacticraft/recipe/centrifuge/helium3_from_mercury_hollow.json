@@ -1,0 +1,12 @@
+{
+  "type": "galacticraft:centrifuge",
+  "ingredient": {
+    "item": "galacticraft:mercury_hollow_deposit"
+  },
+  "output_gas": "galacticraft:helium_3",
+  "output_gas_mb": 150,
+  "output_item": {
+    "count": 1,
+    "id": "galacticraft:silicon"
+  }
+}

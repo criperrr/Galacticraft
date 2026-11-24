@@ -47,71 +47,84 @@ public class Helium3FusionReactorScreen extends MachineScreen<Helium3FusionReact
     protected void renderMachineBackground(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
         super.renderMachineBackground(graphics, mouseX, mouseY, delta);
 
-        // Multiblock Torus validation readout
+        // Dark obsidian MHD telemetry display behind Torus/MK/Tesla readouts
+        int mhdX = this.leftPos + 100;
+        int mhdY = this.topPos + 18;
         int blocks = this.menu.getValidStructureBlocks();
         boolean formed = this.menu.isMultiblockFormed();
-        int torusColor = formed ? 0xFF1B8A3A : 0xFFC62828;
-        graphics.drawString(this.font, "TORUS " + blocks + "/" + Helium3FusionReactorBlockEntity.REQUIRED_MULTIBLOCK_BLOCKS,
-                this.leftPos + 103, this.topPos + 21, torusColor, false);
+        int tempMk = this.menu.getPlasmaTempMk();
+        boolean cryo = this.menu.isCryoCooled();
+        int rate = this.menu.getActiveGenerationRate();
+
+        graphics.fill(mhdX, mhdY, mhdX + 44, mhdY + 42, 0xFF141B26);
+        graphics.renderOutline(mhdX, mhdY, 44, 42, cryo ? 0xFF39F0FF : (formed ? 0xFF2E8B57 : 0xFF8C2D2D));
+
+        // Multiblock Torus validation readout
+        int torusColor = formed ? 0xFF56F08A : 0xFFFF6666;
+        graphics.drawString(this.font, blocks + "/" + Helium3FusionReactorBlockEntity.REQUIRED_MULTIBLOCK_BLOCKS,
+                mhdX + 4, mhdY + 4, torusColor, false);
 
         // Plasma core temperature (MK = Million Kelvin)
-        int tempMk = this.menu.getPlasmaTempMk();
-        int tempColor = tempMk >= Helium3FusionReactorBlockEntity.IGNITION_TEMP_MK ? 0xFF00838F : 0xFF555555;
-        graphics.drawString(this.font, tempMk + " MK", this.leftPos + 103, this.topPos + 34, tempColor, false);
+        int tempColor = tempMk >= Helium3FusionReactorBlockEntity.IGNITION_TEMP_MK ? 0xFF4CF0FF : 0xFF9EA8B8;
+        graphics.drawString(this.font, tempMk + "MK", mhdX + 4, mhdY + 17, tempColor, false);
 
         // Magnetic field strength (Tesla)
-        String field = this.menu.isCryoCooled() ? "18.5 T" : (formed ? "12.0 T" : "0.0 T");
-        int fieldColor = this.menu.isCryoCooled() ? 0xFF00838F : 0xFF455A64;
-        graphics.drawString(this.font, field, this.leftPos + 103, this.topPos + 47, fieldColor, false);
+        String field = cryo ? "18.5T" : (formed ? "12.0T" : "0.0T");
+        int fieldColor = cryo ? 0xFF5CF2FF : 0xFFB0BEC5;
+        graphics.drawString(this.font, field, mhdX + 4, mhdY + 30, fieldColor, false);
 
         // Cell synthesis mini-bar under output cell slot
         int cellBarX = this.leftPos + 148;
         int cellBarY = this.topPos + 55;
-        graphics.fill(cellBarX, cellBarY, cellBarX + 16, cellBarY + 4, 0xFF23252B);
+        graphics.fill(cellBarX, cellBarY, cellBarX + 16, cellBarY + 4, 0xFF141B26);
         int cellFill = Mth.clamp((int) ((float) this.menu.getCellSynthesisProgress() / (float) Helium3FusionReactorBlockEntity.CELL_SYNTHESIS_TICKS * 16), 0, 16);
         if (cellFill > 0) {
             graphics.fill(cellBarX, cellBarY, cellBarX + cellFill, cellBarY + 4, 0xFF64FFDA);
         }
 
-        // MHD Plasma burn bar
+        // MHD Plasma burn bar & obsidian status bar
         int barX = this.leftPos + 78;
-        int barY = this.topPos + 73;
+        int barY = this.topPos + 72;
         int barW = 88;
         int barH = 6;
-        graphics.fill(barX, barY, barX + barW, barY + barH, 0xFF20222A);
+        graphics.fill(barX - 1, barY - 1, barX + barW + 1, barY + barH + 1, 0xFF141B26);
+        graphics.fill(barX, barY, barX + barW, barY + barH, 0xFF1D2432);
         if (this.menu.getBurnTime() > 0) {
             int fill = Mth.clamp((int) ((float) this.menu.getBurnTime() / (float) this.menu.getBurnDuration() * barW), 1, barW);
-            int color = this.menu.isCryoCooled() ? 0xFF00E5FF : 0xFF5C6BC0;
-            graphics.fill(barX, barY, barX + fill, barY + barH, color);
+            int topC = cryo ? 0xFF64F4FF : 0xFF7B8CFF;
+            int botC = cryo ? 0xFF00A8CC : 0xFF3F51B5;
+            graphics.fillGradient(barX, barY, barX + fill, barY + barH, topC, botC);
         } else if (tempMk > 0 && formed) {
             int fill = Mth.clamp((int) ((float) tempMk / (float) Helium3FusionReactorBlockEntity.IGNITION_TEMP_MK * barW), 1, barW);
-            graphics.fill(barX, barY, barX + fill, barY + barH, 0xFFFFA726);
+            graphics.fillGradient(barX, barY, barX + fill, barY + barH, 0xFFFFCA58, 0xFFE65100);
         }
 
-        // Power output readout
-        int rate = this.menu.getActiveGenerationRate();
+        // Power output obsidian readout strip
+        graphics.fill(barX - 1, this.topPos + 81, barX + barW + 1, this.topPos + 93, 0xFF141B26);
         String label;
         int textColor;
         if (!formed) {
-            label = "BUILD 3x3x3 TORUS";
-            textColor = 0xFFC62828;
+            label = "BUILD 3x3x3";
+            textColor = 0xFFFF6666;
         } else if (rate > 0) {
-            label = rate + " GJ/t" + (this.menu.isCryoCooled() ? " <2K" : "");
-            textColor = this.menu.isCryoCooled() ? 0xFF00838F : 0xFF1B8A3A;
+            label = rate + " GJ/t" + (cryo ? " <2K" : "");
+            textColor = cryo ? 0xFF5CF2FF : 0xFF56F08A;
         } else if (tempMk >= Helium3FusionReactorBlockEntity.IGNITION_TEMP_MK) {
             label = "CAPACITOR FULL";
-            textColor = 0xFF1B8A3A;
+            textColor = 0xFF56F08A;
         } else if (tempMk > 0) {
             label = "IGNITING " + tempMk + "MK";
-            textColor = 0xFFE65100;
+            textColor = 0xFFFFB74D;
         } else {
-            label = "STANDBY";
-            textColor = 0xFF606060;
+            label = "MHD STANDBY";
+            textColor = 0xFF8C97A8;
         }
-        graphics.drawString(this.font, label, this.leftPos + 78, this.topPos + 83, textColor, false);
+        graphics.drawString(this.font, label, barX + 3, this.topPos + 83, textColor, false);
 
-        // Tank labels
-        graphics.drawString(this.font, "3He", this.leftPos + 32, this.topPos + 95, 0xFF007B9E, false);
-        graphics.drawString(this.font, "D2", this.leftPos + 56, this.topPos + 95, 0xFF3F51B5, false);
+        // Tank labels in crisp obsidian pill badges
+        graphics.fill(this.leftPos + 30, this.topPos + 94, this.leftPos + 50, this.topPos + 104, 0xFF141B26);
+        graphics.fill(this.leftPos + 53, this.topPos + 94, this.leftPos + 71, this.topPos + 104, 0xFF141B26);
+        graphics.drawString(this.font, "3He", this.leftPos + 32, this.topPos + 95, 0xFF5CF2FF, false);
+        graphics.drawString(this.font, "D2", this.leftPos + 56, this.topPos + 95, 0xFF8CA4FF, false);
     }
 }

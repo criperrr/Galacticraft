@@ -44,13 +44,16 @@ import dev.galacticraft.mod.content.item.CannedFoodItem;
 import dev.galacticraft.mod.content.item.EmergencyKitItem;
 import dev.galacticraft.mod.content.item.GCItems;
 import dev.galacticraft.mod.content.item.ParachuteItem;
+import dev.galacticraft.mod.recipe.CentrifugeRecipe;
 import dev.galacticraft.mod.recipe.ChemicalLeachingRecipe;
 import dev.galacticraft.mod.recipe.CompositeAutoclaveRecipe;
 import dev.galacticraft.mod.recipe.CompressingRecipe;
+import dev.galacticraft.mod.recipe.ElectrolyticRecipe;
 import dev.galacticraft.mod.recipe.FabricationRecipe;
 import dev.galacticraft.mod.recipe.GCRecipes;
 import dev.galacticraft.mod.recipe.MetallurgicInfusingRecipe;
 import dev.galacticraft.mod.recipe.RocketRecipe;
+import dev.galacticraft.mod.recipe.SabatierRecipe;
 import dev.galacticraft.mod.screen.GCMenuTypes;
 import dev.galacticraft.mod.tag.GCItemTags;
 import dev.galacticraft.mod.util.Translations.RecipeCategory;
@@ -82,6 +85,9 @@ public class GalacticraftEmiPlugin implements EmiPlugin {
     public static final EmiStack VACUUM_METALLURGIC_INFUSER = EmiStack.of(GCBlocks.VACUUM_METALLURGIC_INFUSER);
     public static final EmiStack CHEMICAL_LEACHING_PLANT = EmiStack.of(GCBlocks.CHEMICAL_LEACHING_PLANT);
     public static final EmiStack COMPOSITE_AUTOCLAVE = EmiStack.of(GCBlocks.COMPOSITE_AUTOCLAVE);
+    public static final EmiStack ELECTROLYTIC_SEPARATOR = EmiStack.of(GCBlocks.ELECTROLYTIC_SEPARATOR);
+    public static final EmiStack SABATIER_CHEMICAL_REACTOR = EmiStack.of(GCBlocks.SABATIER_CHEMICAL_REACTOR);
+    public static final EmiStack ISOTOPIC_CENTRIFUGE = EmiStack.of(GCBlocks.ISOTOPIC_CENTRIFUGE);
 
     // Simplified Icons
     public static final EmiRenderable FABRICATION_ICON = new EmiTexture(SIMPLIFIED_ICONS, 0, 16, 16, 16, 16, 16, 64, 64);
@@ -103,6 +109,9 @@ public class GalacticraftEmiPlugin implements EmiPlugin {
     public static final EmiRecipeCategory METALLURGIC_INFUSING = new GalacticraftEmiRecipeCategory(Constant.id(Constant.Recipe.METALLURGIC_INFUSING), VACUUM_METALLURGIC_INFUSER, RecipeCategory.METALLURGIC_INFUSING);
     public static final EmiRecipeCategory CHEMICAL_LEACHING = new GalacticraftEmiRecipeCategory(Constant.id(Constant.Recipe.CHEMICAL_LEACHING), CHEMICAL_LEACHING_PLANT, RecipeCategory.CHEMICAL_LEACHING);
     public static final EmiRecipeCategory COMPOSITE_AUTOCLAVE_CATEGORY = new GalacticraftEmiRecipeCategory(Constant.id(Constant.Recipe.COMPOSITE_AUTOCLAVE), COMPOSITE_AUTOCLAVE, RecipeCategory.COMPOSITE_AUTOCLAVE);
+    public static final EmiRecipeCategory ELECTROLYTIC = new GalacticraftEmiRecipeCategory(Constant.id(Constant.Recipe.ELECTROLYTIC), ELECTROLYTIC_SEPARATOR, RecipeCategory.ELECTROLYTIC);
+    public static final EmiRecipeCategory SABATIER = new GalacticraftEmiRecipeCategory(Constant.id(Constant.Recipe.SABATIER), SABATIER_CHEMICAL_REACTOR, RecipeCategory.SABATIER);
+    public static final EmiRecipeCategory CENTRIFUGE = new GalacticraftEmiRecipeCategory(Constant.id(Constant.Recipe.CENTRIFUGE), ISOTOPIC_CENTRIFUGE, RecipeCategory.CENTRIFUGE);
 
     @Override
     public void register(EmiRegistry registry) {
@@ -116,6 +125,9 @@ public class GalacticraftEmiPlugin implements EmiPlugin {
         registry.addCategory(METALLURGIC_INFUSING);
         registry.addCategory(CHEMICAL_LEACHING);
         registry.addCategory(COMPOSITE_AUTOCLAVE_CATEGORY);
+        registry.addCategory(ELECTROLYTIC);
+        registry.addCategory(SABATIER);
+        registry.addCategory(CENTRIFUGE);
 
         registry.addWorkstation(FABRICATION, CIRCUIT_FABRICATOR);
         registry.addWorkstation(COMPRESSING, COMPRESSOR);
@@ -127,6 +139,9 @@ public class GalacticraftEmiPlugin implements EmiPlugin {
         registry.addWorkstation(METALLURGIC_INFUSING, VACUUM_METALLURGIC_INFUSER);
         registry.addWorkstation(CHEMICAL_LEACHING, CHEMICAL_LEACHING_PLANT);
         registry.addWorkstation(COMPOSITE_AUTOCLAVE_CATEGORY, COMPOSITE_AUTOCLAVE);
+        registry.addWorkstation(ELECTROLYTIC, ELECTROLYTIC_SEPARATOR);
+        registry.addWorkstation(SABATIER, SABATIER_CHEMICAL_REACTOR);
+        registry.addWorkstation(CENTRIFUGE, ISOTOPIC_CENTRIFUGE);
 
         // EMI can't group stacks, so only show the clear variant of each colored pipe in the index
         for (Block block : PipeColorVariants.colored()) {
@@ -245,6 +260,18 @@ public class GalacticraftEmiPlugin implements EmiPlugin {
 
         for (RecipeHolder<CompositeAutoclaveRecipe> recipe : manager.getAllRecipesFor(GCRecipes.COMPOSITE_AUTOCLAVE_TYPE)) {
             registry.addRecipe(new CompositeAutoclaveEmiRecipe(recipe));
+        }
+
+        for (RecipeHolder<ElectrolyticRecipe> recipe : manager.getAllRecipesFor(GCRecipes.ELECTROLYTIC_TYPE)) {
+            registry.addRecipe(new ElectrolyticEmiRecipe(recipe));
+        }
+
+        for (RecipeHolder<SabatierRecipe> recipe : manager.getAllRecipesFor(GCRecipes.SABATIER_TYPE)) {
+            registry.addRecipe(new SabatierEmiRecipe(recipe));
+        }
+
+        for (RecipeHolder<CentrifugeRecipe> recipe : manager.getAllRecipesFor(GCRecipes.CENTRIFUGE_TYPE)) {
+            registry.addRecipe(new CentrifugeEmiRecipe(recipe));
         }
 
         for (ItemStack cannedFood : CannedFoodItem.getDefaultCannedFoods()) {

@@ -36,6 +36,14 @@ public class GCFluidTags {
     public static final TagKey<Fluid> SULFURIC_ACID = galacticraftTag("sulfuric_acid");
     public static final TagKey<Fluid> SULFURIC_ACID_COMMON = commonTag("sulfuric_acid");
     public static final TagKey<Fluid> LIQUID_OXYGEN = commonTag("oxygen");
+    public static final TagKey<Fluid> LIQUID_HYDROGEN = galacticraftTag("liquid_hydrogen");
+    public static final TagKey<Fluid> LIQUID_HYDROGEN_COMMON = commonTag("liquid_hydrogen");
+    public static final TagKey<Fluid> LIQUID_METHANE = galacticraftTag("liquid_methane");
+    public static final TagKey<Fluid> LIQUID_METHANE_COMMON = commonTag("liquid_methane");
+    public static final TagKey<Fluid> MONOPROPELLANT = galacticraftTag("monopropellant");
+    public static final TagKey<Fluid> MONOPROPELLANT_COMMON = commonTag("monopropellant");
+    public static final TagKey<Fluid> LIQUID_XENON = galacticraftTag("liquid_xenon");
+    public static final TagKey<Fluid> LIQUID_XENON_COMMON = commonTag("liquid_xenon");
     public static final TagKey<Fluid> OXYGEN = galacticraftTag("oxygen");
     public static final TagKey<Fluid> NON_BREATHABLE = galacticraftTag("non_breathable");
     public static final TagKey<Fluid> FLUID_CANISTER_EXCLUSIONS = galacticraftTag("fluid_canister_exclusions");

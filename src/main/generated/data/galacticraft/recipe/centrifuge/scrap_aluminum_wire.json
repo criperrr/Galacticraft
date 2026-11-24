@@ -1,0 +1,11 @@
+{
+  "type": "galacticraft:centrifuge",
+  "ingredient": {
+    "item": "galacticraft:aluminum_wire"
+  },
+  "output_item": {
+    "count": 1,
+    "id": "galacticraft:aluminum_ingot"
+  },
+  "processing_time": 40
+}

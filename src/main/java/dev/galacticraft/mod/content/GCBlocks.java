@@ -96,6 +96,35 @@ public class GCBlocks {
                     .noCollission().pushReaction(PushReaction.DESTROY).replaceable().liquid()
                     .strength(50.0F, 50.0F).noLootTable()));
 
+    public static final LiquidBlock LIQUID_OXYGEN = BLOCKS.register(Constant.Block.LIQUID_OXYGEN,
+            new CryogenicFluidBlock(GCFluids.LIQUID_OXYGEN, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_BLUE)
+                    .noCollission().pushReaction(PushReaction.DESTROY).replaceable().liquid()
+                    .strength(50.0F, 50.0F).noLootTable(), 4, PropellantGasBlock.GasKind.OXYGEN, -183.0));
+
+    public static final LiquidBlock LIQUID_HYDROGEN = BLOCKS.register(Constant.Block.LIQUID_HYDROGEN,
+            new CryogenicFluidBlock(GCFluids.LIQUID_HYDROGEN, BlockBehaviour.Properties.of().mapColor(MapColor.ICE)
+                    .noCollission().pushReaction(PushReaction.DESTROY).ignitedByLava().replaceable().liquid()
+                    .strength(50.0F, 50.0F).noLootTable(), 6, PropellantGasBlock.GasKind.HYDROGEN, -253.0));
+
+    public static final LiquidBlock LIQUID_METHANE = BLOCKS.register(Constant.Block.LIQUID_METHANE,
+            new CryogenicFluidBlock(GCFluids.LIQUID_METHANE, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_CYAN)
+                    .noCollission().pushReaction(PushReaction.DESTROY).ignitedByLava().replaceable().liquid()
+                    .strength(50.0F, 50.0F).noLootTable(), 3, PropellantGasBlock.GasKind.METHANE, -161.5));
+
+    public static final LiquidBlock MONOPROPELLANT = BLOCKS.register(Constant.Block.MONOPROPELLANT,
+            new HypergolicFluidBlock(GCFluids.MONOPROPELLANT, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_MAGENTA)
+                    .noCollission().pushReaction(PushReaction.DESTROY).ignitedByLava().replaceable().liquid()
+                    .strength(50.0F, 50.0F).noLootTable(), PropellantGasBlock.GasKind.HYDRAZINE, 113.5));
+
+    public static final LiquidBlock LIQUID_XENON = BLOCKS.register(Constant.Block.LIQUID_XENON,
+            new CryogenicFluidBlock(GCFluids.LIQUID_XENON, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE)
+                    .noCollission().pushReaction(PushReaction.DESTROY).replaceable().liquid()
+                    .strength(50.0F, 50.0F).noLootTable(), 3, PropellantGasBlock.GasKind.XENON, -108.0));
+
+    public static final Block PROPELLANT_GAS = BLOCKS.register(Constant.Block.PROPELLANT_GAS,
+            new PropellantGasBlock(BlockBehaviour.Properties.of()
+                    .noCollission().replaceable().air().noLootTable().randomTicks()));
+
     // DECORATION BLOCKS
     public static final DecorationSet ALUMINUM_DECORATION = BLOCKS.registerDecoration(Constant.Block.ALUMINUM_DECORATION, BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).instrument(NoteBlockInstrument.BASEDRUM).strength(2.0F, 3.0F).requiresCorrectToolForDrops(), 2.5F, 3.0F);
     public static final DecorationSet BRONZE_DECORATION = BLOCKS.registerDecoration(Constant.Block.BRONZE_DECORATION, BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_ORANGE).instrument(NoteBlockInstrument.BASEDRUM).strength(2.0F, 3.0F).requiresCorrectToolForDrops(), 2.5F, 3.0F);
@@ -570,6 +599,9 @@ public class GCBlocks {
     public static final Block VACUUM_METALLURGIC_INFUSER = BLOCKS.registerWithItem(Constant.Block.VACUUM_METALLURGIC_INFUSER, new VacuumMetallurgicInfuserBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).strength(3.5F, 6.0F).sound(SoundType.METAL).requiresCorrectToolForDrops().lightLevel(state -> state.getValue(VacuumMetallurgicInfuserBlock.ACTIVE) ? 10 : 0)));
     public static final Block CHEMICAL_LEACHING_PLANT = BLOCKS.registerWithItem(Constant.Block.CHEMICAL_LEACHING_PLANT, new ChemicalLeachingPlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).strength(3.5F, 6.0F).sound(SoundType.METAL).requiresCorrectToolForDrops().lightLevel(state -> state.getValue(ChemicalLeachingPlantBlock.ACTIVE) ? 8 : 0)));
     public static final Block COMPOSITE_AUTOCLAVE = BLOCKS.registerWithItem(Constant.Block.COMPOSITE_AUTOCLAVE, new CompositeAutoclaveBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).strength(3.5F, 6.0F).sound(SoundType.METAL).requiresCorrectToolForDrops().lightLevel(state -> state.getValue(CompositeAutoclaveBlock.ACTIVE) ? 9 : 0)));
+    public static final Block ELECTROLYTIC_SEPARATOR = BLOCKS.registerWithItem(Constant.Block.ELECTROLYTIC_SEPARATOR, new ElectrolyticSeparatorBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).strength(3.5F, 6.0F).sound(SoundType.METAL).requiresCorrectToolForDrops().lightLevel(state -> state.getValue(ElectrolyticSeparatorBlock.ACTIVE) ? 9 : 0)));
+    public static final Block ATMOSPHERIC_FRACTIONATOR = BLOCKS.registerWithItem(Constant.Block.ATMOSPHERIC_FRACTIONATOR, new AtmosphericFractionatorBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).strength(3.5F, 6.0F).sound(SoundType.METAL).requiresCorrectToolForDrops().lightLevel(state -> state.getValue(AtmosphericFractionatorBlock.ACTIVE) ? 7 : 0)));
+    public static final Block SABATIER_CHEMICAL_REACTOR = BLOCKS.registerWithItem(Constant.Block.SABATIER_CHEMICAL_REACTOR, new SabatierChemicalReactorBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).strength(3.5F, 6.0F).sound(SoundType.METAL).requiresCorrectToolForDrops().lightLevel(state -> state.getValue(SabatierChemicalReactorBlock.ACTIVE) ? 11 : 0)));
     public static final Block FUSION_REACTOR_CASING = BLOCKS.registerWithItem(Constant.Block.FUSION_REACTOR_CASING, new FusionReactorPartBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE).strength(5.0F, 12.0F).sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops()));
     public static final Block FUSION_MAGNET_COIL = BLOCKS.registerWithItem(Constant.Block.FUSION_MAGNET_COIL, new FusionReactorPartBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_CYAN).strength(5.0F, 12.0F).sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().lightLevel(state -> 4)));
     public static final Block FUSION_PLASMA_GLASS = BLOCKS.registerWithItem(Constant.Block.FUSION_PLASMA_GLASS, new FusionReactorPartBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_BLUE).strength(4.0F, 10.0F).sound(SoundType.GLASS).noOcclusion().isValidSpawn(GCBlocks::never).isRedstoneConductor(GCBlocks::never).isSuffocating(GCBlocks::never).isViewBlocking(GCBlocks::never).requiresCorrectToolForDrops()));

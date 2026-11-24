@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "active=false": {
+      "model": "galacticraft:machine/sabatier_chemical_reactor"
+    },
+    "active=true": {
+      "model": "galacticraft:machine/sabatier_chemical_reactor_active"
+    }
+  }
+}

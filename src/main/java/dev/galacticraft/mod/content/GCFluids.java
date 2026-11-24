@@ -39,6 +39,16 @@ public class GCFluids {
     public static final FlowingFluid FLOWING_FUEL = new FuelFluid.Flowing();
     public static final FlowingFluid SULFURIC_ACID = new SulfuricAcidFluid.Still();
     public static final FlowingFluid FLOWING_SULFURIC_ACID = new SulfuricAcidFluid.Flowing();
+    public static final FlowingFluid LIQUID_OXYGEN = new LiquidOxygenFluid.Still();
+    public static final FlowingFluid FLOWING_LIQUID_OXYGEN = new LiquidOxygenFluid.Flowing();
+    public static final FlowingFluid LIQUID_HYDROGEN = new LiquidHydrogenFluid.Still();
+    public static final FlowingFluid FLOWING_LIQUID_HYDROGEN = new LiquidHydrogenFluid.Flowing();
+    public static final FlowingFluid LIQUID_METHANE = new LiquidMethaneFluid.Still();
+    public static final FlowingFluid FLOWING_LIQUID_METHANE = new LiquidMethaneFluid.Flowing();
+    public static final FlowingFluid MONOPROPELLANT = new MonopropellantFluid.Still();
+    public static final FlowingFluid FLOWING_MONOPROPELLANT = new MonopropellantFluid.Flowing();
+    public static final FlowingFluid LIQUID_XENON = new LiquidXenonFluid.Still();
+    public static final FlowingFluid FLOWING_LIQUID_XENON = new LiquidXenonFluid.Flowing();
 
     public static void register() {
         register(Constant.Fluid.CRUDE_OIL_STILL, CRUDE_OIL);
@@ -47,6 +57,16 @@ public class GCFluids {
         register(Constant.Fluid.FUEL_FLOWING, FLOWING_FUEL);
         register(Constant.Fluid.SULFURIC_ACID_STILL, SULFURIC_ACID);
         register(Constant.Fluid.SULFURIC_ACID_FLOWING, FLOWING_SULFURIC_ACID);
+        register(Constant.Fluid.LIQUID_OXYGEN_STILL, LIQUID_OXYGEN);
+        register(Constant.Fluid.LIQUID_OXYGEN_FLOWING, FLOWING_LIQUID_OXYGEN);
+        register(Constant.Fluid.LIQUID_HYDROGEN_STILL, LIQUID_HYDROGEN);
+        register(Constant.Fluid.LIQUID_HYDROGEN_FLOWING, FLOWING_LIQUID_HYDROGEN);
+        register(Constant.Fluid.LIQUID_METHANE_STILL, LIQUID_METHANE);
+        register(Constant.Fluid.LIQUID_METHANE_FLOWING, FLOWING_LIQUID_METHANE);
+        register(Constant.Fluid.MONOPROPELLANT_STILL, MONOPROPELLANT);
+        register(Constant.Fluid.MONOPROPELLANT_FLOWING, FLOWING_MONOPROPELLANT);
+        register(Constant.Fluid.LIQUID_XENON_STILL, LIQUID_XENON);
+        register(Constant.Fluid.LIQUID_XENON_FLOWING, FLOWING_LIQUID_XENON);
     }
 
     public static void registerFluidVariantAttributes() {
@@ -66,6 +86,36 @@ public class GCFluids {
                 Component.translatable(GCBlocks.SULFURIC_ACID.getDescriptionId())
                         .setStyle(Constant.Text.GREEN_STYLE),
                 FluidConstants.WATER_VISCOSITY,
+                false
+        ));
+        FluidVariantAttributes.register(LIQUID_OXYGEN, new GCFluidAttribute(
+                Component.translatable(GCBlocks.LIQUID_OXYGEN.getDescriptionId())
+                        .setStyle(Constant.Text.AQUA_STYLE),
+                1200,
+                false
+        ));
+        FluidVariantAttributes.register(LIQUID_HYDROGEN, new GCFluidAttribute(
+                Component.translatable(GCBlocks.LIQUID_HYDROGEN.getDescriptionId())
+                        .setStyle(Constant.Text.AQUA_STYLE),
+                600,
+                true
+        ));
+        FluidVariantAttributes.register(LIQUID_METHANE, new GCFluidAttribute(
+                Component.translatable(GCBlocks.LIQUID_METHANE.getDescriptionId())
+                        .setStyle(Constant.Text.GREEN_STYLE),
+                1100,
+                false
+        ));
+        FluidVariantAttributes.register(MONOPROPELLANT, new GCFluidAttribute(
+                Component.translatable(GCBlocks.MONOPROPELLANT.getDescriptionId())
+                        .setStyle(Constant.Text.LIGHT_PURPLE_STYLE),
+                1400,
+                false
+        ));
+        FluidVariantAttributes.register(LIQUID_XENON, new GCFluidAttribute(
+                Component.translatable(GCBlocks.LIQUID_XENON.getDescriptionId())
+                        .setStyle(Constant.Text.LIGHT_PURPLE_STYLE),
+                2200,
                 false
         ));
     }

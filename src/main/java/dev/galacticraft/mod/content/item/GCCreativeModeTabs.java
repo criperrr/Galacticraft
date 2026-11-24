@@ -427,6 +427,9 @@ public class GCCreativeModeTabs {
                 output.accept(VACUUM_METALLURGIC_INFUSER);
                 output.accept(CHEMICAL_LEACHING_PLANT);
                 output.accept(COMPOSITE_AUTOCLAVE);
+                output.accept(ELECTROLYTIC_SEPARATOR);
+                output.accept(ATMOSPHERIC_FRACTIONATOR);
+                output.accept(SABATIER_CHEMICAL_REACTOR);
                 output.accept(FUSION_REACTOR_CASING);
                 output.accept(FUSION_MAGNET_COIL);
                 output.accept(FUSION_PLASMA_GLASS);
@@ -461,6 +464,15 @@ public class GCCreativeModeTabs {
                 output.accept(FLUID_CANISTER);
                 output.accept(FluidCanisterItem.getFilledCanister(FLUID_CANISTER, GCFluids.CRUDE_OIL));
                 output.accept(FluidCanisterItem.getFilledCanister(FLUID_CANISTER, GCFluids.FUEL));
+                output.accept(FluidCanisterItem.getFilledCanister(FLUID_CANISTER, GCFluids.SULFURIC_ACID));
+                output.accept(FluidCanisterItem.getFilledCanister(FLUID_CANISTER, GCFluids.LIQUID_OXYGEN));
+                output.accept(FluidCanisterItem.getFilledCanister(FLUID_CANISTER, GCFluids.LIQUID_HYDROGEN));
+                output.accept(FluidCanisterItem.getFilledCanister(FLUID_CANISTER, GCFluids.LIQUID_METHANE));
+                output.accept(FluidCanisterItem.getFilledCanister(FLUID_CANISTER, GCFluids.MONOPROPELLANT));
+                output.accept(FluidCanisterItem.getFilledCanister(FLUID_CANISTER, GCFluids.LIQUID_XENON));
+                output.accept(FluidCanisterItem.getFilledCanister(FLUID_CANISTER, Gases.CARBON_DIOXIDE));
+                output.accept(FluidCanisterItem.getFilledCanister(FLUID_CANISTER, Gases.NITROGEN));
+                output.accept(FluidCanisterItem.getFilledCanister(FLUID_CANISTER, Gases.HYDROGEN));
                 output.accept(FluidCanisterItem.getFilledCanister(FLUID_CANISTER, Gases.METHANE));
                 output.accept(FluidCanisterItem.getFilledCanister(FLUID_CANISTER, Gases.OXYGEN));
                 output.accept(FluidCanisterItem.getFilledCanister(FLUID_CANISTER, Gases.SOLAR_VOLATILE_GAS));
@@ -717,6 +729,11 @@ public class GCCreativeModeTabs {
                 output.accept(CRUDE_OIL_BUCKET);
                 output.accept(FUEL_BUCKET);
                 output.accept(SULFURIC_ACID_BUCKET);
+                output.accept(LIQUID_OXYGEN_BUCKET);
+                output.accept(LIQUID_HYDROGEN_BUCKET);
+                output.accept(LIQUID_METHANE_BUCKET);
+                output.accept(MONOPROPELLANT_BUCKET);
+                output.accept(LIQUID_XENON_BUCKET);
             })
             .build();
 

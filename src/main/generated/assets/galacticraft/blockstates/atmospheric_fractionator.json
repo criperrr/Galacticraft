@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "active=false": {
+      "model": "galacticraft:machine/atmospheric_fractionator"
+    },
+    "active=true": {
+      "model": "galacticraft:machine/atmospheric_fractionator_active"
+    }
+  }
+}
