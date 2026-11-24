@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "active=false": {
+      "model": "galacticraft:machine/chemical_leaching_plant"
+    },
+    "active=true": {
+      "model": "galacticraft:machine/chemical_leaching_plant_active"
+    }
+  }
+}

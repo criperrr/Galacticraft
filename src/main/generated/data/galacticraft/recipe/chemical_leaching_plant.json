@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "galacticraft:copper_canister"
+    },
+    "L": {
+      "tag": "c:ingots/lead"
+    },
+    "M": {
+      "item": "galacticraft:fluid_manipulator"
+    },
+    "P": {
+      "item": "galacticraft:glass_fluid_pipe"
+    }
+  },
+  "pattern": [
+    "LCL",
+    "PMP",
+    "LPL"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:chemical_leaching_plant"
+  }
+}

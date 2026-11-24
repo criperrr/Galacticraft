@@ -48,6 +48,9 @@ public class GalacticraftREIServerPlugin implements REIServerPlugin {
     public static final CategoryIdentifier<Helium3ProcessDisplay> THERMAL_DESORPTION = CategoryIdentifier.of(Constant.MOD_ID, "plugins/" + Constant.Recipe.THERMAL_DESORPTION);
     public static final CategoryIdentifier<Helium3ProcessDisplay> ISOTOPIC_SEPARATION = CategoryIdentifier.of(Constant.MOD_ID, "plugins/isotopic_separation");
     public static final CategoryIdentifier<Helium3ProcessDisplay> MHD_FUSION = CategoryIdentifier.of(Constant.MOD_ID, "plugins/" + Constant.Recipe.FUSION_REACTOR);
+    public static final CategoryIdentifier<MetallurgyProcessDisplay> METALLURGIC_INFUSING = CategoryIdentifier.of(Constant.MOD_ID, "plugins/" + Constant.Recipe.METALLURGIC_INFUSING);
+    public static final CategoryIdentifier<MetallurgyProcessDisplay> CHEMICAL_LEACHING = CategoryIdentifier.of(Constant.MOD_ID, "plugins/" + Constant.Recipe.CHEMICAL_LEACHING);
+    public static final CategoryIdentifier<MetallurgyProcessDisplay> COMPOSITE_AUTOCLAVE = CategoryIdentifier.of(Constant.MOD_ID, "plugins/" + Constant.Recipe.COMPOSITE_AUTOCLAVE);
 
     @Override
     public void registerDisplaySerializer(DisplaySerializerRegistry registry) {

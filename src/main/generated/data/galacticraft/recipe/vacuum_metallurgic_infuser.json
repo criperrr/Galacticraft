@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "galacticraft:tin_canister"
+    },
+    "F": {
+      "item": "galacticraft:compressed_ferroniobium"
+    },
+    "U": {
+      "tag": "c:player_workstations/furnaces"
+    },
+    "W": {
+      "item": "galacticraft:basic_wafer"
+    }
+  },
+  "pattern": [
+    "FCF",
+    "FUF",
+    "FWF"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:vacuum_metallurgic_infuser"
+  }
+}

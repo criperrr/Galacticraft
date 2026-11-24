@@ -1,0 +1,17 @@
+{
+  "type": "galacticraft:composite_autoclave",
+  "ingredients": [
+    {
+      "item": "galacticraft:carbon_fragments"
+    },
+    {
+      "item": "galacticraft:canvas"
+    }
+  ],
+  "processing_time": 100,
+  "result": {
+    "count": 1,
+    "id": "galacticraft:carbon_fiber_plate"
+  },
+  "target_temperature": 400
+}

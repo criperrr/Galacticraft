@@ -1,0 +1,17 @@
+{
+  "type": "galacticraft:chemical_leaching",
+  "byproduct_chance": 0.25,
+  "byproduct_output": {
+    "count": 1,
+    "id": "galacticraft:raw_uranium"
+  },
+  "fluid": "galacticraft:sulfuric_acid_still",
+  "ore": {
+    "item": "galacticraft:raw_niobium"
+  },
+  "primary_output": {
+    "count": 3,
+    "id": "galacticraft:niobium_oxide"
+  },
+  "processing_time": 100
+}

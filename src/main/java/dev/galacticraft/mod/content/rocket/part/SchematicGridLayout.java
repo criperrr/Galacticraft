@@ -114,6 +114,7 @@ public final class SchematicGridLayout {
             Constant.id("compressed_aluminum"),
             Constant.id("compressed_copper"),
             Constant.id("isothermal_sofi_insulation"),
+            Constant.id("sofi_cryogenic_insulation"),
             Constant.id("compressed_bronze"),
             Constant.id("compressed_titanium"),
             Constant.id("compressed_niobium"),

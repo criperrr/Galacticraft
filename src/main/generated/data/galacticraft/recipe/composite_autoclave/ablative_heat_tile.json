@@ -1,0 +1,20 @@
+{
+  "type": "galacticraft:composite_autoclave",
+  "ingredients": [
+    {
+      "item": "galacticraft:olivine_shard"
+    },
+    {
+      "item": "galacticraft:carbon_fragments"
+    },
+    {
+      "item": "galacticraft:silicon"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:ablative_heat_tile"
+  },
+  "target_pressure_bar": 16,
+  "target_temperature": 550
+}

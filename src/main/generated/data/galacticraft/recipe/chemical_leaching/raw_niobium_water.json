@@ -1,0 +1,13 @@
+{
+  "type": "galacticraft:chemical_leaching",
+  "fluid": "minecraft:water",
+  "fluid_amount_mb": 500,
+  "ore": {
+    "item": "galacticraft:raw_niobium"
+  },
+  "primary_output": {
+    "count": 2,
+    "id": "galacticraft:niobium_oxide"
+  },
+  "processing_time": 140
+}

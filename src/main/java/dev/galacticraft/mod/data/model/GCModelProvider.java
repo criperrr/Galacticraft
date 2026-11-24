@@ -606,6 +606,39 @@ public class GCModelProvider extends FabricModelProvider {
                         .build()
         );
 
+        createActiveMachine(generator, GCBlocks.VACUUM_METALLURGIC_INFUSER,
+                TextureProvider.builder(Constant.MOD_ID)
+                        .sides("block/machine_side")
+                        .front("block/vacuum_metallurgic_infuser_active")
+                        .build(),
+                TextureProvider.builder(Constant.MOD_ID)
+                        .sides("block/machine_side")
+                        .front("block/vacuum_metallurgic_infuser")
+                        .build()
+        );
+
+        createActiveMachine(generator, GCBlocks.CHEMICAL_LEACHING_PLANT,
+                TextureProvider.builder(Constant.MOD_ID)
+                        .sides("block/machine_side")
+                        .front("block/chemical_leaching_plant_active")
+                        .build(),
+                TextureProvider.builder(Constant.MOD_ID)
+                        .sides("block/machine_side")
+                        .front("block/chemical_leaching_plant")
+                        .build()
+        );
+
+        createActiveMachine(generator, GCBlocks.COMPOSITE_AUTOCLAVE,
+                TextureProvider.builder(Constant.MOD_ID)
+                        .sides("block/machine_side")
+                        .front("block/composite_autoclave_active")
+                        .build(),
+                TextureProvider.builder(Constant.MOD_ID)
+                        .sides("block/machine_side")
+                        .front("block/composite_autoclave")
+                        .build()
+        );
+
         generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(GCBlocks.FUSION_REACTOR_CASING, Constant.id("block/fusion_reactor_casing")));
         generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(GCBlocks.FUSION_MAGNET_COIL, Constant.id("block/fusion_magnet_coil")));
         generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(GCBlocks.FUSION_PLASMA_GLASS, Constant.id("block/fusion_plasma_glass")));
@@ -893,6 +926,9 @@ public class GCModelProvider extends FabricModelProvider {
         generator.generateFlatItem(GCItems.NIOBIUM_NUGGET, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(GCItems.COMPRESSED_NIOBIUM, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(GCItems.SUPERCONDUCTING_COIL, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.CARBON_FIBER_PLATE, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.ABLATIVE_HEAT_TILE, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.SOFI_INSULATION, ModelTemplates.FLAT_ITEM);
 
         generator.generateFlatItem(GCItems.RAW_PALLADIUM, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(GCItems.PALLADIUM_INGOT, ModelTemplates.FLAT_ITEM);

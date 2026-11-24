@@ -59,6 +59,9 @@ public class GCBlockEntityTypes {
     public static final BlockEntityType<RegolithThermalDesorberBlockEntity> REGOLITH_THERMAL_DESORBER = register(Constant.Block.REGOLITH_THERMAL_DESORBER, RegolithThermalDesorberBlockEntity::new, GCBlocks.REGOLITH_THERMAL_DESORBER);
     public static final BlockEntityType<IsotopicCentrifugeBlockEntity> ISOTOPIC_CENTRIFUGE = register(Constant.Block.ISOTOPIC_CENTRIFUGE, IsotopicCentrifugeBlockEntity::new, GCBlocks.ISOTOPIC_CENTRIFUGE);
     public static final BlockEntityType<Helium3FusionReactorBlockEntity> HELIUM3_FUSION_REACTOR = register(Constant.Block.HELIUM3_FUSION_REACTOR, Helium3FusionReactorBlockEntity::new, GCBlocks.HELIUM3_FUSION_REACTOR);
+    public static final BlockEntityType<VacuumMetallurgicInfuserBlockEntity> VACUUM_METALLURGIC_INFUSER = register(Constant.Block.VACUUM_METALLURGIC_INFUSER, VacuumMetallurgicInfuserBlockEntity::new, GCBlocks.VACUUM_METALLURGIC_INFUSER);
+    public static final BlockEntityType<ChemicalLeachingPlantBlockEntity> CHEMICAL_LEACHING_PLANT = register(Constant.Block.CHEMICAL_LEACHING_PLANT, ChemicalLeachingPlantBlockEntity::new, GCBlocks.CHEMICAL_LEACHING_PLANT);
+    public static final BlockEntityType<CompositeAutoclaveBlockEntity> COMPOSITE_AUTOCLAVE = register(Constant.Block.COMPOSITE_AUTOCLAVE, CompositeAutoclaveBlockEntity::new, GCBlocks.COMPOSITE_AUTOCLAVE);
     public static final BlockEntityType<FoodCannerBlockEntity> FOOD_CANNER = register(Constant.Block.FOOD_CANNER, FoodCannerBlockEntity::new, GCBlocks.FOOD_CANNER);
 
     // OXYGEN MACHINES
