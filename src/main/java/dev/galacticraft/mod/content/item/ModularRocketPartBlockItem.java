@@ -409,9 +409,9 @@ public class ModularRocketPartBlockItem extends BlockItem {
             tooltip.add(Component.literal("Walkable Interior (Right-Click Hatch)").withStyle(ChatFormatting.GREEN));
         }
 
-        if (hasComposition) {
-            tooltip.add(buildConstructionLine(composition));
-            tooltip.add(Component.literal("\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500").withStyle(ChatFormatting.DARK_GRAY));
+        if (hasComposition && !shiftDown) {
+            appendWrappedConstructionLines(composition, tooltip);
+            tooltip.add(Component.literal("\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500").withStyle(ChatFormatting.DARK_GRAY));
         }
 
         // Dry Mass with % vs Base delta
@@ -445,7 +445,7 @@ public class ModularRocketPartBlockItem extends BlockItem {
         // Propellant Capacity with % delta
         if (stats.fuelCapacityDroplets() > 0L) {
             double buckets = stats.fuelCapacityDroplets() / DROPLETS_PER_BUCKET;
-            MutableComponent fuelLine = Component.literal("Propellant Capacity: ").withStyle(ChatFormatting.GRAY)
+            MutableComponent fuelLine = Component.literal("Propellant: ").withStyle(ChatFormatting.GRAY)
                     .append(Component.literal(String.format(Locale.ROOT, "%.1f B", buckets)).withStyle(ChatFormatting.YELLOW));
             if (hasComposition && baseStats.fuelCapacityDroplets() > 0L) {
                 int capPct = (int) Math.round(((double) (stats.fuelCapacityDroplets() - baseStats.fuelCapacityDroplets())
@@ -459,25 +459,25 @@ public class ModularRocketPartBlockItem extends BlockItem {
             tooltip.add(fuelLine);
         }
 
-        // Tolerance (K / atm) + Cryogenic Boil-Off
-        MutableComponent tolLine = Component.literal("Tolerance: ").withStyle(ChatFormatting.GRAY)
+        // Tolerance (K / atm) + separate compact Boil-Off line when relevant
+        tooltip.add(Component.literal("Tolerance: ").withStyle(ChatFormatting.GRAY)
                 .append(Component.literal(String.format(Locale.ROOT, "%,.0f K / %.1f atm",
-                        stats.thermalToleranceKelvin(), stats.pressureToleranceAtm())).withStyle(ChatFormatting.DARK_AQUA));
+                        stats.thermalToleranceKelvin(), stats.pressureToleranceAtm())).withStyle(ChatFormatting.DARK_AQUA)));
         if (hasComposition && (config.category() == RocketPartCategory.TANK || effectiveCost.boilOffMultiplier() < 0.999)) {
             double boilOff = effectiveCost.boilOffMultiplier();
-            tolLine.append(Component.literal(" | Boil-Off: ").withStyle(ChatFormatting.DARK_GRAY));
+            MutableComponent boilLine = Component.literal("Boil-Off: ").withStyle(ChatFormatting.GRAY);
             if (boilOff <= 0.001) {
-                tolLine.append(Component.literal("0.00x (Zero)").withStyle(ChatFormatting.AQUA));
+                boilLine.append(Component.literal("0.00x (Zero)").withStyle(ChatFormatting.AQUA));
             } else {
                 ChatFormatting boilColor = boilOff < 1.0 ? ChatFormatting.GREEN : ChatFormatting.WHITE;
-                tolLine.append(Component.literal(String.format(Locale.ROOT, "%.2fx", boilOff)).withStyle(boilColor));
+                boilLine.append(Component.literal(String.format(Locale.ROOT, "%.2fx", boilOff)).withStyle(boilColor));
             }
+            tooltip.add(boilLine);
         }
-        tooltip.add(tolLine);
 
         if (hasComposition && composition.hasTrait(RocketMaterialTrait.ANEUTRONIC_BOARD_REACTOR)) {
-            tooltip.add(Component.literal("Onboard Power: ").withStyle(ChatFormatting.GRAY)
-                    .append(Component.literal("+" + RocketPartCostCalculator.ANEUTRONIC_BOARD_REACTOR_GEN_PER_TICK + " GJ/t (Aneutronic D-3He)")
+            tooltip.add(Component.literal("Power: ").withStyle(ChatFormatting.GRAY)
+                    .append(Component.literal("+" + RocketPartCostCalculator.ANEUTRONIC_BOARD_REACTOR_GEN_PER_TICK + " GJ/t (D-3He)")
                             .withStyle(ChatFormatting.AQUA)));
         }
 
@@ -497,38 +497,34 @@ public class ModularRocketPartBlockItem extends BlockItem {
                             .withStyle(integrityColor)));
         }
 
-        // Engineering Traits list
+        // Engineering Traits list (compact badges; keeps tooltip cleanly inside screen vertically & horizontally)
         if (hasComposition) {
             List<RocketMaterialTrait> traits = composition.allTraits();
             if (!traits.isEmpty()) {
-                tooltip.add(Component.literal("\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500").withStyle(ChatFormatting.DARK_GRAY));
+                tooltip.add(Component.literal("\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500").withStyle(ChatFormatting.DARK_GRAY));
                 tooltip.add(Component.literal("Engineering Traits:").withStyle(ChatFormatting.GRAY));
-                Map<RocketMaterialTrait, String> traitSources = resolveTraitSources(composition);
                 for (RocketMaterialTrait trait : traits) {
-                    String sourceName = traitSources.getOrDefault(trait, "");
-                    MutableComponent line = Component.literal(" \u2726 [" + trait.displayName() + "]")
-                            .setStyle(Style.EMPTY.withColor(trait.rgbColor()));
-                    if (!sourceName.isEmpty()) {
-                        line.append(Component.literal(" (" + sourceName + ")").withStyle(ChatFormatting.DARK_GRAY));
-                    }
-                    line.append(Component.literal(": " + trait.description()).withStyle(ChatFormatting.GRAY));
-                    tooltip.add(line);
+                    tooltip.add(Component.literal(" \u2726 [" + trait.displayName() + "]")
+                            .setStyle(Style.EMPTY.withColor(trait.rgbColor())));
                 }
             }
 
             if (shiftDown) {
-                tooltip.add(Component.literal("\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500").withStyle(ChatFormatting.DARK_GRAY));
+                tooltip.add(Component.literal("\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500").withStyle(ChatFormatting.DARK_GRAY));
                 tooltip.add(Component.literal("Sub-Component Breakdown (" + composition.size() + " slots):").withStyle(ChatFormatting.AQUA));
                 List<SlotContribution> contributions = RocketPartCostCalculator.computeSlotContributions(config, composition);
                 for (SlotContribution c : contributions) {
                     String matName = resolveEntryDisplayName(c.profile(), c.itemId());
                     int matColor = c.profile() != null ? c.profile().rgbColor() : 0xCCCCCC;
-                    tooltip.add(Component.literal(" \u2022 " + c.roleLabel() + ": ").withStyle(ChatFormatting.GRAY)
-                            .append(Component.literal(matName).setStyle(Style.EMPTY.withColor(matColor))));
-                    Component contributionLine = formatSlotContributionDeltas(c);
-                    if (contributionLine != null) {
-                        tooltip.add(contributionLine);
+                    String headerPrefix = " \u2022 " + c.roleLabel() + ": ";
+                    if (headerPrefix.length() + matName.length() <= 46) {
+                        tooltip.add(Component.literal(headerPrefix).withStyle(ChatFormatting.GRAY)
+                                .append(Component.literal(matName).setStyle(Style.EMPTY.withColor(matColor))));
+                    } else {
+                        tooltip.add(Component.literal(" \u2022 " + c.roleLabel() + ":").withStyle(ChatFormatting.GRAY));
+                        tooltip.add(Component.literal("   " + matName).setStyle(Style.EMPTY.withColor(matColor)));
                     }
+                    appendSlotContributionLines(c, tooltip);
                 }
             } else {
                 tooltip.add(Component.literal("[Hold SHIFT to inspect " + composition.size() + " sub-components]")
@@ -537,8 +533,7 @@ public class ModularRocketPartBlockItem extends BlockItem {
         }
     }
 
-    private static Component buildConstructionLine(RocketPartComposition composition) {
-        MutableComponent line = Component.literal("Build: ").withStyle(ChatFormatting.GRAY);
+    private static void appendWrappedConstructionLines(RocketPartComposition composition, List<Component> tooltip) {
         Map<String, Integer> distinctMaterials = new LinkedHashMap<>();
         for (SlotMaterialEntry entry : composition.entries()) {
             RocketMaterialProfile profile = RocketMaterialRegistry.resolve(entry).orElse(null);
@@ -546,27 +541,28 @@ public class ModularRocketPartBlockItem extends BlockItem {
             int color = profile != null ? profile.rgbColor() : 0xCCCCCC;
             distinctMaterials.putIfAbsent(name, color);
         }
-        int idx = 0;
+        final int maxLineChars = 42;
+        MutableComponent currentLine = Component.literal("Build: ").withStyle(ChatFormatting.GRAY);
+        int currentLen = 7;
+        boolean firstOnLine = true;
         for (Map.Entry<String, Integer> entry : distinctMaterials.entrySet()) {
-            if (idx > 0) {
-                line.append(Component.literal(" \u2022 ").withStyle(ChatFormatting.DARK_GRAY));
+            String name = entry.getKey();
+            int extraLen = (firstOnLine ? 0 : 3) + name.length();
+            if (!firstOnLine && currentLen + extraLen > maxLineChars) {
+                tooltip.add(currentLine);
+                currentLine = Component.literal("  ");
+                currentLen = 2;
+                firstOnLine = true;
             }
-            line.append(Component.literal(entry.getKey()).setStyle(Style.EMPTY.withColor(entry.getValue())));
-            idx++;
-        }
-        return line;
-    }
-
-    private static Map<RocketMaterialTrait, String> resolveTraitSources(RocketPartComposition composition) {
-        Map<RocketMaterialTrait, String> sources = new LinkedHashMap<>();
-        for (SlotMaterialEntry entry : composition.entries()) {
-            RocketMaterialProfile profile = RocketMaterialRegistry.resolve(entry).orElse(null);
-            String name = resolveEntryDisplayName(profile, entry.itemId());
-            for (RocketMaterialTrait trait : entry.traits()) {
-                sources.putIfAbsent(trait, name);
+            if (!firstOnLine) {
+                currentLine.append(Component.literal(" \u2022 ").withStyle(ChatFormatting.DARK_GRAY));
+                currentLen += 3;
             }
+            currentLine.append(Component.literal(name).setStyle(Style.EMPTY.withColor(entry.getValue())));
+            currentLen += name.length();
+            firstOnLine = false;
         }
-        return sources;
+        tooltip.add(currentLine);
     }
 
     private static String resolveEntryDisplayName(@Nullable RocketMaterialProfile profile, net.minecraft.resources.ResourceLocation itemId) {
@@ -580,85 +576,70 @@ public class ModularRocketPartBlockItem extends BlockItem {
         return formatIdentifier(itemId.getPath());
     }
 
-    private static @Nullable Component formatSlotContributionDeltas(SlotContribution c) {
-        MutableComponent line = Component.literal("   ");
-        int parts = 0;
+    private static void appendSlotContributionLines(SlotContribution c, List<Component> tooltip) {
+        record DeltaToken(String text, ChatFormatting color) {
+        }
+        List<DeltaToken> tokens = new java.util.ArrayList<>(6);
 
         int massPct = (int) Math.round(c.massDeltaFraction() * 100.0);
         if (massPct != 0) {
-            ChatFormatting color = massPct < 0 ? ChatFormatting.GREEN : ChatFormatting.RED;
-            String sign = massPct > 0 ? "+" : "";
-            line.append(Component.literal(sign + massPct + "% Mass").withStyle(color));
-            parts++;
+            tokens.add(new DeltaToken((massPct > 0 ? "+" : "") + massPct + "% Mass", massPct < 0 ? ChatFormatting.GREEN : ChatFormatting.RED));
         }
-
         if (Math.abs(c.pressureDeltaAtm()) >= 0.1) {
-            if (parts > 0) {
-                line.append(Component.literal(" | ").withStyle(ChatFormatting.DARK_GRAY));
-            }
-            ChatFormatting color = c.pressureDeltaAtm() > 0 ? ChatFormatting.GREEN : ChatFormatting.RED;
             String sign = c.pressureDeltaAtm() > 0 ? "+" : "";
-            line.append(Component.literal(String.format(Locale.ROOT, "%s%.1f atm", sign, c.pressureDeltaAtm())).withStyle(color));
-            parts++;
+            tokens.add(new DeltaToken(String.format(Locale.ROOT, "%s%.1f atm", sign, c.pressureDeltaAtm()),
+                    c.pressureDeltaAtm() > 0 ? ChatFormatting.GREEN : ChatFormatting.RED));
         }
-
         int thermalK = (int) Math.round(c.thermalDeltaKelvin());
         if (thermalK != 0) {
-            if (parts > 0) {
-                line.append(Component.literal(" | ").withStyle(ChatFormatting.DARK_GRAY));
-            }
-            ChatFormatting color = thermalK > 0 ? ChatFormatting.GREEN : ChatFormatting.RED;
-            String sign = thermalK > 0 ? "+" : "";
-            line.append(Component.literal(sign + thermalK + " K").withStyle(color));
-            parts++;
+            tokens.add(new DeltaToken((thermalK > 0 ? "+" : "") + thermalK + " K", thermalK > 0 ? ChatFormatting.GREEN : ChatFormatting.RED));
         }
-
         int thrustPct = (int) Math.round(c.thrustDeltaFraction() * 100.0);
         if (thrustPct != 0) {
-            if (parts > 0) {
-                line.append(Component.literal(" | ").withStyle(ChatFormatting.DARK_GRAY));
-            }
-            ChatFormatting color = thrustPct > 0 ? ChatFormatting.GREEN : ChatFormatting.RED;
-            String sign = thrustPct > 0 ? "+" : "";
-            line.append(Component.literal(sign + thrustPct + "% Thrust").withStyle(color));
-            parts++;
+            tokens.add(new DeltaToken((thrustPct > 0 ? "+" : "") + thrustPct + "% Thrust", thrustPct > 0 ? ChatFormatting.GREEN : ChatFormatting.RED));
         }
-
         int capPct = (int) Math.round(c.capacityDeltaFraction() * 100.0);
         if (capPct != 0) {
-            if (parts > 0) {
-                line.append(Component.literal(" | ").withStyle(ChatFormatting.DARK_GRAY));
-            }
-            ChatFormatting color = capPct > 0 ? ChatFormatting.GREEN : ChatFormatting.RED;
-            String sign = capPct > 0 ? "+" : "";
-            line.append(Component.literal(sign + capPct + "% Cap").withStyle(color));
-            parts++;
+            tokens.add(new DeltaToken((capPct > 0 ? "+" : "") + capPct + "% Cap", capPct > 0 ? ChatFormatting.GREEN : ChatFormatting.RED));
         }
-
         if (c.boilOffFactor() < 0.999) {
-            if (parts > 0) {
-                line.append(Component.literal(" | ").withStyle(ChatFormatting.DARK_GRAY));
-            }
             if (c.boilOffFactor() <= 0.001) {
-                line.append(Component.literal("0% Boil-Off").withStyle(ChatFormatting.AQUA));
+                tokens.add(new DeltaToken("0% Boil-Off", ChatFormatting.AQUA));
             } else {
-                line.append(Component.literal(String.format(Locale.ROOT, "%.2fx Boil-Off", c.boilOffFactor())).withStyle(ChatFormatting.GREEN));
+                tokens.add(new DeltaToken(String.format(Locale.ROOT, "%.2fx Boil-Off", c.boilOffFactor()), ChatFormatting.GREEN));
             }
-            parts++;
         }
-
         int integPct = (int) Math.round(c.integrityDeltaFraction() * 100.0);
-        if (integPct != 0 && parts < 4) {
-            if (parts > 0) {
-                line.append(Component.literal(" | ").withStyle(ChatFormatting.DARK_GRAY));
-            }
-            ChatFormatting color = integPct > 0 ? ChatFormatting.GREEN : ChatFormatting.RED;
-            String sign = integPct > 0 ? "+" : "";
-            line.append(Component.literal(sign + integPct + "% Integrity").withStyle(color));
-            parts++;
+        if (integPct != 0 && tokens.size() < 4) {
+            tokens.add(new DeltaToken((integPct > 0 ? "+" : "") + integPct + "% Integ", integPct > 0 ? ChatFormatting.GREEN : ChatFormatting.RED));
         }
 
-        return parts > 0 ? line : Component.literal("   Baseline component").withStyle(ChatFormatting.DARK_GRAY);
+        if (tokens.isEmpty()) {
+            tooltip.add(Component.literal("   Baseline component").withStyle(ChatFormatting.DARK_GRAY));
+            return;
+        }
+
+        final int maxChars = 44;
+        MutableComponent line = Component.literal("   ");
+        int lineLen = 3;
+        boolean first = true;
+        for (DeltaToken token : tokens) {
+            int extra = (first ? 0 : 3) + token.text().length();
+            if (!first && lineLen + extra > maxChars) {
+                tooltip.add(line);
+                line = Component.literal("   ");
+                lineLen = 3;
+                first = true;
+            }
+            if (!first) {
+                line.append(Component.literal(" | ").withStyle(ChatFormatting.DARK_GRAY));
+                lineLen += 3;
+            }
+            line.append(Component.literal(token.text()).withStyle(token.color()));
+            lineLen += token.text().length();
+            first = false;
+        }
+        tooltip.add(line);
     }
 
     private static boolean isShiftKeyDown() {

@@ -22,13 +22,14 @@
 
 package dev.galacticraft.mod.content.item;
 
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.DyeColor;
 
 public class ParachuteItem extends AccessoryItem {
     private final DyeColor color;
 
     public ParachuteItem(DyeColor color, Properties properties) {
-        super(properties);
+        super(properties, SoundEvents.ARMOR_EQUIP_GENERIC, false);
         this.color = color;
     }
 

@@ -32,6 +32,7 @@ import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariantAttributes;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -59,6 +60,7 @@ public class FluidCanisterItem extends Item {
         FluidCanisterItem canisterItem = (FluidCanisterItem) item.asItem();
         ItemStack stack = new ItemStack(item);
         stack.set(FLUID_DATA, new FluidData(FluidVariant.of(fluid), canisterItem.capacity));
+        stack.set(DataComponents.MAX_STACK_SIZE, 1);
         return stack;
     }
 

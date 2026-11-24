@@ -253,6 +253,19 @@ public final class SchematicGridLayout {
         }
 
         /**
+         * Computes the required item count for {@code stack}, clamped to {@code stack}'s maximum
+         * stack size so lower-stacking aerospace hardware (e.g. 16-stack parachutes/canisters or
+         * 1-stack fusion cells/batteries) always remain craftable at every rocket diameter.
+         */
+        public int requiredCount(int multiplier, @Nullable ItemStack stack) {
+            int required = this.requiredCount(multiplier);
+            if (stack == null || stack.isEmpty()) {
+                return required;
+            }
+            return Math.min(required, Math.max(1, stack.getMaxStackSize()));
+        }
+
+        /**
          * Returns representative display {@link ItemStack}s for every accepted profile in order,
          * used to cycle ghost icons in empty active slots.
          */
@@ -404,12 +417,12 @@ public final class SchematicGridLayout {
             if (slot.isEmpty()) {
                 return false;
             }
-            int required = req.requiredCount(safeMultiplier);
-            if (slot.getAmount() < required) {
-                return false;
-            }
             ItemStack stack = ItemStackUtil.create(slot);
             if (!req.matches(stack)) {
+                return false;
+            }
+            int required = req.requiredCount(safeMultiplier, stack);
+            if (slot.getAmount() < required) {
                 return false;
             }
         }
@@ -482,8 +495,10 @@ public final class SchematicGridLayout {
             if (req == null) {
                 continue;
             }
-            int required = req.requiredCount(safeMultiplier);
-            gridStorage.slot(i).extract(required);
+            ItemResourceSlot slot = gridStorage.slot(i);
+            ItemStack stack = slot.isEmpty() ? ItemStack.EMPTY : ItemStackUtil.create(slot);
+            int required = req.requiredCount(safeMultiplier, stack);
+            slot.extract(required);
         }
     }
 

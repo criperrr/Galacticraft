@@ -556,11 +556,11 @@ public class PartAssemblerScreen extends MachineScreen<RocketWorkbenchBlockEntit
         }
         RocketPartConfig config = this.menu.be.getResolvedModularConfig();
         int multiplier = config != null ? RocketPartCostCalculator.calculate(config).slotItemMultiplier() : 1;
-        int required = req.requiredCount(multiplier);
         RocketMaterialProfile cycledProfile = this.cycleHintProfile(req);
         ItemStack hintStack = cycledProfile != null
                 ? RocketMaterialRegistry.createDisplayStack(cycledProfile)
                 : this.cycleHintStack(req);
+        int required = req.requiredCount(multiplier, hintStack);
         List<Component> lines = new ArrayList<>(6);
         lines.add(Component.literal(req.hudName()).withStyle(ChatFormatting.AQUA));
         lines.add(Component.literal(req.description()).withStyle(ChatFormatting.GRAY));
@@ -690,8 +690,8 @@ public class PartAssemblerScreen extends MachineScreen<RocketWorkbenchBlockEntit
             int cardX = lx + 4;
             int cardY = listTop + idx * (cardH + gap);
             int cardW = lw - 8;
-            int required = req.requiredCount(multiplier);
             ItemStack present = this.menu.be.itemStorage().getItem(RocketWorkbenchBlockEntity.INPUT_GRID_START + gridIndex);
+            int required = req.requiredCount(multiplier, present);
 
             boolean cardHovered = mouseIn(mouseX, mouseY, cardX, cardY, cardW, cardH);
             if (cardHovered) {
@@ -788,10 +788,10 @@ public class PartAssemblerScreen extends MachineScreen<RocketWorkbenchBlockEntit
             int sy = this.topPos + layout.slotY(i);
 
             SlotRequirement req = layout.requirement(i);
-            int required = req != null ? req.requiredCount(multiplier) : 1;
             ItemStack present = this.menu.be != null
                     ? this.menu.be.itemStorage().getItem(RocketWorkbenchBlockEntity.INPUT_GRID_START + i)
                     : ItemStack.EMPTY;
+            int required = req != null ? req.requiredCount(multiplier, present) : 1;
 
             int borderColor;
             if (present.isEmpty() || req == null) {
@@ -822,11 +822,12 @@ public class PartAssemblerScreen extends MachineScreen<RocketWorkbenchBlockEntit
             if (present.isEmpty()) {
                 ItemStack hint = this.cycleHintStack(req);
                 if (!hint.isEmpty()) {
+                    int hintRequired = req.requiredCount(multiplier, hint);
                     graphics.renderFakeItem(hint, sx, sy);
                     graphics.pose().pushPose();
                     graphics.pose().translate(0.0F, 0.0F, 200.0F);
                     graphics.fill(sx, sy, sx + 16, sy + 16, 0x800B192C);
-                    String countLabel = String.valueOf(required);
+                    String countLabel = String.valueOf(hintRequired);
                     graphics.drawString(
                             this.font,
                             countLabel,
@@ -1522,15 +1523,42 @@ public class PartAssemblerScreen extends MachineScreen<RocketWorkbenchBlockEntit
                 lines.add(Component.literal("Active Engineering Traits:").withStyle(ChatFormatting.GRAY));
                 for (RocketMaterialTrait trait : traits) {
                     lines.add(Component.literal(" \u2726 [" + trait.displayName() + "]")
-                            .setStyle(Style.EMPTY.withColor(trait.rgbColor()))
-                            .append(Component.literal(": " + trait.description()).withStyle(ChatFormatting.GRAY)));
+                            .setStyle(Style.EMPTY.withColor(trait.rgbColor())));
+                    appendWrappedTooltipLine(lines, "   ", trait.description(), 40, ChatFormatting.GRAY);
                 }
             }
         } else {
-            lines.add(Component.literal("Place materials in the grid to preview stats & traits")
+            lines.add(Component.literal("Place materials in the grid to preview stats")
                     .withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.ITALIC));
         }
         return lines;
+    }
+
+    private static void appendWrappedTooltipLine(
+            List<Component> lines,
+            String indent,
+            String text,
+            int maxWidthChars,
+            ChatFormatting color
+    ) {
+        if (text.isEmpty()) {
+            return;
+        }
+        String[] words = text.split(" ");
+        StringBuilder current = new StringBuilder();
+        for (String word : words) {
+            if (!current.isEmpty() && current.length() + 1 + word.length() > maxWidthChars) {
+                lines.add(Component.literal(indent + current).withStyle(color));
+                current.setLength(0);
+            }
+            if (!current.isEmpty()) {
+                current.append(' ');
+            }
+            current.append(word);
+        }
+        if (!current.isEmpty()) {
+            lines.add(Component.literal(indent + current).withStyle(color));
+        }
     }
 
     private static Component formatComparisonLine(
