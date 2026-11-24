@@ -42,7 +42,7 @@ public class AeroRefurbishmentBenchMenu extends MachineMenu<AeroRefurbishmentBen
     }
 
     public AeroRefurbishmentBenchMenu(int syncId, @NotNull Inventory inventory, @NotNull BlockPos pos) {
-        super(GCMenuTypes.AERO_REFURBISHMENT_BENCH, syncId, inventory, pos, 8, 110);
+        super(GCMenuTypes.AERO_REFURBISHMENT_BENCH, syncId, inventory, pos, 8, 122);
     }
 
     @Override

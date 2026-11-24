@@ -115,19 +115,19 @@ public class AeroRefurbishmentBenchBlockEntity extends MachineBlockEntity {
     private static final StorageSpec SPEC = StorageSpec.of(
             MachineItemStorage.spec(
                     ItemResourceSlot.builder(TransferType.TRANSFER)
-                            .pos(8, 74)
+                            .pos(8, 76)
                             .capacity(1)
                             .filter(ResourceFilters.CAN_EXTRACT_ENERGY)
                             .icon(Pair.of(InventoryMenu.BLOCK_ATLAS, Constant.SlotSprite.ENERGY)),
                     ItemResourceSlot.builder(TransferType.INPUT)
-                            .pos(44, 42)
+                            .pos(36, 26)
                             .capacity(1)
                             .filter((item, components) -> item instanceof ModularRocketPartBlockItem),
                     ItemResourceSlot.builder(TransferType.INPUT)
-                            .pos(78, 42)
+                            .pos(36, 76)
                             .filter((item, components) -> isValidBenchMaterial(item)),
                     ItemResourceSlot.builder(TransferType.OUTPUT)
-                            .pos(138, 42)
+                            .pos(142, 40)
                             .capacity(1)
             ),
             MachineEnergyStorage.spec(
