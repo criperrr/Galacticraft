@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "galacticraft:block/propellant_gas"
+    }
+  }
+}
