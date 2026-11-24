@@ -216,7 +216,7 @@ public final class ClientTelescopeController {
 
     /**
      * Routes mouse motion directly to the telescope's equatorial mount with smooth zoom scaling,
-     * keeping the player entity's head & body completely locked in place.
+     * keeping the player entity's head and body completely locked in place.
      */
     public static void onMouseTurn(double yawDelta, double pitchDelta) {
         if (!active) {
