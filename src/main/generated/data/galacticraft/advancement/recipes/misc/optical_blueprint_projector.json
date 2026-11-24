@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_olivine_shard": {
+      "conditions": {
+        "items": [
+          {
+            "items": "galacticraft:olivine_shard"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "galacticraft:optical_blueprint_projector"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_olivine_shard"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "galacticraft:optical_blueprint_projector"
+    ]
+  }
+}

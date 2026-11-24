@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "item": "galacticraft:vacuum_glass"
+    },
+    "S": {
+      "item": "galacticraft:compressed_steel"
+    },
+    "V": {
+      "item": "galacticraft:oxygen_vent"
+    },
+    "W": {
+      "item": "galacticraft:basic_wafer"
+    }
+  },
+  "pattern": [
+    "SGS",
+    "GVG",
+    "SWS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:environmental_test_chamber"
+  }
+}

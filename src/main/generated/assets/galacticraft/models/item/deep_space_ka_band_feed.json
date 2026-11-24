@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "galacticraft:item/deep_space_ka_band_feed"
+  }
+}

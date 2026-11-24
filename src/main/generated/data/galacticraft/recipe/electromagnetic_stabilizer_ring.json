@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "galacticraft:compressed_copper"
+    },
+    "S": {
+      "item": "galacticraft:compressed_steel"
+    }
+  },
+  "pattern": [
+    "CSC",
+    "S S",
+    "CSC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:electromagnetic_stabilizer_ring"
+  }
+}

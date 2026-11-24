@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "galacticraft:beam_core"
+    },
+    "O": {
+      "item": "galacticraft:olivine_glass"
+    },
+    "T": {
+      "item": "galacticraft:compressed_titanium"
+    },
+    "W": {
+      "item": "galacticraft:advanced_wafer"
+    }
+  },
+  "pattern": [
+    "TOT",
+    "OBO",
+    "TWT"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:zero_g_research_chamber"
+  }
+}

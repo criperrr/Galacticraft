@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "galacticraft:beam_core"
+    },
+    "D": {
+      "item": "galacticraft:lonsdaleite_gem"
+    },
+    "W": {
+      "item": "galacticraft:advanced_wafer"
+    }
+  },
+  "pattern": [
+    "DBD",
+    "BWB",
+    "DBD"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:laser_comm_transponder"
+  }
+}

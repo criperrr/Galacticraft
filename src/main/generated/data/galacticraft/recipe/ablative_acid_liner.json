@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "H": {
+      "item": "galacticraft:ablative_heat_tile"
+    },
+    "L": {
+      "item": "galacticraft:lead_ingot"
+    }
+  },
+  "pattern": [
+    "HLH",
+    "LHL",
+    "HLH"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:ablative_acid_liner"
+  }
+}

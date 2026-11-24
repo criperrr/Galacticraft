@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "galacticraft:low_noise_rf_amplifier"
+    },
+    "P": {
+      "item": "galacticraft:compressed_palladium"
+    },
+    "W": {
+      "item": "galacticraft:advanced_wafer"
+    }
+  },
+  "pattern": [
+    "PWP",
+    "PAP",
+    " P "
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:deep_space_ka_band_feed"
+  }
+}

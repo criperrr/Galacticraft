@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "galacticraft:sulfuric_acid_bucket"
+    },
+    "B": {
+      "item": "galacticraft:beam_core"
+    },
+    "D": {
+      "item": "galacticraft:raw_desh"
+    }
+  },
+  "pattern": [
+    "DBD",
+    "DAD",
+    "DBD"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:uv_excimer_laser"
+  }
+}

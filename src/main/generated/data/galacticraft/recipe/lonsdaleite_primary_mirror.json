@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": {
+      "item": "galacticraft:lonsdaleite_gem"
+    },
+    "M": {
+      "item": "galacticraft:sapphire_cassegrain_mirror"
+    },
+    "T": {
+      "item": "galacticraft:compressed_titanium"
+    }
+  },
+  "pattern": [
+    "TDT",
+    "DMD",
+    "TDT"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:lonsdaleite_primary_mirror"
+  }
+}

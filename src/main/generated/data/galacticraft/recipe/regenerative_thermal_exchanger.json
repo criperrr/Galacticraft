@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "galacticraft:compressed_bronze"
+    },
+    "C": {
+      "item": "galacticraft:ambient_thermal_controller"
+    },
+    "T": {
+      "item": "galacticraft:thermal_cloth"
+    }
+  },
+  "pattern": [
+    "BTB",
+    "TCT",
+    "BTB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:regenerative_thermal_exchanger"
+  }
+}

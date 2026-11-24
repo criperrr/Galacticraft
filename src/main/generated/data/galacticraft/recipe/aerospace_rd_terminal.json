@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "F": {
+      "item": "galacticraft:compressed_ferroniobium"
+    },
+    "G": {
+      "item": "minecraft:glass_pane"
+    },
+    "M": {
+      "item": "galacticraft:frequency_module"
+    },
+    "W": {
+      "item": "galacticraft:advanced_wafer"
+    }
+  },
+  "pattern": [
+    "FGF",
+    "MWM",
+    "FFF"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:aerospace_rd_terminal"
+  }
+}

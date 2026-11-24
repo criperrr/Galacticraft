@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_oxygen_fan": {
+      "conditions": {
+        "items": [
+          {
+            "items": "galacticraft:oxygen_fan"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "galacticraft:turbomolecular_vacuum_pump"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_oxygen_fan"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "galacticraft:turbomolecular_vacuum_pump"
+    ]
+  }
+}

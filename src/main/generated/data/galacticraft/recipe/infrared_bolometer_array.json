@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "galacticraft:ambient_thermal_controller"
+    },
+    "P": {
+      "item": "galacticraft:compressed_palladium"
+    },
+    "W": {
+      "item": "galacticraft:advanced_wafer"
+    }
+  },
+  "pattern": [
+    "PCP",
+    "CWC",
+    "PCP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:infrared_bolometer_array"
+  }
+}

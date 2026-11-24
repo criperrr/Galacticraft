@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "galacticraft:compressed_aluminum"
+    },
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "L": {
+      "item": "galacticraft:sensor_lens"
+    },
+    "W": {
+      "item": "galacticraft:basic_wafer"
+    }
+  },
+  "pattern": [
+    "ALA",
+    "AGA",
+    "AWA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:observatory_telescope"
+  }
+}

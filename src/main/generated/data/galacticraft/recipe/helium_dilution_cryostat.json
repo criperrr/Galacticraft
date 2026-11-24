@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "galacticraft:helium3_cell"
+    },
+    "H": {
+      "item": "galacticraft:liquid_hydrogen_bucket"
+    },
+    "I": {
+      "item": "galacticraft:superionic_ice_crystal"
+    }
+  },
+  "pattern": [
+    "ICI",
+    "IHI",
+    "ICI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:helium_dilution_cryostat"
+  }
+}

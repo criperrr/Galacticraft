@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "S": {
+      "item": "galacticraft:lunar_sapphire"
+    }
+  },
+  "pattern": [
+    " G ",
+    "GSG",
+    "GGG"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:diffraction_grating_prism"
+  }
+}

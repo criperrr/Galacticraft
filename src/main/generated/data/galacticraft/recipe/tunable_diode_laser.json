@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "galacticraft:compressed_copper"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "S": {
+      "item": "galacticraft:silicon"
+    }
+  },
+  "pattern": [
+    "CRC",
+    "CSC",
+    "CRC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:tunable_diode_laser"
+  }
+}

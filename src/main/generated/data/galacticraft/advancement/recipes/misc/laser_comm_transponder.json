@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_lonsdaleite_gem": {
+      "conditions": {
+        "items": [
+          {
+            "items": "galacticraft:lonsdaleite_gem"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "galacticraft:laser_comm_transponder"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_lonsdaleite_gem"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "galacticraft:laser_comm_transponder"
+    ]
+  }
+}

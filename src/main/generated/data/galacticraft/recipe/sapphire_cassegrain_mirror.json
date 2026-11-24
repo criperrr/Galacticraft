@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "L": {
+      "item": "galacticraft:optical_achromat_lens"
+    },
+    "M": {
+      "item": "galacticraft:compressed_meteoric_iron"
+    },
+    "S": {
+      "item": "galacticraft:lunar_sapphire"
+    }
+  },
+  "pattern": [
+    "MSM",
+    "SLS",
+    "MSM"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:sapphire_cassegrain_mirror"
+  }
+}

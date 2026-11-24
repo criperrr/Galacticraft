@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "galacticraft:compressed_aluminum"
+    },
+    "M": {
+      "item": "galacticraft:frequency_module"
+    },
+    "P": {
+      "item": "galacticraft:steel_pole"
+    },
+    "W": {
+      "item": "galacticraft:basic_wafer"
+    }
+  },
+  "pattern": [
+    " P ",
+    "AMA",
+    "AWA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:research_data_link"
+  }
+}

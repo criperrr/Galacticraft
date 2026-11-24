@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": {
+      "item": "galacticraft:compressed_desh"
+    },
+    "F": {
+      "item": "galacticraft:fluid_manipulator"
+    },
+    "L": {
+      "item": "galacticraft:lead_ingot"
+    }
+  },
+  "pattern": [
+    "LDL",
+    "DFD",
+    "LDL"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:hyperbaric_piston_manifold"
+  }
+}
