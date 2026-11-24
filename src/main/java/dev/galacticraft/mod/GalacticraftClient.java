@@ -201,6 +201,7 @@ public class GalacticraftClient implements ClientModInitializer {
         registerFeatureRenderers();
         GalacticraftRocketPartRenderers.register();
         GCKeyBinds.register();
+        dev.galacticraft.mod.client.gui.screen.manual.ManualTooltipAndKeyBridge.init();
 
 
 
@@ -404,6 +405,7 @@ public class GalacticraftClient implements ClientModInitializer {
         helper.registerReloadListener(PlatformModelLoader.INSTANCE);
         helper.registerReloadListener(RocketPartModelCache.INSTANCE);
         helper.registerReloadListener(AstroSkyEngine.INSTANCE);
+        helper.registerReloadListener(dev.galacticraft.mod.manual.ManualManager.INSTANCE.createClientReloader());
 
         GCModelLoader.registerModelType(UnbakedObjModel.TYPE);
 

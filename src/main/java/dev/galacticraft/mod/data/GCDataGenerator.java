@@ -131,6 +131,7 @@ public class GCDataGenerator implements DataGeneratorEntrypoint {
 
         pack.addProvider(GCOxygenBlockProvider::new);
         pack.addProvider(GCResearchTreeProvider::new);
+        pack.addProvider(GCManualProvider::new);
 
         // models
         pack.addProvider(GCModelProvider::new);

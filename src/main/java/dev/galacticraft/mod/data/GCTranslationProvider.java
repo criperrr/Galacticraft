@@ -82,6 +82,7 @@ public class GCTranslationProvider extends TranslationProvider {
         this.generateWailaTranslations();
         this.generateStatsTranslations();
         this.generateAdvancementsTranslations();
+        this.generateManualTranslations();
 
         // Tabs in the creative inventory
         this.add(ItemGroup.BLOCKS, "Galacticraft Blocks");
@@ -1382,6 +1383,7 @@ public class GCTranslationProvider extends TranslationProvider {
         this.add(Tooltip.FLUID_CANISTER_FLUID_INFO, "%s: %s");
         this.add(Tooltip.FLUID_CANISTER_LOX, "LOX");
         this.add(Tooltip.ATOMIC_BATTERY_OUTPUT, "Infinite Output: %s EU/t");
+        this.add("tooltip.galacticraft.open_aerospace_manual", "Press [%s] to open in Aerospace Manual");
     }
 
     protected void generateConfigTranslations() {
@@ -1734,6 +1736,219 @@ public class GCTranslationProvider extends TranslationProvider {
         this.advancement(Advancements.MOON_DUNGEON_KEY, "I Has the Key", "Kill the boss in the Moon Dungeon, and steal its key");
         this.advancement(Advancements.BUGGY_SCHEMATIC, "Glitchy Schematic", "Obtain a Moon Buggy Schematic");
         this.advancement(Advancements.BUGGY, "Buggy", "Weld a Moon Buggy together");
+    }
+
+    protected void generateManualTranslations() {
+        this.item(GCItems.AEROSPACE_MANUAL, "Aerospace Engineering Manual");
+        this.add("item.galacticraft.aerospace_manual.desc1", "Interactive progressive flight compendium & mission planner.");
+        this.add("item.galacticraft.aerospace_manual.desc2", "Right-click or press [G] to open. Unlocks entries as you research.");
+        this.add(Keybindings.OPEN_AEROSPACE_MANUAL, "Open Aerospace Manual");
+
+        this.add("manual.galacticraft.title", "Aerospace Engineering Manual");
+        this.add("manual.galacticraft.header", "AEROSPACE MANUAL  •  ERA %s");
+        this.add("manual.galacticraft.search", "Search");
+        this.add("manual.galacticraft.search_hint", "Search...");
+
+        this.add("manual.galacticraft.tab.mission", "Mission");
+        this.add("manual.galacticraft.tab.materials", "Materials");
+        this.add("manual.galacticraft.tab.machines", "Machines");
+        this.add("manual.galacticraft.tab.atlas", "Atlas");
+        this.add("manual.galacticraft.tab.lab_log", "Labs");
+        this.add("manual.galacticraft.tab.index", "Index");
+
+        this.add("manual.galacticraft.toast.unlocked_header", "New Compendium Entry");
+        this.add("manual.galacticraft.toast.open_hint", "Press [%s] to inspect");
+
+        this.add("manual.galacticraft.advisor.headline", "Mission Control — What's My Next Step? (Era %s)");
+        this.add("manual.galacticraft.advisor.complete", "All 55 Aerospace R&D technologies mastered! You command the Solar System.");
+
+        this.add("manual.galacticraft.locked.banner", "LOCKED HYPOTHESIS — RESEARCH REQUIRED");
+        this.add("manual.galacticraft.hint.default", "Build a Research Workbench and Aerospace R&D Terminal to begin unlocking Era 1 technologies.");
+        this.add("manual.galacticraft.hint.era1_rocketry", "Research Orbital RP-1 Launch Architecture at your Research Workbench after mapping the Moon.");
+        this.add("manual.galacticraft.hint.ferroniobium", "Prototype Raw Niobium and Aluminum at the Research Workbench to unlock Ferroniobium Aluminothermy.");
+        this.add("manual.galacticraft.hint.vacuum_sealing", "Run a pump-down vacuum trial inside an Environmental Test Chamber to certify airlocks and seals.");
+        this.add("manual.galacticraft.hint.early_solar", "Complete Base Industrial Prototyping and research Silicon Photovoltaics at the Research Workbench.");
+        this.add("manual.galacticraft.hint.lunar_deep_sky", "Place an Observatory Telescope on the Moon (natural vacuum) to map Mars, Venus, Mercury, and Asteroids.");
+        this.add("manual.galacticraft.hint.lunar_vacuum", "Operate an Environmental Test Chamber in natural vacuum (Moon) to unlock Vacuum Arc Metallurgy & C-103.");
+        this.add("manual.galacticraft.hint.lunar_electrolysis", "Analyze lunar polar Dense Ice in a Geological Analyzer to unlock Polar Ice Electrolysis & Cryogenics.");
+        this.add("manual.galacticraft.hint.martian_sabatier", "Build a Geological Analyzer on Mars (95% CO2) or launch an Atmospheric Spectrometer probe to unlock Sabatier ISRU.");
+        this.add("manual.galacticraft.hint.venus_leaching", "Analyze Venusian sulfuric acid chemistry in a hyperbaric lab (>=50 atm) to unlock Chemical Acid Leaching.");
+        this.add("manual.galacticraft.hint.venus_hyperbaric", "Run a live 92 atm hyperbaric trial in an Environmental Test Chamber on Venus to certify lead & T2 suits.");
+        this.add("manual.galacticraft.hint.helium3_fusion", "Research Aneutronic D-3He MHD Fusion in a 0.0G Research Chamber after mastering Mercurian Isotopes.");
+        this.add("manual.galacticraft.hint.outer_ephemeris", "Build an Observatory Telescope on Mars, Orbit, or Asteroids to chart Jupiter, Saturn, Uranus, and Neptune.");
+        this.add("manual.galacticraft.hint.outer_exotic", "Analyze Jovian Palladium and outer-system superionic crystals in situ to unlock Era 5-6 exotic alloys.");
+        this.add("manual.galacticraft.hint.moon_ephemeris", "Use an Observatory Telescope on Earth at night to lock Earth-Moon Orbital Ephemeris.");
+
+        this.add("manual.galacticraft.multiblock.drag_hint", "Drag to rotate 3D • Use [-][+][ALL] for layers");
+        this.add("manual.galacticraft.recipe.unavailable", "Recipe unavailable in current datapack: %s");
+        this.add("manual.galacticraft.sim.title", "Planetary Flight Viability Calculator (Live Physics)");
+        this.add("manual.galacticraft.atlas.surveyed", "SURVEYED");
+        this.add("manual.galacticraft.atlas.unmapped", "UNMAPPED (Use Telescope/Probe)");
+        this.add("manual.galacticraft.lablog.header", "In-Situ Laboratory Research Checklist by Location");
+        this.add("manual.galacticraft.index.header", "Global Compendium Index (%s entries)");
+        this.add("manual.galacticraft.index.no_results", "No matching entries found.");
+
+        // Entries & Pages
+        this.add("manual.galacticraft.entry.getting_started.title", "Agency Briefing & Era 1");
+        this.add("manual.galacticraft.entry.getting_started.h1", "Welcome to Galacticraft 5 Aerospace R&D");
+        this.add("manual.galacticraft.entry.getting_started.body1", "Your space program advances through 6 Eras across real planetary environments. Start on Earth with a Research Workbench, Coal Generator, Compressor, Circuit Fabricator, and Aerospace R&D Terminal. Every planet unlocks unique metallurgy, chemistry, and rocket materials.");
+        this.add("manual.galacticraft.entry.getting_started.tip1", "Tip: Hover any Galacticraft item in your inventory and press [G] to jump straight to its manual entry!");
+        this.add("manual.galacticraft.entry.getting_started.craft_manual", "Crafting the Aerospace Manual");
+        this.add("manual.galacticraft.entry.getting_started.craft_manual_cap", "Shapeless: Book + Raw Niobium (or Aluminum Ingot).");
+
+        this.add("manual.galacticraft.entry.lunar_checklist.title", "Lunar Pre-Launch Checklist");
+        this.add("manual.galacticraft.entry.lunar_checklist.h1", "Before Your First Moon Liftoff");
+        this.add("manual.galacticraft.entry.lunar_checklist.body1", "The Moon has 0.0 atm vacuum and 0.166G gravity. Without pressurized oxygen gear you will suffocate immediately, and without a Parachute you cannot survive Earth return re-entry.");
+        this.add("manual.galacticraft.entry.lunar_checklist.warn1", "Always pack return fuel and a Launch Pad + Fuel Loader when departing for a new world!");
+        this.add("manual.galacticraft.entry.lunar_checklist.check_title", "Moon Mission Live Inventory Check");
+
+        this.add("manual.galacticraft.entry.mars_checklist.title", "Mars Expedition Checklist");
+        this.add("manual.galacticraft.entry.mars_checklist.check_title", "Mars Mission Live Inventory Check");
+        this.add("manual.galacticraft.entry.venus_checklist.title", "Venus 92 atm Checklist");
+        this.add("manual.galacticraft.entry.venus_checklist.check_title", "Venus Hyperbaric Acid Check");
+
+        this.add("manual.galacticraft.check.oxygen_mask", "Oxygen Mask (GC Accessory)");
+        this.add("manual.galacticraft.check.oxygen_gear", "Oxygen Gear (GC Accessory)");
+        this.add("manual.galacticraft.check.oxygen_tank", "Pressurized Oxygen Tank");
+        this.add("manual.galacticraft.check.parachute", "Atmospheric Parachute");
+        this.add("manual.galacticraft.check.return_fuel", "Return Propellant (Fuel / Canister)");
+        this.add("manual.galacticraft.check.thermal_suit", "Thermal Padding T1+ Suit");
+        this.add("manual.galacticraft.check.isothermal_t2", "Isothermal Padding T2 Suit");
+        this.add("manual.galacticraft.check.lead_shielding", "Lead / Lonsdaleite Anti-Acid Hull");
+        this.add("manual.galacticraft.check.data_drive", "Blank Data Drive (Flight Telemetry)");
+
+        this.add("manual.galacticraft.entry.flight_simulator.title", "Flight Viability Simulator");
+        this.add("manual.galacticraft.entry.flight_simulator.h1", "Emergent Physics — No Artificial Tiers");
+        this.add("manual.galacticraft.entry.flight_simulator.body1", "Rockets are validated by true physics: Thrust-to-Weight (T/W > 1.0), Tsiolkovsky Delta-V, thermal survival (K), hyperbaric pressure (atm), sulfuric acid immunity, 1/r^2 solar power dropoff, and cryogenic boil-off.");
+        this.add("manual.galacticraft.entry.flight_simulator.info1", "Click any parameter below (Left-click next / Right-click previous) to simulate a flight before building!");
+        this.add("manual.galacticraft.entry.flight_simulator.calc_title", "Interactive Simulator");
+
+        this.add("manual.galacticraft.entry.early_alloys.title", "Era 1-2 Structural Alloys");
+        this.add("manual.galacticraft.entry.early_alloys.list_title", "Aluminum, Bronze, Steel, Ferroniobium & Meteoric Iron");
+        this.add("manual.galacticraft.entry.advanced_composites.title", "Era 3-4 Alloys & Composites");
+        this.add("manual.galacticraft.entry.advanced_composites.list_title", "Desh, Titanium, Lead, Carbon Fiber & Niobium C-103");
+        this.add("manual.galacticraft.entry.exotic_outer.title", "Era 5-6 Exotic Materials");
+        this.add("manual.galacticraft.entry.exotic_outer.list_title", "Palladium-Niobium, Mg-Li, Lonsdaleite & Superionic Ice");
+
+        this.add("manual.galacticraft.entry.launch_pad_3d.title", "3D: Launch Pad & Fueling");
+        this.add("manual.galacticraft.entry.launch_pad_3d.mb_title", "3x3 Rocket Launch Pad + Fuel Loader");
+        this.add("manual.galacticraft.entry.launch_pad_3d.caption", "Place a flat 3x3 pad; attach a Fuel Loader adjacent to the rim.");
+        this.add("manual.galacticraft.entry.launch_pad_3d.recipe", "Rocket Launch Pad Recipe");
+        this.add("manual.galacticraft.entry.launch_pad_3d.recipe_cap", "Crafts 9 pads — exact count for a 3x3 platform.");
+
+        this.add("manual.galacticraft.entry.airlock_3d.title", "3D: Pressurized Airlock");
+        this.add("manual.galacticraft.entry.airlock_3d.mb_title", "Sealed Airlock Frame & Controller");
+        this.add("manual.galacticraft.entry.airlock_3d.caption", "Closed rectangular ring of Airlock Frames with 1 Airlock Controller.");
+        this.add("manual.galacticraft.entry.airlock_3d.h1", "Hermetic Room Sealing");
+        this.add("manual.galacticraft.entry.airlock_3d.body1", "Pair Airlocks with Vacuum Glass and an Oxygen Sealer to maintain breathable pressure in vacuum or toxic atmospheres.");
+        this.add("manual.galacticraft.entry.airlock_3d.tip1", "Right-click the Airlock Controller to configure automatic player proximity opening.");
+
+        this.add("manual.galacticraft.entry.solar_panel_3d.title", "3D: Solar Power Array");
+        this.add("manual.galacticraft.entry.solar_panel_3d.mb_title", "Solar Panel + Aluminum Wire + Storage");
+        this.add("manual.galacticraft.entry.solar_panel_3d.caption", "Keep sky clear above the collector; output scales by 1/r^2 with heliocentric distance.");
+        this.add("manual.galacticraft.entry.solar_panel_3d.h1", "Inverse-Square Solar Dropoff (1/r^2)");
+        this.add("manual.galacticraft.entry.solar_panel_3d.body1", "Solar irradiance is 6.67x on Mercury and 1.0x on Earth/Moon, but drops to 0.43x on Mars and 0.037x on Jupiter.");
+        this.add("manual.galacticraft.entry.solar_panel_3d.warn1", "Beyond Mars, transition to Radioisotope RTGs, Atomic Batteries, or Helium-3 MHD Fusion!");
+
+        this.add("manual.galacticraft.entry.cryo_3d.title", "3D: Cryogenic Chamber");
+        this.add("manual.galacticraft.entry.cryo_3d.mb_title", "Cryogenic Chamber + Oxygen Modules");
+        this.add("manual.galacticraft.entry.cryo_3d.caption", "3-block tall stasis chamber allowing off-world sleep and fast-forwarding planetary nights.");
+
+        this.add("manual.galacticraft.entry.circuit_fabricator.title", "Circuit Fabricator");
+        this.add("manual.galacticraft.entry.circuit_fabricator.h1", "Silicon Wafer Photolithography");
+        this.add("manual.galacticraft.entry.circuit_fabricator.body1", "The Circuit Fabricator transforms Diamond, Raw Silicon, Redstone, and specialty catalysts into Basic, Advanced, and Solar Array Wafers required across all machines and avionics.");
+        this.add("manual.galacticraft.entry.circuit_fabricator.tip1", "Connect a Coal Generator or Basic Solar Panel via Aluminum Wire to keep fabrication continuous.");
+        this.add("manual.galacticraft.entry.circuit_fabricator.recipe", "Basic Wafer Fabrication");
+        this.add("manual.galacticraft.entry.circuit_fabricator.recipe_cap", "Used in Solar Panels, Oxygen Fans, Avionics, and Frequency Modules.");
+
+        this.add("manual.galacticraft.entry.niobium_chain.title", "Flow: Niobium Metallurgy");
+        this.add("manual.galacticraft.entry.niobium_chain.flow_title", "Pyrochlore Niobium -> Ferroniobium -> C-103 -> Nb3Sn");
+        this.add("manual.galacticraft.entry.niobium_chain.caption", "Earth pyrochlore feeds Era 1 HSLA Ferroniobium and scales up to Era 5 Nb3Sn superconducting coils.");
+        this.add("manual.galacticraft.entry.niobium_chain.infuser_title", "Vacuum Metallurgic Infusion");
+        this.add("manual.galacticraft.entry.niobium_chain.infuser_note", "Aluminothermic reduction yields high-strength aerospace Ferroniobium.");
+        this.add("manual.galacticraft.flow.nb.s1", "1. Mine Raw Niobium (Pyrochlore)");
+        this.add("manual.galacticraft.flow.nb.d1", "Found deep in Overworld (Y -56..16) and outer planets.");
+        this.add("manual.galacticraft.flow.nb.s2", "2. Roast to Niobium Oxide (Nb2O5)");
+        this.add("manual.galacticraft.flow.nb.d2", "Smelt or leach with H2SO4 on Venus for 3x oxide yield.");
+        this.add("manual.galacticraft.flow.nb.s3", "3. Aluminothermy -> Ferroniobium");
+        this.add("manual.galacticraft.flow.nb.d3", "Combine with Aluminum for Era 1 HSLA aerospace hulls.");
+        this.add("manual.galacticraft.flow.nb.s4", "4. Vacuum Arc -> Pure Niobium & C-103");
+        this.add("manual.galacticraft.flow.nb.d4", "Electric Arc Furnace unlocks +1400K refractory nozzles.");
+        this.add("manual.galacticraft.flow.nb.s5", "5. 0G Coiling -> Nb3Sn Superconductor");
+        this.add("manual.galacticraft.flow.nb.d5", "Powers Telepads, Fusion Confinement, and Magnetoplasma.");
+
+        this.add("manual.galacticraft.entry.sabatier_chain.title", "Flow: Martian Sabatier ISRU");
+        this.add("manual.galacticraft.entry.sabatier_chain.flow_title", "CO2 + 4H2 -> CH4 (Liquid Methane) + 2H2O");
+        this.add("manual.galacticraft.entry.sabatier_chain.caption", "Refuel Methalox Raptor/BE-4 rockets directly from Martian air and subsurface ice.");
+        this.add("manual.galacticraft.entry.sabatier_chain.reactor_title", "Sabatier Chemical Reactor");
+        this.add("manual.galacticraft.entry.sabatier_chain.reactor_note", "Requires Martian CO2 intake + Liquid Hydrogen from Electrolytic Separator.");
+        this.add("manual.galacticraft.flow.sab.s1", "1. Capture 95.3% CO2 on Mars");
+        this.add("manual.galacticraft.flow.sab.d1", "Atmospheric Fractionator condenses thin Martian air.");
+        this.add("manual.galacticraft.flow.sab.s2", "2. Electrolyze Ice into LOX + LH2");
+        this.add("manual.galacticraft.flow.sab.d2", "Electrolytic Separator splits water/ice into oxidizer & H2.");
+        this.add("manual.galacticraft.flow.sab.s3", "3. Catalyze Sabatier Reaction");
+        this.add("manual.galacticraft.flow.sab.d3", "Exothermic synthesis outputs Methane + recycled water.");
+        this.add("manual.galacticraft.flow.sab.s4", "4. Load Methalox Return Rocket");
+        this.add("manual.galacticraft.flow.sab.d4", "High Isp propellant for Asteroid Belt & beyond.");
+
+        this.add("manual.galacticraft.entry.acid_leaching.title", "Flow: Venus Acid Leaching");
+        this.add("manual.galacticraft.entry.acid_leaching.flow_title", "H2SO4 Ore Tripling Chemistry");
+        this.add("manual.galacticraft.entry.acid_leaching.caption", "Harvest Venusian sulfuric acid to multiply Niobium and Titanium output.");
+        this.add("manual.galacticraft.flow.acid.s1", "1. Pump Venusian Sulfuric Acid");
+        this.add("manual.galacticraft.flow.acid.d1", "Requires Lead-lined tanks and T2 Isothermal suit.");
+        this.add("manual.galacticraft.flow.acid.s2", "2. Chemical Leaching Plant");
+        this.add("manual.galacticraft.flow.acid.d2", "Dissolves refractory gangue rock under heat.");
+        this.add("manual.galacticraft.flow.acid.s3", "3. 3x Oxide & Purified Metals");
+        this.add("manual.galacticraft.flow.acid.d3", "Feeds large-scale 5x5-11x11 fleet construction.");
+
+        this.add("manual.galacticraft.entry.helium3_fusion.title", "Flow: Helium-3 MHD Fusion");
+        this.add("manual.galacticraft.entry.helium3_fusion.flow_title", "Regolith -> 3He Isotope -> Aneutronic MHD Power");
+        this.add("manual.galacticraft.entry.helium3_fusion.caption", "Clean 2,500-5,000 GJ/t power and sub-2K zero-boiloff superfluid cryogenics.");
+        this.add("manual.galacticraft.flow.he3.s1", "1. Thermal Desorb Lunar/Mercurian Regolith");
+        this.add("manual.galacticraft.flow.he3.d1", "Heats ilmenite >700C to liberate Solar Volatile Gas.");
+        this.add("manual.galacticraft.flow.he3.s2", "2. Isotopic Centrifuge Enrichment");
+        this.add("manual.galacticraft.flow.he3.d2", "Separates pure Helium-3 using Nb3Sn magnets.");
+        this.add("manual.galacticraft.flow.he3.s3", "3. Pressurize Helium-3 Fusion Cells");
+        this.add("manual.galacticraft.flow.he3.d3", "Pair with Deuterium for D-3He fuel & <2K cryo tanks.");
+        this.add("manual.galacticraft.flow.he3.s4", "4. Ignite 3x3x3 MHD Fusion Reactor");
+        this.add("manual.galacticraft.flow.he3.d4", "Powers outer-system megabases & Direct Fusion Drives.");
+
+        // Atlas sheets (10 bodies)
+        this.add("manual.galacticraft.atlas.earth.title", "Earth (Overworld)");
+        this.add("manual.galacticraft.atlas.earth.hazards", "Nominal 1.0G / 1.0 atm breathable N2-O2. Deep pyrochlore Niobium veins.");
+        this.add("manual.galacticraft.atlas.moon.title", "The Moon");
+        this.add("manual.galacticraft.atlas.moon.hazards", "Vacuum (0 atm), 0.166G, meteor falls. Rich in Ilmenite (3He), Sapphire, Olivine.");
+        this.add("manual.galacticraft.atlas.mars.title", "Mars");
+        this.add("manual.galacticraft.atlas.mars.hazards", "95.3% CO2 (0.006 atm), 0.38G, cold nights (-100C). Native Desh & Sabatier ISRU.");
+        this.add("manual.galacticraft.atlas.asteroids.title", "Asteroid Belt");
+        this.add("manual.galacticraft.atlas.asteroids.hazards", "0.0G microgravity, vacuum, -180C natural cryo. Peak Ilmenite Titanium & Dense Ice.");
+        this.add("manual.galacticraft.atlas.mercury.title", "Mercury");
+        this.add("manual.galacticraft.atlas.mercury.hazards", "6.67x solar flux, +430C day / -180C night, radiation. Sulfide Thorium & 3x 3He.");
+        this.add("manual.galacticraft.atlas.venus.title", "Venus");
+        this.add("manual.galacticraft.atlas.venus.hazards", "CRITICAL: 92.0 atm crushing pressure, +462C, H2SO4 acid rain. Lead & Solar Ore.");
+        this.add("manual.galacticraft.atlas.jupiter.title", "Jupiter");
+        this.add("manual.galacticraft.atlas.jupiter.hazards", "CRITICAL: 2.36G gravity, 12 atm, intense radiation, 0.037x solar. Palladium & Metallic H2.");
+        this.add("manual.galacticraft.atlas.saturn.title", "Saturn");
+        this.add("manual.galacticraft.atlas.saturn.hazards", "0.92G, 8.5 atm, cryogenic rings, 0.011x solar. Magnesium-Lithium & 3.5x Helium-3.");
+        this.add("manual.galacticraft.atlas.uranus.title", "Uranus");
+        this.add("manual.galacticraft.atlas.uranus.hazards", "Abyssal cold (49K / -224C), diamond hail, 0.003x solar. Uranium & Lonsdaleite.");
+        this.add("manual.galacticraft.atlas.neptune.title", "Neptune");
+        this.add("manual.galacticraft.atlas.neptune.hazards", "Supersonic winds, 58K cryo, 0.001x solar. Superionic Ice Crystals & Xenon.");
+
+        this.add("manual.galacticraft.entry.in_situ_labs.title", "In-Situ Laboratory Guide");
+        this.add("manual.galacticraft.entry.in_situ_labs.h1", "Research Where the Physics Happen");
+        this.add("manual.galacticraft.entry.in_situ_labs.body1", "Instead of grinding rockets blindly, build specialized laboratories on each world: Observatory Telescopes in vacuum, Geological Analyzers on planetary crusts, Environmental Chambers in 92 atm Venus, and Zero-G Chambers in orbit.");
+        this.add("manual.galacticraft.entry.in_situ_labs.info1", "Use the location filter above to see every research node available at your current outpost!");
+
+        this.add("manual.galacticraft.entry.flight_telemetry.title", "Flight Telemetry & Probes");
+        this.add("manual.galacticraft.entry.flight_telemetry.h1", "8 Science Payload Modules & Data Drives");
+        this.add("manual.galacticraft.entry.flight_telemetry.body1", "Load Blank Data Drives into science_* payload modules before launch. Flight Recorders earn +200% disaster data on thermal failure; Atmospheric Spectrometers sample gas composition remotely; Multispectral Cameras generate Orbital Survey Maps.");
+        this.add("manual.galacticraft.entry.flight_telemetry.tip1", "Process Recorded Data Drives in a Telemetry Analyzer to feed SP & Domain points into your R&D Terminal.");
+
+        this.add("manual.galacticraft.entry.recipe_index.title", "Global Search & EMI/REI");
+        this.add("manual.galacticraft.entry.recipe_index.h1", "Cross-Linked Aerospace Index");
+        this.add("manual.galacticraft.entry.recipe_index.body1", "Type in the top-right search bar to filter every chapter, machine, alloy, and planet instantaneously (accent-insensitive). Click any item icon anywhere in the manual to jump to its chapter, or use the EMI/REI button to inspect full crafting trees.");
+        this.add("manual.galacticraft.entry.recipe_index.tip1", "Press [Shift + G] in-game to collapse or expand your Pinned Mission HUD card.");
     }
 
     protected void decorationSet(DecorationSet decoSet, String translation) {

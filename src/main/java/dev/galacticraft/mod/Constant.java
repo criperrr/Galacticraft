@@ -871,6 +871,7 @@ public interface Constant {
         String RECORDED_DATA_DRIVE = "recorded_data_drive";
         String BLANK_SCHEMATIC_DISC = "blank_schematic_disc";
         String ORBITAL_SURVEY_MAP = "orbital_survey_map";
+        String AEROSPACE_MANUAL = "aerospace_manual";
     }
 
     interface Particle {
@@ -1839,6 +1840,7 @@ public interface Constant {
         String SERVER_PLAYER = "server_player";
         String CLIENT_PLAYER = "client_player";
         String MULTIBLOCK_LINKS = "multiblock_links";
+        String MANUAL_READER = "manual_reader";
     }
 
     interface Teleporters {

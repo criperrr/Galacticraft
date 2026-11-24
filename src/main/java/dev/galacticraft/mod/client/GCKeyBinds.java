@@ -22,20 +22,30 @@
 
 package dev.galacticraft.mod.client;
 
+import dev.galacticraft.mod.attachments.GCAttachments;
+import dev.galacticraft.mod.attachments.ManualReaderAttachment;
 import dev.galacticraft.mod.client.gui.screen.ingame.CelestialSelectionScreen;
+import dev.galacticraft.mod.client.gui.screen.manual.AerospaceManualScreen;
+import dev.galacticraft.mod.client.gui.screen.manual.ResearchUnlockToast;
+import dev.galacticraft.mod.network.c2s.UpdateManualStatePayload;
 import dev.galacticraft.mod.util.Translations;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
 import org.lwjgl.glfw.GLFW;
 
+@SuppressWarnings("UnstableApiUsage")
 public class GCKeyBinds {
     public static final KeyMapping OPEN_CELESTIAL_SCREEN = new KeyMapping(Translations.Keybindings.OPEN_CELESTIAL_SCREEN, GLFW.GLFW_KEY_M, KeyMapping.CATEGORY_MISC);
     public static final KeyMapping OPEN_ROCKET_INVENTORY = new KeyMapping(Translations.Keybindings.ROCKET_INVENTORY, GLFW.GLFW_KEY_F, KeyMapping.CATEGORY_INVENTORY);
+    public static final KeyMapping OPEN_AEROSPACE_MANUAL = new KeyMapping(Translations.Keybindings.OPEN_AEROSPACE_MANUAL, GLFW.GLFW_KEY_G, KeyMapping.CATEGORY_MISC);
 
     public static void register() {
         KeyBindingHelper.registerKeyBinding(OPEN_CELESTIAL_SCREEN);
         KeyBindingHelper.registerKeyBinding(OPEN_ROCKET_INVENTORY);
+        KeyBindingHelper.registerKeyBinding(OPEN_AEROSPACE_MANUAL);
     }
 
     public static void handleKeybinds(Minecraft client) {
@@ -43,6 +53,17 @@ public class GCKeyBinds {
             if (client.screen == null) {
                 while (OPEN_CELESTIAL_SCREEN.consumeClick()) {
                     client.setScreen(new CelestialSelectionScreen(true, null, false, null, null));
+                }
+                while (OPEN_AEROSPACE_MANUAL.consumeClick()) {
+                    if (Screen.hasShiftDown()) {
+                        ManualReaderAttachment current = client.player.getAttached(GCAttachments.MANUAL_READER);
+                        if (current != null && current.pinnedMission().isPresent()) {
+                            client.player.setAttached(GCAttachments.MANUAL_READER, current.withPinCollapsedToggled());
+                            ClientPlayNetworking.send(UpdateManualStatePayload.togglePinCollapse());
+                        }
+                    } else {
+                        client.setScreen(new AerospaceManualScreen(ResearchUnlockToast.consumeRecentUnlockedEntry()));
+                    }
                 }
             }
         }

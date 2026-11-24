@@ -51,6 +51,7 @@ public class GCServerPacketReceivers {
         registerPacket(ResearchTerminalActionPayload.TYPE);
         registerPacket(ResearchMachineActionPayload.TYPE);
         registerPacket(ObservatoryCapturePayload.TYPE);
+        registerPacket(UpdateManualStatePayload.TYPE);
     }
 
     public static <P extends C2SPayload> void registerPacket(CustomPacketPayload.Type<P> type) {

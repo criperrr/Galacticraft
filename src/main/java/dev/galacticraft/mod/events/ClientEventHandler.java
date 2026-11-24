@@ -65,6 +65,7 @@ public class ClientEventHandler {
         HudRenderCallback.EVENT.register(RocketOverlay::onHudRender);
         HudRenderCallback.EVENT.register(LanderOverlay::onRenderHud);
         HudRenderCallback.EVENT.register(CountdownOverlay::renderCountdown);
+        HudRenderCallback.EVENT.register(dev.galacticraft.mod.client.gui.screen.manual.PinnedMissionHudOverlay::onHudRender);
     }
 
     public static void rocketLaunchSound(Rocket rocket, LaunchStage oldStage) {

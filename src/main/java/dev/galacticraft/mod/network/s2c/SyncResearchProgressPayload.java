@@ -204,7 +204,7 @@ public record SyncResearchProgressPayload(
     @Override
     public Runnable handle(ClientPlayNetworking.@NotNull Context context) {
         return () -> {
-            ClientResearchCache.applySnapshot(
+            List<ResourceLocation> newlyUnlocked = ClientResearchCache.applySnapshot(
                     this.sciencePoints,
                     this.totalScienceEarned,
                     this.quantumArchiveBoost,
@@ -225,6 +225,9 @@ public record SyncResearchProgressPayload(
                         ClientResearchCache.domainPointsById(),
                         new LinkedHashSet<>(this.mappedBodies)
                 );
+            }
+            if (!newlyUnlocked.isEmpty()) {
+                dev.galacticraft.mod.manual.ManualClientBridge.onResearchNodesUnlocked(newlyUnlocked);
             }
         };
     }
