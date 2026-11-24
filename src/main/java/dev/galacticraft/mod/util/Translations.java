@@ -76,6 +76,9 @@ public interface Translations {
         String ELECTRIC_ARC_FURNACE = PREFIX + "blasting.electric";
         String CANNING = PREFIX + "canning";
         String ROCKET_WORKBENCH = PREFIX + "rocket";
+        String METALLURGIC_INFUSING = PREFIX + "metallurgic_infusing";
+        String CHEMICAL_LEACHING = PREFIX + "chemical_leaching";
+        String COMPOSITE_AUTOCLAVE = PREFIX + "composite_autoclave";
 
         String REI_TIME = "category.rei.campfire.time";
         String REI_TIME_AND_XP = "category.rei.cooking.time&xp";
@@ -428,6 +431,12 @@ public interface Translations {
         String SPINNING_UP = "ui.galacticraft.status.spinning_up";
         String IGNITING_PLASMA = "ui.galacticraft.status.igniting_plasma";
         String EVACUATING_CHAMBER = "ui.galacticraft.status.evacuating_chamber";
+        String INFUSING = "ui.galacticraft.status.infusing";
+        String MISSING_INFUSION_AGENT = "ui.galacticraft.status.missing_infusion_agent";
+        String LEACHING = "ui.galacticraft.status.leaching";
+        String MISSING_LEACHING_FLUID = "ui.galacticraft.status.missing_leaching_fluid";
+        String PRESSURIZING = "ui.galacticraft.status.pressurizing";
+        String CURING = "ui.galacticraft.status.curing";
     }
 
     interface CelestialSelection {

@@ -374,8 +374,8 @@ public final class RocketMaterialRegistry {
                 .trait(RocketMaterialTrait.ACID_RADIATION_SHIELD)
                 .build());
 
-        registerStructural(structural, all, RocketMaterialProfile.builder(Constant.id("carbon_composite"), "Carbon Composite")
-                .item(GCItems.CARBON_FRAGMENTS)
+        registerStructural(structural, all, RocketMaterialProfile.builder(Constant.id("carbon_composite"), "Carbon Fiber Composite")
+                .items(GCItems.CARBON_FIBER_PLATE, GCItems.CARBON_FRAGMENTS)
                 .roles(ALL_STRUCTURAL_ROLES)
                 .roles(SlotRole.TANK_PROPELLANT_CELL, SlotRole.ENGINE_TURBOPUMP)
                 .massModifier(-0.60)
@@ -546,6 +546,17 @@ public final class RocketMaterialRegistry {
                 .pressureMultiplier(1.35)
                 .integrityMultiplier(1.45)
                 .color(0x8FBC5A)
+                .trait(RocketMaterialTrait.ABLATIVE_TPS)
+                .build());
+
+        all.add(RocketMaterialProfile.builder(Constant.id("ablative_heat_tile_tps"), "Autoclaved Ablative Heat Tile")
+                .item(GCItems.ABLATIVE_HEAT_TILE)
+                .roles(SlotRole.COMMAND_NOSE_RECOVERY, SlotRole.ENGINE_NOZZLE_THROAT, SlotRole.ADAPTER_BASE_RING)
+                .massModifier(0.04)
+                .thermalBonusKelvin(1600.0)
+                .pressureMultiplier(1.65)
+                .integrityMultiplier(1.70)
+                .color(0x7CB342)
                 .trait(RocketMaterialTrait.ABLATIVE_TPS)
                 .build());
 
@@ -779,6 +790,18 @@ public final class RocketMaterialRegistry {
                 .integrityMultiplier(1.20)
                 .boilOffMultiplier(0.15)
                 .color(0xE68A3E)
+                .trait(RocketMaterialTrait.SOFI_INSULATION)
+                .build());
+
+        all.add(RocketMaterialProfile.builder(Constant.id("sofi_cryogenic_insulation"), "Autoclaved SOFI Cryo Foam")
+                .item(GCItems.SOFI_INSULATION)
+                .roles(SlotRole.TANK_PROPELLANT_CELL, SlotRole.UTILITY_ACTUATOR)
+                .massModifier(-0.14)
+                .thermalBonusKelvin(650.0)
+                .pressureMultiplier(1.35)
+                .integrityMultiplier(1.35)
+                .boilOffMultiplier(0.05)
+                .color(0xF07D26)
                 .trait(RocketMaterialTrait.SOFI_INSULATION)
                 .build());
 

@@ -44,9 +44,12 @@ import dev.galacticraft.mod.content.item.CannedFoodItem;
 import dev.galacticraft.mod.content.item.EmergencyKitItem;
 import dev.galacticraft.mod.content.item.GCItems;
 import dev.galacticraft.mod.content.item.ParachuteItem;
+import dev.galacticraft.mod.recipe.ChemicalLeachingRecipe;
+import dev.galacticraft.mod.recipe.CompositeAutoclaveRecipe;
 import dev.galacticraft.mod.recipe.CompressingRecipe;
 import dev.galacticraft.mod.recipe.FabricationRecipe;
 import dev.galacticraft.mod.recipe.GCRecipes;
+import dev.galacticraft.mod.recipe.MetallurgicInfusingRecipe;
 import dev.galacticraft.mod.recipe.RocketRecipe;
 import dev.galacticraft.mod.screen.GCMenuTypes;
 import dev.galacticraft.mod.tag.GCItemTags;
@@ -76,6 +79,9 @@ public class GalacticraftEmiPlugin implements EmiPlugin {
     public static final EmiStack ELECTRIC_ARC_FURNACE = EmiStack.of(GCBlocks.ELECTRIC_ARC_FURNACE);
     public static final EmiStack FOOD_CANNER = EmiStack.of(GCBlocks.FOOD_CANNER);
     public static final EmiStack ROCKET_WORKBENCH = EmiStack.of(GCBlocks.ROCKET_WORKBENCH);
+    public static final EmiStack VACUUM_METALLURGIC_INFUSER = EmiStack.of(GCBlocks.VACUUM_METALLURGIC_INFUSER);
+    public static final EmiStack CHEMICAL_LEACHING_PLANT = EmiStack.of(GCBlocks.CHEMICAL_LEACHING_PLANT);
+    public static final EmiStack COMPOSITE_AUTOCLAVE = EmiStack.of(GCBlocks.COMPOSITE_AUTOCLAVE);
 
     // Simplified Icons
     public static final EmiRenderable FABRICATION_ICON = new EmiTexture(SIMPLIFIED_ICONS, 0, 16, 16, 16, 16, 16, 64, 64);
@@ -94,6 +100,9 @@ public class GalacticraftEmiPlugin implements EmiPlugin {
     public static final EmiRecipeCategory ELECTRIC_BLASTING = new GalacticraftEmiRecipeCategory(Constant.id(Constant.Recipe.ELECTRIC_BLASTING), ELECTRIC_ARC_FURNACE, ELECTRIC_BLASTING_ICON, RecipeCategory.ELECTRIC_ARC_FURNACE);
     public static final EmiRecipeCategory CANNING = new GalacticraftEmiRecipeCategory(Constant.id(Constant.Recipe.CANNING), FOOD_CANNER, CANNING_ICON);
     public static final EmiRecipeCategory ROCKET = new GalacticraftEmiRecipeCategory(Constant.id(Constant.Recipe.ROCKET), ROCKET_WORKBENCH, ROCKET_ICON);
+    public static final EmiRecipeCategory METALLURGIC_INFUSING = new GalacticraftEmiRecipeCategory(Constant.id(Constant.Recipe.METALLURGIC_INFUSING), VACUUM_METALLURGIC_INFUSER, RecipeCategory.METALLURGIC_INFUSING);
+    public static final EmiRecipeCategory CHEMICAL_LEACHING = new GalacticraftEmiRecipeCategory(Constant.id(Constant.Recipe.CHEMICAL_LEACHING), CHEMICAL_LEACHING_PLANT, RecipeCategory.CHEMICAL_LEACHING);
+    public static final EmiRecipeCategory COMPOSITE_AUTOCLAVE_CATEGORY = new GalacticraftEmiRecipeCategory(Constant.id(Constant.Recipe.COMPOSITE_AUTOCLAVE), COMPOSITE_AUTOCLAVE, RecipeCategory.COMPOSITE_AUTOCLAVE);
 
     @Override
     public void register(EmiRegistry registry) {
@@ -104,6 +113,9 @@ public class GalacticraftEmiPlugin implements EmiPlugin {
         registry.addCategory(ELECTRIC_BLASTING);
         registry.addCategory(CANNING);
         registry.addCategory(ROCKET);
+        registry.addCategory(METALLURGIC_INFUSING);
+        registry.addCategory(CHEMICAL_LEACHING);
+        registry.addCategory(COMPOSITE_AUTOCLAVE_CATEGORY);
 
         registry.addWorkstation(FABRICATION, CIRCUIT_FABRICATOR);
         registry.addWorkstation(COMPRESSING, COMPRESSOR);
@@ -112,6 +124,9 @@ public class GalacticraftEmiPlugin implements EmiPlugin {
         registry.addWorkstation(ELECTRIC_BLASTING, ELECTRIC_ARC_FURNACE);
         registry.addWorkstation(CANNING, FOOD_CANNER);
         registry.addWorkstation(ROCKET, ROCKET_WORKBENCH);
+        registry.addWorkstation(METALLURGIC_INFUSING, VACUUM_METALLURGIC_INFUSER);
+        registry.addWorkstation(CHEMICAL_LEACHING, CHEMICAL_LEACHING_PLANT);
+        registry.addWorkstation(COMPOSITE_AUTOCLAVE_CATEGORY, COMPOSITE_AUTOCLAVE);
 
         // EMI can't group stacks, so only show the clear variant of each colored pipe in the index
         for (Block block : PipeColorVariants.colored()) {
@@ -218,6 +233,18 @@ public class GalacticraftEmiPlugin implements EmiPlugin {
 
         for (RecipeHolder<RocketRecipe> recipe : manager.getAllRecipesFor(GCRecipes.ROCKET_TYPE)) {
             registry.addRecipe(new RocketEmiRecipe(recipe));
+        }
+
+        for (RecipeHolder<MetallurgicInfusingRecipe> recipe : manager.getAllRecipesFor(GCRecipes.METALLURGIC_INFUSING_TYPE)) {
+            registry.addRecipe(new MetallurgicInfusingEmiRecipe(recipe));
+        }
+
+        for (RecipeHolder<ChemicalLeachingRecipe> recipe : manager.getAllRecipesFor(GCRecipes.CHEMICAL_LEACHING_TYPE)) {
+            registry.addRecipe(new ChemicalLeachingEmiRecipe(recipe));
+        }
+
+        for (RecipeHolder<CompositeAutoclaveRecipe> recipe : manager.getAllRecipesFor(GCRecipes.COMPOSITE_AUTOCLAVE_TYPE)) {
+            registry.addRecipe(new CompositeAutoclaveEmiRecipe(recipe));
         }
 
         for (ItemStack cannedFood : CannedFoodItem.getDefaultCannedFoods()) {

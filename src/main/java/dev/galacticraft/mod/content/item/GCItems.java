@@ -159,6 +159,9 @@ public class GCItems {
     public static final Item CANVAS = registerGeneric(Constant.Item.CANVAS);
     public static final Item THERMAL_CLOTH = registerGeneric(Constant.Item.THERMAL_CLOTH);
     public static final Item ISOTHERMAL_FABRIC = registerGeneric(Constant.Item.ISOTHERMAL_FABRIC);
+    public static final Item CARBON_FIBER_PLATE = registerGeneric(Constant.Item.CARBON_FIBER_PLATE);
+    public static final Item ABLATIVE_HEAT_TILE = registerGeneric(Constant.Item.ABLATIVE_HEAT_TILE);
+    public static final Item SOFI_INSULATION = registerGeneric(Constant.Item.SOFI_INSULATION);
 
     public static final Item BEAM_CORE = registerGeneric(Constant.Item.BEAM_CORE);
     public static final Item SENSOR_LENS = registerGeneric(Constant.Item.SENSOR_LENS);

@@ -96,6 +96,9 @@ public class GCTranslationProvider extends TranslationProvider {
         this.add(RecipeCategory.ELECTRIC_ARC_FURNACE, "Blasting (Electric)");
         this.add(RecipeCategory.CANNING, "Canning");
         this.add(RecipeCategory.ROCKET_WORKBENCH, "Rocket Crafting");
+        this.add(RecipeCategory.METALLURGIC_INFUSING, "Vacuum Metallurgic Infusing");
+        this.add(RecipeCategory.CHEMICAL_LEACHING, "Chemical Acid Leaching");
+        this.add(RecipeCategory.COMPOSITE_AUTOCLAVE, "Composite Autoclave Curing");
         this.add(RecipeCategory.ELECTRIC_ARC_FURNACE_BONUS_CHANCE, "%s%% Chance");
     }
 
@@ -511,6 +514,9 @@ public class GCTranslationProvider extends TranslationProvider {
         this.block(GCBlocks.REGOLITH_THERMAL_DESORBER, "Regolith Thermal Desorber");
         this.block(GCBlocks.ISOTOPIC_CENTRIFUGE, "Isotopic Centrifuge");
         this.block(GCBlocks.HELIUM3_FUSION_REACTOR, "Helium-3 Fusion Reactor");
+        this.block(GCBlocks.VACUUM_METALLURGIC_INFUSER, "Vacuum Metallurgic Infuser");
+        this.block(GCBlocks.CHEMICAL_LEACHING_PLANT, "Chemical Leaching Plant");
+        this.block(GCBlocks.COMPOSITE_AUTOCLAVE, "Composite Autoclave");
         this.block(GCBlocks.FUSION_REACTOR_CASING, "MHD Fusion Casing");
         this.block(GCBlocks.FUSION_MAGNET_COIL, "Superconducting Toroid Coil");
         this.block(GCBlocks.FUSION_PLASMA_GLASS, "MHD Plasma Containment Glass");
@@ -597,6 +603,9 @@ public class GCTranslationProvider extends TranslationProvider {
         this.item(GCItems.LUNAR_SAPPHIRE, "Lunar Sapphire");
         this.item(GCItems.DESH_STICK, "Desh Stick");
         this.item(GCItems.CARBON_FRAGMENTS, "Carbon Fragments");
+        this.item(GCItems.CARBON_FIBER_PLATE, "Carbon Fiber Plate");
+        this.item(GCItems.ABLATIVE_HEAT_TILE, "Ablative Heat Tile");
+        this.item(GCItems.SOFI_INSULATION, "SOFI Cryogenic Insulation");
         this.item(GCItems.SOLAR_DUST, "Solar Dust");
         this.item(GCItems.BASIC_WAFER, "Basic Wafer");
         this.item(GCItems.ADVANCED_WAFER, "Advanced Wafer");
@@ -1475,6 +1484,12 @@ public class GCTranslationProvider extends TranslationProvider {
         this.add(MachineStatus.SPINNING_UP, "Spinning Up Rotor");
         this.add(MachineStatus.IGNITING_PLASMA, "Igniting MHD Plasma");
         this.add(MachineStatus.EVACUATING_CHAMBER, "Evacuating Vacuum Chamber");
+        this.add(MachineStatus.INFUSING, "Metallurgic Infusing");
+        this.add(MachineStatus.MISSING_INFUSION_AGENT, "Missing Infusion Agent");
+        this.add(MachineStatus.LEACHING, "Acid Leaching Ore");
+        this.add(MachineStatus.MISSING_LEACHING_FLUID, "Missing Leaching Fluid");
+        this.add(MachineStatus.PRESSURIZING, "Pressurizing Autoclave");
+        this.add(MachineStatus.CURING, "Curing Aerospace Composite");
     }
 
     protected void generateCelestialSelectionTranslations() {

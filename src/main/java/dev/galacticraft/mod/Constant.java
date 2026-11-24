@@ -537,6 +537,9 @@ public interface Constant {
         String REGOLITH_THERMAL_DESORBER = "regolith_thermal_desorber";
         String ISOTOPIC_CENTRIFUGE = "isotopic_centrifuge";
         String HELIUM3_FUSION_REACTOR = "helium3_fusion_reactor";
+        String VACUUM_METALLURGIC_INFUSER = "vacuum_metallurgic_infuser";
+        String CHEMICAL_LEACHING_PLANT = "chemical_leaching_plant";
+        String COMPOSITE_AUTOCLAVE = "composite_autoclave";
         String FUSION_REACTOR_CASING = "fusion_reactor_casing";
         String FUSION_MAGNET_COIL = "fusion_magnet_coil";
         String FUSION_PLASMA_GLASS = "fusion_plasma_glass";
@@ -647,6 +650,9 @@ public interface Constant {
         String RAW_URANIUM = "raw_uranium";
         String URANIUM_INGOT = "uranium_ingot";
         String SUPERIONIC_ICE_CRYSTAL = "superionic_ice_crystal";
+        String CARBON_FIBER_PLATE = "carbon_fiber_plate";
+        String ABLATIVE_HEAT_TILE = "ablative_heat_tile";
+        String SOFI_INSULATION = "sofi_insulation";
         String FLUID_MANIPULATOR = "fluid_manipulator";
         String OXYGEN_CONCENTRATOR = "oxygen_concentrator";
         String OXYGEN_FAN = "oxygen_fan";
@@ -820,6 +826,9 @@ public interface Constant {
         ResourceLocation REGOLITH_THERMAL_DESORBER_SCREEN = id("textures/gui/regolith_thermal_desorber_screen.png");
         ResourceLocation ISOTOPIC_CENTRIFUGE_SCREEN = id("textures/gui/isotopic_centrifuge_screen.png");
         ResourceLocation HELIUM3_FUSION_REACTOR_SCREEN = id("textures/gui/helium3_fusion_reactor_screen.png");
+        ResourceLocation VACUUM_METALLURGIC_INFUSER_SCREEN = id("textures/gui/vacuum_metallurgic_infuser_screen.png");
+        ResourceLocation CHEMICAL_LEACHING_PLANT_SCREEN = id("textures/gui/chemical_leaching_plant_screen.png");
+        ResourceLocation COMPOSITE_AUTOCLAVE_SCREEN = id("textures/gui/composite_autoclave_screen.png");
         ResourceLocation ENERGY_STORAGE_MODULE_SCREEN = id("textures/gui/energy_storage_module_screen.png");
         ResourceLocation OXYGEN_COLLECTOR_SCREEN = id("textures/gui/oxygen_collector_screen.png");
         ResourceLocation ROCKET_SELECTION = id("textures/gui/rocket_part_selection.png");
@@ -1444,6 +1453,9 @@ public interface Constant {
         String REGOLITH_THERMAL_DESORBER_MENU = "regolith_thermal_desorber_menu";
         String ISOTOPIC_CENTRIFUGE_MENU = "isotopic_centrifuge_menu";
         String HELIUM3_FUSION_REACTOR_MENU = "helium3_fusion_reactor_menu";
+        String VACUUM_METALLURGIC_INFUSER_MENU = "vacuum_metallurgic_infuser_menu";
+        String CHEMICAL_LEACHING_PLANT_MENU = "chemical_leaching_plant_menu";
+        String COMPOSITE_AUTOCLAVE_MENU = "composite_autoclave_menu";
         String ELECTRIC_FURNACE_MENU = "electric_furnace_menu";
         String ELECTRIC_ARC_FURNACE_MENU = "electric_arc_furnace_menu";
         String OXYGEN_COLLECTOR_MENU = "oxygen_collector_menu";
@@ -1590,6 +1602,9 @@ public interface Constant {
         String PART_ASSEMBLER = "part_assembler";
         String THERMAL_DESORPTION = "thermal_desorption";
         String FUSION_REACTOR = "fusion_reactor";
+        String METALLURGIC_INFUSING = "metallurgic_infusing";
+        String CHEMICAL_LEACHING = "chemical_leaching";
+        String COMPOSITE_AUTOCLAVE = "composite_autoclave";
 
         interface Serializer {
             String FABRICATION = "fabrication";
@@ -1601,6 +1616,9 @@ public interface Constant {
             String PART_ASSEMBLER = "part_assembler";
             String THERMAL_DESORPTION = "thermal_desorption";
             String FUSION_REACTOR = "fusion_reactor";
+            String METALLURGIC_INFUSING = "metallurgic_infusing";
+            String CHEMICAL_LEACHING = "chemical_leaching";
+            String COMPOSITE_AUTOCLAVE = "composite_autoclave";
             String EMERGENCY_KIT = "crafting_special_emergencykit";
         }
     }

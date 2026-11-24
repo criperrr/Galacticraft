@@ -424,6 +424,9 @@ public class GCCreativeModeTabs {
                 output.accept(REGOLITH_THERMAL_DESORBER);
                 output.accept(ISOTOPIC_CENTRIFUGE);
                 output.accept(HELIUM3_FUSION_REACTOR);
+                output.accept(VACUUM_METALLURGIC_INFUSER);
+                output.accept(CHEMICAL_LEACHING_PLANT);
+                output.accept(COMPOSITE_AUTOCLAVE);
                 output.accept(FUSION_REACTOR_CASING);
                 output.accept(FUSION_MAGNET_COIL);
                 output.accept(FUSION_PLASMA_GLASS);
@@ -568,6 +571,9 @@ public class GCCreativeModeTabs {
                 output.accept(CANVAS);
                 output.accept(THERMAL_CLOTH);
                 output.accept(ISOTHERMAL_FABRIC);
+                output.accept(CARBON_FIBER_PLATE);
+                output.accept(ABLATIVE_HEAT_TILE);
+                output.accept(SOFI_INSULATION);
 
                 output.accept(BEAM_CORE);
                 output.accept(SENSOR_LENS);

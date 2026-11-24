@@ -25,12 +25,17 @@ package dev.galacticraft.mod.data.recipes;
 import dev.galacticraft.api.gas.Gases;
 import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.api.block.entity.PipeColor;
+import dev.galacticraft.mod.api.data.recipe.ChemicalLeachingRecipeBuilder;
 import dev.galacticraft.mod.api.data.recipe.CircuitFabricatorRecipeBuilder;
+import dev.galacticraft.mod.api.data.recipe.CompositeAutoclaveRecipeBuilder;
 import dev.galacticraft.mod.api.data.recipe.FusionReactorRecipeBuilder;
 import dev.galacticraft.mod.api.data.recipe.GCShapedRecipeBuilder;
 import dev.galacticraft.mod.api.data.recipe.GCShapelessRecipeBuilder;
+import dev.galacticraft.mod.api.data.recipe.MetallurgicInfusingRecipeBuilder;
 import dev.galacticraft.mod.api.data.recipe.ThermalDesorptionRecipeBuilder;
 import dev.galacticraft.mod.content.GCBlocks;
+import dev.galacticraft.mod.content.GCFluids;
+import dev.galacticraft.mod.content.block.entity.machine.VacuumMetallurgicInfuserBlockEntity;
 import dev.galacticraft.mod.content.item.GCItems;
 import dev.galacticraft.mod.tag.GCItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -42,6 +47,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
@@ -367,6 +373,42 @@ public class GCMachineRecipes extends FabricRecipeProvider {
                 .pattern("GSG")
                 .pattern("NGN")
                 .unlockedBy(getHasName(GCItems.LUNAR_SAPPHIRE), has(GCItems.LUNAR_SAPPHIRE))
+                .emiDefaultRecipe(true)
+                .save(output);
+
+        GCShapedRecipeBuilder.crafting(RecipeCategory.DECORATIONS, GCBlocks.VACUUM_METALLURGIC_INFUSER)
+                .define('F', GCItems.COMPRESSED_FERRONIOBIUM)
+                .define('C', GCItems.TIN_CANISTER)
+                .define('U', ConventionalItemTags.PLAYER_WORKSTATIONS_FURNACES)
+                .define('W', GCItems.BASIC_WAFER)
+                .pattern("FCF")
+                .pattern("FUF")
+                .pattern("FWF")
+                .unlockedBy(getHasName(GCItems.COMPRESSED_FERRONIOBIUM), has(GCItems.COMPRESSED_FERRONIOBIUM))
+                .emiDefaultRecipe(true)
+                .save(output);
+
+        GCShapedRecipeBuilder.crafting(RecipeCategory.DECORATIONS, GCBlocks.CHEMICAL_LEACHING_PLANT)
+                .define('L', GCItemTags.LEAD_INGOTS)
+                .define('C', GCItems.COPPER_CANISTER)
+                .define('P', GCBlocks.GLASS_FLUID_PIPE)
+                .define('M', GCItems.FLUID_MANIPULATOR)
+                .pattern("LCL")
+                .pattern("PMP")
+                .pattern("LPL")
+                .unlockedBy(getHasName(GCItems.LEAD_INGOT), has(GCItemTags.LEAD_INGOTS))
+                .emiDefaultRecipe(true)
+                .save(output);
+
+        GCShapedRecipeBuilder.crafting(RecipeCategory.DECORATIONS, GCBlocks.COMPOSITE_AUTOCLAVE)
+                .define('S', GCItems.COMPRESSED_STEEL)
+                .define('V', GCItems.ATMOSPHERIC_VALVE)
+                .define('D', GCItems.COMPRESSED_DESH)
+                .define('T', GCItems.AMBIENT_THERMAL_CONTROLLER)
+                .pattern("SVS")
+                .pattern("DTD")
+                .pattern("SDS")
+                .unlockedBy(getHasName(GCItems.COMPRESSED_DESH), has(GCItems.COMPRESSED_DESH))
                 .emiDefaultRecipe(true)
                 .save(output);
 
@@ -766,6 +808,109 @@ public class GCMachineRecipes extends FabricRecipeProvider {
                 .cycleTicks(40)
                 .outputCell(GCItems.HELIUM3_FUSION_CELL)
                 .save(output, Constant.id("d_he3_mhd_fusion"));
+
+        // Vacuum Metallurgic Infuser Recipes (60 GJ/t, internal Mekanism-style agent buffer)
+        MetallurgicInfusingRecipeBuilder.create(
+                        ConventionalItemTags.IRON_INGOTS,
+                        VacuumMetallurgicInfuserBlockEntity.INFUSION_CARBON,
+                        10,
+                        GCItems.COMPRESSED_STEEL,
+                        1)
+                .time(80)
+                .save(output, Constant.id("compressed_steel_from_iron"));
+        MetallurgicInfusingRecipeBuilder.create(
+                        GCItems.COMPRESSED_IRON,
+                        VacuumMetallurgicInfuserBlockEntity.INFUSION_CARBON,
+                        10,
+                        GCItems.COMPRESSED_STEEL,
+                        2)
+                .time(90)
+                .save(output, Constant.id("compressed_steel_from_compressed_iron"));
+        MetallurgicInfusingRecipeBuilder.create(
+                        ConventionalItemTags.IRON_INGOTS,
+                        VacuumMetallurgicInfuserBlockEntity.INFUSION_NIOBIUM_OXIDE,
+                        20,
+                        GCItems.FERRONIOBIUM_INGOT,
+                        1)
+                .time(100)
+                .save(output, Constant.id("ferroniobium_from_iron"));
+        MetallurgicInfusingRecipeBuilder.create(
+                        GCItems.COMPRESSED_STEEL,
+                        VacuumMetallurgicInfuserBlockEntity.INFUSION_NIOBIUM_OXIDE,
+                        20,
+                        GCItems.COMPRESSED_FERRONIOBIUM,
+                        1)
+                .time(100)
+                .save(output, Constant.id("compressed_ferroniobium_from_steel"));
+        MetallurgicInfusingRecipeBuilder.create(
+                        GCItemTags.NIOBIUM_INGOTS,
+                        VacuumMetallurgicInfuserBlockEntity.INFUSION_TITANIUM,
+                        20,
+                        GCItems.COMPRESSED_NIOBIUM,
+                        1)
+                .time(120)
+                .save(output, Constant.id("compressed_niobium_c103"));
+        MetallurgicInfusingRecipeBuilder.create(
+                        GCItemTags.NIOBIUM_INGOTS,
+                        VacuumMetallurgicInfuserBlockEntity.INFUSION_TIN,
+                        20,
+                        GCItems.SUPERCONDUCTING_COIL,
+                        1)
+                .time(140)
+                .save(output, Constant.id("superconducting_coil_nb3sn"));
+
+        // Chemical Leaching Plant Recipes (90 GJ/t, 2x-3x refractory ore multiplication)
+        ChemicalLeachingRecipeBuilder.create(GCItems.RAW_NIOBIUM, GCFluids.SULFURIC_ACID, 250L, GCItems.NIOBIUM_OXIDE, 3)
+                .byproduct(GCItems.RAW_URANIUM, 1, 0.25F)
+                .time(100)
+                .save(output, Constant.id("raw_niobium_sulfuric_acid"));
+        ChemicalLeachingRecipeBuilder.create(GCItems.RAW_NIOBIUM, Fluids.WATER, 500L, GCItems.NIOBIUM_OXIDE, 2)
+                .time(140)
+                .save(output, Constant.id("raw_niobium_water"));
+        ChemicalLeachingRecipeBuilder.create(GCItems.RAW_TITANIUM, GCFluids.SULFURIC_ACID, 250L, GCItems.TITANIUM_INGOT, 2)
+                .byproduct(Items.RAW_IRON, 1, 1.0F)
+                .time(110)
+                .save(output, Constant.id("raw_titanium_sulfuric_acid"));
+        ChemicalLeachingRecipeBuilder.create(GCBlocks.ILMENITE_ORE, GCFluids.SULFURIC_ACID, 250L, GCItems.TITANIUM_INGOT, 2)
+                .byproduct(Items.RAW_IRON, 1, 1.0F)
+                .time(120)
+                .save(output, Constant.id("ilmenite_ore_sulfuric_acid"));
+        ChemicalLeachingRecipeBuilder.create(GCBlocks.MOON_ILMENITE_ORE, GCFluids.SULFURIC_ACID, 250L, GCItems.TITANIUM_INGOT, 2)
+                .byproduct(Items.RAW_IRON, 1, 1.0F)
+                .time(120)
+                .save(output, Constant.id("moon_ilmenite_ore_sulfuric_acid"));
+        ChemicalLeachingRecipeBuilder.create(GCItems.RAW_DESH, GCFluids.SULFURIC_ACID, 250L, GCItems.DESH_INGOT, 2)
+                .byproduct(GCItems.DESH_INGOT, 1, 0.50F)
+                .time(110)
+                .save(output, Constant.id("raw_desh_sulfuric_acid"));
+        ChemicalLeachingRecipeBuilder.create(GCItems.RAW_ALUMINUM, GCFluids.SULFURIC_ACID, 250L, GCItems.ALUMINUM_INGOT, 2)
+                .byproduct(GCItems.ALUMINUM_INGOT, 1, 0.50F)
+                .time(100)
+                .save(output, Constant.id("raw_aluminum_sulfuric_acid"));
+
+        // Aerospace Composite Autoclave Recipes (80 GJ/t, pressurized thermal curing)
+        CompositeAutoclaveRecipeBuilder.create(GCItems.CARBON_FIBER_PLATE, 1)
+                .requires(GCItems.CARBON_FRAGMENTS)
+                .requires(GCItems.CANVAS)
+                .temperature(400)
+                .pressure(12)
+                .time(100)
+                .save(output, Constant.id("carbon_fiber_plate"));
+        CompositeAutoclaveRecipeBuilder.create(GCItems.ABLATIVE_HEAT_TILE, 1)
+                .requires(GCItems.OLIVINE_SHARD)
+                .requires(GCItems.CARBON_FRAGMENTS)
+                .requires(GCItems.SILICON)
+                .temperature(550)
+                .pressure(16)
+                .time(120)
+                .save(output, Constant.id("ablative_heat_tile"));
+        CompositeAutoclaveRecipeBuilder.create(GCItems.SOFI_INSULATION, 1)
+                .requires(GCItems.ISOTHERMAL_FABRIC)
+                .requires(GCItems.DESH_INGOT)
+                .temperature(350)
+                .pressure(10)
+                .time(100)
+                .save(output, Constant.id("sofi_insulation"));
     }
 
     @Override

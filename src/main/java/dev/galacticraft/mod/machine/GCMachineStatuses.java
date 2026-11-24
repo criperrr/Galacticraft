@@ -94,6 +94,14 @@ public final class GCMachineStatuses {
     public static final MachineStatus IGNITING_PLASMA = MachineStatus.create(Translations.MachineStatus.IGNITING_PLASMA, ChatFormatting.GOLD, MachineStatus.Type.PARTIALLY_WORKING);
     public static final MachineStatus EVACUATING_CHAMBER = MachineStatus.create(Translations.MachineStatus.EVACUATING_CHAMBER, ChatFormatting.YELLOW, MachineStatus.Type.PARTIALLY_WORKING);
 
+    // Sector 1: Metallurgy, Acid Leaching & Composite Autoclave
+    public static final MachineStatus INFUSING = MachineStatus.create(Translations.MachineStatus.INFUSING, ChatFormatting.GOLD, MachineStatus.Type.WORKING);
+    public static final MachineStatus MISSING_INFUSION_AGENT = MachineStatus.create(Translations.MachineStatus.MISSING_INFUSION_AGENT, ChatFormatting.RED, MachineStatus.Type.MISSING_ITEMS);
+    public static final MachineStatus LEACHING = MachineStatus.create(Translations.MachineStatus.LEACHING, ChatFormatting.GREEN, MachineStatus.Type.WORKING);
+    public static final MachineStatus MISSING_LEACHING_FLUID = MachineStatus.create(Translations.MachineStatus.MISSING_LEACHING_FLUID, ChatFormatting.RED, MachineStatus.Type.MISSING_FLUIDS);
+    public static final MachineStatus PRESSURIZING = MachineStatus.create(Translations.MachineStatus.PRESSURIZING, ChatFormatting.YELLOW, MachineStatus.Type.PARTIALLY_WORKING);
+    public static final MachineStatus CURING = MachineStatus.create(Translations.MachineStatus.CURING, ChatFormatting.GOLD, MachineStatus.Type.WORKING);
+
     public static void register() {
     }
 }
