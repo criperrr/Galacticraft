@@ -107,7 +107,8 @@ public record RocketMaterialProfile(
         PAYLOAD_CORE("payload_core", "Payload Core"),
         UTILITY_MOUNT("utility_mount", "Utility Mount"),
         UTILITY_ACTUATOR("utility_actuator", "Actuator / Panel"),
-        UTILITY_CONTROL("utility_control", "Control / Power Core");
+        UTILITY_CONTROL("utility_control", "Control / Power Core"),
+        PROTECTIVE_COATING("protective_coating", "Protective Coating");
 
         public static final Codec<SlotRole> CODEC = StringRepresentable.fromEnum(SlotRole::values);
 

@@ -61,6 +61,7 @@ public class GCApiLookupProviders {
             GCBlockEntityTypes.ELECTROLYTIC_SEPARATOR,
             GCBlockEntityTypes.ATMOSPHERIC_FRACTIONATOR,
             GCBlockEntityTypes.SABATIER_CHEMICAL_REACTOR,
+            GCBlockEntityTypes.AERO_REFURBISHMENT_BENCH,
             GCBlockEntityTypes.FUEL_LOADER,
             GCBlockEntityTypes.OXYGEN_COLLECTOR,
             GCBlockEntityTypes.OXYGEN_DETECTOR,

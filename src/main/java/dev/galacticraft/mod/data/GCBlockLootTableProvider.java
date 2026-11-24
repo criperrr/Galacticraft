@@ -500,6 +500,7 @@ public class GCBlockLootTableProvider extends FabricBlockLootTableProvider {
 
         this.dropSelf(GCBlocks.PLAYER_TRANSPORT_TUBE);
         this.dropSelf(GCBlocks.ROCKET_WORKBENCH);
+        this.dropSelf(GCBlocks.AERO_REFURBISHMENT_BENCH);
 
         this.add(GCBlocks.AIR_LOCK_SEAL, noDrop());
 

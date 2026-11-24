@@ -121,6 +121,31 @@ public class ModularRocketPartBlockEntity extends BlockEntity implements MultiVo
         return this.integrity;
     }
 
+    /**
+     * Updates this world-placed part's structural integrity (e.g., from planetary thermal,
+     * hyperbaric pressure, or sulfuric acid corrosion wear) and synchronizes to clients.
+     */
+    public void setIntegrity(@NotNull PartIntegrity nextIntegrity) {
+        Objects.requireNonNull(nextIntegrity, "nextIntegrity");
+        if (!Objects.equals(this.integrity, nextIntegrity)) {
+            this.integrity = nextIntegrity;
+            this.sync();
+        }
+    }
+
+    /**
+     * Applies structural integrity wear to this world-placed modular rocket part.
+     */
+    public @NotNull PartIntegrity damageIntegrity(double amount) {
+        PartIntegrity current = this.integrity != null ? this.integrity : PartIntegrity.pristine();
+        if (amount <= 0.0) {
+            return current;
+        }
+        PartIntegrity next = current.damage(amount);
+        this.setIntegrity(next);
+        return next;
+    }
+
     public @Nullable RocketPartComposition getComposition() {
         return this.composition;
     }

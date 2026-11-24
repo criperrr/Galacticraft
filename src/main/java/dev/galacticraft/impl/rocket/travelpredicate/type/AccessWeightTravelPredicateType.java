@@ -41,11 +41,12 @@ public final class AccessWeightTravelPredicateType extends TravelPredicateType<A
     public Result canTravel(CelestialBody<?, ?> from, CelestialBody<?, ?> to, Holder<RocketCone<?, ?>> cone, Holder<RocketBody<?, ?>> body, Holder<RocketFin<?, ?>> fin, Holder<RocketBooster<?, ?>> booster, Holder<RocketEngine<?, ?>> engine, Holder<RocketUpgrade<?, ?>> upgrade, AccessWeightTravelPredicateConfig config) {
         if (to.type() instanceof Tiered tiered) {
             int weight = tiered.accessWeight(to.config());
-            if (weight <= config.weight()) {
+            if (weight >= 0) {
+                // Emergent physics ("Simulated Tiers"): no artificial numeric tier lock blocks destination
+                // selection. Physical T/W, delta-V, thermal, pressure, and acid checks govern survival.
                 return Result.ALLOW;
-            } else {
-                return Result.BLOCK;
             }
+            return Result.BLOCK;
         }
         return config.defaultType();
     }

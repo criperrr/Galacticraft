@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "active=false": {
+      "model": "galacticraft:machine/aero_refurbishment_bench"
+    },
+    "active=true": {
+      "model": "galacticraft:machine/aero_refurbishment_bench_active"
+    }
+  }
+}

@@ -529,6 +529,7 @@ public class GCTranslationProvider extends TranslationProvider {
         this.block(GCBlocks.ELECTROLYTIC_SEPARATOR, "Electrolytic Separator");
         this.block(GCBlocks.ATMOSPHERIC_FRACTIONATOR, "Atmospheric Fractionator");
         this.block(GCBlocks.SABATIER_CHEMICAL_REACTOR, "Sabatier Chemical Reactor");
+        this.block(GCBlocks.AERO_REFURBISHMENT_BENCH, "Aerospace Refurbishment Bench");
         this.block(GCBlocks.FUSION_REACTOR_CASING, "MHD Fusion Casing");
         this.block(GCBlocks.FUSION_MAGNET_COIL, "Superconducting Toroid Coil");
         this.block(GCBlocks.FUSION_PLASMA_GLASS, "MHD Plasma Containment Glass");
@@ -1522,6 +1523,9 @@ public class GCTranslationProvider extends TranslationProvider {
         this.add(MachineStatus.HEATING_CATALYST, "Heating Catalyst Bed");
         this.add(MachineStatus.SYNTHESIZING, "Synthesizing Propellant");
         this.add(MachineStatus.MISSING_CATALYST, "Missing Nb / Pd Catalyst");
+        this.add(MachineStatus.REFURBISHING, "Refurbishing Rocket Part");
+        this.add(MachineStatus.APPLYING_COATING, "Applying Protective Coating");
+        this.add(MachineStatus.PART_ALREADY_NOMINAL, "Part Already 100% Nominal");
     }
 
     protected void generateCelestialSelectionTranslations() {

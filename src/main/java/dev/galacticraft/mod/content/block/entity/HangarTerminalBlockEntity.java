@@ -28,6 +28,8 @@ import dev.galacticraft.api.multiblock.MultiVoxelMaster;
 import dev.galacticraft.api.platform.PlatformSize;
 import dev.galacticraft.api.platform.PlatformType;
 import dev.galacticraft.api.rocket.part.data.PartIntegrity;
+import dev.galacticraft.api.rocket.part.data.RocketMaterialTrait;
+import dev.galacticraft.api.rocket.part.data.RocketPartComposition;
 import dev.galacticraft.api.rocket.part.data.RocketPartStats;
 import dev.galacticraft.api.rocket.part.modular.FootprintMode;
 import dev.galacticraft.api.rocket.part.modular.RocketPartCategory;
@@ -48,6 +50,9 @@ import dev.galacticraft.mod.content.item.ModularRocketPartBlockItem;
 import dev.galacticraft.mod.content.rocket.part.RocketPartCatalog;
 import dev.galacticraft.mod.content.rocket.part.RocketPartCostCalculator;
 import dev.galacticraft.mod.content.rocket.part.RocketPartSpec;
+import dev.galacticraft.mod.content.rocket.physics.PlanetaryEnvironment;
+import dev.galacticraft.mod.content.rocket.physics.PropellantType;
+import dev.galacticraft.mod.content.rocket.physics.RocketFlightValidator;
 import dev.galacticraft.mod.screen.HangarTerminalMenu;
 import dev.galacticraft.mod.screen.HangarTerminalOpeningData;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -125,6 +130,7 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
     private static final String TAG_ROCKET_ASSEMBLED = "RocketAssembled";
     private static final String TAG_ASSEMBLED_ROCKET_PARTS = "AssembledRocketParts";
     private static final String TAG_ROCKET_FUEL = "RocketFuel";
+    private static final String TAG_ROCKET_FUEL_FLUID = "RocketFuelFluid";
     private static final String TAG_ROCKET_ENERGY = "RocketEnergy";
     private static final String TAG_ROCKET_OXYGEN = "RocketOxygen";
     private static final String TAG_ENTRY_POS = "Pos";
@@ -147,6 +153,8 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
     private boolean tearingDownRocket = false;
     private final List<BlockPos> assembledRocketParts = new ArrayList<>();
     private long rocketFuelDroplets = 0L;
+    private FluidVariant rocketFuelVariant = FluidVariant.of(GCFluids.FUEL);
+    private double pendingBoilOffFraction = 0.0;
     private long rocketEnergy = 0L;
     private long rocketOxygenDroplets = 0L;
     private final RocketEnergyStorage rocketEnergyStorage = new RocketEnergyStorage();
@@ -270,6 +278,25 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
 
     public long getRocketFuelDroplets() {
         return this.rocketFuelDroplets;
+    }
+
+    public FluidVariant getRocketFuelVariant() {
+        return this.rocketFuelDroplets > 0L && !this.rocketFuelVariant.isBlank()
+                ? this.rocketFuelVariant
+                : FluidVariant.of(GCFluids.FUEL);
+    }
+
+    public void setRocketFuel(FluidVariant variant, long droplets) {
+        this.rocketFuelDroplets = Math.max(0L, droplets);
+        if (variant != null && !variant.isBlank() && PropellantType.isRocketPropellantFluid(variant.getFluid())) {
+            this.rocketFuelVariant = variant;
+        }
+        this.sync();
+    }
+
+    public void setRocketEnergy(long energy) {
+        this.rocketEnergy = Math.max(0L, energy);
+        this.sync();
     }
 
     public long getRocketEnergy() {
@@ -514,9 +541,10 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
 
         for (ModularRocketPartBlockEntity partBe : foundEntities) {
             RocketPartConfig cfg = partBe.getConfig();
+            RocketPartComposition comp = partBe.getComposition();
             RocketPartStats stats = partBe.getStats();
             if (stats == null) {
-                stats = RocketPartCostCalculator.calculate(cfg).stats();
+                stats = RocketPartCostCalculator.calculate(cfg, comp).stats();
             }
             PartIntegrity integrity = partBe.getIntegrity();
             double integrityFrac = integrity != null ? integrity.fraction() : 1.0;
@@ -535,8 +563,8 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
             dryMassKg += stats.dryWeightKg();
             totalThrustKn += stats.thrustKn();
             totalFuelCapacityDroplets += stats.fuelCapacityDroplets();
-            totalEnergyCapacity += RocketPartCostCalculator.calculateEnergyCapacity(cfg);
-            totalEnergyGenPerTick += RocketPartCostCalculator.calculateEnergyGenerationPerTick(cfg);
+            totalEnergyCapacity += RocketPartCostCalculator.calculateEnergyCapacity(cfg, comp);
+            totalEnergyGenPerTick += RocketPartCostCalculator.calculateEnergyGenerationPerTick(cfg, comp);
             totalOxygenCapacityDroplets += RocketPartCostCalculator.calculateOxygenCapacityDroplets(cfg);
             maxDiameter = Math.max(maxDiameter, Math.max(cfg.diameter(), cfg.topDiameter()));
 
@@ -570,19 +598,17 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
         long currentEnergy = unified ? Math.min(this.rocketEnergy, totalEnergyCapacity) : 0L;
         long currentOxygen = unified ? Math.min(this.rocketOxygenDroplets, totalOxygenCapacityDroplets) : 0L;
 
-        // 1 bucket (81,000 droplets) of cryo propellant ~ 850 kg
-        double maxFuelMassKg = (totalFuelCapacityDroplets / 81_000.0) * 850.0;
-        double currentFuelMassKg = (currentFuel / 81_000.0) * 850.0;
-        double fullWetMassKg = dryMassKg + maxFuelMassKg;
-        double currentWetMassKg = dryMassKg + currentFuelMassKg;
-        double fullTwr = fullWetMassKg > 0.0 ? (totalThrustKn * 1000.0) / (fullWetMassKg * 9.81) : 0.0;
-        double currentTwr = currentWetMassKg > 0.0 ? (totalThrustKn * 1000.0) / (currentWetMassKg * 9.81) : 0.0;
-        double maxDeltaV = (dryMassKg > 0.0 && fullWetMassKg > dryMassKg)
-                ? 310.0 * 9.81 * Math.log(fullWetMassKg / dryMassKg)
-                : 0.0;
-        double currentDeltaV = (dryMassKg > 0.0 && currentWetMassKg > dryMassKg)
-                ? 310.0 * 9.81 * Math.log(currentWetMassKg / dryMassKg)
-                : 0.0;
+        // Evaluate emergent physics against local planetary environment
+        PlanetaryEnvironment localEnv = PlanetaryEnvironment.fromLevel(this.level);
+        RocketFlightValidator.VehicleSnapshot snapshot = this.buildSnapshotFromEntities(foundEntities, currentFuel, currentEnergy);
+        RocketFlightValidator.FlightValidationReport localReport = RocketFlightValidator.evaluate(snapshot, localEnv, localEnv);
+        double fullWetMassKg = localReport.wetMassKg();
+        double currentWetMassKg = localReport.currentWetMassKg();
+        double fullTwr = Double.isFinite(localReport.originTwr()) ? localReport.originTwr() : 99.99;
+        double currentTwrRaw = RocketFlightValidator.computeTwr(totalThrustKn, currentWetMassKg, localEnv.gravityG());
+        double currentTwr = Double.isFinite(currentTwrRaw) ? currentTwrRaw : 99.99;
+        double maxDeltaV = localReport.maxDeltaV();
+        double currentDeltaV = localReport.currentDeltaV();
         int allowedDiameter = this.platformSize.diameter();
         boolean diameterOk = maxDiameter == 0 || maxDiameter <= allowedDiameter;
         double avgIntegrity = sumIntegrity / parts.size();
@@ -859,6 +885,95 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
         terminal.lastElevatorWorldY = worldY;
     }
 
+    /**
+     * Builds an immutable {@link RocketFlightValidator.VehicleSnapshot} of the modular rocket
+     * currently mounted on this launch pad (unified or loose parts).
+     */
+    public RocketFlightValidator.VehicleSnapshot buildVehicleSnapshot() {
+        if (this.level == null || !this.formed) {
+            return new RocketFlightValidator.VehicleSnapshot(List.of(), 0L, 0L, null);
+        }
+        RocketPadSummary summary = this.scanRocketOnPad();
+        List<ModularRocketPartBlockEntity> entities = new ArrayList<>(summary.parts().size());
+        for (MountedRocketPart part : summary.parts()) {
+            if (this.level.isLoaded(part.pos())
+                    && this.level.getBlockEntity(part.pos()) instanceof ModularRocketPartBlockEntity partBe
+                    && !partBe.isRemoved()) {
+                entities.add(partBe);
+            }
+        }
+        return this.buildSnapshotFromEntities(entities, summary.currentFuelDroplets(), summary.currentEnergy());
+    }
+
+    private RocketFlightValidator.VehicleSnapshot buildSnapshotFromEntities(
+            List<ModularRocketPartBlockEntity> entities,
+            long currentFuel,
+            long currentEnergy
+    ) {
+        List<RocketFlightValidator.PartSnapshot> snapshots = new ArrayList<>(entities.size());
+        for (ModularRocketPartBlockEntity partBe : entities) {
+            snapshots.add(RocketFlightValidator.PartSnapshot.fromParts(
+                    partBe.getConfig(),
+                    partBe.getStats(),
+                    partBe.getIntegrity(),
+                    partBe.getComposition()
+            ));
+        }
+        net.minecraft.world.level.material.Fluid loadedFluid = (currentFuel > 0L && !this.rocketFuelVariant.isBlank())
+                ? this.rocketFuelVariant.getFluid()
+                : null;
+        return new RocketFlightValidator.VehicleSnapshot(snapshots, currentFuel, currentEnergy, loadedFluid);
+    }
+
+    /**
+     * Evaluates the currently mounted rocket on this pad against {@code destination} using
+     * emergent aerospace physics ({@link RocketFlightValidator}).
+     */
+    public RocketFlightValidator.FlightValidationReport evaluateFlight(PlanetaryEnvironment destination) {
+        PlanetaryEnvironment origin = PlanetaryEnvironment.fromLevel(this.level);
+        return RocketFlightValidator.evaluate(this.buildVehicleSnapshot(), origin, destination);
+    }
+
+    /**
+     * Applies environmental stress (thermal overload, hyperbaric pressure, and Venusian sulfuric
+     * acid corrosion) for {@code exposureSeconds} to all mounted parts on this platform.
+     *
+     * @return Minimum resulting integrity fraction across all mounted parts ({@code 0.0..1.0}).
+     */
+    public double applyEnvironmentalWearToMountedParts(PlanetaryEnvironment env, double exposureSeconds) {
+        if (this.level == null || this.level.isClientSide || !this.formed || exposureSeconds <= 0.0) {
+            return 1.0;
+        }
+        double minFrac = 1.0;
+        boolean changed = false;
+        List<MountedRocketPart> parts = this.scanRocketOnPad().parts();
+        for (MountedRocketPart part : parts) {
+            if (this.level.isLoaded(part.pos())
+                    && this.level.getBlockEntity(part.pos()) instanceof ModularRocketPartBlockEntity partBe
+                    && !partBe.isRemoved()) {
+                RocketFlightValidator.PartSnapshot snap = RocketFlightValidator.PartSnapshot.fromParts(
+                        partBe.getConfig(),
+                        partBe.getStats(),
+                        partBe.getIntegrity(),
+                        partBe.getComposition()
+                );
+                double wear = RocketFlightValidator.computeEnvironmentalWearPerSecond(snap, env) * exposureSeconds;
+                if (wear > 0.0) {
+                    PartIntegrity updated = partBe.damageIntegrity(wear);
+                    minFrac = Math.min(minFrac, updated.fraction());
+                    changed = true;
+                } else {
+                    PartIntegrity current = partBe.getIntegrity();
+                    minFrac = Math.min(minFrac, current != null ? current.fraction() : 1.0);
+                }
+            }
+        }
+        if (changed) {
+            this.sync();
+        }
+        return minFrac;
+    }
+
     private void tickAssembledRocket(Level level) {
         if (!this.rocketAssembled || this.tearingDownRocket || (level.getGameTime() % 20L) != 0L) {
             return;
@@ -879,6 +994,8 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
             return;
         }
 
+        PlanetaryEnvironment env = PlanetaryEnvironment.fromLevel(level);
+        double solarFactor = env.solarIrradianceFactor();
         RocketPadSummary summary = this.scanRocketOnPad();
         long clampedFuel = Math.min(this.rocketFuelDroplets, summary.totalFuelDroplets());
         long clampedEnergy = Math.min(this.rocketEnergy, summary.energyCapacity());
@@ -890,26 +1007,100 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
             modified = true;
         }
 
-        if (summary.energyGenerationPerTick() > 0L && this.rocketEnergy < summary.energyCapacity()) {
-            long generated = 0L;
-            boolean sunny = level.isDay() && !level.isRaining();
-            for (MountedRocketPart part : summary.parts()) {
-                if (part.config() == null) {
-                    continue;
-                }
-                long partGen = RocketPartCostCalculator.calculateEnergyGenerationPerTick(part.config());
-                if (partGen <= 0L) {
-                    continue;
-                }
-                boolean isSolar = part.config().familyId().contains("power_solar_array");
-                if (!isSolar || (sunny && level.canSeeSky(part.pos().above(part.heightBlocks())))) {
-                    generated += partGen * 20L;
+        // Gather live part block entities for composition-aware power, cryocooler, boil-off, and environmental wear
+        List<ModularRocketPartBlockEntity> liveParts = new ArrayList<>(this.assembledRocketParts.size());
+        boolean hasCryocooler = false;
+        boolean hasSuperfluidCryo2k = false;
+        long generatedEnergy = 0L;
+        boolean sunny = level.isDay() && !level.isRaining();
+
+        for (BlockPos partPos : this.assembledRocketParts) {
+            if (!level.isLoaded(partPos)) {
+                continue;
+            }
+            if (!(level.getBlockEntity(partPos) instanceof ModularRocketPartBlockEntity partBe) || partBe.isRemoved()) {
+                continue;
+            }
+            liveParts.add(partBe);
+            RocketPartConfig cfg = partBe.getConfig();
+            RocketPartComposition comp = partBe.getComposition();
+
+            if (PropellantType.isCryocoolerModule(cfg)
+                    || (comp != null && comp.hasTrait(RocketMaterialTrait.ACTIVE_ZERO_BOILOFF))) {
+                hasCryocooler = true;
+            }
+            if (comp != null && comp.hasTrait(RocketMaterialTrait.SUPERFLUID_CRYO_2K)) {
+                hasSuperfluidCryo2k = true;
+            }
+
+            long partGen = RocketPartCostCalculator.calculateEnergyGenerationPerTick(cfg, comp);
+            if (partGen > 0L) {
+                boolean isSolar = cfg.familyId().contains("power_solar_array");
+                if (isSolar) {
+                    long aneutronic = (comp != null && comp.hasTrait(RocketMaterialTrait.ANEUTRONIC_BOARD_REACTOR))
+                            ? RocketPartCostCalculator.ANEUTRONIC_BOARD_REACTOR_GEN_PER_TICK
+                            : 0L;
+                    long solarOnly = Math.max(0L, partGen - aneutronic);
+                    generatedEnergy += aneutronic * 20L;
+                    if (sunny && level.canSeeSky(partPos.above(Math.max(1, cfg.heightBlocks())))) {
+                        generatedEnergy += Math.round(solarOnly * solarFactor * 20.0);
+                    }
+                } else {
+                    generatedEnergy += partGen * 20L;
                 }
             }
-            if (generated > 0L) {
-                long nextEnergy = Math.min(summary.energyCapacity(), this.rocketEnergy + generated);
-                if (nextEnergy != this.rocketEnergy) {
-                    this.rocketEnergy = nextEnergy;
+
+            // Apply continuous environmental integrity wear on extreme planets (e.g., Venus H2SO4/92atm/735K)
+            RocketFlightValidator.PartSnapshot partSnap = RocketFlightValidator.PartSnapshot.fromParts(
+                    cfg, partBe.getStats(), partBe.getIntegrity(), comp
+            );
+            double wearPerSec = RocketFlightValidator.computeEnvironmentalWearPerSecond(partSnap, env);
+            if (wearPerSec > 0.0) {
+                partBe.damageIntegrity(wearPerSec);
+                modified = true;
+            }
+        }
+
+        if (generatedEnergy > 0L && this.rocketEnergy < summary.energyCapacity()) {
+            long nextEnergy = Math.min(summary.energyCapacity(), this.rocketEnergy + generatedEnergy);
+            if (nextEnergy != this.rocketEnergy) {
+                this.rocketEnergy = nextEnergy;
+                modified = true;
+            }
+        }
+
+        // Cryogenic boil-off & active cryocooler electrical draw (1 second step = 20 ticks)
+        if (this.rocketFuelDroplets > 0L && !this.rocketFuelVariant.isBlank()
+                && PropellantType.isCryogenicFluid(this.rocketFuelVariant.getFluid())) {
+            boolean cryocoolerPowered = false;
+            if (hasCryocooler && !hasSuperfluidCryo2k) {
+                long cryocoolerCostPerSec = RocketFlightValidator.CRYOCOOLER_DRAW_GJ_PER_TICK * 20L;
+                if (this.rocketEnergy >= cryocoolerCostPerSec) {
+                    this.rocketEnergy -= cryocoolerCostPerSec;
+                    cryocoolerPowered = true;
+                    modified = true;
+                }
+            }
+
+            RocketFlightValidator.VehicleSnapshot snap = this.buildSnapshotFromEntities(
+                    liveParts, this.rocketFuelDroplets, this.rocketEnergy
+            );
+            double boilPerMin = RocketFlightValidator.computeVehicleBoilOffDropletsPerMinute(
+                    snap.parts(),
+                    this.rocketFuelVariant.getFluid(),
+                    PropellantType.fromFluid(this.rocketFuelVariant.getFluid()),
+                    this.rocketFuelDroplets,
+                    env.meanTempKelvin(),
+                    hasCryocooler,
+                    cryocoolerPowered,
+                    hasSuperfluidCryo2k
+            );
+            if (boilPerMin > 0.0) {
+                this.pendingBoilOffFraction += boilPerMin / 60.0;
+                long wholeLoss = (long) Math.floor(this.pendingBoilOffFraction);
+                if (wholeLoss > 0L) {
+                    this.pendingBoilOffFraction -= wholeLoss;
+                    this.rocketFuelDroplets = Math.max(0L, this.rocketFuelDroplets - wholeLoss);
                     modified = true;
                 }
             }
@@ -1720,6 +1911,9 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
             tag.putLongArray(TAG_ASSEMBLED_ROCKET_PARTS, packedParts);
         }
         tag.putLong(TAG_ROCKET_FUEL, this.rocketFuelDroplets);
+        if (!this.rocketFuelVariant.isBlank()) {
+            tag.putString(TAG_ROCKET_FUEL_FLUID, BuiltInRegistries.FLUID.getKey(this.rocketFuelVariant.getFluid()).toString());
+        }
         tag.putLong(TAG_ROCKET_ENERGY, this.rocketEnergy);
         tag.putLong(TAG_ROCKET_OXYGEN, this.rocketOxygenDroplets);
     }
@@ -1787,6 +1981,17 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
             }
         }
         this.rocketFuelDroplets = Math.max(0L, tag.getLong(TAG_ROCKET_FUEL));
+        if (tag.contains(TAG_ROCKET_FUEL_FLUID, Tag.TAG_STRING)) {
+            net.minecraft.resources.ResourceLocation fluidId = net.minecraft.resources.ResourceLocation.tryParse(tag.getString(TAG_ROCKET_FUEL_FLUID));
+            if (fluidId != null && BuiltInRegistries.FLUID.containsKey(fluidId)) {
+                net.minecraft.world.level.material.Fluid loaded = BuiltInRegistries.FLUID.get(fluidId);
+                if (PropellantType.isRocketPropellantFluid(loaded)) {
+                    this.rocketFuelVariant = FluidVariant.of(loaded);
+                }
+            }
+        } else {
+            this.rocketFuelVariant = FluidVariant.of(GCFluids.FUEL);
+        }
         this.rocketEnergy = Math.max(0L, tag.getLong(TAG_ROCKET_ENERGY));
         this.rocketOxygenDroplets = Math.max(0L, tag.getLong(TAG_ROCKET_OXYGEN));
 
@@ -1927,13 +2132,23 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
                 return false;
             }
             if (this.fuelTank) {
-                return variant.isOf(GCFluids.FUEL);
+                if (!PropellantType.isRocketPropellantFluid(variant.getFluid())) {
+                    return false;
+                }
+                return HangarTerminalBlockEntity.this.rocketFuelDroplets <= 0L
+                        || HangarTerminalBlockEntity.this.rocketFuelVariant.isBlank()
+                        || HangarTerminalBlockEntity.this.rocketFuelVariant.equals(variant);
             }
             return variant.isOf(Gases.OXYGEN);
         }
 
         private FluidVariant canonicalVariant() {
-            return FluidVariant.of(this.fuelTank ? GCFluids.FUEL : Gases.OXYGEN);
+            if (this.fuelTank) {
+                return !HangarTerminalBlockEntity.this.rocketFuelVariant.isBlank()
+                        ? HangarTerminalBlockEntity.this.rocketFuelVariant
+                        : FluidVariant.of(GCFluids.FUEL);
+            }
+            return FluidVariant.of(Gases.OXYGEN);
         }
 
         private long currentStored() {
@@ -1962,6 +2177,9 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
             long inserted = Math.min(space, maxAmount);
             if (inserted > 0L) {
                 this.updateSnapshots(transaction);
+                if (this.fuelTank && current <= 0L) {
+                    HangarTerminalBlockEntity.this.rocketFuelVariant = resource;
+                }
                 this.setStored(current + inserted);
             }
             return inserted;

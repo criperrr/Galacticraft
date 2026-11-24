@@ -39,6 +39,8 @@ import dev.galacticraft.mod.content.item.ModularRocketPartBlockItem;
 import dev.galacticraft.mod.content.rocket.part.RocketPartCatalog;
 import dev.galacticraft.mod.content.rocket.part.RocketPartCostCalculator;
 import dev.galacticraft.mod.content.rocket.part.RocketPartSpec;
+import dev.galacticraft.mod.content.rocket.physics.PlanetaryEnvironment;
+import dev.galacticraft.mod.content.rocket.physics.RocketFlightValidator;
 import dev.galacticraft.mod.network.c2s.BuildRocketFromInventoryPayload;
 import dev.galacticraft.mod.network.c2s.HangarTerminalActionPayload;
 import dev.galacticraft.mod.network.c2s.HangarTerminalActionPayload.Action;
@@ -88,12 +90,30 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
     private static final int COL_TOP_Y = 25;
     private static final int COL_HEIGHT = 141;
 
-    // Formed-mode top tab bar (388x258)
+    // Formed-mode top tab bar (388x258) — 3 equal aerospace tabs
     private static final int TAB_Y = 23;
     private static final int TAB_H = 16;
     private static final int TAB_ASSEMBLY_X = 8;
-    private static final int TAB_ROCKET_X = 196;
-    private static final int TAB_W = 184;
+    private static final int TAB_ROCKET_X = 133;
+    private static final int TAB_SIM_X = 258;
+    private static final int TAB_W = 122;
+
+    // Simulation-tab 3-column layout (388x258)
+    private static final int SIM_DEST_X = 8;
+    private static final int SIM_DEST_Y = 42;
+    private static final int SIM_DEST_W = 104;
+    private static final int SIM_DEST_H = 208;
+    private static final int SIM_DEST_ROW_H = 18;
+
+    private static final int SIM_METRIC_X = 116;
+    private static final int SIM_METRIC_Y = 42;
+    private static final int SIM_METRIC_W = 146;
+    private static final int SIM_METRIC_H = 208;
+
+    private static final int SIM_DIAG_X = 266;
+    private static final int SIM_DIAG_Y = 42;
+    private static final int SIM_DIAG_W = 114;
+    private static final int SIM_DIAG_H = 208;
 
     // VAB-mode 3-column layout (388x258)
     private static final int VAB_INV_X = 8;
@@ -183,6 +203,7 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
     // Formed-mode tab buttons
     private TerminalButton assemblyTabButton;
     private TerminalButton rocketTabButton;
+    private TerminalButton simTabButton;
     private TerminalButton goToAssemblyButton;
 
     // VAB-mode & Rocket-tab widgets
@@ -199,6 +220,9 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
     private TerminalButton creativeFillButton;
     private TerminalButton axisGuideButton;
     private TerminalButton disassembleCompactButton;
+
+    // Pre-flight emergent physics destination simulator index (defaults to Moon = 1)
+    private int simDestinationIndex = 1;
 
     // Formed-mode active tab
     private FormedTab activeTab = FormedTab.ASSEMBLY;
@@ -333,6 +357,15 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
                 ButtonStyle.TAB_INACTIVE,
                 btn -> {
                     this.activeTab = FormedTab.ROCKET;
+                    this.refreshState(true);
+                }
+        ));
+        this.simTabButton = this.addRenderableWidget(new TerminalButton(
+                x + TAB_SIM_X, y + TAB_Y, TAB_W, TAB_H,
+                Component.literal("Simulação"),
+                ButtonStyle.TAB_INACTIVE,
+                btn -> {
+                    this.activeTab = FormedTab.SIMULATION;
                     this.refreshState(true);
                 }
         ));
@@ -625,13 +658,14 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
         boolean hasMounted = !mounted.isEmpty();
         boolean rocketTab = formed && this.activeTab == FormedTab.ROCKET;
         boolean assemblyTab = formed && this.activeTab == FormedTab.ASSEMBLY;
+        boolean simTab = formed && this.activeTab == FormedTab.SIMULATION;
 
         if (this.assemblyTabButton != null) {
             this.assemblyTabButton.visible = formed;
             this.assemblyTabButton.active = formed;
             this.assemblyTabButton.setStyle(assemblyTab ? ButtonStyle.TAB_ACTIVE : ButtonStyle.TAB_INACTIVE);
             this.assemblyTabButton.setMessage(Component.literal(
-                    this.vabDraft.isEmpty() ? "Montagem (VAB)" : "Montagem (VAB: " + this.vabDraft.size() + ")"
+                    this.vabDraft.isEmpty() ? "Montagem (VAB)" : "VAB (" + this.vabDraft.size() + ")"
             ));
         }
         if (this.rocketTabButton != null) {
@@ -640,12 +674,19 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
             this.rocketTabButton.setStyle(rocketTab ? ButtonStyle.TAB_ACTIVE : ButtonStyle.TAB_INACTIVE);
             String rocketTabLabel = hasMounted
                     ? (be.isRocketAssembled() ? "Foguete [" + mounted.size() + "]" : "No Pad (" + mounted.size() + ")")
-                    : "Foguete (Vazio)";
+                    : "Foguete";
             this.rocketTabButton.setMessage(Component.literal(rocketTabLabel));
         }
+        if (this.simTabButton != null) {
+            this.simTabButton.visible = formed;
+            this.simTabButton.active = formed;
+            this.simTabButton.setStyle(simTab ? ButtonStyle.TAB_ACTIVE : ButtonStyle.TAB_INACTIVE);
+            this.simTabButton.setMessage(Component.literal("Simulação"));
+        }
         if (this.goToAssemblyButton != null) {
-            this.goToAssemblyButton.visible = rocketTab && !hasMounted;
-            this.goToAssemblyButton.active = rocketTab && !hasMounted;
+            boolean showGoToVab = (rocketTab && !hasMounted) || (simTab && !hasMounted && this.vabDraft.isEmpty());
+            this.goToAssemblyButton.visible = showGoToVab;
+            this.goToAssemblyButton.active = showGoToVab;
         }
 
         // VAB-mode & Rocket-tab widgets
@@ -757,7 +798,7 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
             int ry = this.topPos + VAB_INFO_Y;
             this.disassembleCompactButton.setPosition(
                     this.leftPos + VAB_INFO_X + 4,
-                    assemblyTab ? ry + 153 : ry + 183
+                    ry + 183
             );
         }
     }
@@ -843,6 +884,23 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
             int x = this.leftPos;
             int y = this.topPos;
 
+            // 0. Click inside Left Destination List (Simulation tab)
+            if (this.activeTab == FormedTab.SIMULATION
+                    && (!this.vabDraft.isEmpty() || !this.cachedMountedSummary.parts().isEmpty())) {
+                int listX = x + SIM_DEST_X + 4;
+                int listY = y + SIM_DEST_Y + 18;
+                int listW = SIM_DEST_W - 8;
+                int count = PlanetaryEnvironment.SOLAR_SYSTEM_PRESETS.size();
+                if (mouseX >= listX && mouseX < listX + listW
+                        && mouseY >= listY && mouseY < listY + count * SIM_DEST_ROW_H) {
+                    int row = (int) ((mouseY - listY) / SIM_DEST_ROW_H);
+                    if (row >= 0 && row < count) {
+                        this.simDestinationIndex = row;
+                        return true;
+                    }
+                }
+            }
+
             // 1. Click inside Left Inventory Parts List (Assembly VAB tab only)
             if (this.activeTab == FormedTab.ASSEMBLY) {
                 int invListX = x + VAB_INV_X + 4;
@@ -867,8 +925,9 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
                 }
             }
 
-            // 2. Click / drag inside Center 3D Viewport (both VAB & Rocket tabs)
-            boolean hasRocketCanvas = this.activeTab == FormedTab.ASSEMBLY || !this.cachedMountedSummary.parts().isEmpty();
+            // 2. Click / drag inside Center 3D Viewport (VAB & Rocket tabs only)
+            boolean hasRocketCanvas = this.activeTab == FormedTab.ASSEMBLY
+                    || (this.activeTab == FormedTab.ROCKET && !this.cachedMountedSummary.parts().isEmpty());
             if (hasRocketCanvas) {
                 int cx = x + this.activeCanvasX();
                 int cy = y + this.activeCanvasY();
@@ -994,7 +1053,8 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
     public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
         HangarTerminalBlockEntity be = this.menu.blockEntity;
         if (be != null && be.isFormed()) {
-            boolean hasRocketCanvas = this.activeTab == FormedTab.ASSEMBLY || !this.cachedMountedSummary.parts().isEmpty();
+            boolean hasRocketCanvas = this.activeTab == FormedTab.ASSEMBLY
+                    || (this.activeTab == FormedTab.ROCKET && !this.cachedMountedSummary.parts().isEmpty());
             if (hasRocketCanvas) {
                 int cx = this.leftPos + this.activeCanvasX();
                 int cy = this.topPos + this.activeCanvasY();
@@ -1200,6 +1260,8 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
             headerTitle = "Terminal do Hangar";
         } else if (this.activeTab == FormedTab.ROCKET) {
             headerTitle = "Plataforma — Status do Foguete (" + be.getPlatformSize().getSerializedName() + ")";
+        } else if (this.activeTab == FormedTab.SIMULATION) {
+            headerTitle = "Simulador de Física de Voo (" + be.getPlatformSize().getSerializedName() + ")";
         } else {
             headerTitle = "VAB — Montagem de Foguete (" + be.getPlatformSize().getSerializedName() + ")";
         }
@@ -1208,6 +1270,8 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
         if (formed) {
             if (this.activeTab == FormedTab.ROCKET) {
                 this.renderRocketTabMode(graphics, x, y, mouseX, mouseY, be);
+            } else if (this.activeTab == FormedTab.SIMULATION) {
+                this.renderSimulationTabMode(graphics, x, y, mouseX, mouseY, be);
             } else {
                 this.renderVabMode(graphics, x, y, mouseX, mouseY, be);
             }
@@ -1262,7 +1326,7 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
         int sizeBoxW = 86;
         graphics.fill(sizeBoxX, sizeBoxY, sizeBoxX + sizeBoxW, sizeBoxY + 18, COLOR_BG_INSET);
         graphics.renderOutline(sizeBoxX, sizeBoxY, sizeBoxW, 18, COLOR_BORDER_SECTION);
-        String sizeLabel = size.getSerializedName() + "  (T" + size.maxTier() + ")";
+        String sizeLabel = size.getSerializedName() + "  (Ø" + size.diameter() + "m)";
         graphics.drawCenteredString(this.font, sizeLabel, sizeBoxX + sizeBoxW / 2, sizeBoxY + 5, COLOR_TEXT_PRIMARY);
 
         int detectedSpan = be.getDetectedPadSpan();
@@ -1826,6 +1890,443 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
         drawMiniBadge(graphics, boxX + 69, boxY + 77, "TWR", summary.twr() >= 1.0 && summary.diameterWithinLimit());
     }
 
+    private void renderSimulationTabMode(GuiGraphics graphics, int x, int y, int mouseX, int mouseY, HangarTerminalBlockEntity be) {
+        boolean hasDraft = !this.vabDraft.isEmpty();
+        boolean hasMounted = !this.cachedMountedSummary.parts().isEmpty();
+        boolean hasVehicle = hasDraft || hasMounted;
+        boolean useDraft = hasDraft;
+
+        // Top-right header status pill
+        PlanetaryEnvironment selectedDest = this.getSelectedSimulationDestination();
+        RocketFlightValidator.FlightValidationReport activeReport = hasVehicle
+                ? this.evaluateCurrentVehicleReport(be, useDraft, selectedDest)
+                : null;
+
+        String pillText;
+        int pillBg;
+        int pillBorder;
+        int pillColor;
+        if (!hasVehicle || activeReport == null) {
+            pillText = "SEM VEÍCULO";
+            pillBg = 0xFF1E293B;
+            pillBorder = 0xFF475569;
+            pillColor = COLOR_TEXT_MUTED;
+        } else if (activeReport.hazards().isEmpty()) {
+            pillText = "VIÁVEL";
+            pillBg = 0xFF143826;
+            pillBorder = 0xFF34D399;
+            pillColor = COLOR_TEXT_OK;
+        } else if (!activeReport.hasCriticalHazards()) {
+            pillText = "ALERTAS";
+            pillBg = 0xFF2B2310;
+            pillBorder = 0xFFFACC15;
+            pillColor = COLOR_TEXT_AMBER;
+        } else {
+            pillText = "ALTO RISCO";
+            pillBg = 0xFF3B1318;
+            pillBorder = 0xFFF87171;
+            pillColor = COLOR_TEXT_ERROR;
+        }
+        int pillW = 74;
+        int pillX = x + PANEL_WIDTH_VAB - pillW - 6;
+        int pillY = y + 5;
+        graphics.fill(pillX, pillY, pillX + pillW, pillY + 11, pillBg);
+        graphics.renderOutline(pillX, pillY, pillW, 11, pillBorder);
+        graphics.drawCenteredString(this.font, pillText, pillX + pillW / 2, pillY + 2, pillColor);
+
+        if (!hasVehicle || activeReport == null) {
+            int cardX = x + 36;
+            int cardY = y + 72;
+            int cardW = PANEL_WIDTH_VAB - 72;
+            int cardH = 114;
+            graphics.fill(cardX, cardY, cardX + cardW, cardY + cardH, COLOR_BG_SECTION);
+            graphics.renderOutline(cardX, cardY, cardW, cardH, COLOR_BORDER_SECTION);
+            graphics.drawCenteredString(this.font, "Nenhum veículo disponível para simulação", x + PANEL_WIDTH_VAB / 2, cardY + 24, COLOR_TEXT_TITLE);
+            graphics.drawCenteredString(this.font, "Monte um rascunho na aba Montagem (VAB)", x + PANEL_WIDTH_VAB / 2, cardY + 42, COLOR_TEXT_MUTED);
+            graphics.drawCenteredString(this.font, "ou construa um foguete na plataforma.", x + PANEL_WIDTH_VAB / 2, cardY + 54, COLOR_TEXT_MUTED);
+            return;
+        }
+
+        // --- Column 1: Solar System Destinations List ---
+        int dx = x + SIM_DEST_X;
+        int dy = y + SIM_DEST_Y;
+        graphics.fill(dx, dy, dx + SIM_DEST_W, dy + SIM_DEST_H, COLOR_BG_SECTION);
+        graphics.renderOutline(dx, dy, SIM_DEST_W, SIM_DEST_H, COLOR_BORDER_SECTION);
+        graphics.drawString(this.font, "Destinos", dx + 5, dy + 4, COLOR_TEXT_HEADER, false);
+        String countStr = String.valueOf(PlanetaryEnvironment.SOLAR_SYSTEM_PRESETS.size());
+        graphics.drawString(this.font, countStr, dx + SIM_DEST_W - 5 - this.font.width(countStr), dy + 4, COLOR_TEXT_MUTED, false);
+
+        int listX = dx + 4;
+        int listY = dy + 18;
+        int listW = SIM_DEST_W - 8;
+        int selectedIdx = Math.floorMod(this.simDestinationIndex, PlanetaryEnvironment.SOLAR_SYSTEM_PRESETS.size());
+        for (int i = 0; i < PlanetaryEnvironment.SOLAR_SYSTEM_PRESETS.size(); i++) {
+            PlanetaryEnvironment env = PlanetaryEnvironment.SOLAR_SYSTEM_PRESETS.get(i);
+            RocketFlightValidator.FlightValidationReport rowReport = (i == selectedIdx)
+                    ? activeReport
+                    : this.evaluateCurrentVehicleReport(be, useDraft, env);
+
+            int rowY = listY + i * SIM_DEST_ROW_H;
+            int rowH = SIM_DEST_ROW_H - 1;
+            boolean selected = i == selectedIdx;
+            boolean hovered = mouseX >= listX && mouseX < listX + listW && mouseY >= rowY && mouseY < rowY + rowH;
+
+            int rowBg = selected ? 0xFF17304A : (hovered ? 0xFF182538 : COLOR_BG_INSET);
+            int rowBorder = selected ? 0xFF38BDF8 : (hovered ? 0xFF2E4968 : 0xFF1B283A);
+            graphics.fill(listX, rowY, listX + listW, rowY + rowH, rowBg);
+            graphics.renderOutline(listX, rowY, listW, rowH, rowBorder);
+
+            int dotColor = rowReport.hazards().isEmpty()
+                    ? COLOR_TEXT_OK
+                    : (rowReport.hasCriticalHazards() ? COLOR_TEXT_ERROR : COLOR_TEXT_AMBER);
+            graphics.fill(listX + 4, rowY + 6, listX + 8, rowY + 10, dotColor);
+
+            String gravStr = String.format(java.util.Locale.ROOT, "%.2fG", env.gravityG());
+            int gravW = this.font.width(gravStr);
+            int maxNameW = listW - 16 - gravW;
+            String planetName = this.font.plainSubstrByWidth(env.displayName(), Math.max(24, maxNameW));
+            graphics.drawString(this.font, planetName, listX + 11, rowY + 4,
+                    selected ? COLOR_TEXT_TITLE : COLOR_TEXT_PRIMARY, false);
+            graphics.drawString(this.font, gravStr, listX + listW - 3 - gravW, rowY + 4,
+                    selected ? COLOR_TEXT_BADGE : COLOR_TEXT_MUTED, false);
+        }
+
+        // --- Column 2: Physical Telemetry Cards ---
+        int mx = x + SIM_METRIC_X;
+        int my = y + SIM_METRIC_Y;
+        graphics.fill(mx, my, mx + SIM_METRIC_W, my + SIM_METRIC_H, COLOR_BG_SECTION);
+        graphics.renderOutline(mx, my, SIM_METRIC_W, SIM_METRIC_H, COLOR_BORDER_SECTION);
+        graphics.drawString(this.font, "Análise Física", mx + 5, my + 4, COLOR_TEXT_HEADER, false);
+        String sourceTag = useDraft ? "RASCUNHO" : "NO PAD";
+        graphics.drawString(this.font, sourceTag, mx + SIM_METRIC_W - 5 - this.font.width(sourceTag), my + 4,
+                useDraft ? COLOR_TEXT_BADGE : COLOR_TEXT_OK, false);
+
+        int cardX = mx + 4;
+        int cardW = SIM_METRIC_W - 8;
+
+        // Route & heliocentric distance strip
+        int routeY = my + 16;
+        graphics.fill(cardX, routeY, cardX + cardW, routeY + 14, COLOR_BG_INSET);
+        graphics.renderOutline(cardX, routeY, cardW, 14, 0xFF23354D);
+        String auStr = String.format(java.util.Locale.ROOT, "%.2f AU", selectedDest.orbitalDistanceAu());
+        int auW = this.font.width(auStr);
+        String routeText = this.font.plainSubstrByWidth(
+                activeReport.origin().displayName() + " \u2192 " + selectedDest.displayName(),
+                cardW - 10 - auW
+        );
+        graphics.drawString(this.font, routeText, cardX + 4, routeY + 3, COLOR_TEXT_TITLE, false);
+        graphics.drawString(this.font, auStr, cardX + cardW - 4 - auW, routeY + 3, COLOR_TEXT_MUTED, false);
+
+        int cy = my + 33;
+        int cardStep = 34;
+
+        // Card 1: Thrust-to-Weight (T/W)
+        double origTwr = Double.isFinite(activeReport.originTwr()) ? activeReport.originTwr() : 99.9;
+        double destTwr = Double.isFinite(activeReport.destinationTwr()) ? activeReport.destinationTwr() : 99.9;
+        boolean twrOk = activeReport.canLiftoffOrigin() && activeReport.canLiftoffDestination();
+        float twrRatio = (float) Mth.clamp(Math.min(origTwr, destTwr) / 2.5, 0.0, 1.0);
+        int twrBarColor = twrOk ? (Math.min(origTwr, destTwr) >= 1.2 ? COLOR_TEXT_OK : COLOR_TEXT_AMBER) : COLOR_TEXT_ERROR;
+        this.drawSimMetricCard(
+                graphics, cardX, cy, cardW,
+                "T/W Orig / Dest",
+                String.format(java.util.Locale.ROOT, "%.2f / %.2f", origTwr, destTwr),
+                twrOk ? COLOR_TEXT_OK : COLOR_TEXT_ERROR,
+                twrRatio,
+                twrBarColor,
+                0.4F,
+                String.format(java.util.Locale.ROOT, "Emp: %.0fkN | Grav: %.2fG", activeReport.totalThrustKn(), selectedDest.gravityG()),
+                COLOR_TEXT_MUTED
+        );
+
+        // Card 2: Delta-V Budget
+        cy += cardStep;
+        float dvRatio = activeReport.requiredDeltaV() > 0.0
+                ? (float) Mth.clamp(activeReport.maxDeltaV() / activeReport.requiredDeltaV(), 0.0, 1.0)
+                : 1.0F;
+        int dvColor = activeReport.hasEnoughDeltaV() ? COLOR_TEXT_OK : COLOR_TEXT_AMBER;
+        this.drawSimMetricCard(
+                graphics, cardX, cy, cardW,
+                "\u0394v Máx / Req",
+                String.format(java.util.Locale.ROOT, "%.0f/%.0f", activeReport.maxDeltaV(), activeReport.requiredDeltaV()),
+                dvColor,
+                dvRatio,
+                activeReport.hasEnoughDeltaV() ? 0xFF2DD4BF : COLOR_TEXT_AMBER,
+                -1.0F,
+                String.format(java.util.Locale.ROOT, "Atual: %.0fm/s | Isp: %.0fs", activeReport.currentDeltaV(), activeReport.effectiveIspSeconds()),
+                COLOR_TEXT_MUTED
+        );
+
+        // Card 3: Thermal, Pressure & Venus Acid
+        cy += cardStep;
+        boolean envSafe = activeReport.thermalSafe() && activeReport.pressureSafe() && !activeReport.acidHazard();
+        double tempRatio = activeReport.destinationPeakTempKelvin() > 0.0
+                ? activeReport.minThermalToleranceKelvin() / activeReport.destinationPeakTempKelvin()
+                : 1.0;
+        double pressRatio = activeReport.destinationPressureAtm() > 0.01
+                ? activeReport.minPressureToleranceAtm() / activeReport.destinationPressureAtm()
+                : 1.0;
+        float envBarRatio = activeReport.acidHazard()
+                ? 0.25F
+                : (float) Mth.clamp(Math.min(tempRatio, pressRatio), 0.0, 1.0);
+        String envDetail;
+        if (selectedDest.corrosiveAcid()) {
+            envDetail = String.format(
+                    java.util.Locale.ROOT,
+                    "%.0fK %.0fatm H2SO4:%s",
+                    activeReport.minThermalToleranceKelvin(),
+                    activeReport.minPressureToleranceAtm(),
+                    activeReport.acidProtected() ? "OK" : "SEM"
+            );
+        } else {
+            envDetail = String.format(
+                    java.util.Locale.ROOT,
+                    "%.0f/%.0fK | %.1f/%.1fatm",
+                    activeReport.minThermalToleranceKelvin(),
+                    activeReport.destinationPeakTempKelvin(),
+                    activeReport.minPressureToleranceAtm(),
+                    activeReport.destinationPressureAtm()
+            );
+        }
+        this.drawSimMetricCard(
+                graphics, cardX, cy, cardW,
+                "Térmica / Pressão",
+                envSafe ? "SEGURO" : (activeReport.acidHazard() ? "ÁCIDO" : "EXPOSTO"),
+                envSafe ? COLOR_TEXT_OK : COLOR_TEXT_ERROR,
+                envBarRatio,
+                envSafe ? COLOR_TEXT_OK : COLOR_TEXT_ERROR,
+                -1.0F,
+                envDetail,
+                envSafe ? COLOR_TEXT_MUTED : COLOR_TEXT_WARN
+        );
+
+        // Card 4: Power (1/r² Solar & DFD)
+        cy += cardStep;
+        long totalGen = activeReport.passivePowerGenPerTick() + activeReport.dfdBurnPowerGenPerTick();
+        float powerRatio = activeReport.powerDrawPerTick() > 0L
+                ? (float) Mth.clamp((double) totalGen / (double) activeReport.powerDrawPerTick(), 0.0, 1.0)
+                : 1.0F;
+        String powerDetail = activeReport.dfdBurnPowerGenPerTick() > 0L
+                ? String.format(java.util.Locale.ROOT, "Sol %.3fx | DFD +%d GJ/t", activeReport.solarIrradianceFactor(), activeReport.dfdBurnPowerGenPerTick())
+                : String.format(java.util.Locale.ROOT, "Sol %.3fx | Cons -%d GJ/t", activeReport.solarIrradianceFactor(), activeReport.powerDrawPerTick());
+        this.drawSimMetricCard(
+                graphics, cardX, cy, cardW,
+                "Energia (1/r\u00b2)",
+                String.format(java.util.Locale.ROOT, "%+d GJ/t", activeReport.netPowerPerTick()),
+                activeReport.powerDeficit() ? COLOR_TEXT_AMBER : 0xFF7DD3FC,
+                powerRatio,
+                activeReport.powerDeficit() ? COLOR_TEXT_AMBER : 0xFF38BDF8,
+                -1.0F,
+                powerDetail,
+                COLOR_TEXT_MUTED
+        );
+
+        // Card 5: Cryogenics & Propellant
+        cy += cardStep;
+        String cryoVal;
+        int cryoColor;
+        float cryoRatio;
+        if (!activeReport.propellantCompatible()) {
+            cryoVal = "INCOMP.";
+            cryoColor = COLOR_TEXT_ERROR;
+            cryoRatio = 0.15F;
+        } else if (activeReport.superfluidCryo2kActive()) {
+            cryoVal = "<2K 0.0x";
+            cryoColor = COLOR_TEXT_BADGE;
+            cryoRatio = 1.0F;
+        } else if (activeReport.zeroBoilOffActive()) {
+            cryoVal = "CRYO 0.0x";
+            cryoColor = COLOR_TEXT_OK;
+            cryoRatio = 1.0F;
+        } else if (activeReport.boilOffDropletsPerMinute() > 0.0) {
+            double bPerMin = activeReport.boilOffDropletsPerMinute() / RocketFlightValidator.DROPLETS_PER_BUCKET;
+            cryoVal = String.format(java.util.Locale.ROOT, "-%.2fB/m", bPerMin);
+            cryoColor = COLOR_TEXT_AMBER;
+            cryoRatio = (float) Mth.clamp(1.0 - (bPerMin / 2.0), 0.15, 0.85);
+        } else {
+            cryoVal = "ESTÁVEL";
+            cryoColor = COLOR_TEXT_OK;
+            cryoRatio = 1.0F;
+        }
+        this.drawSimMetricCard(
+                graphics, cardX, cy, cardW,
+                "Criogenia / Prop.",
+                cryoVal,
+                cryoColor,
+                cryoRatio,
+                cryoColor,
+                -1.0F,
+                activeReport.propellantStatusMessage(),
+                activeReport.propellantCompatible() ? COLOR_TEXT_MUTED : COLOR_TEXT_ERROR
+        );
+
+        // --- Column 3: Mission Verdict & Detailed Hazards ---
+        int gx = x + SIM_DIAG_X;
+        int gy = y + SIM_DIAG_Y;
+        graphics.fill(gx, gy, gx + SIM_DIAG_W, gy + SIM_DIAG_H, COLOR_BG_SECTION);
+        graphics.renderOutline(gx, gy, SIM_DIAG_W, SIM_DIAG_H, COLOR_BORDER_SECTION);
+        graphics.drawString(this.font, "Diagnóstico", gx + 5, gy + 4, COLOR_TEXT_HEADER, false);
+
+        int innerX = gx + 4;
+        int innerW = SIM_DIAG_W - 8;
+
+        // Verdict banner
+        int vY = gy + 16;
+        int vH = 24;
+        String verdictTitle;
+        String verdictSub;
+        int vBg;
+        int vBorder;
+        int vColor;
+        if (activeReport.hazards().isEmpty()) {
+            verdictTitle = "MISSÃO VIÁVEL";
+            verdictSub = "Parâmetros nominais";
+            vBg = 0xFF123023;
+            vBorder = 0xFF34D399;
+            vColor = COLOR_TEXT_OK;
+        } else if (!activeReport.hasCriticalHazards()) {
+            verdictTitle = "COM ALERTAS";
+            verdictSub = activeReport.hazards().size() + " aviso(s) ativo(s)";
+            vBg = 0xFF2B2210;
+            vBorder = 0xFFFACC15;
+            vColor = COLOR_TEXT_AMBER;
+        } else {
+            verdictTitle = "ALTO RISCO";
+            verdictSub = activeReport.hazards().size() + " risco(s) crítico(s)";
+            vBg = 0xFF381318;
+            vBorder = 0xFFF87171;
+            vColor = COLOR_TEXT_ERROR;
+        }
+        graphics.fill(innerX, vY, innerX + innerW, vY + vH, vBg);
+        graphics.renderOutline(innerX, vY, innerW, vH, vBorder);
+        graphics.drawCenteredString(this.font, verdictTitle, innerX + innerW / 2, vY + 3, vColor);
+        graphics.drawCenteredString(this.font, verdictSub, innerX + innerW / 2, vY + 13, COLOR_TEXT_MUTED);
+
+        // Estimated entry integrity wear pill
+        int wearY = gy + 43;
+        int wearH = 14;
+        int wearPct = (int) Math.round(Mth.clamp(activeReport.estimatedEntryIntegrityLoss(), 0.0, 1.0) * 100.0);
+        int wearColor = wearPct == 0 ? COLOR_TEXT_OK : (wearPct <= 30 ? COLOR_TEXT_AMBER : COLOR_TEXT_ERROR);
+        graphics.fill(innerX, wearY, innerX + innerW, wearY + wearH, COLOR_BG_INSET);
+        graphics.renderOutline(innerX, wearY, innerW, wearH, 0xFF1E2D40);
+        graphics.drawString(this.font, "Dano entrada:", innerX + 4, wearY + 3, COLOR_TEXT_MUTED, false);
+        String wearVal = "~" + wearPct + "%";
+        graphics.drawString(this.font, wearVal, innerX + innerW - 4 - this.font.width(wearVal), wearY + 3, wearColor, false);
+
+        // Hazards list container
+        int hzY = gy + 60;
+        int hzH = 128;
+        graphics.fill(innerX, hzY, innerX + innerW, hzY + hzH, COLOR_BG_INSET);
+        graphics.renderOutline(innerX, hzY, innerW, hzH, 0xFF1E2D40);
+
+        if (activeReport.hazards().isEmpty()) {
+            graphics.drawCenteredString(this.font, "Todos os parâmetros", innerX + innerW / 2, hzY + 42, COLOR_TEXT_OK);
+            graphics.drawCenteredString(this.font, "físicos dentro dos", innerX + innerW / 2, hzY + 53, COLOR_TEXT_PRIMARY);
+            graphics.drawCenteredString(this.font, "limites de segurança.", innerX + innerW / 2, hzY + 64, COLOR_TEXT_PRIMARY);
+        } else {
+            int curY = hzY + 4;
+            int maxY = hzY + hzH - 12;
+            int shown = 0;
+            for (RocketFlightValidator.FlightHazard hazard : activeReport.hazards()) {
+                int sevColor = switch (hazard.severity()) {
+                    case CRITICAL -> COLOR_TEXT_ERROR;
+                    case WARNING -> COLOR_TEXT_AMBER;
+                    case INFO -> COLOR_TEXT_MUTED;
+                };
+                List<net.minecraft.util.FormattedCharSequence> wrapped = this.font.split(
+                        Component.literal(hazard.summary()),
+                        innerW - 10
+                );
+                int blockH = Math.max(1, wrapped.size()) * 9;
+                if (curY + blockH > maxY && shown > 0) {
+                    int remaining = activeReport.hazards().size() - shown;
+                    graphics.drawString(this.font, "+" + remaining + " alerta(s)...", innerX + 5, hzY + hzH - 10, COLOR_TEXT_MUTED, false);
+                    break;
+                }
+                int barEnd = Math.min(hzY + hzH - 3, curY + blockH - 1);
+                graphics.fill(innerX + 3, curY, innerX + 5, barEnd, sevColor);
+                for (net.minecraft.util.FormattedCharSequence line : wrapped) {
+                    if (curY + 8 > hzY + hzH - 3) {
+                        break;
+                    }
+                    graphics.drawString(this.font, line, innerX + 7, curY, sevColor, false);
+                    curY += 9;
+                }
+                curY += 3;
+                shown++;
+            }
+        }
+
+        // Bottom emergent physics footer pill
+        int footY = gy + 191;
+        graphics.fill(innerX, footY, innerX + innerW, footY + 13, 0xFF102233);
+        graphics.renderOutline(innerX, footY, innerW, 13, 0xFF23425E);
+        graphics.drawCenteredString(this.font, "Física real \u2022 Sem Tier", innerX + innerW / 2, footY + 3, COLOR_TEXT_BADGE);
+    }
+
+    private void drawSimMetricCard(
+            GuiGraphics graphics,
+            int x,
+            int y,
+            int w,
+            String label,
+            String value,
+            int valueColor,
+            float barRatio,
+            int barColor,
+            float markerRatio,
+            String detail,
+            int detailColor
+    ) {
+        int h = 32;
+        graphics.fill(x, y, x + w, y + h, COLOR_BG_INSET);
+        graphics.renderOutline(x, y, w, h, 0xFF1E2D40);
+
+        int valW = this.font.width(value);
+        String trimmedLabel = this.font.plainSubstrByWidth(label, Math.max(24, w - 10 - valW));
+        graphics.drawString(this.font, trimmedLabel, x + 4, y + 3, COLOR_TEXT_PRIMARY, false);
+        graphics.drawString(this.font, value, x + w - 4 - valW, y + 3, valueColor, false);
+
+        int barX = x + 4;
+        int barY = y + 13;
+        int barW = w - 8;
+        int barH = 5;
+        graphics.fill(barX, barY, barX + barW, barY + barH, 0xFF070B12);
+        graphics.renderOutline(barX, barY, barW, barH, 0xFF1E2D40);
+        int fillW = Math.round((barW - 2) * Mth.clamp(barRatio, 0.0F, 1.0F));
+        if (fillW > 0) {
+            graphics.fill(barX + 1, barY + 1, barX + 1 + fillW, barY + barH - 1, barColor);
+        }
+        if (markerRatio > 0.0F && markerRatio < 1.0F) {
+            int markerX = barX + 1 + Math.round((barW - 2) * markerRatio);
+            graphics.fill(markerX, barY, markerX + 1, barY + barH, 0xFFE2E8F0);
+        }
+
+        String trimmedDetail = this.font.plainSubstrByWidth(detail, w - 8);
+        graphics.drawString(this.font, trimmedDetail, x + 4, y + 21, detailColor, false);
+    }
+
+    private PlanetaryEnvironment getSelectedSimulationDestination() {
+        int idx = Math.floorMod(this.simDestinationIndex, PlanetaryEnvironment.SOLAR_SYSTEM_PRESETS.size());
+        return PlanetaryEnvironment.SOLAR_SYSTEM_PRESETS.get(idx);
+    }
+
+    private RocketFlightValidator.FlightValidationReport evaluateCurrentVehicleReport(
+            HangarTerminalBlockEntity be,
+            boolean useDraft,
+            PlanetaryEnvironment destination
+    ) {
+        PlanetaryEnvironment origin = PlanetaryEnvironment.fromLevel(be.getLevel());
+        if (useDraft && !this.vabDraft.isEmpty()) {
+            List<ItemStack> stacks = new ArrayList<>(this.vabDraft.size());
+            for (VabEntry entry : this.vabDraft) {
+                stacks.add(entry.icon);
+            }
+            RocketFlightValidator.VehicleSnapshot draftSnap = RocketFlightValidator.VehicleSnapshot.fromStacks(stacks, 0L, 0L, null);
+            return RocketFlightValidator.evaluate(draftSnap, origin, destination);
+        }
+        return be.evaluateFlight(destination);
+    }
+
     private void drawResourceGauge(
             GuiGraphics graphics,
             int x,
@@ -2223,7 +2724,8 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
 
     private enum FormedTab {
         ASSEMBLY,
-        ROCKET
+        ROCKET,
+        SIMULATION
     }
 
     private enum ButtonStyle {

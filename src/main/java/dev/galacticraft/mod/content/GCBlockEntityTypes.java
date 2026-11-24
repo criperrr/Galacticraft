@@ -65,6 +65,7 @@ public class GCBlockEntityTypes {
     public static final BlockEntityType<ElectrolyticSeparatorBlockEntity> ELECTROLYTIC_SEPARATOR = register(Constant.Block.ELECTROLYTIC_SEPARATOR, ElectrolyticSeparatorBlockEntity::new, GCBlocks.ELECTROLYTIC_SEPARATOR);
     public static final BlockEntityType<AtmosphericFractionatorBlockEntity> ATMOSPHERIC_FRACTIONATOR = register(Constant.Block.ATMOSPHERIC_FRACTIONATOR, AtmosphericFractionatorBlockEntity::new, GCBlocks.ATMOSPHERIC_FRACTIONATOR);
     public static final BlockEntityType<SabatierChemicalReactorBlockEntity> SABATIER_CHEMICAL_REACTOR = register(Constant.Block.SABATIER_CHEMICAL_REACTOR, SabatierChemicalReactorBlockEntity::new, GCBlocks.SABATIER_CHEMICAL_REACTOR);
+    public static final BlockEntityType<AeroRefurbishmentBenchBlockEntity> AERO_REFURBISHMENT_BENCH = register(Constant.Block.AERO_REFURBISHMENT_BENCH, AeroRefurbishmentBenchBlockEntity::new, GCBlocks.AERO_REFURBISHMENT_BENCH);
     public static final BlockEntityType<FoodCannerBlockEntity> FOOD_CANNER = register(Constant.Block.FOOD_CANNER, FoodCannerBlockEntity::new, GCBlocks.FOOD_CANNER);
 
     // OXYGEN MACHINES

@@ -1016,6 +1016,67 @@ public final class RocketMaterialRegistry {
                 .trait(RocketMaterialTrait.NUCLEAR_THERMAL_CORE)
                 .build());
 
+        // =========================================================================
+        // 7. REFURBISHMENT BENCH PROTECTIVE COATINGS
+        // =========================================================================
+
+        all.add(RocketMaterialProfile.builder(Constant.id("coating_lead_anti_acid"), "Lead Anti-Acid Cladding")
+                .item(GCItems.LEAD_INGOT)
+                .tag(GCItemTags.LEAD_INGOTS)
+                .roles(SlotRole.PROTECTIVE_COATING)
+                .massModifier(0.08)
+                .thermalBonusKelvin(120.0)
+                .pressureMultiplier(1.25)
+                .integrityMultiplier(1.15)
+                .color(0x5C6478)
+                .trait(RocketMaterialTrait.ACID_RADIATION_SHIELD)
+                .build());
+
+        all.add(RocketMaterialProfile.builder(Constant.id("coating_ablative_tps"), "Olivine TPS Heat Shield")
+                .item(GCItems.ABLATIVE_HEAT_TILE)
+                .roles(SlotRole.PROTECTIVE_COATING)
+                .massModifier(0.06)
+                .thermalBonusKelvin(1200.0)
+                .pressureMultiplier(1.15)
+                .integrityMultiplier(1.20)
+                .color(0x8FBC5A)
+                .trait(RocketMaterialTrait.ABLATIVE_TPS)
+                .build());
+
+        all.add(RocketMaterialProfile.builder(Constant.id("coating_sofi_cryo"), "SOFI Cryogenic Foam Jacket")
+                .item(GCItems.SOFI_INSULATION)
+                .roles(SlotRole.PROTECTIVE_COATING)
+                .massModifier(0.02)
+                .thermalBonusKelvin(400.0)
+                .pressureMultiplier(1.10)
+                .integrityMultiplier(1.10)
+                .boilOffMultiplier(0.15)
+                .color(0xE68A3E)
+                .trait(RocketMaterialTrait.SOFI_INSULATION)
+                .build());
+
+        all.add(RocketMaterialProfile.builder(Constant.id("coating_lonsdaleite_pressure"), "Lonsdaleite Pressure Plating")
+                .item(GCItems.LONSDALEITE_GEM)
+                .roles(SlotRole.PROTECTIVE_COATING)
+                .massModifier(0.04)
+                .thermalBonusKelvin(1500.0)
+                .pressureMultiplier(2.50)
+                .integrityMultiplier(1.50)
+                .color(0x7FE8FF)
+                .trait(RocketMaterialTrait.CRYSTALLINE_LATTICE)
+                .build());
+
+        all.add(RocketMaterialProfile.builder(Constant.id("coating_niobium_c103"), "C-103 Refractory Coating")
+                .item(GCItems.COMPRESSED_NIOBIUM)
+                .roles(SlotRole.PROTECTIVE_COATING)
+                .massModifier(0.05)
+                .thermalBonusKelvin(900.0)
+                .pressureMultiplier(1.40)
+                .integrityMultiplier(1.25)
+                .color(0x7BA4D0)
+                .trait(RocketMaterialTrait.VACUUM_REFRACTORY)
+                .build());
+
         // Index by ID and by SlotRole
         Map<ResourceLocation, RocketMaterialProfile> byId = new LinkedHashMap<>(all.size());
         EnumMap<SlotRole, List<RocketMaterialProfile>> byRoleMutable = new EnumMap<>(SlotRole.class);

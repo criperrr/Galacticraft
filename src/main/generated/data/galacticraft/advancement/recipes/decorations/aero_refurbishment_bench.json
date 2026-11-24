@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_rocket_workbench": {
+      "conditions": {
+        "items": [
+          {
+            "items": "galacticraft:rocket_workbench"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "galacticraft:aero_refurbishment_bench"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_rocket_workbench"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "galacticraft:aero_refurbishment_bench"
+    ]
+  }
+}

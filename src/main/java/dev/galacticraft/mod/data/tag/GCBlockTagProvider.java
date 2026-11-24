@@ -939,6 +939,7 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 GCBlocks.ELECTROLYTIC_SEPARATOR,
                 GCBlocks.ATMOSPHERIC_FRACTIONATOR,
                 GCBlocks.SABATIER_CHEMICAL_REACTOR,
+                GCBlocks.AERO_REFURBISHMENT_BENCH,
                 GCBlocks.FUSION_REACTOR_CASING,
                 GCBlocks.FUSION_MAGNET_COIL,
                 GCBlocks.FUSION_PLASMA_GLASS,
