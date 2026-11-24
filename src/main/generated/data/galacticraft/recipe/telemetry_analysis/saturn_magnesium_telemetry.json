@@ -1,0 +1,17 @@
+{
+  "type": "galacticraft:telemetry_analysis",
+  "bonus_domain_points": 48,
+  "bonus_sp": 64,
+  "output_item": {
+    "count": 1,
+    "id": "galacticraft:blank_data_drive"
+  },
+  "processing_time": 90,
+  "reagent": {
+    "item": "galacticraft:lunar_sapphire"
+  },
+  "sample": {
+    "item": "galacticraft:raw_magnesium"
+  },
+  "target_planet": "galacticraft:saturn"
+}

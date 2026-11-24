@@ -1,0 +1,27 @@
+{
+  "branch": "energy_superconductors",
+  "domain": "electromagnetism",
+  "era": 3,
+  "grid_x": 3,
+  "grid_y": -7,
+  "icon_item": "galacticraft:deep_space_ka_band_feed",
+  "id": "galacticraft:research/high_gain_commnet_arrays",
+  "location_requirement": {
+    "label": "Vacuum (<=0.01 atm)",
+    "max_pressure_atm": 0.01
+  },
+  "prerequisites": [
+    "galacticraft:research/interplanetary_science_network"
+  ],
+  "required_domain_points": 110,
+  "required_milestone": "commnet_relay_locked",
+  "source_lab": "Research Data Link",
+  "sp_cost": 295,
+  "summary": "Phase-locked Ka-band uplinks eliminate interplanetary signal drift and boost science telemetry.",
+  "title": "Ka-Band Phased CommNet Arrays",
+  "unlocks": [
+    "Phase-Locked Loop Module",
+    "Deep-Space Ka-Band Feed",
+    "Global Relay Telemetry"
+  ]
+}

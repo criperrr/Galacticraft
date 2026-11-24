@@ -1,0 +1,27 @@
+{
+  "branch": "life_support_bases",
+  "domain": "cryogenics",
+  "era": 5,
+  "grid_x": -11,
+  "grid_y": -4,
+  "icon_item": "galacticraft:environmental_test_chamber",
+  "id": "galacticraft:research/cryo_hibernation_pods",
+  "location_requirement": {
+    "label": "0.0G Orbit / Asteroids",
+    "max_gravity_g": 0.01
+  },
+  "prerequisites": [
+    "galacticraft:research/zero_g_carbon_sofi",
+    "galacticraft:research/radiation_shielded_habitats"
+  ],
+  "required_domain_points": 280,
+  "source_lab": "Environmental Test Chamber",
+  "sp_cost": 820,
+  "summary": "Metabolic stasis pods enable multi-year transits to Jupiter, Saturn, Uranus and Neptune.",
+  "title": "Long-Duration Cryogenic Sleep",
+  "unlocks": [
+    "Advanced Cryogenic Chamber",
+    "Biostasis Regulators",
+    "Deep-Transit Crew Pods"
+  ]
+}

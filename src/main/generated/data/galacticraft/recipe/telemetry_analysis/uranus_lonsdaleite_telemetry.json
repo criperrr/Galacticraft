@@ -1,0 +1,17 @@
+{
+  "type": "galacticraft:telemetry_analysis",
+  "bonus_domain_points": 52,
+  "bonus_sp": 70,
+  "output_item": {
+    "count": 1,
+    "id": "galacticraft:blank_data_drive"
+  },
+  "processing_time": 95,
+  "reagent": {
+    "item": "galacticraft:lunar_sapphire"
+  },
+  "sample": {
+    "item": "galacticraft:lonsdaleite_gem"
+  },
+  "target_planet": "galacticraft:uranus"
+}

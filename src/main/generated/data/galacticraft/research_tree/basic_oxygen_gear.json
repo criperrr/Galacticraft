@@ -1,0 +1,19 @@
+{
+  "branch": "life_support_bases",
+  "domain": "cryogenics",
+  "era": 1,
+  "grid_x": -2,
+  "grid_y": -1,
+  "icon_item": "galacticraft:oxygen_mask",
+  "id": "galacticraft:research/basic_oxygen_gear",
+  "required_domain_points": 0,
+  "sp_cost": 35,
+  "summary": "Foundational breathing apparatus and pressurized gas canisters for vacuum extravehicular activity.",
+  "title": "Pressurized Oxygen Support I",
+  "unlocks": [
+    "Oxygen Mask",
+    "Oxygen Gear",
+    "Small Oxygen Tank",
+    "Oxygen Collector"
+  ]
+}

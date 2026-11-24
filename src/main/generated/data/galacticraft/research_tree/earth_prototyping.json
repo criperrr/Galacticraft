@@ -1,0 +1,16 @@
+{
+  "branch": "metallurgy_machines",
+  "domain": "structures",
+  "era": 1,
+  "icon_item": "galacticraft:compressor",
+  "id": "galacticraft:research/earth_prototyping",
+  "required_domain_points": 0,
+  "sp_cost": 35,
+  "summary": "Central R&D foundation: non-electric prototyping using raw niobium, aluminum, tin, silicon, coal and paper.",
+  "title": "Base Industrial Prototyping",
+  "unlocks": [
+    "Coal Generator",
+    "Compressor",
+    "Circuit Fabricator"
+  ]
+}

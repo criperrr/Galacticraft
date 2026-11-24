@@ -1,0 +1,34 @@
+{
+  "branch": "suits_tools",
+  "domain": "thermodynamics",
+  "era": 2,
+  "grid_x": -5,
+  "grid_y": 3,
+  "icon_item": "galacticraft:ablative_heat_tile",
+  "id": "galacticraft:research/lunar_olivine_optics",
+  "location_requirement": {
+    "allowed_bodies": [
+      "galacticraft:moon"
+    ],
+    "label": "Moon Olivine/Sapphire"
+  },
+  "prerequisites": [
+    "galacticraft:research/reinforced_eva_tools"
+  ],
+  "required_domain_points": 50,
+  "source_lab": "Geological Analyzer",
+  "sp_cost": 140,
+  "summary": "Lunar olivine silicates and corundum sapphires enable refractory TPS tiles and sensor lenses.",
+  "title": "Olivine Ablatives & Sapphire Optics",
+  "unlocked_recipes": [
+    "galacticraft:olivine_glass",
+    "galacticraft:beam_core",
+    "galacticraft:sensor_glasses"
+  ],
+  "unlocks": [
+    "Olivine Glass",
+    "Ablative Heat Tile",
+    "Sensor Glasses",
+    "Beam Core"
+  ]
+}

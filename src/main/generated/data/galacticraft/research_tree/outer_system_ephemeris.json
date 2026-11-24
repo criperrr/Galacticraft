@@ -1,0 +1,32 @@
+{
+  "branch": "aerospace_propulsion",
+  "domain": "electromagnetism",
+  "era": 3,
+  "grid_x": 6,
+  "grid_y": 3,
+  "icon_item": "galacticraft:beam_core",
+  "id": "galacticraft:research/outer_system_ephemeris",
+  "location_requirement": {
+    "allowed_bodies": [
+      "galacticraft:mars",
+      "galacticraft:asteroid"
+    ],
+    "label": "Mars / Orbit / Asteroids"
+  },
+  "prerequisites": [
+    "galacticraft:research/lunar_deep_sky_survey",
+    "galacticraft:research/high_altitude_optics_domes"
+  ],
+  "required_domain_points": 120,
+  "required_milestone": "outer_planet_observed",
+  "source_lab": "Observatory Telescope",
+  "sp_cost": 320,
+  "summary": "Deep-space parallax baseline from Mars, Orbit or Asteroids maps Jupiter, Saturn, Uranus and Neptune.",
+  "title": "Outer Solar System Ephemeris",
+  "unlocks": [
+    "Jupiter Route",
+    "Saturn Route",
+    "Uranus Route",
+    "Neptune Route"
+  ]
+}

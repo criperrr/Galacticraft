@@ -1,0 +1,31 @@
+{
+  "branch": "suits_tools",
+  "domain": "structures",
+  "era": 4,
+  "grid_x": -11,
+  "grid_y": 4,
+  "icon_item": "galacticraft:lead_ingot",
+  "id": "galacticraft:research/venus_hyperbaric_hulls",
+  "location_requirement": {
+    "label": "Hyperbaric Acid (>=50 atm)",
+    "min_pressure_atm": 50.0,
+    "min_temp_kelvin": 600.0,
+    "require_corrosive_acid": true
+  },
+  "prerequisites": [
+    "galacticraft:research/thermal_exosuit_systems",
+    "galacticraft:research/asteroid_titanium_composites"
+  ],
+  "required_domain_points": 235,
+  "required_milestone": "venus_92atm_certified",
+  "source_lab": "Environmental Test Chamber",
+  "sp_cost": 670,
+  "summary": "Live Venusian 92 atm sulfuric acid chamber trials certify lead anti-acid plating and T2 isothermal suits.",
+  "title": "92 atm Hyperbaric & Acid Armor",
+  "unlocks": [
+    "Lead Anti-Acid Coatings",
+    "Isothermal Padding T2",
+    "Hyperbaric Capsules",
+    "Geothermal Gen"
+  ]
+}

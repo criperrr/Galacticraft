@@ -1,0 +1,26 @@
+{
+  "branch": "life_support_bases",
+  "domain": "structures",
+  "era": 3,
+  "grid_x": -7,
+  "grid_y": -4,
+  "icon_item": "galacticraft:vacuum_turbopump_stage",
+  "id": "galacticraft:research/pressurized_colony_domes",
+  "location_requirement": {
+    "label": "Vacuum (<=0.01 atm)",
+    "max_pressure_atm": 0.01
+  },
+  "prerequisites": [
+    "galacticraft:research/lunar_polar_electrolysis"
+  ],
+  "required_domain_points": 100,
+  "source_lab": "Environmental Test Chamber",
+  "sp_cost": 280,
+  "summary": "High-span oxygen bubble projectors and double-pane vacuum glass for large planetary settlements.",
+  "title": "Modular Geodesic Colony Domes",
+  "unlocks": [
+    "Oxygen Bubble Distributor",
+    "Vacuum Turbopump Stage",
+    "Large Habitat Modules"
+  ]
+}

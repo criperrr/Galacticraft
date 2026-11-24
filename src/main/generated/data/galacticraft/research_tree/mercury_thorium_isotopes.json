@@ -1,0 +1,35 @@
+{
+  "branch": "energy_superconductors",
+  "domain": "nuclear_plasma",
+  "era": 4,
+  "grid_x": -2,
+  "grid_y": -9,
+  "icon_item": "galacticraft:radioisotope_core",
+  "id": "galacticraft:research/mercury_thorium_isotopes",
+  "location_requirement": {
+    "allowed_bodies": [
+      "galacticraft:mercury"
+    ],
+    "label": "Mercury Sulfides"
+  },
+  "prerequisites": [
+    "galacticraft:research/mercury_solar_volatiles_he3",
+    "galacticraft:research/zero_g_superconductors_nb3sn"
+  ],
+  "required_domain_points": 230,
+  "source_lab": "Geological Analyzer",
+  "sp_cost": 660,
+  "summary": "Refines exotic Mercurian sulfides and uranium isotopes inside superconducting gas centrifuges.",
+  "title": "Isotopic Separation & RTG Cores",
+  "unlocked_recipes": [
+    "galacticraft:isotopic_centrifuge",
+    "galacticraft:radioisotope_core",
+    "galacticraft:atomic_battery"
+  ],
+  "unlocks": [
+    "Isotopic Centrifuge",
+    "Radioisotope Core",
+    "Atomic Battery",
+    "RTG Power"
+  ]
+}

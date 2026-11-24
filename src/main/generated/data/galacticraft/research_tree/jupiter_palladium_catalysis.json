@@ -1,0 +1,33 @@
+{
+  "branch": "aerospace_propulsion",
+  "domain": "thermodynamics",
+  "era": 5,
+  "grid_x": 10,
+  "grid_y": 5,
+  "icon_item": "galacticraft:compressed_palladium",
+  "id": "galacticraft:research/jupiter_palladium_catalysis",
+  "location_requirement": {
+    "allowed_bodies": [
+      "galacticraft:jupiter"
+    ],
+    "label": "Jupiter (2.36G)"
+  },
+  "prerequisites": [
+    "galacticraft:research/orbital_shipyard_docks",
+    "galacticraft:research/zero_g_heavy_orbital_welding"
+  ],
+  "required_domain_points": 310,
+  "required_milestone": "outer_planet_observed",
+  "source_lab": "Geological Analyzer",
+  "sp_cost": 890,
+  "summary": "Jovian palladium catalysis and metallic hydrogen fuel high-T/W heavy lift against 2.36G gravity.",
+  "title": "Supercritical Palladium Engines",
+  "unlocked_recipes": [
+    "galacticraft:shield_controller"
+  ],
+  "unlocks": [
+    "Palladium-Niobium Nozzles",
+    "Metallic Hydrogen Cells",
+    "Shield Controller"
+  ]
+}

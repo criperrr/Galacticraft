@@ -1,0 +1,32 @@
+{
+  "branch": "metallurgy_machines",
+  "domain": "thermodynamics",
+  "era": 2,
+  "grid_x": 5,
+  "grid_y": -3,
+  "icon_item": "galacticraft:compressed_niobium",
+  "id": "galacticraft:research/lunar_vacuum_metallurgy",
+  "location_requirement": {
+    "label": "Vacuum (<=0.01 atm)",
+    "max_pressure_atm": 0.01
+  },
+  "prerequisites": [
+    "galacticraft:research/heavy_alloy_forging"
+  ],
+  "required_domain_points": 65,
+  "required_milestone": "vacuum_trial_certified",
+  "source_lab": "Environmental Test Chamber",
+  "sp_cost": 180,
+  "summary": "Exploits natural lunar/mercurian vacuum to smelt pure refractory niobium and C-103 superalloys.",
+  "title": "Vacuum Arc Metallurgy & C-103",
+  "unlocked_recipes": [
+    "galacticraft:electric_arc_furnace",
+    "galacticraft:vacuum_metallurgic_infuser"
+  ],
+  "unlocks": [
+    "Electric Arc Furnace",
+    "Vacuum Metallurgic Infuser",
+    "Pure Niobium",
+    "C-103 Superalloy"
+  ]
+}

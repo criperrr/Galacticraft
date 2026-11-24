@@ -1,0 +1,21 @@
+{
+  "branch": "metallurgy_machines",
+  "domain": "structures",
+  "era": 2,
+  "grid_x": 4,
+  "grid_y": -1,
+  "icon_item": "galacticraft:research_workbench",
+  "id": "galacticraft:research/heavy_alloy_forging",
+  "prerequisites": [
+    "galacticraft:research/ferroniobium_aluminothermy"
+  ],
+  "required_domain_points": 45,
+  "sp_cost": 125,
+  "summary": "High-tonnage electric plate rolling and multi-layer aerospace sheet lamination.",
+  "title": "Heavy Alloy Rolling & Presses",
+  "unlocks": [
+    "Electric Compressor",
+    "Heavy-Duty Plate T1",
+    "Reinforced Hull Bulkheads"
+  ]
+}

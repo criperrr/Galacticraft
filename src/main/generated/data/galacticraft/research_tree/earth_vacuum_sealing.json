@@ -1,0 +1,23 @@
+{
+  "branch": "life_support_bases",
+  "domain": "structures",
+  "era": 1,
+  "grid_x": -4,
+  "grid_y": -1,
+  "icon_item": "galacticraft:oxygen_sealer",
+  "id": "galacticraft:research/earth_vacuum_sealing",
+  "prerequisites": [
+    "galacticraft:research/basic_oxygen_gear"
+  ],
+  "required_domain_points": 30,
+  "required_milestone": "vacuum_trial_certified",
+  "source_lab": "Environmental Test Chamber",
+  "sp_cost": 75,
+  "summary": "Earthside pump-down vacuum testing validates pressurized glass bulkheads and airtight room sealing.",
+  "title": "Simulated Vacuum & Airlock Seals",
+  "unlocks": [
+    "Oxygen Sealer",
+    "Vacuum Glass",
+    "Airlock Frame & Controller"
+  ]
+}

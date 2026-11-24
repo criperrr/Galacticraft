@@ -1,0 +1,27 @@
+{
+  "branch": "life_support_bases",
+  "domain": "cryogenics",
+  "era": 5,
+  "grid_x": -13,
+  "grid_y": -3,
+  "icon_item": "galacticraft:helium3_cell",
+  "id": "galacticraft:research/zero_g_dilution_cryogenics",
+  "location_requirement": {
+    "label": "0.0G Orbit / Asteroids",
+    "max_gravity_g": 0.01
+  },
+  "prerequisites": [
+    "galacticraft:research/cryo_hibernation_pods"
+  ],
+  "required_domain_points": 350,
+  "required_milestone": "zero_g_levitation_certified",
+  "source_lab": "Zero-G Research Chamber",
+  "sp_cost": 1020,
+  "summary": "Superfluid Helium-3 dilution refrigerators eliminate propellant boil-off in deep space.",
+  "title": "Sub-2K 3He Dilution Cryogenics",
+  "unlocks": [
+    "Helium-3 Superfluid Cell (<2K)",
+    "Zero Boil-Off Cryo Tanks",
+    "Milli-Kelvin Containment"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "type": "galacticraft:telemetry_analysis",
+  "bonus_domain_points": 56,
+  "bonus_sp": 76,
+  "output_item": {
+    "count": 1,
+    "id": "galacticraft:blank_data_drive"
+  },
+  "processing_time": 95,
+  "reagent": {
+    "item": "galacticraft:lunar_sapphire"
+  },
+  "sample": {
+    "item": "galacticraft:superionic_ice_crystal"
+  },
+  "target_planet": "galacticraft:neptune"
+}

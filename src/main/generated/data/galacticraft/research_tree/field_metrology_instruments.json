@@ -1,0 +1,21 @@
+{
+  "branch": "suits_tools",
+  "domain": "structures",
+  "era": 1,
+  "grid_x": -2,
+  "grid_y": 1,
+  "icon_item": "galacticraft:vernier_caliper_rig",
+  "id": "galacticraft:research/field_metrology_instruments",
+  "prerequisites": [
+    "galacticraft:research/earth_prototyping"
+  ],
+  "required_domain_points": 15,
+  "sp_cost": 40,
+  "summary": "Micrometer gauges and optical drafting tools tighten engineering tolerances across all benches.",
+  "title": "Vernier Calipers & Lab Instruments",
+  "unlocks": [
+    "Vernier Caliper Rig",
+    "Precision Drafting Stylus",
+    "Optical Blueprint Projector"
+  ]
+}

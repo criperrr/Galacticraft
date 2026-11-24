@@ -1,0 +1,31 @@
+{
+  "branch": "energy_superconductors",
+  "domain": "electromagnetism",
+  "era": 3,
+  "grid_y": -7,
+  "icon_item": "galacticraft:superconducting_coil",
+  "id": "galacticraft:research/zero_g_superconductors_nb3sn",
+  "location_requirement": {
+    "label": "0.0G Orbit / Asteroids",
+    "max_gravity_g": 0.01
+  },
+  "prerequisites": [
+    "galacticraft:research/lunar_he3_thermal_desorption",
+    "galacticraft:research/interplanetary_science_network"
+  ],
+  "required_domain_points": 145,
+  "required_milestone": "zero_g_levitation_certified",
+  "source_lab": "Zero-G Research Chamber",
+  "sp_cost": 400,
+  "summary": "Microgravity crystal growth eliminates grain boundaries in Nb3Sn superconducting magnet coils.",
+  "title": "Zero-G Nb3Sn Superconductors",
+  "unlocked_recipes": [
+    "galacticraft:superconducting_coil",
+    "galacticraft:short_range_telepad"
+  ],
+  "unlocks": [
+    "Superconducting Coil (Nb3Sn)",
+    "Superconducting Confinement",
+    "Short-Range Telepad"
+  ]
+}

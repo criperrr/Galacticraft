@@ -1,0 +1,27 @@
+{
+  "branch": "aerospace_propulsion",
+  "domain": "electromagnetism",
+  "era": 5,
+  "grid_x": 12,
+  "grid_y": 3,
+  "icon_item": "galacticraft:infrared_bolometer_array",
+  "id": "galacticraft:research/deep_space_optical_interferometry",
+  "location_requirement": {
+    "label": "0.0G Orbit / Asteroids",
+    "max_gravity_g": 0.01
+  },
+  "prerequisites": [
+    "galacticraft:research/jupiter_palladium_catalysis"
+  ],
+  "required_domain_points": 385,
+  "required_milestone": "deep_sky_cataloged",
+  "source_lab": "Observatory Telescope",
+  "sp_cost": 1100,
+  "summary": "Infrared bolometers and lonsdaleite mirrors map nebulae, galaxies and Kuiper comets for 2x science.",
+  "title": "Interplanetary Optical Atlas",
+  "unlocks": [
+    "Infrared Bolometer Array",
+    "Lonsdaleite Primary Mirror",
+    "Interstellar Star Charts"
+  ]
+}

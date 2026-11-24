@@ -1,0 +1,26 @@
+{
+  "branch": "suits_tools",
+  "domain": "thermodynamics",
+  "era": 5,
+  "grid_x": -13,
+  "grid_y": 4,
+  "icon_item": "galacticraft:quadrupole_mass_filter",
+  "id": "galacticraft:research/plasma_excavation_tools",
+  "location_requirement": {
+    "label": "0.0G Orbit / Asteroids",
+    "max_gravity_g": 0.01
+  },
+  "prerequisites": [
+    "galacticraft:research/powered_eva_exoskeletons"
+  ],
+  "required_domain_points": 360,
+  "source_lab": "Zero-G Research Chamber",
+  "sp_cost": 1040,
+  "summary": "Focused plasma lances slice ultra-dense planetary mantles and metallic asteroid cores in seconds.",
+  "title": "Magnetic Plasma Mining Cutters",
+  "unlocks": [
+    "Plasma Bore Cutter",
+    "Magnetic Ore Extractor",
+    "Thermal Lance Shielding"
+  ]
+}

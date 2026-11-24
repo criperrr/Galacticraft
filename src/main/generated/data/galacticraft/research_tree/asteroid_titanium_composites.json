@@ -1,0 +1,27 @@
+{
+  "branch": "suits_tools",
+  "domain": "structures",
+  "era": 4,
+  "grid_x": -10,
+  "grid_y": 1,
+  "icon_item": "galacticraft:compressed_titanium",
+  "id": "galacticraft:research/asteroid_titanium_composites",
+  "location_requirement": {
+    "label": "0.0G Orbit / Asteroids",
+    "max_gravity_g": 0.01
+  },
+  "prerequisites": [
+    "galacticraft:research/thermal_exosuit_systems"
+  ],
+  "required_domain_points": 185,
+  "required_milestone": "zero_g_levitation_certified",
+  "source_lab": "Geological Analyzer",
+  "sp_cost": 530,
+  "summary": "Metallic M-type asteroid ilmenite cuts aerospace dry weight by 40% with titanium armor and COPVs.",
+  "title": "Asteroid Ilmenite Titanium Grade",
+  "unlocks": [
+    "Titanium Armor & Tools",
+    "Composite Autoclave",
+    "COPV Pressure Vessels"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "branch": "energy_superconductors",
+  "domain": "electromagnetism",
+  "era": 2,
+  "grid_x": 2,
+  "grid_y": -5,
+  "icon_item": "galacticraft:frequency_module",
+  "id": "galacticraft:research/interplanetary_science_network",
+  "prerequisites": [
+    "galacticraft:research/high_voltage_conduits"
+  ],
+  "required_domain_points": 75,
+  "required_milestone": "commnet_relay_locked",
+  "source_lab": "Research Data Link",
+  "sp_cost": 200,
+  "summary": "Frequency-locked deep-space relays synchronize multi-planet laboratory discoveries in real time.",
+  "title": "Interplanetary Science Data Link",
+  "unlocks": [
+    "Research Data Link",
+    "Parabolic Dish Extender",
+    "+20%/Relay Bonus"
+  ]
+}

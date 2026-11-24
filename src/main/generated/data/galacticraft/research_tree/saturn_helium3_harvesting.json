@@ -1,0 +1,29 @@
+{
+  "branch": "metallurgy_machines",
+  "domain": "cryogenics",
+  "era": 6,
+  "grid_x": 14,
+  "grid_y": -3,
+  "icon_item": "galacticraft:compressed_magnesium",
+  "id": "galacticraft:research/saturn_helium3_harvesting",
+  "location_requirement": {
+    "allowed_bodies": [
+      "galacticraft:saturn"
+    ],
+    "label": "Saturn Mantle / Atm"
+  },
+  "prerequisites": [
+    "galacticraft:research/orbital_nanofabrication"
+  ],
+  "required_domain_points": 440,
+  "required_milestone": "outer_planet_observed",
+  "source_lab": "Geological Analyzer",
+  "sp_cost": 1350,
+  "summary": "Extracts 3.5x enriched atmospheric Helium-3 and ultralight magnesium-lithium superstructures.",
+  "title": "Saturnian 3He & Mg-Li Alloys",
+  "unlocks": [
+    "Saturn 3He Fractionation",
+    "Magnesium-Lithium Alloys",
+    "7x7-11x11 Lightweight Hulls"
+  ]
+}

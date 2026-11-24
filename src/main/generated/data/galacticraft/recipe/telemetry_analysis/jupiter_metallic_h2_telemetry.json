@@ -1,0 +1,17 @@
+{
+  "type": "galacticraft:telemetry_analysis",
+  "bonus_domain_points": 46,
+  "bonus_sp": 62,
+  "output_item": {
+    "count": 1,
+    "id": "galacticraft:blank_data_drive"
+  },
+  "processing_time": 90,
+  "reagent": {
+    "item": "galacticraft:lunar_sapphire"
+  },
+  "sample": {
+    "item": "galacticraft:metallic_hydrogen_cell"
+  },
+  "target_planet": "galacticraft:jupiter"
+}

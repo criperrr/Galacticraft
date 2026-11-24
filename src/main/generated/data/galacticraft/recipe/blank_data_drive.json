@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "galacticraft:compressed_aluminum"
+    },
+    "L": {
+      "item": "galacticraft:lunar_sapphire"
+    },
+    "N": {
+      "item": "galacticraft:niobium_oxide"
+    },
+    "S": {
+      "item": "galacticraft:silicon"
+    }
+  },
+  "pattern": [
+    "ASA",
+    "NLN",
+    "ASA"
+  ],
+  "result": {
+    "count": 2,
+    "id": "galacticraft:blank_data_drive"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "galacticraft:telemetry_analysis",
+  "bonus_domain_points": 36,
+  "bonus_sp": 48,
+  "output_item": {
+    "count": 1,
+    "id": "galacticraft:blank_data_drive"
+  },
+  "reagent": {
+    "item": "galacticraft:niobium_oxide"
+  },
+  "sample": {
+    "item": "galacticraft:raw_lead"
+  },
+  "target_planet": "galacticraft:venus"
+}

@@ -1,0 +1,29 @@
+{
+  "branch": "aerospace_propulsion",
+  "domain": "electromagnetism",
+  "era": 2,
+  "grid_x": 4,
+  "grid_y": 2,
+  "icon_item": "galacticraft:sapphire_cassegrain_mirror",
+  "id": "galacticraft:research/lunar_deep_sky_survey",
+  "location_requirement": {
+    "label": "Vacuum (<=0.01 atm)",
+    "max_pressure_atm": 0.01
+  },
+  "prerequisites": [
+    "galacticraft:research/earth_lunar_ephemeris",
+    "galacticraft:research/era1_rocketry"
+  ],
+  "required_domain_points": 60,
+  "required_milestone": "mars_observed",
+  "source_lab": "Observatory Telescope",
+  "sp_cost": 155,
+  "summary": "Atmospheric-free lunar astronomy resolves Mars, Venus, Mercury and Asteroid Belt trajectories.",
+  "title": "Vacuum Deep-Sky Astrometry",
+  "unlocks": [
+    "Mars Route",
+    "Venus Route",
+    "Mercury Route",
+    "Asteroid Belt Route"
+  ]
+}

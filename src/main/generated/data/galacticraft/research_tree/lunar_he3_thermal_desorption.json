@@ -1,0 +1,31 @@
+{
+  "branch": "energy_superconductors",
+  "domain": "nuclear_plasma",
+  "era": 2,
+  "grid_x": -2,
+  "grid_y": -5,
+  "icon_item": "galacticraft:regolith_thermal_desorber",
+  "id": "galacticraft:research/lunar_he3_thermal_desorption",
+  "location_requirement": {
+    "allowed_bodies": [
+      "galacticraft:moon"
+    ],
+    "label": "Moon Ilmenite"
+  },
+  "prerequisites": [
+    "galacticraft:research/high_voltage_conduits"
+  ],
+  "required_domain_points": 55,
+  "required_milestone": "lunar_he3_spectrum",
+  "source_lab": "Geological Analyzer",
+  "sp_cost": 150,
+  "summary": "Confirms 10x solar-wind Helium-3 retention inside lunar ilmenite crystals above 700C.",
+  "title": "Lunar 3He Thermal Desorption",
+  "unlocked_recipes": [
+    "galacticraft:regolith_thermal_desorber"
+  ],
+  "unlocks": [
+    "Regolith Thermal Desorber",
+    "Solar Volatile Gas Extraction"
+  ]
+}

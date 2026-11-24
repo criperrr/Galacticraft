@@ -1,0 +1,17 @@
+{
+  "type": "galacticraft:telemetry_analysis",
+  "bonus_domain_points": 18,
+  "bonus_sp": 24,
+  "output_item": {
+    "count": 1,
+    "id": "galacticraft:blank_data_drive"
+  },
+  "processing_time": 60,
+  "reagent": {
+    "item": "galacticraft:niobium_oxide"
+  },
+  "sample": {
+    "item": "galacticraft:moon_turf"
+  },
+  "target_planet": "galacticraft:moon"
+}

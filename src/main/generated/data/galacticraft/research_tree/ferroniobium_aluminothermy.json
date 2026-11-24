@@ -1,0 +1,21 @@
+{
+  "branch": "metallurgy_machines",
+  "domain": "thermodynamics",
+  "era": 1,
+  "grid_x": 2,
+  "grid_y": -1,
+  "icon_item": "galacticraft:ferroniobium_ingot",
+  "id": "galacticraft:research/ferroniobium_aluminothermy",
+  "prerequisites": [
+    "galacticraft:research/earth_prototyping"
+  ],
+  "required_domain_points": 25,
+  "sp_cost": 65,
+  "summary": "Aluminothermic reduction of pyrochlore niobium oxide into HSLA ferroniobium aerospace alloys.",
+  "title": "Ferroniobium Aluminothermy",
+  "unlocks": [
+    "Ferroniobium Ingot",
+    "Compressed Ferroniobium",
+    "HSLA Chassis"
+  ]
+}

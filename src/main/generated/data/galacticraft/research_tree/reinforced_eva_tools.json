@@ -1,0 +1,21 @@
+{
+  "branch": "suits_tools",
+  "domain": "structures",
+  "era": 1,
+  "grid_x": -4,
+  "grid_y": 1,
+  "icon_item": "galacticraft:precision_drafting_stylus",
+  "id": "galacticraft:research/reinforced_eva_tools",
+  "prerequisites": [
+    "galacticraft:research/field_metrology_instruments"
+  ],
+  "required_domain_points": 30,
+  "sp_cost": 80,
+  "summary": "Torque-balanced wrenches, core drills and steel-grade field armor for early orbital sorties.",
+  "title": "Heavy-Duty EVA Tools & Drills",
+  "unlocks": [
+    "Standard Wrench",
+    "Heavy EVA Drills",
+    "Steel Alloy Armor"
+  ]
+}

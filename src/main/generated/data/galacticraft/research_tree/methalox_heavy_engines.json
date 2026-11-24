@@ -1,0 +1,28 @@
+{
+  "branch": "aerospace_propulsion",
+  "domain": "thermodynamics",
+  "era": 3,
+  "grid_x": 6,
+  "grid_y": 5,
+  "icon_item": "galacticraft:observatory_telescope",
+  "id": "galacticraft:research/methalox_heavy_engines",
+  "location_requirement": {
+    "allowed_bodies": [
+      "galacticraft:mars"
+    ],
+    "label": "Mars Launch Pad"
+  },
+  "prerequisites": [
+    "galacticraft:research/high_altitude_optics_domes",
+    "galacticraft:research/outer_system_ephemeris"
+  ],
+  "required_domain_points": 155,
+  "sp_cost": 420,
+  "summary": "Closed-cycle methane-LOX turbopumps enable reusable multi-planet boosters fueled by Martian ISRU.",
+  "title": "Full-Flow Methalox Engines",
+  "unlocks": [
+    "Methalox Engine Bell",
+    "5x5 Medium-Lift Core",
+    "Reusable Booster Fins"
+  ]
+}

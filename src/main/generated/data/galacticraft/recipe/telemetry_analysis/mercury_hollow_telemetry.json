@@ -1,0 +1,16 @@
+{
+  "type": "galacticraft:telemetry_analysis",
+  "bonus_domain_points": 34,
+  "bonus_sp": 46,
+  "output_item": {
+    "count": 1,
+    "id": "galacticraft:blank_data_drive"
+  },
+  "reagent": {
+    "item": "galacticraft:niobium_oxide"
+  },
+  "sample": {
+    "item": "galacticraft:mercury_hollow_deposit"
+  },
+  "target_planet": "galacticraft:mercury"
+}
