@@ -1,0 +1,30 @@
+{
+  "branch": "aerospace_propulsion",
+  "domain": "nuclear_plasma",
+  "era": 6,
+  "grid_x": 14,
+  "grid_y": 4,
+  "icon_item": "galacticraft:superionic_ice_crystal",
+  "id": "galacticraft:research/neptune_superionic_magnetoplasma",
+  "location_requirement": {
+    "allowed_bodies": [
+      "galacticraft:neptune"
+    ],
+    "label": "Neptune (-200C)"
+  },
+  "prerequisites": [
+    "galacticraft:research/jupiter_palladium_catalysis",
+    "galacticraft:research/deep_space_optical_interferometry"
+  ],
+  "required_domain_points": 520,
+  "required_milestone": "deep_sky_cataloged",
+  "source_lab": "Geological Analyzer",
+  "sp_cost": 1600,
+  "summary": "Neptunian superionic ice crystals and heavy xenon enable frontier Hall/Ion and VASIMR drives.",
+  "title": "Superionic VASIMR Magnetoplasma",
+  "unlocks": [
+    "VASIMR Plasma Drive",
+    "Xenon Hall Thrusters",
+    "Superionic Magnet Coils"
+  ]
+}

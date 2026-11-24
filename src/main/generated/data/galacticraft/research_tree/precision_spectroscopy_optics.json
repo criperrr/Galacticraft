@@ -1,0 +1,28 @@
+{
+  "branch": "suits_tools",
+  "domain": "electromagnetism",
+  "era": 2,
+  "grid_x": -7,
+  "grid_y": 2,
+  "icon_item": "galacticraft:raman_laser_spectrometer",
+  "id": "galacticraft:research/precision_spectroscopy_optics",
+  "location_requirement": {
+    "allowed_bodies": [
+      "galacticraft:moon"
+    ],
+    "label": "Moon / Mars Lab"
+  },
+  "prerequisites": [
+    "galacticraft:research/lunar_olivine_optics"
+  ],
+  "required_domain_points": 80,
+  "source_lab": "Geological Analyzer",
+  "sp_cost": 210,
+  "summary": "Tunable Raman lasers and quadrupole mass filters double rare mineral extraction during assays.",
+  "title": "Laser Raman & Mass Sensors",
+  "unlocks": [
+    "Raman Laser Spectrometer",
+    "Quadrupole Mass Filter",
+    "Micro-XRF Emitter"
+  ]
+}

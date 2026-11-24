@@ -1,0 +1,32 @@
+{
+  "branch": "life_support_bases",
+  "domain": "cryogenics",
+  "era": 2,
+  "grid_x": -5,
+  "grid_y": -3,
+  "icon_item": "galacticraft:electrolytic_separator",
+  "id": "galacticraft:research/lunar_polar_electrolysis",
+  "location_requirement": {
+    "allowed_bodies": [
+      "galacticraft:moon"
+    ],
+    "label": "Moon Polar Ice"
+  },
+  "prerequisites": [
+    "galacticraft:research/earth_vacuum_sealing"
+  ],
+  "required_domain_points": 50,
+  "source_lab": "Geological Analyzer",
+  "sp_cost": 135,
+  "summary": "Splits dense lunar ice into breathable LOX, LH2 fuel and heavy deuterium isotopes.",
+  "title": "Polar Ice Electrolysis & Cryo-Life",
+  "unlocked_recipes": [
+    "galacticraft:electrolytic_separator",
+    "galacticraft:cryogenic_chamber"
+  ],
+  "unlocks": [
+    "Electrolytic Separator",
+    "Cryogenic Chamber",
+    "Oxygen Storage Module"
+  ]
+}

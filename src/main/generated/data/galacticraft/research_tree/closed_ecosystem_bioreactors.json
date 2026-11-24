@@ -1,0 +1,29 @@
+{
+  "branch": "life_support_bases",
+  "domain": "cryogenics",
+  "era": 4,
+  "grid_x": -9,
+  "grid_y": -1,
+  "icon_item": "galacticraft:cryo_thermal_exchanger",
+  "id": "galacticraft:research/closed_ecosystem_bioreactors",
+  "location_requirement": {
+    "allowed_bodies": [
+      "galacticraft:mars"
+    ],
+    "label": "Mars / Orbital Bio-Lab"
+  },
+  "prerequisites": [
+    "galacticraft:research/lunar_bio_habitation",
+    "galacticraft:research/zero_g_carbon_sofi"
+  ],
+  "required_domain_points": 175,
+  "source_lab": "Geological Analyzer",
+  "sp_cost": 510,
+  "summary": "Continuous CO2-to-O2 photosynthetic scrubbers eliminate oxygen resupply for deep-space outposts.",
+  "title": "Closed-Loop Algal Bioreactors",
+  "unlocks": [
+    "Bio-Scrubber Array",
+    "Cryo Thermal Exchanger",
+    "Zero-Loss Water Loop"
+  ]
+}

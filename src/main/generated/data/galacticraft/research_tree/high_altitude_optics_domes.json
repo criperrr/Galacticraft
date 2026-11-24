@@ -1,0 +1,26 @@
+{
+  "branch": "aerospace_propulsion",
+  "domain": "electromagnetism",
+  "era": 2,
+  "grid_x": 3,
+  "grid_y": 4,
+  "icon_item": "galacticraft:adaptive_optics_actuator",
+  "id": "galacticraft:research/high_altitude_optics_domes",
+  "location_requirement": {
+    "label": "Vacuum (<=0.01 atm)",
+    "max_pressure_atm": 0.01
+  },
+  "prerequisites": [
+    "galacticraft:research/lunar_deep_sky_survey"
+  ],
+  "required_domain_points": 85,
+  "source_lab": "Observatory Telescope",
+  "sp_cost": 220,
+  "summary": "Motorized sidereal mounts and adaptive deformable mirrors reach 220x-500x optical resolution.",
+  "title": "2x2 & 3x3 Adaptive Observatories",
+  "unlocks": [
+    "Equatorial Sidereal Drive",
+    "Adaptive Optics Actuator",
+    "500x Great Observatory"
+  ]
+}

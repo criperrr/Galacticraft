@@ -1,0 +1,27 @@
+{
+  "branch": "metallurgy_machines",
+  "domain": "structures",
+  "era": 5,
+  "grid_x": 12,
+  "grid_y": -2,
+  "icon_item": "galacticraft:cryo_magnet_suspension",
+  "id": "galacticraft:research/orbital_nanofabrication",
+  "location_requirement": {
+    "label": "0.0G Orbit / Asteroids",
+    "max_gravity_g": 0.01
+  },
+  "prerequisites": [
+    "galacticraft:research/refractory_carbide_foundry"
+  ],
+  "required_domain_points": 330,
+  "required_milestone": "zero_g_levitation_certified",
+  "source_lab": "Zero-G Research Chamber",
+  "sp_cost": 960,
+  "summary": "Zero-gravity vapor deposition grows defect-free single-crystal turbine blades and metamaterials.",
+  "title": "Orbital Molecular Fabrication",
+  "unlocks": [
+    "Single-Crystal Alloys",
+    "Zero-G Wafer Fab",
+    "Ultra-Light Truss Struts"
+  ]
+}

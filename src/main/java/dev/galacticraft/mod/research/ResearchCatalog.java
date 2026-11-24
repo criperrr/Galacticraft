@@ -113,8 +113,10 @@ public final class ResearchCatalog {
     public static final ResourceLocation DEEP_SPACE_OPTICAL_INTERFEROMETRY = Constant.id("research/deep_space_optical_interferometry");
     public static final ResourceLocation NEPTUNE_SUPERIONIC_MAGNETOPLASMA = Constant.id("research/neptune_superionic_magnetoplasma");
 
+    private static final Map<ResourceLocation, ResearchNode> BUILTIN_NODES = new LinkedHashMap<>();
     private static final Map<ResourceLocation, ResearchNode> NODES = new LinkedHashMap<>();
     private static final Map<ResearchBranch, List<ResearchNode>> BY_BRANCH = new EnumMap<>(ResearchBranch.class);
+    private static final Map<ResourceLocation, ResourceLocation> RECIPE_TO_NODE = new LinkedHashMap<>();
 
     static {
         for (ResearchBranch branch : ResearchBranch.values()) {
@@ -638,6 +640,58 @@ public final class ResearchCatalog {
                 List.of("VASIMR Plasma Drive", "Xenon Hall Thrusters", "Superionic Magnet Coils"),
                 Constant.id("superionic_ice_crystal")
         ));
+        // Attach canonical soft-gated Era 2-6 unlocked recipe IDs (keeping Era 1 Earth survival basics ungated)
+        bindUnlockedRecipes(LUNAR_VACUUM_METALLURGY, List.of(
+                Constant.id("electric_arc_furnace"),
+                Constant.id("vacuum_metallurgic_infuser")
+        ));
+        bindUnlockedRecipes(LUNAR_POLAR_ELECTROLYSIS, List.of(
+                Constant.id("electrolytic_separator"),
+                Constant.id("cryogenic_chamber")
+        ));
+        bindUnlockedRecipes(LUNAR_OLIVINE_OPTICS, List.of(
+                Constant.id("olivine_glass"),
+                Constant.id("beam_core"),
+                Constant.id("sensor_glasses")
+        ));
+        bindUnlockedRecipes(LUNAR_HE3_THERMAL_DESORPTION, List.of(
+                Constant.id("regolith_thermal_desorber")
+        ));
+        bindUnlockedRecipes(MARTIAN_SABATIER_ISRU, List.of(
+                Constant.id("atmospheric_fractionator"),
+                Constant.id("sabatier_chemical_reactor")
+        ));
+        bindUnlockedRecipes(ZERO_G_CARBON_SOFI, List.of(
+                Constant.id("composite_autoclave")
+        ));
+        bindUnlockedRecipes(ZERO_G_SUPERCONDUCTORS_NB3SN, List.of(
+                Constant.id("superconducting_coil"),
+                Constant.id("short_range_telepad")
+        ));
+        bindUnlockedRecipes(VENUS_ACID_LEACHING, List.of(
+                Constant.id("chemical_leaching_plant")
+        ));
+        bindUnlockedRecipes(ZERO_G_HEAVY_ORBITAL_WELDING, List.of(
+                Constant.id("aero_refurbishment_bench")
+        ));
+        bindUnlockedRecipes(MERCURY_SOLAR_VOLATILES_HE3, List.of(
+                Constant.id("advanced_solar_panel")
+        ));
+        bindUnlockedRecipes(MERCURY_THORIUM_ISOTOPES, List.of(
+                Constant.id("isotopic_centrifuge"),
+                Constant.id("radioisotope_core"),
+                Constant.id("atomic_battery")
+        ));
+        bindUnlockedRecipes(ZERO_G_ANEUTRONIC_MHD_FUSION, List.of(
+                Constant.id("helium3_fusion_reactor"),
+                Constant.id("helium3_fusion_cell")
+        ));
+        bindUnlockedRecipes(JUPITER_PALLADIUM_CATALYSIS, List.of(
+                Constant.id("shield_controller")
+        ));
+
+        BUILTIN_NODES.putAll(NODES);
+        rebuildDerivedIndices();
     }
 
     private ResearchCatalog() {
@@ -645,7 +699,47 @@ public final class ResearchCatalog {
 
     private static void register(@NotNull ResearchNode node) {
         NODES.put(node.id(), node);
-        BY_BRANCH.get(node.branch()).add(node);
+    }
+
+    private static void bindUnlockedRecipes(@NotNull ResourceLocation nodeId, @NotNull List<ResourceLocation> recipeIds) {
+        ResearchNode existing = NODES.get(nodeId);
+        if (existing != null) {
+            NODES.put(nodeId, existing.withUnlockedRecipes(recipeIds));
+        }
+    }
+
+    private static void rebuildDerivedIndices() {
+        for (ResearchBranch branch : ResearchBranch.values()) {
+            BY_BRANCH.put(branch, new ArrayList<>());
+        }
+        RECIPE_TO_NODE.clear();
+        for (ResearchNode node : NODES.values()) {
+            BY_BRANCH.get(node.branch()).add(node);
+            for (ResourceLocation recipeId : node.unlockedRecipes()) {
+                RECIPE_TO_NODE.put(recipeId, node.id());
+            }
+        }
+    }
+
+    /**
+     * Applies data-driven research tree nodes loaded from {@code data/<ns>/research_tree/*.json}
+     * on top of the canonical built-in constellation so datapacks can add or tune nodes cleanly.
+     */
+    public static synchronized void applyDataDrivenNodes(@NotNull Map<ResourceLocation, ResearchNode> loadedNodes) {
+        NODES.clear();
+        NODES.putAll(BUILTIN_NODES);
+        NODES.putAll(loadedNodes);
+        rebuildDerivedIndices();
+    }
+
+    public static synchronized void resetToBuiltInDefaults() {
+        NODES.clear();
+        NODES.putAll(BUILTIN_NODES);
+        rebuildDerivedIndices();
+    }
+
+    public static @NotNull Collection<ResearchNode> builtInNodes() {
+        return Collections.unmodifiableCollection(BUILTIN_NODES.values());
     }
 
     public static @NotNull Collection<ResearchNode> allNodes() {
@@ -654,6 +748,10 @@ public final class ResearchCatalog {
 
     public static @Nullable ResearchNode get(@Nullable ResourceLocation id) {
         return id == null ? null : NODES.get(id);
+    }
+
+    public static @Nullable ResourceLocation getRequiredNodeForRecipe(@Nullable ResourceLocation recipeOrItemId) {
+        return recipeOrItemId == null ? null : RECIPE_TO_NODE.get(recipeOrItemId);
     }
 
     public static @NotNull List<ResearchNode> nodesForBranch(@NotNull ResearchBranch branch) {

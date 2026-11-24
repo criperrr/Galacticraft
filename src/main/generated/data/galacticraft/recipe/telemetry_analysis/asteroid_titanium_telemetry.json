@@ -1,0 +1,17 @@
+{
+  "type": "galacticraft:telemetry_analysis",
+  "bonus_domain_points": 30,
+  "bonus_sp": 42,
+  "output_item": {
+    "count": 1,
+    "id": "galacticraft:blank_data_drive"
+  },
+  "processing_time": 75,
+  "reagent": {
+    "item": "galacticraft:lunar_sapphire"
+  },
+  "sample": {
+    "item": "galacticraft:raw_titanium"
+  },
+  "target_planet": "galacticraft:asteroid"
+}

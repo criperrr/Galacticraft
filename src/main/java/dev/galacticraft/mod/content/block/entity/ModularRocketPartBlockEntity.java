@@ -38,20 +38,28 @@ import dev.galacticraft.mod.content.GCBlocks;
 import dev.galacticraft.mod.content.block.multiblock.AbstractBoundsProxyBlock;
 import dev.galacticraft.mod.content.block.multiblock.RocketPartBoundsBlock;
 import dev.galacticraft.mod.content.block.rocket.ModularRocketPartBlock;
+import dev.galacticraft.mod.content.entity.orbital.FlightTelemetryEngine;
+import dev.galacticraft.mod.content.item.GCItems;
 import dev.galacticraft.mod.content.rocket.part.RocketPartCatalog;
 import dev.galacticraft.mod.content.rocket.part.RocketPartCostCalculator;
+import dev.galacticraft.mod.content.rocket.physics.PlanetaryEnvironment;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -88,6 +96,7 @@ public class ModularRocketPartBlockEntity extends BlockEntity implements MultiVo
     private static final String TAG_ANIM_ACTIVE = "AnimActive";
     private static final String TAG_OCCUPIED_PROXIES = "OccupiedProxies";
     private static final String TAG_ASSEMBLED_TERMINAL_POS = "AssembledTerminalPos";
+    private static final String TAG_SCIENCE_DRIVE = "ScienceDrive";
 
     private RocketPartConfig config;
     private @Nullable RocketPartStats stats;
@@ -95,6 +104,7 @@ public class ModularRocketPartBlockEntity extends BlockEntity implements MultiVo
     private @Nullable RocketPartComposition composition;
     private final List<BlockPos> occupiedProxies = new ArrayList<>();
     private @Nullable BlockPos assembledTerminalPos = null;
+    private ItemStack scienceDrive = ItemStack.EMPTY;
     private boolean hatchOpen = false;
     private boolean animationActive = false;
     private long animationStartTick = 0L;
@@ -180,6 +190,112 @@ public class ModularRocketPartBlockEntity extends BlockEntity implements MultiVo
 
     public boolean isAnimationActive() {
         return this.animationActive;
+    }
+
+    public @NotNull ItemStack getScienceDrive() {
+        return this.scienceDrive;
+    }
+
+    public void setScienceDrive(@NotNull ItemStack stack) {
+        this.scienceDrive = stack.isEmpty() ? ItemStack.EMPTY : stack.copyWithCount(1);
+        this.sync();
+    }
+
+    public boolean isSciencePayloadModule() {
+        return this.config != null && FlightTelemetryEngine.isScienceModule(this.config.familyId());
+    }
+
+    /**
+     * Handles player interaction with a placed {@code science_*} payload module:
+     * inserts/retrieves {@code BLANK_DATA_DRIVE} / {@code RECORDED_DATA_DRIVE}, runs onboard
+     * 0G Orbital Laboratory cycles, triggers autonomous ISRU sampling, or generates Orbital Survey Maps.
+     */
+    public @NotNull ItemInteractionResult handleScienceModuleInteraction(
+            @NotNull Level level,
+            @NotNull Player player,
+            @NotNull InteractionHand hand,
+            @NotNull ItemStack held
+    ) {
+        if (!this.isSciencePayloadModule()) {
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        }
+        if (level.isClientSide) {
+            return ItemInteractionResult.SUCCESS;
+        }
+        if (!(level instanceof ServerLevel serverLevel)) {
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        }
+
+        String normMod = FlightTelemetryEngine.normalizeModuleId(this.config.familyId());
+        PlanetaryEnvironment env = PlanetaryEnvironment.fromLevel(serverLevel);
+        var bodyHolder = serverLevel.galacticraft$getCelestialBody();
+        var body = bodyHolder != null && bodyHolder.isBound() ? bodyHolder.value() : null;
+
+        // Retrieve stored drive if player is empty-handed (or sneaking)
+        if (!this.scienceDrive.isEmpty() && (held.isEmpty() || player.isShiftKeyDown())) {
+            ItemStack ejected = this.scienceDrive.copy();
+            this.scienceDrive = ItemStack.EMPTY;
+            if (!player.getInventory().add(ejected)) {
+                Block.popResource(level, this.worldPosition.above(), ejected);
+            }
+            level.playSound(null, this.worldPosition, SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.BLOCKS, 0.8F, 1.1F);
+            player.displayClientMessage(Component.literal("[SCIENCE BAY] Retrieved " + ejected.getHoverName().getString()).withStyle(ChatFormatting.AQUA), true);
+            this.sync();
+            return ItemInteractionResult.CONSUME;
+        }
+
+        // Insert BLANK_DATA_DRIVE and execute immediate in-situ instrument capability where applicable
+        if (held.is(GCItems.BLANK_DATA_DRIVE)) {
+            if (!this.scienceDrive.isEmpty()) {
+                player.displayClientMessage(Component.literal("[SCIENCE BAY] Drive slot occupied — retrieve current drive first.").withStyle(ChatFormatting.YELLOW), true);
+                return ItemInteractionResult.CONSUME;
+            }
+            if (!player.isCreative()) {
+                held.shrink(1);
+            }
+            if (normMod.equals(FlightTelemetryEngine.MOD_ORBITAL_LAB)) {
+                if (env.gravityG() <= FlightTelemetryEngine.ZERO_G_GRAVITY_LIMIT) {
+                    ItemStack labDrive = FlightTelemetryEngine.runOrbitalLaboratoryCycle(serverLevel, env, body);
+                    this.scienceDrive = labDrive;
+                    player.displayClientMessage(Component.literal("[ORBITAL LAB] 0.0G synthesis complete! Retrieve Recorded Data Drive.").withStyle(ChatFormatting.GREEN), true);
+                } else {
+                    this.scienceDrive = new ItemStack(GCItems.BLANK_DATA_DRIVE);
+                    player.displayClientMessage(Component.literal("[ORBITAL LAB] Requires <= 0.01G microgravity (currently "
+                            + String.format(java.util.Locale.ROOT, "%.2fG", env.gravityG()) + "). Drive loaded for orbital launch.").withStyle(ChatFormatting.RED), true);
+                }
+            } else if (normMod.equals(FlightTelemetryEngine.MOD_ISRU_HARVESTER)) {
+                ItemStack sample = FlightTelemetryEngine.harvestIsruSurfaceSample(env);
+                if (!player.getInventory().add(sample)) {
+                    Block.popResource(level, this.worldPosition.above(), sample);
+                }
+                this.scienceDrive = FlightTelemetryEngine.createRecordedDataDrive(env, body, normMod,
+                        dev.galacticraft.api.component.TelemetryData.EventType.SURFACE_ISRU_SAMPLE, null);
+                player.displayClientMessage(Component.literal("[ISRU HARVESTER] Sampled " + env.displayName() + " surface!").withStyle(ChatFormatting.GREEN), true);
+            } else if (normMod.equals(FlightTelemetryEngine.MOD_ORBITAL_CAMERA)) {
+                ItemStack surveyMap = FlightTelemetryEngine.createOrbitalSurveyMap(serverLevel, env, this.worldPosition);
+                if (!player.getInventory().add(surveyMap)) {
+                    Block.popResource(level, this.worldPosition.above(), surveyMap);
+                }
+                this.scienceDrive = FlightTelemetryEngine.createRecordedDataDrive(env, body, normMod,
+                        dev.galacticraft.api.component.TelemetryData.EventType.ORBITAL_SCAN, null);
+                player.displayClientMessage(Component.literal("[MULTISPECTRAL CAMERA] Generated Orbital Survey Map & Telemetry Drive!").withStyle(ChatFormatting.AQUA), true);
+            } else if (!this.isAssembledOnPlatform()
+                    && (normMod.equals(FlightTelemetryEngine.MOD_SPECTROMETER)
+                    || normMod.equals(FlightTelemetryEngine.MOD_RADIATION_COUNTER)
+                    || normMod.equals(FlightTelemetryEngine.MOD_MAGNETOMETER))) {
+                var evt = FlightTelemetryEngine.resolveDefaultEventForModule(normMod);
+                this.scienceDrive = FlightTelemetryEngine.createRecordedDataDrive(env, body, normMod, evt, null);
+                player.displayClientMessage(Component.literal("[SCIENCE BAY] Captured " + evt.displayName()
+                        + " data for " + env.displayName() + "! Right-click with empty hand to retrieve.").withStyle(ChatFormatting.GREEN), true);
+            } else {
+                this.scienceDrive = new ItemStack(GCItems.BLANK_DATA_DRIVE);
+                player.displayClientMessage(Component.literal("[SCIENCE BAY] Loaded Blank Data Drive into " + normMod + ".").withStyle(ChatFormatting.AQUA), true);
+            }
+            level.playSound(null, this.worldPosition, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS, 0.8F, 1.0F);
+            this.sync();
+            return ItemInteractionResult.CONSUME;
+        }
+        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
 
     public long getAnimationStartTick() {
@@ -426,6 +542,11 @@ public class ModularRocketPartBlockEntity extends BlockEntity implements MultiVo
                 BlockPos dropPos = brokenPos != null ? brokenPos : this.worldPosition;
                 Block.popResource(level, dropPos, dropStack);
             }
+            if (dropItem && !this.scienceDrive.isEmpty()) {
+                BlockPos dropPos = brokenPos != null ? brokenPos : this.worldPosition;
+                Block.popResource(level, dropPos, this.scienceDrive.copy());
+                this.scienceDrive = ItemStack.EMPTY;
+            }
         } finally {
             this.tearingDown = false;
         }
@@ -471,7 +592,21 @@ public class ModularRocketPartBlockEntity extends BlockEntity implements MultiVo
     }
 
     @Override
+    public ItemInteractionResult onProxyUseItemOn(ItemStack stack, Level level, BlockPos proxyPos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if (this.isSciencePayloadModule()) {
+            return this.handleScienceModuleInteraction(level, player, hand, stack);
+        }
+        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+    }
+
+    @Override
     public InteractionResult onProxyUse(Level level, BlockPos proxyPos, Player player, BlockHitResult hit) {
+        if (this.isSciencePayloadModule() && !this.scienceDrive.isEmpty()) {
+            ItemInteractionResult res = this.handleScienceModuleInteraction(level, player, InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+            if (res.consumesAction()) {
+                return InteractionResult.sidedSuccess(level.isClientSide);
+            }
+        }
         if (this.config.walkableInterior()) {
             if (level.isClientSide) {
                 return InteractionResult.SUCCESS;
@@ -550,6 +685,9 @@ public class ModularRocketPartBlockEntity extends BlockEntity implements MultiVo
         if (this.assembledTerminalPos != null) {
             tag.putLong(TAG_ASSEMBLED_TERMINAL_POS, this.assembledTerminalPos.asLong());
         }
+        if (!this.scienceDrive.isEmpty()) {
+            tag.put(TAG_SCIENCE_DRIVE, this.scienceDrive.save(registries));
+        }
 
         if (!this.occupiedProxies.isEmpty()) {
             long[] packed = new long[this.occupiedProxies.size()];
@@ -604,6 +742,9 @@ public class ModularRocketPartBlockEntity extends BlockEntity implements MultiVo
         this.assembledTerminalPos = tag.contains(TAG_ASSEMBLED_TERMINAL_POS, Tag.TAG_LONG)
                 ? BlockPos.of(tag.getLong(TAG_ASSEMBLED_TERMINAL_POS))
                 : null;
+        this.scienceDrive = tag.contains(TAG_SCIENCE_DRIVE, Tag.TAG_COMPOUND)
+                ? ItemStack.parseOptional(registries, tag.getCompound(TAG_SCIENCE_DRIVE))
+                : ItemStack.EMPTY;
 
         this.occupiedProxies.clear();
         if (tag.contains(TAG_OCCUPIED_PROXIES, Tag.TAG_LONG_ARRAY)) {

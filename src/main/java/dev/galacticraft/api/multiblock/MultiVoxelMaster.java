@@ -27,7 +27,9 @@ import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -43,6 +45,17 @@ public interface MultiVoxelMaster {
     void onProxyBroken(Level level, BlockPos proxyPos, @Nullable Player player, boolean dropItems);
 
     InteractionResult onProxyUse(Level level, BlockPos proxyPos, Player player, BlockHitResult hit);
+
+    default ItemInteractionResult onProxyUseItemOn(
+            ItemStack stack,
+            Level level,
+            BlockPos proxyPos,
+            Player player,
+            InteractionHand hand,
+            BlockHitResult hit
+    ) {
+        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+    }
 
     ItemStack getProxyCloneItemStack(LevelReader level, BlockPos proxyPos);
 

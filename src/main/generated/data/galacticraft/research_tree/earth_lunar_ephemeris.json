@@ -1,0 +1,20 @@
+{
+  "branch": "aerospace_propulsion",
+  "domain": "electromagnetism",
+  "era": 1,
+  "grid_x": 2,
+  "grid_y": 1,
+  "icon_item": "galacticraft:optical_achromat_lens",
+  "id": "galacticraft:research/earth_lunar_ephemeris",
+  "required_domain_points": 20,
+  "required_milestone": "moon_observed",
+  "source_lab": "Observatory Telescope",
+  "sp_cost": 45,
+  "summary": "Night-sky optical tracking from Earth maps Lunar transfer windows and Low Earth Orbit.",
+  "title": "Earth-Moon Orbital Ephemeris",
+  "unlocks": [
+    "Moon Star-Chart Route",
+    "Low Earth Orbit Telemetry",
+    "Optical Achromat Lens"
+  ]
+}

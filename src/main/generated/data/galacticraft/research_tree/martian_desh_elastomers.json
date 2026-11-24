@@ -1,0 +1,29 @@
+{
+  "branch": "suits_tools",
+  "domain": "structures",
+  "era": 3,
+  "grid_x": -7,
+  "grid_y": 4,
+  "icon_item": "galacticraft:compressed_desh",
+  "id": "galacticraft:research/martian_desh_elastomers",
+  "location_requirement": {
+    "allowed_bodies": [
+      "galacticraft:mars"
+    ],
+    "label": "Mars Desh"
+  },
+  "prerequisites": [
+    "galacticraft:research/lunar_olivine_optics"
+  ],
+  "required_domain_points": 110,
+  "source_lab": "Geological Analyzer",
+  "sp_cost": 300,
+  "summary": "Elastic iron-titanium Desh mineralogy unlocks high-shock armor, tools and precision valves.",
+  "title": "Martian Desh Alloys & Valves",
+  "unlocks": [
+    "Desh Armor & Tools",
+    "Atmospheric Valve",
+    "Fluid Manipulator",
+    "Isothermal Fabric"
+  ]
+}

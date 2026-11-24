@@ -40,17 +40,27 @@ public final class ResearchMilestone {
     public static final String VENUS_92ATM_CERTIFIED = "venus_92atm_certified";
     public static final String OUTER_PLANET_OBSERVED = "outer_planet_observed";
     public static final String DEEP_SKY_CATALOGED = "deep_sky_cataloged";
+    public static final String FLIGHT_TELEMETRY_ANALYZED = "flight_telemetry_analyzed";
+    public static final String THERMAL_FAILURE_STUDIED = "thermal_failure_studied";
+    public static final String ATMOSPHERIC_SPECTRUM_CAPTURED = "atmospheric_spectrum_captured";
+    public static final String RADIATION_FLUX_MEASURED = "radiation_flux_measured";
+    public static final String MAGNETOSPHERE_MAPPED = "magnetosphere_mapped";
 
-    private static final Map<String, String> LABELS = Map.of(
-            MOON_OBSERVED, "Observe Moon via Telescope",
-            VACUUM_TRIAL_CERTIFIED, "Certify Sample in Vacuum Chamber",
-            LUNAR_HE3_SPECTRUM, "Lock Lunar 3He Spectral Peak",
-            MARS_OBSERVED, "Observe Mars via Telescope",
-            COMMNET_RELAY_LOCKED, "Lock Interplanetary Data Link",
-            ZERO_G_LEVITATION_CERTIFIED, "Synthesize Crystal in 0.0G",
-            VENUS_92ATM_CERTIFIED, "Certify 92 atm Venus Sample",
-            OUTER_PLANET_OBSERVED, "Observe Outer Gas/Ice Giant",
-            DEEP_SKY_CATALOGED, "Photograph Comet/Nebula/Galaxy"
+    private static final Map<String, String> LABELS = Map.ofEntries(
+            Map.entry(MOON_OBSERVED, "Observe Moon via Telescope"),
+            Map.entry(VACUUM_TRIAL_CERTIFIED, "Certify Sample in Vacuum Chamber"),
+            Map.entry(LUNAR_HE3_SPECTRUM, "Lock Lunar 3He Spectral Peak"),
+            Map.entry(MARS_OBSERVED, "Observe Mars via Telescope"),
+            Map.entry(COMMNET_RELAY_LOCKED, "Lock Interplanetary Data Link"),
+            Map.entry(ZERO_G_LEVITATION_CERTIFIED, "Synthesize Crystal in 0.0G"),
+            Map.entry(VENUS_92ATM_CERTIFIED, "Certify 92 atm Venus Sample"),
+            Map.entry(OUTER_PLANET_OBSERVED, "Observe Outer Gas/Ice Giant"),
+            Map.entry(DEEP_SKY_CATALOGED, "Photograph Comet/Nebula/Galaxy"),
+            Map.entry(FLIGHT_TELEMETRY_ANALYZED, "Analyze Flight Telemetry Drive"),
+            Map.entry(THERMAL_FAILURE_STUDIED, "Recover Flight Recorder Black Box (+200%)"),
+            Map.entry(ATMOSPHERIC_SPECTRUM_CAPTURED, "Capture Planetary GasComposition via Probe"),
+            Map.entry(RADIATION_FLUX_MEASURED, "Record Radiation Belt Flux"),
+            Map.entry(MAGNETOSPHERE_MAPPED, "Map Planetary Magnetosphere via Boom")
     );
 
     private ResearchMilestone() {

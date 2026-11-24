@@ -1,0 +1,28 @@
+{
+  "branch": "metallurgy_machines",
+  "domain": "structures",
+  "era": 3,
+  "grid_x": 7,
+  "grid_y": -4,
+  "icon_item": "galacticraft:geological_analyzer",
+  "id": "galacticraft:research/regolith_sintering_plants",
+  "location_requirement": {
+    "allowed_bodies": [
+      "galacticraft:mars"
+    ],
+    "label": "Mars / Moon Surface"
+  },
+  "prerequisites": [
+    "galacticraft:research/lunar_vacuum_metallurgy"
+  ],
+  "required_domain_points": 120,
+  "source_lab": "Geological Analyzer",
+  "sp_cost": 350,
+  "summary": "Microwave sintering fuses raw planetary regolith into radiation-opaque foundation blocks and bricks.",
+  "title": "Automated Regolith Sintering",
+  "unlocks": [
+    "Regolith Bricks",
+    "Basalt Heat Shields",
+    "Automated Ore Kilns"
+  ]
+}

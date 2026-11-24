@@ -1,0 +1,17 @@
+{
+  "type": "galacticraft:telemetry_analysis",
+  "bonus_domain_points": 20,
+  "bonus_sp": 28,
+  "output_item": {
+    "count": 1,
+    "id": "galacticraft:blank_data_drive"
+  },
+  "processing_time": 65,
+  "reagent": {
+    "item": "galacticraft:niobium_oxide"
+  },
+  "sample": {
+    "item": "galacticraft:mars_stone"
+  },
+  "target_planet": "galacticraft:mars"
+}

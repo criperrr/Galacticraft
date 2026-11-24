@@ -1,0 +1,20 @@
+{
+  "branch": "energy_superconductors",
+  "domain": "electromagnetism",
+  "era": 1,
+  "grid_y": -2,
+  "icon_item": "galacticraft:basic_wafer",
+  "id": "galacticraft:research/early_solar_photovoltaics",
+  "prerequisites": [
+    "galacticraft:research/earth_prototyping"
+  ],
+  "required_domain_points": 15,
+  "sp_cost": 45,
+  "summary": "Crystalline silicon wafers convert sunlight into regulated DC current stored in portable cells.",
+  "title": "Silicon Photovoltaics & Batteries",
+  "unlocks": [
+    "Basic Solar Panel",
+    "Basic Wafer",
+    "Energy Storage Module"
+  ]
+}

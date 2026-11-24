@@ -16,6 +16,7 @@
     "CakeBlockMixin",
     "ChangeOverTimeBlockMixin",
     "ChunkGeneratorPerfMixin",
+    "CraftingMenuMixin",
     "DimensionTransitionMixin",
     "DimensionTypeMixin",
     "EntityMixin",

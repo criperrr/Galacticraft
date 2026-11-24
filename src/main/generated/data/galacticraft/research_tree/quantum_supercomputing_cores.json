@@ -1,0 +1,27 @@
+{
+  "branch": "energy_superconductors",
+  "domain": "electromagnetism",
+  "era": 5,
+  "grid_x": 2,
+  "grid_y": -9,
+  "icon_item": "galacticraft:quantum_archive_core",
+  "id": "galacticraft:research/quantum_supercomputing_cores",
+  "location_requirement": {
+    "label": "0.0G Orbit / Asteroids",
+    "max_gravity_g": 0.01
+  },
+  "prerequisites": [
+    "galacticraft:research/high_gain_commnet_arrays",
+    "galacticraft:research/zero_g_superconductors_nb3sn"
+  ],
+  "required_domain_points": 295,
+  "source_lab": "Aerospace R&D Terminal",
+  "sp_cost": 850,
+  "summary": "Cryogenic superconducting qubits boost R&D diminishing-return recovery and autonomous tracking.",
+  "title": "Quantum Telemetry & Archive Cores",
+  "unlocks": [
+    "Archival Coprocessor Blade",
+    "Quantum Archive Core",
+    "50% Repeat Science Yield"
+  ]
+}

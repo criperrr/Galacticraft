@@ -537,6 +537,7 @@ public class GCTranslationProvider extends TranslationProvider {
         this.block(GCBlocks.ZERO_G_RESEARCH_CHAMBER, "Zero-G Research Chamber");
         this.block(GCBlocks.AEROSPACE_RD_TERMINAL, "Aerospace R&D Terminal");
         this.block(GCBlocks.RESEARCH_DATA_LINK, "Interplanetary Research Data Link");
+        this.block(GCBlocks.TELEMETRY_ANALYZER, "Flight Telemetry Analyzer");
         this.block(GCBlocks.FUSION_REACTOR_CASING, "MHD Fusion Casing");
         this.block(GCBlocks.FUSION_MAGNET_COIL, "Superconducting Toroid Coil");
         this.block(GCBlocks.FUSION_PLASMA_GLASS, "MHD Plasma Containment Glass");
@@ -617,6 +618,10 @@ public class GCTranslationProvider extends TranslationProvider {
 
         this.item(GCItems.TELEMETRY_COPROCESSOR_CARD, "Telemetry Coprocessor Card");
         this.item(GCItems.QUANTUM_ARCHIVE_CORE, "Quantum Archive Core");
+        this.item(GCItems.BLANK_DATA_DRIVE, "Blank Data Drive");
+        this.item(GCItems.RECORDED_DATA_DRIVE, "Recorded Data Drive");
+        this.item(GCItems.BLANK_SCHEMATIC_DISC, "Blank Schematic Disc");
+        this.item(GCItems.ORBITAL_SURVEY_MAP, "Orbital Survey Map");
 
         this.item(GCItems.RAW_PALLADIUM, "Raw Palladium");
         this.item(GCItems.PALLADIUM_INGOT, "Palladium Ingot");

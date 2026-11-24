@@ -95,6 +95,12 @@ public class GCDataComponents {
     public static final DataComponentType<RocketPartComposition> ROCKET_PART_COMPOSITION = register("rocket_part_composition", b -> b
             .persistent(RocketPartComposition.CODEC)
             .networkSynchronized(RocketPartComposition.STREAM_CODEC));
+    public static final DataComponentType<TelemetryData> TELEMETRY_DATA = register("telemetry_data", b -> b
+            .persistent(TelemetryData.CODEC)
+            .networkSynchronized(TelemetryData.STREAM_CODEC));
+    public static final DataComponentType<OrbitalSurveyData> ORBITAL_SURVEY_DATA = register("orbital_survey_data", b -> b
+            .persistent(OrbitalSurveyData.CODEC)
+            .networkSynchronized(OrbitalSurveyData.STREAM_CODEC));
 
     private static <T> DataComponentType<T> register(String id, UnaryOperator<DataComponentType.Builder<T>> op) {
         return Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, APIConstants.id(id), op.apply(DataComponentType.builder()).build());

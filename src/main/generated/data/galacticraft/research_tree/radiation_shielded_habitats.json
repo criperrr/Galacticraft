@@ -1,0 +1,29 @@
+{
+  "branch": "life_support_bases",
+  "domain": "nuclear_plasma",
+  "era": 4,
+  "grid_x": -11,
+  "grid_y": -2,
+  "icon_item": "galacticraft:titanium_pressure_manifold",
+  "id": "galacticraft:research/radiation_shielded_habitats",
+  "location_requirement": {
+    "label": "Hyperbaric Acid (>=50 atm)",
+    "min_pressure_atm": 50.0,
+    "min_temp_kelvin": 600.0,
+    "require_corrosive_acid": true
+  },
+  "prerequisites": [
+    "galacticraft:research/closed_ecosystem_bioreactors"
+  ],
+  "required_domain_points": 220,
+  "required_milestone": "venus_92atm_certified",
+  "source_lab": "Environmental Test Chamber",
+  "sp_cost": 640,
+  "summary": "Multi-meter water jackets and lead-doped glass shield crews from solar flares and Jovian belts.",
+  "title": "Magnetospheric & Lead-Glass Habs",
+  "unlocks": [
+    "Radiation Bunkers",
+    "Titanium Pressure Manifold",
+    "Hyperbaric Bulkheads"
+  ]
+}

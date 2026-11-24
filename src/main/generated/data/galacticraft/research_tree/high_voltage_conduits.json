@@ -1,0 +1,20 @@
+{
+  "branch": "energy_superconductors",
+  "domain": "electromagnetism",
+  "era": 1,
+  "grid_y": -4,
+  "icon_item": "galacticraft:advanced_wafer",
+  "id": "galacticraft:research/high_voltage_conduits",
+  "prerequisites": [
+    "galacticraft:research/early_solar_photovoltaics"
+  ],
+  "required_domain_points": 30,
+  "sp_cost": 80,
+  "summary": "Insulated heavy-gauge aluminum power buses and precision voltage switches for laboratory arrays.",
+  "title": "Aluminum High-Voltage Grids",
+  "unlocks": [
+    "Heavy Aluminum Wire",
+    "Energy Storage Cluster",
+    "Advanced Wafer"
+  ]
+}

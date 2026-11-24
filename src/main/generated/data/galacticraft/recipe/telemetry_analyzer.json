@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "L": {
+      "item": "galacticraft:sensor_lens"
+    },
+    "M": {
+      "item": "galacticraft:frequency_module"
+    },
+    "S": {
+      "item": "galacticraft:compressed_steel"
+    },
+    "W": {
+      "item": "galacticraft:advanced_wafer"
+    }
+  },
+  "pattern": [
+    "SLS",
+    "MWM",
+    "SSS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:telemetry_analyzer"
+  }
+}

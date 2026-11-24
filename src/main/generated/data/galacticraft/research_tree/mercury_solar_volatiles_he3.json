@@ -1,0 +1,31 @@
+{
+  "branch": "energy_superconductors",
+  "domain": "thermodynamics",
+  "era": 4,
+  "grid_x": -3,
+  "grid_y": -7,
+  "icon_item": "galacticraft:solar_array_panel",
+  "id": "galacticraft:research/mercury_solar_volatiles_he3",
+  "location_requirement": {
+    "allowed_bodies": [
+      "galacticraft:mercury"
+    ],
+    "label": "Mercury (6.6x Solar)"
+  },
+  "prerequisites": [
+    "galacticraft:research/lunar_he3_thermal_desorption"
+  ],
+  "required_domain_points": 180,
+  "source_lab": "Geological Analyzer",
+  "sp_cost": 520,
+  "summary": "Analyzes Mercury hollow deposits saturated by 6.6x solar wind for 3x high-yield 3He sublimation.",
+  "title": "Mercurian Solar Volatile 3He",
+  "unlocked_recipes": [
+    "galacticraft:advanced_solar_panel"
+  ],
+  "unlocks": [
+    "3x Mercury Hollow Desorption",
+    "Solar Array Wafer",
+    "Advanced Solar Panel"
+  ]
+}

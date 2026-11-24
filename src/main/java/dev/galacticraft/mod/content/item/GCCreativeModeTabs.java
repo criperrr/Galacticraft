@@ -438,6 +438,7 @@ public class GCCreativeModeTabs {
                 output.accept(ZERO_G_RESEARCH_CHAMBER);
                 output.accept(AEROSPACE_RD_TERMINAL);
                 output.accept(RESEARCH_DATA_LINK);
+                output.accept(TELEMETRY_ANALYZER);
                 output.accept(FUSION_REACTOR_CASING);
                 output.accept(FUSION_MAGNET_COIL);
                 output.accept(FUSION_PLASMA_GLASS);
@@ -631,6 +632,10 @@ public class GCCreativeModeTabs {
                 output.accept(LASER_COMM_TRANSPONDER);
                 output.accept(TELEMETRY_COPROCESSOR_CARD);
                 output.accept(QUANTUM_ARCHIVE_CORE);
+                output.accept(BLANK_DATA_DRIVE);
+                output.accept(RECORDED_DATA_DRIVE);
+                output.accept(BLANK_SCHEMATIC_DISC);
+                output.accept(ORBITAL_SURVEY_MAP);
 
                 // FOOD
                 output.accept(MOON_CHEESE_CURD);

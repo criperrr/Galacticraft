@@ -1,0 +1,33 @@
+{
+  "branch": "metallurgy_machines",
+  "domain": "cryogenics",
+  "era": 3,
+  "grid_x": 7,
+  "grid_y": -2,
+  "icon_item": "galacticraft:sabatier_chemical_reactor",
+  "id": "galacticraft:research/martian_sabatier_isru",
+  "location_requirement": {
+    "allowed_bodies": [
+      "galacticraft:mars"
+    ],
+    "label": "Mars (95% CO2)"
+  },
+  "prerequisites": [
+    "galacticraft:research/lunar_vacuum_metallurgy"
+  ],
+  "required_domain_points": 95,
+  "required_milestone": "mars_observed",
+  "source_lab": "Geological Analyzer",
+  "sp_cost": 270,
+  "summary": "Captures Martian CO2 and reacts it with H2 to synthesize Methalox propellant and recycled water.",
+  "title": "Martian Sabatier ISRU Cycle",
+  "unlocked_recipes": [
+    "galacticraft:atmospheric_fractionator",
+    "galacticraft:sabatier_chemical_reactor"
+  ],
+  "unlocks": [
+    "Atmospheric Fractionator",
+    "Sabatier Chemical Reactor",
+    "Liquid Methane ISRU"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "branch": "life_support_bases",
+  "domain": "cryogenics",
+  "era": 2,
+  "grid_x": -7,
+  "grid_y": -2,
+  "icon_item": "galacticraft:food_canner",
+  "id": "galacticraft:research/lunar_bio_habitation",
+  "location_requirement": {
+    "allowed_bodies": [
+      "galacticraft:moon"
+    ],
+    "label": "Moon Regolith"
+  },
+  "prerequisites": [
+    "galacticraft:research/lunar_polar_electrolysis"
+  ],
+  "required_domain_points": 70,
+  "source_lab": "Geological Analyzer",
+  "sp_cost": 190,
+  "summary": "Assays lunar flora and regolith volatiles to sustain closed-loop off-world colony nutrition.",
+  "title": "Exobiology & Sealed Hydroponics",
+  "unlocks": [
+    "Food Canner",
+    "Moon Tangle Cultivation",
+    "Sealed Bio-Planters"
+  ]
+}

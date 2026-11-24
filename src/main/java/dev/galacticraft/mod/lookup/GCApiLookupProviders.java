@@ -69,6 +69,7 @@ public class GCApiLookupProviders {
             GCBlockEntityTypes.ZERO_G_RESEARCH_CHAMBER,
             GCBlockEntityTypes.AEROSPACE_RD_TERMINAL,
             GCBlockEntityTypes.RESEARCH_DATA_LINK,
+            GCBlockEntityTypes.TELEMETRY_ANALYZER,
             GCBlockEntityTypes.FUEL_LOADER,
             GCBlockEntityTypes.OXYGEN_COLLECTOR,
             GCBlockEntityTypes.OXYGEN_DETECTOR,

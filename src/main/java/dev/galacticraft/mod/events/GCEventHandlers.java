@@ -35,6 +35,8 @@ import dev.galacticraft.mod.accessor.ServerPlayerAccessor;
 import dev.galacticraft.mod.config.GCConfigUtil;
 import dev.galacticraft.mod.content.GCEntityTypes;
 import dev.galacticraft.mod.content.entity.FallingMeteorEntity;
+import dev.galacticraft.mod.content.entity.orbital.FlightTelemetryEngine;
+import dev.galacticraft.mod.content.entity.orbital.ReactiveSampleContainmentHandler;
 import dev.galacticraft.mod.misc.cape.ServerCapeManager;
 import dev.galacticraft.mod.misc.footprint.FootprintManager;
 import dev.galacticraft.mod.network.c2s.CapeSelectionPayload;
@@ -86,6 +88,7 @@ public class GCEventHandlers {
 
         ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
             ServerCapeManager.remove(handler.player);
+            ReactiveSampleContainmentHandler.clearPlayer(handler.player.getUUID());
             CapeSelectionPayload.broadcastCapeSnapshot(server);
         });
 
@@ -151,6 +154,7 @@ public class GCEventHandlers {
                         body,
                         fromBody
                 );
+        FlightTelemetryEngine.onPlanetaryTransition(destination, player, body);
     }
 
     public static void onPlayerChangeWorld(ServerPlayer player, ServerLevel origin, ServerLevel destination) {
@@ -181,6 +185,7 @@ public class GCEventHandlers {
         }
         level.galacticraft$getSealerManager().tick();
         GCVenusAtmosphereHandler.onWorldTick(level);
+        ReactiveSampleContainmentHandler.tickWorld(level);
     }
 
     public static void onServerTick(MinecraftServer server) {

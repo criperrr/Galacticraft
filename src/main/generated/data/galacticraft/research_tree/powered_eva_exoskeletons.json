@@ -1,0 +1,28 @@
+{
+  "branch": "suits_tools",
+  "domain": "structures",
+  "era": 5,
+  "grid_x": -12,
+  "grid_y": 2,
+  "icon_item": "galacticraft:piezo_gyro_gimbal",
+  "id": "galacticraft:research/powered_eva_exoskeletons",
+  "location_requirement": {
+    "allowed_bodies": [
+      "galacticraft:jupiter"
+    ],
+    "label": "High-G Surface"
+  },
+  "prerequisites": [
+    "galacticraft:research/venus_hyperbaric_hulls"
+  ],
+  "required_domain_points": 290,
+  "source_lab": "Environmental Test Chamber",
+  "sp_cost": 840,
+  "summary": "Gyro-stabilized actuators let astronauts walk, carry heavy payloads and build under 2.36G gravity.",
+  "title": "Servo-Assisted High-G Exosuits",
+  "unlocks": [
+    "Piezo Gyro Gimbal",
+    "High-G Servo Exosuit",
+    "Gravity Dampening Boots"
+  ]
+}

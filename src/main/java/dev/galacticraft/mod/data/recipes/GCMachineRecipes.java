@@ -35,8 +35,10 @@ import dev.galacticraft.mod.api.data.recipe.GCShapedRecipeBuilder;
 import dev.galacticraft.mod.api.data.recipe.GCShapelessRecipeBuilder;
 import dev.galacticraft.mod.api.data.recipe.MetallurgicInfusingRecipeBuilder;
 import dev.galacticraft.mod.api.data.recipe.SabatierRecipeBuilder;
+import dev.galacticraft.mod.api.data.recipe.TelemetryAnalysisRecipeBuilder;
 import dev.galacticraft.mod.api.data.recipe.ThermalDesorptionRecipeBuilder;
 import dev.galacticraft.mod.content.GCBlocks;
+import dev.galacticraft.mod.content.GCCelestialBodies;
 import dev.galacticraft.mod.content.GCFluids;
 import dev.galacticraft.mod.content.block.entity.machine.VacuumMetallurgicInfuserBlockEntity;
 import dev.galacticraft.mod.content.item.GCItems;
@@ -549,6 +551,42 @@ public class GCMachineRecipes extends FabricRecipeProvider {
                 .pattern("AMA")
                 .pattern("AWA")
                 .unlockedBy(getHasName(GCItems.FREQUENCY_MODULE), has(GCItems.FREQUENCY_MODULE))
+                .emiDefaultRecipe(true)
+                .save(output);
+
+        GCShapedRecipeBuilder.crafting(RecipeCategory.DECORATIONS, GCBlocks.TELEMETRY_ANALYZER)
+                .define('S', GCItems.COMPRESSED_STEEL)
+                .define('W', GCItems.ADVANCED_WAFER)
+                .define('L', GCItems.SENSOR_LENS)
+                .define('M', GCItems.FREQUENCY_MODULE)
+                .pattern("SLS")
+                .pattern("MWM")
+                .pattern("SSS")
+                .unlockedBy(getHasName(GCItems.ADVANCED_WAFER), has(GCItems.ADVANCED_WAFER))
+                .emiDefaultRecipe(true)
+                .save(output);
+
+        // Flight Telemetry Data Drives & Schematic Optical Media
+        GCShapedRecipeBuilder.crafting(RecipeCategory.MISC, GCItems.BLANK_DATA_DRIVE, 2)
+                .define('S', GCItems.SILICON)
+                .define('N', GCItems.NIOBIUM_OXIDE)
+                .define('L', GCItems.LUNAR_SAPPHIRE)
+                .define('A', GCItems.COMPRESSED_ALUMINUM)
+                .pattern("ASA")
+                .pattern("NLN")
+                .pattern("ASA")
+                .unlockedBy(getHasName(GCItems.NIOBIUM_OXIDE), has(GCItems.NIOBIUM_OXIDE))
+                .emiDefaultRecipe(true)
+                .save(output);
+
+        GCShapedRecipeBuilder.crafting(RecipeCategory.MISC, GCItems.BLANK_SCHEMATIC_DISC, 2)
+                .define('A', GCItems.COMPRESSED_ALUMINUM)
+                .define('W', GCItems.BASIC_WAFER)
+                .define('S', GCItems.SILICON)
+                .pattern(" A ")
+                .pattern("SWS")
+                .pattern(" A ")
+                .unlockedBy(getHasName(GCItems.BASIC_WAFER), has(GCItems.BASIC_WAFER))
                 .emiDefaultRecipe(true)
                 .save(output);
 
@@ -1470,6 +1508,80 @@ public class GCMachineRecipes extends FabricRecipeProvider {
                 .outputItem(GCItems.ALUMINUM_INGOT, 1)
                 .time(40)
                 .save(output, Constant.id("scrap_aluminum_wire"));
+
+        // Telemetry Analyzer Data-Driven Cross-Correlation Recipes
+        TelemetryAnalysisRecipeBuilder.create(GCItems.RAW_NIOBIUM, GCItems.NIOBIUM_OXIDE)
+                .targetPlanet(GCCelestialBodies.EARTH.location())
+                .bonus(18, 14)
+                .outputItem(GCItems.BLANK_DATA_DRIVE, 1)
+                .time(60)
+                .save(output, Constant.id("earth_niobium_telemetry"));
+        TelemetryAnalysisRecipeBuilder.create(GCBlocks.MOON_TURF, GCItems.NIOBIUM_OXIDE)
+                .targetPlanet(GCCelestialBodies.MOON.location())
+                .bonus(24, 18)
+                .outputItem(GCItems.BLANK_DATA_DRIVE, 1)
+                .time(60)
+                .save(output, Constant.id("moon_regolith_telemetry"));
+        TelemetryAnalysisRecipeBuilder.create(GCItems.OLIVINE_SHARD, GCItems.LUNAR_SAPPHIRE)
+                .targetPlanet(GCCelestialBodies.MOON.location())
+                .bonus(32, 24)
+                .outputItem(GCItems.BLANK_DATA_DRIVE, 1)
+                .time(70)
+                .save(output, Constant.id("moon_olivine_telemetry"));
+        TelemetryAnalysisRecipeBuilder.create(GCItems.RAW_DESH, GCItems.NIOBIUM_OXIDE)
+                .targetPlanet(GCCelestialBodies.MARS.location())
+                .bonus(36, 26)
+                .outputItem(GCItems.BLANK_DATA_DRIVE, 1)
+                .time(70)
+                .save(output, Constant.id("mars_desh_telemetry"));
+        TelemetryAnalysisRecipeBuilder.create(GCBlocks.MARS_STONE, GCItems.NIOBIUM_OXIDE)
+                .targetPlanet(GCCelestialBodies.MARS.location())
+                .bonus(28, 20)
+                .outputItem(GCItems.BLANK_DATA_DRIVE, 1)
+                .time(65)
+                .save(output, Constant.id("mars_stone_telemetry"));
+        TelemetryAnalysisRecipeBuilder.create(GCItems.RAW_TITANIUM, GCItems.LUNAR_SAPPHIRE)
+                .targetPlanet(GCCelestialBodies.ASTEROID.location())
+                .bonus(42, 30)
+                .outputItem(GCItems.BLANK_DATA_DRIVE, 1)
+                .time(75)
+                .save(output, Constant.id("asteroid_titanium_telemetry"));
+        TelemetryAnalysisRecipeBuilder.create(GCBlocks.MERCURY_HOLLOW_DEPOSIT, GCItems.NIOBIUM_OXIDE)
+                .targetPlanet(GCCelestialBodies.MERCURY.location())
+                .bonus(46, 34)
+                .outputItem(GCItems.BLANK_DATA_DRIVE, 1)
+                .time(80)
+                .save(output, Constant.id("mercury_hollow_telemetry"));
+        TelemetryAnalysisRecipeBuilder.create(GCItems.RAW_LEAD, GCItems.NIOBIUM_OXIDE)
+                .targetPlanet(GCCelestialBodies.VENUS.location())
+                .bonus(48, 36)
+                .outputItem(GCItems.BLANK_DATA_DRIVE, 1)
+                .time(80)
+                .save(output, Constant.id("venus_galena_telemetry"));
+        TelemetryAnalysisRecipeBuilder.create(GCItems.METALLIC_HYDROGEN_CELL, GCItems.LUNAR_SAPPHIRE)
+                .targetPlanet(GCCelestialBodies.JUPITER.location())
+                .bonus(62, 46)
+                .outputItem(GCItems.BLANK_DATA_DRIVE, 1)
+                .time(90)
+                .save(output, Constant.id("jupiter_metallic_h2_telemetry"));
+        TelemetryAnalysisRecipeBuilder.create(GCItems.RAW_MAGNESIUM, GCItems.LUNAR_SAPPHIRE)
+                .targetPlanet(GCCelestialBodies.SATURN.location())
+                .bonus(64, 48)
+                .outputItem(GCItems.BLANK_DATA_DRIVE, 1)
+                .time(90)
+                .save(output, Constant.id("saturn_magnesium_telemetry"));
+        TelemetryAnalysisRecipeBuilder.create(GCItems.LONSDALEITE_GEM, GCItems.LUNAR_SAPPHIRE)
+                .targetPlanet(GCCelestialBodies.URANUS.location())
+                .bonus(70, 52)
+                .outputItem(GCItems.BLANK_DATA_DRIVE, 1)
+                .time(95)
+                .save(output, Constant.id("uranus_lonsdaleite_telemetry"));
+        TelemetryAnalysisRecipeBuilder.create(GCItems.SUPERIONIC_ICE_CRYSTAL, GCItems.LUNAR_SAPPHIRE)
+                .targetPlanet(GCCelestialBodies.NEPTUNE.location())
+                .bonus(76, 56)
+                .outputItem(GCItems.BLANK_DATA_DRIVE, 1)
+                .time(95)
+                .save(output, Constant.id("neptune_superionic_telemetry"));
     }
 
     @Override

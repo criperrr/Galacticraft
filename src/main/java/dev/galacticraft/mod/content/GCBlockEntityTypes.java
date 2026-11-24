@@ -73,6 +73,7 @@ public class GCBlockEntityTypes {
     public static final BlockEntityType<ZeroGResearchChamberBlockEntity> ZERO_G_RESEARCH_CHAMBER = register(Constant.Block.ZERO_G_RESEARCH_CHAMBER, ZeroGResearchChamberBlockEntity::new, GCBlocks.ZERO_G_RESEARCH_CHAMBER);
     public static final BlockEntityType<AerospaceRdTerminalBlockEntity> AEROSPACE_RD_TERMINAL = register(Constant.Block.AEROSPACE_RD_TERMINAL, AerospaceRdTerminalBlockEntity::new, GCBlocks.AEROSPACE_RD_TERMINAL);
     public static final BlockEntityType<ResearchDataLinkBlockEntity> RESEARCH_DATA_LINK = register(Constant.Block.RESEARCH_DATA_LINK, ResearchDataLinkBlockEntity::new, GCBlocks.RESEARCH_DATA_LINK);
+    public static final BlockEntityType<TelemetryAnalyzerBlockEntity> TELEMETRY_ANALYZER = register(Constant.Block.TELEMETRY_ANALYZER, TelemetryAnalyzerBlockEntity::new, GCBlocks.TELEMETRY_ANALYZER);
     public static final BlockEntityType<FoodCannerBlockEntity> FOOD_CANNER = register(Constant.Block.FOOD_CANNER, FoodCannerBlockEntity::new, GCBlocks.FOOD_CANNER);
 
     // OXYGEN MACHINES

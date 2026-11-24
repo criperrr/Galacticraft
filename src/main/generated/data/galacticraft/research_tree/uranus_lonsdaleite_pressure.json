@@ -1,0 +1,29 @@
+{
+  "branch": "suits_tools",
+  "domain": "structures",
+  "era": 6,
+  "grid_x": -15,
+  "grid_y": 3,
+  "icon_item": "galacticraft:lonsdaleite_gem",
+  "id": "galacticraft:research/uranus_lonsdaleite_pressure",
+  "location_requirement": {
+    "allowed_bodies": [
+      "galacticraft:uranus"
+    ],
+    "label": "Uranus Abyssal Ice"
+  },
+  "prerequisites": [
+    "galacticraft:research/plasma_excavation_tools"
+  ],
+  "required_domain_points": 480,
+  "required_milestone": "outer_planet_observed",
+  "source_lab": "Geological Analyzer",
+  "sp_cost": 1480,
+  "summary": "High-pressure hexagonal diamond lattices endure 100+ atm abyssal descent and deep mining.",
+  "title": "Hexagonal Lonsdaleite Lattices",
+  "unlocks": [
+    "Lonsdaleite Pressure Coatings",
+    "Abyssal Command Domes",
+    "Lonsdaleite Mirror Blank"
+  ]
+}

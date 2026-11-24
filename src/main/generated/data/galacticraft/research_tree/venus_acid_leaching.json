@@ -1,0 +1,32 @@
+{
+  "branch": "metallurgy_machines",
+  "domain": "cryogenics",
+  "era": 4,
+  "grid_x": 10,
+  "grid_y": -1,
+  "icon_item": "galacticraft:chemical_leaching_plant",
+  "id": "galacticraft:research/venus_acid_leaching",
+  "location_requirement": {
+    "label": "Hyperbaric Acid (>=50 atm)",
+    "min_pressure_atm": 50.0,
+    "min_temp_kelvin": 600.0,
+    "require_corrosive_acid": true
+  },
+  "prerequisites": [
+    "galacticraft:research/asteroid_smelting_refinery"
+  ],
+  "required_domain_points": 200,
+  "required_milestone": "venus_92atm_certified",
+  "source_lab": "Geological Analyzer",
+  "sp_cost": 590,
+  "summary": "Uses Venusian sulfuric acid chemistry to triple refractory ore oxide extraction yields.",
+  "title": "Hyperbaric Acid Ore Leaching",
+  "unlocked_recipes": [
+    "galacticraft:chemical_leaching_plant"
+  ],
+  "unlocks": [
+    "Chemical Leaching Plant",
+    "3x Niobium Oxide",
+    "2x Titanium Leaching"
+  ]
+}

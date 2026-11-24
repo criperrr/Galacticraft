@@ -1,0 +1,29 @@
+{
+  "branch": "suits_tools",
+  "domain": "thermodynamics",
+  "era": 3,
+  "grid_x": -9,
+  "grid_y": 3,
+  "icon_item": "galacticraft:isothermal_fabric",
+  "id": "galacticraft:research/thermal_exosuit_systems",
+  "location_requirement": {
+    "allowed_bodies": [
+      "galacticraft:mars"
+    ],
+    "label": "Mars / Orbit"
+  },
+  "prerequisites": [
+    "galacticraft:research/precision_spectroscopy_optics",
+    "galacticraft:research/martian_desh_elastomers"
+  ],
+  "required_domain_points": 140,
+  "source_lab": "Environmental Test Chamber",
+  "sp_cost": 390,
+  "summary": "Multi-layer radiant foil and active coolant weave regulate body heat from -200C to +450C.",
+  "title": "Active Thermal Control Padding",
+  "unlocks": [
+    "Thermal Padding T1",
+    "Cryo Mass Spectrometer",
+    "Isotopic Decay Counter"
+  ]
+}
