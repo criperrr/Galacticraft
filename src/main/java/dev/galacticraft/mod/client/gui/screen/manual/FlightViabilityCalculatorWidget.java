@@ -184,6 +184,13 @@ public final class FlightViabilityCalculatorWidget {
         long totalFuel = dropletsPerTank * this.tankCount;
         RocketFlightValidator.VehicleSnapshot vehicle = new RocketFlightValidator.VehicleSnapshot(parts, totalFuel, 50_000L, null);
         this.cachedReport = RocketFlightValidator.evaluate(vehicle, orig, dest);
+        boolean go = this.cachedReport.canLiftoffOrigin()
+                && this.cachedReport.hasEnoughDeltaV()
+                && !this.cachedReport.hasCriticalHazards();
+        AerospaceManualScreen.updateLastFlightSummary(
+                orig.displayName() + " -> " + dest.displayName() + " | " + (go ? "GO" : "NO-GO")
+                        + String.format(Locale.ROOT, " (dV %.0f/%.0f)", this.cachedReport.maxDeltaV(), this.cachedReport.requiredDeltaV())
+        );
     }
 
     public void render(@NotNull GuiGraphics graphics, @NotNull Font font, int x, int y, int w, int mouseX, int mouseY) {

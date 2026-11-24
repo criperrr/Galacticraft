@@ -94,13 +94,47 @@ public class AerospaceManualScreen extends Screen {
             "ALL", "Earth", "Moon", "0G / Asteroids", "Mars", "Mercury", "Venus", "Outer Giants"
     };
 
-    // Preserved across re-opens during the same client session
+    // Preserved across re-opens during the same client session & mirrored live onto the 3D handheld tablet
     private static ManualTab sessionTab = ManualTab.MISSION;
     private static @Nullable ResourceLocation sessionEntryId = ManualCatalog.ENTRY_MISSION_OVERVIEW;
     private static float sessionScrollY = 0.0F;
+    private static String lastFlightSummary = "Terra -> Lua | Ready to simulate";
+
+    public static @NotNull ManualTab getSessionTab() {
+        return sessionTab;
+    }
+
+    public static @Nullable ManualEntry getSessionEntry() {
+        ManualEntry entry = ManualManager.INSTANCE.get(sessionEntryId);
+        if (entry != null) {
+            return entry;
+        }
+        List<ManualEntry> entries = ManualManager.INSTANCE.entriesForTab(sessionTab);
+        return entries.isEmpty() ? null : entries.get(0);
+    }
+
+    public static int getCurrentEra() {
+        int maxEra = 1;
+        for (ResourceLocation id : ClientResearchCache.unlockedNodes()) {
+            ResearchNode node = ResearchCatalog.get(id);
+            if (node != null) {
+                maxEra = Math.max(maxEra, node.era());
+            }
+        }
+        return maxEra;
+    }
+
+    public static @NotNull String getLastFlightSummary() {
+        return lastFlightSummary;
+    }
+
+    public static void updateLastFlightSummary(@NotNull String summary) {
+        lastFlightSummary = summary;
+    }
 
     private final Deque<ResourceLocation> backHistory = new ArrayDeque<>();
     private final Deque<ResourceLocation> forwardHistory = new ArrayDeque<>();
+    private boolean openAnimationTriggered = false;
 
     private ManualTab activeTab;
     private @Nullable ManualEntry selectedEntry;
@@ -166,8 +200,12 @@ public class AerospaceManualScreen extends Screen {
     @Override
     protected void init() {
         super.init();
-        this.panelW = Math.min(416, Math.max(296, this.width - 20));
-        this.panelH = Math.min(250, Math.max(196, this.height - 20));
+        if (!this.openAnimationTriggered) {
+            this.openAnimationTriggered = true;
+            AerospaceTabletAnimator.beginOpen();
+        }
+        this.panelW = Math.min(416, Math.max(296, this.width - 36));
+        this.panelH = Math.min(250, Math.max(196, this.height - 34));
         this.panelX = (this.width - this.panelW) / 2;
         this.panelY = (this.height - this.panelH) / 2;
 
@@ -213,7 +251,18 @@ public class AerospaceManualScreen extends Screen {
         sessionTab = this.activeTab;
         sessionEntryId = this.selectedEntry != null ? this.selectedEntry.id() : sessionEntryId;
         sessionScrollY = this.targetScrollY;
+        AerospaceTabletAnimator.beginClose();
         super.onClose();
+    }
+
+    @Override
+    public void renderBackground(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+        // Intentionally skip Minecraft 1.21's Gaussian menu blur so the 3D tablet and text stay 100% razor sharp!
+        float reveal = AerospaceTabletAnimator.screenRevealAlpha();
+        if (reveal > 0.01F) {
+            int alpha = Math.round(reveal * 96.0F);
+            graphics.fill(0, 0, this.width, this.height, (alpha << 24) | 0x040914);
+        }
     }
 
     @Override
@@ -230,12 +279,14 @@ public class AerospaceManualScreen extends Screen {
             return;
         }
         this.activeTab = tab;
+        sessionTab = tab;
         this.sidebarScroll = 0;
         this.scrollY = 0.0F;
         this.targetScrollY = 0.0F;
         List<ManualEntry> entries = ManualManager.INSTANCE.entriesForTab(tab);
         if (!entries.isEmpty()) {
             this.selectedEntry = entries.get(0);
+            sessionEntryId = this.selectedEntry.id();
             markEntryRead(this.selectedEntry.id());
         }
         rebuildLayout();
@@ -252,6 +303,8 @@ public class AerospaceManualScreen extends Screen {
         }
         this.activeTab = next.tab();
         this.selectedEntry = next;
+        sessionTab = next.tab();
+        sessionEntryId = next.id();
         this.scrollY = 0.0F;
         this.targetScrollY = 0.0F;
         markEntryRead(entryId);
@@ -420,10 +473,12 @@ public class AerospaceManualScreen extends Screen {
             g.fill(x, y, x + bw, y + h, 0xCC0D2137);
             g.fill(x, y, x + bw, y + 1, 0xFF38BDF8);
             g.fill(x, y, x + 2, y + h, 0xFF38BDF8);
-            g.drawString(this.font, headline, x + 7, y + 5, 0xFF7DD3FC, false);
-            String spInfo = "SP: " + ClientResearchCache.sciencePoints() + " | Nodes: "
+            String spInfo = "SP:" + ClientResearchCache.sciencePoints() + " | "
                     + ClientResearchCache.unlockedNodes().size() + "/" + ResearchCatalog.totalNodeCount();
-            g.drawString(this.font, spInfo, x + bw - this.font.width(spInfo) - 6, y + 5, 0xFF94A3B8, false);
+            int spW = this.font.width(spInfo);
+            String trimmedHeadline = this.font.plainSubstrByWidth(headline, Math.max(40, bw - spW - 18));
+            g.drawString(this.font, trimmedHeadline, x + 7, y + 5, 0xFF7DD3FC, false);
+            g.drawString(this.font, spInfo, x + bw - spW - 6, y + 5, 0xFF94A3B8, false);
 
             int cy = y + 18;
             for (FormattedCharSequence line : wrapped) {
@@ -1136,14 +1191,39 @@ public class AerospaceManualScreen extends Screen {
 
     @Override
     public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        this.renderBackground(graphics, mouseX, mouseY, partialTick);
         this.activeClickZones.clear();
         this.hoveredTooltipStack = null;
         this.hoveredTooltipLines = null;
 
-        // Outer sci-fi frame
-        graphics.fill(this.panelX, this.panelY, this.panelX + this.panelW, this.panelY + this.panelH, 0xEE08101D);
-        graphics.renderOutline(this.panelX, this.panelY, this.panelW, this.panelH, 0xFF285580);
+        float reveal = AerospaceTabletAnimator.screenRevealAlpha();
+        if (this.searchBox != null) {
+            this.searchBox.setVisible(reveal >= 0.88F);
+        }
+        if (reveal < 0.04F) {
+            // Let the first-person 3D two-handed tablet raise & camera zoom play cleanly without overlay clutter
+            return;
+        }
+
+        // Subtle crisp dark edge tint (no Gaussian blur!)
+        this.renderBackground(graphics, mouseX, mouseY, partialTick);
+
+        float zoomScale = AerospaceTabletAnimator.screenZoomScale();
+        boolean scaling = zoomScale < 0.999F;
+        if (scaling) {
+            graphics.pose().pushPose();
+            float cx = this.panelX + this.panelW * 0.5F;
+            float cy = this.panelY + this.panelH * 0.5F;
+            graphics.pose().translate(cx, cy, 0.0F);
+            graphics.pose().scale(zoomScale, zoomScale, 1.0F);
+            graphics.pose().translate(-cx, -cy, 0.0F);
+        }
+
+        // Metallic 3D Aerospace Tablet outer chassis bezel + ergonomic left/right grips + camera/LEDs
+        renderTabletChassisBezel(graphics);
+
+        // Inner backlit glass screen frame
+        graphics.fill(this.panelX, this.panelY, this.panelX + this.panelW, this.panelY + this.panelH, 0xF508101D);
+        graphics.renderOutline(this.panelX, this.panelY, this.panelW, this.panelH, 0xFF38BDF8);
         graphics.fill(this.panelX, this.panelY, this.panelX + this.panelW, this.panelY + 22, 0xFF0E1B2F);
         graphics.fill(this.panelX, this.panelY + 22, this.panelX + this.panelW, this.panelY + 23, 0xFF38BDF8);
 
@@ -1181,15 +1261,48 @@ public class AerospaceManualScreen extends Screen {
         // Right Content Panel + Header (Breadcrumb, Favorite ★, Unpin HUD)
         renderContentPanel(graphics, mouseX, mouseY, partialTick);
 
-        // Render EditBox on top
-        super.render(graphics, mouseX, mouseY, partialTick);
+        if (scaling) {
+            graphics.pose().popPose();
+        }
+
+        // Render EditBox directly (never calling super.render's blur!)
+        if (this.searchBox != null && this.searchBox.isVisible()) {
+            this.searchBox.render(graphics, mouseX, mouseY, partialTick);
+        }
 
         // Flush tooltips LAST (always outside enableScissor)
-        if (this.hoveredTooltipStack != null && !this.hoveredTooltipStack.isEmpty()) {
-            graphics.renderTooltip(this.font, this.hoveredTooltipStack, mouseX, mouseY);
-        } else if (this.hoveredTooltipLines != null && !this.hoveredTooltipLines.isEmpty()) {
-            graphics.renderComponentTooltip(this.font, this.hoveredTooltipLines, mouseX, mouseY);
+        if (!scaling) {
+            if (this.hoveredTooltipStack != null && !this.hoveredTooltipStack.isEmpty()) {
+                graphics.renderTooltip(this.font, this.hoveredTooltipStack, mouseX, mouseY);
+            } else if (this.hoveredTooltipLines != null && !this.hoveredTooltipLines.isEmpty()) {
+                graphics.renderComponentTooltip(this.font, this.hoveredTooltipLines, mouseX, mouseY);
+            }
         }
+    }
+
+    private void renderTabletChassisBezel(GuiGraphics g) {
+        int bx0 = this.panelX - 10;
+        int by0 = this.panelY - 10;
+        int bx1 = this.panelX + this.panelW + 10;
+        int by1 = this.panelY + this.panelH + 10;
+
+        // Outer metallic titanium shell
+        g.fill(bx0, by0, bx1, by1, 0xFF1E2B3E);
+        g.renderOutline(bx0, by0, bx1 - bx0, by1 - by0, 0xFF475E7A);
+        g.fill(bx0 + 2, by0 + 2, bx1 - 2, by1 - 2, 0xFF27384F);
+
+        // Left & right ergonomic rubberized grips
+        g.fill(bx0 - 4, by0 + 16, bx0 + 3, by1 - 16, 0xFF111824);
+        g.fill(bx0 - 4, this.panelY + this.panelH / 2 - 22, bx0 - 2, this.panelY + this.panelH / 2 + 22, 0xFF38BDF8);
+        g.fill(bx1 - 3, by0 + 16, bx1 + 4, by1 - 16, 0xFF111824);
+        g.fill(bx1 + 2, this.panelY + this.panelH / 2 - 22, bx1 + 4, this.panelY + this.panelH / 2 + 22, 0xFF38BDF8);
+
+        // Top bezel camera lens + green power LED + bottom pill bar
+        int midX = this.panelX + this.panelW / 2;
+        g.fill(midX - 3, by0 + 3, midX + 3, by0 + 8, 0xFF0A101A);
+        g.fill(midX - 1, by0 + 4, midX + 1, by0 + 6, 0xFF38BDF8);
+        g.fill(midX + 10, by0 + 4, midX + 14, by0 + 7, 0xFF4ADE80);
+        g.fill(midX - 24, by1 - 6, midX + 24, by1 - 4, 0xFF475E7A);
     }
 
     private void renderSidebar(GuiGraphics graphics, int mouseX, int mouseY) {

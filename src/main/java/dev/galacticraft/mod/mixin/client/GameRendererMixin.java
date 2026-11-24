@@ -24,6 +24,7 @@ package dev.galacticraft.mod.mixin.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.galacticraft.mod.client.accessor.GameRendererAccessor;
+import dev.galacticraft.mod.client.gui.screen.manual.AerospaceTabletAnimator;
 import dev.galacticraft.mod.client.render.astro.AstroSpyglassManager;
 import dev.galacticraft.mod.client.render.astro.ClientTelescopeController;
 import net.minecraft.client.Camera;
@@ -40,6 +41,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(GameRenderer.class)
 public abstract class GameRendererMixin implements GameRendererAccessor {
@@ -120,6 +122,14 @@ public abstract class GameRendererMixin implements GameRendererAccessor {
     private void gc$hideHandInTelescope(Camera camera, float partialTick, Matrix4f projectionMatrix, CallbackInfo ci) {
         if (ClientTelescopeController.isActive()) {
             ci.cancel();
+        }
+    }
+
+    @Inject(method = "getFov", at = @At("RETURN"), cancellable = true)
+    private void gc$applyAerospaceTabletZoom(Camera camera, float partialTick, boolean useFovSetting, CallbackInfoReturnable<Double> cir) {
+        double mult = AerospaceTabletAnimator.fovMultiplier();
+        if (mult < 0.999) {
+            cir.setReturnValue(cir.getReturnValue() * mult);
         }
     }
 }

@@ -80,6 +80,7 @@ public class ClientEventHandler {
     public static void initializeSatelliteSkybox(Minecraft minecraft, ClientLevel level) {
         PlatformHologramRenderer.clearCache();
         HangarTerminalBlockEntity.clearClientTerminals();
+        dev.galacticraft.mod.client.gui.screen.manual.AerospaceTabletAnimator.reset();
         Holder<CelestialBody<?, ?>> holder = level.galacticraft$getCelestialBody();
         if (holder != null && holder.value().isSatellite()) {
             DimensionRenderingRegistry.registerSkyRenderer(level.dimension(), SatelliteSkyRenderer.INSTANCE);

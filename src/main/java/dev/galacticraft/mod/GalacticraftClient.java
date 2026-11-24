@@ -376,6 +376,7 @@ public class GalacticraftClient implements ClientModInitializer {
         BuiltinItemRendererRegistry.INSTANCE.register(GCBlocks.ROCKET_PART_ADAPTER.asItem(), ModularRocketPartItemRenderer.INSTANCE);
         BuiltinItemRendererRegistry.INSTANCE.register(GCBlocks.ROCKET_PART_PAYLOAD.asItem(), ModularRocketPartItemRenderer.INSTANCE);
         BuiltinItemRendererRegistry.INSTANCE.register(GCBlocks.ROCKET_PART_UTILITY.asItem(), ModularRocketPartItemRenderer.INSTANCE);
+        BuiltinItemRendererRegistry.INSTANCE.register(GCItems.AEROSPACE_MANUAL, dev.galacticraft.mod.client.render.item.AerospaceTabletItemRenderer.INSTANCE);
 
         InventoryTabRegistry.INSTANCE.register(GCItems.OXYGEN_MASK.getDefaultInstance(), () -> ClientPlayNetworking.send(new OpenGcInventoryPayload()), GCPlayerInventoryMenu.class);
         InventoryTabRegistry.INSTANCE.register(GCItems.ROCKET.getDefaultInstance(), () -> ClientPlayNetworking.send(new OpenRocketPayload()), player -> player.getVehicle() instanceof RocketEntity, RocketMenu.class);

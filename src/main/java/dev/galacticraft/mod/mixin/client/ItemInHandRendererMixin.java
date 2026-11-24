@@ -23,8 +23,12 @@
 package dev.galacticraft.mod.mixin.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import dev.galacticraft.mod.client.gui.screen.manual.AerospaceTabletAnimator;
+import dev.galacticraft.mod.client.render.item.AerospaceTabletItemRenderer;
 import dev.galacticraft.mod.content.entity.vehicle.AdvancedVehicle;
+import dev.galacticraft.mod.content.item.AerospaceManualItem;
 import dev.galacticraft.mod.content.item.RocketItem;
+import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.world.InteractionHand;
@@ -38,6 +42,52 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ItemInHandRenderer.class)
 public abstract class ItemInHandRendererMixin {
+    @Inject(method = "renderArmWithItem", at = @At("HEAD"), cancellable = true)
+    private void gc$renderTwoHandedAerospaceTablet(
+            AbstractClientPlayer player,
+            float partialTicks,
+            float pitch,
+            InteractionHand hand,
+            float swingProgress,
+            ItemStack stack,
+            float equippedProgress,
+            PoseStack poseStack,
+            MultiBufferSource buffer,
+            int combinedLight,
+            CallbackInfo ci
+    ) {
+        boolean mainIsTablet = player.getMainHandItem().getItem() instanceof AerospaceManualItem;
+        boolean offIsTablet = player.getOffhandItem().getItem() instanceof AerospaceManualItem;
+        boolean animActive = AerospaceTabletAnimator.isAnimatingOrOpen();
+
+        if (!mainIsTablet && !offIsTablet && !animActive) {
+            return;
+        }
+
+        // Hide the secondary hand's item so both hands hold the 3D Aerospace Tablet cleanly
+        if (hand == InteractionHand.OFF_HAND) {
+            if (mainIsTablet || animActive) {
+                ci.cancel();
+                return;
+            }
+            if (offIsTablet) {
+                AerospaceTabletItemRenderer.INSTANCE.renderFirstPersonTwoHanded(
+                        player, partialTicks, equippedProgress, swingProgress, poseStack, buffer, combinedLight
+                );
+                ci.cancel();
+            }
+            return;
+        }
+
+        // Main hand renders the two-handed 3D Aerospace Tablet when held OR during hotkey open/close animation
+        if (mainIsTablet || animActive) {
+            AerospaceTabletItemRenderer.INSTANCE.renderFirstPersonTwoHanded(
+                    player, partialTicks, equippedProgress, swingProgress, poseStack, buffer, combinedLight
+            );
+            ci.cancel();
+        }
+    }
+
     @Inject(method = "renderItem", at = @At("HEAD"), cancellable = true)
     private void gc$hideRocketItem(LivingEntity livingEntity, ItemStack itemStack, ItemDisplayContext itemDisplayContext, boolean bl, PoseStack poseStack, MultiBufferSource multiBufferSource, int n, CallbackInfo ci) {
         if (itemStack.getItem() instanceof RocketItem) {
