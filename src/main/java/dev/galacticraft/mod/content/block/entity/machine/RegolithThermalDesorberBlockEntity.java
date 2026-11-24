@@ -55,6 +55,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
@@ -121,7 +122,11 @@ public class RegolithThermalDesorberBlockEntity extends MachineBlockEntity {
             )
     );
 
+    private static final int[] INPUT_SLOTS = {INPUT_SLOT_1, INPUT_SLOT_2};
+
     private final FluidSource fluidSource = new FluidSource(this);
+    private final RecipeManager.CachedCheck<SingleRecipeInput, ThermalDesorptionRecipe> quickCheck =
+            RecipeManager.createCheck(GCRecipes.THERMAL_DESORPTION_TYPE);
     private int temperature = AMBIENT_TEMPERATURE;
     private int vacuumPercent = 0;
     private int progress = 0;
@@ -147,12 +152,12 @@ public class RegolithThermalDesorberBlockEntity extends MachineBlockEntity {
         int activeInputSlot = -1;
         ThermalDesorptionRecipe activeRecipe = null;
 
-        for (int slotIdx : new int[]{INPUT_SLOT_1, INPUT_SLOT_2}) {
+        for (int slotIdx : INPUT_SLOTS) {
             ItemResourceSlot slot = this.itemStorage().slot(slotIdx);
             if (!slot.isEmpty()) {
                 ItemStack candidate = new ItemStack(slot.getResource(), 1);
-                Optional<RecipeHolder<ThermalDesorptionRecipe>> found = level.getRecipeManager()
-                        .getRecipeFor(GCRecipes.THERMAL_DESORPTION_TYPE, new SingleRecipeInput(candidate), level);
+                Optional<RecipeHolder<ThermalDesorptionRecipe>> found = this.quickCheck
+                        .getRecipeFor(new SingleRecipeInput(candidate), level);
                 if (found.isPresent()) {
                     activeInputSlot = slotIdx;
                     activeRecipe = found.get().value();

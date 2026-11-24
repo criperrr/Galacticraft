@@ -61,6 +61,7 @@ import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
@@ -165,6 +166,8 @@ public class SabatierChemicalReactorBlockEntity extends MachineBlockEntity {
     );
 
     private final FluidSource fluidSource = new FluidSource(this);
+    private final RecipeManager.CachedCheck<SabatierRecipe.Input, SabatierRecipe> quickCheck =
+            RecipeManager.createCheck(GCRecipes.SABATIER_TYPE);
     private int progress = 0;
     private int maxProgress = 40;
     private int temperatureC = AMBIENT_TEMP_C;
@@ -208,6 +211,13 @@ public class SabatierChemicalReactorBlockEntity extends MachineBlockEntity {
         FluidResourceSlot outB = this.fluidStorage().slot(PRODUCT_B_TANK);
         ItemResourceSlot solidSlot = this.itemStorage().slot(SOLID_REAGENT_SLOT);
 
+        if (tankA.isEmpty() && tankB.isEmpty() && solidSlot.isEmpty()) {
+            this.progress = 0;
+            this.activeReactionCode = REACTION_STANDBY;
+            this.coolReactor();
+            return MachineStatuses.INVALID_RECIPE;
+        }
+
         Fluid fluidA = tankA.isEmpty() ? Fluids.EMPTY : tankA.getResource();
         Fluid fluidB = tankB.isEmpty() ? Fluids.EMPTY : tankB.getResource();
         ItemStack solidStack = solidSlot.isEmpty() ? ItemStack.EMPTY : new ItemStack(solidSlot.getResource(), 1);
@@ -218,8 +228,7 @@ public class SabatierChemicalReactorBlockEntity extends MachineBlockEntity {
                 fluidB, tankB.getAmount(),
                 solidStack, catalystStack
         );
-        Optional<RecipeHolder<SabatierRecipe>> match = level.getRecipeManager()
-                .getRecipeFor(GCRecipes.SABATIER_TYPE, recipeInput, level);
+        Optional<RecipeHolder<SabatierRecipe>> match = this.quickCheck.getRecipeFor(recipeInput, level);
 
         if (match.isEmpty()) {
             this.progress = 0;

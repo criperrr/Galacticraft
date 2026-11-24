@@ -57,6 +57,7 @@ import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
@@ -111,6 +112,8 @@ public class ChemicalLeachingPlantBlockEntity extends MachineBlockEntity {
             )
     );
 
+    private final RecipeManager.CachedCheck<ChemicalLeachingRecipe.Input, ChemicalLeachingRecipe> quickCheck =
+            RecipeManager.createCheck(GCRecipes.CHEMICAL_LEACHING_TYPE);
     private int progress = 0;
     private int maxProgress = 120;
 
@@ -148,8 +151,7 @@ public class ChemicalLeachingPlantBlockEntity extends MachineBlockEntity {
                 tankFluid,
                 tankDroplets
         );
-        Optional<RecipeHolder<ChemicalLeachingRecipe>> match = level.getRecipeManager()
-                .getRecipeFor(GCRecipes.CHEMICAL_LEACHING_TYPE, recipeInput, level);
+        Optional<RecipeHolder<ChemicalLeachingRecipe>> match = this.quickCheck.getRecipeFor(recipeInput, level);
 
         if (match.isEmpty()) {
             this.progress = 0;

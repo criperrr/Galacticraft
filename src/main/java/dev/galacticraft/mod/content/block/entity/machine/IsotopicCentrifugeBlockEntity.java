@@ -60,6 +60,7 @@ import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
@@ -150,6 +151,8 @@ public class IsotopicCentrifugeBlockEntity extends MachineBlockEntity {
     );
 
     private final FluidSource fluidSource = new FluidSource(this);
+    private final RecipeManager.CachedCheck<SingleRecipeInput, CentrifugeRecipe> quickCheck =
+            RecipeManager.createCheck(GCRecipes.CENTRIFUGE_TYPE);
     private int rotorRpm = 0;
     private int progress = 0;
     private int maxProgress = GAS_CYCLE_TICKS;
@@ -330,9 +333,9 @@ public class IsotopicCentrifugeBlockEntity extends MachineBlockEntity {
         }
     }
 
-    private static @Nullable SolidSeparationSpec resolveSolidSeparationSpec(ServerLevel level, Item item) {
-        Optional<RecipeHolder<CentrifugeRecipe>> match = level.getRecipeManager()
-                .getRecipeFor(GCRecipes.CENTRIFUGE_TYPE, new SingleRecipeInput(new ItemStack(item, 1)), level);
+    private @Nullable SolidSeparationSpec resolveSolidSeparationSpec(ServerLevel level, Item item) {
+        Optional<RecipeHolder<CentrifugeRecipe>> match = this.quickCheck
+                .getRecipeFor(new SingleRecipeInput(new ItemStack(item, 1)), level);
         if (match.isPresent()) {
             CentrifugeRecipe recipe = match.get().value();
             ItemStack outStack = recipe.getOutputItem();
