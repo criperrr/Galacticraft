@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "galacticraft:compressed_aluminum"
+    },
+    "M": {
+      "item": "galacticraft:frequency_module"
+    },
+    "W": {
+      "item": "galacticraft:basic_wafer"
+    }
+  },
+  "pattern": [
+    "AMA",
+    "AWA",
+    "AAA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:low_noise_rf_amplifier"
+  }
+}

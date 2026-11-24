@@ -66,6 +66,13 @@ public class GCBlockEntityTypes {
     public static final BlockEntityType<AtmosphericFractionatorBlockEntity> ATMOSPHERIC_FRACTIONATOR = register(Constant.Block.ATMOSPHERIC_FRACTIONATOR, AtmosphericFractionatorBlockEntity::new, GCBlocks.ATMOSPHERIC_FRACTIONATOR);
     public static final BlockEntityType<SabatierChemicalReactorBlockEntity> SABATIER_CHEMICAL_REACTOR = register(Constant.Block.SABATIER_CHEMICAL_REACTOR, SabatierChemicalReactorBlockEntity::new, GCBlocks.SABATIER_CHEMICAL_REACTOR);
     public static final BlockEntityType<AeroRefurbishmentBenchBlockEntity> AERO_REFURBISHMENT_BENCH = register(Constant.Block.AERO_REFURBISHMENT_BENCH, AeroRefurbishmentBenchBlockEntity::new, GCBlocks.AERO_REFURBISHMENT_BENCH);
+    public static final BlockEntityType<ResearchWorkbenchBlockEntity> RESEARCH_WORKBENCH = register(Constant.Block.RESEARCH_WORKBENCH, ResearchWorkbenchBlockEntity::new, GCBlocks.RESEARCH_WORKBENCH);
+    public static final BlockEntityType<ObservatoryTelescopeBlockEntity> OBSERVATORY_TELESCOPE = register(Constant.Block.OBSERVATORY_TELESCOPE, ObservatoryTelescopeBlockEntity::new, GCBlocks.OBSERVATORY_TELESCOPE);
+    public static final BlockEntityType<GeologicalAnalyzerBlockEntity> GEOLOGICAL_ANALYZER = register(Constant.Block.GEOLOGICAL_ANALYZER, GeologicalAnalyzerBlockEntity::new, GCBlocks.GEOLOGICAL_ANALYZER);
+    public static final BlockEntityType<EnvironmentalTestChamberBlockEntity> ENVIRONMENTAL_TEST_CHAMBER = register(Constant.Block.ENVIRONMENTAL_TEST_CHAMBER, EnvironmentalTestChamberBlockEntity::new, GCBlocks.ENVIRONMENTAL_TEST_CHAMBER);
+    public static final BlockEntityType<ZeroGResearchChamberBlockEntity> ZERO_G_RESEARCH_CHAMBER = register(Constant.Block.ZERO_G_RESEARCH_CHAMBER, ZeroGResearchChamberBlockEntity::new, GCBlocks.ZERO_G_RESEARCH_CHAMBER);
+    public static final BlockEntityType<AerospaceRdTerminalBlockEntity> AEROSPACE_RD_TERMINAL = register(Constant.Block.AEROSPACE_RD_TERMINAL, AerospaceRdTerminalBlockEntity::new, GCBlocks.AEROSPACE_RD_TERMINAL);
+    public static final BlockEntityType<ResearchDataLinkBlockEntity> RESEARCH_DATA_LINK = register(Constant.Block.RESEARCH_DATA_LINK, ResearchDataLinkBlockEntity::new, GCBlocks.RESEARCH_DATA_LINK);
     public static final BlockEntityType<FoodCannerBlockEntity> FOOD_CANNER = register(Constant.Block.FOOD_CANNER, FoodCannerBlockEntity::new, GCBlocks.FOOD_CANNER);
 
     // OXYGEN MACHINES

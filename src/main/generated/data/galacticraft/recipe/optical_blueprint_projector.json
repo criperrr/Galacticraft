@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "L": {
+      "item": "galacticraft:sensor_lens"
+    },
+    "O": {
+      "item": "galacticraft:olivine_shard"
+    },
+    "P": {
+      "item": "minecraft:paper"
+    },
+    "S": {
+      "item": "galacticraft:silicon"
+    }
+  },
+  "pattern": [
+    "OLO",
+    "SPS",
+    "OOO"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:optical_blueprint_projector"
+  }
+}

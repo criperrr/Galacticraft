@@ -47,8 +47,11 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import static dev.galacticraft.mod.content.GCAccessorySlots.*;
@@ -64,6 +67,10 @@ public abstract class AbstractClientPlayerEntityMixin implements ClientResearchA
 
     @Unique
     private final Set<ResourceLocation> unlockedResearch = new HashSet<>();
+    @Unique
+    private final Map<String, Integer> domainPoints = new HashMap<>();
+    @Unique
+    private final Set<ResourceLocation> mappedBodies = new HashSet<>();
 
     private final @Unique SimpleContainer gearInv = this.galacticraft_createGearInventory();
     private final @Unique Container tankInv = MappedInventory.create(this.gearInv, OXYGEN_TANK_1_SLOT, OXYGEN_TANK_2_SLOT);
@@ -98,6 +105,32 @@ public abstract class AbstractClientPlayerEntityMixin implements ClientResearchA
     }
 
     @Override
+    public @org.jetbrains.annotations.NotNull Set<ResourceLocation> galacticraft$getUnlockedResearch() {
+        return Collections.unmodifiableSet(this.unlockedResearch);
+    }
+
+    @Override
+    public int galacticraft$getDomainPoints(@org.jetbrains.annotations.NotNull String domainId) {
+        return this.domainPoints.getOrDefault(domainId, 0);
+    }
+
+    @Override
+    public @org.jetbrains.annotations.NotNull Map<String, Integer> galacticraft$getAllDomainPoints() {
+        return Collections.unmodifiableMap(this.domainPoints);
+    }
+
+    @Override
+    public boolean galacticraft$isCelestialBodyMapped(@org.jetbrains.annotations.NotNull ResourceLocation bodyId) {
+        if (this.isCreative()) return true;
+        return this.mappedBodies.contains(bodyId);
+    }
+
+    @Override
+    public @org.jetbrains.annotations.NotNull Set<ResourceLocation> galacticraft$getMappedCelestialBodies() {
+        return Collections.unmodifiableSet(this.mappedBodies);
+    }
+
+    @Override
     public void galacticraft$updateResearch(boolean add, List<ResourceLocation> ids) {
         for (ResourceLocation id : ids) {
             if (add) {
@@ -106,6 +139,20 @@ public abstract class AbstractClientPlayerEntityMixin implements ClientResearchA
                 this.unlockedResearch.remove(id);
             }
         }
+    }
+
+    @Override
+    public void galacticraft$applyResearchSnapshot(
+            Set<ResourceLocation> unlockedNodes,
+            Map<String, Integer> domainPoints,
+            Set<ResourceLocation> mappedBodies
+    ) {
+        this.unlockedResearch.clear();
+        this.unlockedResearch.addAll(unlockedNodes);
+        this.domainPoints.clear();
+        this.domainPoints.putAll(domainPoints);
+        this.mappedBodies.clear();
+        this.mappedBodies.addAll(mappedBodies);
     }
 
     @Override

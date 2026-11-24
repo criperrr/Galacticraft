@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_ablative_heat_tile": {
+      "conditions": {
+        "items": [
+          {
+            "items": "galacticraft:ablative_heat_tile"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "galacticraft:ablative_acid_liner"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_ablative_heat_tile"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "galacticraft:ablative_acid_liner"
+    ]
+  }
+}

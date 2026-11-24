@@ -86,7 +86,9 @@ public class AstroSkyRenderer {
         }
 
         double skyAngle = 360.0 * timeAngle + PlanetManager.getTropicalAngle();
-        if (AstroSpyglassManager.isInUse() && !Double.isNaN(spyglassAngleLock)) {
+        boolean lockSky = AstroSpyglassManager.isInUse()
+                && (!ClientTelescopeController.isActive() || ClientTelescopeController.hasSiderealDrive());
+        if (lockSky && !Double.isNaN(spyglassAngleLock)) {
             skyAngle = spyglassAngleLock;
         }
 

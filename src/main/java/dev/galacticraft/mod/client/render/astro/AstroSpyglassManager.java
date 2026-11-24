@@ -39,7 +39,15 @@ public class AstroSpyglassManager {
 
     public static boolean isInUse() {
         Minecraft client = Minecraft.getInstance();
+        if (ClientTelescopeController.isActive()) {
+            return true;
+        }
         return client.player != null && client.options.getCameraType().isFirstPerson() && client.player.isScoping();
+    }
+
+    public static void setTelescopeZoom(float newZoom) {
+        float cap = ClientTelescopeController.isActive() ? ClientTelescopeController.getMaxZoom() : MAX_ZOOM;
+        zoom = Mth.clamp(newZoom, MIN_ZOOM, cap);
     }
 
     public static boolean onMouseScroll(double vertical) {
@@ -52,12 +60,13 @@ public class AstroSpyglassManager {
             zoom *= SCROLL_MULT;
         } else if (vertical < 0.0) {
             if (!(zoom > MIN_ZOOM)) {
-                return false;
+                return ClientTelescopeController.isActive();
             }
             zoom /= SCROLL_MULT;
         }
 
-        zoom = Mth.clamp(zoom, MIN_ZOOM, MAX_ZOOM);
+        float cap = ClientTelescopeController.isActive() ? ClientTelescopeController.getMaxZoom() : MAX_ZOOM;
+        zoom = Mth.clamp(zoom, MIN_ZOOM, cap);
         return true;
     }
 
@@ -66,10 +75,16 @@ public class AstroSpyglassManager {
     }
 
     public static float getFovMultiplier() {
+        if (ClientTelescopeController.isActive()) {
+            return 1.0F / zoom;
+        }
         return isInUse() ? MIN_ZOOM / zoom : 1.0F;
     }
 
     public static double getZoom() {
+        if (ClientTelescopeController.isActive()) {
+            return zoom;
+        }
         Minecraft client = Minecraft.getInstance();
         if (client.player == null) {
             return 1.0;
@@ -94,6 +109,9 @@ public class AstroSpyglassManager {
             double bonus = -4.0;
             bonus -= player.getY() / 128.0;
             bonus -= 4.0 * (double) AstroLightingManager.getDeepskyVisibility();
+            if (ClientTelescopeController.isActive()) {
+                bonus += ClientTelescopeController.getOpticsMagnitudeBonus();
+            }
             return Math.max(bonus, getBonusLimit());
         }
         return 0.0;

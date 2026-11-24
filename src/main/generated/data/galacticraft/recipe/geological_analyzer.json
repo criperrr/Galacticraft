@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "F": {
+      "item": "galacticraft:compressed_ferroniobium"
+    },
+    "L": {
+      "item": "galacticraft:sensor_lens"
+    },
+    "P": {
+      "item": "galacticraft:glass_fluid_pipe"
+    },
+    "W": {
+      "item": "galacticraft:basic_wafer"
+    }
+  },
+  "pattern": [
+    "FLF",
+    "FPF",
+    "FWF"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:geological_analyzer"
+  }
+}

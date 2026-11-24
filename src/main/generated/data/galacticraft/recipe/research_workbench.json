@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "minecraft:crafting_table"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "N": {
+      "item": "galacticraft:raw_niobium"
+    },
+    "P": {
+      "item": "minecraft:paper"
+    }
+  },
+  "pattern": [
+    "IPI",
+    "NCN",
+    "III"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:research_workbench"
+  }
+}

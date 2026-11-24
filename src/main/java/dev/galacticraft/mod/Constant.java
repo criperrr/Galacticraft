@@ -550,6 +550,13 @@ public interface Constant {
         String ATMOSPHERIC_FRACTIONATOR = "atmospheric_fractionator";
         String SABATIER_CHEMICAL_REACTOR = "sabatier_chemical_reactor";
         String AERO_REFURBISHMENT_BENCH = "aero_refurbishment_bench";
+        String RESEARCH_WORKBENCH = "research_workbench";
+        String OBSERVATORY_TELESCOPE = "observatory_telescope";
+        String GEOLOGICAL_ANALYZER = "geological_analyzer";
+        String ENVIRONMENTAL_TEST_CHAMBER = "environmental_test_chamber";
+        String ZERO_G_RESEARCH_CHAMBER = "zero_g_research_chamber";
+        String AEROSPACE_RD_TERMINAL = "aerospace_rd_terminal";
+        String RESEARCH_DATA_LINK = "research_data_link";
         String FUSION_REACTOR_CASING = "fusion_reactor_casing";
         String FUSION_MAGNET_COIL = "fusion_magnet_coil";
         String FUSION_PLASMA_GLASS = "fusion_plasma_glass";
@@ -823,6 +830,41 @@ public interface Constant {
         String PART_SCHEMATIC_UTILITY = "part_schematic_utility";
         String MOON_TANGLE_FRUIT = "moon_tangle_fruit";
         String GRAPPLE_HOOK = "grapple_hook";
+
+        // LABORATORY BENCH-SPECIFIC UPGRADES (ZERO OVERLAP)
+        String OPTICAL_ACHROMAT_LENS = "optical_achromat_lens";
+        String SAPPHIRE_CASSEGRAIN_MIRROR = "sapphire_cassegrain_mirror";
+        String LONSDALEITE_PRIMARY_MIRROR = "lonsdaleite_primary_mirror";
+        String EQUATORIAL_SIDEREAL_DRIVE = "equatorial_sidereal_drive";
+        String ADAPTIVE_OPTICS_ACTUATOR = "adaptive_optics_actuator";
+        String INFRARED_BOLOMETER_ARRAY = "infrared_bolometer_array";
+
+        String PRECISION_VERNIER_CALIPER = "precision_vernier_caliper";
+        String OPTICAL_BLUEPRINT_PROJECTOR = "optical_blueprint_projector";
+        String CAD_HOLOGRAPHIC_STYLUS = "cad_holographic_stylus";
+
+        String TUNABLE_DIODE_LASER = "tunable_diode_laser";
+        String UV_EXCIMER_LASER = "uv_excimer_laser";
+        String DIFFRACTION_GRATING_PRISM = "diffraction_grating_prism";
+        String QUADRUPOLE_MASS_FILTER = "quadrupole_mass_filter";
+
+        String TURBOMOLECULAR_VACUUM_PUMP = "turbomolecular_vacuum_pump";
+        String HYPERBARIC_PISTON_MANIFOLD = "hyperbaric_piston_manifold";
+        String REGENERATIVE_THERMAL_EXCHANGER = "regenerative_thermal_exchanger";
+        String ABLATIVE_ACID_LINER = "ablative_acid_liner";
+
+        String ELECTROMAGNETIC_STABILIZER_RING = "electromagnetic_stabilizer_ring";
+        String SUPERCONDUCTING_CONFINEMENT_COIL = "superconducting_confinement_coil";
+        String GYROSCOPIC_DAMPENING_GIMBAL = "gyroscopic_dampening_gimbal";
+        String HELIUM_DILUTION_CRYOSTAT = "helium_dilution_cryostat";
+
+        String LOW_NOISE_RF_AMPLIFIER = "low_noise_rf_amplifier";
+        String DEEP_SPACE_KA_BAND_FEED = "deep_space_ka_band_feed";
+        String PHASE_LOCKED_LOOP_MODULE = "phase_locked_loop_module";
+        String LASER_COMM_TRANSPONDER = "laser_comm_transponder";
+
+        String TELEMETRY_COPROCESSOR_CARD = "telemetry_coprocessor_card";
+        String QUANTUM_ARCHIVE_CORE = "quantum_archive_core";
     }
 
     interface Particle {
@@ -858,6 +900,13 @@ public interface Constant {
         ResourceLocation ATMOSPHERIC_FRACTIONATOR_SCREEN = id("textures/gui/atmospheric_fractionator_screen.png");
         ResourceLocation SABATIER_CHEMICAL_REACTOR_SCREEN = id("textures/gui/sabatier_chemical_reactor_screen.png");
         ResourceLocation AERO_REFURBISHMENT_BENCH_SCREEN = id("textures/gui/aero_refurbishment_bench_screen.png");
+        ResourceLocation RESEARCH_WORKBENCH_SCREEN = id("textures/gui/research_workbench_screen.png");
+        ResourceLocation OBSERVATORY_TELESCOPE_SCREEN = id("textures/gui/observatory_telescope_screen.png");
+        ResourceLocation GEOLOGICAL_ANALYZER_SCREEN = id("textures/gui/geological_analyzer_screen.png");
+        ResourceLocation ENVIRONMENTAL_TEST_CHAMBER_SCREEN = id("textures/gui/environmental_test_chamber_screen.png");
+        ResourceLocation ZERO_G_RESEARCH_CHAMBER_SCREEN = id("textures/gui/zero_g_research_chamber_screen.png");
+        ResourceLocation AEROSPACE_RD_TERMINAL_SCREEN = id("textures/gui/aerospace_rd_terminal_screen.png");
+        ResourceLocation RESEARCH_DATA_LINK_SCREEN = id("textures/gui/research_data_link_screen.png");
         ResourceLocation ENERGY_STORAGE_MODULE_SCREEN = id("textures/gui/energy_storage_module_screen.png");
         ResourceLocation OXYGEN_COLLECTOR_SCREEN = id("textures/gui/oxygen_collector_screen.png");
         ResourceLocation ROCKET_SELECTION = id("textures/gui/rocket_part_selection.png");
@@ -1489,6 +1538,13 @@ public interface Constant {
         String ATMOSPHERIC_FRACTIONATOR_MENU = "atmospheric_fractionator_menu";
         String SABATIER_CHEMICAL_REACTOR_MENU = "sabatier_chemical_reactor_menu";
         String AERO_REFURBISHMENT_BENCH_MENU = "aero_refurbishment_bench_menu";
+        String RESEARCH_WORKBENCH_MENU = "research_workbench_menu";
+        String OBSERVATORY_TELESCOPE_MENU = "observatory_telescope_menu";
+        String GEOLOGICAL_ANALYZER_MENU = "geological_analyzer_menu";
+        String ENVIRONMENTAL_TEST_CHAMBER_MENU = "environmental_test_chamber_menu";
+        String ZERO_G_RESEARCH_CHAMBER_MENU = "zero_g_research_chamber_menu";
+        String AEROSPACE_RD_TERMINAL_MENU = "aerospace_rd_terminal_menu";
+        String RESEARCH_DATA_LINK_MENU = "research_data_link_menu";
         String ELECTRIC_FURNACE_MENU = "electric_furnace_menu";
         String ELECTRIC_ARC_FURNACE_MENU = "electric_arc_furnace_menu";
         String OXYGEN_COLLECTOR_MENU = "oxygen_collector_menu";

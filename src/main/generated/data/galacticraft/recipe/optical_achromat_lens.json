@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "galacticraft:compressed_aluminum"
+    },
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "L": {
+      "item": "galacticraft:sensor_lens"
+    }
+  },
+  "pattern": [
+    "AGA",
+    "GLG",
+    "AGA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:optical_achromat_lens"
+  }
+}

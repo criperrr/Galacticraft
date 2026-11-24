@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "galacticraft:beam_core"
+    },
+    "D": {
+      "item": "galacticraft:compressed_desh"
+    },
+    "W": {
+      "item": "galacticraft:advanced_wafer"
+    }
+  },
+  "pattern": [
+    "DBD",
+    "DWD",
+    "DDD"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:adaptive_optics_actuator"
+  }
+}

@@ -23,7 +23,31 @@
 package dev.galacticraft.api.accessor;
 
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Map;
+import java.util.Set;
 
 public interface ResearchAccessor {
     boolean galacticraft$isUnlocked(ResourceLocation id);
+
+    default @NotNull Set<ResourceLocation> galacticraft$getUnlockedResearch() {
+        return Set.of();
+    }
+
+    default int galacticraft$getDomainPoints(@NotNull String domainId) {
+        return 0;
+    }
+
+    default @NotNull Map<String, Integer> galacticraft$getAllDomainPoints() {
+        return Map.of();
+    }
+
+    default boolean galacticraft$isCelestialBodyMapped(@NotNull ResourceLocation bodyId) {
+        return false;
+    }
+
+    default @NotNull Set<ResourceLocation> galacticraft$getMappedCelestialBodies() {
+        return Set.of();
+    }
 }

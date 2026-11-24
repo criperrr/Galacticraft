@@ -23,9 +23,26 @@
 package dev.galacticraft.api.accessor;
 
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Map;
+import java.util.Set;
 
 public interface ServerResearchAccessor extends ResearchAccessor {
     void galacticraft$unlockRocketPartRecipes(ResourceLocation... id);
 
     void galacticraft$unlearnRocketPartRecipes(ResourceLocation... id);
+
+    default void galacticraft$addDomainPoints(@NotNull String domainId, int delta) {
+    }
+
+    default void galacticraft$markCelestialBodyMapped(@NotNull ResourceLocation bodyId) {
+    }
+
+    default void galacticraft$applyResearchState(
+            @NotNull Set<ResourceLocation> unlockedNodes,
+            @NotNull Map<String, Integer> domainPoints,
+            @NotNull Set<ResourceLocation> mappedBodies
+    ) {
+    }
 }

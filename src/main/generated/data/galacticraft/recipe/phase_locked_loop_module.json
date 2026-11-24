@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "galacticraft:compressed_copper"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "S": {
+      "item": "galacticraft:silicon"
+    }
+  },
+  "pattern": [
+    "CRC",
+    "RSR",
+    "CRC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:phase_locked_loop_module"
+  }
+}

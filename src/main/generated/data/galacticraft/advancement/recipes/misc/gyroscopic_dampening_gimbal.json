@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_carbon_fiber_plate": {
+      "conditions": {
+        "items": [
+          {
+            "items": "galacticraft:carbon_fiber_plate"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "galacticraft:gyroscopic_dampening_gimbal"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_carbon_fiber_plate"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "galacticraft:gyroscopic_dampening_gimbal"
+    ]
+  }
+}

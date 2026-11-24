@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "galacticraft:compressed_aluminum"
+    },
+    "F": {
+      "item": "galacticraft:oxygen_fan"
+    },
+    "V": {
+      "item": "galacticraft:atmospheric_valve"
+    }
+  },
+  "pattern": [
+    "AFA",
+    "AVA",
+    "AFA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:turbomolecular_vacuum_pump"
+  }
+}

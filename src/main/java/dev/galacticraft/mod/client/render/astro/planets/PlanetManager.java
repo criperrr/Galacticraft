@@ -32,6 +32,7 @@ import dev.galacticraft.mod.client.render.astro.planets.sources.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.server.packs.resources.ResourceManager;
 import org.joml.Vector3d;
+import org.joml.Vector3f;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -41,6 +42,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 public class PlanetManager extends AstroMath {
     private static final List<Source> CORE_SOURCES = List.of(new SunLoader(), new EssentialBodies());
@@ -207,5 +209,90 @@ public class PlanetManager extends AstroMath {
             root.renderTree(sun, obsMount, time);
             PlanetRenderer.compile();
         }
+    }
+
+    /**
+     * Collects live equatorial sky directions and magnitudes for every orbital body
+     * currently simulated by {@code AstroSkyEngine} (planets, moons, comets, asteroids, stars)
+     * so the first-person Observatory Telescope can raycast and lock onto real sky objects.
+     */
+    public static List<LiveSkyTarget> collectLiveSkyTargets() {
+        List<LiveSkyTarget> out = new ArrayList<>();
+        if (root == null || obsMount == null || sun == null) {
+            return out;
+        }
+        double time = getPlanetTime();
+        Vector3d obsPos = obsMount.getPosition(time);
+        collectRecursive(root, obsPos, time, out);
+        return out;
+    }
+
+    private static void collectRecursive(Body body, Vector3d obsPos, double time, List<LiveSkyTarget> out) {
+        if (body != obsMount && body != obsBody && body != root && !(body instanceof Namespace)) {
+            String rawId = body.getID();
+            if (rawId != null && !rawId.isEmpty() && !"OBSERVER".equals(rawId)) {
+                Vector3d viewPos = body.getPosition(time).sub(obsPos);
+                double dist = viewPos.length();
+                if (dist > 1.0E-7) {
+                    Vector3f eqDir = new Vector3f((float) viewPos.x, (float) viewPos.y, (float) viewPos.z).normalize();
+                    eqDir.y *= -1.0F;
+                    eqDir.rotateX((float) Math.toRadians(23.45));
+                    eqDir.rotateZ((float) (Math.PI / 2.0)).negate();
+
+                    double mag = body.getTotalMagnitude(sun, obsMount, time);
+                    if (Double.isFinite(mag) && mag < 16.0) {
+                        String category;
+                        if (body instanceof Comet) {
+                            category = "COMET";
+                        } else if (body instanceof StarBody) {
+                            category = "STAR";
+                        } else if (body instanceof Asteroid) {
+                            category = "ASTEROID";
+                        } else if (body.getParent() != null && body.getParent() != sun && body.getParent() != root) {
+                            category = "MOON";
+                        } else {
+                            category = "PLANET";
+                        }
+                        String leaf = rawId.contains(".") ? rawId.substring(rawId.lastIndexOf('.') + 1) : rawId;
+                        String pretty = formatBodyName(leaf);
+                        out.add(new LiveSkyTarget(rawId, pretty, category, eqDir, (float) mag));
+                    }
+                }
+            }
+        }
+        if (body.children != null) {
+            for (Body child : body.children.values()) {
+                collectRecursive(child, obsPos, time, out);
+            }
+        }
+    }
+
+    private static String formatBodyName(String leaf) {
+        String clean = leaf.replace('-', ' ').replace('_', ' ').trim();
+        if (clean.isEmpty()) {
+            return "Unknown";
+        }
+        String[] parts = clean.split("\\s+");
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < parts.length; i++) {
+            if (i > 0) {
+                sb.append(' ');
+            }
+            String p = parts[i];
+            sb.append(p.substring(0, 1).toUpperCase(Locale.ROOT));
+            if (p.length() > 1) {
+                sb.append(p.substring(1).toLowerCase(Locale.ROOT));
+            }
+        }
+        return sb.toString();
+    }
+
+    public record LiveSkyTarget(
+            String objectId,
+            String displayName,
+            String category,
+            Vector3f equatorialDir,
+            float apparentMagnitude
+    ) {
     }
 }

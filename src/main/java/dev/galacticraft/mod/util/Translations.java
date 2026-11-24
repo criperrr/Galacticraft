@@ -450,6 +450,18 @@ public interface Translations {
         String REFURBISHING = "ui.galacticraft.status.refurbishing";
         String APPLYING_COATING = "ui.galacticraft.status.applying_coating";
         String PART_ALREADY_NOMINAL = "ui.galacticraft.status.part_already_nominal";
+        String RESEARCHING = "ui.galacticraft.status.researching";
+        String MISSING_SPECIMEN = "ui.galacticraft.status.missing_specimen";
+        String OBSERVING_SKY = "ui.galacticraft.status.observing_sky";
+        String SKY_OBSTRUCTED = "ui.galacticraft.status.sky_obstructed";
+        String WAITING_FOR_NIGHT = "ui.galacticraft.status.waiting_for_night";
+        String ATMOSPHERE_TOO_DENSE = "ui.galacticraft.status.atmosphere_too_dense";
+        String ANALYZING_SPECIMEN = "ui.galacticraft.status.analyzing_specimen";
+        String RUNNING_ENV_TEST = "ui.galacticraft.status.running_env_test";
+        String MICROGRAVITY_SYNTHESIS = "ui.galacticraft.status.microgravity_synthesis";
+        String GRAVITY_TOO_HIGH = "ui.galacticraft.status.gravity_too_high";
+        String UPLINK_ACTIVE = "ui.galacticraft.status.uplink_active";
+        String MISSING_FREQUENCY_MODULE = "ui.galacticraft.status.missing_frequency_module";
     }
 
     interface CelestialSelection {

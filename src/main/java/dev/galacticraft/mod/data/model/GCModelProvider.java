@@ -683,6 +683,14 @@ public class GCModelProvider extends FabricModelProvider {
                         .build()
         );
 
+        createActiveHandcraftedMachineBlock(generator, GCBlocks.RESEARCH_WORKBENCH);
+        createActiveHandcraftedMachineBlock(generator, GCBlocks.OBSERVATORY_TELESCOPE);
+        createActiveHandcraftedMachineBlock(generator, GCBlocks.GEOLOGICAL_ANALYZER);
+        createActiveHandcraftedMachineBlock(generator, GCBlocks.ENVIRONMENTAL_TEST_CHAMBER);
+        createActiveHandcraftedMachineBlock(generator, GCBlocks.ZERO_G_RESEARCH_CHAMBER);
+        createActiveHandcraftedMachineBlock(generator, GCBlocks.AEROSPACE_RD_TERMINAL);
+        createActiveHandcraftedMachineBlock(generator, GCBlocks.RESEARCH_DATA_LINK);
+
         generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(GCBlocks.FUSION_REACTOR_CASING, Constant.id("block/fusion_reactor_casing")));
         generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(GCBlocks.FUSION_MAGNET_COIL, Constant.id("block/fusion_magnet_coil")));
         generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(GCBlocks.FUSION_PLASMA_GLASS, Constant.id("block/fusion_plasma_glass")));
@@ -1047,6 +1055,35 @@ public class GCModelProvider extends FabricModelProvider {
         generator.generateFlatItem(GCItems.AMBIENT_THERMAL_CONTROLLER, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(GCItems.RADIOISOTOPE_CORE, ModelTemplates.FLAT_ITEM);
 
+        // BENCH-SPECIFIC LABORATORY UPGRADES
+        generator.generateFlatItem(GCItems.OPTICAL_ACHROMAT_LENS, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.SAPPHIRE_CASSEGRAIN_MIRROR, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.LONSDALEITE_PRIMARY_MIRROR, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.EQUATORIAL_SIDEREAL_DRIVE, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.ADAPTIVE_OPTICS_ACTUATOR, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.INFRARED_BOLOMETER_ARRAY, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.PRECISION_VERNIER_CALIPER, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.OPTICAL_BLUEPRINT_PROJECTOR, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.CAD_HOLOGRAPHIC_STYLUS, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.TUNABLE_DIODE_LASER, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.UV_EXCIMER_LASER, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.DIFFRACTION_GRATING_PRISM, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.QUADRUPOLE_MASS_FILTER, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.TURBOMOLECULAR_VACUUM_PUMP, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.HYPERBARIC_PISTON_MANIFOLD, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.REGENERATIVE_THERMAL_EXCHANGER, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.ABLATIVE_ACID_LINER, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.ELECTROMAGNETIC_STABILIZER_RING, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.SUPERCONDUCTING_CONFINEMENT_COIL, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.GYROSCOPIC_DAMPENING_GIMBAL, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.HELIUM_DILUTION_CRYOSTAT, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.LOW_NOISE_RF_AMPLIFIER, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.DEEP_SPACE_KA_BAND_FEED, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.PHASE_LOCKED_LOOP_MODULE, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.LASER_COMM_TRANSPONDER, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.TELEMETRY_COPROCESSOR_CARD, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.QUANTUM_ARCHIVE_CORE, ModelTemplates.FLAT_ITEM);
+
         for (Item flag : GCItems.FLAGS.colorMap().values()) {
             GCModelTemplates.FLAG_INVENTORY.create(ModelLocationUtils.getModelLocation(flag), new TextureMapping(), generator.output);
         }
@@ -1363,6 +1400,21 @@ public class GCModelProvider extends FabricModelProvider {
         PropertyDispatch.C2<Direction, Boolean> dispatch = PropertyDispatch.properties(
                 HangarTerminalBlock.FACING,
                 HangarTerminalBlock.ACTIVE
+        );
+        for (Direction direction : Direction.Plane.HORIZONTAL) {
+            VariantProperties.Rotation rot = getRotationFromDirection(direction);
+            dispatch.select(direction, false, Variant.variant().with(VariantProperties.MODEL, model).with(VariantProperties.Y_ROT, rot));
+            dispatch.select(direction, true, Variant.variant().with(VariantProperties.MODEL, model).with(VariantProperties.Y_ROT, rot));
+        }
+        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block).with(dispatch));
+        generator.delegateItemModel(block, model);
+    }
+
+    private void createActiveHandcraftedMachineBlock(BlockModelGenerators generator, Block block) {
+        ResourceLocation model = ModelLocationUtils.getModelLocation(block);
+        PropertyDispatch.C2<Direction, Boolean> dispatch = PropertyDispatch.properties(
+                BlockStateProperties.HORIZONTAL_FACING,
+                MachineBlock.ACTIVE
         );
         for (Direction direction : Direction.Plane.HORIZONTAL) {
             VariantProperties.Rotation rot = getRotationFromDirection(direction);

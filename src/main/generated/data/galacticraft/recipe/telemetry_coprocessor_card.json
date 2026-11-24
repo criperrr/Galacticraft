@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "galacticraft:compressed_aluminum"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "W": {
+      "item": "galacticraft:advanced_wafer"
+    }
+  },
+  "pattern": [
+    "ARA",
+    "WWW",
+    "AAA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:telemetry_coprocessor_card"
+  }
+}

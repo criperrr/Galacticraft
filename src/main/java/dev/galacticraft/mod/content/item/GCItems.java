@@ -171,6 +171,41 @@ public class GCItems {
     public static final Item AMBIENT_THERMAL_CONTROLLER = registerGeneric(Constant.Item.AMBIENT_THERMAL_CONTROLLER);
     public static final Item ORION_DRIVE = registerGeneric(Constant.Item.ORION_DRIVE);
 
+    // BENCH-SPECIFIC LABORATORY UPGRADES (UNIQUE PER BENCH)
+    public static final Item OPTICAL_ACHROMAT_LENS = registerLabUpgrade(Constant.Item.OPTICAL_ACHROMAT_LENS, Rarity.COMMON, "Observatory Telescope", "Primary Optics", "+25% sharpness & wider focus window");
+    public static final Item SAPPHIRE_CASSEGRAIN_MIRROR = registerLabUpgrade(Constant.Item.SAPPHIRE_CASSEGRAIN_MIRROR, Rarity.UNCOMMON, "Observatory Telescope", "Primary Optics", "+45% sharpness & +1.8 limiting mag");
+    public static final Item LONSDALEITE_PRIMARY_MIRROR = registerLabUpgrade(Constant.Item.LONSDALEITE_PRIMARY_MIRROR, Rarity.RARE, "Observatory Telescope", "Primary Optics", "+80% sharpness, +3.0 mag & exoplanet LOD");
+    public static final Item EQUATORIAL_SIDEREAL_DRIVE = registerLabUpgrade(Constant.Item.EQUATORIAL_SIDEREAL_DRIVE, Rarity.COMMON, "Observatory Telescope", "Auxiliary Drive", "Auto-tracks targets against planet rotation");
+    public static final Item ADAPTIVE_OPTICS_ACTUATOR = registerLabUpgrade(Constant.Item.ADAPTIVE_OPTICS_ACTUATOR, Rarity.UNCOMMON, "Observatory Telescope", "Auxiliary Drive", "-60% atmospheric seeing distortion");
+    public static final Item INFRARED_BOLOMETER_ARRAY = registerLabUpgrade(Constant.Item.INFRARED_BOLOMETER_ARRAY, Rarity.RARE, "Observatory Telescope", "Auxiliary Drive", "Pierces haze & 2x SP on deep-sky/comets");
+
+    public static final Item PRECISION_VERNIER_CALIPER = registerLabUpgrade(Constant.Item.PRECISION_VERNIER_CALIPER, Rarity.COMMON, "Research Workbench", "Metrology Tool", "+25% green tolerance band & exact readouts");
+    public static final Item OPTICAL_BLUEPRINT_PROJECTOR = registerLabUpgrade(Constant.Item.OPTICAL_BLUEPRINT_PROJECTOR, Rarity.UNCOMMON, "Research Workbench", "Metrology Tool", "Ghost target overlay & +20% SP on seal");
+    public static final Item CAD_HOLOGRAPHIC_STYLUS = registerLabUpgrade(Constant.Item.CAD_HOLOGRAPHIC_STYLUS, Rarity.UNCOMMON, "Research Workbench", "Calibration Arm", "-55% cross-axis coupling & faster seal");
+
+    public static final Item TUNABLE_DIODE_LASER = registerLabUpgrade(Constant.Item.TUNABLE_DIODE_LASER, Rarity.COMMON, "Geological Analyzer", "Laser Emitter", "Sharp 400-700 nm peak & +20% SNR");
+    public static final Item UV_EXCIMER_LASER = registerLabUpgrade(Constant.Item.UV_EXCIMER_LASER, Rarity.UNCOMMON, "Geological Analyzer", "Laser Emitter", "200-400 nm UV unlocks 3He/Pd peaks & +30% SP");
+    public static final Item DIFFRACTION_GRATING_PRISM = registerLabUpgrade(Constant.Item.DIFFRACTION_GRATING_PRISM, Rarity.UNCOMMON, "Geological Analyzer", "Mass Detector", "-50% noise floor & highlights target band");
+    public static final Item QUADRUPOLE_MASS_FILTER = registerLabUpgrade(Constant.Item.QUADRUPOLE_MASS_FILTER, Rarity.RARE, "Geological Analyzer", "Mass Detector", "2x mineral byproducts & exotic ore SP boost");
+
+    public static final Item TURBOMOLECULAR_VACUUM_PUMP = registerLabUpgrade(Constant.Item.TURBOMOLECULAR_VACUUM_PUMP, Rarity.COMMON, "Environmental Test Chamber", "Pressure Bay", "-60% Earth vacuum power & smooth valve");
+    public static final Item HYPERBARIC_PISTON_MANIFOLD = registerLabUpgrade(Constant.Item.HYPERBARIC_PISTON_MANIFOLD, Rarity.UNCOMMON, "Environmental Test Chamber", "Pressure Bay", "Damps 92 atm surges & widens green band");
+    public static final Item REGENERATIVE_THERMAL_EXCHANGER = registerLabUpgrade(Constant.Item.REGENERATIVE_THERMAL_EXCHANGER, Rarity.UNCOMMON, "Environmental Test Chamber", "Thermal Liner", "2x thermal slew rate & anti-shock control");
+    public static final Item ABLATIVE_ACID_LINER = registerLabUpgrade(Constant.Item.ABLATIVE_ACID_LINER, Rarity.RARE, "Environmental Test Chamber", "Thermal Liner", "Nullifies H2SO4 acid corrosion & +25% SP");
+
+    public static final Item ELECTROMAGNETIC_STABILIZER_RING = registerLabUpgrade(Constant.Item.ELECTROMAGNETIC_STABILIZER_RING, Rarity.UNCOMMON, "Zero-G Research Chamber", "Levitation Ring", "-30% crystal drift velocity in 0.0G");
+    public static final Item SUPERCONDUCTING_CONFINEMENT_COIL = registerLabUpgrade(Constant.Item.SUPERCONDUCTING_CONFINEMENT_COIL, Rarity.RARE, "Zero-G Research Chamber", "Levitation Ring", "-65% drift & unlocks <2K ultra-pure synthesis");
+    public static final Item GYROSCOPIC_DAMPENING_GIMBAL = registerLabUpgrade(Constant.Item.GYROSCOPIC_DAMPENING_GIMBAL, Rarity.UNCOMMON, "Zero-G Research Chamber", "Cryo / Gimbal", "Absorbs dome micro-vibrations & impulses");
+    public static final Item HELIUM_DILUTION_CRYOSTAT = registerLabUpgrade(Constant.Item.HELIUM_DILUTION_CRYOSTAT, Rarity.EPIC, "Zero-G Research Chamber", "Cryo / Gimbal", "Sub-2K cooling raises purity cap to 125%");
+
+    public static final Item LOW_NOISE_RF_AMPLIFIER = registerLabUpgrade(Constant.Item.LOW_NOISE_RF_AMPLIFIER, Rarity.COMMON, "Research Data Link", "RF Feedhorn", "Wider phase lock window & stable dB gain");
+    public static final Item DEEP_SPACE_KA_BAND_FEED = registerLabUpgrade(Constant.Item.DEEP_SPACE_KA_BAND_FEED, Rarity.RARE, "Research Data Link", "RF Feedhorn", "Outer-system range (+25%/planet, max 2.5x)");
+    public static final Item PHASE_LOCKED_LOOP_MODULE = registerLabUpgrade(Constant.Item.PHASE_LOCKED_LOOP_MODULE, Rarity.UNCOMMON, "Research Data Link", "Carrier Modulator", "Auto-holds carrier phase with zero drift");
+    public static final Item LASER_COMM_TRANSPONDER = registerLabUpgrade(Constant.Item.LASER_COMM_TRANSPONDER, Rarity.EPIC, "Research Data Link", "Carrier Modulator", "Optical laser link (+15% & 0% SP loss)");
+
+    public static final Item TELEMETRY_COPROCESSOR_CARD = registerLabUpgrade(Constant.Item.TELEMETRY_COPROCESSOR_CARD, Rarity.UNCOMMON, "Aerospace R&D Terminal", "Archive Core", "-15% etch energy & archive yield forecast");
+    public static final Item QUANTUM_ARCHIVE_CORE = registerLabUpgrade(Constant.Item.QUANTUM_ARCHIVE_CORE, Rarity.EPIC, "Aerospace R&D Terminal", "Archive Core", "Boosts diminishing returns (35% -> 50% SP)");
+
     // FOOD
     public static final Item MOON_CHEESE_CURD = ITEMS.register(Constant.Item.MOON_CHEESE_CURD, new Item(new Item.Properties().food(GCFoodComponent.MOON_CHEESE_CURD)));
     public static final Item MOON_CHEESE_WHEEL = ITEMS.register(Constant.Item.MOON_CHEESE_WHEEL, new BlockItem(GCBlocks.MOON_CHEESE_WHEEL, new Item.Properties())); // Special case
@@ -369,6 +404,10 @@ public class GCItems {
 
     private static Item registerGeneric(String id) {
         return ITEMS.register(id, new Item(new Item.Properties()));
+    }
+
+    private static Item registerLabUpgrade(String id, Rarity rarity, String targetLab, String slotRole, String effectSummary) {
+        return ITEMS.register(id, new LabUpgradeItem(new Item.Properties().rarity(rarity), targetLab, slotRole, effectSummary));
     }
 
     private static <T extends BlockItem> T registerBlockItem(String id, T item) {

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "N": {
+      "item": "galacticraft:tin_nugget"
+    },
+    "S": {
+      "item": "galacticraft:compressed_steel"
+    }
+  },
+  "pattern": [
+    "SNN",
+    "S  ",
+    "S  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:precision_vernier_caliper"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "galacticraft:telemetry_coprocessor_card"
+    },
+    "H": {
+      "item": "galacticraft:helium3_cell"
+    },
+    "I": {
+      "item": "galacticraft:superionic_ice_crystal"
+    }
+  },
+  "pattern": [
+    "IHI",
+    "HCH",
+    "IHI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:quantum_archive_core"
+  }
+}

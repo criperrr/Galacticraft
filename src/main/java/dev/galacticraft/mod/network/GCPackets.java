@@ -35,6 +35,7 @@ public class GCPackets {
         PayloadTypeRegistry.playS2C().register(OpenCelestialScreenPayload.TYPE, OpenCelestialScreenPayload.STREAM_CODEC);
         PayloadTypeRegistry.playS2C().register(ResetPerspectivePacket.TYPE, ResetPerspectivePacket.STREAM_CODEC);
         PayloadTypeRegistry.playS2C().register(CapeAssignmentsPacket.TYPE, CapeAssignmentsPacket.STREAM_CODEC);
+        PayloadTypeRegistry.playS2C().register(SyncResearchProgressPayload.TYPE, SyncResearchProgressPayload.STREAM_CODEC);
 
         PayloadTypeRegistry.playC2S().register(BubbleMaxPayload.TYPE, BubbleMaxPayload.STREAM_CODEC);
         PayloadTypeRegistry.playC2S().register(BubbleVisibilityPayload.TYPE, BubbleVisibilityPayload.STREAM_CODEC);
@@ -52,5 +53,8 @@ public class GCPackets {
         PayloadTypeRegistry.playC2S().register(HangarTerminalActionPayload.TYPE, HangarTerminalActionPayload.STREAM_CODEC);
         PayloadTypeRegistry.playC2S().register(BuildRocketFromInventoryPayload.TYPE, BuildRocketFromInventoryPayload.STREAM_CODEC);
         PayloadTypeRegistry.playC2S().register(SelectPartBuilderConfigPayload.TYPE, SelectPartBuilderConfigPayload.STREAM_CODEC);
+        PayloadTypeRegistry.playC2S().register(ResearchTerminalActionPayload.TYPE, ResearchTerminalActionPayload.STREAM_CODEC);
+        PayloadTypeRegistry.playC2S().register(ResearchMachineActionPayload.TYPE, ResearchMachineActionPayload.STREAM_CODEC);
+        PayloadTypeRegistry.playC2S().register(ObservatoryCapturePayload.TYPE, ObservatoryCapturePayload.STREAM_CODEC);
     }
 }

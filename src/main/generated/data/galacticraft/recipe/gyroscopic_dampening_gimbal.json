@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "F": {
+      "item": "galacticraft:carbon_fiber_plate"
+    },
+    "T": {
+      "item": "galacticraft:compressed_titanium"
+    }
+  },
+  "pattern": [
+    "FTF",
+    "T T",
+    "FTF"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:gyroscopic_dampening_gimbal"
+  }
+}

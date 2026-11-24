@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "P": {
+      "item": "galacticraft:steel_pole"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "W": {
+      "item": "galacticraft:basic_wafer"
+    }
+  },
+  "pattern": [
+    "PRP",
+    "RWR",
+    "PRP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:equatorial_sidereal_drive"
+  }
+}

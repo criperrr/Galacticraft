@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "galacticraft:superconducting_coil"
+    },
+    "I": {
+      "item": "galacticraft:sofi_insulation"
+    },
+    "R": {
+      "item": "galacticraft:electromagnetic_stabilizer_ring"
+    }
+  },
+  "pattern": [
+    "ICI",
+    "CRC",
+    "ICI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:superconducting_confinement_coil"
+  }
+}

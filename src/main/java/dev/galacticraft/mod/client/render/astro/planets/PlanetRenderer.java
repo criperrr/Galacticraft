@@ -134,6 +134,10 @@ public class PlanetRenderer {
         float total = (float) Math.pow((double) AstroStarRenderer.options.brightnessPower, -render.getMagnitude() - bonus);
         float lradius = (float) (Math.PI / 180.0) * AstroStarRenderer.options.baseRadius * Mth.sqrt(total) / zoom;
         float brightness = 0.5F * (float) Math.cbrt((double) (lradius / diskRadius)) * AstroLightingManager.getDiskVisibility();
+        if (ClientTelescopeController.isActive()) {
+            // Enhanced planetary albedo contrast & surface detail visibility under high-magnification observatory optics
+            brightness *= 1.45F;
+        }
         brightness /= brightness + 1.0F;
         Vector3f color = new Vector3f(render.color).mul(brightness);
         float inShadow = (float) render.getInShadow();

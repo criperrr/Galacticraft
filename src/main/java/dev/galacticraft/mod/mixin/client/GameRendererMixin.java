@@ -25,6 +25,7 @@ package dev.galacticraft.mod.mixin.client;
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.galacticraft.mod.client.accessor.GameRendererAccessor;
 import dev.galacticraft.mod.client.render.astro.AstroSpyglassManager;
+import dev.galacticraft.mod.client.render.astro.ClientTelescopeController;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
@@ -111,6 +112,13 @@ public abstract class GameRendererMixin implements GameRendererAccessor {
     @Inject(method = "tickFov", at = @At(value = "FIELD", ordinal = 8), cancellable = true)
     private void gc$allowDeepSpyglassFov(CallbackInfo ci) {
         if (AstroSpyglassManager.isInUse()) {
+            ci.cancel();
+        }
+    }
+
+    @Inject(method = "renderItemInHand", at = @At("HEAD"), cancellable = true)
+    private void gc$hideHandInTelescope(Camera camera, float partialTick, Matrix4f projectionMatrix, CallbackInfo ci) {
+        if (ClientTelescopeController.isActive()) {
             ci.cancel();
         }
     }

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "N": {
+      "item": "galacticraft:niobium_oxide"
+    },
+    "T": {
+      "item": "galacticraft:compressed_titanium"
+    },
+    "W": {
+      "item": "galacticraft:advanced_wafer"
+    }
+  },
+  "pattern": [
+    "TNT",
+    "NWN",
+    "TNT"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:quadrupole_mass_filter"
+  }
+}
