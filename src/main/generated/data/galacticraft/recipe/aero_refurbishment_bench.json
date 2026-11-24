@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "galacticraft:beam_core"
+    },
+    "C": {
+      "item": "galacticraft:advanced_wafer"
+    },
+    "R": {
+      "item": "galacticraft:rocket_workbench"
+    },
+    "T": {
+      "item": "galacticraft:compressed_titanium"
+    },
+    "W": {
+      "item": "galacticraft:standard_wrench"
+    }
+  },
+  "pattern": [
+    "TWT",
+    "BRB",
+    "TCT"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:aero_refurbishment_bench"
+  }
+}
