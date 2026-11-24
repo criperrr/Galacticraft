@@ -1,0 +1,58 @@
+{
+  "era": 4,
+  "icon_item": "galacticraft:galena_ore",
+  "id": "galacticraft:atlas/venus",
+  "lock_hint_key": "manual.galacticraft.hint.lunar_deep_sky",
+  "order": 60,
+  "pages": [
+    {
+      "type": "planet_stratigraphy",
+      "body_id": "galacticraft:venus",
+      "hazards": "manual.galacticraft.atlas.venus.hazards",
+      "ores": [
+        {
+          "color": -2563348,
+          "label": "block.galacticraft.venus_aluminum_ore",
+          "max_y": 64,
+          "min_y": 8,
+          "ore_item": "galacticraft:venus_aluminum_ore",
+          "rarity": 1.8
+        },
+        {
+          "color": -10193781,
+          "label": "block.galacticraft.galena_ore",
+          "max_y": 48,
+          "min_y": -24,
+          "ore_item": "galacticraft:galena_ore",
+          "rarity": 3.2
+        },
+        {
+          "color": -340971,
+          "label": "block.galacticraft.solar_ore",
+          "max_y": 24,
+          "min_y": -48,
+          "ore_item": "galacticraft:solar_ore",
+          "rarity": 2.8
+        },
+        {
+          "color": -10443270,
+          "label": "block.galacticraft.venus_niobium_ore",
+          "max_y": 12,
+          "min_y": -56,
+          "ore_item": "galacticraft:venus_niobium_ore",
+          "rarity": 1.6
+        }
+      ],
+      "title": "manual.galacticraft.atlas.venus.title"
+    }
+  ],
+  "related_items": [
+    "galacticraft:galena_ore",
+    "galacticraft:venus_aluminum_ore",
+    "galacticraft:solar_ore",
+    "galacticraft:venus_niobium_ore"
+  ],
+  "required_research": "galacticraft:research/lunar_deep_sky_survey",
+  "tab": "atlas",
+  "title_key": "manual.galacticraft.atlas.venus.title"
+}

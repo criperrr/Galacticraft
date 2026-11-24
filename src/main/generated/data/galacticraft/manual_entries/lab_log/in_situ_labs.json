@@ -1,0 +1,33 @@
+{
+  "icon_item": "galacticraft:geological_analyzer",
+  "id": "galacticraft:lab_log/in_situ_labs",
+  "order": 10,
+  "pages": [
+    {
+      "type": "text",
+      "body": "manual.galacticraft.entry.in_situ_labs.body1",
+      "callout": "manual.galacticraft.entry.in_situ_labs.info1",
+      "heading": "manual.galacticraft.entry.in_situ_labs.h1",
+      "link_entries": [
+        "galacticraft:lab_log/flight_telemetry"
+      ],
+      "showcase_items": [
+        "galacticraft:research_workbench",
+        "galacticraft:observatory_telescope",
+        "galacticraft:geological_analyzer",
+        "galacticraft:environmental_test_chamber",
+        "galacticraft:zero_g_research_chamber"
+      ]
+    }
+  ],
+  "related_items": [
+    "galacticraft:research_workbench",
+    "galacticraft:observatory_telescope",
+    "galacticraft:geological_analyzer",
+    "galacticraft:environmental_test_chamber",
+    "galacticraft:zero_g_research_chamber",
+    "galacticraft:research_data_link"
+  ],
+  "tab": "lab_log",
+  "title_key": "manual.galacticraft.entry.in_situ_labs.title"
+}

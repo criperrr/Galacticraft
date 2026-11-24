@@ -1,0 +1,55 @@
+{
+  "icon_item": "galacticraft:air_lock_controller",
+  "id": "galacticraft:machines/airlock_3d",
+  "lock_hint_key": "manual.galacticraft.hint.vacuum_sealing",
+  "order": 20,
+  "pages": [
+    {
+      "type": "multiblock_3d",
+      "caption": "manual.galacticraft.entry.airlock_3d.caption",
+      "layers": [
+        [
+          "FFFF"
+        ],
+        [
+          "F  F"
+        ],
+        [
+          "F  F"
+        ],
+        [
+          "FCFF"
+        ]
+      ],
+      "palette": {
+        "C": "galacticraft:air_lock_controller",
+        "F": "galacticraft:air_lock_frame"
+      },
+      "title": "manual.galacticraft.entry.airlock_3d.mb_title"
+    },
+    {
+      "type": "text",
+      "body": "manual.galacticraft.entry.airlock_3d.body1",
+      "callout": "manual.galacticraft.entry.airlock_3d.tip1",
+      "callout_style": "tip",
+      "heading": "manual.galacticraft.entry.airlock_3d.h1",
+      "link_entries": [
+        "galacticraft:machines/solar_panel_3d"
+      ],
+      "showcase_items": [
+        "galacticraft:air_lock_frame",
+        "galacticraft:air_lock_controller",
+        "galacticraft:oxygen_sealer"
+      ]
+    }
+  ],
+  "related_items": [
+    "galacticraft:air_lock_frame",
+    "galacticraft:air_lock_controller",
+    "galacticraft:oxygen_sealer",
+    "galacticraft:vacuum_glass"
+  ],
+  "required_research": "galacticraft:research/earth_vacuum_sealing",
+  "tab": "machines",
+  "title_key": "manual.galacticraft.entry.airlock_3d.title"
+}

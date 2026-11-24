@@ -1,0 +1,55 @@
+{
+  "icon_item": "galacticraft:niobium_ore",
+  "id": "galacticraft:atlas/earth",
+  "order": 10,
+  "pages": [
+    {
+      "type": "planet_stratigraphy",
+      "body_id": "galacticraft:earth",
+      "hazards": "manual.galacticraft.atlas.earth.hazards",
+      "ores": [
+        {
+          "color": -2563348,
+          "label": "block.galacticraft.aluminum_ore",
+          "max_y": 64,
+          "min_y": 8,
+          "ore_item": "galacticraft:aluminum_ore",
+          "rarity": 1.4
+        },
+        {
+          "color": -4142122,
+          "label": "block.galacticraft.tin_ore",
+          "max_y": 48,
+          "min_y": -16,
+          "ore_item": "galacticraft:tin_ore",
+          "rarity": 1.3
+        },
+        {
+          "color": -8680800,
+          "label": "block.galacticraft.silicon_ore",
+          "max_y": 24,
+          "min_y": -48,
+          "ore_item": "galacticraft:silicon_ore",
+          "rarity": 1.0
+        },
+        {
+          "color": -10508077,
+          "label": "block.galacticraft.niobium_ore",
+          "max_y": 16,
+          "min_y": -56,
+          "ore_item": "galacticraft:niobium_ore",
+          "rarity": 0.8
+        }
+      ],
+      "title": "manual.galacticraft.atlas.earth.title"
+    }
+  ],
+  "related_items": [
+    "galacticraft:niobium_ore",
+    "galacticraft:aluminum_ore",
+    "galacticraft:tin_ore",
+    "galacticraft:silicon_ore"
+  ],
+  "tab": "atlas",
+  "title_key": "manual.galacticraft.atlas.earth.title"
+}

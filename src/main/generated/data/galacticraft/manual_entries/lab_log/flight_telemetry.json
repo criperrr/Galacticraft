@@ -1,0 +1,35 @@
+{
+  "era": 2,
+  "icon_item": "galacticraft:recorded_data_drive",
+  "id": "galacticraft:lab_log/flight_telemetry",
+  "lock_hint_key": "manual.galacticraft.hint.era1_rocketry",
+  "order": 20,
+  "pages": [
+    {
+      "type": "text",
+      "body": "manual.galacticraft.entry.flight_telemetry.body1",
+      "callout": "manual.galacticraft.entry.flight_telemetry.tip1",
+      "callout_style": "tip",
+      "heading": "manual.galacticraft.entry.flight_telemetry.h1",
+      "link_entries": [
+        "galacticraft:atlas/mars",
+        "galacticraft:atlas/venus"
+      ],
+      "showcase_items": [
+        "galacticraft:blank_data_drive",
+        "galacticraft:recorded_data_drive",
+        "galacticraft:telemetry_analyzer",
+        "galacticraft:orbital_survey_map"
+      ]
+    }
+  ],
+  "related_items": [
+    "galacticraft:blank_data_drive",
+    "galacticraft:recorded_data_drive",
+    "galacticraft:telemetry_analyzer",
+    "galacticraft:orbital_survey_map"
+  ],
+  "required_research": "galacticraft:research/era1_rocketry",
+  "tab": "lab_log",
+  "title_key": "manual.galacticraft.entry.flight_telemetry.title"
+}

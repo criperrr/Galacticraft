@@ -1,0 +1,67 @@
+{
+  "icon_item": "galacticraft:ferroniobium_ingot",
+  "id": "galacticraft:machines/niobium_metallurgy",
+  "lock_hint_key": "manual.galacticraft.hint.ferroniobium",
+  "order": 40,
+  "pages": [
+    {
+      "type": "flowchart",
+      "caption": "manual.galacticraft.entry.niobium_chain.caption",
+      "steps": [
+        {
+          "color": -10443270,
+          "detail": "manual.galacticraft.flow.nb.d1",
+          "icon": "galacticraft:raw_niobium",
+          "title": "manual.galacticraft.flow.nb.s1"
+        },
+        {
+          "detail": "manual.galacticraft.flow.nb.d2",
+          "icon": "galacticraft:niobium_oxide",
+          "title": "manual.galacticraft.flow.nb.s2"
+        },
+        {
+          "color": -680437,
+          "detail": "manual.galacticraft.flow.nb.d3",
+          "icon": "galacticraft:ferroniobium_ingot",
+          "title": "manual.galacticraft.flow.nb.s3"
+        },
+        {
+          "color": -5745161,
+          "detail": "manual.galacticraft.flow.nb.d4",
+          "icon": "galacticraft:niobium_ingot",
+          "title": "manual.galacticraft.flow.nb.s4"
+        },
+        {
+          "color": -15681151,
+          "detail": "manual.galacticraft.flow.nb.d5",
+          "icon": "galacticraft:superconducting_coil",
+          "title": "manual.galacticraft.flow.nb.s5"
+        }
+      ],
+      "title": "manual.galacticraft.entry.niobium_chain.flow_title"
+    },
+    {
+      "type": "infuser",
+      "inputs": [
+        "galacticraft:niobium_oxide",
+        "galacticraft:aluminum_ingot"
+      ],
+      "machine": "block.galacticraft.vacuum_metallurgic_infuser",
+      "note": "manual.galacticraft.entry.niobium_chain.infuser_note",
+      "output": "galacticraft:ferroniobium_ingot",
+      "recipe_id": "galacticraft:ferroniobium_ingot",
+      "title": "manual.galacticraft.entry.niobium_chain.infuser_title"
+    }
+  ],
+  "related_items": [
+    "galacticraft:raw_niobium",
+    "galacticraft:niobium_oxide",
+    "galacticraft:ferroniobium_ingot",
+    "galacticraft:niobium_ingot",
+    "galacticraft:compressed_niobium",
+    "galacticraft:superconducting_coil"
+  ],
+  "required_research": "galacticraft:research/ferroniobium_aluminothermy",
+  "tab": "machines",
+  "title_key": "manual.galacticraft.entry.niobium_chain.title"
+}

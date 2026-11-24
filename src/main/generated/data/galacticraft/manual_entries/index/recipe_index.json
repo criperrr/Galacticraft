@@ -1,0 +1,31 @@
+{
+  "icon_item": "galacticraft:aerospace_rd_terminal",
+  "id": "galacticraft:index/recipe_index",
+  "order": 10,
+  "pages": [
+    {
+      "type": "text",
+      "body": "manual.galacticraft.entry.recipe_index.body1",
+      "callout": "manual.galacticraft.entry.recipe_index.tip1",
+      "callout_style": "tip",
+      "heading": "manual.galacticraft.entry.recipe_index.h1",
+      "link_entries": [
+        "galacticraft:mission/getting_started",
+        "galacticraft:materials/flight_simulator",
+        "galacticraft:machines/launch_pad_3d"
+      ],
+      "showcase_items": [
+        "galacticraft:compressor",
+        "galacticraft:circuit_fabricator",
+        "galacticraft:part_assembler",
+        "galacticraft:telemetry_analyzer"
+      ]
+    }
+  ],
+  "related_items": [
+    "galacticraft:aerospace_manual",
+    "galacticraft:aerospace_rd_terminal"
+  ],
+  "tab": "index",
+  "title_key": "manual.galacticraft.entry.recipe_index.title"
+}

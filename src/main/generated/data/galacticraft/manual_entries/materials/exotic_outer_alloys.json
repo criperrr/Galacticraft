@@ -1,0 +1,28 @@
+{
+  "era": 5,
+  "icon_item": "galacticraft:superionic_ice_crystal",
+  "id": "galacticraft:materials/exotic_outer_alloys",
+  "lock_hint_key": "manual.galacticraft.hint.outer_exotic",
+  "order": 40,
+  "pages": [
+    {
+      "type": "part_material",
+      "materials": [
+        "galacticraft:palladium_niobium",
+        "galacticraft:magnesium_lithium",
+        "galacticraft:lonsdaleite_lattice",
+        "galacticraft:superionic_ice_crystal"
+      ],
+      "title": "manual.galacticraft.entry.exotic_outer.list_title"
+    }
+  ],
+  "related_items": [
+    "galacticraft:compressed_palladium",
+    "galacticraft:compressed_magnesium",
+    "galacticraft:lonsdaleite_gem",
+    "galacticraft:superionic_ice_crystal"
+  ],
+  "required_research": "galacticraft:research/jupiter_palladium_catalysis",
+  "tab": "materials",
+  "title_key": "manual.galacticraft.entry.exotic_outer.title"
+}

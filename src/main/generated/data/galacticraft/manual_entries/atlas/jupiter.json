@@ -1,0 +1,48 @@
+{
+  "era": 5,
+  "icon_item": "galacticraft:jupiter_palladium_ore",
+  "id": "galacticraft:atlas/jupiter",
+  "lock_hint_key": "manual.galacticraft.hint.outer_ephemeris",
+  "order": 70,
+  "pages": [
+    {
+      "type": "planet_stratigraphy",
+      "body_id": "galacticraft:jupiter",
+      "hazards": "manual.galacticraft.atlas.jupiter.hazards",
+      "ores": [
+        {
+          "color": -10443270,
+          "label": "block.galacticraft.jupiter_niobium_ore",
+          "max_y": 56,
+          "min_y": -12,
+          "ore_item": "galacticraft:jupiter_niobium_ore",
+          "rarity": 2.0
+        },
+        {
+          "color": -137590,
+          "label": "block.galacticraft.jupiter_palladium_ore",
+          "max_y": 28,
+          "min_y": -44,
+          "ore_item": "galacticraft:jupiter_palladium_ore",
+          "rarity": 3.0
+        },
+        {
+          "label": "block.galacticraft.jupiter_metallic_hydrogen_rock",
+          "max_y": -8,
+          "min_y": -60,
+          "ore_item": "galacticraft:jupiter_metallic_hydrogen_rock",
+          "rarity": 2.4
+        }
+      ],
+      "title": "manual.galacticraft.atlas.jupiter.title"
+    }
+  ],
+  "related_items": [
+    "galacticraft:jupiter_palladium_ore",
+    "galacticraft:jupiter_niobium_ore",
+    "galacticraft:jupiter_metallic_hydrogen_rock"
+  ],
+  "required_research": "galacticraft:research/outer_system_ephemeris",
+  "tab": "atlas",
+  "title_key": "manual.galacticraft.atlas.jupiter.title"
+}
