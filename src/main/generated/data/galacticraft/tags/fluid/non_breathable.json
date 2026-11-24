@@ -3,6 +3,12 @@
     "#galacticraft:oil",
     "#galacticraft:fuel",
     "#galacticraft:sulfuric_acid",
+    "galacticraft:liquid_oxygen_still",
+    "galacticraft:liquid_oxygen_flowing",
+    "#galacticraft:liquid_hydrogen",
+    "#galacticraft:liquid_methane",
+    "#galacticraft:monopropellant",
+    "#galacticraft:liquid_xenon",
     {
       "id": "#minecraft:water",
       "required": false

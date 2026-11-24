@@ -1,0 +1,11 @@
+{
+  "type": "galacticraft:centrifuge",
+  "ingredient": {
+    "item": "galacticraft:empty_can"
+  },
+  "output_item": {
+    "count": 1,
+    "id": "galacticraft:tin_ingot"
+  },
+  "processing_time": 30
+}

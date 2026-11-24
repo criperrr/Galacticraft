@@ -1,0 +1,21 @@
+{
+  "type": "galacticraft:sabatier",
+  "catalyst": [
+    {
+      "item": "galacticraft:niobium_ingot"
+    },
+    {
+      "item": "galacticraft:palladium_ingot"
+    }
+  ],
+  "formula": "HgS + H2O -> H2SO4",
+  "processing_time": 50,
+  "product_a": "galacticraft:sulfuric_acid_still",
+  "product_a_mb": 250,
+  "reagent_a": "minecraft:water",
+  "reagent_a_mb": 250,
+  "solid_reagent": {
+    "item": "galacticraft:mercury_sulfide_ore"
+  },
+  "target_temp_c": 300
+}

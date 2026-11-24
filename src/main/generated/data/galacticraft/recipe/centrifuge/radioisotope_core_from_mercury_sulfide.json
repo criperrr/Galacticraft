@@ -1,0 +1,11 @@
+{
+  "type": "galacticraft:centrifuge",
+  "ingredient": {
+    "item": "galacticraft:mercury_sulfide_ore"
+  },
+  "output_item": {
+    "count": 1,
+    "id": "galacticraft:radioisotope_core"
+  },
+  "processing_time": 80
+}

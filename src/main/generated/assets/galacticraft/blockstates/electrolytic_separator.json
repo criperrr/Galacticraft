@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "active=false": {
+      "model": "galacticraft:machine/electrolytic_separator"
+    },
+    "active=true": {
+      "model": "galacticraft:machine/electrolytic_separator_active"
+    }
+  }
+}

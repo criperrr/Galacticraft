@@ -1,0 +1,20 @@
+{
+  "type": "galacticraft:sabatier",
+  "catalyst": [
+    {
+      "item": "galacticraft:niobium_ingot"
+    },
+    {
+      "item": "galacticraft:palladium_ingot"
+    }
+  ],
+  "formula": "CO2 + 4 H2 -> CH4 + 2 H2O",
+  "product_a": "galacticraft:liquid_methane_still",
+  "product_a_mb": 100,
+  "product_b": "minecraft:water",
+  "product_b_mb": 200,
+  "reagent_a": "galacticraft:carbon_dioxide",
+  "reagent_a_mb": 100,
+  "reagent_b": "galacticraft:hydrogen",
+  "reagent_b_mb": 400
+}

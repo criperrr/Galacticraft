@@ -1,0 +1,9 @@
+{
+  "type": "galacticraft:electrolytic",
+  "input_fluid": "minecraft:water",
+  "input_fluid_mb": 200,
+  "primary_output_fluid": "galacticraft:liquid_hydrogen_still",
+  "primary_output_mb": 200,
+  "secondary_output_fluid": "galacticraft:liquid_oxygen_still",
+  "secondary_output_mb": 100
+}

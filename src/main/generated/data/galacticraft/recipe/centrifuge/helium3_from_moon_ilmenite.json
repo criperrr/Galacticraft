@@ -1,0 +1,12 @@
+{
+  "type": "galacticraft:centrifuge",
+  "ingredient": {
+    "item": "galacticraft:moon_ilmenite_ore"
+  },
+  "output_gas": "galacticraft:helium_3",
+  "output_gas_mb": 200,
+  "output_item": {
+    "count": 1,
+    "id": "galacticraft:titanium_nugget"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "galacticraft:centrifuge",
+  "ingredient": {
+    "item": "galacticraft:moon_dirt"
+  },
+  "output_gas": "galacticraft:helium_3",
+  "output_gas_mb": 20,
+  "output_item": {
+    "count": 1,
+    "id": "galacticraft:silicon"
+  }
+}

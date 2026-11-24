@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "H": {
+      "item": "galacticraft:ambient_thermal_controller"
+    },
+    "M": {
+      "item": "galacticraft:fluid_manipulator"
+    },
+    "N": {
+      "item": "galacticraft:compressed_niobium"
+    },
+    "T": {
+      "item": "galacticraft:compressed_titanium"
+    },
+    "W": {
+      "item": "galacticraft:advanced_wafer"
+    }
+  },
+  "pattern": [
+    "TMT",
+    "NHN",
+    "TWT"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:sabatier_chemical_reactor"
+  }
+}

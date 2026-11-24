@@ -1,0 +1,11 @@
+{
+  "type": "galacticraft:centrifuge",
+  "ingredient": {
+    "item": "galacticraft:uranium_ingot"
+  },
+  "output_item": {
+    "count": 2,
+    "id": "galacticraft:radioisotope_core"
+  },
+  "processing_time": 80
+}

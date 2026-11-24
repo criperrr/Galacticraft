@@ -1,0 +1,8 @@
+{
+  "type": "galacticraft:centrifuge",
+  "ingredient": {
+    "item": "galacticraft:dense_ice"
+  },
+  "output_gas": "galacticraft:deuterium",
+  "output_gas_mb": 250
+}

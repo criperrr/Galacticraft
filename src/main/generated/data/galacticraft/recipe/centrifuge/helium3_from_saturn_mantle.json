@@ -1,0 +1,8 @@
+{
+  "type": "galacticraft:centrifuge",
+  "ingredient": {
+    "item": "galacticraft:saturn_helium_mantle_rock"
+  },
+  "output_gas": "galacticraft:helium_3",
+  "output_gas_mb": 350
+}

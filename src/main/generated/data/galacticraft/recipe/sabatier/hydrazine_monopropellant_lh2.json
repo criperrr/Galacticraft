@@ -1,0 +1,20 @@
+{
+  "type": "galacticraft:sabatier",
+  "catalyst": [
+    {
+      "item": "galacticraft:niobium_ingot"
+    },
+    {
+      "item": "galacticraft:palladium_ingot"
+    }
+  ],
+  "formula": "N2 + 2 LH2 -> N2H4",
+  "processing_time": 45,
+  "product_a": "galacticraft:monopropellant_still",
+  "product_a_mb": 100,
+  "reagent_a": "galacticraft:nitrogen",
+  "reagent_a_mb": 100,
+  "reagent_b": "galacticraft:liquid_hydrogen_still",
+  "reagent_b_mb": 200,
+  "target_temp_c": 420
+}
