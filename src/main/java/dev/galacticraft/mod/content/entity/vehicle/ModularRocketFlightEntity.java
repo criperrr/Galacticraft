@@ -180,6 +180,7 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
     private float rollDegO = 0.0F;
 
     private double launchSurfaceY = 64.0;
+    private double maxReachedAgl = 0.0;
     private long storedEnergyGj = 0L;
     private long storedOxygenDroplets = 0L;
     private Direction padFacing = Direction.NORTH;
@@ -729,6 +730,7 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
 
         this.entityData.set(AMBIENT_PRESSURE_ATM, (float) ambientPa);
         this.entityData.set(DYNAMIC_PRESSURE_PA, (float) dynamicQ);
+        this.maxReachedAgl = Math.max(this.maxReachedAgl, Math.max(0.0, this.getY() - this.launchSurfaceY));
 
         // Track crew UUIDs and run autonomous 60-tick passenger watchdog
         for (Entity passenger : this.getPassengers()) {
@@ -889,10 +891,17 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
             }
         }
 
-        // Determine effective throttle: Max-Q auto-throttle when autopilot active
+        // Determine effective throttle: Max-Q auto-throttle when autopilot active (never dip below TWR 1.25)
         float requestedThrottle = this.isAutopilotEnabled() && !this.isManualOverrideActive()
                 ? ModularFlightPhysics.computeMaxQAutoThrottle(env, this.getY(), this.launchSurfaceY, dynamicQ, this.targetThrottle)
                 : this.targetThrottle;
+        if (requestedThrottle < this.targetThrottle && this.getCurrentTwr() > 0.01F && this.getThrottle() > 0.01F) {
+            float fullTwrEst = this.getCurrentTwr() / this.getThrottle();
+            if (fullTwrEst > 0.01F) {
+                float minThrottleForClimb = Math.clamp(1.25F / fullTwrEst, 0.0F, this.targetThrottle);
+                requestedThrottle = Math.max(requestedThrottle, minThrottleForClimb);
+            }
+        }
         this.entityData.set(THROTTLE, requestedThrottle);
 
         // Execute per-tick propulsion & Asparagus crossfeed drain
@@ -986,9 +995,12 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
         double dirX = -Math.sin(yawRad) * horiz;
         double dirZ = Math.cos(yawRad) * horiz;
 
-        // Playable Minecraft ascent integration (smooth liftoff -> supersonic climb to Y=1200 in ~25-45s)
-        double thrustStep = Math.min(0.18, Math.max(0.0, (effectiveThrustKn * 1000.0) / (wetMassKg * PlanetaryEnvironment.STANDARD_GRAVITY_MS2)) * 0.036);
+        // Playable Minecraft ascent integration (any TWR > 1.0 strictly accelerates upward on every planet)
         double gravityStep = env.gravityG() * 0.032;
+        double effectiveAccelG = (effectiveThrustKn * 1000.0) / (wetMassKg * PlanetaryEnvironment.STANDARD_GRAVITY_MS2);
+        double thrustStep = env.gravityG() > 0.001
+                ? Math.min(Math.max(0.24, gravityStep * 3.0), Math.max(0.0, twr * gravityStep * 1.125))
+                : Math.min(0.24, Math.max(0.0, effectiveAccelG * 0.036));
         double dragFactor = 1.0 - Math.min(0.035, ambientPa * 0.012);
 
         Vec3 vel = this.getDeltaMovement();
@@ -1010,9 +1022,9 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
         // Evaluate Weibull in-flight failure checkpoints (Max-Q & Vacuum transition)
         this.evaluateInFlightWeibullChecks(serverLevel, env, ambientPa, dynamicQ);
 
-        // Auto-staging: radial boosters first (Korolev Cross!), then hot-staging / in-line staging
+        // Auto-staging: radial boosters first (Korolev Cross!, never inside the launch tower on tick 1..9), then hot-staging / in-line staging
         if (this.isAutopilotEnabled()) {
-            if (!propRes.depletedRadialGroupIds().isEmpty()) {
+            if (this.flightTicks >= 10 && !propRes.depletedRadialGroupIds().isEmpty()) {
                 for (String groupId : propRes.depletedRadialGroupIds()) {
                     this.detachRadialBoosterGroup(serverLevel, propRes.updatedStage(), groupId);
                 }
@@ -1538,6 +1550,12 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
         double tiltDeg = Math.hypot(this.getPitchDeg(), this.getRollDeg());
         FlightPhase phase = this.getFlightPhase();
 
+        // Never explode or trigger landing-minigame rank while still inside the launch tower before clearing it!
+        if ((phase == FlightPhase.ASCENT || phase == FlightPhase.HOT_STAGING) && this.maxReachedAgl < 8.0) {
+            this.performTowerAbortRecovery(serverLevel);
+            return;
+        }
+
         if (phase == FlightPhase.LES_ABORT && (this.isParachutesDeployed() || impactSpeedMs <= ModularFlightPhysics.SAFE_TOUCHDOWN_SPEED_MS + 2.0)) {
             this.performSafeTouchdown(serverLevel, impactSpeedMs, horizSpeedMs, tiltDeg);
             return;
@@ -1547,6 +1565,28 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
             this.performSafeTouchdown(serverLevel, impactSpeedMs, horizSpeedMs, tiltDeg);
         } else {
             this.triggerCrashExplosion(serverLevel);
+        }
+    }
+
+    private void performTowerAbortRecovery(ServerLevel serverLevel) {
+        BlockPos landingPos = BlockPos.containing(this.getX(), Math.floor(this.getY() + 0.1), this.getZ());
+        List<Entity> passengers = new ArrayList<>(this.getPassengers());
+        boolean reconverted = RocketStateConverter.convertToStaticBlocks(serverLevel, landingPos, this);
+        serverLevel.playSound(null, landingPos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1.2F, 0.7F);
+        String msg = reconverted
+                ? "[ABORTAGEM NO PAD] Empuxo insuficiente para deixar a torre — foguete preservado no pad!"
+                : "[ABORTAGEM NO PAD] Lançamento cancelado junto à torre — tripulação desembarcada com segurança.";
+        for (Entity passenger : passengers) {
+            if (passenger instanceof ServerPlayer sp) {
+                ServerPlayNetworking.send(sp, new ResetPerspectivePacket());
+                sp.displayClientMessage(Component.literal(msg).withStyle(ChatFormatting.YELLOW, ChatFormatting.BOLD), false);
+            }
+        }
+        if (!reconverted) {
+            this.setFlightPhase(FlightPhase.LANDED);
+            this.setDeltaMovement(Vec3.ZERO);
+            this.ejectPassengers();
+            this.discard();
         }
     }
 
@@ -1729,6 +1769,7 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
         this.entityData.set(ACTIVE_FAILURE_MASK, tag.getInt("FailureMask"));
         this.entityData.set(HOT_STAGE_TICKS, tag.getInt("HotStageTicks"));
         this.launchSurfaceY = tag.contains("LaunchSurfaceY") ? tag.getDouble("LaunchSurfaceY") : 64.0;
+        this.maxReachedAgl = Math.max(0.0, tag.getDouble("MaxReachedAgl"));
         this.storedEnergyGj = Math.max(0L, tag.getLong("StoredEnergyGj"));
         this.storedOxygenDroplets = Math.max(0L, tag.getLong("StoredOxygen"));
         Direction loadedFacing = Direction.byName(tag.getString("PadFacing"));
@@ -1773,6 +1814,7 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
         tag.putInt("FailureMask", this.getActiveFailureMask());
         tag.putInt("HotStageTicks", this.getHotStageTicks());
         tag.putDouble("LaunchSurfaceY", this.launchSurfaceY);
+        tag.putDouble("MaxReachedAgl", this.maxReachedAgl);
         tag.putLong("StoredEnergyGj", this.storedEnergyGj);
         tag.putLong("StoredOxygen", this.storedOxygenDroplets);
         tag.putString("PadFacing", this.padFacing.getSerializedName());

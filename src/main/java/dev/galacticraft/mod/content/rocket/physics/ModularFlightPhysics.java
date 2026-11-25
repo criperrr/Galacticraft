@@ -394,7 +394,7 @@ public final class ModularFlightPhysics {
         }
 
         for (RadialBoosterGroup g : activeGroups) {
-            boolean hasOwnFuel = g.currentFuelDroplets() > 0L;
+            boolean hasOwnFuel = g.currentFuelDroplets() > 0L || (g.solidBooster() && g.fuelCapacityDroplets() == 0L);
             boolean canFeedAsparagus = !g.solidBooster()
                     && g.crossfeedMode() == CrossfeedMode.CONTINUOUS_CROSSFEED
                     && (hasOwnFuel || hasLowerLayerFuel(activeGroups, g.drainPriorityLayer()));
@@ -536,7 +536,9 @@ public final class ModularFlightPhysics {
     }
 
     /**
-     * Computes active Stage 0 liftoff TWR against {@code env.gravityG()} at {@code env.pressureAtm()}.
+     * Computes real fueled Stage 0 liftoff TWR against {@code env.gravityG()} at {@code env.pressureAtm()}.
+     * Unfueled core or radial engines that cannot actually ignite at T-0 contribute zero thrust so
+     * Hold-Down Clamps cleanly abort instead of releasing a falling rocket.
      */
     public static double computeLiftoffTwr(@NotNull RocketAssemblyGraph graph, @NotNull PlanetaryEnvironment env) {
         RocketStageNode stage = graph.activeStage();
@@ -544,17 +546,7 @@ public final class ModularFlightPhysics {
             return 0.0;
         }
         double wetMassKg = computeTotalWetMassKg(graph);
-        double thrustKn = 0.0;
-        for (MountedPartNode part : stage.coreParts()) {
-            thrustKn += computeAtmosphericThrustKn(part, env.pressureAtm(), 1.0, 0.0);
-        }
-        for (RadialBoosterGroup group : stage.radialGroups()) {
-            if (!group.decoupled()) {
-                for (MountedPartNode part : group.parts()) {
-                    thrustKn += computeAtmosphericThrustKn(part, env.pressureAtm(), 1.0, 0.0);
-                }
-            }
-        }
+        double thrustKn = stepStagePropulsion(stage, env.pressureAtm(), 1.0, false).totalThrustKn();
         return RocketFlightValidator.computeTwr(thrustKn, wetMassKg, env.gravityG());
     }
 

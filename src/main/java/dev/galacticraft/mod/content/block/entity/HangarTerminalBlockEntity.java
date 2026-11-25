@@ -488,6 +488,17 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
             return false;
         }
 
+        // Prevent unfueled liquid radial boosters from immediately detaching & exploding inside the launch tower at T+0.05s
+        for (RadialBoosterGroup group : stage0.radialGroups()) {
+            if (!group.decoupled() && !group.solidBooster() && group.fuelCapacityDroplets() > 0L && group.currentFuelDroplets() <= 0L) {
+                String msg = "Boosters radiais sem propelente carregado! Abasteça antes de lançar.";
+                this.lastLaunchAbortReason = msg;
+                this.notifyOperator(initiator, msg, true);
+                this.sync();
+                return false;
+            }
+        }
+
         // Collect pilot + nearby crew inside the hangar/pad envelope (up to seat capacity)
         this.launchCrewUuids.clear();
         int maxSeats = Math.max(1, this.assemblyGraph.crewSeats().size());
@@ -2573,7 +2584,20 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
             }
         }
         if (!placedPositions.isEmpty()) {
+            boolean coreAlreadyFueled = this.rocketFuelDroplets > 0L;
             this.registerAssembledRocketParts(placedPositions);
+            // In creative instant mode, if the core rocket was already fueled, auto-fill the newly attached boosters too
+            if (coreAlreadyFueled && !this.assemblyGraph.isEmpty()) {
+                for (RocketStageNode stage : this.assemblyGraph.stages()) {
+                    for (RadialBoosterGroup group : stage.radialGroups()) {
+                        if (!group.decoupled() && group.fuelCapacityDroplets() > 0L && this.boosterFuelDroplets.getOrDefault(group.groupId(), 0L) <= 0L) {
+                            this.boosterFuelDroplets.put(group.groupId(), group.fuelCapacityDroplets());
+                            this.boosterFuelVariants.put(group.groupId(), defaultFluidForPropellant(resolvePropellantById(group.propellantId())));
+                        }
+                    }
+                }
+                this.recomputeAggregateFuelAndGraph();
+            }
             this.level.playSound(null, padCenter.above(), SoundEvents.ANVIL_USE, SoundSource.BLOCKS, 0.9F, 1.1F);
             if (player != null) {
                 player.displayClientMessage(Component.literal("[VAB] Boosters " + symmetry.getSerializedName() + " anexados com sucesso!"), false);

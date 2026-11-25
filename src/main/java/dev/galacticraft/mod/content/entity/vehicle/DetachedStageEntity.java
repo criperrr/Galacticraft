@@ -317,7 +317,7 @@ public class DetachedStageEntity extends Entity {
                 serverLevel.sendParticles(ParticleTypes.CAMPFIRE_COSY_SMOKE, this.getX(), this.getY() - 1.0, this.getZ(), 2, 0.3, 0.2, 0.3, 0.02);
             }
 
-            if (this.onGround() || this.ageTicks >= MAX_LIFETIME_TICKS) {
+            if ((this.onGround() && this.ageTicks >= 10) || this.ageTicks >= MAX_LIFETIME_TICKS) {
                 if (this.isRecoverable() && !this.recovered && this.level() instanceof ServerLevel serverLevel) {
                     this.completeStageRecovery(serverLevel);
                 } else if (this.onGround() && this.level() instanceof ServerLevel serverLevel) {
