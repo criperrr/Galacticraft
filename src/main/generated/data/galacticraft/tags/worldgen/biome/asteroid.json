@@ -1,5 +1,8 @@
 {
   "values": [
-    "galacticraft:asteroid_field"
+    "galacticraft:asteroid_field",
+    "galacticraft:asteroid_inner_silicate_belt",
+    "galacticraft:asteroid_metallic_core_cluster",
+    "galacticraft:asteroid_kirkwood_gap"
   ]
 }
