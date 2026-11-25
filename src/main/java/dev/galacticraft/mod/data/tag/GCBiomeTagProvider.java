@@ -112,6 +112,41 @@ public class GCBiomeTagProvider extends FabricTagProvider<Biome> {
                 .add(GCBiomes.Neptune.CRYO_MAGMA_TUBES)
                 .add(GCBiomes.Neptune.ABYSSAL_MANTLE_DEPTHS);
 
+        this.tag(GCBiomeTags.PHOBOS)
+                .add(GCBiomes.Phobos.STICKNEY_BASIN)
+                .add(GCBiomes.Phobos.TIDAL_GROOVES)
+                .add(GCBiomes.Phobos.REGOLITH_HIGHLANDS)
+                .add(GCBiomes.Phobos.FRACTURE_CAVERNS);
+
+        this.tag(GCBiomeTags.DEIMOS)
+                .add(GCBiomes.Deimos.SMOOTH_PLAINS)
+                .add(GCBiomes.Deimos.CRATER_SLOPES)
+                .add(GCBiomes.Deimos.CORE_CAVERNS);
+
+        this.tag(GCBiomeTags.IO)
+                .add(GCBiomes.Io.SULFUR_PLAINS)
+                .add(GCBiomes.Io.VOLCANIC_CALDERA)
+                .add(GCBiomes.Io.SILICATE_FLOWS)
+                .add(GCBiomes.Io.MAGMA_TUBES);
+
+        this.tag(GCBiomeTags.EUROPA)
+                .add(GCBiomes.Europa.ICE_PLAINS)
+                .add(GCBiomes.Europa.LINEAE_RIDGES)
+                .add(GCBiomes.Europa.CHAOS_TERRAIN)
+                .add(GCBiomes.Europa.SUBSURFACE_OCEAN);
+
+        this.tag(GCBiomeTags.GANYMEDE)
+                .add(GCBiomes.Ganymede.SULCI_RIDGES)
+                .add(GCBiomes.Ganymede.DARK_REGIO)
+                .add(GCBiomes.Ganymede.POLAR_FROST)
+                .add(GCBiomes.Ganymede.ICE_CAVERNS);
+
+        this.tag(GCBiomeTags.CALLISTO)
+                .add(GCBiomes.Callisto.CRATERED_PLAINS)
+                .add(GCBiomes.Callisto.VALHALLA_RINGS)
+                .add(GCBiomes.Callisto.ICE_PEAKS)
+                .add(GCBiomes.Callisto.ANCIENT_CAVERNS);
+
         this.tag(GCBiomeTags.MOON_RUINS_HAS_STRUCTURE)
                 .add(GCBiomes.Moon.BASALTIC_MARE);
         this.tag(GCBiomeTags.MOON_BOSS_HAS_STRUCTURE)
@@ -127,6 +162,12 @@ public class GCBiomeTagProvider extends FabricTagProvider<Biome> {
                 .addTag(GCBiomeTags.SATURN)
                 .addTag(GCBiomeTags.URANUS)
                 .addTag(GCBiomeTags.NEPTUNE)
+                .addTag(GCBiomeTags.PHOBOS)
+                .addTag(GCBiomeTags.DEIMOS)
+                .addTag(GCBiomeTags.IO)
+                .addTag(GCBiomeTags.EUROPA)
+                .addTag(GCBiomeTags.GANYMEDE)
+                .addTag(GCBiomeTags.CALLISTO)
                 .add(GCBiomes.SPACE);
 
         this.tag(BiomeTags.WITHOUT_WANDERING_TRADER_SPAWNS)
@@ -139,6 +180,12 @@ public class GCBiomeTagProvider extends FabricTagProvider<Biome> {
                 .addTag(GCBiomeTags.SATURN)
                 .addTag(GCBiomeTags.URANUS)
                 .addTag(GCBiomeTags.NEPTUNE)
+                .addTag(GCBiomeTags.PHOBOS)
+                .addTag(GCBiomeTags.DEIMOS)
+                .addTag(GCBiomeTags.IO)
+                .addTag(GCBiomeTags.EUROPA)
+                .addTag(GCBiomeTags.GANYMEDE)
+                .addTag(GCBiomeTags.CALLISTO)
                 .add(GCBiomes.SPACE);
 
         this.tag(BiomeTags.WITHOUT_ZOMBIE_SIEGES)
@@ -151,6 +198,12 @@ public class GCBiomeTagProvider extends FabricTagProvider<Biome> {
                 .addTag(GCBiomeTags.SATURN)
                 .addTag(GCBiomeTags.URANUS)
                 .addTag(GCBiomeTags.NEPTUNE)
+                .addTag(GCBiomeTags.PHOBOS)
+                .addTag(GCBiomeTags.DEIMOS)
+                .addTag(GCBiomeTags.IO)
+                .addTag(GCBiomeTags.EUROPA)
+                .addTag(GCBiomeTags.GANYMEDE)
+                .addTag(GCBiomeTags.CALLISTO)
                 .add(GCBiomes.SPACE);
     }
 }

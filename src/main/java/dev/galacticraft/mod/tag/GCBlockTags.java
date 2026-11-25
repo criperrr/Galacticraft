@@ -44,6 +44,12 @@ public class GCBlockTags {
     public static final TagKey<Block> INFINIBURN_SATURN = galacticraftTag("infiniburn_saturn");
     public static final TagKey<Block> INFINIBURN_URANUS = galacticraftTag("infiniburn_uranus");
     public static final TagKey<Block> INFINIBURN_NEPTUNE = galacticraftTag("infiniburn_neptune");
+    public static final TagKey<Block> INFINIBURN_PHOBOS = galacticraftTag("infiniburn_phobos");
+    public static final TagKey<Block> INFINIBURN_DEIMOS = galacticraftTag("infiniburn_deimos");
+    public static final TagKey<Block> INFINIBURN_IO = galacticraftTag("infiniburn_io");
+    public static final TagKey<Block> INFINIBURN_EUROPA = galacticraftTag("infiniburn_europa");
+    public static final TagKey<Block> INFINIBURN_GANYMEDE = galacticraftTag("infiniburn_ganymede");
+    public static final TagKey<Block> INFINIBURN_CALLISTO = galacticraftTag("infiniburn_callisto");
 
     public static final TagKey<Block> BASE_STONE_MOON = galacticraftTag("base_stone_moon");
     public static final TagKey<Block> BASE_STONE_MARS = galacticraftTag("base_stone_mars");
@@ -57,6 +63,12 @@ public class GCBlockTags {
     public static final TagKey<Block> SATURN_CARVER_REPLACEABLES = galacticraftTag("saturn_carver_replaceables");
     public static final TagKey<Block> URANUS_CARVER_REPLACEABLES = galacticraftTag("uranus_carver_replaceables");
     public static final TagKey<Block> NEPTUNE_CARVER_REPLACEABLES = galacticraftTag("neptune_carver_replaceables");
+    public static final TagKey<Block> PHOBOS_CARVER_REPLACEABLES = galacticraftTag("phobos_carver_replaceables");
+    public static final TagKey<Block> DEIMOS_CARVER_REPLACEABLES = galacticraftTag("deimos_carver_replaceables");
+    public static final TagKey<Block> IO_CARVER_REPLACEABLES = galacticraftTag("io_carver_replaceables");
+    public static final TagKey<Block> EUROPA_CARVER_REPLACEABLES = galacticraftTag("europa_carver_replaceables");
+    public static final TagKey<Block> GANYMEDE_CARVER_REPLACEABLES = galacticraftTag("ganymede_carver_replaceables");
+    public static final TagKey<Block> CALLISTO_CARVER_REPLACEABLES = galacticraftTag("callisto_carver_replaceables");
 
     public static final TagKey<Block> MOON_ROCK_ORE_REPLACEABLES = galacticraftTag("moon_rock_ore_replaceables");
     public static final TagKey<Block> MOON_BASALT_ORE_REPLACEABLES = galacticraftTag("moon_basalt_ore_replaceables");

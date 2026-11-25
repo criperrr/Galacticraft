@@ -1126,6 +1126,18 @@ public class GCTranslationProvider extends TranslationProvider {
         this.add(CelestialBody.URANUS_DESC, "A pale cyan ice giant rolling on its side with an extreme axial tilt of 97.8 degrees, Uranus revolves through 84-year orbital cycles while completing a retrograde sidereal rotation every 17 hours and 14 minutes. With a mass of 14.5 Earth masses (8.681 x 10^25 kg) and an effective equatorial gravity of 0.886 g, it harbors the coldest planetary atmosphere in the Solar System, plunging to a cryogenic 49 Kelvin (-224°C). Its atmosphere of molecular hydrogen (82.5%), helium (15.2%), and methane (2.3%) selectively absorbs red light to produce its serene aquamarine hue. Beneath toxic clouds of hydrogen sulfide ice lies a scalding, hyper-pressurized mantle of superionic water (Ice XVIII), where oxygen lattices and flowing protons generate an off-axis multipolar magnetic field, while thermal pyrolysis of methane generates torrential downpours of solid diamond rain.");
         this.add(CelestialBody.VENUS, "Venus");
         this.add(CelestialBody.VENUS_DESC, "");
+        this.add(CelestialBody.PHOBOS, "Phobos");
+        this.add(CelestialBody.PHOBOS_DESC, "The larger and innermost moon of Mars, Phobos skims just 6,000 km above the Martian surface, completing an orbit in 7 hours and 39 minutes. Scarred by the colossal Stickney impact basin and parallel tidal stress grooves, its low-gravity carbonaceous rubble-pile crust is rich in meteoric iron and primordial graphite.");
+        this.add(CelestialBody.DEIMOS, "Deimos");
+        this.add(CelestialBody.DEIMOS_DESC, "The smaller outer moon of Mars, Deimos orbits in a tranquil 30-hour cycle with microgravity of 0.012 g. Blanketed in smooth, dust-filled craters and fine silicate regolith, it serves as an ideal low-delta-V staging outpost rich in silicon and aluminum.");
+        this.add(CelestialBody.IO, "Io");
+        this.add(CelestialBody.IO_DESC, "The most volcanically active world in the Solar System, Io is relentlessly kneaded by Jupiter's immense tidal forces in a 1:2:4 orbital resonance with Europa and Ganymede. Yellow sulfur plains, active silicate calderas, and subterranean magma tubes yield rare palladium, sulfur, and titanium beneath a towering Jovian sky.");
+        this.add(CelestialBody.EUROPA, "Europa");
+        this.add(CelestialBody.EUROPA_DESC, "Encased in a fractured water-ice shell criss-crossed by reddish mineral lineae and jumbled chaos terrain, Europa hides a global salty liquid ocean beneath Y = 24 warmed by Jovian tidal flexing. Its dense cryogenic ice provides abundant deuterium feedstocks alongside deep silicate seabed minerals.");
+        this.add(CelestialBody.GANYMEDE, "Ganymede");
+        this.add(CelestialBody.GANYMEDE_DESC, "The largest moon in the Solar System and the only satellite known to generate its own intrinsic magnetosphere. Bright grooved sulci ridges, ancient dark cratered regions, and polar frost caps shimmer beneath magnetic auroras, concealing rich veins of niobium, titanium, and palladium.");
+        this.add(CelestialBody.CALLISTO, "Callisto");
+        this.add(CelestialBody.CALLISTO_DESC, "Orbiting outside Jupiter's fiercest radiation belts, Callisto is an ancient, heavily cratered ice-rock world dominated by the multi-ring Valhalla impact basin and towering ice peaks. Its low-radiation environment and abundant iron, aluminum, niobium, and water ice make it the premier staging base for the outer Solar System.");
         this.add(CelestialBody.SATELLITE, "Satellite");
         this.add(CelestialBody.SATELLITES, "Satellites");
         this.add(CelestialBody.SATELLITE_DESC, "");
@@ -1192,6 +1204,35 @@ public class GCTranslationProvider extends TranslationProvider {
         this.add(GCBiomes.Neptune.DIAMOND_RAIN_CAVERNS, "Diamond Rain Caverns");
         this.add(GCBiomes.Neptune.CRYO_MAGMA_TUBES, "Cryo-Magma Tubes");
         this.add(GCBiomes.Neptune.ABYSSAL_MANTLE_DEPTHS, "Abyssal Mantle Depths");
+
+        this.add(GCBiomes.Phobos.STICKNEY_BASIN, "Stickney Basin");
+        this.add(GCBiomes.Phobos.TIDAL_GROOVES, "Tidal Grooves");
+        this.add(GCBiomes.Phobos.REGOLITH_HIGHLANDS, "Regolith Highlands");
+        this.add(GCBiomes.Phobos.FRACTURE_CAVERNS, "Fracture Caverns");
+
+        this.add(GCBiomes.Deimos.SMOOTH_PLAINS, "Smooth Plains");
+        this.add(GCBiomes.Deimos.CRATER_SLOPES, "Crater Slopes");
+        this.add(GCBiomes.Deimos.CORE_CAVERNS, "Core Caverns");
+
+        this.add(GCBiomes.Io.SULFUR_PLAINS, "Sulfur Plains");
+        this.add(GCBiomes.Io.VOLCANIC_CALDERA, "Volcanic Caldera");
+        this.add(GCBiomes.Io.SILICATE_FLOWS, "Silicate Flows");
+        this.add(GCBiomes.Io.MAGMA_TUBES, "Magma Tubes");
+
+        this.add(GCBiomes.Europa.ICE_PLAINS, "Ice Plains");
+        this.add(GCBiomes.Europa.LINEAE_RIDGES, "Lineae Ridges");
+        this.add(GCBiomes.Europa.CHAOS_TERRAIN, "Chaos Terrain");
+        this.add(GCBiomes.Europa.SUBSURFACE_OCEAN, "Subsurface Ocean");
+
+        this.add(GCBiomes.Ganymede.SULCI_RIDGES, "Sulci Ridges");
+        this.add(GCBiomes.Ganymede.DARK_REGIO, "Dark Regio");
+        this.add(GCBiomes.Ganymede.POLAR_FROST, "Polar Frost");
+        this.add(GCBiomes.Ganymede.ICE_CAVERNS, "Ice Caverns");
+
+        this.add(GCBiomes.Callisto.CRATERED_PLAINS, "Cratered Plains");
+        this.add(GCBiomes.Callisto.VALHALLA_RINGS, "Valhalla Rings");
+        this.add(GCBiomes.Callisto.ICE_PEAKS, "Ice Peaks");
+        this.add(GCBiomes.Callisto.ANCIENT_CAVERNS, "Ancient Caverns");
     }
 
     protected void generateChatTranslations() {

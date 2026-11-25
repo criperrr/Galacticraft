@@ -254,7 +254,13 @@ public class AstroSkyConfig {
             new DimensionObserver("galacticraft:saturn", "Saturn"),
             new DimensionObserver("galacticraft:uranus", "Uranus"),
             new DimensionObserver("galacticraft:neptune", "Neptune"),
-            new DimensionObserver("galacticraft:asteroid", "Mars")
+            new DimensionObserver("galacticraft:asteroid", "Mars"),
+            new DimensionObserver("galacticraft:phobos", "Phobos"),
+            new DimensionObserver("galacticraft:deimos", "Deimos"),
+            new DimensionObserver("galacticraft:io", "Io"),
+            new DimensionObserver("galacticraft:europa", "Europa"),
+            new DimensionObserver("galacticraft:ganymede", "Ganymede"),
+            new DimensionObserver("galacticraft:callisto", "Callisto")
     );
 
     public boolean vanillaSun = false;

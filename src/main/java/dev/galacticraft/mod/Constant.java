@@ -1756,6 +1756,13 @@ public interface Constant {
         String URANUS_CANYON_CARVER = "uranus_canyon_carver";
         String NEPTUNE_CAVE_CARVER = "neptune_cave_carver";
         String NEPTUNE_CANYON_CARVER = "neptune_canyon_carver";
+        String PHOBOS_CAVE_CARVER = "phobos_cave_carver";
+        String DEIMOS_CAVE_CARVER = "deimos_cave_carver";
+        String IO_CAVE_CARVER = "io_cave_carver";
+        String IO_CANYON_CARVER = "io_canyon_carver";
+        String EUROPA_CAVE_CARVER = "europa_cave_carver";
+        String GANYMEDE_CAVE_CARVER = "ganymede_cave_carver";
+        String CALLISTO_CAVE_CARVER = "callisto_cave_carver";
     }
 
     interface Packet {

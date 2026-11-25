@@ -93,6 +93,12 @@ public class GCMultiNoiseBiomeSourceParameterLists {
     public static final ResourceLocation SATURN_PRESET_ID = Constant.id("saturn");
     public static final ResourceLocation URANUS_PRESET_ID = Constant.id("uranus");
     public static final ResourceLocation NEPTUNE_PRESET_ID = Constant.id("neptune");
+    public static final ResourceLocation PHOBOS_PRESET_ID = Constant.id("phobos");
+    public static final ResourceLocation DEIMOS_PRESET_ID = Constant.id("deimos");
+    public static final ResourceLocation IO_PRESET_ID = Constant.id("io");
+    public static final ResourceLocation EUROPA_PRESET_ID = Constant.id("europa");
+    public static final ResourceLocation GANYMEDE_PRESET_ID = Constant.id("ganymede");
+    public static final ResourceLocation CALLISTO_PRESET_ID = Constant.id("callisto");
     public static final MultiNoiseBiomeSourceParameterList.Preset MOON_PRESET = new MultiNoiseBiomeSourceParameterList.Preset(
             MOON_PRESET_ID, GCMultiNoiseBiomeSourceParameterLists::generateMoon
     );
@@ -120,6 +126,24 @@ public class GCMultiNoiseBiomeSourceParameterLists {
     public static final MultiNoiseBiomeSourceParameterList.Preset NEPTUNE_PRESET = new MultiNoiseBiomeSourceParameterList.Preset(
             NEPTUNE_PRESET_ID, GCMultiNoiseBiomeSourceParameterLists::generateNeptune
     );
+    public static final MultiNoiseBiomeSourceParameterList.Preset PHOBOS_PRESET = new MultiNoiseBiomeSourceParameterList.Preset(
+            PHOBOS_PRESET_ID, GCMultiNoiseBiomeSourceParameterLists::generatePhobos
+    );
+    public static final MultiNoiseBiomeSourceParameterList.Preset DEIMOS_PRESET = new MultiNoiseBiomeSourceParameterList.Preset(
+            DEIMOS_PRESET_ID, GCMultiNoiseBiomeSourceParameterLists::generateDeimos
+    );
+    public static final MultiNoiseBiomeSourceParameterList.Preset IO_PRESET = new MultiNoiseBiomeSourceParameterList.Preset(
+            IO_PRESET_ID, GCMultiNoiseBiomeSourceParameterLists::generateIo
+    );
+    public static final MultiNoiseBiomeSourceParameterList.Preset EUROPA_PRESET = new MultiNoiseBiomeSourceParameterList.Preset(
+            EUROPA_PRESET_ID, GCMultiNoiseBiomeSourceParameterLists::generateEuropa
+    );
+    public static final MultiNoiseBiomeSourceParameterList.Preset GANYMEDE_PRESET = new MultiNoiseBiomeSourceParameterList.Preset(
+            GANYMEDE_PRESET_ID, GCMultiNoiseBiomeSourceParameterLists::generateGanymede
+    );
+    public static final MultiNoiseBiomeSourceParameterList.Preset CALLISTO_PRESET = new MultiNoiseBiomeSourceParameterList.Preset(
+            CALLISTO_PRESET_ID, GCMultiNoiseBiomeSourceParameterLists::generateCallisto
+    );
 
     public static final ResourceKey<MultiNoiseBiomeSourceParameterList> MOON = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "moon");
     public static final ResourceKey<MultiNoiseBiomeSourceParameterList> MARS = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "mars");
@@ -130,6 +154,12 @@ public class GCMultiNoiseBiomeSourceParameterLists {
     public static final ResourceKey<MultiNoiseBiomeSourceParameterList> SATURN = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "saturn");
     public static final ResourceKey<MultiNoiseBiomeSourceParameterList> URANUS = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "uranus");
     public static final ResourceKey<MultiNoiseBiomeSourceParameterList> NEPTUNE = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "neptune");
+    public static final ResourceKey<MultiNoiseBiomeSourceParameterList> PHOBOS = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "phobos");
+    public static final ResourceKey<MultiNoiseBiomeSourceParameterList> DEIMOS = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "deimos");
+    public static final ResourceKey<MultiNoiseBiomeSourceParameterList> IO = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "io");
+    public static final ResourceKey<MultiNoiseBiomeSourceParameterList> EUROPA = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "europa");
+    public static final ResourceKey<MultiNoiseBiomeSourceParameterList> GANYMEDE = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "ganymede");
+    public static final ResourceKey<MultiNoiseBiomeSourceParameterList> CALLISTO = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "callisto");
 
     @Contract("_ -> new")
     private static <T> Climate.@NotNull ParameterList<T> generateMoon(Function<ResourceKey<Biome>, T> biomeRegistry) {
@@ -673,6 +703,100 @@ public class GCMultiNoiseBiomeSourceParameterLists {
         );
     }
 
+    /**
+     * Generates a 100%-complete 6D Multi-Noise parameter list for a 4-biome moon
+     * (3 surface biomes partitioned across continentalness + 1 subterranean 3D biome at depth >= 0.18).
+     */
+    private static <T> Climate.@NotNull ParameterList<T> buildMoon3dBiomes(
+            Function<ResourceKey<Biome>, T> biomeRegistry,
+            ResourceKey<Biome> lowBasinBiome,
+            ResourceKey<Biome> midPlainsBiome,
+            ResourceKey<Biome> highRidgeBiome,
+            ResourceKey<Biome> subterraneanBiome
+    ) {
+        ImmutableList.Builder<Pair<Climate.ParameterPoint, T>> builder = ImmutableList.builder();
+        Parameter surfaceDepth = Parameter.span(-1.0F, 0.18F);
+        Parameter deepDepth = Parameter.span(0.18F, 2.5F);
+
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, Parameter.span(-1.0F, -0.25F), FULL_RANGE, surfaceDepth, FULL_RANGE, 0.0F, biomeRegistry.apply(lowBasinBiome));
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, Parameter.span(-0.25F, 0.30F), FULL_RANGE, surfaceDepth, FULL_RANGE, 0.0F, biomeRegistry.apply(midPlainsBiome));
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, Parameter.span(0.30F, 1.0F), FULL_RANGE, surfaceDepth, FULL_RANGE, 0.0F, biomeRegistry.apply(highRidgeBiome));
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, FULL_RANGE, FULL_RANGE, deepDepth, FULL_RANGE, 0.0F, biomeRegistry.apply(subterraneanBiome));
+
+        return new Climate.ParameterList<>(builder.build());
+    }
+
+    @Contract("_ -> new")
+    private static <T> Climate.@NotNull ParameterList<T> generatePhobos(Function<ResourceKey<Biome>, T> biomeRegistry) {
+        return buildMoon3dBiomes(
+                biomeRegistry,
+                GCBiomes.Phobos.STICKNEY_BASIN,
+                GCBiomes.Phobos.TIDAL_GROOVES,
+                GCBiomes.Phobos.REGOLITH_HIGHLANDS,
+                GCBiomes.Phobos.FRACTURE_CAVERNS
+        );
+    }
+
+    @Contract("_ -> new")
+    private static <T> Climate.@NotNull ParameterList<T> generateDeimos(Function<ResourceKey<Biome>, T> biomeRegistry) {
+        ImmutableList.Builder<Pair<Climate.ParameterPoint, T>> builder = ImmutableList.builder();
+        Parameter surfaceDepth = Parameter.span(-1.0F, 0.18F);
+        Parameter deepDepth = Parameter.span(0.18F, 2.5F);
+
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, Parameter.span(-1.0F, 0.25F), FULL_RANGE, surfaceDepth, FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Deimos.SMOOTH_PLAINS));
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, Parameter.span(0.25F, 1.0F), FULL_RANGE, surfaceDepth, FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Deimos.CRATER_SLOPES));
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, FULL_RANGE, FULL_RANGE, deepDepth, FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Deimos.CORE_CAVERNS));
+
+        return new Climate.ParameterList<>(builder.build());
+    }
+
+    @Contract("_ -> new")
+    private static <T> Climate.@NotNull ParameterList<T> generateIo(Function<ResourceKey<Biome>, T> biomeRegistry) {
+        return buildMoon3dBiomes(
+                biomeRegistry,
+                GCBiomes.Io.VOLCANIC_CALDERA,
+                GCBiomes.Io.SULFUR_PLAINS,
+                GCBiomes.Io.SILICATE_FLOWS,
+                GCBiomes.Io.MAGMA_TUBES
+        );
+    }
+
+    @Contract("_ -> new")
+    private static <T> Climate.@NotNull ParameterList<T> generateEuropa(Function<ResourceKey<Biome>, T> biomeRegistry) {
+        return buildMoon3dBiomes(
+                biomeRegistry,
+                GCBiomes.Europa.CHAOS_TERRAIN,
+                GCBiomes.Europa.ICE_PLAINS,
+                GCBiomes.Europa.LINEAE_RIDGES,
+                GCBiomes.Europa.SUBSURFACE_OCEAN
+        );
+    }
+
+    @Contract("_ -> new")
+    private static <T> Climate.@NotNull ParameterList<T> generateGanymede(Function<ResourceKey<Biome>, T> biomeRegistry) {
+        ImmutableList.Builder<Pair<Climate.ParameterPoint, T>> builder = ImmutableList.builder();
+        Parameter surfaceDepth = Parameter.span(-1.0F, 0.18F);
+        Parameter deepDepth = Parameter.span(0.18F, 2.5F);
+
+        writeMercury3dBiome(builder::add, Parameter.span(-1.0F, -0.35F), FULL_RANGE, FULL_RANGE, FULL_RANGE, surfaceDepth, FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Ganymede.POLAR_FROST));
+        writeMercury3dBiome(builder::add, Parameter.span(-0.35F, 1.0F), FULL_RANGE, Parameter.span(-1.0F, 0.10F), FULL_RANGE, surfaceDepth, FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Ganymede.DARK_REGIO));
+        writeMercury3dBiome(builder::add, Parameter.span(-0.35F, 1.0F), FULL_RANGE, Parameter.span(0.10F, 1.0F), FULL_RANGE, surfaceDepth, FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Ganymede.SULCI_RIDGES));
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, FULL_RANGE, FULL_RANGE, deepDepth, FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Ganymede.ICE_CAVERNS));
+
+        return new Climate.ParameterList<>(builder.build());
+    }
+
+    @Contract("_ -> new")
+    private static <T> Climate.@NotNull ParameterList<T> generateCallisto(Function<ResourceKey<Biome>, T> biomeRegistry) {
+        return buildMoon3dBiomes(
+                biomeRegistry,
+                GCBiomes.Callisto.VALHALLA_RINGS,
+                GCBiomes.Callisto.CRATERED_PLAINS,
+                GCBiomes.Callisto.ICE_PEAKS,
+                GCBiomes.Callisto.ANCIENT_CAVERNS
+        );
+    }
+
     private static <T> void writeMercury3dBiome(
             Consumer<Pair<Climate.ParameterPoint, T>> parameters,
             Parameter temperature,
@@ -726,6 +850,12 @@ public class GCMultiNoiseBiomeSourceParameterLists {
         MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(SATURN_PRESET_ID, SATURN_PRESET);
         MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(URANUS_PRESET_ID, URANUS_PRESET);
         MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(NEPTUNE_PRESET_ID, NEPTUNE_PRESET);
+        MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(PHOBOS_PRESET_ID, PHOBOS_PRESET);
+        MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(DEIMOS_PRESET_ID, DEIMOS_PRESET);
+        MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(IO_PRESET_ID, IO_PRESET);
+        MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(EUROPA_PRESET_ID, EUROPA_PRESET);
+        MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(GANYMEDE_PRESET_ID, GANYMEDE_PRESET);
+        MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(CALLISTO_PRESET_ID, CALLISTO_PRESET);
     }
 
     public static void bootstrapRegistries(BootstrapContext<MultiNoiseBiomeSourceParameterList> context) {
@@ -739,5 +869,11 @@ public class GCMultiNoiseBiomeSourceParameterLists {
         context.register(SATURN, new MultiNoiseBiomeSourceParameterList(SATURN_PRESET, lookup));
         context.register(URANUS, new MultiNoiseBiomeSourceParameterList(URANUS_PRESET, lookup));
         context.register(NEPTUNE, new MultiNoiseBiomeSourceParameterList(NEPTUNE_PRESET, lookup));
+        context.register(PHOBOS, new MultiNoiseBiomeSourceParameterList(PHOBOS_PRESET, lookup));
+        context.register(DEIMOS, new MultiNoiseBiomeSourceParameterList(DEIMOS_PRESET, lookup));
+        context.register(IO, new MultiNoiseBiomeSourceParameterList(IO_PRESET, lookup));
+        context.register(EUROPA, new MultiNoiseBiomeSourceParameterList(EUROPA_PRESET, lookup));
+        context.register(GANYMEDE, new MultiNoiseBiomeSourceParameterList(GANYMEDE_PRESET, lookup));
+        context.register(CALLISTO, new MultiNoiseBiomeSourceParameterList(CALLISTO_PRESET, lookup));
     }
 }

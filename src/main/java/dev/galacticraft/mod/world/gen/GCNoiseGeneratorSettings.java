@@ -24,11 +24,17 @@ package dev.galacticraft.mod.world.gen;
 
 import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.content.GCBlocks;
+import dev.galacticraft.mod.world.gen.surfacerule.CallistoSurfaceRules;
+import dev.galacticraft.mod.world.gen.surfacerule.DeimosSurfaceRules;
+import dev.galacticraft.mod.world.gen.surfacerule.EuropaSurfaceRules;
+import dev.galacticraft.mod.world.gen.surfacerule.GanymedeSurfaceRules;
+import dev.galacticraft.mod.world.gen.surfacerule.IoSurfaceRules;
 import dev.galacticraft.mod.world.gen.surfacerule.JupiterSurfaceRules;
 import dev.galacticraft.mod.world.gen.surfacerule.MarsSurfaceRules;
 import dev.galacticraft.mod.world.gen.surfacerule.MercurySurfaceRules;
 import dev.galacticraft.mod.world.gen.surfacerule.MoonSurfaceRules;
 import dev.galacticraft.mod.world.gen.surfacerule.NeptuneSurfaceRules;
+import dev.galacticraft.mod.world.gen.surfacerule.PhobosSurfaceRules;
 import dev.galacticraft.mod.world.gen.surfacerule.SaturnSurfaceRules;
 import dev.galacticraft.mod.world.gen.surfacerule.UranusSurfaceRules;
 import dev.galacticraft.mod.world.gen.surfacerule.VenusSurfaceRules;
@@ -55,6 +61,12 @@ public class GCNoiseGeneratorSettings {
     public static final ResourceKey<NoiseGeneratorSettings> SATURN = key("saturn");
     public static final ResourceKey<NoiseGeneratorSettings> URANUS = key("uranus");
     public static final ResourceKey<NoiseGeneratorSettings> NEPTUNE = key("neptune");
+    public static final ResourceKey<NoiseGeneratorSettings> PHOBOS = key("phobos");
+    public static final ResourceKey<NoiseGeneratorSettings> DEIMOS = key("deimos");
+    public static final ResourceKey<NoiseGeneratorSettings> IO = key("io");
+    public static final ResourceKey<NoiseGeneratorSettings> EUROPA = key("europa");
+    public static final ResourceKey<NoiseGeneratorSettings> GANYMEDE = key("ganymede");
+    public static final ResourceKey<NoiseGeneratorSettings> CALLISTO = key("callisto");
 
     public static void bootstrapRegistries(BootstrapContext<NoiseGeneratorSettings> context) {
         HolderGetter<DensityFunction> densityLookup = context.lookup(Registries.DENSITY_FUNCTION);
@@ -192,6 +204,132 @@ public class GCNoiseGeneratorSettings {
                         GCDensityFunctions.Neptune.FINAL_DENSITY
                 ),
                 NeptuneSurfaceRules.NEPTUNE,
+                new OverworldBiomeBuilder().spawnTarget(),
+                -64,
+                false,
+                false,
+                false,
+                false
+        ));
+
+        context.register(PHOBOS, new NoiseGeneratorSettings(
+                NoiseSettings.create(-64, 384, 1, 2),
+                GCBlocks.ASTEROID_ROCK_2.defaultBlockState(),
+                Blocks.AIR.defaultBlockState(),
+                GCNoiseGeneratorSettings.outerPlanetRouter(
+                        densityLookup,
+                        noiseLookup,
+                        GCDensityFunctions.Phobos.CONTINENTS,
+                        GCDensityFunctions.Phobos.DEPTH,
+                        GCDensityFunctions.Phobos.SOLID_TERRAIN,
+                        GCDensityFunctions.Phobos.FINAL_DENSITY
+                ),
+                PhobosSurfaceRules.PHOBOS,
+                new OverworldBiomeBuilder().spawnTarget(),
+                -64,
+                false,
+                false,
+                false,
+                false
+        ));
+
+        context.register(DEIMOS, new NoiseGeneratorSettings(
+                NoiseSettings.create(-64, 384, 1, 2),
+                GCBlocks.ASTEROID_ROCK_1.defaultBlockState(),
+                Blocks.AIR.defaultBlockState(),
+                GCNoiseGeneratorSettings.outerPlanetRouter(
+                        densityLookup,
+                        noiseLookup,
+                        GCDensityFunctions.Deimos.CONTINENTS,
+                        GCDensityFunctions.Deimos.DEPTH,
+                        GCDensityFunctions.Deimos.SOLID_TERRAIN,
+                        GCDensityFunctions.Deimos.FINAL_DENSITY
+                ),
+                DeimosSurfaceRules.DEIMOS,
+                new OverworldBiomeBuilder().spawnTarget(),
+                -64,
+                false,
+                false,
+                false,
+                false
+        ));
+
+        context.register(IO, new NoiseGeneratorSettings(
+                NoiseSettings.create(-64, 384, 1, 2),
+                GCBlocks.HARD_VENUS_ROCK.defaultBlockState(),
+                Blocks.LAVA.defaultBlockState(),
+                GCNoiseGeneratorSettings.outerPlanetRouter(
+                        densityLookup,
+                        noiseLookup,
+                        GCDensityFunctions.Io.CONTINENTS,
+                        GCDensityFunctions.Io.DEPTH,
+                        GCDensityFunctions.Io.SOLID_TERRAIN,
+                        GCDensityFunctions.Io.FINAL_DENSITY
+                ),
+                IoSurfaceRules.IO,
+                new OverworldBiomeBuilder().spawnTarget(),
+                -36, // Deep magma tube lava floor
+                false,
+                false,
+                false,
+                false
+        ));
+
+        context.register(EUROPA, new NoiseGeneratorSettings(
+                NoiseSettings.create(-64, 384, 1, 2),
+                GCBlocks.DENSE_ICE.defaultBlockState(),
+                Blocks.WATER.defaultBlockState(),
+                GCNoiseGeneratorSettings.outerPlanetRouter(
+                        densityLookup,
+                        noiseLookup,
+                        GCDensityFunctions.Europa.CONTINENTS,
+                        GCDensityFunctions.Europa.DEPTH,
+                        GCDensityFunctions.Europa.SOLID_TERRAIN,
+                        GCDensityFunctions.Europa.FINAL_DENSITY
+                ),
+                EuropaSurfaceRules.EUROPA,
+                new OverworldBiomeBuilder().spawnTarget(),
+                24, // Subsurface liquid ocean fills all caverns below Y = 24
+                false,
+                false,
+                false,
+                false
+        ));
+
+        context.register(GANYMEDE, new NoiseGeneratorSettings(
+                NoiseSettings.create(-64, 384, 1, 2),
+                GCBlocks.LUNASLATE.defaultBlockState(),
+                Blocks.AIR.defaultBlockState(),
+                GCNoiseGeneratorSettings.outerPlanetRouter(
+                        densityLookup,
+                        noiseLookup,
+                        GCDensityFunctions.Ganymede.CONTINENTS,
+                        GCDensityFunctions.Ganymede.DEPTH,
+                        GCDensityFunctions.Ganymede.SOLID_TERRAIN,
+                        GCDensityFunctions.Ganymede.FINAL_DENSITY
+                ),
+                GanymedeSurfaceRules.GANYMEDE,
+                new OverworldBiomeBuilder().spawnTarget(),
+                -64,
+                false,
+                false,
+                false,
+                false
+        ));
+
+        context.register(CALLISTO, new NoiseGeneratorSettings(
+                NoiseSettings.create(-64, 384, 1, 2),
+                GCBlocks.MOON_BASALT.defaultBlockState(),
+                Blocks.AIR.defaultBlockState(),
+                GCNoiseGeneratorSettings.outerPlanetRouter(
+                        densityLookup,
+                        noiseLookup,
+                        GCDensityFunctions.Callisto.CONTINENTS,
+                        GCDensityFunctions.Callisto.DEPTH,
+                        GCDensityFunctions.Callisto.SOLID_TERRAIN,
+                        GCDensityFunctions.Callisto.FINAL_DENSITY
+                ),
+                CallistoSurfaceRules.CALLISTO,
                 new OverworldBiomeBuilder().spawnTarget(),
                 -64,
                 false,

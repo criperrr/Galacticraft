@@ -133,6 +133,39 @@ public class GCOrePlacedFeatures {
     public static final ResourceKey<PlacedFeature> ORE_MAGNESIUM_SATURN = key("ore_magnesium_saturn");
     public static final ResourceKey<PlacedFeature> ORE_URANIUM_URANUS = key("ore_uranium_uranus");
 
+    // PHOBOS
+    public static final ResourceKey<PlacedFeature> ORE_METEORIC_IRON_PHOBOS = key("ore_meteoric_iron_phobos");
+    public static final ResourceKey<PlacedFeature> ORE_GRAPHITE_PHOBOS = key("ore_graphite_phobos");
+    public static final ResourceKey<PlacedFeature> ORE_IRON_PHOBOS = key("ore_iron_phobos");
+
+    // DEIMOS
+    public static final ResourceKey<PlacedFeature> ORE_SILICON_DEIMOS = key("ore_silicon_deimos");
+    public static final ResourceKey<PlacedFeature> ORE_ALUMINUM_DEIMOS = key("ore_aluminum_deimos");
+    public static final ResourceKey<PlacedFeature> ORE_IRON_DEIMOS = key("ore_iron_deimos");
+
+    // IO
+    public static final ResourceKey<PlacedFeature> ORE_PALLADIUM_IO = key("ore_palladium_io");
+    public static final ResourceKey<PlacedFeature> ORE_SULFIDE_IO = key("ore_sulfide_io");
+    public static final ResourceKey<PlacedFeature> ORE_TITANIUM_IO = key("ore_titanium_io");
+    public static final ResourceKey<PlacedFeature> MAGMA_PATCH_IO = key("magma_patch_io");
+
+    // EUROPA
+    public static final ResourceKey<PlacedFeature> ORE_DENSE_ICE_EUROPA = key("ore_dense_ice_europa");
+    public static final ResourceKey<PlacedFeature> ORE_NIOBIUM_EUROPA = key("ore_niobium_europa");
+    public static final ResourceKey<PlacedFeature> ORE_IRON_EUROPA = key("ore_iron_europa");
+
+    // GANYMEDE
+    public static final ResourceKey<PlacedFeature> ORE_NIOBIUM_GANYMEDE = key("ore_niobium_ganymede");
+    public static final ResourceKey<PlacedFeature> ORE_TITANIUM_GANYMEDE = key("ore_titanium_ganymede");
+    public static final ResourceKey<PlacedFeature> ORE_PALLADIUM_GANYMEDE = key("ore_palladium_ganymede");
+    public static final ResourceKey<PlacedFeature> ORE_DENSE_ICE_GANYMEDE = key("ore_dense_ice_ganymede");
+
+    // CALLISTO
+    public static final ResourceKey<PlacedFeature> ORE_IRON_CALLISTO = key("ore_iron_callisto");
+    public static final ResourceKey<PlacedFeature> ORE_ALUMINUM_CALLISTO = key("ore_aluminum_callisto");
+    public static final ResourceKey<PlacedFeature> ORE_NIOBIUM_CALLISTO = key("ore_niobium_callisto");
+    public static final ResourceKey<PlacedFeature> ORE_DENSE_ICE_CALLISTO = key("ore_dense_ice_callisto");
+
     public static void register() {
         BiomeModifications.create(Constant.id("ores")).add(ModificationPhase.ADDITIONS, BiomeSelectors.foundInOverworld(), context -> {
             context.getGenerationSettings().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ORE_SILICON);
@@ -241,6 +274,34 @@ public class GCOrePlacedFeatures {
         context.register(ORE_PALLADIUM_JUPITER, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_PALLADIUM_JUPITER), modifiersWithCount(16, HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(4), VerticalAnchor.absolute(-20)))));
         context.register(ORE_MAGNESIUM_SATURN, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_MAGNESIUM_SATURN), modifiersWithCount(16, HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(4), VerticalAnchor.absolute(-20)))));
         context.register(ORE_URANIUM_URANUS, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_URANIUM_URANUS), modifiersWithCount(16, HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(4), VerticalAnchor.absolute(-20)))));
+
+        // INNER & JOVIAN MOONS (PHASE 3)
+        context.register(ORE_METEORIC_IRON_PHOBOS, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_METEORIC_IRON_PHOBOS), modifiersWithCount(14, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.absolute(80)))));
+        context.register(ORE_GRAPHITE_PHOBOS, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_GRAPHITE_PHOBOS), modifiersWithCount(18, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(90)))));
+        context.register(ORE_IRON_PHOBOS, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_IRON_PHOBOS), modifiersWithCount(12, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.absolute(75)))));
+
+        context.register(ORE_SILICON_DEIMOS, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_SILICON_DEIMOS), modifiersWithCount(18, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(85)))));
+        context.register(ORE_ALUMINUM_DEIMOS, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_ALUMINUM_DEIMOS), modifiersWithCount(16, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(85)))));
+        context.register(ORE_IRON_DEIMOS, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_IRON_DEIMOS), modifiersWithCount(10, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.absolute(70)))));
+
+        context.register(ORE_PALLADIUM_IO, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_PALLADIUM_IO), modifiersWithCount(14, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.absolute(50)))));
+        context.register(ORE_SULFIDE_IO, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_SULFIDE_IO), modifiersWithCount(20, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(95)))));
+        context.register(ORE_TITANIUM_IO, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_TITANIUM_IO), modifiersWithCount(12, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.absolute(60)))));
+        context.register(MAGMA_PATCH_IO, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.MAGMA_PATCH_IO), modifiersWithCount(16, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(40)))));
+
+        context.register(ORE_DENSE_ICE_EUROPA, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_DENSE_ICE_EUROPA), modifiersWithCount(18, HeightRangePlacement.uniform(VerticalAnchor.absolute(24), VerticalAnchor.absolute(85)))));
+        context.register(ORE_NIOBIUM_EUROPA, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_NIOBIUM_EUROPA), modifiersWithCount(10, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(-28)))));
+        context.register(ORE_IRON_EUROPA, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_IRON_EUROPA), modifiersWithCount(12, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(-28)))));
+
+        context.register(ORE_NIOBIUM_GANYMEDE, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_NIOBIUM_GANYMEDE), modifiersWithCount(15, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.absolute(65)))));
+        context.register(ORE_TITANIUM_GANYMEDE, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_TITANIUM_GANYMEDE), modifiersWithCount(13, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.absolute(55)))));
+        context.register(ORE_PALLADIUM_GANYMEDE, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_PALLADIUM_GANYMEDE), modifiersWithCount(8, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.absolute(35)))));
+        context.register(ORE_DENSE_ICE_GANYMEDE, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_DENSE_ICE_GANYMEDE), modifiersWithCount(14, HeightRangePlacement.uniform(VerticalAnchor.absolute(10), VerticalAnchor.absolute(85)))));
+
+        context.register(ORE_IRON_CALLISTO, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_IRON_CALLISTO), modifiersWithCount(16, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.absolute(80)))));
+        context.register(ORE_ALUMINUM_CALLISTO, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_ALUMINUM_CALLISTO), modifiersWithCount(15, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.absolute(80)))));
+        context.register(ORE_NIOBIUM_CALLISTO, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_NIOBIUM_CALLISTO), modifiersWithCount(12, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.absolute(60)))));
+        context.register(ORE_DENSE_ICE_CALLISTO, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_DENSE_ICE_CALLISTO), modifiersWithCount(16, HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(90)))));
     }
 
     @Contract(pure = true)

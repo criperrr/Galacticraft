@@ -49,17 +49,35 @@ public class GCDimensionTagProvider extends FabricTagProvider<DimensionType> {
                 .add(GCDimensionTypes.JUPITER)
                 .add(GCDimensionTypes.SATURN)
                 .add(GCDimensionTypes.URANUS)
-                .add(GCDimensionTypes.NEPTUNE);
+                .add(GCDimensionTypes.NEPTUNE)
+                .add(GCDimensionTypes.PHOBOS)
+                .add(GCDimensionTypes.DEIMOS)
+                .add(GCDimensionTypes.IO)
+                .add(GCDimensionTypes.EUROPA)
+                .add(GCDimensionTypes.GANYMEDE)
+                .add(GCDimensionTypes.CALLISTO);
         this.tag(GCDimensionTypeTags.VACUUM)
                 .add(GCDimensionTypes.MOON)
-                .add(GCDimensionTypes.ASTEROID);
+                .add(GCDimensionTypes.ASTEROID)
+                .add(GCDimensionTypes.PHOBOS)
+                .add(GCDimensionTypes.DEIMOS)
+                .add(GCDimensionTypes.IO)
+                .add(GCDimensionTypes.EUROPA)
+                .add(GCDimensionTypes.GANYMEDE)
+                .add(GCDimensionTypes.CALLISTO);
         this.tag(GCDimensionTypeTags.NO_WEATHER)
                 .add(GCDimensionTypes.MOON)
                 .add(GCDimensionTypes.ASTEROID)
                 .add(GCDimensionTypes.JUPITER)
                 .add(GCDimensionTypes.SATURN)
                 .add(GCDimensionTypes.URANUS)
-                .add(GCDimensionTypes.NEPTUNE);
+                .add(GCDimensionTypes.NEPTUNE)
+                .add(GCDimensionTypes.PHOBOS)
+                .add(GCDimensionTypes.DEIMOS)
+                .add(GCDimensionTypes.IO)
+                .add(GCDimensionTypes.EUROPA)
+                .add(GCDimensionTypes.GANYMEDE)
+                .add(GCDimensionTypes.CALLISTO);
         this.tag(GCDimensionTypeTags.ALLOWS_MOB_SPAWNING);
     }
 }
