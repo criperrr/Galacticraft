@@ -48,6 +48,7 @@ import dev.galacticraft.mod.content.rocket.failure.LaunchFailureEngine;
 import dev.galacticraft.mod.content.rocket.launch.RocketStateConverter;
 import dev.galacticraft.mod.content.rocket.physics.ModularFlightPhysics;
 import dev.galacticraft.mod.content.rocket.physics.PlanetaryEnvironment;
+import dev.galacticraft.mod.content.rocket.physics.PropellantType;
 import dev.galacticraft.mod.network.s2c.OpenCelestialScreenPayload;
 import dev.galacticraft.mod.network.s2c.ResetPerspectivePacket;
 import dev.galacticraft.mod.particle.EntityParticleOption;
@@ -167,6 +168,12 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
             ModularRocketFlightEntity.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Float> MAX_RADIUS_BLOCKS = SynchedEntityData.defineId(
             ModularRocketFlightEntity.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> AGL_BLOCKS = SynchedEntityData.defineId(
+            ModularRocketFlightEntity.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> HOVER_THROTTLE = SynchedEntityData.defineId(
+            ModularRocketFlightEntity.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> SUICIDE_BURN_ALT = SynchedEntityData.defineId(
+            ModularRocketFlightEntity.class, EntityDataSerializers.FLOAT);
 
     private float pitchDegO = 0.0F;
     private float yawDegO = 0.0F;
@@ -228,6 +235,9 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
         builder.define(CAMERA_SHAKE, 0.0F);
         builder.define(TOTAL_HEIGHT_BLOCKS, 4.0F);
         builder.define(MAX_RADIUS_BLOCKS, 1.5F);
+        builder.define(AGL_BLOCKS, 0.0F);
+        builder.define(HOVER_THROTTLE, 0.5F);
+        builder.define(SUICIDE_BURN_ALT, 40.0F);
     }
 
     @Override
@@ -275,12 +285,15 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
             }
         }
         if (initialPhase == FlightPhase.RETRO_DESCENT) {
+            // Start planetary descent in manual Landing Minigame mode (0% throttle; player controls Espaço/Shift/X/L or Shift+G for Auto)
             this.entityData.set(THROTTLE, 0.0F);
             this.targetThrottle = 0.0F;
-            this.entityData.set(LANDING_GEAR_DEPLOYED, graph.hasLandingGear());
+            this.entityData.set(AUTOPILOT_ENABLED, false);
+            this.entityData.set(LANDING_GEAR_DEPLOYED, false);
         } else {
             this.entityData.set(THROTTLE, 1.0F);
             this.targetThrottle = 1.0F;
+            this.entityData.set(AUTOPILOT_ENABLED, true);
         }
         this.refreshDimensions();
     }
@@ -392,6 +405,18 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
 
     public float getMaxRadiusBlocks() {
         return this.entityData.get(MAX_RADIUS_BLOCKS);
+    }
+
+    public float getAglBlocks() {
+        return this.entityData.get(AGL_BLOCKS);
+    }
+
+    public float getHoverThrottle() {
+        return this.entityData.get(HOVER_THROTTLE);
+    }
+
+    public float getSuicideBurnAlt() {
+        return this.entityData.get(SUICIDE_BURN_ALT);
     }
 
     public long getStoredEnergyGj() {
@@ -527,7 +552,8 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
             boolean manualStage,
             boolean toggleAutopilot,
             boolean toggleLandingGear,
-            boolean retroBurn
+            boolean retroBurn,
+            boolean engineCutoff
     ) {
         this.pilotPitchInput = Math.clamp(pitchInput, -1.0F, 1.0F);
         this.pilotYawInput = Math.clamp(yawInput, -1.0F, 1.0F);
@@ -537,8 +563,20 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
             this.manualOverrideHoldTicks = 40;
             this.entityData.set(MANUAL_OVERRIDE_ACTIVE, true);
         }
-        if (Math.abs(throttleDelta) > 0.01F) {
-            this.targetThrottle = Math.clamp(this.targetThrottle + throttleDelta * 0.05F, 0.0F, 1.0F);
+        if (engineCutoff) {
+            this.targetThrottle = 0.0F;
+            this.entityData.set(THROTTLE, 0.0F);
+            if (this.getFlightPhase() == FlightPhase.RETRO_DESCENT && this.isAutopilotEnabled()) {
+                this.entityData.set(AUTOPILOT_ENABLED, false);
+            }
+            this.level().playSound(null, this.blockPosition(), SoundEvents.FIRE_EXTINGUISH, SoundSource.NEUTRAL, 0.7F, 0.85F);
+            pilot.displayClientMessage(Component.literal("[MECO] Motor cortado (0%)").withStyle(ChatFormatting.AQUA), true);
+        } else if (Math.abs(throttleDelta) > 0.01F) {
+            float step = throttleDelta > 0.0F ? 0.045F : 0.055F;
+            this.targetThrottle = Math.clamp(this.targetThrottle + throttleDelta * step, 0.0F, 1.0F);
+            if (this.getFlightPhase() == FlightPhase.RETRO_DESCENT && this.isAutopilotEnabled()) {
+                this.entityData.set(AUTOPILOT_ENABLED, false);
+            }
         }
         if (toggleAutopilot) {
             boolean next = !this.isAutopilotEnabled();
@@ -549,10 +587,19 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
                     true
             );
         }
-        if (toggleLandingGear && this.getAssemblyGraph().hasLandingGear()) {
-            boolean next = !this.isLandingGearDeployed();
-            this.entityData.set(LANDING_GEAR_DEPLOYED, next);
-            this.level().playSound(null, this.blockPosition(), SoundEvents.PISTON_EXTEND, SoundSource.NEUTRAL, 0.8F, next ? 0.9F : 1.2F);
+        if (toggleLandingGear) {
+            if (this.getAssemblyGraph().hasLandingGear()) {
+                boolean next = !this.isLandingGearDeployed();
+                this.entityData.set(LANDING_GEAR_DEPLOYED, next);
+                this.level().playSound(null, this.blockPosition(), SoundEvents.PISTON_EXTEND, SoundSource.NEUTRAL, 0.8F, next ? 0.9F : 1.2F);
+                pilot.displayClientMessage(
+                        Component.literal("[TREM DE POUSO] " + (next ? "ESTENDIDO" : "RECOLHIDO"))
+                                .withStyle(next ? ChatFormatting.GREEN : ChatFormatting.YELLOW),
+                        true
+                );
+            } else {
+                pilot.displayClientMessage(Component.literal("[TREM DE POUSO] Módulo landing_gear não equipado.").withStyle(ChatFormatting.YELLOW), true);
+            }
         }
         if (manualStage && this.level() instanceof ServerLevel serverLevel) {
             this.triggerManualStage(serverLevel, pilot);
@@ -1039,53 +1086,97 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
         RocketAssemblyGraph graph = this.getAssemblyGraph();
         double groundY = serverLevel.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, this.blockPosition().getX(), this.blockPosition().getZ());
         double agl = Math.max(0.0, this.getY() - groundY);
+        this.entityData.set(AGL_BLOCKS, (float) agl);
 
-        if (graph.hasLandingGear() && agl <= 140.0 && !this.isLandingGearDeployed()) {
-            this.entityData.set(LANDING_GEAR_DEPLOYED, true);
-        }
-
-        // Level attitude upright for touchdown
-        this.entityData.set(PITCH_DEG, this.getPitchDeg() * 0.88F + this.pilotPitchInput * 0.4F);
-        this.entityData.set(YAW_DEG, (this.getYawDeg() + this.pilotYawInput * 1.2F) % 360.0F);
-        this.entityData.set(ROLL_DEG, this.getRollDeg() * 0.88F);
+        // Attitude control for landing minigame: WASD tilts rocket smoothly to translate over landing site & auto-levels when released
+        float nextPitch = Mth.clamp(this.getPitchDeg() * 0.86F + this.pilotPitchInput * 1.4F, -22.0F, 22.0F);
+        float nextRoll = Mth.clamp(this.getRollDeg() * 0.86F - this.pilotYawInput * 1.4F, -22.0F, 22.0F);
+        this.entityData.set(PITCH_DEG, nextPitch);
+        this.entityData.set(ROLL_DEG, nextRoll);
+        this.entityData.set(TVC_PITCH_DEG, Mth.clamp(this.pilotPitchInput * 8.0F, -10.0F, 10.0F));
+        this.entityData.set(TVC_YAW_DEG, Mth.clamp(this.pilotYawInput * 8.0F, -10.0F, 10.0F));
 
         Vec3 vel = this.getDeltaMovement();
-        double gravityStep = Math.max(0.008, env.gravityG() * 0.028);
+        // Realistic planet-scaled descent gravity (Moon ~0.006/t, Mars ~0.011/t, Earth ~0.026/t)
+        double gravityStep = Math.max(0.005, env.gravityG() * 0.026);
         double nextVy = vel.y - gravityStep;
 
         boolean hasParachutes = this.isParachutesDeployed() || hasParachutePart(graph);
         if (hasParachutes && env.pressureAtm() >= 0.05 && agl <= 180.0 && vel.y < -0.10) {
             this.entityData.set(PARACHUTES_DEPLOYED, true);
-            nextVy = Math.max(nextVy, -0.20);
+            nextVy = Math.max(nextVy, -0.22);
         }
 
-        // Retro-propulsive suicide burn (automatic by default when approaching ground, or manual Space/retroBurn)
         RocketStageNode activeStage = graph.activeStage();
-        boolean hasRetroPropellant = activeStage != null && activeStage.totalCurrentFuelDroplets() > 0L && activeStage.activeThrustKn() > 0.0;
-        boolean autoRetro = this.isAutopilotEnabled() && agl <= 110.0 && nextVy < -0.18;
-        boolean fireRetro = hasRetroPropellant && (this.pilotRetroBurnHeld || autoRetro);
+        double wetMassKg = Math.max(200.0, ModularFlightPhysics.computeTotalWetMassKg(graph));
+        double maxStageThrustKn = activeStage != null ? activeStage.activeThrustKn() : 0.0;
+        boolean hasRetroPropellant = activeStage != null
+                && (activeStage.totalCurrentFuelDroplets() > 0L || ModularFlightPhysics.resolvePropellant(activeStage.propellantId()) == PropellantType.SOLID)
+                && maxStageThrustKn > 0.0;
 
-        if (fireRetro && activeStage != null) {
-            float retroThrottle = this.pilotRetroBurnHeld ? 0.85F : (agl <= 30.0 ? 0.55F : 0.80F);
-            ModularFlightPhysics.PropulsionTickResult res = ModularFlightPhysics.stepStagePropulsion(activeStage, ambientPa, retroThrottle, false);
-            this.setAssemblyGraph(graph.withUpdatedStage(res.updatedStage()));
-            this.entityData.set(THROTTLE, retroThrottle);
-            this.entityData.set(CAMERA_SHAKE, 0.25F);
-            // Smoothly brake descent to safe touchdown velocity (~0.15 blocks/tick = 3.0 m/s <= 5.0 m/s)
-            double targetVy = agl <= 24.0 ? -0.14 : -0.32;
-            nextVy = Math.min(targetVy, nextVy + 0.065);
-            if (nextVy > targetVy) {
-                nextVy = targetVy;
+        // Compute exact Hover Throttle (where TWR == 1.0) and Suicide Burn braking window for Landing HUD
+        double weightKn = (wetMassKg * Math.max(0.05, env.gravityG()) * PlanetaryEnvironment.STANDARD_GRAVITY_MS2) / 1000.0;
+        float hoverThrottle = maxStageThrustKn > 0.0
+                ? (float) Math.clamp(weightKn / maxStageThrustKn, 0.08, 0.85)
+                : 0.50F;
+        // Max net upward braking deceleration at 100% throttle (blocks/tick^2)
+        double maxBrakingStep = Math.max(0.018, gravityStep * ((1.0 / Math.max(0.12, hoverThrottle)) - 1.0));
+        double currentDownSpeed = Math.max(0.0, -vel.y);
+        float suicideBurnAlt = (float) Math.clamp((currentDownSpeed * currentDownSpeed) / (2.0 * Math.max(0.008, maxBrakingStep * 0.72)) + 6.0, 4.0, 260.0);
+
+        this.entityData.set(HOVER_THROTTLE, hoverThrottle);
+        this.entityData.set(SUICIDE_BURN_ALT, suicideBurnAlt);
+
+        // Determine effective throttle: manual minigame (full 0..100% + X cutoff) vs optional Autopilot (Shift+G)
+        float effectiveThrottle;
+        if (this.isAutopilotEnabled()) {
+            if (graph.hasLandingGear() && agl <= 120.0 && !this.isLandingGearDeployed()) {
+                this.entityData.set(LANDING_GEAR_DEPLOYED, true);
             }
+            if (!hasRetroPropellant) {
+                effectiveThrottle = 0.0F;
+            } else if (agl <= suicideBurnAlt + 12.0 || vel.y < -0.55) {
+                double targetVy = agl <= 22.0 ? -0.11 : (agl <= 55.0 ? -0.22 : -0.40);
+                double err = targetVy - vel.y; // positive means falling too fast -> need more throttle
+                effectiveThrottle = (float) Math.clamp(hoverThrottle + err * 2.4, 0.0, 1.0);
+            } else {
+                effectiveThrottle = 0.0F;
+            }
+            this.targetThrottle = effectiveThrottle;
+        } else {
+            effectiveThrottle = hasRetroPropellant ? Math.clamp(this.targetThrottle, 0.0F, 1.0F) : 0.0F;
+        }
+
+        if (effectiveThrottle > 0.005F && hasRetroPropellant && activeStage != null) {
+            ModularFlightPhysics.PropulsionTickResult res = ModularFlightPhysics.stepStagePropulsion(activeStage, ambientPa, effectiveThrottle, false);
+            this.setAssemblyGraph(graph.withUpdatedStage(res.updatedStage()));
+            this.entityData.set(THROTTLE, effectiveThrottle);
+            this.entityData.set(CAMERA_SHAKE, effectiveThrottle * 0.28F);
+
+            // Real proportional thrust acceleration: throttle == hoverThrottle hovers, > hover brakes/climbs, < hover descends!
+            double thrustAccel = gravityStep * (effectiveThrottle / Math.max(0.10, hoverThrottle));
+            double cosTilt = Math.cos(Math.toRadians(Math.hypot(nextPitch, nextRoll)));
+            nextVy = vel.y + (thrustAccel * cosTilt) - gravityStep;
+            double effectiveTwr = effectiveThrottle / Math.max(0.10, hoverThrottle);
+            this.entityData.set(CURRENT_TWR, (float) effectiveTwr);
+            this.entityData.set(CURRENT_G_LOAD, (float) (effectiveTwr * Math.max(0.05, env.gravityG())));
         } else {
             this.entityData.set(THROTTLE, 0.0F);
             this.entityData.set(CAMERA_SHAKE, 0.0F);
-            nextVy = Math.max(nextVy, -1.6);
+            this.entityData.set(CURRENT_TWR, 0.0F);
+            this.entityData.set(CURRENT_G_LOAD, 0.0F);
         }
 
-        double steerX = this.pilotYawInput * 0.03;
-        double steerZ = this.pilotPitchInput * 0.03;
-        this.setDeltaMovement(vel.x * 0.90 + steerX, nextVy, vel.z * 0.90 + steerZ);
+        nextVy = Mth.clamp(nextVy, -1.65, 0.85);
+        // Horizontal RCS / tilted-thrust steering so the player can align smoothly over flat terrain
+        double thrustLateralBoost = 1.0 + effectiveThrottle * 1.4;
+        double steerX = this.pilotYawInput * 0.022 * thrustLateralBoost;
+        double steerZ = this.pilotPitchInput * 0.022 * thrustLateralBoost;
+        this.setDeltaMovement(
+                Mth.clamp(vel.x * 0.92 + steerX, -0.65, 0.65),
+                nextVy,
+                Mth.clamp(vel.z * 0.92 + steerZ, -0.65, 0.65)
+        );
     }
 
     private void tickCoasting(ServerLevel serverLevel, PlanetaryEnvironment env, double ambientPa) {
@@ -1443,37 +1534,59 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
             return;
         }
         double impactSpeedMs = Math.abs(preMove.y) * 20.0;
+        double horizSpeedMs = Math.hypot(preMove.x, preMove.z) * 20.0;
+        double tiltDeg = Math.hypot(this.getPitchDeg(), this.getRollDeg());
         FlightPhase phase = this.getFlightPhase();
 
         if (phase == FlightPhase.LES_ABORT && (this.isParachutesDeployed() || impactSpeedMs <= ModularFlightPhysics.SAFE_TOUCHDOWN_SPEED_MS + 2.0)) {
-            this.performSafeTouchdown(serverLevel);
+            this.performSafeTouchdown(serverLevel, impactSpeedMs, horizSpeedMs, tiltDeg);
             return;
         }
 
-        if (impactSpeedMs <= ModularFlightPhysics.SAFE_TOUCHDOWN_SPEED_MS) {
-            this.performSafeTouchdown(serverLevel);
+        if (impactSpeedMs <= ModularFlightPhysics.SAFE_TOUCHDOWN_SPEED_MS && tiltDeg <= 22.0) {
+            this.performSafeTouchdown(serverLevel, impactSpeedMs, horizSpeedMs, tiltDeg);
         } else {
             this.triggerCrashExplosion(serverLevel);
         }
     }
 
-    private void performSafeTouchdown(ServerLevel serverLevel) {
+    private void performSafeTouchdown(ServerLevel serverLevel, double impactSpeedMs, double horizSpeedMs, double tiltDeg) {
         BlockPos landingPos = BlockPos.containing(this.getX(), Math.floor(this.getY() + 0.1), this.getZ());
         List<Entity> passengers = new ArrayList<>(this.getPassengers());
+        boolean gearOk = !this.getAssemblyGraph().hasLandingGear() || this.isLandingGearDeployed();
+
+        // Grade the landing minigame performance!
+        String rankLabel;
+        ChatFormatting rankColor;
+        if (impactSpeedMs <= 2.2 && tiltDeg <= 6.0 && horizSpeedMs <= 2.0 && gearOk) {
+            rankLabel = "★ RANK S — POUSO PERFEITO";
+            rankColor = ChatFormatting.AQUA;
+            serverLevel.playSound(null, landingPos, SoundEvents.UI_TOAST_CHALLENGE_COMPLETE, SoundSource.PLAYERS, 0.9F, 1.0F);
+        } else if (impactSpeedMs <= 3.8 && tiltDeg <= 12.0 && gearOk) {
+            rankLabel = "★ RANK A — POUSO NOMINAL";
+            rankColor = ChatFormatting.GREEN;
+            serverLevel.playSound(null, landingPos, SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 0.7F, 1.15F);
+        } else {
+            rankLabel = gearOk ? "RANK B — POUSO BRUSCO" : "RANK C — TREM RECOLHIDO";
+            rankColor = ChatFormatting.YELLOW;
+            serverLevel.playSound(null, landingPos, SoundEvents.ANVIL_LAND, SoundSource.BLOCKS, 0.6F, 0.9F);
+        }
 
         boolean reconverted = RocketStateConverter.convertToStaticBlocks(serverLevel, landingPos, this);
+        String statsSummary = String.format(
+                Locale.ROOT,
+                " [%s | Vy: -%.1f m/s | Inclinação: %.1f° | %s]",
+                rankLabel,
+                impactSpeedMs,
+                tiltDeg,
+                reconverted ? "Estrutura estática preservada" : "Tripulação desembarcada"
+        );
         for (Entity passenger : passengers) {
             if (passenger instanceof ServerPlayer sp) {
                 sp.awardStat(GCStats.SAFE_LANDING);
                 GCTriggers.SAFE_LANDING.trigger(sp);
                 ServerPlayNetworking.send(sp, new ResetPerspectivePacket());
-                sp.displayClientMessage(
-                        Component.literal(reconverted
-                                        ? "[POUSO CONCLUÍDO] Foguete reconvertido em estrutura estática com 100% dos dados preservados!"
-                                        : "[POUSO SEGURO] Tripulação desembarcada com segurança!")
-                                .withStyle(ChatFormatting.GREEN),
-                        false
-                );
+                sp.displayClientMessage(Component.literal(statsSummary).withStyle(rankColor, ChatFormatting.BOLD), false);
             }
         }
         if (!reconverted) {

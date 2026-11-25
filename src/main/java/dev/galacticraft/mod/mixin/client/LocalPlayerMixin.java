@@ -72,6 +72,8 @@ public abstract class LocalPlayerMixin extends AbstractClientPlayer {
     private boolean gc$wasFlying = false;
     @Unique
     private boolean gc$ignoreJumpUntilRelease = false;
+    @Unique
+    private boolean gc$wasSendingModularInput = false;
 
     public LocalPlayerMixin(ClientLevel clientLevel, GameProfile gameProfile) {
         super(clientLevel, gameProfile);
@@ -136,9 +138,13 @@ public abstract class LocalPlayerMixin extends AbstractClientPlayer {
             float yawInput = (this.input.right ? 1.0F : 0.0F) - (this.input.left ? 1.0F : 0.0F);
             float throttleDelta = (this.input.jumping ? 1.0F : 0.0F) - (this.input.shiftKeyDown ? 1.0F : 0.0F);
             int flags = this.input.jumping ? ModularRocketControlPayload.FLAG_RETRO_BURN : 0;
-            if (Math.abs(pitchInput) > 0.01F || Math.abs(yawInput) > 0.01F || Math.abs(throttleDelta) > 0.01F || flags != 0) {
+            boolean hasActiveInput = Math.abs(pitchInput) > 0.01F || Math.abs(yawInput) > 0.01F || Math.abs(throttleDelta) > 0.01F || flags != 0;
+            if (hasActiveInput || this.gc$wasSendingModularInput) {
                 ClientPlayNetworking.send(new ModularRocketControlPayload(modularRocket.getId(), pitchInput, yawInput, throttleDelta, flags));
+                this.gc$wasSendingModularInput = hasActiveInput;
             }
+        } else {
+            this.gc$wasSendingModularInput = false;
         }
     }
 

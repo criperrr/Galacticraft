@@ -52,6 +52,7 @@ public record ModularRocketControlPayload(
     public static final int FLAG_LES_ABORT = 1 << 2;
     public static final int FLAG_TOGGLE_LANDING_GEAR = 1 << 3;
     public static final int FLAG_RETRO_BURN = 1 << 4;
+    public static final int FLAG_ENGINE_CUTOFF = 1 << 5;
 
     public static final ResourceLocation ID = Constant.id("modular_rocket_control");
     public static final CustomPacketPayload.Type<ModularRocketControlPayload> TYPE = new CustomPacketPayload.Type<>(ID);
@@ -95,7 +96,8 @@ public record ModularRocketControlPayload(
                     (this.actionFlags & FLAG_MANUAL_STAGE) != 0,
                     (this.actionFlags & FLAG_TOGGLE_AUTOPILOT) != 0,
                     (this.actionFlags & FLAG_TOGGLE_LANDING_GEAR) != 0,
-                    (this.actionFlags & FLAG_RETRO_BURN) != 0
+                    (this.actionFlags & FLAG_RETRO_BURN) != 0,
+                    (this.actionFlags & FLAG_ENGINE_CUTOFF) != 0
             );
         }
         if (lesAbort) {

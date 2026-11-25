@@ -275,12 +275,20 @@ public class RocketOverlay {
         graphics.fill(fBarX, fBarY, fBarX + fBarW, fBarY + 6, 0xFF1E293B);
         graphics.fill(fBarX, fBarY, fBarX + Math.round(fBarW * fuelFrac), fBarY + 6, fuelFrac > 0.2F ? 0xFF22C55E : 0xFFEF4444);
 
-        // Compact control legend
+        // Compact control legend (adapts between Ascent and Retro-Descent Landing Minigame)
+        String keyHint = phase == ModularRocketFlightEntity.FlightPhase.RETRO_DESCENT
+                ? "[Esp]+Pot [Shf]-Pot [X]0% [L]Trem [Shf+G]Auto"
+                : "[WASD]Man [G]Stage [X]0% [Bksp]LES [L]Trem";
         graphics.drawString(
                 font,
-                "[WASD] Man | [G] Stage | [Bksp] LES | [L] Trem",
+                keyHint,
                 panelX + 6, panelY + 74, 0xFF94A3B8, false
         );
+
+        // 2b. Interactive Propulsive Landing Minigame Panel (right side of screen during RETRO_DESCENT!)
+        if (phase == ModularRocketFlightEntity.FlightPhase.RETRO_DESCENT) {
+            renderLandingMinigameHud(graphics, font, rocket, screenW, screenH, vertMs);
+        }
 
         // 3. Top-center emergency alert banner for Weibull failures / Max-Q / Hot-Staging / LES
         String alert = null;
@@ -315,5 +323,95 @@ public class RocketOverlay {
             graphics.fill(ax - 6, ay - 3, ax + tw + 6, ay + 12, 0xCC1E1016);
             graphics.drawString(font, alert, ax, ay, alertColor, false);
         }
+    }
+
+    private static void renderLandingMinigameHud(
+            GuiGraphics graphics,
+            net.minecraft.client.gui.Font font,
+            ModularRocketFlightEntity rocket,
+            int screenW,
+            int screenH,
+            double vertMs
+    ) {
+        int lw = 152;
+        int lh = 132;
+        int lx = screenW - lw - 12;
+        int ly = (screenH - lh) / 2;
+
+        graphics.fill(lx, ly, lx + lw, ly + lh, 0xD40B1320);
+        graphics.renderOutline(lx, ly, lw, lh, 0xFF38BDF8);
+
+        graphics.drawString(font, "COMPUTADOR DE POUSO", lx + 6, ly + 5, 0xFF38BDF8, false);
+
+        float agl = rocket.getAglBlocks();
+        float suicideAlt = rocket.getSuicideBurnAlt();
+        float throttle = rocket.getThrottle();
+        float hover = rocket.getHoverThrottle();
+        double downSpeed = Math.max(0.0, -vertMs);
+        double tiltDeg = Math.hypot(rocket.getPitchDeg(), rocket.getRollDeg());
+
+        // 1. Vertical Speed Indicator (VSI) bar with Green (<= 5 m/s), Yellow (5..10 m/s), Red (> 10 m/s) zones
+        int vsiX = lx + 10;
+        int vsiY = ly + 20;
+        int vsiW = 12;
+        int vsiH = 82;
+        graphics.fill(vsiX, vsiY, vsiX + vsiW, vsiY + vsiH, 0xFF141E2E);
+        // Scale: 0 m/s at top -> 20 m/s downward at bottom
+        int greenH = Math.round(vsiH * (5.0F / 20.0F));
+        int yellowH = Math.round(vsiH * (5.0F / 20.0F));
+        graphics.fill(vsiX, vsiY, vsiX + vsiW, vsiY + greenH, 0xAA22C55E);
+        graphics.fill(vsiX, vsiY + greenH, vsiX + vsiW, vsiY + greenH + yellowH, 0xAAFB923C);
+        graphics.fill(vsiX, vsiY + greenH + yellowH, vsiX + vsiW, vsiY + vsiH, 0xAAEF4444);
+        int needleY = vsiY + Math.round(Mth.clamp((float) downSpeed / 20.0F, 0.0F, 1.0F) * (vsiH - 2));
+        graphics.fill(vsiX - 2, needleY, vsiX + vsiW + 2, needleY + 2, 0xFFFFFFFF);
+        graphics.drawString(font, "VEL", vsiX - 2, vsiY + vsiH + 3, 0xFF94A3B8, false);
+
+        // 2. Throttle bar (0..100%) with golden HOVER sweet-spot marker!
+        int thrX = lx + 30;
+        int thrY = ly + 20;
+        int thrW = 12;
+        int thrH = 82;
+        graphics.fill(thrX, thrY, thrX + thrW, thrY + thrH, 0xFF141E2E);
+        int fillH = Math.round(Mth.clamp(throttle, 0.0F, 1.0F) * thrH);
+        int thrColor = throttle <= 0.01F ? 0xFF475569 : (throttle > hover ? 0xFF38BDF8 : 0xFFFACC15);
+        graphics.fill(thrX, thrY + thrH - fillH, thrX + thrW, thrY + thrH, thrColor);
+        int hoverY = thrY + thrH - Math.round(Mth.clamp(hover, 0.0F, 1.0F) * thrH);
+        graphics.fill(thrX - 2, hoverY - 1, thrX + thrW + 2, hoverY + 1, 0xFFFDE047);
+        graphics.drawString(font, "POT", thrX - 2, thrY + thrH + 3, 0xFF94A3B8, false);
+
+        // 3. Right telemetry & 4-item landing checklist LEDs
+        int tx = lx + 50;
+        graphics.drawString(font, String.format(Locale.ROOT, "AGL: %.0fm", agl), tx, ly + 20, 0xFFE2E8F0, false);
+        graphics.drawString(font, String.format(Locale.ROOT, "POT: %.0f%%", throttle * 100.0F), tx, ly + 31, 0xFFBAE6FD, false);
+        graphics.drawString(font, String.format(Locale.ROOT, "HOV: %.0f%%", hover * 100.0F), tx, ly + 42, 0xFFFDE047, false);
+
+        boolean velOk = downSpeed <= 5.0;
+        boolean tiltOk = tiltDeg <= 12.0;
+        boolean hasGear = rocket.getAssemblyGraph().hasLandingGear();
+        boolean gearOk = !hasGear || rocket.isLandingGearDeployed();
+
+        graphics.drawString(font, velOk ? "[OK] Vel <= 5m/s" : "[!] FREAR AGORA", tx, ly + 56, velOk ? 0xFF4ADE80 : 0xFFF87171, false);
+        graphics.drawString(font, tiltOk ? "[OK] Nivelado" : String.format(Locale.ROOT, "[!] Incl %.0f°", tiltDeg), tx, ly + 67, tiltOk ? 0xFF4ADE80 : 0xFFFB923C, false);
+        String gearText = !hasGear ? "[--] Sem Trem" : (gearOk ? "[OK] Trem Aberto" : "[!] Trem [L]");
+        int gearCol = !hasGear ? 0xFF94A3B8 : (gearOk ? 0xFF4ADE80 : 0xFFFACC15);
+        graphics.drawString(font, gearText, tx, ly + 78, gearCol, false);
+
+        // Artificial horizon leveling bar
+        int horX = tx;
+        int horY = ly + 93;
+        int horW = 90;
+        graphics.fill(horX, horY, horX + horW, horY + 6, 0xFF1E293B);
+        graphics.fill(horX + horW / 2 - 12, horY, horX + horW / 2 + 12, horY + 6, 0x5522C55E);
+        float tiltOffset = Mth.clamp(rocket.getPitchDeg() / 22.0F, -1.0F, 1.0F);
+        int dotX = horX + horW / 2 + Math.round(tiltOffset * (horW / 2 - 3));
+        graphics.fill(dotX - 2, horY - 1, dotX + 2, horY + 7, tiltOk ? 0xFF4ADE80 : 0xFFF87171);
+
+        // Suicide Burn live cue at bottom of minigame panel
+        boolean inBurnWindow = downSpeed > 5.0 && agl <= suicideAlt + 18.0;
+        String burnCue = inBurnWindow
+                ? ">>> QUEIMA DE FRENAGEM! <<<"
+                : (velOk && agl < 25.0 ? "TOQUE SUAVE — SEGURE!" : String.format(Locale.ROOT, "Queima ideal: %.0fm AGL", suicideAlt));
+        int cueColor = inBurnWindow ? 0xFFF87171 : (velOk && agl < 25.0 ? 0xFF4ADE80 : 0xFF93C5FD);
+        graphics.drawString(font, burnCue, lx + 6, ly + lh - 12, cueColor, false);
     }
 }

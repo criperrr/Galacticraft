@@ -51,6 +51,7 @@ public class GCKeyBinds {
     public static final KeyMapping CYCLE_ROCKET_SYMMETRY = new KeyMapping("key.galacticraft.cycle_rocket_symmetry", GLFW.GLFW_KEY_R, KeyMapping.CATEGORY_MISC);
     public static final KeyMapping ROCKET_LES_ABORT = new KeyMapping("key.galacticraft.rocket_les_abort", GLFW.GLFW_KEY_BACKSPACE, KeyMapping.CATEGORY_MISC);
     public static final KeyMapping ROCKET_LANDING_GEAR = new KeyMapping("key.galacticraft.rocket_landing_gear", GLFW.GLFW_KEY_L, KeyMapping.CATEGORY_MISC);
+    public static final KeyMapping ROCKET_ENGINE_CUTOFF = new KeyMapping("key.galacticraft.rocket_engine_cutoff", GLFW.GLFW_KEY_X, KeyMapping.CATEGORY_MISC);
 
     public static void register() {
         KeyBindingHelper.registerKeyBinding(OPEN_CELESTIAL_SCREEN);
@@ -59,6 +60,7 @@ public class GCKeyBinds {
         KeyBindingHelper.registerKeyBinding(CYCLE_ROCKET_SYMMETRY);
         KeyBindingHelper.registerKeyBinding(ROCKET_LES_ABORT);
         KeyBindingHelper.registerKeyBinding(ROCKET_LANDING_GEAR);
+        KeyBindingHelper.registerKeyBinding(ROCKET_ENGINE_CUTOFF);
     }
 
     public static void handleKeybinds(Minecraft client) {
@@ -74,10 +76,16 @@ public class GCKeyBinds {
                         ClientPlayNetworking.send(new ModularRocketControlPayload(
                                 modularRocket.getId(), 0.0F, 0.0F, 0.0F, ModularRocketControlPayload.FLAG_TOGGLE_LANDING_GEAR));
                     }
+                    while (ROCKET_ENGINE_CUTOFF.consumeClick()) {
+                        ClientPlayNetworking.send(new ModularRocketControlPayload(
+                                modularRocket.getId(), 0.0F, 0.0F, 0.0F, ModularRocketControlPayload.FLAG_ENGINE_CUTOFF));
+                    }
                 } else {
                     while (ROCKET_LES_ABORT.consumeClick()) {
                     }
                     while (ROCKET_LANDING_GEAR.consumeClick()) {
+                    }
+                    while (ROCKET_ENGINE_CUTOFF.consumeClick()) {
                     }
                 }
                 while (OPEN_CELESTIAL_SCREEN.consumeClick()) {
