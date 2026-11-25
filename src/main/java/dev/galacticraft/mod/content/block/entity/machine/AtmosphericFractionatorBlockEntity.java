@@ -42,6 +42,7 @@ import dev.galacticraft.machinelib.api.util.FluidSource;
 import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.content.GCBlockEntityTypes;
 import dev.galacticraft.mod.content.GCFluids;
+import dev.galacticraft.mod.events.GCGasGiantAtmosphereHandler;
 import dev.galacticraft.mod.machine.GCMachineStatuses;
 import dev.galacticraft.mod.screen.AtmosphericFractionatorMenu;
 import dev.galacticraft.mod.util.FluidUtil;
@@ -188,7 +189,7 @@ public class AtmosphericFractionatorBlockEntity extends MachineBlockEntity {
     }
 
     private void refreshAtmosphereProfile(Level level) {
-        this.applyAtmosphereProfile(resolveAtmosphereProfile(level));
+        this.applyAtmosphereProfile(resolveAtmosphereProfile(level, this.worldPosition.getY()));
     }
 
     private void applyAtmosphereProfile(AtmosphereProfile profile) {
@@ -205,15 +206,54 @@ public class AtmosphericFractionatorBlockEntity extends MachineBlockEntity {
     }
 
     public void setAtmosphereContextForTest(ResourceKey<Level> dim, @Nullable CelestialBody<?, ?> body) {
-        this.applyAtmosphereProfile(resolveAtmosphereProfile(dim, body));
+        this.applyAtmosphereProfile(resolveAtmosphereProfile(dim, body, (int) GCGasGiantAtmosphereHandler.AEROSTATIC_REFERENCE_Y));
+    }
+
+    public void setAtmosphereContextForTest(ResourceKey<Level> dim, @Nullable CelestialBody<?, ?> body, int altitudeY) {
+        this.applyAtmosphereProfile(resolveAtmosphereProfile(dim, body, altitudeY));
+    }
+
+    /**
+     * Computes altitude-dependent yield multiplier for Gas &amp; Ice Giants:
+     * normal {@code 1.0x} sustainable output in the safe aerostatic zone ({@code Y >= 200}),
+     * scaling smoothly up to {@code 2.5x} on deeper pressurized harvesting platforms as barometric pressure rises.
+     */
+    public static double computeGasGiantYieldMultiplier(ResourceKey<Level> dim, int altitudeY) {
+        if (!GCGasGiantAtmosphereHandler.isGasGiant(dim) || altitudeY >= 200) {
+            return 1.0D;
+        }
+        double localPressure = GCGasGiantAtmosphereHandler.computePressureBar(dim, altitudeY);
+        double refPressure = GCGasGiantAtmosphereHandler.computePressureBar(dim, 200.0D);
+        double ratio = Math.max(1.0D, localPressure / Math.max(0.1D, refPressure));
+        double mult = 1.0D + 0.75D * Math.log10(ratio);
+        return Math.min(2.5D, Math.max(1.0D, mult));
+    }
+
+    private static List<GasChannel> scaleChannels(List<GasChannel> baseChannels, double multiplier) {
+        if (multiplier <= 1.0001D) {
+            return baseChannels;
+        }
+        List<GasChannel> scaled = new ArrayList<>(baseChannels.size());
+        for (GasChannel ch : baseChannels) {
+            scaled.add(new GasChannel(ch.fluid(), Math.max(1L, Math.round(ch.mbPerCycle() * multiplier))));
+        }
+        return List.copyOf(scaled);
     }
 
     public static AtmosphereProfile resolveAtmosphereProfile(Level level) {
+        return resolveAtmosphereProfile(level, (int) GCGasGiantAtmosphereHandler.AEROSTATIC_REFERENCE_Y);
+    }
+
+    public static AtmosphereProfile resolveAtmosphereProfile(Level level, int altitudeY) {
         Holder<CelestialBody<?, ?>> bodyHolder = level.galacticraft$getCelestialBody();
-        return resolveAtmosphereProfile(level.dimension(), bodyHolder != null ? bodyHolder.value() : null);
+        return resolveAtmosphereProfile(level.dimension(), bodyHolder != null ? bodyHolder.value() : null, altitudeY);
     }
 
     public static AtmosphereProfile resolveAtmosphereProfile(ResourceKey<Level> dim, @Nullable CelestialBody<?, ?> body) {
+        return resolveAtmosphereProfile(dim, body, (int) GCGasGiantAtmosphereHandler.AEROSTATIC_REFERENCE_Y);
+    }
+
+    public static AtmosphereProfile resolveAtmosphereProfile(ResourceKey<Level> dim, @Nullable CelestialBody<?, ?> body, int altitudeY) {
         GasComposition gasComp = body != null ? body.atmosphere() : null;
         float pressure = gasComp != null ? gasComp.pressure() : 0.0F;
 
@@ -249,41 +289,45 @@ public class AtmosphericFractionatorBlockEntity extends MachineBlockEntity {
             ));
         }
         if (dim.equals(GCDimensions.JUPITER)) {
-            int pMilli = gasComp != null ? Math.round(pressure * 1000.0F) : 12000;
-            return new AtmosphereProfile(PLANET_JUPITER, pMilli, List.of(
+            int pMilli = Math.max(1, (int) Math.round(GCGasGiantAtmosphereHandler.computePressureBar(dim, altitudeY) * 1000.0D));
+            double mult = computeGasGiantYieldMultiplier(dim, altitudeY);
+            return new AtmosphereProfile(PLANET_JUPITER, pMilli, scaleChannels(List.of(
                     new GasChannel(Gases.HYDROGEN, 70L),
                     new GasChannel(Gases.HELIUM_3, 18L),
                     new GasChannel(Gases.METHANE, 12L),
                     new GasChannel(Gases.XENON, 4L)
-            ));
+            ), mult));
         }
         if (dim.equals(GCDimensions.SATURN)) {
-            // Maximum 3.5x Helium-3 atmospheric enrichment on Saturn
-            int pMilli = gasComp != null ? Math.round(pressure * 1000.0F) : 8500;
-            return new AtmosphereProfile(PLANET_SATURN, pMilli, List.of(
+            // Maximum 3.5x Helium-3 atmospheric enrichment on Saturn, further boosted by depth pressure
+            int pMilli = Math.max(1, (int) Math.round(GCGasGiantAtmosphereHandler.computePressureBar(dim, altitudeY) * 1000.0D));
+            double mult = computeGasGiantYieldMultiplier(dim, altitudeY);
+            return new AtmosphereProfile(PLANET_SATURN, pMilli, scaleChannels(List.of(
                     new GasChannel(Gases.HYDROGEN, 80L),
                     new GasChannel(Gases.HELIUM_3, 35L),
                     new GasChannel(Gases.METHANE, 16L),
                     new GasChannel(Gases.XENON, 6L)
-            ));
+            ), mult));
         }
         if (dim.equals(GCDimensions.URANUS)) {
-            int pMilli = gasComp != null ? Math.round(pressure * 1000.0F) : 5000;
-            return new AtmosphereProfile(PLANET_URANUS, pMilli, List.of(
+            int pMilli = Math.max(1, (int) Math.round(GCGasGiantAtmosphereHandler.computePressureBar(dim, altitudeY) * 1000.0D));
+            double mult = computeGasGiantYieldMultiplier(dim, altitudeY);
+            return new AtmosphereProfile(PLANET_URANUS, pMilli, scaleChannels(List.of(
                     new GasChannel(Gases.HYDROGEN, 60L),
                     new GasChannel(Gases.HELIUM_3, 26L),
                     new GasChannel(Gases.METHANE, 28L),
                     new GasChannel(Gases.XENON, 9L)
-            ));
+            ), mult));
         }
         if (dim.equals(GCDimensions.NEPTUNE)) {
-            int pMilli = gasComp != null ? Math.round(pressure * 1000.0F) : 7500;
-            return new AtmosphereProfile(PLANET_NEPTUNE, pMilli, List.of(
+            int pMilli = Math.max(1, (int) Math.round(GCGasGiantAtmosphereHandler.computePressureBar(dim, altitudeY) * 1000.0D));
+            double mult = computeGasGiantYieldMultiplier(dim, altitudeY);
+            return new AtmosphereProfile(PLANET_NEPTUNE, pMilli, scaleChannels(List.of(
                     new GasChannel(Gases.HYDROGEN, 55L),
                     new GasChannel(Gases.HELIUM_3, 28L),
                     new GasChannel(Gases.METHANE, 22L),
                     new GasChannel(Gases.XENON, 14L)
-            ));
+            ), mult));
         }
 
         // Dynamic fallback for any addon or custom celestial body with GasComposition

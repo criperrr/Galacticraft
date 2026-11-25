@@ -233,6 +233,9 @@ public class AtmosphericFractionatorScreen extends MachineScreen<AtmosphericFrac
         if (vacuum || milliAtm <= 0) {
             return "0.00a";
         }
+        if (milliAtm >= 100_000) {
+            return String.format("%.0fa", milliAtm / 1000.0F);
+        }
         if (milliAtm >= 10_000) {
             return String.format("%.1fa", milliAtm / 1000.0F);
         }

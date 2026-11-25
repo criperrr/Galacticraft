@@ -85,10 +85,6 @@ public class GCDecorationRecipeProvider extends FabricRecipeProvider {
         smeltBuildingBlock(output, GCBlocks.MARS_STONE, GCBlocks.MARS_COBBLESTONE, true);
 
         squareStone(output, GCBlocks.MERCURY_BASALT_BRICK, GCBlocks.MERCURY_BASALT);
-        squareStone(output, GCBlocks.JUPITER_STONE_BRICKS, GCBlocks.JUPITER_STONE);
-        squareStone(output, GCBlocks.SATURN_STONE_BRICKS, GCBlocks.SATURN_STONE);
-        squareStone(output, GCBlocks.URANUS_STONE_BRICKS, GCBlocks.URANUS_STONE);
-        squareStone(output, GCBlocks.NEPTUNE_STONE_BRICKS, GCBlocks.NEPTUNE_STONE);
 
         GCShapedRecipeBuilder.crafting(RecipeCategory.DECORATIONS, GCItems.GLOWSTONE_TORCH, 4)
                 .define('G', ConventionalItemTags.GLOWSTONE_DUSTS)

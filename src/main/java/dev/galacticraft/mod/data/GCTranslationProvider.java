@@ -243,72 +243,19 @@ public class GCTranslationProvider extends TranslationProvider {
         this.block(GCBlocks.VAPOR_SPOUT, "Vapor Spout");
         this.block(GCBlocks.CRASHED_PROBE, "Crashed Probe");
 
-        // JUPITER NATURAL & ORES
-        this.block(GCBlocks.JUPITER_SURFACE, "Jupiter Surface Rock");
-        this.block(GCBlocks.JUPITER_SUB_SURFACE, "Jupiter Sub-Surface Rock");
-        this.block(GCBlocks.JUPITER_STONE, "Jupiter Stone");
-        this.block(GCBlocks.JUPITER_RED_STORM_ROCK, "Jupiter Red Storm Rock");
-        this.block(GCBlocks.JUPITER_BANDED_OCHRE_ROCK, "Jupiter Banded Ochre Rock");
+        // GAS & ICE GIANT HYPERBARIC CORE FORMATIONS & EXOTIC ORES
         this.block(GCBlocks.JUPITER_METALLIC_HYDROGEN_ROCK, "Jupiter Metallic Hydrogen Rock");
         this.block(GCBlocks.JUPITER_CORE_BRECCIA, "Jupiter Core Breccia");
-        this.block(GCBlocks.JUPITER_STONE_BRICKS, "Jupiter Stone Bricks");
-        this.block(GCBlocks.JUPITER_COPPER_ORE, "Jupiter Copper Ore");
-        this.block(GCBlocks.JUPITER_TIN_ORE, "Jupiter Tin Ore");
-        this.block(GCBlocks.JUPITER_IRON_ORE, "Jupiter Iron Ore");
-        this.block(GCBlocks.JUPITER_ALUMINUM_ORE, "Jupiter Aluminum Ore");
-        this.block(GCBlocks.JUPITER_NIOBIUM_ORE, "Jupiter Niobium Ore");
-        this.block(GCBlocks.JUPITER_TITANIUM_ORE, "Jupiter Titanium Ore");
         this.block(GCBlocks.JUPITER_PALLADIUM_ORE, "Jupiter Palladium Ore");
 
-        // SATURN NATURAL & ORES
-        this.block(GCBlocks.SATURN_SURFACE, "Saturn Surface Rock");
-        this.block(GCBlocks.SATURN_SUB_SURFACE, "Saturn Sub-Surface Rock");
-        this.block(GCBlocks.SATURN_STONE, "Saturn Stone");
-        this.block(GCBlocks.SATURN_GOLDEN_BAND_ROCK, "Saturn Golden Band Rock");
-        this.block(GCBlocks.SATURN_RING_ICE_ROCK, "Saturn Ring Ice Rock");
-        this.block(GCBlocks.SATURN_HYDROCARBON_SLATE, "Saturn Hydrocarbon Slate");
         this.block(GCBlocks.SATURN_HELIUM_MANTLE_ROCK, "Saturn Helium Mantle Rock");
-        this.block(GCBlocks.SATURN_STONE_BRICKS, "Saturn Stone Bricks");
-        this.block(GCBlocks.SATURN_COPPER_ORE, "Saturn Copper Ore");
-        this.block(GCBlocks.SATURN_TIN_ORE, "Saturn Tin Ore");
-        this.block(GCBlocks.SATURN_IRON_ORE, "Saturn Iron Ore");
-        this.block(GCBlocks.SATURN_TITANIUM_ORE, "Saturn Titanium Ore");
-        this.block(GCBlocks.SATURN_ALUMINUM_ORE, "Saturn Aluminum Ore");
-        this.block(GCBlocks.SATURN_NIOBIUM_ORE, "Saturn Niobium Ore");
         this.block(GCBlocks.SATURN_MAGNESIUM_ORE, "Saturn Magnesium Ore");
 
-        // URANUS NATURAL & ORES
-        this.block(GCBlocks.URANUS_SURFACE, "Uranus Surface Rock");
-        this.block(GCBlocks.URANUS_SUB_SURFACE, "Uranus Sub-Surface Rock");
-        this.block(GCBlocks.URANUS_STONE, "Uranus Stone");
-        this.block(GCBlocks.URANUS_METHANE_ICE, "Uranus Methane Ice");
-        this.block(GCBlocks.URANUS_VERONA_SCARP_ROCK, "Uranus Verona Scarp Rock");
         this.block(GCBlocks.URANUS_SUPERIONIC_MANTLE_ROCK, "Uranus Superionic Mantle Rock");
         this.block(GCBlocks.URANUS_DIAMOND_BEARING_ROCK, "Uranus Diamond-Bearing Rock");
-        this.block(GCBlocks.URANUS_STONE_BRICKS, "Uranus Stone Bricks");
-        this.block(GCBlocks.URANUS_COPPER_ORE, "Uranus Copper Ore");
-        this.block(GCBlocks.URANUS_TIN_ORE, "Uranus Tin Ore");
-        this.block(GCBlocks.URANUS_ALUMINUM_ORE, "Uranus Aluminum Ore");
-        this.block(GCBlocks.URANUS_TITANIUM_ORE, "Uranus Titanium Ore");
-        this.block(GCBlocks.URANUS_IRON_ORE, "Uranus Iron Ore");
-        this.block(GCBlocks.URANUS_NIOBIUM_ORE, "Uranus Niobium Ore");
         this.block(GCBlocks.URANUS_URANIUM_ORE, "Uranus Uranium Ore");
 
-        // NEPTUNE NATURAL & ORES
-        this.block(GCBlocks.NEPTUNE_SURFACE, "Neptune Surface Rock");
-        this.block(GCBlocks.NEPTUNE_SUB_SURFACE, "Neptune Sub-Surface Rock");
-        this.block(GCBlocks.NEPTUNE_STONE, "Neptune Stone");
-        this.block(GCBlocks.NEPTUNE_NITROGEN_ICE, "Neptune Nitrogen Ice");
-        this.block(GCBlocks.NEPTUNE_DARK_VORTEX_ROCK, "Neptune Dark Vortex Rock");
-        this.block(GCBlocks.NEPTUNE_CRYO_SLATE, "Neptune Cryo-Slate");
         this.block(GCBlocks.NEPTUNE_ABYSSAL_MANTLE_ROCK, "Neptune Abyssal Mantle Rock");
-        this.block(GCBlocks.NEPTUNE_STONE_BRICKS, "Neptune Stone Bricks");
-        this.block(GCBlocks.NEPTUNE_COPPER_ORE, "Neptune Copper Ore");
-        this.block(GCBlocks.NEPTUNE_TIN_ORE, "Neptune Tin Ore");
-        this.block(GCBlocks.NEPTUNE_IRON_ORE, "Neptune Iron Ore");
-        this.block(GCBlocks.NEPTUNE_TITANIUM_ORE, "Neptune Titanium Ore");
-        this.block(GCBlocks.NEPTUNE_ALUMINUM_ORE, "Neptune Aluminum Ore");
-        this.block(GCBlocks.NEPTUNE_NIOBIUM_ORE, "Neptune Niobium Ore");
 
         // MISC DECOR
         this.block(GCBlocks.WALKWAY, "Walkway");

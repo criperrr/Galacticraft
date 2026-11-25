@@ -117,8 +117,8 @@ public class GCNoiseGeneratorSettings {
         ));
 
         context.register(JUPITER, new NoiseGeneratorSettings(
-                NoiseSettings.create(-64, 384, 1, 2), // Limits from Y = -64 to 320 (base plains Y ~ 80)
-                GCBlocks.JUPITER_STONE.defaultBlockState(),
+                NoiseSettings.create(-64, 384, 1, 2), // Open gas atmosphere Y=0..320 + sparse hyperbaric core Y=-64..-20
+                GCBlocks.JUPITER_METALLIC_HYDROGEN_ROCK.defaultBlockState(),
                 Blocks.AIR.defaultBlockState(),
                 GCNoiseGeneratorSettings.outerPlanetRouter(
                         densityLookup,
@@ -138,8 +138,8 @@ public class GCNoiseGeneratorSettings {
         ));
 
         context.register(SATURN, new NoiseGeneratorSettings(
-                NoiseSettings.create(-64, 384, 1, 2), // Limits from Y = -64 to 320 (base plains Y ~ 80)
-                GCBlocks.SATURN_STONE.defaultBlockState(),
+                NoiseSettings.create(-64, 384, 1, 2), // Open gas atmosphere Y=0..320 + sparse hyperbaric core Y=-64..-20
+                GCBlocks.SATURN_HELIUM_MANTLE_ROCK.defaultBlockState(),
                 Blocks.AIR.defaultBlockState(),
                 GCNoiseGeneratorSettings.outerPlanetRouter(
                         densityLookup,
@@ -159,8 +159,8 @@ public class GCNoiseGeneratorSettings {
         ));
 
         context.register(URANUS, new NoiseGeneratorSettings(
-                NoiseSettings.create(-64, 384, 1, 2), // Limits from Y = -64 to 320 (elevated base plains Y ~ 105)
-                GCBlocks.URANUS_STONE.defaultBlockState(),
+                NoiseSettings.create(-64, 384, 1, 2), // Open ice-giant atmosphere Y=0..320 + sparse hyperbaric core Y=-64..-20
+                GCBlocks.URANUS_SUPERIONIC_MANTLE_ROCK.defaultBlockState(),
                 Blocks.AIR.defaultBlockState(),
                 GCNoiseGeneratorSettings.outerPlanetRouter(
                         densityLookup,
@@ -180,8 +180,8 @@ public class GCNoiseGeneratorSettings {
         ));
 
         context.register(NEPTUNE, new NoiseGeneratorSettings(
-                NoiseSettings.create(-64, 384, 1, 2), // Limits from Y = -64 to 320 (elevated base plains Y ~ 105)
-                GCBlocks.NEPTUNE_STONE.defaultBlockState(),
+                NoiseSettings.create(-64, 384, 1, 2), // Open ice-giant atmosphere Y=0..320 + sparse hyperbaric core Y=-64..-20
+                GCBlocks.NEPTUNE_ABYSSAL_MANTLE_ROCK.defaultBlockState(),
                 Blocks.AIR.defaultBlockState(),
                 GCNoiseGeneratorSettings.outerPlanetRouter(
                         densityLookup,

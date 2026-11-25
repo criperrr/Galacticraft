@@ -274,7 +274,7 @@ public class GCCelestialBodies {
                 IconCelestialDisplayType.INSTANCE.configure(new IconCelestialDisplayConfig(Constant.CelestialBody.JUPITER, 0, 0, 16, 16, Constant.CelestialOverlay.VENUS)),
                 DefaultCelestialRingDisplayType.INSTANCE.configure(new DefaultCelestialRingDisplayConfig()),
                 GCDimensions.JUPITER,
-                teleporters.getOrThrow(GCTeleporterTypes.LANDER_CELESTIAL_TELEPORTER),
+                teleporters.getOrThrow(GCTeleporterTypes.AEROSTATIC_CELESTIAL_TELEPORTER),
                 new GasComposition.Builder()
                         .temperature(-110.0)
                         .pressure(12.0F)
@@ -310,7 +310,7 @@ public class GCCelestialBodies {
                 )),
                 DefaultCelestialRingDisplayType.INSTANCE.configure(new DefaultCelestialRingDisplayConfig()),
                 GCDimensions.SATURN,
-                teleporters.getOrThrow(GCTeleporterTypes.LANDER_CELESTIAL_TELEPORTER),
+                teleporters.getOrThrow(GCTeleporterTypes.AEROSTATIC_CELESTIAL_TELEPORTER),
                 new GasComposition.Builder()
                         .temperature(-140.0)
                         .pressure(8.5F)
@@ -344,7 +344,7 @@ public class GCCelestialBodies {
                 )),
                 DefaultCelestialRingDisplayType.INSTANCE.configure(new DefaultCelestialRingDisplayConfig()),
                 GCDimensions.URANUS,
-                teleporters.getOrThrow(GCTeleporterTypes.LANDER_CELESTIAL_TELEPORTER),
+                teleporters.getOrThrow(GCTeleporterTypes.AEROSTATIC_CELESTIAL_TELEPORTER),
                 new GasComposition.Builder()
                         .temperature(-195.0)
                         .pressure(5.0F)
@@ -374,7 +374,7 @@ public class GCCelestialBodies {
                 IconCelestialDisplayType.INSTANCE.configure(new IconCelestialDisplayConfig(Constant.CelestialBody.NEPTUNE, 0, 0, 16, 16, Constant.CelestialOverlay.MARS)),
                 DefaultCelestialRingDisplayType.INSTANCE.configure(new DefaultCelestialRingDisplayConfig()),
                 GCDimensions.NEPTUNE,
-                teleporters.getOrThrow(GCTeleporterTypes.LANDER_CELESTIAL_TELEPORTER),
+                teleporters.getOrThrow(GCTeleporterTypes.AEROSTATIC_CELESTIAL_TELEPORTER),
                 new GasComposition.Builder()
                         .temperature(-200.0)
                         .pressure(7.5F)

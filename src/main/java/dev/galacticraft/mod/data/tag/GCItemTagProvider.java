@@ -613,11 +613,7 @@ public class GCItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(GCBlocks.ASTEROID_ROCK.asItem())
                 .add(GCBlocks.ASTEROID_ROCK_1.asItem())
                 .add(GCBlocks.ASTEROID_ROCK_2.asItem())
-                .add(GCBlocks.MERCURY_BASALT.asItem())
-                .add(GCBlocks.JUPITER_STONE.asItem())
-                .add(GCBlocks.SATURN_STONE.asItem())
-                .add(GCBlocks.URANUS_STONE.asItem())
-                .add(GCBlocks.NEPTUNE_STONE.asItem());
+                .add(GCBlocks.MERCURY_BASALT.asItem());
         this.tag(ItemTags.STONE_CRAFTING_MATERIALS)
                 .add(GCBlocks.COBBLED_MOON_ROCK.asItem())
                 .add(GCBlocks.COBBLED_LUNASLATE.asItem())
@@ -625,11 +621,7 @@ public class GCItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(GCBlocks.ASTEROID_ROCK.asItem())
                 .add(GCBlocks.ASTEROID_ROCK_1.asItem())
                 .add(GCBlocks.ASTEROID_ROCK_2.asItem())
-                .add(GCBlocks.MERCURY_BASALT.asItem())
-                .add(GCBlocks.JUPITER_STONE.asItem())
-                .add(GCBlocks.SATURN_STONE.asItem())
-                .add(GCBlocks.URANUS_STONE.asItem())
-                .add(GCBlocks.NEPTUNE_STONE.asItem());
+                .add(GCBlocks.MERCURY_BASALT.asItem());
 
         this.tag(ItemTags.BEACON_PAYMENT_ITEMS)
                 .add(GCItems.TIN_INGOT)

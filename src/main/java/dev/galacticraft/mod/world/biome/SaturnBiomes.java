@@ -23,11 +23,8 @@
 package dev.galacticraft.mod.world.biome;
 
 import dev.galacticraft.mod.content.GCSounds;
-import dev.galacticraft.mod.world.gen.carver.GCConfiguredCarvers;
 import dev.galacticraft.mod.world.gen.feature.GCOrePlacedFeatures;
-import dev.galacticraft.mod.world.gen.feature.GCPlacedFeatures;
 import net.minecraft.core.HolderGetter;
-import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.Music;
@@ -41,122 +38,64 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 public class SaturnBiomes {
 
-    private static void addSaturnCarversAndOres(BiomeGenerationSettings.Builder builder, boolean canyon) {
-        builder.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.SATURN_CAVE_CARVER);
-        if (canyon) {
-            builder.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.SATURN_CANYON_CARVER);
-        }
-        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_COPPER_SATURN);
-        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_TIN_SATURN);
-        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_IRON_SATURN);
-        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_TITANIUM_SATURN);
-        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_ALUMINUM_SATURN);
-        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_NIOBIUM_SATURN);
+    private static void addAbyssalCoreOres(BiomeGenerationSettings.Builder builder) {
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_MAGNESIUM_SATURN);
     }
 
     public static Biome createHexagonPolarPlateau(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
         var mobBuilder = new MobSpawnSettings.Builder();
         var genBuilder = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-
-        BiomeDefaultFeatures.addDefaultCrystalFormations(genBuilder);
-        addSaturnCarversAndOres(genBuilder, true);
-
-        genBuilder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, GCPlacedFeatures.SATURN_HEXAGON_TERRACE);
-        genBuilder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, GCPlacedFeatures.SATURN_RING_RAIN_MONOLITH);
-
+        addAbyssalCoreOres(genBuilder);
         return createBiome(genBuilder, mobBuilder, -0.4F, 0xBF9E5A, 0xAB8C4E, 0x8F743E);
     }
 
     public static Biome createGoldenHazePlains(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
         var mobBuilder = new MobSpawnSettings.Builder();
         var genBuilder = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-
-        BiomeDefaultFeatures.addDefaultCrystalFormations(genBuilder);
-        addSaturnCarversAndOres(genBuilder, false);
-
-        genBuilder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, GCPlacedFeatures.SATURN_HEXAGON_TERRACE);
-        genBuilder.addFeature(GenerationStep.Decoration.LAKES, GCPlacedFeatures.SATURN_AMMONIA_HYDROCARBON_LAKE);
-
-        return createBiome(genBuilder, mobBuilder, 0.2F, 0xC9A762, 0xB59555, 0x967B44);
+        addAbyssalCoreOres(genBuilder);
+        return createBiome(genBuilder, mobBuilder, -0.2F, 0xC9A762, 0xB59555, 0x967B44);
     }
 
     public static Biome createRingShadowShatterlands(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
         var mobBuilder = new MobSpawnSettings.Builder();
         var genBuilder = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-
-        BiomeDefaultFeatures.addDefaultCrystalFormations(genBuilder);
-        addSaturnCarversAndOres(genBuilder, true);
-
-        genBuilder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, GCPlacedFeatures.SATURN_RING_RAIN_MONOLITH);
-        genBuilder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, GCPlacedFeatures.SATURN_RING_ICE_IMPACT);
-
+        addAbyssalCoreOres(genBuilder);
         return createBiome(genBuilder, mobBuilder, -0.3F, 0xBA9A58, 0xA6884C, 0x8A703D);
     }
 
     public static Biome createAmmoniaDunes(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
         var mobBuilder = new MobSpawnSettings.Builder();
         var genBuilder = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-
-        BiomeDefaultFeatures.addDefaultCrystalFormations(genBuilder);
-        addSaturnCarversAndOres(genBuilder, false);
-
-        genBuilder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, GCPlacedFeatures.SATURN_HEXAGON_TERRACE);
-        genBuilder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, GCPlacedFeatures.SATURN_RING_RAIN_MONOLITH);
-
-        return createBiome(genBuilder, mobBuilder, 0.5F, 0xCCA964, 0xB89757, 0x997D46);
+        addAbyssalCoreOres(genBuilder);
+        return createBiome(genBuilder, mobBuilder, -0.1F, 0xCCA964, 0xB89757, 0x997D46);
     }
 
     public static Biome createHydrocarbonBasin(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
         var mobBuilder = new MobSpawnSettings.Builder();
         var genBuilder = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-
-        BiomeDefaultFeatures.addDefaultCrystalFormations(genBuilder);
-        addSaturnCarversAndOres(genBuilder, true);
-
-        genBuilder.addFeature(GenerationStep.Decoration.LAKES, GCPlacedFeatures.SATURN_AMMONIA_HYDROCARBON_LAKE);
-        genBuilder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, GCPlacedFeatures.SATURN_HEXAGON_TERRACE);
-
-        return createBiome(genBuilder, mobBuilder, 0.3F, 0xC2A05D, 0xAE8E50, 0x917641);
+        addAbyssalCoreOres(genBuilder);
+        return createBiome(genBuilder, mobBuilder, -0.2F, 0xC2A05D, 0xAE8E50, 0x917641);
     }
 
     public static Biome createHeliumRainCaverns(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
         var mobBuilder = new MobSpawnSettings.Builder();
         var genBuilder = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-
-        BiomeDefaultFeatures.addDefaultCrystalFormations(genBuilder);
-        addSaturnCarversAndOres(genBuilder, true);
-
-        genBuilder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, GCPlacedFeatures.SATURN_HELIUM_RAIN_SPELEOTHEM);
-        genBuilder.addFeature(GenerationStep.Decoration.LAKES, GCPlacedFeatures.SATURN_AMMONIA_HYDROCARBON_LAKE);
-
-        return createBiome(genBuilder, mobBuilder, 0.8F, 0xB89756, 0xA4864B, 0x876E3C);
+        addAbyssalCoreOres(genBuilder);
+        return createBiome(genBuilder, mobBuilder, 0.2F, 0xB89756, 0xA4864B, 0x876E3C);
     }
 
     public static Biome createRingIceGlaciers(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
         var mobBuilder = new MobSpawnSettings.Builder();
         var genBuilder = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-
-        BiomeDefaultFeatures.addDefaultCrystalFormations(genBuilder);
-        addSaturnCarversAndOres(genBuilder, true);
-
-        genBuilder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, GCPlacedFeatures.SATURN_RING_RAIN_MONOLITH);
-        genBuilder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, GCPlacedFeatures.SATURN_RING_ICE_IMPACT);
-
+        addAbyssalCoreOres(genBuilder);
         return createBiome(genBuilder, mobBuilder, -0.5F, 0xB59657, 0xA1844B, 0x856D3D);
     }
 
     public static Biome createMetallicMantleTrench(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
         var mobBuilder = new MobSpawnSettings.Builder();
         var genBuilder = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-
-        BiomeDefaultFeatures.addDefaultCrystalFormations(genBuilder);
-        addSaturnCarversAndOres(genBuilder, true);
-
-        genBuilder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, GCPlacedFeatures.SATURN_HELIUM_RAIN_SPELEOTHEM);
-        genBuilder.addFeature(GenerationStep.Decoration.LAKES, GCPlacedFeatures.SATURN_AMMONIA_HYDROCARBON_LAKE);
-
-        return createBiome(genBuilder, mobBuilder, 1.4F, 0xB08F50, 0x9C7E45, 0x806738);
+        addAbyssalCoreOres(genBuilder);
+        return createBiome(genBuilder, mobBuilder, 0.4F, 0xB08F50, 0x9C7E45, 0x806738);
     }
 
     private static Biome createBiome(
@@ -169,7 +108,6 @@ public class SaturnBiomes {
     ) {
         var biomeBuilder = new Biome.BiomeBuilder();
         var effectsBuilder = new BiomeSpecialEffects.Builder();
-        BiomeDefaultFeatures.monsters(mobBuilder, 95, 5, 100, false);
 
         effectsBuilder.fogColor(fogColor)
                 .waterColor(waterColor)

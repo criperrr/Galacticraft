@@ -31,6 +31,7 @@ import dev.galacticraft.impl.universe.celestialbody.landable.teleporter.config.D
 import dev.galacticraft.impl.universe.celestialbody.landable.teleporter.type.DirectCelestialTeleporterType;
 import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.Constant.Teleporters;
+import dev.galacticraft.mod.content.teleporters.AerostaticCelestialTeleporterType;
 import dev.galacticraft.mod.content.teleporters.LanderCelestialTeleporterType;
 import dev.galacticraft.mod.content.teleporters.OverworldCelestialTeleporterType;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -40,8 +41,10 @@ public class GCTeleporterTypes {
     public static final GCRegistry<CelestialTeleporterType<?>> TELEPORTERS = new GCRegistry<>(BuiltInAddonRegistries.CELESTIAL_TELEPORTER_TYPE);
     public static final ResourceKey<CelestialTeleporter<?, ?>> LANDER_CELESTIAL_TELEPORTER = ResourceKey.create(AddonRegistries.CELESTIAL_TELEPORTER, Constant.id(Teleporters.LANDER));
     public static final ResourceKey<CelestialTeleporter<?, ?>> OVERWORLD_TELEPORTER = ResourceKey.create(AddonRegistries.CELESTIAL_TELEPORTER, Constant.id(Teleporters.OVERWORLD));
+    public static final ResourceKey<CelestialTeleporter<?, ?>> AEROSTATIC_CELESTIAL_TELEPORTER = ResourceKey.create(AddonRegistries.CELESTIAL_TELEPORTER, Constant.id(Teleporters.AEROSTATIC));
     public static final CelestialTeleporterType<DefaultCelestialTeleporterConfig> LANDER = TELEPORTERS.register(Teleporters.LANDER, LanderCelestialTeleporterType.INSTANCE);
     public static final CelestialTeleporterType<DefaultCelestialTeleporterConfig> OVERWORLD = TELEPORTERS.register(Teleporters.OVERWORLD, OverworldCelestialTeleporterType.INSTANCE);
+    public static final CelestialTeleporterType<DefaultCelestialTeleporterConfig> AEROSTATIC = TELEPORTERS.register(Teleporters.AEROSTATIC, AerostaticCelestialTeleporterType.INSTANCE);
 
     public static void register() {
     }
@@ -50,5 +53,6 @@ public class GCTeleporterTypes {
         context.register(BuiltinObjects.DIRECT_CELESTIAL_TELEPORTER, new CelestialTeleporter<>(DirectCelestialTeleporterType.INSTANCE, DefaultCelestialTeleporterConfig.INSTANCE));
         context.register(LANDER_CELESTIAL_TELEPORTER, new CelestialTeleporter<>(LANDER, DefaultCelestialTeleporterConfig.INSTANCE));
         context.register(OVERWORLD_TELEPORTER, new CelestialTeleporter<>(OVERWORLD, DefaultCelestialTeleporterConfig.INSTANCE));
+        context.register(AEROSTATIC_CELESTIAL_TELEPORTER, new CelestialTeleporter<>(AEROSTATIC, DefaultCelestialTeleporterConfig.INSTANCE));
     }
 }

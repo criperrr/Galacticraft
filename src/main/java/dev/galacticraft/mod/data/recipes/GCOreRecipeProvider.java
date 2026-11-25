@@ -53,23 +53,23 @@ public class GCOreRecipeProvider extends FabricRecipeProvider {
     @Override
     public void buildRecipes(RecipeOutput output) {
         // Ore Smelting and Blasting
-        oreSmeltingAndBlasting(output, List.of(GCBlocks.MOON_IRON_ORE, GCBlocks.MARS_IRON_ORE, GCBlocks.ASTEROID_IRON_ORE, GCBlocks.VENUS_IRON_ORE, GCBlocks.MERCURY_NATIVE_IRON_ORE, GCBlocks.JUPITER_IRON_ORE, GCBlocks.SATURN_IRON_ORE, GCBlocks.URANUS_IRON_ORE, GCBlocks.NEPTUNE_IRON_ORE), Items.IRON_INGOT, 0.7f, 100);
-        oreSmeltingAndBlasting(output, List.of(GCBlocks.MOON_COPPER_ORE, GCBlocks.LUNASLATE_COPPER_ORE, GCBlocks.MARS_COPPER_ORE, GCBlocks.ASTEROID_COPPER_ORE, GCBlocks.VENUS_COPPER_ORE, GCBlocks.MERCURY_COPPER_ORE, GCBlocks.JUPITER_COPPER_ORE, GCBlocks.SATURN_COPPER_ORE, GCBlocks.URANUS_COPPER_ORE, GCBlocks.NEPTUNE_COPPER_ORE), Items.COPPER_INGOT, 0.7f, 100);
+        oreSmeltingAndBlasting(output, List.of(GCBlocks.MOON_IRON_ORE, GCBlocks.MARS_IRON_ORE, GCBlocks.ASTEROID_IRON_ORE, GCBlocks.VENUS_IRON_ORE, GCBlocks.MERCURY_NATIVE_IRON_ORE), Items.IRON_INGOT, 0.7f, 100);
+        oreSmeltingAndBlasting(output, List.of(GCBlocks.MOON_COPPER_ORE, GCBlocks.LUNASLATE_COPPER_ORE, GCBlocks.MARS_COPPER_ORE, GCBlocks.ASTEROID_COPPER_ORE, GCBlocks.VENUS_COPPER_ORE, GCBlocks.MERCURY_COPPER_ORE), Items.COPPER_INGOT, 0.7f, 100);
         oreSmeltingAndBlasting(output, List.of(GCBlocks.MOON_GOLD_ORE, GCBlocks.MARS_GOLD_ORE, GCBlocks.ASTEROID_GOLD_ORE, GCBlocks.MERCURY_GOLD_ORE, GCBlocks.VENUS_GOLD_ORE), Items.GOLD_INGOT, 1.0f, 100);
         oreSmeltingAndBlasting(output, List.of(GCBlocks.MOON_REDSTONE_ORE, GCBlocks.MARS_REDSTONE_ORE, GCBlocks.ASTEROID_REDSTONE_ORE, GCBlocks.VENUS_REDSTONE_ORE), Items.REDSTONE, 0.7f, 100);
         oreSmeltingAndBlasting(output, List.of(GCBlocks.SILICON_ORE, GCBlocks.DEEPSLATE_SILICON_ORE, GCBlocks.MOON_SILICON_ORE, GCBlocks.MARS_SILICON_ORE, GCBlocks.ASTEROID_SILICON_ORE, GCBlocks.VENUS_SILICON_ORE), GCItems.SILICON, 0.2f, 100);
-        oreSmeltingAndBlasting(output, List.of(GCItems.RAW_ALUMINUM, GCBlocks.ALUMINUM_ORE, GCBlocks.DEEPSLATE_ALUMINUM_ORE, GCBlocks.MOON_ALUMINUM_ORE, GCBlocks.MARS_ALUMINUM_ORE, GCBlocks.ASTEROID_ALUMINUM_ORE, GCBlocks.VENUS_ALUMINUM_ORE, GCBlocks.MERCURY_ALUMINUM_ORE, GCBlocks.JUPITER_ALUMINUM_ORE, GCBlocks.SATURN_ALUMINUM_ORE, GCBlocks.URANUS_ALUMINUM_ORE, GCBlocks.NEPTUNE_ALUMINUM_ORE), GCItems.ALUMINUM_INGOT, 0.7f, 100);
-        oreSmeltingAndBlasting(output, List.of(GCItems.RAW_TIN, GCBlocks.TIN_ORE, GCBlocks.DEEPSLATE_TIN_ORE, GCBlocks.MOON_TIN_ORE, GCBlocks.LUNASLATE_TIN_ORE, GCBlocks.MARS_TIN_ORE, GCBlocks.VENUS_TIN_ORE, GCBlocks.JUPITER_TIN_ORE, GCBlocks.SATURN_TIN_ORE, GCBlocks.URANUS_TIN_ORE, GCBlocks.NEPTUNE_TIN_ORE), GCItems.TIN_INGOT, 0.35f, 100);
+        oreSmeltingAndBlasting(output, List.of(GCItems.RAW_ALUMINUM, GCBlocks.ALUMINUM_ORE, GCBlocks.DEEPSLATE_ALUMINUM_ORE, GCBlocks.MOON_ALUMINUM_ORE, GCBlocks.MARS_ALUMINUM_ORE, GCBlocks.ASTEROID_ALUMINUM_ORE, GCBlocks.VENUS_ALUMINUM_ORE, GCBlocks.MERCURY_ALUMINUM_ORE), GCItems.ALUMINUM_INGOT, 0.7f, 100);
+        oreSmeltingAndBlasting(output, List.of(GCItems.RAW_TIN, GCBlocks.TIN_ORE, GCBlocks.DEEPSLATE_TIN_ORE, GCBlocks.MOON_TIN_ORE, GCBlocks.LUNASLATE_TIN_ORE, GCBlocks.MARS_TIN_ORE, GCBlocks.VENUS_TIN_ORE), GCItems.TIN_INGOT, 0.35f, 100);
         oreSmeltingAndBlasting(output, List.of(GCItems.RAW_METEORIC_IRON, GCBlocks.FALLEN_METEOR), GCItems.METEORIC_IRON_INGOT, 0.85f, 100);
         oreSmeltingAndBlasting(output, List.of(GCBlocks.MOON_CHEESE_ORE), GCItems.MOON_CHEESE_CURD, 0.2f, 100);
         oreSmeltingAndBlasting(output, List.of(GCBlocks.LUNAR_SAPPHIRE_ORE), GCItems.LUNAR_SAPPHIRE, 1.0f, 100);
         oreSmeltingAndBlasting(output, List.of(GCItems.RAW_DESH, GCBlocks.DESH_ORE), GCItems.DESH_INGOT, 0.85f, 100);
-        oreSmeltingAndBlasting(output, List.of(GCItems.RAW_TITANIUM, GCBlocks.ILMENITE_ORE, GCBlocks.MOON_ILMENITE_ORE, GCBlocks.MARS_TITANIUM_ORE, GCBlocks.VENUS_TITANIUM_ORE, GCBlocks.MERCURY_TITANIUM_ORE, GCBlocks.JUPITER_TITANIUM_ORE, GCBlocks.SATURN_TITANIUM_ORE, GCBlocks.URANUS_TITANIUM_ORE, GCBlocks.NEPTUNE_TITANIUM_ORE), GCItems.TITANIUM_INGOT, 1.0f, 100);
+        oreSmeltingAndBlasting(output, List.of(GCItems.RAW_TITANIUM, GCBlocks.ILMENITE_ORE, GCBlocks.MOON_ILMENITE_ORE, GCBlocks.MARS_TITANIUM_ORE, GCBlocks.VENUS_TITANIUM_ORE, GCBlocks.MERCURY_TITANIUM_ORE), GCItems.TITANIUM_INGOT, 1.0f, 100);
         oreSmeltingAndBlasting(output, List.of(GCItems.RAW_LEAD, GCBlocks.GALENA_ORE, GCBlocks.MERCURY_LEAD_ORE), GCItems.LEAD_INGOT, 0.85f, 100);
-        oreSmeltingAndBlasting(output, List.of(GCItems.RAW_NIOBIUM, GCBlocks.NIOBIUM_ORE, GCBlocks.DEEPSLATE_NIOBIUM_ORE, GCBlocks.MOON_NIOBIUM_ORE, GCBlocks.MARS_NIOBIUM_ORE, GCBlocks.ASTEROID_NIOBIUM_ORE, GCBlocks.MERCURY_NIOBIUM_ORE, GCBlocks.VENUS_NIOBIUM_ORE, GCBlocks.JUPITER_NIOBIUM_ORE, GCBlocks.SATURN_NIOBIUM_ORE, GCBlocks.URANUS_NIOBIUM_ORE, GCBlocks.NEPTUNE_NIOBIUM_ORE), GCItems.NIOBIUM_OXIDE, 0.85f, 100);
+        oreSmeltingAndBlasting(output, List.of(GCItems.RAW_NIOBIUM, GCBlocks.NIOBIUM_ORE, GCBlocks.DEEPSLATE_NIOBIUM_ORE, GCBlocks.MOON_NIOBIUM_ORE, GCBlocks.MARS_NIOBIUM_ORE, GCBlocks.ASTEROID_NIOBIUM_ORE, GCBlocks.MERCURY_NIOBIUM_ORE, GCBlocks.VENUS_NIOBIUM_ORE), GCItems.NIOBIUM_OXIDE, 0.85f, 100);
         oreSmeltingAndBlasting(output, List.of(GCBlocks.SOLAR_ORE), GCItems.SOLAR_DUST, 0.7f, 100);
         oreSmeltingAndBlasting(output, List.of(GCBlocks.OLIVINE_BASALT, GCBlocks.RICH_OLIVINE_BASALT), GCItems.OLIVINE_SHARD, 0.5f, 100);
-        oreSmeltingAndBlasting(output, List.of(GCBlocks.MERCURY_GRAPHITE_ORE, GCBlocks.MARS_GRAPHITE_ORE, GCBlocks.ASTEROID_GRAPHITE_ORE, GCBlocks.SATURN_HYDROCARBON_SLATE), GCItems.CARBON_FRAGMENTS, 0.2f, 100);
+        oreSmeltingAndBlasting(output, List.of(GCBlocks.MERCURY_GRAPHITE_ORE, GCBlocks.MARS_GRAPHITE_ORE, GCBlocks.ASTEROID_GRAPHITE_ORE), GCItems.CARBON_FRAGMENTS, 0.2f, 100);
         oreSmeltingAndBlasting(output, List.of(GCBlocks.MERCURY_SULFIDE_ORE), GCItems.SOLAR_DUST, 0.9f, 100);
 
         // Outer Planet Exotic Ores & Mantle Thermal Extraction
@@ -78,7 +78,7 @@ public class GCOreRecipeProvider extends FabricRecipeProvider {
         oreSmeltingAndBlasting(output, List.of(GCItems.RAW_MAGNESIUM, GCBlocks.SATURN_MAGNESIUM_ORE), GCItems.MAGNESIUM_INGOT, 1.0f, 100);
         oreSmeltingAndBlasting(output, List.of(GCBlocks.URANUS_DIAMOND_BEARING_ROCK), GCItems.LONSDALEITE_GEM, 1.5f, 120);
         oreSmeltingAndBlasting(output, List.of(GCItems.RAW_URANIUM, GCBlocks.URANUS_URANIUM_ORE), GCItems.URANIUM_INGOT, 1.2f, 120);
-        oreSmeltingAndBlasting(output, List.of(GCBlocks.NEPTUNE_ABYSSAL_MANTLE_ROCK, GCBlocks.NEPTUNE_CRYO_SLATE), GCItems.SUPERIONIC_ICE_CRYSTAL, 1.5f, 120);
+        oreSmeltingAndBlasting(output, List.of(GCBlocks.NEPTUNE_ABYSSAL_MANTLE_ROCK), GCItems.SUPERIONIC_ICE_CRYSTAL, 1.5f, 120);
 
         // Progressive 3-Layer Helium-3 Cryogenic Cell Encapsulation (Moon -> Mercury -> Saturn)
         // Layer 1 (Moon): 4x Moon Ilmenite Ore + Compressed Niobium + Lunar Sapphire -> 1x Helium-3 Cell
