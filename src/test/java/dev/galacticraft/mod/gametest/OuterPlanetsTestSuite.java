@@ -31,6 +31,9 @@ import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.content.GCBlocks;
 import dev.galacticraft.mod.content.GCCelestialBodies;
 import dev.galacticraft.mod.content.GCTeleporterTypes;
+import dev.galacticraft.mod.content.block.entity.machine.AtmosphericFractionatorBlockEntity;
+import dev.galacticraft.mod.content.teleporters.AerostaticCelestialTeleporterType;
+import dev.galacticraft.mod.events.GCGasGiantAtmosphereHandler;
 import dev.galacticraft.mod.world.biome.GCBiomes;
 import dev.galacticraft.mod.world.dimension.GCDimensions;
 import dev.galacticraft.mod.world.gen.GCDensityFunctions;
@@ -43,7 +46,9 @@ import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.dimension.DimensionType;
+import net.minecraft.world.level.levelgen.DensityFunction;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 
 import java.util.List;
@@ -182,22 +187,19 @@ public class OuterPlanetsTestSuite implements GalacticraftGameTest {
     @GameTest(template = EMPTY_STRUCTURE)
     public void testJupiterLithologySuite(GameTestHelper context) {
         List<Block> expectedBlocks = List.of(
-                GCBlocks.JUPITER_SURFACE,
-                GCBlocks.JUPITER_SUB_SURFACE,
-                GCBlocks.JUPITER_STONE,
-                GCBlocks.JUPITER_RED_STORM_ROCK,
-                GCBlocks.JUPITER_BANDED_OCHRE_ROCK,
                 GCBlocks.JUPITER_METALLIC_HYDROGEN_ROCK,
                 GCBlocks.JUPITER_CORE_BRECCIA,
-                GCBlocks.JUPITER_STONE_BRICKS,
-                GCBlocks.JUPITER_COPPER_ORE,
-                GCBlocks.JUPITER_TIN_ORE,
-                GCBlocks.JUPITER_IRON_ORE,
-                GCBlocks.JUPITER_ALUMINUM_ORE
+                GCBlocks.JUPITER_PALLADIUM_ORE
         );
         for (Block block : expectedBlocks) {
             if (BuiltInRegistries.BLOCK.getResourceKey(block).isEmpty()) {
-                context.fail("Expected Jupiter block to be registered in BuiltInRegistries.BLOCK: " + block);
+                context.fail("Expected Jupiter hyperbaric core block to be registered: " + block);
+                return;
+            }
+        }
+        for (String removedId : List.of("jupiter_surface", "jupiter_stone", "jupiter_stone_bricks", "jupiter_copper_ore", "jupiter_iron_ore")) {
+            if (BuiltInRegistries.BLOCK.containsKey(Constant.id(removedId))) {
+                context.fail("Removed nonsensical Jupiter block must not be registered: " + removedId);
                 return;
             }
         }
@@ -347,22 +349,18 @@ public class OuterPlanetsTestSuite implements GalacticraftGameTest {
     @GameTest(template = EMPTY_STRUCTURE)
     public void testSaturnLithologySuite(GameTestHelper context) {
         List<Block> expectedBlocks = List.of(
-                GCBlocks.SATURN_SURFACE,
-                GCBlocks.SATURN_SUB_SURFACE,
-                GCBlocks.SATURN_STONE,
-                GCBlocks.SATURN_GOLDEN_BAND_ROCK,
-                GCBlocks.SATURN_RING_ICE_ROCK,
-                GCBlocks.SATURN_HYDROCARBON_SLATE,
                 GCBlocks.SATURN_HELIUM_MANTLE_ROCK,
-                GCBlocks.SATURN_STONE_BRICKS,
-                GCBlocks.SATURN_COPPER_ORE,
-                GCBlocks.SATURN_TIN_ORE,
-                GCBlocks.SATURN_IRON_ORE,
-                GCBlocks.SATURN_TITANIUM_ORE
+                GCBlocks.SATURN_MAGNESIUM_ORE
         );
         for (Block block : expectedBlocks) {
             if (BuiltInRegistries.BLOCK.getResourceKey(block).isEmpty()) {
-                context.fail("Expected Saturn block to be registered in BuiltInRegistries.BLOCK: " + block);
+                context.fail("Expected Saturn hyperbaric core block to be registered: " + block);
+                return;
+            }
+        }
+        for (String removedId : List.of("saturn_surface", "saturn_stone", "saturn_stone_bricks", "saturn_copper_ore", "saturn_iron_ore")) {
+            if (BuiltInRegistries.BLOCK.containsKey(Constant.id(removedId))) {
+                context.fail("Removed nonsensical Saturn block must not be registered: " + removedId);
                 return;
             }
         }
@@ -512,22 +510,19 @@ public class OuterPlanetsTestSuite implements GalacticraftGameTest {
     @GameTest(template = EMPTY_STRUCTURE)
     public void testUranusLithologySuite(GameTestHelper context) {
         List<Block> expectedBlocks = List.of(
-                GCBlocks.URANUS_SURFACE,
-                GCBlocks.URANUS_SUB_SURFACE,
-                GCBlocks.URANUS_STONE,
-                GCBlocks.URANUS_METHANE_ICE,
-                GCBlocks.URANUS_VERONA_SCARP_ROCK,
                 GCBlocks.URANUS_SUPERIONIC_MANTLE_ROCK,
                 GCBlocks.URANUS_DIAMOND_BEARING_ROCK,
-                GCBlocks.URANUS_STONE_BRICKS,
-                GCBlocks.URANUS_COPPER_ORE,
-                GCBlocks.URANUS_TIN_ORE,
-                GCBlocks.URANUS_ALUMINUM_ORE,
-                GCBlocks.URANUS_TITANIUM_ORE
+                GCBlocks.URANUS_URANIUM_ORE
         );
         for (Block block : expectedBlocks) {
             if (BuiltInRegistries.BLOCK.getResourceKey(block).isEmpty()) {
-                context.fail("Expected Uranus block to be registered in BuiltInRegistries.BLOCK: " + block);
+                context.fail("Expected Uranus hyperbaric core block to be registered: " + block);
+                return;
+            }
+        }
+        for (String removedId : List.of("uranus_surface", "uranus_stone", "uranus_methane_ice", "uranus_copper_ore")) {
+            if (BuiltInRegistries.BLOCK.containsKey(Constant.id(removedId))) {
+                context.fail("Removed nonsensical Uranus block must not be registered: " + removedId);
                 return;
             }
         }
@@ -676,23 +671,13 @@ public class OuterPlanetsTestSuite implements GalacticraftGameTest {
 
     @GameTest(template = EMPTY_STRUCTURE)
     public void testNeptuneLithologySuite(GameTestHelper context) {
-        List<Block> expectedBlocks = List.of(
-                GCBlocks.NEPTUNE_SURFACE,
-                GCBlocks.NEPTUNE_SUB_SURFACE,
-                GCBlocks.NEPTUNE_STONE,
-                GCBlocks.NEPTUNE_NITROGEN_ICE,
-                GCBlocks.NEPTUNE_DARK_VORTEX_ROCK,
-                GCBlocks.NEPTUNE_CRYO_SLATE,
-                GCBlocks.NEPTUNE_ABYSSAL_MANTLE_ROCK,
-                GCBlocks.NEPTUNE_STONE_BRICKS,
-                GCBlocks.NEPTUNE_COPPER_ORE,
-                GCBlocks.NEPTUNE_TIN_ORE,
-                GCBlocks.NEPTUNE_IRON_ORE,
-                GCBlocks.NEPTUNE_TITANIUM_ORE
-        );
-        for (Block block : expectedBlocks) {
-            if (BuiltInRegistries.BLOCK.getResourceKey(block).isEmpty()) {
-                context.fail("Expected Neptune block to be registered in BuiltInRegistries.BLOCK: " + block);
+        if (BuiltInRegistries.BLOCK.getResourceKey(GCBlocks.NEPTUNE_ABYSSAL_MANTLE_ROCK).isEmpty()) {
+            context.fail("Expected Neptune hyperbaric core block to be registered: NEPTUNE_ABYSSAL_MANTLE_ROCK");
+            return;
+        }
+        for (String removedId : List.of("neptune_surface", "neptune_stone", "neptune_nitrogen_ice", "neptune_titanium_ore")) {
+            if (BuiltInRegistries.BLOCK.containsKey(Constant.id(removedId))) {
+                context.fail("Removed nonsensical Neptune block must not be registered: " + removedId);
                 return;
             }
         }
@@ -866,8 +851,8 @@ public class OuterPlanetsTestSuite implements GalacticraftGameTest {
         for (var key : outerKeys) {
             CelestialBody<?, ?> body = registry.get(key);
             PlanetConfig config = (PlanetConfig) body.config();
-            if (!config.teleporter().is(GCTeleporterTypes.LANDER_CELESTIAL_TELEPORTER)) {
-                context.fail("Expected planet " + key.location() + " to use LANDER_CELESTIAL_TELEPORTER, found: " + config.teleporter().unwrapKey().map(k -> k.location().toString()).orElse("unregistered"));
+            if (!config.teleporter().is(GCTeleporterTypes.AEROSTATIC_CELESTIAL_TELEPORTER)) {
+                context.fail("Expected gas/ice giant " + key.location() + " to use AEROSTATIC_CELESTIAL_TELEPORTER, found: " + config.teleporter().unwrapKey().map(k -> k.location().toString()).orElse("unregistered"));
                 return;
             }
             if (config.world() == null) {
@@ -880,25 +865,22 @@ public class OuterPlanetsTestSuite implements GalacticraftGameTest {
 
     @GameTest(template = EMPTY_STRUCTURE)
     public void testLithologyHardnessScalingAndHarvestingTools(GameTestHelper context) {
-        // Assert all outer blocks require correct tool for drops
-        List<Block> sampleBlocks = List.of(
-                GCBlocks.JUPITER_SURFACE, GCBlocks.JUPITER_STONE, GCBlocks.JUPITER_METALLIC_HYDROGEN_ROCK,
-                GCBlocks.SATURN_SURFACE, GCBlocks.SATURN_STONE, GCBlocks.SATURN_HELIUM_MANTLE_ROCK,
-                GCBlocks.URANUS_SURFACE, GCBlocks.URANUS_STONE, GCBlocks.URANUS_SUPERIONIC_MANTLE_ROCK,
-                GCBlocks.NEPTUNE_SURFACE, GCBlocks.NEPTUNE_STONE, GCBlocks.NEPTUNE_ABYSSAL_MANTLE_ROCK
+        // Assert all kept hyperbaric abyssal core blocks require correct tool for drops and have high pressure-hardened durability
+        List<Block> coreBlocks = List.of(
+                GCBlocks.JUPITER_METALLIC_HYDROGEN_ROCK, GCBlocks.JUPITER_CORE_BRECCIA, GCBlocks.JUPITER_PALLADIUM_ORE,
+                GCBlocks.SATURN_HELIUM_MANTLE_ROCK, GCBlocks.SATURN_MAGNESIUM_ORE,
+                GCBlocks.URANUS_SUPERIONIC_MANTLE_ROCK, GCBlocks.URANUS_DIAMOND_BEARING_ROCK, GCBlocks.URANUS_URANIUM_ORE,
+                GCBlocks.NEPTUNE_ABYSSAL_MANTLE_ROCK
         );
-        for (Block b : sampleBlocks) {
+        for (Block b : coreBlocks) {
             if (!b.defaultBlockState().requiresCorrectToolForDrops()) {
-                context.fail("Block " + b + " must require correct tool for drops!");
+                context.fail("Hyperbaric core block " + b + " must require correct tool for drops!");
                 return;
             }
-        }
-        // Surface blocks should have lower hardness than deep mantle rock
-        float jupiterSurfaceHardness = GCBlocks.JUPITER_SURFACE.defaultDestroyTime();
-        float jupiterMantleHardness = GCBlocks.JUPITER_METALLIC_HYDROGEN_ROCK.defaultDestroyTime();
-        if (jupiterSurfaceHardness >= jupiterMantleHardness) {
-            context.fail("Expected surface hardness (" + jupiterSurfaceHardness + ") < mantle hardness (" + jupiterMantleHardness + ")");
-            return;
+            if (b.defaultDestroyTime() < 4.0F) {
+                context.fail("Hyperbaric core block " + b + " hardness too low (" + b.defaultDestroyTime() + ")");
+                return;
+            }
         }
         context.succeed();
     }
@@ -975,68 +957,182 @@ public class OuterPlanetsTestSuite implements GalacticraftGameTest {
     }
 
     @GameTest(template = EMPTY_STRUCTURE)
-    public void testSaturnianRingCryogenicExtractionScenario(GameTestHelper context) {
-        BlockPos icePos = new BlockPos(1, 1, 1);
-        BlockPos slatePos = new BlockPos(1, 2, 1);
+    public void testGasGiantBarometricPressureAndOpticalExtinction(GameTestHelper context) {
+        for (var dim : List.of(GCDimensions.JUPITER, GCDimensions.SATURN, GCDimensions.URANUS, GCDimensions.NEPTUNE)) {
+            double pExo = GCGasGiantAtmosphereHandler.computePressureBar(dim, 320.0D);
+            double pAero = GCGasGiantAtmosphereHandler.computePressureBar(dim, 216.0D);
+            double pCloud = GCGasGiantAtmosphereHandler.computePressureBar(dim, 100.0D);
+            double pCore = GCGasGiantAtmosphereHandler.computePressureBar(dim, -20.0D);
 
-        context.setBlock(icePos, GCBlocks.SATURN_RING_ICE_ROCK.defaultBlockState());
-        context.setBlock(slatePos, GCBlocks.SATURN_HYDROCARBON_SLATE.defaultBlockState());
+            if (pExo >= 0.2D) {
+                context.fail("Expected exosphere pressure < 0.2 bar at Y=320 for " + dim.location() + ", got: " + pExo);
+                return;
+            }
+            if (pAero < 0.5D || pAero > 2.5D) {
+                context.fail("Expected safe aerostatic pressure [0.5, 2.5] bar at Y=216 for " + dim.location() + ", got: " + pAero);
+                return;
+            }
+            if (!(pCloud > pAero * 5.0D && pCore >= 80.0D)) {
+                context.fail("Expected exponential pressure rise into clouds/core for " + dim.location()
+                        + ": aero=" + pAero + ", cloud=" + pCloud + ", core=" + pCore);
+                return;
+            }
 
-        if (!context.getBlockState(icePos).is(GCBlocks.SATURN_RING_ICE_ROCK)) {
-            context.fail("Failed to place SATURN_RING_ICE_ROCK!");
-            return;
+            float transAero = GCGasGiantAtmosphereHandler.computeOpticalTransmittance(dim, 220.0D);
+            float transCloud = GCGasGiantAtmosphereHandler.computeOpticalTransmittance(dim, 100.0D);
+            float transCore = GCGasGiantAtmosphereHandler.computeOpticalTransmittance(dim, -20.0D);
+            if (!(transAero == 1.0F && transCloud < transAero && transCore < 0.05F)) {
+                context.fail("Optical transmittance failed to decay with depth on " + dim.location()
+                        + ": aero=" + transAero + ", cloud=" + transCloud + ", core=" + transCore);
+                return;
+            }
+
+            float fogAero = GCGasGiantAtmosphereHandler.computeFogDistanceScale(dim, 216.0D);
+            float fogCloud = GCGasGiantAtmosphereHandler.computeFogDistanceScale(dim, 100.0D);
+            float fogCore = GCGasGiantAtmosphereHandler.computeFogDistanceScale(dim, -20.0D);
+            if (!(fogAero == 1.0F && fogCloud < fogAero && fogCore < fogCloud && fogCore <= 0.30F)) {
+                context.fail("Fog distance scale failed to tighten with depth on " + dim.location()
+                        + ": aero=" + fogAero + ", cloud=" + fogCloud + ", core=" + fogCore);
+                return;
+            }
+
+            double windAero = GCGasGiantAtmosphereHandler.computeZonalWindAccel(dim, 216.0D, 50.0D);
+            double windCloud = GCGasGiantAtmosphereHandler.computeZonalWindAccel(dim, 100.0D, 50.0D);
+            if (windAero != 0.0D || Math.abs(windCloud) < 0.01D) {
+                context.fail("Expected calm aerostatic zone (0 wind) and active cloud jet stream on " + dim.location()
+                        + ": aero=" + windAero + ", cloud=" + windCloud);
+                return;
+            }
         }
-        if (!context.getBlockState(slatePos).is(GCBlocks.SATURN_HYDROCARBON_SLATE)) {
-            context.fail("Failed to place SATURN_HYDROCARBON_SLATE!");
+
+        // Verify Jupiter > Saturn > Neptune > Uranus pressure hierarchy at cloud and core altitudes
+        double pJ = GCGasGiantAtmosphereHandler.computePressureBar(GCDimensions.JUPITER, -20.0D);
+        double pS = GCGasGiantAtmosphereHandler.computePressureBar(GCDimensions.SATURN, -20.0D);
+        double pN = GCGasGiantAtmosphereHandler.computePressureBar(GCDimensions.NEPTUNE, -20.0D);
+        double pU = GCGasGiantAtmosphereHandler.computePressureBar(GCDimensions.URANUS, -20.0D);
+        if (!(pJ > pS && pS > pN && pN > pU)) {
+            context.fail("Expected core pressure order Jupiter > Saturn > Neptune > Uranus, got: " + pJ + ", " + pS + ", " + pN + ", " + pU);
             return;
         }
         context.succeed();
     }
 
     @GameTest(template = EMPTY_STRUCTURE)
-    public void testUranianVeronaScarpDynamicTraversalScenario(GameTestHelper context) {
-        BlockPos icePos = new BlockPos(1, 1, 1);
-        BlockPos scarpPos = new BlockPos(2, 1, 1);
-        BlockPos diamondPos = new BlockPos(1, 2, 1);
+    public void testAerostaticPlatformGenerationAndNonDestructiveRevisit(GameTestHelper context) {
+        var level = context.getLevel();
+        BlockPos absOrigin = context.absolutePos(new BlockPos(4, 0, 4));
+        int cx = absOrigin.getX();
+        int cz = absOrigin.getZ();
+        int py = AerostaticCelestialTeleporterType.PLATFORM_Y;
+        BlockPos center = new BlockPos(cx, py, cz);
 
-        context.setBlock(icePos, GCBlocks.URANUS_METHANE_ICE.defaultBlockState());
-        context.setBlock(scarpPos, GCBlocks.URANUS_VERONA_SCARP_ROCK.defaultBlockState());
-        context.setBlock(diamondPos, GCBlocks.URANUS_DIAMOND_BEARING_ROCK.defaultBlockState());
+        // Clear any leftover blocks from prior test runs in this 7x7 column
+        for (int dx = -3; dx <= 3; dx++) {
+            for (int dz = -3; dz <= 3; dz++) {
+                for (int dy = -1; dy <= 1; dy++) {
+                    level.setBlock(new BlockPos(cx + dx, py + dy, cz + dz), Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+                }
+            }
+        }
 
-        // Validate friction on methane ice
-        float friction = GCBlocks.URANUS_METHANE_ICE.getFriction();
-        if (Math.abs(friction - 0.96F) > 1.0E-4F) {
-            context.fail("Expected Uranus methane ice friction to be 0.96F, found: " + friction);
+        AerostaticCelestialTeleporterType.generateAerostaticPlatform(level, cx, cz);
+
+        // Verify 7x7 deck composition: center aluminum, inner ring steel, outer rim tin, gantry trusses below, corner torches above
+        if (!level.getBlockState(center).is(GCBlocks.ALUMINUM_DECORATION.block())) {
+            context.fail("Expected center of aerostatic platform to be ALUMINUM_DECORATION, got: " + level.getBlockState(center));
             return;
         }
-        // Validate light emission of diamond bearing rock
-        int light = context.getBlockState(diamondPos).getLightEmission();
-        if (light != 3) {
-            context.fail("Expected URANUS_DIAMOND_BEARING_ROCK light emission = 3, found: " + light);
+        if (!level.getBlockState(center.offset(2, 0, 2)).is(GCBlocks.STEEL_DECORATION.block())) {
+            context.fail("Expected inner deck ring to be STEEL_DECORATION, got: " + level.getBlockState(center.offset(2, 0, 2)));
+            return;
+        }
+        if (!level.getBlockState(center.offset(3, 0, 0)).is(GCBlocks.TIN_DECORATION.block())) {
+            context.fail("Expected outer rim to be TIN_DECORATION, got: " + level.getBlockState(center.offset(3, 0, 0)));
+            return;
+        }
+        if (!level.getBlockState(center.below()).is(GCBlocks.GANTRY_TRUSS)) {
+            context.fail("Expected structural GANTRY_TRUSS beneath platform center");
+            return;
+        }
+        if (!level.getBlockState(center.offset(3, 1, 3)).is(GCBlocks.GLOWSTONE_TORCH)) {
+            context.fail("Expected GLOWSTONE_TORCH beacon on platform corner");
+            return;
+        }
+
+        // Verify revisit is non-destructive (does not overwrite player-built blocks)
+        BlockPos playerBlock = center.offset(2, 0, 0);
+        level.setBlock(playerBlock, Blocks.GOLD_BLOCK.defaultBlockState(), Block.UPDATE_ALL);
+        AerostaticCelestialTeleporterType.generateAerostaticPlatform(level, cx, cz);
+        if (!level.getBlockState(playerBlock).is(Blocks.GOLD_BLOCK)) {
+            context.fail("Aerostatic platform regeneration must not overwrite existing player-placed blocks!");
             return;
         }
         context.succeed();
     }
 
     @GameTest(template = EMPTY_STRUCTURE)
-    public void testNeptunianAbyssalDiamondMiningScenario(GameTestHelper context) {
-        BlockPos icePos = new BlockPos(1, 1, 1);
-        BlockPos slatePos = new BlockPos(1, 2, 1);
-        BlockPos orePos = new BlockPos(1, 3, 1);
+    public void testAtmosphericFractionatorAltitudeYieldScaling(GameTestHelper context) {
+        var saturnAero = AtmosphericFractionatorBlockEntity.resolveAtmosphereProfile(GCDimensions.SATURN, null, 216);
+        var saturnCloud = AtmosphericFractionatorBlockEntity.resolveAtmosphereProfile(GCDimensions.SATURN, null, 80);
+        var saturnCore = AtmosphericFractionatorBlockEntity.resolveAtmosphereProfile(GCDimensions.SATURN, null, -20);
 
-        context.setBlock(icePos, GCBlocks.NEPTUNE_NITROGEN_ICE.defaultBlockState());
-        context.setBlock(slatePos, GCBlocks.NEPTUNE_CRYO_SLATE.defaultBlockState());
-        context.setBlock(orePos, GCBlocks.NEPTUNE_TITANIUM_ORE.defaultBlockState());
+        long he3Aero = saturnAero.channels().get(1).mbPerCycle();
+        long he3Cloud = saturnCloud.channels().get(1).mbPerCycle();
+        long he3Core = saturnCore.channels().get(1).mbPerCycle();
 
-        // Validate friction on nitrogen ice
-        float friction = GCBlocks.NEPTUNE_NITROGEN_ICE.getFriction();
-        if (Math.abs(friction - 0.97F) > 1.0E-4F) {
-            context.fail("Expected Neptune nitrogen ice friction to be 0.97F, found: " + friction);
+        if (he3Aero != 35L) {
+            context.fail("Expected Saturn baseline 3He yield = 35 mB at Y=216, got: " + he3Aero);
             return;
         }
-        if (!context.getBlockState(orePos).is(GCBlocks.NEPTUNE_TITANIUM_ORE)) {
-            context.fail("Failed to place NEPTUNE_TITANIUM_ORE!");
+        if (!(he3Cloud > he3Aero && he3Core > he3Cloud && he3Core <= 88L)) {
+            context.fail("Expected Saturn 3He yield to scale monotonically with depth up to 2.5x: aero=" + he3Aero + ", cloud=" + he3Cloud + ", core=" + he3Core);
             return;
+        }
+        if (!(saturnCore.pressureMilliAtm() > saturnCloud.pressureMilliAtm() && saturnCloud.pressureMilliAtm() > saturnAero.pressureMilliAtm())) {
+            context.fail("Expected fractionator reported ambient pressure to increase with depth!");
+            return;
+        }
+        context.succeed();
+    }
+
+    @GameTest(template = EMPTY_STRUCTURE)
+    public void testGasGiantNoiseSettingsHaveEmptyAtmosphereAboveZero(GameTestHelper context) {
+        var noiseSettingsRegistry = context.getLevel().registryAccess().registryOrThrow(Registries.NOISE_SETTINGS);
+        var expectedDefaults = java.util.Map.of(
+                GCNoiseGeneratorSettings.JUPITER, GCBlocks.JUPITER_METALLIC_HYDROGEN_ROCK,
+                GCNoiseGeneratorSettings.SATURN, GCBlocks.SATURN_HELIUM_MANTLE_ROCK,
+                GCNoiseGeneratorSettings.URANUS, GCBlocks.URANUS_SUPERIONIC_MANTLE_ROCK,
+                GCNoiseGeneratorSettings.NEPTUNE, GCBlocks.NEPTUNE_ABYSSAL_MANTLE_ROCK
+        );
+
+        for (var entry : expectedDefaults.entrySet()) {
+            NoiseGeneratorSettings settings = noiseSettingsRegistry.get(entry.getKey());
+            if (settings == null) {
+                context.fail("Missing NoiseGeneratorSettings: " + entry.getKey().location());
+                return;
+            }
+            if (!settings.defaultBlock().is(entry.getValue())) {
+                context.fail("Expected defaultBlock of " + entry.getKey().location() + " to be " + entry.getValue() + ", got: " + settings.defaultBlock());
+                return;
+            }
+            DensityFunction finalDensity = settings.noiseRouter().finalDensity();
+            for (int y : new int[]{10, 100, 216, 300}) {
+                for (int x = -128; x <= 128; x += 64) {
+                    double d = finalDensity.compute(new DensityFunction.SinglePointContext(x, y, x));
+                    if (d >= 0.0D) {
+                        context.fail("Gas giant " + entry.getKey().location() + " produced solid density (" + d + ") above Y=0 at (" + x + "," + y + "," + x + ")!");
+                        return;
+                    }
+                }
+            }
+            // Verify continuous abyssal mantle floor near bedrock (zero void holes at Y = -60)
+            for (int x = -128; x <= 128; x += 64) {
+                double floorD = finalDensity.compute(new DensityFunction.SinglePointContext(x, -60, x));
+                if (floorD <= 0.0D) {
+                    context.fail("Gas giant " + entry.getKey().location() + " has a void hole at Y=-60 (" + x + ", -60, " + x + "): density=" + floorD);
+                    return;
+                }
+            }
         }
         context.succeed();
     }
