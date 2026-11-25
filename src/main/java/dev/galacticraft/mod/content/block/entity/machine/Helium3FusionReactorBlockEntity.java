@@ -447,15 +447,26 @@ public class Helium3FusionReactorBlockEntity extends MachineBlockEntity {
         this.coolPlasma();
     }
 
+    private static final long RECIPE_CACHE_TTL_TICKS = 200L;
+    private @Nullable FusionReactorRecipe cachedFusionRecipe;
+    private long lastRecipeCheckTick = Long.MIN_VALUE;
+
     private @Nullable FusionReactorRecipe findFusionRecipe(ServerLevel level) {
+        long gameTime = level.getGameTime();
+        if (this.lastRecipeCheckTick != Long.MIN_VALUE && gameTime - this.lastRecipeCheckTick < RECIPE_CACHE_TTL_TICKS) {
+            return this.cachedFusionRecipe;
+        }
+        this.lastRecipeCheckTick = gameTime;
+        this.cachedFusionRecipe = null;
         List<RecipeHolder<FusionReactorRecipe>> recipes = level.getRecipeManager().getAllRecipesFor(GCRecipes.FUSION_REACTOR_TYPE);
         for (RecipeHolder<FusionReactorRecipe> holder : recipes) {
             FusionReactorRecipe recipe = holder.value();
             if (recipe.getPrimaryGas() == Gases.HELIUM_3 && recipe.getSecondaryGas() == Gases.DEUTERIUM) {
-                return recipe;
+                this.cachedFusionRecipe = recipe;
+                break;
             }
         }
-        return null;
+        return this.cachedFusionRecipe;
     }
 
     public int getValidStructureBlocks() {

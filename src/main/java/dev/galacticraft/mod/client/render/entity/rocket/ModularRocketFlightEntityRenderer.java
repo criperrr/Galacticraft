@@ -91,7 +91,7 @@ public class ModularRocketFlightEntityRenderer extends EntityRenderer<ModularRoc
 
     @Override
     public boolean shouldRender(@NotNull ModularRocketFlightEntity entity, @NotNull Frustum frustum, double camX, double camY, double camZ) {
-        return true;
+        return frustum.isVisible(entity.getBoundingBoxForCulling().inflate(8.0));
     }
 
     @Override

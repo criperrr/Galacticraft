@@ -42,6 +42,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -51,6 +52,7 @@ public class ParachestBakedModel implements BakedModel, WrapperBakedModel {
     private final BakedModel parent;
     private final Map<DyeColor, BakedModel> bakedChutes;
     private final DyeColor defaultColor;
+    private final Map<DyeColor, ParachestBakedModel> coloredModels;
 
     public ParachestBakedModel(BakedModel parent, Map<DyeColor, BakedModel> bakedChutes) {
         this(parent, bakedChutes, DyeColor.WHITE);
@@ -60,6 +62,18 @@ public class ParachestBakedModel implements BakedModel, WrapperBakedModel {
         this.parent = parent;
         this.bakedChutes = bakedChutes;
         this.defaultColor = defaultColor;
+        this.coloredModels = new EnumMap<>(DyeColor.class);
+        this.itemOverride = new ParachestOverride();
+        for (DyeColor color : DyeColor.values()) {
+            this.coloredModels.put(color, color == defaultColor ? this : new ParachestBakedModel(parent, bakedChutes, color, this.coloredModels));
+        }
+    }
+
+    private ParachestBakedModel(BakedModel parent, Map<DyeColor, BakedModel> bakedChutes, DyeColor defaultColor, Map<DyeColor, ParachestBakedModel> coloredModels) {
+        this.parent = parent;
+        this.bakedChutes = bakedChutes;
+        this.defaultColor = defaultColor;
+        this.coloredModels = coloredModels;
         this.itemOverride = new ParachestOverride();
     }
 
@@ -134,7 +148,7 @@ public class ParachestBakedModel implements BakedModel, WrapperBakedModel {
         public BakedModel resolve(BakedModel model, ItemStack stack, @Nullable ClientLevel level, @Nullable LivingEntity entity, int seed) {
             DyeColor dyeColor = stack.get(DataComponents.BASE_COLOR);
             if (dyeColor != null) {
-                return new ParachestBakedModel(ParachestBakedModel.this.parent, ParachestBakedModel.this.bakedChutes, dyeColor);
+                return ParachestBakedModel.this.coloredModels.get(dyeColor);
             }
             return ParachestBakedModel.this.parent.getOverrides().resolve(model, stack, level, entity, seed);
         }
