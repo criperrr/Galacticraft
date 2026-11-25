@@ -1,6 +1,12 @@
 {
   "values": [
     "galacticraft:moon",
-    "galacticraft:asteroid"
+    "galacticraft:asteroid",
+    "galacticraft:phobos",
+    "galacticraft:deimos",
+    "galacticraft:io",
+    "galacticraft:europa",
+    "galacticraft:ganymede",
+    "galacticraft:callisto"
   ]
 }

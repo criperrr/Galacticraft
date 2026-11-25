@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:cache_2d",
+  "argument": {
+    "type": "minecraft:spline",
+    "spline": {
+      "coordinate": "galacticraft:europa/continents",
+      "points": [
+        {
+          "derivative": 0.05,
+          "location": -1.0,
+          "value": 0.18
+        },
+        {
+          "derivative": 0.2,
+          "location": 0.0,
+          "value": 0.32
+        },
+        {
+          "derivative": 0.3,
+          "location": 1.0,
+          "value": 0.75
+        }
+      ]
+    }
+  }
+}

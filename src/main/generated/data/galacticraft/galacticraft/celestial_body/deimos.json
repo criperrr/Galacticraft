@@ -1,0 +1,50 @@
+{
+  "type": "galacticraft:planet",
+  "config": {
+    "parent": "galacticraft:mars",
+    "access_weight": 2,
+    "atmosphere": {
+      "composition": {},
+      "pressure": 0.0,
+      "temperature": -70.0
+    },
+    "celestial_handler": "galacticraft:default",
+    "day_length": 30312,
+    "day_temperature": -20,
+    "description": {
+      "translate": "moon.galacticraft.deimos.description"
+    },
+    "display": {
+      "type": "galacticraft:icon",
+      "config": {
+        "height": 8,
+        "rocket_overlay": "galacticraft:textures/gui/rocket/moon_rocket_gui.png",
+        "scale": 1.0,
+        "texture": "galacticraft:textures/gui/celestialbodies/deimos.png",
+        "u": 0,
+        "v": 0,
+        "width": 8
+      }
+    },
+    "gravity": 0.012,
+    "name": {
+      "translate": "moon.galacticraft.deimos"
+    },
+    "night_temperature": -120,
+    "position": {
+      "type": "galacticraft:orbital",
+      "config": {
+        "distance": 22.0,
+        "orbit_time": 126.0,
+        "phase_shift": 2.1,
+        "planet": false
+      }
+    },
+    "ring": {
+      "type": "galacticraft:default",
+      "config": {}
+    },
+    "teleporter": "galacticraft:lander",
+    "world": "galacticraft:deimos"
+  }
+}

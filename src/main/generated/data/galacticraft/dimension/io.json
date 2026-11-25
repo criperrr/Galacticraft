@@ -1,0 +1,11 @@
+{
+  "type": "galacticraft:io",
+  "generator": {
+    "type": "minecraft:noise",
+    "biome_source": {
+      "type": "minecraft:multi_noise",
+      "preset": "galacticraft:io"
+    },
+    "settings": "galacticraft:io"
+  }
+}

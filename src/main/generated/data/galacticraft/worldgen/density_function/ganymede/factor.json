@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:cache_2d",
+  "argument": {
+    "type": "minecraft:spline",
+    "spline": {
+      "coordinate": "galacticraft:ganymede/continents",
+      "points": [
+        {
+          "derivative": 0.05,
+          "location": -1.0,
+          "value": 0.24
+        },
+        {
+          "derivative": 0.2,
+          "location": 0.0,
+          "value": 0.48
+        },
+        {
+          "derivative": 0.3,
+          "location": 1.0,
+          "value": 1.05
+        }
+      ]
+    }
+  }
+}

@@ -6,6 +6,12 @@
     "galacticraft:jupiter",
     "galacticraft:saturn",
     "galacticraft:uranus",
-    "galacticraft:neptune"
+    "galacticraft:neptune",
+    "galacticraft:phobos",
+    "galacticraft:deimos",
+    "galacticraft:io",
+    "galacticraft:europa",
+    "galacticraft:ganymede",
+    "galacticraft:callisto"
   ]
 }

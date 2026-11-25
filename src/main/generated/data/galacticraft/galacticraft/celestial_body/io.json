@@ -1,0 +1,50 @@
+{
+  "type": "galacticraft:planet",
+  "config": {
+    "parent": "galacticraft:jupiter",
+    "access_weight": 4,
+    "atmosphere": {
+      "composition": {},
+      "pressure": 1.0E-9,
+      "temperature": -146.0
+    },
+    "celestial_handler": "galacticraft:default",
+    "day_length": 42460,
+    "day_temperature": -130,
+    "description": {
+      "translate": "moon.galacticraft.io.description"
+    },
+    "display": {
+      "type": "galacticraft:icon",
+      "config": {
+        "height": 8,
+        "rocket_overlay": "galacticraft:textures/gui/rocket/venus_rocket_gui.png",
+        "scale": 1.0,
+        "texture": "galacticraft:textures/gui/celestialbodies/io.png",
+        "u": 0,
+        "v": 0,
+        "width": 8
+      }
+    },
+    "gravity": 0.183,
+    "name": {
+      "translate": "moon.galacticraft.io"
+    },
+    "night_temperature": -163,
+    "position": {
+      "type": "galacticraft:orbital",
+      "config": {
+        "distance": 15.0,
+        "orbit_time": 45.0,
+        "phase_shift": 0.5,
+        "planet": false
+      }
+    },
+    "ring": {
+      "type": "galacticraft:default",
+      "config": {}
+    },
+    "teleporter": "galacticraft:lander",
+    "world": "galacticraft:io"
+  }
+}

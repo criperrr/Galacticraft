@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:cache_2d",
+  "argument": {
+    "type": "minecraft:spline",
+    "spline": {
+      "coordinate": "galacticraft:callisto/continents",
+      "points": [
+        {
+          "derivative": 0.05,
+          "location": -1.0,
+          "value": -0.38
+        },
+        {
+          "derivative": 0.2,
+          "location": -0.25,
+          "value": -0.28
+        },
+        {
+          "derivative": 0.28,
+          "location": 0.25,
+          "value": -0.18
+        },
+        {
+          "derivative": 0.45,
+          "location": 0.7,
+          "value": 0.088
+        },
+        {
+          "derivative": 0.3,
+          "location": 1.0,
+          "value": 0.34
+        }
+      ]
+    }
+  }
+}

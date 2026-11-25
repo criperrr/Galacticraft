@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:cache_2d",
+  "argument": {
+    "type": "minecraft:spline",
+    "spline": {
+      "coordinate": "galacticraft:deimos/continents",
+      "points": [
+        {
+          "derivative": 0.05,
+          "location": -1.0,
+          "value": -0.34
+        },
+        {
+          "derivative": 0.2,
+          "location": -0.25,
+          "value": -0.27
+        },
+        {
+          "derivative": 0.28,
+          "location": 0.25,
+          "value": -0.2
+        },
+        {
+          "derivative": 0.45,
+          "location": 0.7,
+          "value": -0.06600001
+        },
+        {
+          "derivative": 0.3,
+          "location": 1.0,
+          "value": 0.08
+        }
+      ]
+    }
+  }
+}
