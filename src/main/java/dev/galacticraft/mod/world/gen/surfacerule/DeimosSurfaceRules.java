@@ -39,11 +39,11 @@ import org.jetbrains.annotations.NotNull;
 
 public class DeimosSurfaceRules {
     private static final RuleSource BEDROCK = state(Blocks.BEDROCK);
-    private static final RuleSource SILICATE_ROCK = state(GCBlocks.ASTEROID_ROCK_1);
-    private static final RuleSource SMOOTH_REGOLITH = state(GCBlocks.MERCURY_REGOLITH);
-    private static final RuleSource SURFACE_ROCK = state(GCBlocks.MOON_SURFACE_ROCK);
-    private static final RuleSource MOON_ROCK = state(GCBlocks.MOON_ROCK);
-    private static final RuleSource LUNASLATE = state(GCBlocks.LUNASLATE);
+    private static final RuleSource SILICATE_ROCK = state(GCBlocks.DEIMOS_ROCK);
+    private static final RuleSource SMOOTH_REGOLITH = state(GCBlocks.DEIMOS_REGOLITH);
+    private static final RuleSource SURFACE_ROCK = state(GCBlocks.DEIMOS_REGOLITH);
+    private static final RuleSource MOON_ROCK = state(GCBlocks.DEIMOS_ROCK);
+    private static final RuleSource LUNASLATE = state(GCBlocks.DEIMOS_SLATE);
 
     public static final RuleSource DEIMOS = createDefaultRule();
 

@@ -39,10 +39,10 @@ import org.jetbrains.annotations.NotNull;
 
 public class CallistoSurfaceRules {
     private static final RuleSource BEDROCK = state(Blocks.BEDROCK);
-    private static final RuleSource DARK_CRUST = state(GCBlocks.ASTEROID_ROCK_2);
-    private static final RuleSource BASALT = state(GCBlocks.MOON_BASALT);
-    private static final RuleSource BRECCIA = state(GCBlocks.MERCURY_SHOCK_BRECCIA);
-    private static final RuleSource LUNASLATE = state(GCBlocks.LUNASLATE);
+    private static final RuleSource DARK_CRUST = state(GCBlocks.CALLISTO_CRUST);
+    private static final RuleSource BASALT = state(GCBlocks.CALLISTO_ROCK);
+    private static final RuleSource BRECCIA = state(GCBlocks.CALLISTO_VALHALLA_BRECCIA);
+    private static final RuleSource LUNASLATE = state(GCBlocks.CALLISTO_ROCK);
     private static final RuleSource DENSE_ICE = state(GCBlocks.DENSE_ICE);
     private static final RuleSource PACKED_ICE = state(Blocks.PACKED_ICE);
 

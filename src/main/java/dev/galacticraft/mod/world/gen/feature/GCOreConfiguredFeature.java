@@ -352,32 +352,32 @@ public class GCOreConfiguredFeature {
         context.register(ORE_MAGNESIUM_SATURN, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(SATURN_ORE_REPLACEABLE, GCBlocks.SATURN_MAGNESIUM_ORE.defaultBlockState(), 7)));
         context.register(ORE_URANIUM_URANUS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(URANUS_ORE_REPLACEABLE, GCBlocks.URANUS_URANIUM_ORE.defaultBlockState(), 7)));
 
-        // INNER & JOVIAN MOONS (PHASE 3)
+        // INNER & JOVIAN MOONS (PHASE 3 — DEDICATED MOON-SPECIFIC ORES)
         context.register(ORE_METEORIC_IRON_PHOBOS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(PHOBOS_ORE_REPLACEABLE, GCBlocks.RAW_METEORIC_IRON_BLOCK.defaultBlockState(), 7)));
-        context.register(ORE_GRAPHITE_PHOBOS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(PHOBOS_ORE_REPLACEABLE, GCBlocks.ASTEROID_GRAPHITE_ORE.defaultBlockState(), 9)));
-        context.register(ORE_IRON_PHOBOS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(PHOBOS_ORE_REPLACEABLE, GCBlocks.ASTEROID_IRON_ORE.defaultBlockState(), 8)));
+        context.register(ORE_GRAPHITE_PHOBOS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(PHOBOS_ORE_REPLACEABLE, GCBlocks.PHOBOS_GRAPHITE_ORE.defaultBlockState(), 9)));
+        context.register(ORE_IRON_PHOBOS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(PHOBOS_ORE_REPLACEABLE, GCBlocks.PHOBOS_IRON_ORE.defaultBlockState(), 8)));
 
-        context.register(ORE_SILICON_DEIMOS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(DEIMOS_ORE_REPLACEABLE, GCBlocks.ASTEROID_SILICON_ORE.defaultBlockState(), 9)));
-        context.register(ORE_ALUMINUM_DEIMOS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(DEIMOS_ORE_REPLACEABLE, GCBlocks.ASTEROID_ALUMINUM_ORE.defaultBlockState(), 9)));
-        context.register(ORE_IRON_DEIMOS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(DEIMOS_ORE_REPLACEABLE, GCBlocks.ASTEROID_IRON_ORE.defaultBlockState(), 7)));
+        context.register(ORE_SILICON_DEIMOS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(DEIMOS_ORE_REPLACEABLE, GCBlocks.DEIMOS_SILICON_ORE.defaultBlockState(), 9)));
+        context.register(ORE_ALUMINUM_DEIMOS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(DEIMOS_ORE_REPLACEABLE, GCBlocks.DEIMOS_ALUMINUM_ORE.defaultBlockState(), 9)));
+        context.register(ORE_IRON_DEIMOS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(DEIMOS_ORE_REPLACEABLE, GCBlocks.DEIMOS_IRON_ORE.defaultBlockState(), 7)));
 
-        context.register(ORE_PALLADIUM_IO, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(IO_ORE_REPLACEABLE, GCBlocks.JUPITER_PALLADIUM_ORE.defaultBlockState(), 7)));
-        context.register(ORE_SULFIDE_IO, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(IO_ORE_REPLACEABLE, GCBlocks.MERCURY_SULFIDE_ORE.defaultBlockState(), 10)));
-        context.register(ORE_TITANIUM_IO, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(IO_ORE_REPLACEABLE, GCBlocks.VENUS_TITANIUM_ORE.defaultBlockState(), 7)));
+        context.register(ORE_PALLADIUM_IO, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(IO_ORE_REPLACEABLE, GCBlocks.IO_PALLADIUM_ORE.defaultBlockState(), 7)));
+        context.register(ORE_SULFIDE_IO, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(IO_ORE_REPLACEABLE, GCBlocks.IO_SULFUR_ORE.defaultBlockState(), 10)));
+        context.register(ORE_TITANIUM_IO, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(IO_ORE_REPLACEABLE, GCBlocks.IO_TITANIUM_ORE.defaultBlockState(), 7)));
         context.register(MAGMA_PATCH_IO, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(IO_ORE_REPLACEABLE, Blocks.MAGMA_BLOCK.defaultBlockState(), 24)));
 
         context.register(ORE_DENSE_ICE_EUROPA, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(EUROPA_ORE_REPLACEABLE, GCBlocks.DENSE_ICE.defaultBlockState(), 22)));
-        context.register(ORE_NIOBIUM_EUROPA, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(EUROPA_ORE_REPLACEABLE, GCBlocks.MOON_NIOBIUM_ORE.defaultBlockState(), 6)));
-        context.register(ORE_IRON_EUROPA, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(EUROPA_ORE_REPLACEABLE, GCBlocks.MOON_IRON_ORE.defaultBlockState(), 8)));
+        context.register(ORE_NIOBIUM_EUROPA, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(EUROPA_ORE_REPLACEABLE, GCBlocks.EUROPA_NIOBIUM_ORE.defaultBlockState(), 6)));
+        context.register(ORE_IRON_EUROPA, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(EUROPA_ORE_REPLACEABLE, GCBlocks.EUROPA_IRON_ORE.defaultBlockState(), 8)));
 
-        context.register(ORE_NIOBIUM_GANYMEDE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(GANYMEDE_ORE_REPLACEABLE, GCBlocks.MOON_NIOBIUM_ORE.defaultBlockState(), 8)));
-        context.register(ORE_TITANIUM_GANYMEDE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(GANYMEDE_ORE_REPLACEABLE, GCBlocks.MERCURY_TITANIUM_ORE.defaultBlockState(), 7)));
-        context.register(ORE_PALLADIUM_GANYMEDE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(GANYMEDE_ORE_REPLACEABLE, GCBlocks.JUPITER_PALLADIUM_ORE.defaultBlockState(), 5)));
+        context.register(ORE_NIOBIUM_GANYMEDE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(GANYMEDE_ORE_REPLACEABLE, GCBlocks.GANYMEDE_NIOBIUM_ORE.defaultBlockState(), 8)));
+        context.register(ORE_TITANIUM_GANYMEDE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(GANYMEDE_ORE_REPLACEABLE, GCBlocks.GANYMEDE_TITANIUM_ORE.defaultBlockState(), 7)));
+        context.register(ORE_PALLADIUM_GANYMEDE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(GANYMEDE_ORE_REPLACEABLE, GCBlocks.GANYMEDE_PALLADIUM_ORE.defaultBlockState(), 5)));
         context.register(ORE_DENSE_ICE_GANYMEDE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(GANYMEDE_ORE_REPLACEABLE, GCBlocks.DENSE_ICE.defaultBlockState(), 18)));
 
-        context.register(ORE_IRON_CALLISTO, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(CALLISTO_ORE_REPLACEABLE, GCBlocks.ASTEROID_IRON_ORE.defaultBlockState(), 10)));
-        context.register(ORE_ALUMINUM_CALLISTO, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(CALLISTO_ORE_REPLACEABLE, GCBlocks.ASTEROID_ALUMINUM_ORE.defaultBlockState(), 9)));
-        context.register(ORE_NIOBIUM_CALLISTO, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(CALLISTO_ORE_REPLACEABLE, GCBlocks.ASTEROID_NIOBIUM_ORE.defaultBlockState(), 7)));
+        context.register(ORE_IRON_CALLISTO, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(CALLISTO_ORE_REPLACEABLE, GCBlocks.CALLISTO_IRON_ORE.defaultBlockState(), 10)));
+        context.register(ORE_ALUMINUM_CALLISTO, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(CALLISTO_ORE_REPLACEABLE, GCBlocks.CALLISTO_ALUMINUM_ORE.defaultBlockState(), 9)));
+        context.register(ORE_NIOBIUM_CALLISTO, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(CALLISTO_ORE_REPLACEABLE, GCBlocks.CALLISTO_NIOBIUM_ORE.defaultBlockState(), 7)));
         context.register(ORE_DENSE_ICE_CALLISTO, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(CALLISTO_ORE_REPLACEABLE, GCBlocks.DENSE_ICE.defaultBlockState(), 20)));
     }
 }

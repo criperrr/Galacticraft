@@ -39,15 +39,15 @@ import org.jetbrains.annotations.NotNull;
 
 public class IoSurfaceRules {
     private static final RuleSource BEDROCK = state(Blocks.BEDROCK);
-    private static final RuleSource SULFUR_YELLOW = state(Blocks.YELLOW_TERRACOTTA);
-    private static final RuleSource SULFUR_ORANGE = state(Blocks.ORANGE_TERRACOTTA);
-    private static final RuleSource PUMICE = state(GCBlocks.PUMICE);
-    private static final RuleSource SOFT_VOLCANIC = state(GCBlocks.SOFT_VENUS_ROCK);
-    private static final RuleSource HARD_VOLCANIC = state(GCBlocks.HARD_VENUS_ROCK);
-    private static final RuleSource SCORCHED_ROCK = state(GCBlocks.SCORCHED_VENUS_ROCK);
-    private static final RuleSource VOLCANIC_ROCK = state(GCBlocks.VOLCANIC_ROCK);
-    private static final RuleSource BASALT = state(Blocks.BASALT);
-    private static final RuleSource BLACKSTONE = state(Blocks.BLACKSTONE);
+    private static final RuleSource SULFUR_YELLOW = state(GCBlocks.IO_SULFUR_CRUST);
+    private static final RuleSource SULFUR_ORANGE = state(GCBlocks.IO_VOLCANIC_ROCK);
+    private static final RuleSource PUMICE = state(GCBlocks.IO_SULFUR_CRUST);
+    private static final RuleSource SOFT_VOLCANIC = state(GCBlocks.IO_VOLCANIC_ROCK);
+    private static final RuleSource HARD_VOLCANIC = state(GCBlocks.IO_VOLCANIC_ROCK);
+    private static final RuleSource SCORCHED_ROCK = state(GCBlocks.IO_MAGMA_CRUST);
+    private static final RuleSource VOLCANIC_ROCK = state(GCBlocks.IO_SILICATE_BASALT);
+    private static final RuleSource BASALT = state(GCBlocks.IO_SILICATE_BASALT);
+    private static final RuleSource BLACKSTONE = state(GCBlocks.IO_SILICATE_BASALT);
     private static final RuleSource MAGMA = state(Blocks.MAGMA_BLOCK);
 
     public static final RuleSource IO = createDefaultRule();

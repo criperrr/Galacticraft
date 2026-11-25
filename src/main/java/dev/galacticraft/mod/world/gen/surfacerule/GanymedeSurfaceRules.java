@@ -39,9 +39,9 @@ import org.jetbrains.annotations.NotNull;
 
 public class GanymedeSurfaceRules {
     private static final RuleSource BEDROCK = state(Blocks.BEDROCK);
-    private static final RuleSource MOON_ROCK = state(GCBlocks.MOON_ROCK);
-    private static final RuleSource LUNASLATE = state(GCBlocks.LUNASLATE);
-    private static final RuleSource DARK_BASALT = state(GCBlocks.MERCURY_BASALT);
+    private static final RuleSource MOON_ROCK = state(GCBlocks.GANYMEDE_SULCI_ROCK);
+    private static final RuleSource LUNASLATE = state(GCBlocks.GANYMEDE_SLATE);
+    private static final RuleSource DARK_BASALT = state(GCBlocks.GANYMEDE_REGIO_ROCK);
     private static final RuleSource DENSE_ICE = state(GCBlocks.DENSE_ICE);
     private static final RuleSource PACKED_ICE = state(Blocks.PACKED_ICE);
     private static final RuleSource SNOW = state(Blocks.SNOW_BLOCK);

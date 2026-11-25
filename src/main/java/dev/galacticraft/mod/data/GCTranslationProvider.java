@@ -248,6 +248,49 @@ public class GCTranslationProvider extends TranslationProvider {
         this.block(GCBlocks.JUPITER_CORE_BRECCIA, "Jupiter Core Breccia");
         this.block(GCBlocks.JUPITER_PALLADIUM_ORE, "Jupiter Palladium Ore");
 
+        // INNER & JOVIAN MOONS NATURAL & ORES
+        this.block(GCBlocks.PHOBOS_REGOLITH, "Phobos Regolith");
+        this.block(GCBlocks.PHOBOS_ROCK, "Phobos Rock");
+        this.block(GCBlocks.PHOBOS_BRECCIA, "Phobos Shock Breccia");
+        this.block(GCBlocks.PHOBOS_SLATE, "Phobos Slate");
+        this.block(GCBlocks.PHOBOS_GRAPHITE_ORE, "Phobos Graphite Ore");
+        this.block(GCBlocks.PHOBOS_IRON_ORE, "Phobos Iron Ore");
+
+        this.block(GCBlocks.DEIMOS_REGOLITH, "Deimos Regolith");
+        this.block(GCBlocks.DEIMOS_ROCK, "Deimos Rock");
+        this.block(GCBlocks.DEIMOS_SLATE, "Deimos Slate");
+        this.block(GCBlocks.DEIMOS_SILICON_ORE, "Deimos Silicon Ore");
+        this.block(GCBlocks.DEIMOS_ALUMINUM_ORE, "Deimos Aluminum Ore");
+        this.block(GCBlocks.DEIMOS_IRON_ORE, "Deimos Iron Ore");
+
+        this.block(GCBlocks.IO_SULFUR_CRUST, "Io Sulfur Crust");
+        this.block(GCBlocks.IO_VOLCANIC_ROCK, "Io Volcanic Rock");
+        this.block(GCBlocks.IO_SILICATE_BASALT, "Io Silicate Basalt");
+        this.block(GCBlocks.IO_MAGMA_CRUST, "Io Magma Crust");
+        this.block(GCBlocks.IO_PALLADIUM_ORE, "Io Palladium Ore");
+        this.block(GCBlocks.IO_SULFUR_ORE, "Io Sulfur Ore");
+        this.block(GCBlocks.IO_TITANIUM_ORE, "Io Titanium Ore");
+
+        this.block(GCBlocks.EUROPA_ICE_CRUST, "Europa Ice Crust");
+        this.block(GCBlocks.EUROPA_LINEAE_ICE, "Europa Lineae Ice");
+        this.block(GCBlocks.EUROPA_SEABED_ROCK, "Europa Seabed Rock");
+        this.block(GCBlocks.EUROPA_NIOBIUM_ORE, "Europa Niobium Ore");
+        this.block(GCBlocks.EUROPA_IRON_ORE, "Europa Iron Ore");
+
+        this.block(GCBlocks.GANYMEDE_SULCI_ROCK, "Ganymede Sulci Rock");
+        this.block(GCBlocks.GANYMEDE_REGIO_ROCK, "Ganymede Regio Rock");
+        this.block(GCBlocks.GANYMEDE_SLATE, "Ganymede Slate");
+        this.block(GCBlocks.GANYMEDE_NIOBIUM_ORE, "Ganymede Niobium Ore");
+        this.block(GCBlocks.GANYMEDE_TITANIUM_ORE, "Ganymede Titanium Ore");
+        this.block(GCBlocks.GANYMEDE_PALLADIUM_ORE, "Ganymede Palladium Ore");
+
+        this.block(GCBlocks.CALLISTO_CRUST, "Callisto Crust");
+        this.block(GCBlocks.CALLISTO_ROCK, "Callisto Rock");
+        this.block(GCBlocks.CALLISTO_VALHALLA_BRECCIA, "Callisto Valhalla Breccia");
+        this.block(GCBlocks.CALLISTO_IRON_ORE, "Callisto Iron Ore");
+        this.block(GCBlocks.CALLISTO_ALUMINUM_ORE, "Callisto Aluminum Ore");
+        this.block(GCBlocks.CALLISTO_NIOBIUM_ORE, "Callisto Niobium Ore");
+
         this.block(GCBlocks.SATURN_HELIUM_MANTLE_ROCK, "Saturn Helium Mantle Rock");
         this.block(GCBlocks.SATURN_MAGNESIUM_ORE, "Saturn Magnesium Ore");
 

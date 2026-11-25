@@ -274,6 +274,54 @@ public class GCBlocks {
     // NEPTUNE HYPERBARIC ABYSSAL CORE
     public static final Block NEPTUNE_ABYSSAL_MANTLE_ROCK = BLOCKS.registerWithItem(Constant.Block.NEPTUNE_ABYSSAL_MANTLE_ROCK, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASEDRUM).strength(4.5F, 8.0F).sound(SoundType.DEEPSLATE).requiresCorrectToolForDrops()));
 
+    // PHOBOS NATURAL & ORES
+    public static final Block PHOBOS_REGOLITH = BLOCKS.registerWithItem(Constant.Block.PHOBOS_REGOLITH, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_GRAY).instrument(NoteBlockInstrument.SNARE).strength(0.9F, 2.0F).sound(SoundType.GRAVEL)));
+    public static final Block PHOBOS_ROCK = BLOCKS.registerWithItem(Constant.Block.PHOBOS_ROCK, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).instrument(NoteBlockInstrument.BASEDRUM).strength(2.4F, 5.5F).sound(SoundType.STONE).requiresCorrectToolForDrops()));
+    public static final Block PHOBOS_BRECCIA = BLOCKS.registerWithItem(Constant.Block.PHOBOS_BRECCIA, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASEDRUM).strength(3.0F, 6.0F).sound(SoundType.BASALT).requiresCorrectToolForDrops()));
+    public static final Block PHOBOS_SLATE = BLOCKS.registerWithItem(Constant.Block.PHOBOS_SLATE, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).instrument(NoteBlockInstrument.BASEDRUM).strength(3.4F, 6.5F).sound(SoundType.DEEPSLATE).requiresCorrectToolForDrops()));
+    public static final Block PHOBOS_GRAPHITE_ORE = BLOCKS.registerWithItem(Constant.Block.PHOBOS_GRAPHITE_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(PHOBOS_ROCK, 3.2F, 4.0F)));
+    public static final Block PHOBOS_IRON_ORE = BLOCKS.registerWithItem(Constant.Block.PHOBOS_IRON_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(PHOBOS_ROCK, 3.5F, 4.5F)));
+
+    // DEIMOS NATURAL & ORES
+    public static final Block DEIMOS_REGOLITH = BLOCKS.registerWithItem(Constant.Block.DEIMOS_REGOLITH, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.SNARE).strength(0.8F, 1.8F).sound(SoundType.SAND)));
+    public static final Block DEIMOS_ROCK = BLOCKS.registerWithItem(Constant.Block.DEIMOS_ROCK, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).instrument(NoteBlockInstrument.BASEDRUM).strength(2.2F, 5.0F).sound(SoundType.STONE).requiresCorrectToolForDrops()));
+    public static final Block DEIMOS_SLATE = BLOCKS.registerWithItem(Constant.Block.DEIMOS_SLATE, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).instrument(NoteBlockInstrument.BASEDRUM).strength(3.2F, 6.0F).sound(SoundType.DEEPSLATE).requiresCorrectToolForDrops()));
+    public static final Block DEIMOS_SILICON_ORE = BLOCKS.registerWithItem(Constant.Block.DEIMOS_SILICON_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(DEIMOS_ROCK, 3.2F, 4.0F)));
+    public static final Block DEIMOS_ALUMINUM_ORE = BLOCKS.registerWithItem(Constant.Block.DEIMOS_ALUMINUM_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(DEIMOS_ROCK, 3.4F, 4.2F)));
+    public static final Block DEIMOS_IRON_ORE = BLOCKS.registerWithItem(Constant.Block.DEIMOS_IRON_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(DEIMOS_ROCK, 3.5F, 4.5F)));
+
+    // IO NATURAL & ORES
+    public static final Block IO_SULFUR_CRUST = BLOCKS.registerWithItem(Constant.Block.IO_SULFUR_CRUST, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW).instrument(NoteBlockInstrument.BASEDRUM).strength(1.8F, 3.5F).sound(SoundType.STONE).requiresCorrectToolForDrops()));
+    public static final Block IO_VOLCANIC_ROCK = BLOCKS.registerWithItem(Constant.Block.IO_VOLCANIC_ROCK, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_ORANGE).instrument(NoteBlockInstrument.BASEDRUM).strength(3.0F, 6.0F).sound(SoundType.BASALT).requiresCorrectToolForDrops()));
+    public static final Block IO_SILICATE_BASALT = BLOCKS.registerWithItem(Constant.Block.IO_SILICATE_BASALT, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASEDRUM).strength(3.5F, 6.5F).sound(SoundType.BASALT).requiresCorrectToolForDrops()));
+    public static final Block IO_MAGMA_CRUST = BLOCKS.registerWithItem(Constant.Block.IO_MAGMA_CRUST, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_RED).instrument(NoteBlockInstrument.BASEDRUM).strength(3.8F, 7.0F).sound(SoundType.DEEPSLATE).lightLevel(s -> 3).requiresCorrectToolForDrops()));
+    public static final Block IO_PALLADIUM_ORE = BLOCKS.registerWithItem(Constant.Block.IO_PALLADIUM_ORE, new DropExperienceBlock(UniformInt.of(2, 5), oreSettings(IO_VOLCANIC_ROCK, 4.8F, 6.0F)));
+    public static final Block IO_SULFUR_ORE = BLOCKS.registerWithItem(Constant.Block.IO_SULFUR_ORE, new DropExperienceBlock(UniformInt.of(1, 3), oreSettings(IO_VOLCANIC_ROCK, 3.4F, 4.5F)));
+    public static final Block IO_TITANIUM_ORE = BLOCKS.registerWithItem(Constant.Block.IO_TITANIUM_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(IO_VOLCANIC_ROCK, 4.5F, 5.5F)));
+
+    // EUROPA NATURAL & ORES
+    public static final Block EUROPA_ICE_CRUST = BLOCKS.registerWithItem(Constant.Block.EUROPA_ICE_CRUST, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.ICE).instrument(NoteBlockInstrument.CHIME).friction(0.96F).strength(2.0F, 4.0F).sound(SoundType.GLASS).requiresCorrectToolForDrops()));
+    public static final Block EUROPA_LINEAE_ICE = BLOCKS.registerWithItem(Constant.Block.EUROPA_LINEAE_ICE, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_ORANGE).instrument(NoteBlockInstrument.CHIME).friction(0.92F).strength(2.4F, 4.5F).sound(SoundType.GLASS).requiresCorrectToolForDrops()));
+    public static final Block EUROPA_SEABED_ROCK = BLOCKS.registerWithItem(Constant.Block.EUROPA_SEABED_ROCK, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).instrument(NoteBlockInstrument.BASEDRUM).strength(3.5F, 6.5F).sound(SoundType.DEEPSLATE).requiresCorrectToolForDrops()));
+    public static final Block EUROPA_NIOBIUM_ORE = BLOCKS.registerWithItem(Constant.Block.EUROPA_NIOBIUM_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(EUROPA_SEABED_ROCK, 4.2F, 5.0F)));
+    public static final Block EUROPA_IRON_ORE = BLOCKS.registerWithItem(Constant.Block.EUROPA_IRON_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(EUROPA_SEABED_ROCK, 3.8F, 4.5F)));
+
+    // GANYMEDE NATURAL & ORES
+    public static final Block GANYMEDE_SULCI_ROCK = BLOCKS.registerWithItem(Constant.Block.GANYMEDE_SULCI_ROCK, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.QUARTZ).instrument(NoteBlockInstrument.BASEDRUM).strength(2.4F, 5.0F).sound(SoundType.STONE).requiresCorrectToolForDrops()));
+    public static final Block GANYMEDE_REGIO_ROCK = BLOCKS.registerWithItem(Constant.Block.GANYMEDE_REGIO_ROCK, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_GRAY).instrument(NoteBlockInstrument.BASEDRUM).strength(2.8F, 5.5F).sound(SoundType.BASALT).requiresCorrectToolForDrops()));
+    public static final Block GANYMEDE_SLATE = BLOCKS.registerWithItem(Constant.Block.GANYMEDE_SLATE, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).instrument(NoteBlockInstrument.BASEDRUM).strength(3.4F, 6.5F).sound(SoundType.DEEPSLATE).requiresCorrectToolForDrops()));
+    public static final Block GANYMEDE_NIOBIUM_ORE = BLOCKS.registerWithItem(Constant.Block.GANYMEDE_NIOBIUM_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(GANYMEDE_SLATE, 4.2F, 5.0F)));
+    public static final Block GANYMEDE_TITANIUM_ORE = BLOCKS.registerWithItem(Constant.Block.GANYMEDE_TITANIUM_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(GANYMEDE_SLATE, 4.5F, 5.5F)));
+    public static final Block GANYMEDE_PALLADIUM_ORE = BLOCKS.registerWithItem(Constant.Block.GANYMEDE_PALLADIUM_ORE, new DropExperienceBlock(UniformInt.of(2, 5), oreSettings(GANYMEDE_SLATE, 4.8F, 6.0F)));
+
+    // CALLISTO NATURAL & ORES
+    public static final Block CALLISTO_CRUST = BLOCKS.registerWithItem(Constant.Block.CALLISTO_CRUST, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).instrument(NoteBlockInstrument.BASEDRUM).strength(2.4F, 5.0F).sound(SoundType.STONE).requiresCorrectToolForDrops()));
+    public static final Block CALLISTO_ROCK = BLOCKS.registerWithItem(Constant.Block.CALLISTO_ROCK, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_GRAY).instrument(NoteBlockInstrument.BASEDRUM).strength(3.0F, 6.0F).sound(SoundType.BASALT).requiresCorrectToolForDrops()));
+    public static final Block CALLISTO_VALHALLA_BRECCIA = BLOCKS.registerWithItem(Constant.Block.CALLISTO_VALHALLA_BRECCIA, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).instrument(NoteBlockInstrument.BASEDRUM).strength(3.4F, 6.5F).sound(SoundType.DEEPSLATE).requiresCorrectToolForDrops()));
+    public static final Block CALLISTO_IRON_ORE = BLOCKS.registerWithItem(Constant.Block.CALLISTO_IRON_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(CALLISTO_ROCK, 3.8F, 4.5F)));
+    public static final Block CALLISTO_ALUMINUM_ORE = BLOCKS.registerWithItem(Constant.Block.CALLISTO_ALUMINUM_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(CALLISTO_ROCK, 3.8F, 4.5F)));
+    public static final Block CALLISTO_NIOBIUM_ORE = BLOCKS.registerWithItem(Constant.Block.CALLISTO_NIOBIUM_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(CALLISTO_ROCK, 4.2F, 5.0F)));
+
     // ORES
     public static final Block SILICON_ORE = BLOCKS.registerWithItem(Constant.Block.SILICON_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(Blocks.STONE, 3.0F, 3.0F)));
     public static final Block DEEPSLATE_SILICON_ORE = BLOCKS.registerWithItem(Constant.Block.DEEPSLATE_SILICON_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(Blocks.DEEPSLATE, 4.5F, 3.0F)));

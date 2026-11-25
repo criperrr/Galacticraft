@@ -39,12 +39,12 @@ import org.jetbrains.annotations.NotNull;
 
 public class EuropaSurfaceRules {
     private static final RuleSource BEDROCK = state(Blocks.BEDROCK);
-    private static final RuleSource DENSE_ICE = state(GCBlocks.DENSE_ICE);
+    private static final RuleSource DENSE_ICE = state(GCBlocks.EUROPA_ICE_CRUST);
     private static final RuleSource PACKED_ICE = state(Blocks.PACKED_ICE);
     private static final RuleSource BLUE_ICE = state(Blocks.BLUE_ICE);
     private static final RuleSource SNOW = state(Blocks.SNOW_BLOCK);
-    private static final RuleSource LINEAE_STAIN = state(GCBlocks.MARS_SUB_SURFACE_ROCK);
-    private static final RuleSource SEABED_BASALT = state(GCBlocks.MOON_BASALT);
+    private static final RuleSource LINEAE_STAIN = state(GCBlocks.EUROPA_LINEAE_ICE);
+    private static final RuleSource SEABED_BASALT = state(GCBlocks.EUROPA_SEABED_ROCK);
 
     public static final RuleSource EUROPA = createDefaultRule();
 

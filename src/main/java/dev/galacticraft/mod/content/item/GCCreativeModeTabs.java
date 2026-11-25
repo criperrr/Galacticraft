@@ -238,6 +238,49 @@ public class GCCreativeModeTabs {
                 output.accept(SATURN_MAGNESIUM_ORE);
                 output.accept(URANUS_URANIUM_ORE);
 
+                // INNER & JOVIAN MOONS
+                output.accept(PHOBOS_REGOLITH);
+                output.accept(PHOBOS_ROCK);
+                output.accept(PHOBOS_BRECCIA);
+                output.accept(PHOBOS_SLATE);
+                output.accept(PHOBOS_GRAPHITE_ORE);
+                output.accept(PHOBOS_IRON_ORE);
+
+                output.accept(DEIMOS_REGOLITH);
+                output.accept(DEIMOS_ROCK);
+                output.accept(DEIMOS_SLATE);
+                output.accept(DEIMOS_SILICON_ORE);
+                output.accept(DEIMOS_ALUMINUM_ORE);
+                output.accept(DEIMOS_IRON_ORE);
+
+                output.accept(IO_SULFUR_CRUST);
+                output.accept(IO_VOLCANIC_ROCK);
+                output.accept(IO_SILICATE_BASALT);
+                output.accept(IO_MAGMA_CRUST);
+                output.accept(IO_PALLADIUM_ORE);
+                output.accept(IO_SULFUR_ORE);
+                output.accept(IO_TITANIUM_ORE);
+
+                output.accept(EUROPA_ICE_CRUST);
+                output.accept(EUROPA_LINEAE_ICE);
+                output.accept(EUROPA_SEABED_ROCK);
+                output.accept(EUROPA_NIOBIUM_ORE);
+                output.accept(EUROPA_IRON_ORE);
+
+                output.accept(GANYMEDE_SULCI_ROCK);
+                output.accept(GANYMEDE_REGIO_ROCK);
+                output.accept(GANYMEDE_SLATE);
+                output.accept(GANYMEDE_NIOBIUM_ORE);
+                output.accept(GANYMEDE_TITANIUM_ORE);
+                output.accept(GANYMEDE_PALLADIUM_ORE);
+
+                output.accept(CALLISTO_CRUST);
+                output.accept(CALLISTO_ROCK);
+                output.accept(CALLISTO_VALHALLA_BRECCIA);
+                output.accept(CALLISTO_IRON_ORE);
+                output.accept(CALLISTO_ALUMINUM_ORE);
+                output.accept(CALLISTO_NIOBIUM_ORE);
+
                 // COMPACT MINERAL BLOCKS
                 output.accept(RAW_TIN_BLOCK);
                 output.accept(RAW_ALUMINUM_BLOCK);

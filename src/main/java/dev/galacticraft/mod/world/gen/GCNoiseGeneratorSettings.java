@@ -214,7 +214,7 @@ public class GCNoiseGeneratorSettings {
 
         context.register(PHOBOS, new NoiseGeneratorSettings(
                 NoiseSettings.create(-64, 384, 1, 2),
-                GCBlocks.ASTEROID_ROCK_2.defaultBlockState(),
+                GCBlocks.PHOBOS_ROCK.defaultBlockState(),
                 Blocks.AIR.defaultBlockState(),
                 GCNoiseGeneratorSettings.outerPlanetRouter(
                         densityLookup,
@@ -235,7 +235,7 @@ public class GCNoiseGeneratorSettings {
 
         context.register(DEIMOS, new NoiseGeneratorSettings(
                 NoiseSettings.create(-64, 384, 1, 2),
-                GCBlocks.ASTEROID_ROCK_1.defaultBlockState(),
+                GCBlocks.DEIMOS_ROCK.defaultBlockState(),
                 Blocks.AIR.defaultBlockState(),
                 GCNoiseGeneratorSettings.outerPlanetRouter(
                         densityLookup,
@@ -256,7 +256,7 @@ public class GCNoiseGeneratorSettings {
 
         context.register(IO, new NoiseGeneratorSettings(
                 NoiseSettings.create(-64, 384, 1, 2),
-                GCBlocks.HARD_VENUS_ROCK.defaultBlockState(),
+                GCBlocks.IO_VOLCANIC_ROCK.defaultBlockState(),
                 Blocks.LAVA.defaultBlockState(),
                 GCNoiseGeneratorSettings.outerPlanetRouter(
                         densityLookup,
@@ -277,7 +277,7 @@ public class GCNoiseGeneratorSettings {
 
         context.register(EUROPA, new NoiseGeneratorSettings(
                 NoiseSettings.create(-64, 384, 1, 2),
-                GCBlocks.DENSE_ICE.defaultBlockState(),
+                GCBlocks.EUROPA_ICE_CRUST.defaultBlockState(),
                 Blocks.WATER.defaultBlockState(),
                 GCNoiseGeneratorSettings.outerPlanetRouter(
                         densityLookup,
@@ -298,7 +298,7 @@ public class GCNoiseGeneratorSettings {
 
         context.register(GANYMEDE, new NoiseGeneratorSettings(
                 NoiseSettings.create(-64, 384, 1, 2),
-                GCBlocks.LUNASLATE.defaultBlockState(),
+                GCBlocks.GANYMEDE_SLATE.defaultBlockState(),
                 Blocks.AIR.defaultBlockState(),
                 GCNoiseGeneratorSettings.outerPlanetRouter(
                         densityLookup,
@@ -319,7 +319,7 @@ public class GCNoiseGeneratorSettings {
 
         context.register(CALLISTO, new NoiseGeneratorSettings(
                 NoiseSettings.create(-64, 384, 1, 2),
-                GCBlocks.MOON_BASALT.defaultBlockState(),
+                GCBlocks.CALLISTO_ROCK.defaultBlockState(),
                 Blocks.AIR.defaultBlockState(),
                 GCNoiseGeneratorSettings.outerPlanetRouter(
                         densityLookup,

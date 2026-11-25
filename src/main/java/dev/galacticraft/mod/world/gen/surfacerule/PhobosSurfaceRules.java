@@ -39,11 +39,11 @@ import org.jetbrains.annotations.NotNull;
 
 public class PhobosSurfaceRules {
     private static final RuleSource BEDROCK = state(Blocks.BEDROCK);
-    private static final RuleSource DARK_REGOLITH = state(GCBlocks.ASTEROID_ROCK_2);
-    private static final RuleSource BASALT = state(GCBlocks.MOON_BASALT);
-    private static final RuleSource BRECCIA = state(GCBlocks.MERCURY_SHOCK_BRECCIA);
-    private static final RuleSource REGOLITH = state(GCBlocks.MERCURY_REGOLITH);
-    private static final RuleSource LUNASLATE = state(GCBlocks.LUNASLATE);
+    private static final RuleSource DARK_REGOLITH = state(GCBlocks.PHOBOS_REGOLITH);
+    private static final RuleSource BASALT = state(GCBlocks.PHOBOS_ROCK);
+    private static final RuleSource BRECCIA = state(GCBlocks.PHOBOS_BRECCIA);
+    private static final RuleSource REGOLITH = state(GCBlocks.PHOBOS_REGOLITH);
+    private static final RuleSource LUNASLATE = state(GCBlocks.PHOBOS_SLATE);
 
     public static final RuleSource PHOBOS = createDefaultRule();
 
