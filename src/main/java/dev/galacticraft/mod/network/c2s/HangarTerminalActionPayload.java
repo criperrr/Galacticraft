@@ -142,6 +142,16 @@ public record HangarTerminalActionPayload(BlockPos pos, Action action, int value
                     terminal.cancelProgressiveAssembly(player);
                 }
             }
+            case START_LAUNCH -> {
+                if (terminal.isFormed()) {
+                    terminal.startLaunchSequence(player);
+                }
+            }
+            case ABORT_LAUNCH -> {
+                if (terminal.isFormed()) {
+                    terminal.abortLaunchSequence("Aborto manual solicitado pelo operador");
+                }
+            }
         }
     }
 
@@ -166,7 +176,9 @@ public record HangarTerminalActionPayload(BlockPos pos, Action action, int value
         CREATIVE_FILL_ROCKET,
         SET_SYMMETRY,
         TOGGLE_CROSSFEED,
-        CANCEL_ASSEMBLY;
+        CANCEL_ASSEMBLY,
+        START_LAUNCH,
+        ABORT_LAUNCH;
 
         public static final StreamCodec<ByteBuf, Action> STREAM_CODEC = ByteBufCodecs.idMapper(
                 i -> values()[Math.floorMod(i, values().length)],

@@ -43,6 +43,7 @@ import dev.galacticraft.mod.attachments.MultiblockLinkManager;
 import dev.galacticraft.mod.content.GCBlockEntityTypes;
 import dev.galacticraft.mod.content.GCBlocks;
 import dev.galacticraft.mod.content.GCFluids;
+import dev.galacticraft.mod.content.GCSounds;
 import dev.galacticraft.mod.content.block.multiblock.AbstractBoundsProxyBlock;
 import dev.galacticraft.mod.content.block.multiblock.PlatformProxyBlock;
 import dev.galacticraft.mod.content.block.platform.HangarTerminalBlock;
@@ -51,14 +52,20 @@ import dev.galacticraft.mod.content.block.platform.PlatformBlueprintRegistry;
 import dev.galacticraft.mod.content.block.platform.PlatformCollisionRegistry;
 import dev.galacticraft.mod.content.block.platform.PlatformPadDetector;
 import dev.galacticraft.mod.content.block.rocket.ModularRocketPartBlock;
+import dev.galacticraft.mod.content.entity.vehicle.ModularRocketFlightEntity;
 import dev.galacticraft.mod.content.item.ModularRocketPartBlockItem;
 import dev.galacticraft.mod.content.rocket.assembly.RocketAssemblyGraphBuilder;
+import dev.galacticraft.mod.content.rocket.failure.LaunchFailureEngine;
+import dev.galacticraft.mod.content.rocket.launch.RocketStateConverter;
 import dev.galacticraft.mod.content.rocket.part.RocketPartCatalog;
 import dev.galacticraft.mod.content.rocket.part.RocketPartCostCalculator;
 import dev.galacticraft.mod.content.rocket.part.RocketPartSpec;
+import dev.galacticraft.mod.content.rocket.physics.ModularFlightPhysics;
 import dev.galacticraft.mod.content.rocket.physics.PlanetaryEnvironment;
 import dev.galacticraft.mod.content.rocket.physics.PropellantType;
 import dev.galacticraft.mod.content.rocket.physics.RocketFlightValidator;
+import dev.galacticraft.mod.particle.EntityParticleOption;
+import dev.galacticraft.mod.particle.GCParticleTypes;
 import dev.galacticraft.mod.screen.HangarTerminalMenu;
 import dev.galacticraft.mod.screen.HangarTerminalOpeningData;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -159,6 +166,19 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
     private static final String TAG_ASSEMBLY_TOTAL_DURATION = "AssemblyTotalDuration";
     private static final String TAG_ASSEMBLY_COMPLETED_STEPS = "AssemblyCompletedSteps";
     private static final String TAG_ASSEMBLY_TOTAL_STEPS = "AssemblyTotalSteps";
+    private static final String TAG_LAUNCH_PHASE = "LaunchPhase";
+    private static final String TAG_LAUNCH_COUNTDOWN_TICKS = "LaunchCountdownTicks";
+    private static final String TAG_LAST_ABORT_REASON = "LastAbortReason";
+
+    public static final int LAUNCH_COUNTDOWN_TOTAL_TICKS = 200; // T-10.00s
+    public static final int THRUST_BUILDUP_START_TICKS = 60;    // T-3.00s
+    public static final int HOLD_DOWN_CLAMP_CHECK_TICK = 10;    // T-0.50s
+
+    public enum LaunchSequencePhase {
+        IDLE,
+        PRE_FLIGHT_DELUGE,
+        THRUST_BUILDUP
+    }
 
     private static final Set<HangarTerminalBlockEntity> CLIENT_TERMINALS = ConcurrentHashMap.newKeySet();
     private static final Set<HangarTerminalBlockEntity> CLIENT_TERMINALS_VIEW = Collections.unmodifiableSet(CLIENT_TERMINALS);
@@ -189,6 +209,12 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
     private int assemblyTotalDurationTicks = 0;
     private int assemblyCompletedSteps = 0;
     private int assemblyTotalSteps = 0;
+    private LaunchSequencePhase launchPhase = LaunchSequencePhase.IDLE;
+    private int launchCountdownTicks = 0;
+    private String lastLaunchAbortReason = "";
+    private final List<java.util.UUID> launchCrewUuids = new ArrayList<>();
+    private boolean launchClampCheckPassed = false;
+    private @Nullable ModularRocketFlightEntity lastLaunchedEntity = null;
     private long rocketFuelDroplets = 0L;
     private FluidVariant rocketFuelVariant = FluidVariant.of(GCFluids.FUEL);
     private double pendingBoilOffFraction = 0.0;
@@ -371,6 +397,383 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
 
     public int getAssemblyRemainingTicks() {
         return Math.max(0, this.assemblyTotalDurationTicks - this.assemblyTotalElapsedTicks);
+    }
+
+    public LaunchSequencePhase getLaunchPhase() {
+        return this.launchPhase;
+    }
+
+    public boolean isLaunchSequenceActive() {
+        return this.launchPhase != LaunchSequencePhase.IDLE;
+    }
+
+    public boolean isHoldDownClampsEngaged() {
+        return this.launchPhase == LaunchSequencePhase.THRUST_BUILDUP;
+    }
+
+    public int getLaunchCountdownTicks() {
+        return this.launchCountdownTicks;
+    }
+
+    public float getLaunchCountdownSeconds() {
+        return this.launchCountdownTicks / 20.0F;
+    }
+
+    public String getLastLaunchAbortReason() {
+        return this.lastLaunchAbortReason;
+    }
+
+    public @Nullable ModularRocketFlightEntity getLastLaunchedEntity() {
+        return this.lastLaunchedEntity;
+    }
+
+    /**
+     * Initiates the realistic {@code T-10.00s -> T-0.00s} launch countdown sequence:
+     * <ul>
+     *   <li>{@code T-10.00s .. T-3.01s}: Pre-flight interlocks, access bridge retract, and Water Deluge steam plumes.</li>
+     *   <li>{@code T-3.00s .. T-0.01s}: Main liquid Thrust Buildup under Hold-Down Clamps, verifying {@code TWR >= 1.15}
+     *       and Weibull T-0 engine/plumbing reliability ({@code sigma = 1.20}) with Safe Pad Abort on failure.</li>
+     *   <li>{@code T = 0.00s}: Hold-Down Clamps release and atomic block -> {@link ModularRocketFlightEntity} conversion.</li>
+     * </ul>
+     */
+    public boolean startLaunchSequence(@Nullable ServerPlayer initiator) {
+        if (!(this.level instanceof ServerLevel serverLevel) || !this.formed || this.tearingDown) {
+            return false;
+        }
+        if (this.isAssemblyInProgress()) {
+            this.notifyOperator(initiator, "Aguarde a conclusão da solda de montagem!", true);
+            return false;
+        }
+        if (!this.isRocketAssembled()) {
+            this.notifyOperator(initiator, "Nenhum foguete montado no pad!", true);
+            return false;
+        }
+        if (this.launchPhase != LaunchSequencePhase.IDLE) {
+            return false;
+        }
+
+        this.rebuildAssemblyGraph();
+        if (this.assemblyGraph.isEmpty() || this.assemblyGraph.activeStage() == null) {
+            this.notifyOperator(initiator, "Grafo de montagem vazio ou inválido!", true);
+            return false;
+        }
+
+        // Validate pad mass limit M_max
+        double wetMassKg = ModularFlightPhysics.computeTotalWetMassKg(this.assemblyGraph);
+        double maxPadMassKg = RocketAssemblyGraphBuilder.maxMassKgForPad(this.platformSize);
+        if (wetMassKg > maxPadMassKg) {
+            String msg = String.format(Locale.ROOT, "PAD_OVERWEIGHT: %.1ft > limite %.1ft do pad!", wetMassKg / 1000.0, maxPadMassKg / 1000.0);
+            this.lastLaunchAbortReason = msg;
+            this.notifyOperator(initiator, msg, true);
+            this.sync();
+            return false;
+        }
+
+        RocketStageNode stage0 = this.assemblyGraph.activeStage();
+        if (stage0.activeThrustKn() <= 0.0) {
+            String msg = "Estágio 0 sem motores ativos!";
+            this.lastLaunchAbortReason = msg;
+            this.notifyOperator(initiator, msg, true);
+            this.sync();
+            return false;
+        }
+
+        boolean hasPropellant = stage0.totalCurrentFuelDroplets() > 0L
+                || ModularFlightPhysics.resolvePropellant(stage0.propellantId()) == PropellantType.SOLID;
+        if (!hasPropellant) {
+            String msg = "Estágio 0 sem propelente carregado!";
+            this.lastLaunchAbortReason = msg;
+            this.notifyOperator(initiator, msg, true);
+            this.sync();
+            return false;
+        }
+
+        // Prevent unfueled liquid radial boosters from immediately detaching & exploding inside the launch tower at T+0.05s
+        for (RadialBoosterGroup group : stage0.radialGroups()) {
+            if (!group.decoupled() && !group.solidBooster() && group.fuelCapacityDroplets() > 0L && group.currentFuelDroplets() <= 0L) {
+                String msg = "Boosters radiais sem propelente carregado! Abasteça antes de lançar.";
+                this.lastLaunchAbortReason = msg;
+                this.notifyOperator(initiator, msg, true);
+                this.sync();
+                return false;
+            }
+        }
+
+        // Collect pilot + nearby crew inside the hangar/pad envelope (up to seat capacity)
+        this.launchCrewUuids.clear();
+        int maxSeats = Math.max(1, this.assemblyGraph.crewSeats().size());
+        if (initiator != null) {
+            this.launchCrewUuids.add(initiator.getUUID());
+        }
+        AABB padVolume = this.computeAssembledRocketWorldBounds();
+        if (padVolume != null) {
+            AABB crewZone = padVolume.inflate(4.0, 2.0, 4.0);
+            for (ServerPlayer nearby : serverLevel.getEntitiesOfClass(ServerPlayer.class, crewZone)) {
+                if (this.launchCrewUuids.size() >= maxSeats) {
+                    break;
+                }
+                if (!this.launchCrewUuids.contains(nearby.getUUID()) && nearby.isAlive() && !nearby.isSpectator()) {
+                    this.launchCrewUuids.add(nearby.getUUID());
+                }
+            }
+        }
+
+        this.launchPhase = LaunchSequencePhase.PRE_FLIGHT_DELUGE;
+        this.launchCountdownTicks = LAUNCH_COUNTDOWN_TOTAL_TICKS;
+        this.lastLaunchAbortReason = "";
+        this.launchClampCheckPassed = false;
+        this.lastLaunchedEntity = null;
+
+        BlockPos padCenter = this.getPadCenterPos();
+        serverLevel.playSound(null, padCenter.above(), SoundEvents.PISTON_CONTRACT, SoundSource.BLOCKS, 1.2F, 0.85F);
+        serverLevel.playSound(null, padCenter.above(), SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1.1F, 0.7F);
+        this.broadcastLaunchCrew(serverLevel,
+                Component.literal("[T-10.0s] Sequência iniciada! Ponte de acesso recolhida — Water Deluge ativo!").withStyle(net.minecraft.ChatFormatting.AQUA));
+        this.sync();
+        return true;
+    }
+
+    /**
+     * Executes a <b>Safe Pad Abort</b>: immediately cuts engines while Hold-Down Clamps stay locked,
+     * preserving the rocket and all pad blocks 100% undamaged.
+     */
+    public boolean abortLaunchSequence(String reason) {
+        if (this.launchPhase == LaunchSequencePhase.IDLE) {
+            return false;
+        }
+        this.launchPhase = LaunchSequencePhase.IDLE;
+        this.launchCountdownTicks = 0;
+        this.launchClampCheckPassed = false;
+        this.lastLaunchAbortReason = (reason != null && !reason.isBlank()) ? reason : "Safe Pad Abort";
+
+        if (this.level instanceof ServerLevel serverLevel) {
+            BlockPos padCenter = this.getPadCenterPos();
+            serverLevel.playSound(null, padCenter.above(), SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1.3F, 0.6F);
+            serverLevel.playSound(null, padCenter.above(), SoundEvents.ANVIL_LAND, SoundSource.BLOCKS, 0.6F, 0.5F);
+            this.broadcastLaunchCrew(serverLevel,
+                    Component.literal("[SAFE PAD ABORT] " + this.lastLaunchAbortReason + " — Clamps travados, foguete intacto!")
+                            .withStyle(net.minecraft.ChatFormatting.RED, net.minecraft.ChatFormatting.BOLD));
+        }
+        this.launchCrewUuids.clear();
+        this.sync();
+        return true;
+    }
+
+    /**
+     * Adopts a modular rocket that touched down safely on this formed launchpad via
+     * {@link RocketStateConverter#convertToStaticBlocks}, restoring exact per-stage fuel, energy &amp; oxygen.
+     */
+    public void adoptLandedModularRocket(
+            List<BlockPos> masterPartPositions,
+            RocketAssemblyGraph landedGraph,
+            long remainingEnergyGj,
+            long remainingOxygenDroplets
+    ) {
+        if (this.level == null || this.level.isClientSide || !this.formed) {
+            return;
+        }
+        this.assembledRocketParts.clear();
+        for (BlockPos pos : masterPartPositions) {
+            BlockPos immutable = pos.immutable();
+            this.assembledRocketParts.add(immutable);
+            if (this.level.getBlockEntity(immutable) instanceof ModularRocketPartBlockEntity partBe && !partBe.isRemoved()) {
+                partBe.setAssembledTerminalPos(this.worldPosition);
+            }
+        }
+        this.rocketAssembled = !this.assembledRocketParts.isEmpty();
+        this.stageFuelDroplets.clear();
+        this.boosterFuelDroplets.clear();
+        for (RocketStageNode stage : landedGraph.stages()) {
+            if (!stage.decoupled()) {
+                this.stageFuelDroplets.put(stage.stageIndex(), stage.currentFuelDroplets());
+                for (RadialBoosterGroup group : stage.radialGroups()) {
+                    if (!group.decoupled()) {
+                        this.boosterFuelDroplets.put(group.groupId(), group.currentFuelDroplets());
+                    }
+                }
+            }
+        }
+        this.rocketEnergy = Math.max(0L, remainingEnergyGj);
+        this.rocketOxygenDroplets = Math.max(0L, remainingOxygenDroplets);
+        this.rebuildAssemblyGraph();
+        this.sync();
+    }
+
+    private void tickLaunchSequence(Level level) {
+        if (this.launchPhase == LaunchSequencePhase.IDLE) {
+            return;
+        }
+        if (!(level instanceof ServerLevel serverLevel)) {
+            return;
+        }
+        if (!this.isRocketAssembled() || this.assemblyGraph.isEmpty()) {
+            this.abortLaunchSequence("Estrutura do foguete alterada durante a contagem");
+            return;
+        }
+
+        BlockPos padCenter = this.getPadCenterPos();
+        double cx = padCenter.getX() + 0.5;
+        double cy = padCenter.getY() + 1.0;
+        double cz = padCenter.getZ() + 0.5;
+
+        this.launchCountdownTicks = Math.max(0, this.launchCountdownTicks - 1);
+
+        // Phase 1: T-10.00s .. T-3.01s -> Water Deluge steam plumes + acoustic suppression
+        if (this.launchPhase == LaunchSequencePhase.PRE_FLIGHT_DELUGE) {
+            if ((this.launchCountdownTicks % 2) == 0) {
+                double spread = Math.max(1.5, this.platformSize.padDeckWidth() * 0.35);
+                serverLevel.sendParticles(ParticleTypes.CLOUD, cx, cy, cz, 8, spread, 0.35, spread, 0.08);
+                serverLevel.sendParticles(ParticleTypes.CAMPFIRE_COSY_SMOKE, cx, cy + 0.2, cz, 4, spread, 0.25, spread, 0.04);
+            }
+            if ((this.launchCountdownTicks % 20) == 0 && this.launchCountdownTicks > THRUST_BUILDUP_START_TICKS) {
+                int sec = this.launchCountdownTicks / 20;
+                serverLevel.playSound(null, padCenter.above(), SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.9F, 0.75F);
+                this.broadcastLaunchCrew(serverLevel,
+                        Component.literal("[T-" + sec + "s] Water Deluge ativo...").withStyle(net.minecraft.ChatFormatting.AQUA));
+            }
+            if (this.launchCountdownTicks <= THRUST_BUILDUP_START_TICKS) {
+                this.launchPhase = LaunchSequencePhase.THRUST_BUILDUP;
+                serverLevel.playSound(null, padCenter.above(), GCSounds.ROCKET_IGNITE, SoundSource.BLOCKS, 1.8F, 0.85F);
+                this.broadcastLaunchCrew(serverLevel,
+                        Component.literal("[T-3.0s] Ignição principal — Hold-Down Clamps travados (Thrust Buildup)!").withStyle(net.minecraft.ChatFormatting.GOLD));
+                this.sync();
+            } else if ((this.launchCountdownTicks % 5) == 0) {
+                this.sync();
+            }
+            return;
+        }
+
+        // Phase 2: T-3.00s .. T-0.01s -> Thrust Buildup under Hold-Down Clamps + TWR/Weibull safety interlock
+        if (this.launchPhase == LaunchSequencePhase.THRUST_BUILDUP) {
+            double spread = Math.max(1.2, this.assemblyGraph.maxRadiusBlocks() * 0.75);
+            java.util.UUID exemptUuid = this.launchCrewUuids.isEmpty() ? net.minecraft.Util.NIL_UUID : this.launchCrewUuids.get(0);
+            serverLevel.sendParticles(new EntityParticleOption(GCParticleTypes.LAUNCH_FLAME, exemptUuid), cx, cy + 0.1, cz, 6, spread * 0.5, 0.15, spread * 0.5, 0.06);
+            serverLevel.sendParticles(ParticleTypes.FLAME, cx, cy + 0.15, cz, 8, spread * 0.45, 0.15, spread * 0.45, 0.08);
+            serverLevel.sendParticles(ParticleTypes.CLOUD, cx, cy + 0.2, cz, 10, spread * 1.4, 0.4, spread * 1.4, 0.12);
+
+            if ((this.launchCountdownTicks % 20) == 0 && this.launchCountdownTicks > 0) {
+                int sec = this.launchCountdownTicks / 20;
+                this.broadcastLaunchCrew(serverLevel,
+                        Component.literal("[T-" + sec + "s] Empuxo crescendo sob Hold-Down Clamps...").withStyle(net.minecraft.ChatFormatting.YELLOW));
+            }
+
+            // Safety interlock check under Hold-Down Clamps before release
+            if (!this.launchClampCheckPassed && this.launchCountdownTicks <= HOLD_DOWN_CLAMP_CHECK_TICK) {
+                if (!this.runHoldDownClampInterlock(serverLevel)) {
+                    return; // Safe Pad Abort already triggered
+                }
+                this.launchClampCheckPassed = true;
+            }
+
+            if (this.launchCountdownTicks <= 0) {
+                if (!this.launchClampCheckPassed && !this.runHoldDownClampInterlock(serverLevel)) {
+                    return;
+                }
+                this.executeAtomicLiftoff(serverLevel);
+            } else if ((this.launchCountdownTicks % 4) == 0) {
+                this.sync();
+            }
+        }
+    }
+
+    /**
+     * Runs the Hold-Down Clamp T-0 safety interlock:
+     * <ol>
+     *   <li>Verifies {@code TWR >= 1.15} against origin {@link PlanetaryEnvironment#gravityG()}</li>
+     *   <li>Rolls calibrated Weibull T-0 ignition check ({@code sigma = 1.20}) on Stage 0 engines &amp; tanks</li>
+     * </ol>
+     * On any failure, executes {@link #abortLaunchSequence} (Safe Pad Abort: engines cut, clamps stay locked,
+     * rocket 100% undamaged).
+     */
+    private boolean runHoldDownClampInterlock(ServerLevel serverLevel) {
+        PlanetaryEnvironment env = PlanetaryEnvironment.fromLevel(serverLevel);
+        double twr = ModularFlightPhysics.computeLiftoffTwr(this.assemblyGraph, env);
+        if (env.gravityG() > 0.001 && twr < ModularFlightPhysics.MIN_LIFTOFF_TWR) {
+            this.abortLaunchSequence(String.format(Locale.ROOT,
+                    "TWR %.2f < %.2f em %s (%.2fG)", twr, ModularFlightPhysics.MIN_LIFTOFF_TWR, env.displayName(), env.gravityG()));
+            return false;
+        }
+
+        RocketStageNode stage0 = this.assemblyGraph.activeStage();
+        if (stage0 != null) {
+            for (var part : stage0.allActiveParts()) {
+                RocketPartCategory cat = part.config().category();
+                if (cat == RocketPartCategory.ENGINE || cat == RocketPartCategory.TANK) {
+                    if (LaunchFailureEngine.rollFailure(part.integrity(), LaunchFailureEngine.STRESS_T0_IGNITION, serverLevel.random)) {
+                        this.abortLaunchSequence(String.format(Locale.ROOT,
+                                "Falha Weibull T-0 em %s (Integridade %.0f%%)", part.config().modelId(), part.integrity().fraction() * 100.0));
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    private void executeAtomicLiftoff(ServerLevel serverLevel) {
+        BlockPos padCenter = this.getPadCenterPos();
+        Direction facing = this.getFacing();
+        List<BlockPos> partSnapshot = new ArrayList<>(this.assembledRocketParts);
+        List<java.util.UUID> crewSnapshot = new ArrayList<>(this.launchCrewUuids);
+        RocketAssemblyGraph graphSnapshot = this.assemblyGraph;
+        long energySnapshot = this.rocketEnergy;
+        long oxygenSnapshot = this.rocketOxygenDroplets;
+
+        ModularRocketFlightEntity launched = RocketStateConverter.convertToFlightEntity(
+                serverLevel,
+                padCenter,
+                facing,
+                this.worldPosition,
+                graphSnapshot,
+                energySnapshot,
+                oxygenSnapshot,
+                partSnapshot,
+                crewSnapshot
+        );
+        if (launched == null) {
+            this.abortLaunchSequence("Falha de spawn atômico (rollback intacto)");
+            return;
+        }
+
+        // Liftoff certified successful: clear terminal references without touching blocks (already cleared atomically)
+        this.lastLaunchedEntity = launched;
+        this.assembledRocketParts.clear();
+        this.assemblyGraph = RocketAssemblyGraph.EMPTY;
+        this.stageFuelDroplets.clear();
+        this.stageFuelVariants.clear();
+        this.boosterFuelDroplets.clear();
+        this.boosterFuelVariants.clear();
+        this.rocketAssembled = false;
+        this.rocketFuelDroplets = 0L;
+        this.rocketEnergy = 0L;
+        this.rocketOxygenDroplets = 0L;
+        this.launchPhase = LaunchSequencePhase.IDLE;
+        this.launchCountdownTicks = 0;
+        this.launchClampCheckPassed = false;
+        this.launchCrewUuids.clear();
+        this.rebuildFluidStorage();
+
+        serverLevel.playSound(null, padCenter.above(), SoundEvents.IRON_TRAPDOOR_OPEN, SoundSource.BLOCKS, 1.5F, 0.7F);
+        serverLevel.playSound(null, padCenter.above(), GCSounds.ROCKET_IGNITE, SoundSource.BLOCKS, 2.0F, 1.0F);
+        this.sync();
+    }
+
+    private void notifyOperator(@Nullable ServerPlayer operator, String message, boolean error) {
+        if (operator != null) {
+            operator.displayClientMessage(
+                    Component.literal("[LAUNCH] " + message)
+                            .withStyle(error ? net.minecraft.ChatFormatting.RED : net.minecraft.ChatFormatting.AQUA),
+                    true
+            );
+        }
+    }
+
+    private void broadcastLaunchCrew(ServerLevel serverLevel, Component message) {
+        for (java.util.UUID uuid : this.launchCrewUuids) {
+            if (serverLevel.getPlayerByUUID(uuid) instanceof ServerPlayer sp) {
+                sp.displayClientMessage(message, true);
+            }
+        }
     }
 
     public long getStageFuelDroplets(int stageIndex) {
@@ -1014,6 +1417,7 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
             return;
         }
         terminal.tickProgressiveAssembly(level);
+        terminal.tickLaunchSequence(level);
         terminal.tickAssembledRocket(level);
 
         PlatformCollisionRegistry.ElevatorTrack track = PlatformCollisionRegistry.getElevatorTrack(
@@ -2180,7 +2584,20 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
             }
         }
         if (!placedPositions.isEmpty()) {
+            boolean coreAlreadyFueled = this.rocketFuelDroplets > 0L;
             this.registerAssembledRocketParts(placedPositions);
+            // In creative instant mode, if the core rocket was already fueled, auto-fill the newly attached boosters too
+            if (coreAlreadyFueled && !this.assemblyGraph.isEmpty()) {
+                for (RocketStageNode stage : this.assemblyGraph.stages()) {
+                    for (RadialBoosterGroup group : stage.radialGroups()) {
+                        if (!group.decoupled() && group.fuelCapacityDroplets() > 0L && this.boosterFuelDroplets.getOrDefault(group.groupId(), 0L) <= 0L) {
+                            this.boosterFuelDroplets.put(group.groupId(), group.fuelCapacityDroplets());
+                            this.boosterFuelVariants.put(group.groupId(), defaultFluidForPropellant(resolvePropellantById(group.propellantId())));
+                        }
+                    }
+                }
+                this.recomputeAggregateFuelAndGraph();
+            }
             this.level.playSound(null, padCenter.above(), SoundEvents.ANVIL_USE, SoundSource.BLOCKS, 0.9F, 1.1F);
             if (player != null) {
                 player.displayClientMessage(Component.literal("[VAB] Boosters " + symmetry.getSerializedName() + " anexados com sucesso!"), false);
@@ -3247,6 +3664,11 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
         tag.putInt(TAG_ASSEMBLY_TOTAL_DURATION, this.assemblyTotalDurationTicks);
         tag.putInt(TAG_ASSEMBLY_COMPLETED_STEPS, this.assemblyCompletedSteps);
         tag.putInt(TAG_ASSEMBLY_TOTAL_STEPS, this.assemblyTotalSteps);
+        tag.putString(TAG_LAUNCH_PHASE, this.launchPhase.name());
+        tag.putInt(TAG_LAUNCH_COUNTDOWN_TICKS, this.launchCountdownTicks);
+        if (!this.lastLaunchAbortReason.isEmpty()) {
+            tag.putString(TAG_LAST_ABORT_REASON, this.lastLaunchAbortReason);
+        }
     }
 
     @Override
@@ -3416,6 +3838,19 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
         this.assemblyTotalDurationTicks = Math.max(0, tag.getInt(TAG_ASSEMBLY_TOTAL_DURATION));
         this.assemblyCompletedSteps = Math.max(0, tag.getInt(TAG_ASSEMBLY_COMPLETED_STEPS));
         this.assemblyTotalSteps = Math.max(0, tag.getInt(TAG_ASSEMBLY_TOTAL_STEPS));
+        if (tag.contains(TAG_LAUNCH_PHASE, Tag.TAG_STRING)) {
+            try {
+                this.launchPhase = LaunchSequencePhase.valueOf(tag.getString(TAG_LAUNCH_PHASE));
+            } catch (IllegalArgumentException ignored) {
+                this.launchPhase = LaunchSequencePhase.IDLE;
+            }
+        } else {
+            this.launchPhase = LaunchSequencePhase.IDLE;
+        }
+        this.launchCountdownTicks = Math.max(0, tag.getInt(TAG_LAUNCH_COUNTDOWN_TICKS));
+        this.lastLaunchAbortReason = tag.contains(TAG_LAST_ABORT_REASON, Tag.TAG_STRING)
+                ? tag.getString(TAG_LAST_ABORT_REASON)
+                : "";
         this.rebuildFluidStorage();
 
         if (this.level != null && this.level.isClientSide) {

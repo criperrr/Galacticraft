@@ -49,6 +49,7 @@ public class GCServerPacketReceivers {
         registerPacket(BuildRocketFromInventoryPayload.TYPE);
         registerPacket(AttachRadialBoosterPayload.TYPE);
         registerPacket(EditRocketCorePayload.TYPE);
+        registerPacket(ModularRocketControlPayload.TYPE);
         registerPacket(SelectPartBuilderConfigPayload.TYPE);
         registerPacket(ResearchTerminalActionPayload.TYPE);
         registerPacket(ResearchMachineActionPayload.TYPE);

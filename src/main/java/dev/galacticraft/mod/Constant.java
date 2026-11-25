@@ -1477,6 +1477,8 @@ public interface Constant {
         String EVOLVED_SKELETON_BOSS = "evolved_skeleton_boss";
         String SLIMELING = "slimeling";
         String GRAPPLE = "grapple";
+        String MODULAR_ROCKET_FLIGHT = "modular_rocket_flight";
+        String DETACHED_STAGE = "detached_stage";
     }
 
     interface SpawnEgg {

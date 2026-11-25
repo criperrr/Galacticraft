@@ -24,6 +24,7 @@ package dev.galacticraft.mod.network.c2s;
 
 import dev.galacticraft.impl.network.c2s.C2SPayload;
 import dev.galacticraft.mod.Constant;
+import dev.galacticraft.mod.content.entity.vehicle.ModularRocketFlightEntity;
 import dev.galacticraft.mod.content.entity.vehicle.RocketEntity;
 import io.netty.buffer.ByteBuf;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -44,6 +45,8 @@ public record OpenRocketPayload() implements C2SPayload {
         ServerPlayer player = context.player();
         if (player.getVehicle() instanceof RocketEntity rocket) {
             player.openMenu(rocket);
+        } else if (player.getVehicle() instanceof ModularRocketFlightEntity modularRocket) {
+            modularRocket.openCargoInventory(player);
         }
     }
 

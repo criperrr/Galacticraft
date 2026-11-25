@@ -148,6 +148,37 @@ public record RocketStageNode(
         );
     }
 
+    public @NotNull RocketStageNode withUpdatedFuelAndBoosters(
+            long nextCoreFuel,
+            @NotNull List<RadialBoosterGroup> updatedRadialGroups
+    ) {
+        return new RocketStageNode(
+                this.stageIndex,
+                this.decouplerRelativePos,
+                this.hotStaging,
+                this.propellantId,
+                this.fuelCapacityDroplets,
+                Math.clamp(nextCoreFuel, 0L, this.fuelCapacityDroplets),
+                this.coreParts,
+                Objects.requireNonNull(updatedRadialGroups, "updatedRadialGroups"),
+                this.decoupled
+        );
+    }
+
+    public @NotNull RocketStageNode withCoreParts(@NotNull List<MountedPartNode> updatedCoreParts) {
+        return new RocketStageNode(
+                this.stageIndex,
+                this.decouplerRelativePos,
+                this.hotStaging,
+                this.propellantId,
+                this.fuelCapacityDroplets,
+                this.currentFuelDroplets,
+                Objects.requireNonNull(updatedCoreParts, "updatedCoreParts"),
+                this.radialGroups,
+                this.decoupled
+        );
+    }
+
     public @NotNull RocketStageNode withoutRadialGroup(@NotNull String groupId) {
         Objects.requireNonNull(groupId, "groupId");
         List<RadialBoosterGroup> updated = new ArrayList<>(this.radialGroups.size());

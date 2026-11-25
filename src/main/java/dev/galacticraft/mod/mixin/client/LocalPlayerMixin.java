@@ -30,9 +30,11 @@ import dev.galacticraft.api.universe.celestialbody.CelestialBody;
 import dev.galacticraft.mod.client.render.astro.ClientTelescopeController;
 import dev.galacticraft.mod.content.entity.vehicle.AbstractLanderEntity;
 import dev.galacticraft.mod.content.entity.vehicle.AdvancedVehicle;
+import dev.galacticraft.mod.content.entity.vehicle.ModularRocketFlightEntity;
 import dev.galacticraft.mod.content.entity.vehicle.RocketEntity;
 import dev.galacticraft.mod.content.item.RocketItem;
 import dev.galacticraft.mod.network.c2s.ControlEntityPayload;
+import dev.galacticraft.mod.network.c2s.ModularRocketControlPayload;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -70,6 +72,8 @@ public abstract class LocalPlayerMixin extends AbstractClientPlayer {
     private boolean gc$wasFlying = false;
     @Unique
     private boolean gc$ignoreJumpUntilRelease = false;
+    @Unique
+    private boolean gc$wasSendingModularInput = false;
 
     public LocalPlayerMixin(ClientLevel clientLevel, GameProfile gameProfile) {
         super(clientLevel, gameProfile);
@@ -129,12 +133,24 @@ public abstract class LocalPlayerMixin extends AbstractClientPlayer {
             boolean invertControls = this.minecraft.options.getCameraType().isFirstPerson();
             controllable.inputTick(input.leftImpulse, input.forwardImpulse, input.up, input.down, input.left, input.right, input.jumping, input.shiftKeyDown, invertControls);
             ClientPlayNetworking.send(new ControlEntityPayload(input.leftImpulse, input.forwardImpulse, input.up, input.down, input.left, input.right, input.jumping, input.shiftKeyDown, invertControls));
+        } else if (this.isPassenger() && this.getVehicle() instanceof ModularRocketFlightEntity modularRocket && this.minecraft.screen == null) {
+            float pitchInput = (this.input.up ? 1.0F : 0.0F) - (this.input.down ? 1.0F : 0.0F);
+            float yawInput = (this.input.right ? 1.0F : 0.0F) - (this.input.left ? 1.0F : 0.0F);
+            float throttleDelta = (this.input.jumping ? 1.0F : 0.0F) - (this.input.shiftKeyDown ? 1.0F : 0.0F);
+            int flags = this.input.jumping ? ModularRocketControlPayload.FLAG_RETRO_BURN : 0;
+            boolean hasActiveInput = Math.abs(pitchInput) > 0.01F || Math.abs(yawInput) > 0.01F || Math.abs(throttleDelta) > 0.01F || flags != 0;
+            if (hasActiveInput || this.gc$wasSendingModularInput) {
+                ClientPlayNetworking.send(new ModularRocketControlPayload(modularRocket.getId(), pitchInput, yawInput, throttleDelta, flags));
+                this.gc$wasSendingModularInput = hasActiveInput;
+            }
+        } else {
+            this.gc$wasSendingModularInput = false;
         }
     }
 
     @ModifyReturnValue(method = "isCrouching", at = @At("RETURN"))
     private boolean gc$isCrouching(boolean original) {
-        if (this.isPassenger() && this.getVehicle() instanceof IgnoreShift) {
+        if (this.isPassenger() && this.getVehicle() instanceof IgnoreShift ignoreShift && ignoreShift.shouldIgnoreShiftExit()) {
             return false;
         }
         return this.isHoldingRocket() || original;
@@ -142,7 +158,7 @@ public abstract class LocalPlayerMixin extends AbstractClientPlayer {
 
     @ModifyReturnValue(method = "isShiftKeyDown", at = @At("RETURN"))
     private boolean gc$isShiftKeyDown(boolean original) {
-        if (this.isPassenger() && this.getVehicle() instanceof IgnoreShift) {
+        if (this.isPassenger() && this.getVehicle() instanceof IgnoreShift ignoreShift && ignoreShift.shouldIgnoreShiftExit()) {
             return false;
         }
         return this.isHoldingRocket() || original;
@@ -162,7 +178,7 @@ public abstract class LocalPlayerMixin extends AbstractClientPlayer {
     private void gc$enterAdvancedVehicle(Entity vehicle, boolean bl, CallbackInfoReturnable<Boolean> cir) {
         if (vehicle instanceof RocketEntity) {
             this.minecraft.options.setCameraType(CameraType.THIRD_PERSON_FRONT);
-        } else if (vehicle instanceof AbstractLanderEntity) {
+        } else if (vehicle instanceof AbstractLanderEntity || vehicle instanceof ModularRocketFlightEntity) {
             this.minecraft.options.setCameraType(CameraType.THIRD_PERSON_BACK);
         }
     }
@@ -170,7 +186,7 @@ public abstract class LocalPlayerMixin extends AbstractClientPlayer {
     @Inject(method = "removeVehicle", at = @At("HEAD"), cancellable = true)
     private void gc$exitAdvancedVehicle(CallbackInfo ci) {
         Entity vehicle = this.getVehicle();
-        if (vehicle instanceof AdvancedVehicle) {
+        if (vehicle instanceof AdvancedVehicle || vehicle instanceof ModularRocketFlightEntity) {
             this.minecraft.options.setCameraType(CameraType.FIRST_PERSON);
         }
     }
