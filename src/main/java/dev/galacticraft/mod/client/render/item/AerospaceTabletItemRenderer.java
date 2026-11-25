@@ -32,6 +32,7 @@ import dev.galacticraft.mod.content.rocket.physics.PlanetaryEnvironment;
 import dev.galacticraft.mod.manual.ManualEntry;
 import dev.galacticraft.mod.manual.ManualPage;
 import dev.galacticraft.mod.manual.ManualTab;
+import dev.galacticraft.mod.manual.PlanetarySurveyPrecision;
 import dev.galacticraft.mod.research.ClientResearchCache;
 import dev.galacticraft.mod.research.ResearchCatalog;
 import dev.galacticraft.mod.research.ResearchNode;
@@ -51,6 +52,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
@@ -59,7 +61,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Locale;
 
 /**
  * 3D Aerospace Tablet item &amp; first-person two-handed renderer for {@code GCItems.AEROSPACE_MANUAL}.
@@ -114,17 +115,16 @@ public final class AerospaceTabletItemRenderer implements BuiltinItemRendererReg
                 poseStack.scale(0.95F, 0.95F, 0.95F);
             }
             case THIRD_PERSON_RIGHT_HAND -> {
-                // Centered between both raised player hands in third-person
-                poseStack.translate(0.18F, 0.48F, 0.34F);
-                poseStack.mulPose(Axis.XP.rotationDegrees(-26.0F));
-                poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));
-                poseStack.scale(0.66F, 0.66F, 0.66F);
+                poseStack.translate(0.52F, 0.42F, 0.36F);
+                poseStack.mulPose(Axis.XP.rotationDegrees(-24.0F));
+                poseStack.mulPose(Axis.YP.rotationDegrees(172.0F));
+                poseStack.scale(0.58F, 0.58F, 0.58F);
             }
             case THIRD_PERSON_LEFT_HAND -> {
-                poseStack.translate(0.82F, 0.48F, 0.34F);
-                poseStack.mulPose(Axis.XP.rotationDegrees(-26.0F));
-                poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));
-                poseStack.scale(0.66F, 0.66F, 0.66F);
+                poseStack.translate(0.48F, 0.42F, 0.36F);
+                poseStack.mulPose(Axis.XP.rotationDegrees(-24.0F));
+                poseStack.mulPose(Axis.YP.rotationDegrees(188.0F));
+                poseStack.scale(0.58F, 0.58F, 0.58F);
             }
             case FIRST_PERSON_RIGHT_HAND, FIRST_PERSON_LEFT_HAND -> {
                 poseStack.translate(0.5F, 0.5F, 0.5F);
@@ -141,12 +141,17 @@ public final class AerospaceTabletItemRenderer implements BuiltinItemRendererReg
     }
 
     /**
-     * Renders the first-person two-handed 3D Aerospace Tablet with BOTH player arms gripping the
-     * left and right chassis handles, smoothly animating from handheld idle view up to centered
-     * eye-level zoom when opening {@link AerospaceManualScreen}.
+     * Renders the first-person 3D Aerospace Tablet:
+     * <ul>
+     *   <li><b>Idle ({@code anim == 0}):</b> Held cleanly in <b>ONE hand only</b> on the right/left side
+     *       with the screen 100% unobstructed so the player can read the last tab/page while walking.</li>
+     *   <li><b>Opening ({@code RMB / G}, {@code anim: 0 -> 1}):</b> Smoothly glides to eye center while the
+     *       <b>second hand rises up</b> to grip the opposite titanium side handle and the camera zooms in.</li>
+     * </ul>
      */
-    public void renderFirstPersonTwoHanded(
+    public void renderFirstPersonTablet(
             @NotNull AbstractClientPlayer player,
+            @NotNull HumanoidArm primaryArm,
             float partialTicks,
             float equippedProgress,
             float swingProgress,
@@ -155,39 +160,59 @@ public final class AerospaceTabletItemRenderer implements BuiltinItemRendererReg
             int combinedLight
     ) {
         float anim = AerospaceTabletAnimator.getProgress();
-        float idleFactor = 1.0F - anim;
+        // Once the interactive tablet GUI is locked in at full zoom, skip redrawing the 3D hand behind it
+        if (AerospaceTabletAnimator.screenRevealAlpha() >= 0.94F) {
+            return;
+        }
 
-        // Subtle breathing + equip offset only when idle in hand
-        float equipDrop = equippedProgress * 0.42F * idleFactor;
+        float idleFactor = 1.0F - anim;
+        float sideSign = primaryArm == HumanoidArm.RIGHT ? 1.0F : -1.0F;
+
+        float equipDrop = equippedProgress * 0.40F * idleFactor;
         float swingSin = Mth.sin(Mth.sqrt(swingProgress) * Mth.PI) * idleFactor;
-        float breath = Mth.sin((player.tickCount + partialTicks) * 0.08F) * 0.006F * idleFactor;
+        float breath = Mth.sin((player.tickCount + partialTicks) * 0.08F) * 0.005F * idleFactor;
 
         poseStack.pushPose();
 
-        // Smooth interpolation: handheld tilted low-center -> eye-level zoomed-in flat
-        float tx = 0.0F;
-        float ty = Mth.lerp(anim, -0.34F - equipDrop + breath, -0.015F);
-        float tz = Mth.lerp(anim, -0.78F, -0.43F);
-        float pitchDeg = Mth.lerp(anim, -24.0F + swingSin * 10.0F, 0.0F);
-        float scale = Mth.lerp(anim, 0.90F, 1.02F);
+        // Idle: held comfortably off to one side in ONE hand. Open: smoothly raised to dead center!
+        float tx = Mth.lerp(anim, sideSign * 0.31F, 0.0F);
+        float ty = Mth.lerp(anim, -0.26F - equipDrop + breath, -0.015F);
+        float tz = Mth.lerp(anim, -0.74F, -0.44F);
+        float yawDeg = Mth.lerp(anim, -sideSign * 18.0F, 0.0F);
+        float pitchDeg = Mth.lerp(anim, -14.0F + swingSin * 8.0F, 0.0F);
+        float scale = Mth.lerp(anim, 0.78F, 1.00F);
 
         poseStack.translate(tx, ty, tz);
+        poseStack.mulPose(Axis.YP.rotationDegrees(yawDeg));
         poseStack.mulPose(Axis.XP.rotationDegrees(pitchDeg));
         poseStack.scale(scale, scale, scale);
 
-        // Render BOTH player hands gripping the left & right ergonomic handles of the tablet
-        if (!player.isInvisible()) {
-            renderGrippingHands(player, poseStack, buffer, combinedLight);
-        }
-
-        // Render the 3D Aerospace Tablet + live backlit screen right between the player's hands
+        // Render the 3D Aerospace Tablet + live backlit screen first
         renderTablet3D(poseStack, buffer, combinedLight, OverlayTexture.NO_OVERLAY, true);
+
+        // Render primary holding hand behind/outer edge of the titanium handle (NEVER obstructing the glass!)
+        if (!player.isInvisible()) {
+            renderSideGrippingHand(player, primaryArm, 1.0F, poseStack, buffer, combinedLight);
+
+            // Second hand ONLY rises up to grip the opposite handle when opening (RMB / G)!
+            if (anim > 0.02F) {
+                HumanoidArm secondaryArm = primaryArm.getOpposite();
+                renderSideGrippingHand(player, secondaryArm, anim, poseStack, buffer, combinedLight);
+            }
+        }
 
         poseStack.popPose();
     }
 
-    private void renderGrippingHands(
+    /**
+     * Renders a single player forearm cleanly positioned along the outer-back titanium grip rail
+     * ({@code z < 0}, outside {@code |x| > BODY_W * 0.5}) so it grips the edge without ever clipping
+     * in front of the backlit display.
+     */
+    private void renderSideGrippingHand(
             AbstractClientPlayer player,
+            HumanoidArm arm,
+            float raiseFactor,
             PoseStack poseStack,
             MultiBufferSource buffer,
             int combinedLight
@@ -197,24 +222,21 @@ public final class AerospaceTabletItemRenderer implements BuiltinItemRendererReg
             return;
         }
 
-        // Left arm gripping the left titanium handle
-        poseStack.pushPose();
-        poseStack.translate(-BODY_W * 0.56F, -0.18F, 0.08F);
-        poseStack.mulPose(Axis.XP.rotationDegrees(72.0F));
-        poseStack.mulPose(Axis.YP.rotationDegrees(14.0F));
-        poseStack.mulPose(Axis.ZP.rotationDegrees(-18.0F));
-        poseStack.scale(0.58F, 0.58F, 0.58F);
-        playerRenderer.renderLeftHand(poseStack, buffer, combinedLight, player);
-        poseStack.popPose();
+        float side = arm == HumanoidArm.RIGHT ? 1.0F : -1.0F;
+        float dropY = (1.0F - raiseFactor) * 0.55F;
 
-        // Right arm gripping the right titanium handle
         poseStack.pushPose();
-        poseStack.translate(BODY_W * 0.56F, -0.18F, 0.08F);
-        poseStack.mulPose(Axis.XP.rotationDegrees(72.0F));
-        poseStack.mulPose(Axis.YP.rotationDegrees(-14.0F));
-        poseStack.mulPose(Axis.ZP.rotationDegrees(18.0F));
-        poseStack.scale(0.58F, 0.58F, 0.58F);
-        playerRenderer.renderRightHand(poseStack, buffer, combinedLight, player);
+        // Anchor strictly outside the left/right bezel and behind the screen plane (z = -0.14)
+        poseStack.translate(side * (BODY_W * 0.50F + 0.14F), -0.34F - dropY, -0.14F);
+        poseStack.mulPose(Axis.YP.rotationDegrees(side * 90.0F));
+        poseStack.mulPose(Axis.XP.rotationDegrees(38.0F));
+        poseStack.mulPose(Axis.ZP.rotationDegrees(side * -34.0F));
+        poseStack.scale(0.55F, 0.55F, 0.55F);
+        if (arm == HumanoidArm.RIGHT) {
+            playerRenderer.renderRightHand(poseStack, buffer, combinedLight, player);
+        } else {
+            playerRenderer.renderLeftHand(poseStack, buffer, combinedLight, player);
+        }
         poseStack.popPose();
     }
 
@@ -411,13 +433,12 @@ public final class AerospaceTabletItemRenderer implements BuiltinItemRendererReg
             if (page instanceof ManualPage.PlanetStratigraphyPage planetPage) {
                 PlanetaryEnvironment env = PlanetaryEnvironment.byId(planetPage.bodyId());
                 if (env != null) {
-                    int dayC = (int) Math.round(env.dayTempKelvin() - PlanetaryEnvironment.KELVIN_OFFSET);
-                    int nightC = (int) Math.round(env.nightTempKelvin() - PlanetaryEnvironment.KELVIN_OFFSET);
+                    PlanetarySurveyPrecision prec = PlanetarySurveyPrecision.evaluateLive(planetPage.bodyId());
                     return List.of(
-                            String.format(Locale.ROOT, "G: %.2fg | P: %.2f atm", env.gravityG(), env.pressureAtm()),
-                            String.format(Locale.ROOT, "Temp: %dC / %dC | dV: %.0f", dayC, nightC, env.orbitAscentDeltaV()),
-                            String.format(Locale.ROOT, "Solar: %.3fx%s", env.solarIrradianceFactor(), env.corrosiveAcid() ? " | ACID!" : ""),
-                            "Ores tracked: " + planetPage.ores().size() + " strata"
+                            "Precision: " + prec.precisionPct() + "% (" + (prec.isExact() ? "VERIFIED" : "PROBABLE RANGE") + ")",
+                            "G: " + prec.formatGravity(env) + " | P: " + prec.formatPressure(env),
+                            "Temp: " + prec.formatTemperatureC(env),
+                            "dV: " + prec.formatDeltaV(env) + " | Solar: " + prec.formatSolar(env)
                     );
                 }
             }

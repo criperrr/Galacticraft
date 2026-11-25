@@ -597,7 +597,7 @@ public final class ManualCatalog {
                         ore(Constant.id("olivine_basalt"), "block.galacticraft.olivine_basalt", -56, 20, 2.2, 0xFF84CC16)
                 )));
 
-        list.add(planetEntry(ENTRY_ATLAS_MARS, 2, 30, GCCelestialBodies.MARS.location(), Constant.id("desh_ore"), Optional.of(ResearchCatalog.LUNAR_DEEP_SKY_SURVEY), "manual.galacticraft.hint.lunar_deep_sky",
+        list.add(planetEntry(ENTRY_ATLAS_MARS, 2, 30, GCCelestialBodies.MARS.location(), Constant.id("desh_ore"), Optional.empty(), "manual.galacticraft.hint.lunar_deep_sky",
                 "manual.galacticraft.atlas.mars.title", "manual.galacticraft.atlas.mars.hazards",
                 List.of(
                         ore(Constant.id("mars_iron_ore"), "block.galacticraft.mars_iron_ore", 10, 72, 2.5, 0xFFD97757),
@@ -606,7 +606,7 @@ public final class ManualCatalog {
                         ore(Constant.id("mars_niobium_ore"), "block.galacticraft.mars_niobium_ore", -56, 8, 1.0, 0xFF60A5FA)
                 )));
 
-        list.add(planetEntry(ENTRY_ATLAS_ASTEROIDS, 3, 40, GCCelestialBodies.ASTEROID.location(), Constant.id("ilmenite_ore"), Optional.of(ResearchCatalog.LUNAR_DEEP_SKY_SURVEY), "manual.galacticraft.hint.lunar_deep_sky",
+        list.add(planetEntry(ENTRY_ATLAS_ASTEROIDS, 3, 40, GCCelestialBodies.ASTEROID.location(), Constant.id("ilmenite_ore"), Optional.empty(), "manual.galacticraft.hint.lunar_deep_sky",
                 "manual.galacticraft.atlas.asteroids.title", "manual.galacticraft.atlas.asteroids.hazards",
                 List.of(
                         ore(Constant.id("dense_ice"), "block.galacticraft.dense_ice", 20, 110, 3.2, 0xFF7DD3FC),
@@ -615,7 +615,7 @@ public final class ManualCatalog {
                         ore(Constant.id("asteroid_niobium_ore"), "block.galacticraft.asteroid_niobium_ore", 0, 80, 1.8, 0xFF818CF8)
                 )));
 
-        list.add(planetEntry(ENTRY_ATLAS_MERCURY, 4, 50, GCCelestialBodies.MERCURY.location(), Constant.id("mercury_sulfide_ore"), Optional.of(ResearchCatalog.LUNAR_DEEP_SKY_SURVEY), "manual.galacticraft.hint.lunar_deep_sky",
+        list.add(planetEntry(ENTRY_ATLAS_MERCURY, 4, 50, GCCelestialBodies.MERCURY.location(), Constant.id("mercury_sulfide_ore"), Optional.empty(), "manual.galacticraft.hint.lunar_deep_sky",
                 "manual.galacticraft.atlas.mercury.title", "manual.galacticraft.atlas.mercury.hazards",
                 List.of(
                         ore(Constant.id("mercury_hollow_deposit"), "block.galacticraft.mercury_hollow_deposit", 48, 96, 3.0, 0xFF38BDF8),
@@ -624,7 +624,7 @@ public final class ManualCatalog {
                         ore(Constant.id("mercury_sulfide_ore"), "block.galacticraft.mercury_sulfide_ore", -56, 16, 2.4, 0xFFF59E0B)
                 )));
 
-        list.add(planetEntry(ENTRY_ATLAS_VENUS, 4, 60, GCCelestialBodies.VENUS.location(), Constant.id("galena_ore"), Optional.of(ResearchCatalog.LUNAR_DEEP_SKY_SURVEY), "manual.galacticraft.hint.lunar_deep_sky",
+        list.add(planetEntry(ENTRY_ATLAS_VENUS, 4, 60, GCCelestialBodies.VENUS.location(), Constant.id("galena_ore"), Optional.empty(), "manual.galacticraft.hint.lunar_deep_sky",
                 "manual.galacticraft.atlas.venus.title", "manual.galacticraft.atlas.venus.hazards",
                 List.of(
                         ore(Constant.id("venus_aluminum_ore"), "block.galacticraft.venus_aluminum_ore", 8, 64, 1.8, 0xFFD8E2EC),
@@ -633,7 +633,7 @@ public final class ManualCatalog {
                         ore(Constant.id("venus_niobium_ore"), "block.galacticraft.venus_niobium_ore", -56, 12, 1.6, 0xFF60A5FA)
                 )));
 
-        list.add(planetEntry(ENTRY_ATLAS_JUPITER, 5, 70, GCCelestialBodies.JUPITER.location(), Constant.id("jupiter_palladium_ore"), Optional.of(ResearchCatalog.OUTER_SYSTEM_EPHEMERIS), "manual.galacticraft.hint.outer_ephemeris",
+        list.add(planetEntry(ENTRY_ATLAS_JUPITER, 5, 70, GCCelestialBodies.JUPITER.location(), Constant.id("jupiter_palladium_ore"), Optional.empty(), "manual.galacticraft.hint.outer_ephemeris",
                 "manual.galacticraft.atlas.jupiter.title", "manual.galacticraft.atlas.jupiter.hazards",
                 List.of(
                         ore(Constant.id("jupiter_niobium_ore"), "block.galacticraft.jupiter_niobium_ore", -12, 56, 2.0, 0xFF60A5FA),
@@ -641,7 +641,7 @@ public final class ManualCatalog {
                         ore(Constant.id("jupiter_metallic_hydrogen_rock"), "block.galacticraft.jupiter_metallic_hydrogen_rock", -60, -8, 2.4, 0xFF38BDF8)
                 )));
 
-        list.add(planetEntry(ENTRY_ATLAS_SATURN, 5, 80, GCCelestialBodies.SATURN.location(), Constant.id("saturn_magnesium_ore"), Optional.of(ResearchCatalog.OUTER_SYSTEM_EPHEMERIS), "manual.galacticraft.hint.outer_ephemeris",
+        list.add(planetEntry(ENTRY_ATLAS_SATURN, 5, 80, GCCelestialBodies.SATURN.location(), Constant.id("saturn_magnesium_ore"), Optional.empty(), "manual.galacticraft.hint.outer_ephemeris",
                 "manual.galacticraft.atlas.saturn.title", "manual.galacticraft.atlas.saturn.hazards",
                 List.of(
                         ore(Constant.id("saturn_ring_ice_rock"), "block.galacticraft.saturn_ring_ice_rock", 24, 88, 3.0, 0xFFBAE6FD),
@@ -649,7 +649,7 @@ public final class ManualCatalog {
                         ore(Constant.id("saturn_helium_mantle_rock"), "block.galacticraft.saturn_helium_mantle_rock", -60, 0, 3.5, 0xFF22D3EE)
                 )));
 
-        list.add(planetEntry(ENTRY_ATLAS_URANUS, 6, 90, GCCelestialBodies.URANUS.location(), Constant.id("uranus_uranium_ore"), Optional.of(ResearchCatalog.OUTER_SYSTEM_EPHEMERIS), "manual.galacticraft.hint.outer_ephemeris",
+        list.add(planetEntry(ENTRY_ATLAS_URANUS, 6, 90, GCCelestialBodies.URANUS.location(), Constant.id("uranus_uranium_ore"), Optional.empty(), "manual.galacticraft.hint.outer_ephemeris",
                 "manual.galacticraft.atlas.uranus.title", "manual.galacticraft.atlas.uranus.hazards",
                 List.of(
                         ore(Constant.id("uranus_methane_ice"), "block.galacticraft.uranus_methane_ice", 16, 80, 2.8, 0xFF67E8F9),
@@ -657,7 +657,7 @@ public final class ManualCatalog {
                         ore(Constant.id("uranus_diamond_bearing_rock"), "block.galacticraft.uranus_diamond_bearing_rock", -60, -4, 2.5, 0xFF7FE8FF)
                 )));
 
-        list.add(planetEntry(ENTRY_ATLAS_NEPTUNE, 6, 100, GCCelestialBodies.NEPTUNE.location(), Constant.id("superionic_ice_crystal"), Optional.of(ResearchCatalog.OUTER_SYSTEM_EPHEMERIS), "manual.galacticraft.hint.outer_ephemeris",
+        list.add(planetEntry(ENTRY_ATLAS_NEPTUNE, 6, 100, GCCelestialBodies.NEPTUNE.location(), Constant.id("superionic_ice_crystal"), Optional.empty(), "manual.galacticraft.hint.outer_ephemeris",
                 "manual.galacticraft.atlas.neptune.title", "manual.galacticraft.atlas.neptune.hazards",
                 List.of(
                         ore(Constant.id("neptune_nitrogen_ice"), "block.galacticraft.neptune_nitrogen_ice", 16, 84, 3.0, 0xFF60A5FA),

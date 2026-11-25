@@ -130,16 +130,30 @@ public abstract class HumanoidModelMixin<T extends LivingEntity> extends EntityM
             }
         }
 
-        boolean holdingTablet = entity.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof AerospaceManualItem
-                || entity.getItemInHand(InteractionHand.OFF_HAND).getItem() instanceof AerospaceManualItem;
-        if (holdingTablet) {
-            // Two-handed tablet grip pose in third-person
-            this.leftArm.xRot = -0.92F;
-            this.leftArm.yRot = 0.34F;
-            this.leftArm.zRot = 0.06F;
-            this.rightArm.xRot = -0.92F;
-            this.rightArm.yRot = -0.34F;
-            this.rightArm.zRot = -0.06F;
+        boolean mainTablet = entity.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof AerospaceManualItem;
+        boolean offTablet = entity.getItemInHand(InteractionHand.OFF_HAND).getItem() instanceof AerospaceManualItem;
+        if (mainTablet || offTablet) {
+            boolean isLocalOpen = entity == net.minecraft.client.Minecraft.getInstance().player
+                    && dev.galacticraft.mod.client.gui.screen.manual.AerospaceTabletAnimator.isAnimatingOrOpen();
+            if (isLocalOpen) {
+                // Both hands raised gripping the tablet ONLY while opened
+                this.leftArm.xRot = -0.92F;
+                this.leftArm.yRot = 0.34F;
+                this.leftArm.zRot = 0.06F;
+                this.rightArm.xRot = -0.92F;
+                this.rightArm.yRot = -0.34F;
+                this.rightArm.zRot = -0.06F;
+            } else {
+                // Idle: hold cleanly in ONE hand only
+                boolean rightHanded = entity.getMainArm() == HumanoidArm.RIGHT;
+                if ((mainTablet && rightHanded) || (offTablet && !rightHanded)) {
+                    this.rightArm.xRot = -0.78F;
+                    this.rightArm.yRot = -0.18F;
+                } else {
+                    this.leftArm.xRot = -0.78F;
+                    this.leftArm.yRot = 0.18F;
+                }
+            }
         }
 
         if (entity.isInCryoSleep()) {

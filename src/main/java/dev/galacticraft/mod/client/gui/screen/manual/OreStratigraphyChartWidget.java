@@ -24,7 +24,7 @@ package dev.galacticraft.mod.client.gui.screen.manual;
 
 import dev.galacticraft.mod.content.rocket.physics.PlanetaryEnvironment;
 import dev.galacticraft.mod.manual.ManualPage;
-import dev.galacticraft.mod.research.ClientResearchCache;
+import dev.galacticraft.mod.manual.PlanetarySurveyPrecision;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.Font;
@@ -42,9 +42,9 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * Planetary Atlas &amp; Ore Stratigraphy Chart widget displaying live astrophysical parameters
- * from {@link PlanetaryEnvironment} alongside visual Y-depth strata bars (-64 to +128)
- * and relative rarity multipliers ({@code 0.2x} to {@code 3.5x}).
+ * Planetary Atlas &amp; Ore Stratigraphy Chart widget displaying progressive probable ranges
+ * ({@link PlanetarySurveyPrecision}) that tighten as the player observes the planet with the
+ * Observatory Telescope, sends science probes, and runs Geological / Environmental lab assays.
  */
 @Environment(EnvType.CLIENT)
 public final class OreStratigraphyChartWidget {
@@ -61,7 +61,7 @@ public final class OreStratigraphyChartWidget {
     }
 
     public int preferredHeight() {
-        return 92 + this.page.ores().size() * 20;
+        return 116 + this.page.ores().size() * 20;
     }
 
     public void render(
@@ -75,46 +75,63 @@ public final class OreStratigraphyChartWidget {
             @Nullable List<Component> outTooltip
     ) {
         int h = preferredHeight();
-        boolean mapped = ClientResearchCache.isBodyMapped(this.page.bodyId())
-                || this.env == PlanetaryEnvironment.EARTH
-                || this.env == PlanetaryEnvironment.MOON;
+        PlanetarySurveyPrecision precision = PlanetarySurveyPrecision.evaluateLive(this.page.bodyId());
+        int badgeColor = precision.badgeColor();
 
         graphics.fill(x, y, x + w, y + h, 0xCC0D1829);
         graphics.fill(x, y, x + w, y + 1, 0xFFA855F7);
         graphics.fill(x, y + h - 1, x + w, y + h, 0xFF1E3A5F);
 
-        // Header + live telemetry badge
+        // Header + live precision tier badge
         String header = Component.translatable(this.page.titleKey()).getString();
-        graphics.drawString(font, header, x + 6, y + 5, 0xFFD8B4FE, false);
+        String badge = Component.translatable(precision.statusKey(), precision.precisionPct()).getString();
+        int badgeW = font.width(badge);
+        graphics.drawString(font, font.plainSubstrByWidth(header, Math.max(40, w - badgeW - 18)), x + 6, y + 5, 0xFFD8B4FE, false);
+        graphics.drawString(font, badge, x + w - badgeW - 6, y + 5, badgeColor, false);
 
-        String scanBadge = mapped
-                ? Component.translatable("manual.galacticraft.atlas.surveyed").getString()
-                : Component.translatable("manual.galacticraft.atlas.unmapped").getString();
-        int badgeW = font.width(scanBadge);
-        graphics.drawString(font, scanBadge, x + w - badgeW - 6, y + 5, mapped ? 0xFF4ADE80 : 0xFFF59E0B, false);
+        // Precision progress bar + next-machine instruction
+        int barY = y + 16;
+        int barW = w - 12;
+        graphics.fill(x + 6, barY, x + 6 + barW, barY + 4, 0xFF0A1220);
+        int fillW = Math.round(barW * (precision.precisionPct() / 100.0F));
+        graphics.fill(x + 6, barY, x + 6 + fillW, barY + 4, badgeColor);
 
-        // Live physical parameters grid (2 rows)
-        int dayC = (int) Math.round(this.env.dayTempKelvin() - PlanetaryEnvironment.KELVIN_OFFSET);
-        int nightC = (int) Math.round(this.env.nightTempKelvin() - PlanetaryEnvironment.KELVIN_OFFSET);
-        String row1 = String.format(Locale.ROOT, "G: %.2fg  |  P: %.3f atm  |  Solar: %.3fx",
-                this.env.gravityG(), this.env.pressureAtm(), this.env.solarIrradianceFactor());
-        String row2 = String.format(Locale.ROOT, "Temp: %d°C / %d°C  |  dV Orbit: %.0f m/s%s",
-                dayC, nightC, this.env.orbitAscentDeltaV(), this.env.corrosiveAcid() ? "  |  H2SO4!" : "");
-        graphics.drawString(font, font.plainSubstrByWidth(row1, w - 12), x + 6, y + 18, 0xFFE2E8F0, false);
-        graphics.drawString(font, font.plainSubstrByWidth(row2, w - 12), x + 6, y + 29,
-                this.env.corrosiveAcid() ? 0xFFFBBF24 : 0xFF94A3B8, false);
+        String nextHint = Component.translatable(precision.nextMachineHintKey()).getString();
+        graphics.drawString(font, font.plainSubstrByWidth(nextHint, w - 12), x + 6, y + 23,
+                precision.isExact() ? 0xFF86EFAC : 0xFF93C5FD, false);
 
-        // Hazards line
-        if (!this.page.hazardsKey().isEmpty()) {
-            String haz = Component.translatable(this.page.hazardsKey()).getString();
-            graphics.drawString(font, font.plainSubstrByWidth(haz, w - 12), x + 6, y + 41, 0xFFFCA5A5, false);
+        // Progressive probable-range astrophysical parameters
+        String row1 = "G: " + precision.formatGravity(this.env)
+                + " | P: " + precision.formatPressure(this.env)
+                + " | Solar: " + precision.formatSolar(this.env);
+        String acidNote = this.env.corrosiveAcid()
+                ? (precision.hazardsConfirmed() ? " | H2SO4!" : " | Acid?")
+                : "";
+        String row2 = "Temp: " + precision.formatTemperatureC(this.env)
+                + " | dV: " + precision.formatDeltaV(this.env) + acidNote;
+
+        graphics.drawString(font, font.plainSubstrByWidth(row1, w - 12), x + 6, y + 36, 0xFFE2E8F0, false);
+        graphics.drawString(font, font.plainSubstrByWidth(row2, w - 12), x + 6, y + 47,
+                this.env.corrosiveAcid() && precision.hazardsConfirmed() ? 0xFFFBBF24 : 0xFF94A3B8, false);
+
+        // Hazards line (progressive disclosure)
+        String hazardsLine;
+        if (precision.hazardsConfirmed() && !this.page.hazardsKey().isEmpty()) {
+            hazardsLine = Component.translatable(this.page.hazardsKey()).getString();
+        } else if (precision.atmosphereConfirmed()) {
+            hazardsLine = Component.translatable("manual.galacticraft.precision.hazards.partial").getString();
+        } else {
+            hazardsLine = Component.translatable("manual.galacticraft.precision.hazards.unknown").getString();
         }
+        graphics.drawString(font, font.plainSubstrByWidth(hazardsLine, w - 12), x + 6, y + 59,
+                precision.hazardsConfirmed() ? 0xFFFCA5A5 : 0xFFF59E0B, false);
 
         // Depth axis header (-64 -> +128)
         int chartX = x + 84;
         int chartW = Math.max(60, w - 92);
-        int axisY = y + 55;
-        graphics.drawString(font, "Y Stratigraphy", x + 6, axisY, 0xFF7DD3FC, false);
+        int axisY = y + 75;
+        String stratLabel = precision.isExact() ? "Y Stratigraphy" : "Y Est. (±" + precision.oreYUncertainty() + ")";
+        graphics.drawString(font, stratLabel, x + 6, axisY, 0xFF7DD3FC, false);
         graphics.drawString(font, "-64", chartX, axisY, 0xFF64748B, false);
         graphics.drawString(font, "0", chartX + mapYToX(0, chartW) - 3, axisY, 0xFF64748B, false);
         graphics.drawString(font, "+64", chartX + mapYToX(64, chartW) - 8, axisY, 0xFF64748B, false);
@@ -125,37 +142,68 @@ public final class OreStratigraphyChartWidget {
         int totalRowsH = Math.max(12, this.page.ores().size() * 20);
         graphics.fill(zeroX, rowsStartY, zeroX + 1, rowsStartY + totalRowsH, 0x5538BDF8);
 
+        int yUncert = precision.oreYUncertainty();
         for (int i = 0; i < this.page.ores().size(); i++) {
             ManualPage.PlanetStratigraphyPage.OreBand band = this.page.ores().get(i);
             int ry = rowsStartY + i * 20;
 
+            boolean identified = precision.oresIdentified() || i == 0;
             Item item = BuiltInRegistries.ITEM.get(band.oreItem());
-            if (item != Items.AIR) {
+            if (identified && item != Items.AIR) {
                 graphics.pose().pushPose();
                 graphics.pose().translate(x + 5, ry, 0);
                 graphics.pose().scale(0.8F, 0.8F, 1.0F);
                 graphics.renderFakeItem(new ItemStack(item), 0, 0);
                 graphics.pose().popPose();
+            } else {
+                graphics.drawString(font, "?", x + 9, ry + 3, 0xFFF59E0B, false);
             }
 
-            String oreName = Component.translatable(band.labelKey()).getString();
-            graphics.drawString(font, font.plainSubstrByWidth(oreName, 60), x + 21, ry + 3, 0xFFE2E8F0, false);
+            String oreName = identified
+                    ? Component.translatable(band.labelKey()).getString()
+                    : Component.translatable("manual.galacticraft.precision.unknown_mineral").getString();
+            graphics.drawString(font, font.plainSubstrByWidth(oreName, 60), x + 21, ry + 3,
+                    identified ? 0xFFE2E8F0 : 0xFF94A3B8, false);
 
             // Background rail
             graphics.fill(chartX, ry + 2, chartX + chartW, ry + 13, 0xFF0A1220);
+
+            int estMinY = Math.max(MIN_WORLD_Y, band.minY() - yUncert);
+            int estMaxY = Math.min(MAX_WORLD_Y, band.maxY() + yUncert);
+            int ux1 = chartX + mapYToX(estMinY, chartW);
+            int ux2 = chartX + Math.max(ux1 - chartX + 4, mapYToX(estMaxY, chartW));
+
+            // Translucent outer uncertainty band when not yet 100% verified
+            if (yUncert > 0) {
+                int softColor = (0x44 << 24) | (band.color() & 0x00FFFFFF);
+                graphics.fill(ux1, ry + 3, ux2, ry + 12, softColor);
+            }
+
             int bx1 = chartX + mapYToX(band.minY(), chartW);
             int bx2 = chartX + Math.max(bx1 - chartX + 4, mapYToX(band.maxY(), chartW));
-            int fillColor = (0xCC << 24) | (band.color() & 0x00FFFFFF);
+            int coreAlpha = precision.isExact() ? 0xDD : (precision.tier() == PlanetarySurveyPrecision.TIER_THEORETICAL ? 0x66 : 0xAA);
+            int fillColor = (coreAlpha << 24) | (band.color() & 0x00FFFFFF);
             graphics.fill(bx1, ry + 3, bx2, ry + 12, fillColor);
-            graphics.renderOutline(bx1, ry + 3, Math.max(4, bx2 - bx1), 9, 0xFF000000 | (band.color() & 0x00FFFFFF));
+            graphics.renderOutline(ux1, ry + 3, Math.max(4, ux2 - ux1), 9,
+                    (precision.isExact() ? 0xFF000000 : 0x88000000) | (band.color() & 0x00FFFFFF));
 
-            String rarity = String.format(Locale.ROOT, "%.1fx", band.rarityMultiplier());
-            graphics.drawString(font, rarity, bx2 + 3 <= chartX + chartW - 18 ? bx2 + 3 : bx1 + 2, ry + 4, 0xFFFFFFFF, false);
+            String rarity = identified ? precision.formatOreRarity(band.rarityMultiplier()) : "?x";
+            int rarityW = font.width(rarity);
+            int labelX = (ux2 + 3 + rarityW <= chartX + chartW) ? (ux2 + 3) : Math.max(chartX + 2, ux1 + 2);
+            graphics.drawString(font, rarity, labelX, ry + 4, 0xFFFFFFFF, false);
 
             if (outTooltip != null && mouseX >= x + 4 && mouseX <= x + w - 4 && mouseY >= ry && mouseY < ry + 18) {
-                outTooltip.add(Component.literal(oreName).withColor(band.color()));
-                outTooltip.add(Component.literal(String.format(Locale.ROOT, "Y: %d .. %d  |  Abundance: %.2fx",
-                        band.minY(), band.maxY(), band.rarityMultiplier())));
+                outTooltip.add(Component.literal(oreName).withColor(identified ? band.color() : 0xFFF59E0B));
+                if (precision.isExact()) {
+                    outTooltip.add(Component.literal(String.format(Locale.ROOT,
+                            "Verified Y: %d .. %d | Abundance: %.2fx",
+                            band.minY(), band.maxY(), band.rarityMultiplier())));
+                } else {
+                    outTooltip.add(Component.literal(String.format(Locale.ROOT,
+                            "Probable Y: %d .. %d (±%d) | Est. Abundance: %s",
+                            estMinY, estMaxY, yUncert, rarity)));
+                    outTooltip.add(Component.translatable(precision.nextMachineHintKey()).withColor(0xFF7DD3FC));
+                }
             }
         }
     }

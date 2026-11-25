@@ -32,6 +32,7 @@ import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
@@ -43,7 +44,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ItemInHandRenderer.class)
 public abstract class ItemInHandRendererMixin {
     @Inject(method = "renderArmWithItem", at = @At("HEAD"), cancellable = true)
-    private void gc$renderTwoHandedAerospaceTablet(
+    private void gc$renderAerospaceTabletInHand(
             AbstractClientPlayer player,
             float partialTicks,
             float pitch,
@@ -64,25 +65,28 @@ public abstract class ItemInHandRendererMixin {
             return;
         }
 
-        // Hide the secondary hand's item so both hands hold the 3D Aerospace Tablet cleanly
+        HumanoidArm mainArm = player.getMainArm();
+
         if (hand == InteractionHand.OFF_HAND) {
-            if (mainIsTablet || animActive) {
+            // Only hide the off-hand item when the player is actively opening the tablet with both hands!
+            if (animActive) {
                 ci.cancel();
                 return;
             }
-            if (offIsTablet) {
-                AerospaceTabletItemRenderer.INSTANCE.renderFirstPersonTwoHanded(
-                        player, partialTicks, equippedProgress, swingProgress, poseStack, buffer, combinedLight
+            if (offIsTablet && !mainIsTablet) {
+                AerospaceTabletItemRenderer.INSTANCE.renderFirstPersonTablet(
+                        player, mainArm.getOpposite(), partialTicks, equippedProgress, swingProgress, poseStack, buffer, combinedLight
                 );
                 ci.cancel();
             }
             return;
         }
 
-        // Main hand renders the two-handed 3D Aerospace Tablet when held OR during hotkey open/close animation
+        // Main hand: render one-handed when idle, transitioning to two-handed when animActive
         if (mainIsTablet || animActive) {
-            AerospaceTabletItemRenderer.INSTANCE.renderFirstPersonTwoHanded(
-                    player, partialTicks, equippedProgress, swingProgress, poseStack, buffer, combinedLight
+            HumanoidArm primaryArm = (!mainIsTablet && offIsTablet) ? mainArm.getOpposite() : mainArm;
+            AerospaceTabletItemRenderer.INSTANCE.renderFirstPersonTablet(
+                    player, primaryArm, partialTicks, equippedProgress, swingProgress, poseStack, buffer, combinedLight
             );
             ci.cancel();
         }

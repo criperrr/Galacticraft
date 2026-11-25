@@ -1784,6 +1784,17 @@ public class GCTranslationProvider extends TranslationProvider {
         this.add("manual.galacticraft.sim.title", "Planetary Flight Viability Calculator (Live Physics)");
         this.add("manual.galacticraft.atlas.surveyed", "SURVEYED");
         this.add("manual.galacticraft.atlas.unmapped", "UNMAPPED (Use Telescope/Probe)");
+        this.add("manual.galacticraft.precision.estimated", "ESTIMATED (%s%%)");
+        this.add("manual.galacticraft.precision.optical", "OPTICAL (%s%%)");
+        this.add("manual.galacticraft.precision.telemetry", "TELEMETRY (%s%%)");
+        this.add("manual.galacticraft.precision.verified", "VERIFIED (%s%%)");
+        this.add("manual.galacticraft.precision.hint.telescope", "Improve: Observe with Observatory Telescope to narrow ranges.");
+        this.add("manual.galacticraft.precision.hint.probe_or_geo", "Improve: Send Science Probe or use Geological/Env Analyzer.");
+        this.add("manual.galacticraft.precision.hint.insitu", "Improve: Complete 2 in-situ lab assays/researches for 100% exact data.");
+        this.add("manual.galacticraft.precision.hint.complete", "Full astrophysical & geological precision verified.");
+        this.add("manual.galacticraft.precision.hazards.unknown", "Surface hazards unconfirmed — observe with Telescope or send a Probe.");
+        this.add("manual.galacticraft.precision.hazards.partial", "Atmosphere detected — send Spectrometer Probe or Env Chamber for hazards.");
+        this.add("manual.galacticraft.precision.unknown_mineral", "Unknown Mineral");
         this.add("manual.galacticraft.lablog.header", "In-Situ Laboratory Research Checklist by Location");
         this.add("manual.galacticraft.index.header", "Global Compendium Index (%s entries)");
         this.add("manual.galacticraft.index.no_results", "No matching entries found.");
