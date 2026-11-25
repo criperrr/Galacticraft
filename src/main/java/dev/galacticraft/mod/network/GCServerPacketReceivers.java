@@ -47,6 +47,8 @@ public class GCServerPacketReceivers {
         registerPacket(CreativeGcTransferItemPayload.TYPE);
         registerPacket(HangarTerminalActionPayload.TYPE);
         registerPacket(BuildRocketFromInventoryPayload.TYPE);
+        registerPacket(AttachRadialBoosterPayload.TYPE);
+        registerPacket(EditRocketCorePayload.TYPE);
         registerPacket(SelectPartBuilderConfigPayload.TYPE);
         registerPacket(ResearchTerminalActionPayload.TYPE);
         registerPacket(ResearchMachineActionPayload.TYPE);

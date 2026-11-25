@@ -23,25 +23,30 @@
 package dev.galacticraft.mod.client.gui.screen.ingame;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import dev.galacticraft.api.component.GCDataComponents;
 import dev.galacticraft.api.platform.PlatformSize;
 import dev.galacticraft.api.platform.PlatformType;
-import dev.galacticraft.api.rocket.part.data.RocketPartStats;
+import dev.galacticraft.api.rocket.assembly.AttachmentNode.CrossfeedMode;
+import dev.galacticraft.api.rocket.assembly.AttachmentNode.RadialSymmetry;
+import dev.galacticraft.api.rocket.assembly.RocketAssemblyGraph;
+import dev.galacticraft.api.rocket.assembly.RocketStageNode;
 import dev.galacticraft.api.rocket.part.modular.RocketPartCategory;
 import dev.galacticraft.api.rocket.part.modular.RocketPartConfig;
 import dev.galacticraft.mod.client.render.rocket.part.RocketPartGuiPreviewRenderer;
 import dev.galacticraft.mod.client.render.rocket.part.RocketPartGuiPreviewRenderer.ProjectedBand;
 import dev.galacticraft.mod.client.render.rocket.part.RocketPartGuiPreviewRenderer.StackPart;
+import dev.galacticraft.mod.client.render.rocket.part.RocketPartPlacementPreviewRenderer;
 import dev.galacticraft.mod.content.block.entity.HangarTerminalBlockEntity;
 import dev.galacticraft.mod.content.block.platform.PlatformBlockRole;
 import dev.galacticraft.mod.content.block.platform.PlatformBlueprint;
 import dev.galacticraft.mod.content.item.ModularRocketPartBlockItem;
+import dev.galacticraft.mod.content.rocket.assembly.RocketAssemblyGraphBuilder;
 import dev.galacticraft.mod.content.rocket.part.RocketPartCatalog;
-import dev.galacticraft.mod.content.rocket.part.RocketPartCostCalculator;
 import dev.galacticraft.mod.content.rocket.part.RocketPartSpec;
 import dev.galacticraft.mod.content.rocket.physics.PlanetaryEnvironment;
 import dev.galacticraft.mod.content.rocket.physics.RocketFlightValidator;
+import dev.galacticraft.mod.network.c2s.AttachRadialBoosterPayload;
 import dev.galacticraft.mod.network.c2s.BuildRocketFromInventoryPayload;
+import dev.galacticraft.mod.network.c2s.EditRocketCorePayload;
 import dev.galacticraft.mod.network.c2s.HangarTerminalActionPayload;
 import dev.galacticraft.mod.network.c2s.HangarTerminalActionPayload.Action;
 import dev.galacticraft.mod.screen.HangarTerminalMenu;
@@ -213,19 +218,26 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
     private TerminalButton clearVabButton;
     private TerminalButton vabAnimButton;
     private TerminalButton vabResetViewButton;
+    private TerminalButton vabModeButton;
     private TerminalButton buildRocketButton;
+    private TerminalButton symmetryButton;
+    private TerminalButton crossfeedButton;
+    private TerminalButton attachBoostersButton;
+    private TerminalButton cancelAssemblyButton;
     private TerminalButton recallRocketButton;
     private TerminalButton triggerAnimButton;
     private TerminalButton toggleHatchButton;
     private TerminalButton creativeFillButton;
     private TerminalButton axisGuideButton;
-    private TerminalButton disassembleCompactButton;
 
     // Pre-flight emergent physics destination simulator index (defaults to Moon = 1)
     private int simDestinationIndex = 1;
 
-    // Formed-mode active tab
+    // Formed-mode active tab & VAB assembly mode (Core coaxial vs Radial Boosters)
     private FormedTab activeTab = FormedTab.ASSEMBLY;
+    private boolean vabBoosterMode = false;
+    private boolean vabEditingMounted = false;
+    private boolean vabAwaitingEditSync = false;
     private boolean initializedTabSelection = false;
 
     // VAB interactive state (bottom-to-top list of inventory slot indices; NO fixed cap!)
@@ -404,9 +416,14 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
                 Component.literal("Limpar"),
                 ButtonStyle.STANDARD,
                 btn -> {
-                    this.vabDraft.clear();
-                    this.selectedVabIndex = -1;
-                    this.lastBaseBands.clear();
+                    HangarTerminalBlockEntity curBe = this.menu.blockEntity;
+                    if (this.vabEditingMounted && curBe != null && !this.vabBoosterMode) {
+                        this.loadMountedCoreIntoVab(curBe);
+                    } else {
+                        this.vabDraft.clear();
+                        this.selectedVabIndex = -1;
+                        this.lastBaseBands.clear();
+                    }
                     this.refreshState(false);
                 }
         ));
@@ -438,11 +455,53 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
         int ry = y + VAB_INFO_Y;
         int rw = VAB_INFO_W - 8;
 
+        this.vabModeButton = this.addRenderableWidget(new TerminalButton(
+                rx, ry + 112, rw, 15,
+                Component.empty(),
+                ButtonStyle.STANDARD,
+                btn -> {
+                    this.vabBoosterMode = !this.vabBoosterMode;
+                    this.vabDraft.clear();
+                    this.vabEditingMounted = false;
+                    this.selectedVabIndex = -1;
+                    this.lastBaseBands.clear();
+                    this.refreshState(false);
+                }
+        ));
+
         this.buildRocketButton = this.addRenderableWidget(new TerminalButton(
-                rx, ry + 112, rw, 18,
+                rx, ry + 129, rw, 16,
                 Component.literal("Construir Pad"),
                 ButtonStyle.PRIMARY_ASSEMBLE,
                 btn -> this.onBuildVabRocket()
+        ));
+
+        this.attachBoostersButton = this.addRenderableWidget(new TerminalButton(
+                rx, ry + 129, rw, 16,
+                Component.literal("+ Boosters"),
+                ButtonStyle.PRIMARY_ASSEMBLE,
+                btn -> this.onAttachRadialBoosters()
+        ));
+
+        this.cancelAssemblyButton = this.addRenderableWidget(new TerminalButton(
+                rx, ry + 129, rw, 16,
+                Component.literal("Cancelar Solda"),
+                ButtonStyle.DANGER_DISASSEMBLE,
+                btn -> this.sendAction(Action.CANCEL_ASSEMBLY, 0)
+        ));
+
+        this.symmetryButton = this.addRenderableWidget(new TerminalButton(
+                rx, ry + 147, 45, 15,
+                Component.empty(),
+                ButtonStyle.STANDARD,
+                btn -> this.onCycleSymmetry()
+        ));
+
+        this.crossfeedButton = this.addRenderableWidget(new TerminalButton(
+                rx + 47, ry + 147, 45, 15,
+                Component.empty(),
+                ButtonStyle.STANDARD,
+                btn -> this.sendAction(Action.TOGGLE_CROSSFEED, 0)
         ));
 
         this.triggerAnimButton = this.addRenderableWidget(new TerminalButton(
@@ -480,17 +539,10 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
         ));
 
         this.axisGuideButton = this.addRenderableWidget(new TerminalButton(
-                rx, ry + 134, rw, 15,
+                rx, ry + 164, rw, 15,
                 Component.empty(),
                 ButtonStyle.STANDARD,
                 btn -> this.sendAction(Action.TOGGLE_AXIS_GUIDE, 0)
-        ));
-
-        this.disassembleCompactButton = this.addRenderableWidget(new TerminalButton(
-                rx, ry + 183, rw, 15,
-                Component.literal("Desmontar Pad"),
-                ButtonStyle.DANGER_DISASSEMBLE,
-                btn -> this.sendAction(Action.DISASSEMBLE, 0)
         ));
 
         if (formed && !this.initializedTabSelection) {
@@ -528,10 +580,13 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
         boolean creative = mc.player.isCreative();
         Inventory inv = mc.player.getInventory();
 
-        // Count how many times each inventory slot is currently used in the VAB draft
+        // Count how many times each inventory slot is currently used in the VAB draft (skip already-mounted core parts)
         Map<Integer, Integer> usedCounts = new HashMap<>();
         for (int i = this.vabDraft.size() - 1; i >= 0; i--) {
             VabEntry entry = this.vabDraft.get(i);
+            if (entry.isMounted()) {
+                continue;
+            }
             ItemStack st = entry.inventorySlot >= 0 && entry.inventorySlot < inv.getContainerSize()
                     ? inv.getItem(entry.inventorySlot)
                     : ItemStack.EMPTY;
@@ -660,6 +715,27 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
         boolean assemblyTab = formed && this.activeTab == FormedTab.ASSEMBLY;
         boolean simTab = formed && this.activeTab == FormedTab.SIMULATION;
 
+        // Auto-load mounted core stack into the live VAB editor when in Core mode
+        if (assemblyTab && !this.vabBoosterMode && !be.isAssemblyInProgress()) {
+            if (hasMounted) {
+                if ((!this.vabEditingMounted && this.vabDraft.isEmpty()) || (this.vabAwaitingEditSync && revalidate)) {
+                    this.loadMountedCoreIntoVab(be);
+                    this.vabAwaitingEditSync = false;
+                }
+            } else if (this.vabEditingMounted) {
+                this.vabEditingMounted = false;
+                this.vabAwaitingEditSync = false;
+                this.vabDraft.clear();
+                this.selectedVabIndex = -1;
+            }
+        } else if (!hasMounted && this.vabEditingMounted) {
+            this.vabEditingMounted = false;
+            this.vabAwaitingEditSync = false;
+        }
+
+        boolean vabEditDirty = this.vabEditingMounted && this.isVabEditDirty(be);
+        boolean hasMountedBoosters = hasMounted && this.hasMountedRadialBoosters(be);
+
         if (this.assemblyTabButton != null) {
             this.assemblyTabButton.visible = formed;
             this.assemblyTabButton.active = formed;
@@ -712,7 +788,8 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
         }
         if (this.clearVabButton != null) {
             this.clearVabButton.visible = assemblyTab;
-            this.clearVabButton.active = assemblyTab && hasDraft;
+            this.clearVabButton.active = assemblyTab && (this.vabEditingMounted ? vabEditDirty : hasDraft);
+            this.clearVabButton.setMessage(Component.literal(this.vabEditingMounted ? "Reverter" : "Limpar"));
         }
         int toolY = this.topPos + VAB_CANVAS_Y + VAB_CANVAS_H + 4;
         if (this.vabAnimButton != null) {
@@ -734,9 +811,62 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
                     toolY
             );
         }
+        boolean assembling = be.isAssemblyInProgress();
+        RadialSymmetry activeBoosterSym = resolveBoosterSymmetry(be.getSelectedSymmetry());
+        if (this.vabModeButton != null) {
+            this.vabModeButton.visible = assemblyTab;
+            this.vabModeButton.active = assemblyTab;
+            this.vabModeButton.setStyle(this.vabBoosterMode ? ButtonStyle.TAB_ACTIVE : ButtonStyle.STANDARD);
+            this.vabModeButton.setMessage(Component.literal(this.vabBoosterMode ? "Modo: Boosters" : "Modo: Núcleo"));
+        }
         if (this.buildRocketButton != null) {
-            this.buildRocketButton.visible = assemblyTab;
-            this.buildRocketButton.active = assemblyTab && hasDraft;
+            this.buildRocketButton.visible = assemblyTab && !assembling && !this.vabBoosterMode;
+            if (this.vabEditingMounted) {
+                this.buildRocketButton.active = assemblyTab && !assembling && !this.vabBoosterMode && vabEditDirty;
+                if (!vabEditDirty) {
+                    this.buildRocketButton.setStyle(ButtonStyle.STANDARD);
+                    this.buildRocketButton.setMessage(Component.literal("Editando Pad"));
+                } else if (this.vabDraft.isEmpty()) {
+                    this.buildRocketButton.setStyle(ButtonStyle.DANGER_DISASSEMBLE);
+                    this.buildRocketButton.setMessage(Component.literal("Recolher Tudo"));
+                } else {
+                    this.buildRocketButton.setStyle(ButtonStyle.PRIMARY_ASSEMBLE);
+                    this.buildRocketButton.setMessage(Component.literal("Aplicar Edição"));
+                }
+            } else {
+                this.buildRocketButton.active = assemblyTab && !assembling && !this.vabBoosterMode && hasDraft;
+                this.buildRocketButton.setStyle(ButtonStyle.PRIMARY_ASSEMBLE);
+                this.buildRocketButton.setMessage(Component.literal("Construir Pad"));
+            }
+        }
+        if (this.attachBoostersButton != null) {
+            this.attachBoostersButton.visible = assemblyTab && !assembling && this.vabBoosterMode;
+            if (!hasDraft && hasMountedBoosters) {
+                this.attachBoostersButton.active = assemblyTab && !assembling && this.vabBoosterMode;
+                this.attachBoostersButton.setStyle(ButtonStyle.DANGER_DISASSEMBLE);
+                this.attachBoostersButton.setMessage(Component.literal("Rem. Boosters"));
+            } else {
+                boolean canAttach = assemblyTab && !assembling && this.vabBoosterMode && hasDraft && hasMounted;
+                this.attachBoostersButton.active = canAttach;
+                this.attachBoostersButton.setStyle(ButtonStyle.PRIMARY_ASSEMBLE);
+                this.attachBoostersButton.setMessage(Component.literal("+ Boosters (" + activeBoosterSym.count() + "x)"));
+            }
+        }
+        if (this.cancelAssemblyButton != null) {
+            this.cancelAssemblyButton.visible = assemblyTab && assembling;
+            this.cancelAssemblyButton.active = assemblyTab && assembling;
+        }
+        if (this.symmetryButton != null) {
+            this.symmetryButton.visible = assemblyTab;
+            this.symmetryButton.active = assemblyTab;
+            String symLabel = activeBoosterSym == RadialSymmetry.FOUR_DIAGONAL ? "4xD" : activeBoosterSym.getSerializedName();
+            this.symmetryButton.setMessage(Component.literal("Sim:" + symLabel));
+        }
+        if (this.crossfeedButton != null) {
+            this.crossfeedButton.visible = assemblyTab;
+            this.crossfeedButton.active = assemblyTab;
+            boolean asparagus = be.getSelectedCrossfeed() == CrossfeedMode.CONTINUOUS_CROSSFEED;
+            this.crossfeedButton.setMessage(Component.literal(asparagus ? "Asp:ON" : "Asp:OFF"));
         }
         if (this.triggerAnimButton != null) {
             this.triggerAnimButton.visible = rocketTab && hasMounted;
@@ -791,16 +921,6 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
                     be.isAxisGuideEnabled() ? "Guia: ON" : "Guia: OFF"
             ));
         }
-        if (this.disassembleCompactButton != null) {
-            boolean showDisassemble = assemblyTab || (rocketTab && hasMounted);
-            this.disassembleCompactButton.visible = showDisassemble;
-            this.disassembleCompactButton.active = showDisassemble;
-            int ry = this.topPos + VAB_INFO_Y;
-            this.disassembleCompactButton.setPosition(
-                    this.leftPos + VAB_INFO_X + 4,
-                    ry + 183
-            );
-        }
     }
 
     private void moveSelectedVabPart(int delta) {
@@ -823,9 +943,85 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
         }
     }
 
+    private List<HangarTerminalBlockEntity.MountedRocketPart> collectMountedCoreParts(HangarTerminalBlockEntity be) {
+        net.minecraft.core.BlockPos padCenter = be.getPadCenterPos();
+        List<HangarTerminalBlockEntity.MountedRocketPart> core = new ArrayList<>();
+        for (HangarTerminalBlockEntity.MountedRocketPart part : this.cachedMountedSummary.parts()) {
+            net.minecraft.core.BlockPos rel = part.pos().subtract(padCenter);
+            boolean radial = part.config() != null && part.config().radial();
+            if (rel.getX() == 0 && rel.getZ() == 0 && !radial) {
+                core.add(part);
+            }
+        }
+        core.sort(java.util.Comparator.comparingInt(HangarTerminalBlockEntity.MountedRocketPart::relativeY));
+        return core;
+    }
+
+    private boolean hasMountedRadialBoosters(HangarTerminalBlockEntity be) {
+        net.minecraft.core.BlockPos padCenter = be.getPadCenterPos();
+        for (HangarTerminalBlockEntity.MountedRocketPart part : this.cachedMountedSummary.parts()) {
+            net.minecraft.core.BlockPos rel = part.pos().subtract(padCenter);
+            boolean radial = part.config() != null && part.config().radial();
+            if (rel.getX() != 0 || rel.getZ() != 0 || radial) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void loadMountedCoreIntoVab(HangarTerminalBlockEntity be) {
+        List<HangarTerminalBlockEntity.MountedRocketPart> coreParts = this.collectMountedCoreParts(be);
+        RocketPartCatalog catalog = RocketPartCatalog.getInstance();
+        this.vabDraft.clear();
+        for (HangarTerminalBlockEntity.MountedRocketPart part : coreParts) {
+            RocketPartConfig cfg = part.config() != null ? part.config() : catalog.defaultConfigFor(part.category());
+            ItemStack icon = ModularRocketPartBlockItem.createConfiguredStack(cfg);
+            this.vabDraft.add(new VabEntry(-1, part.pos().immutable(), icon, cfg, part.displayName()));
+        }
+        this.vabEditingMounted = !this.vabDraft.isEmpty();
+        this.selectedVabIndex = this.vabDraft.isEmpty() ? -1 : Mth.clamp(this.selectedVabIndex, 0, this.vabDraft.size() - 1);
+        this.lastBaseBands.clear();
+    }
+
+    private boolean isVabEditDirty(HangarTerminalBlockEntity be) {
+        if (!this.vabEditingMounted) {
+            return !this.vabDraft.isEmpty();
+        }
+        List<HangarTerminalBlockEntity.MountedRocketPart> mountedCore = this.collectMountedCoreParts(be);
+        if (mountedCore.size() != this.vabDraft.size()) {
+            return true;
+        }
+        for (int i = 0; i < mountedCore.size(); i++) {
+            VabEntry e = this.vabDraft.get(i);
+            if (!e.isMounted() || !mountedCore.get(i).pos().equals(e.mountedPos)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void onBuildVabRocket() {
         HangarTerminalBlockEntity be = this.menu.blockEntity;
-        if (be == null || !be.isFormed() || this.vabDraft.isEmpty()) {
+        if (be == null || !be.isFormed()) {
+            return;
+        }
+        if (this.vabEditingMounted) {
+            List<EditRocketCorePayload.CoreEntry> entries = new ArrayList<>(this.vabDraft.size());
+            for (VabEntry entry : this.vabDraft) {
+                if (entry.isMounted() && entry.mountedPos != null) {
+                    entries.add(EditRocketCorePayload.CoreEntry.mounted(entry.mountedPos));
+                } else {
+                    entries.add(EditRocketCorePayload.CoreEntry.inventory(entry.inventorySlot));
+                }
+            }
+            ClientPlayNetworking.send(new EditRocketCorePayload(be.getBlockPos(), entries, false));
+            this.vabAwaitingEditSync = true;
+            this.selectedInventorySlot = -1;
+            this.validationTickCounter = 4;
+            this.refreshState(true);
+            return;
+        }
+        if (this.vabDraft.isEmpty()) {
             return;
         }
         List<Integer> slots = new ArrayList<>(this.vabDraft.size());
@@ -836,7 +1032,62 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
         this.vabDraft.clear();
         this.selectedVabIndex = -1;
         this.selectedInventorySlot = -1;
-        this.activeTab = FormedTab.ROCKET;
+        this.activeTab = be.isAssemblyInProgress() ? FormedTab.ASSEMBLY : FormedTab.ROCKET;
+        this.validationTickCounter = 4;
+        this.refreshState(true);
+    }
+
+    private static RadialSymmetry resolveBoosterSymmetry(@Nullable RadialSymmetry raw) {
+        if (raw == null || raw == RadialSymmetry.NONE) {
+            return RadialSymmetry.TWO;
+        }
+        return raw;
+    }
+
+    private void onCycleSymmetry() {
+        HangarTerminalBlockEntity be = this.menu.blockEntity;
+        if (be == null || !be.isFormed()) {
+            return;
+        }
+        RadialSymmetry current = resolveBoosterSymmetry(be.getSelectedSymmetry());
+        RadialSymmetry next = switch (current) {
+            case TWO -> RadialSymmetry.FOUR_CARDINAL;
+            case FOUR_CARDINAL -> RadialSymmetry.FOUR_DIAGONAL;
+            case FOUR_DIAGONAL -> RadialSymmetry.EIGHT;
+            default -> RadialSymmetry.TWO;
+        };
+        RocketPartPlacementPreviewRenderer.setActiveSymmetry(next);
+        this.sendAction(Action.SET_SYMMETRY, next.ordinal());
+    }
+
+    private void onAttachRadialBoosters() {
+        HangarTerminalBlockEntity be = this.menu.blockEntity;
+        if (be == null || !be.isFormed()) {
+            return;
+        }
+        if (this.vabDraft.isEmpty()) {
+            if (this.hasMountedRadialBoosters(be)) {
+                ClientPlayNetworking.send(new EditRocketCorePayload(be.getBlockPos(), List.of(), true));
+                this.validationTickCounter = 4;
+                this.refreshState(true);
+            }
+            return;
+        }
+        RadialSymmetry sym = resolveBoosterSymmetry(be.getSelectedSymmetry());
+        int limit = Math.min(this.vabDraft.size(), AttachRadialBoosterPayload.MAX_PARTS_PER_BOOSTER_COLUMN);
+        List<Integer> slots = new ArrayList<>(limit);
+        for (int i = 0; i < limit; i++) {
+            slots.add(this.vabDraft.get(i).inventorySlot);
+        }
+        ClientPlayNetworking.send(new AttachRadialBoosterPayload(
+                be.getBlockPos(),
+                slots,
+                sym,
+                be.getSelectedCrossfeed()
+        ));
+        this.vabDraft.clear();
+        this.selectedVabIndex = -1;
+        this.selectedInventorySlot = -1;
         this.validationTickCounter = 4;
         this.refreshState(true);
     }
@@ -856,7 +1107,7 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
             return;
         }
         int clampedIdx = Mth.clamp(insertIndex, 0, this.vabDraft.size());
-        this.vabDraft.add(clampedIdx, new VabEntry(found.slotIndex, found.icon, found.config, found.displayName));
+        this.vabDraft.add(clampedIdx, new VabEntry(found.slotIndex, null, found.icon, found.config, found.displayName));
         this.selectedVabIndex = clampedIdx;
         this.refreshState(false);
     }
@@ -1470,8 +1721,9 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
 
     private void renderVabMode(GuiGraphics graphics, int x, int y, int mouseX, int mouseY, HangarTerminalBlockEntity be) {
         this.advanceVabPreviewClock();
-        boolean showingDraft = !this.vabDraft.isEmpty();
-        VabTelemetry telemetry = showingDraft
+        boolean showingDraft = !this.vabDraft.isEmpty() || this.vabEditingMounted;
+        boolean editDirty = this.vabEditingMounted && this.isVabEditDirty(be);
+        VabTelemetry telemetry = (showingDraft && (!this.vabEditingMounted || editDirty))
                 ? this.computeDraftTelemetry(be)
                 : this.fromMountedSummary(this.cachedMountedSummary);
 
@@ -1480,7 +1732,12 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
         int pillBg;
         int pillBorder;
         int pillColor;
-        if (showingDraft) {
+        if (this.vabEditingMounted && editDirty) {
+            pillText = "EDITAR (" + this.vabDraft.size() + ")";
+            pillBg = 0xFF2B2310;
+            pillBorder = 0xFFFACC15;
+            pillColor = COLOR_TEXT_AMBER;
+        } else if (!this.vabEditingMounted && !this.vabDraft.isEmpty()) {
             pillText = "VAB (" + this.vabDraft.size() + ")";
             pillBg = 0xFF2B2310;
             pillBorder = 0xFFFACC15;
@@ -1586,16 +1843,22 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
         InventoryPartEntry selectedInventoryEntry = this.findInventoryEntry(this.selectedInventorySlot);
 
         this.lastCanvasBands.clear();
-        if (showingDraft) {
-            this.renderVabStack3D(graphics, cx, cy, centerX, mouseX, mouseY, canvasHovered, selectedInventoryEntry);
+        boolean hasMounted = !this.cachedMountedSummary.parts().isEmpty();
+        if (this.vabBoosterMode && hasMounted) {
+            this.renderBoosterPreview3D(graphics, cx, cy, VAB_CANVAS_W, VAB_CANVAS_H, be, selectedInventoryEntry, canvasHovered);
             if (hoveredInventoryEntry != null) {
                 this.renderPartPreviewPip(graphics, cx, cy, hoveredInventoryEntry);
             }
-        } else if (!this.cachedMountedSummary.parts().isEmpty()) {
+        } else if (showingDraft) {
+            this.renderVabStack3D(graphics, cx, cy, centerX, mouseX, mouseY, canvasHovered, selectedInventoryEntry, be);
+            if (hoveredInventoryEntry != null) {
+                this.renderPartPreviewPip(graphics, cx, cy, hoveredInventoryEntry);
+            }
+        } else if (hasMounted) {
             if (selectedInventoryEntry != null && canvasHovered) {
                 this.renderSinglePartVabPreview(graphics, cx, cy, centerX, selectedInventoryEntry, true);
             } else {
-                this.renderMountedStack3D(graphics, cx, cy, VAB_CANVAS_W, VAB_CANVAS_H);
+                this.renderMountedStack3D(graphics, cx, cy, VAB_CANVAS_W, VAB_CANVAS_H, be);
                 if (hoveredInventoryEntry != null) {
                     this.renderPartPreviewPip(graphics, cx, cy, hoveredInventoryEntry);
                 }
@@ -1612,6 +1875,10 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
             }
         }
 
+        if (be.isAssemblyInProgress()) {
+            this.renderAssemblyProgressOverlay(graphics, cx, cy, VAB_CANVAS_W, VAB_CANVAS_H, be);
+        }
+
         // --- Column 3: Telemetry & Controls ---
         int rx = x + VAB_INFO_X;
         int ry = y + VAB_INFO_Y;
@@ -1626,7 +1893,12 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
         graphics.fill(boxX, boxY, boxX + boxW, boxY + boxH, COLOR_BG_INSET);
         graphics.renderOutline(boxX, boxY, boxW, boxH, 0xFF1E2D40);
 
-        graphics.drawString(this.font, "Peças: " + telemetry.partCount, boxX + 4, boxY + 4, COLOR_TEXT_PRIMARY, false);
+        RocketAssemblyGraph graph = showingDraft
+                ? this.buildPreviewGraph(be).graph()
+                : be.getAssemblyGraph();
+        int stageCount = graph.activeStages().size();
+        graphics.drawString(this.font, "Pçs:" + telemetry.partCount + " Est:" + Math.max(stageCount, telemetry.partCount > 0 ? 1 : 0),
+                boxX + 4, boxY + 4, COLOR_TEXT_PRIMARY, false);
         graphics.drawString(this.font, "Alt: " + telemetry.totalHeight + "bl  Ø" + telemetry.maxDiameter + "/" + telemetry.allowedDiameter,
                 boxX + 4, boxY + 14, telemetry.diameterOk ? COLOR_TEXT_PRIMARY : COLOR_TEXT_ERROR, false);
         graphics.drawString(this.font, String.format("Seca: %.1ft", telemetry.dryMassKg / 1000.0), boxX + 4, boxY + 25, COLOR_TEXT_PRIMARY, false);
@@ -1641,6 +1913,91 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
         drawMiniBadge(graphics, boxX + 25, boxY + 77, "TNK", telemetry.hasTank);
         drawMiniBadge(graphics, boxX + 47, boxY + 77, "ENG", telemetry.hasEngine);
         drawMiniBadge(graphics, boxX + 69, boxY + 77, "TWR", telemetry.twr >= 1.0 && telemetry.diameterOk);
+
+        // Compact live mode / booster hint box at bottom of right column (replaces Desmontar Pad)
+        int hintX = rx + 4;
+        int hintY = ry + 182;
+        int hintW = VAB_INFO_W - 8;
+        int hintH = 22;
+        graphics.fill(hintX, hintY, hintX + hintW, hintY + hintH, COLOR_BG_INSET);
+        graphics.renderOutline(hintX, hintY, hintW, hintH, this.vabBoosterMode ? 0xFF2D8AC4 : 0xFF1E2D40);
+        RadialSymmetry sym = resolveBoosterSymmetry(be.getSelectedSymmetry());
+        String line1;
+        String line2;
+        int l1Color;
+        if (this.vabBoosterMode) {
+            if (!hasMounted) {
+                line1 = "Sem núcleo no pad";
+                line2 = "Construa núcleo 1º";
+                l1Color = COLOR_TEXT_AMBER;
+            } else if (this.vabDraft.isEmpty()) {
+                line1 = "Boosters " + sym.count() + "x";
+                line2 = this.hasMountedRadialBoosters(be) ? "Rem. ou clique pç" : "Clique peças à esq.";
+                l1Color = COLOR_TEXT_BADGE;
+            } else if (!telemetry.diameterOk) {
+                line1 = "Excede folga!";
+                line2 = "Use peça menor";
+                l1Color = COLOR_TEXT_ERROR;
+            } else {
+                line1 = "Boosters " + sym.count() + "x OK";
+                line2 = be.getSelectedCrossfeed() == CrossfeedMode.CONTINUOUS_CROSSFEED ? "Asparagus ativo" : "Dreno isolado";
+                l1Color = COLOR_TEXT_OK;
+            }
+        } else if (this.vabEditingMounted) {
+            line1 = editDirty ? "Edição Pendente" : "Editando Núcleo";
+            line2 = editDirty ? "Clique Aplicar Ed." : "Clique/Dir. p/ editar";
+            l1Color = editDirty ? COLOR_TEXT_AMBER : COLOR_TEXT_BADGE;
+        } else {
+            line1 = !this.vabDraft.isEmpty() ? "Rascunho Núcleo" : (hasMounted ? "Núcleo no Pad" : "Pad Pronto");
+            line2 = hasMounted ? "Use Modo: Boosters" : "Clique peças à esq.";
+            l1Color = !this.vabDraft.isEmpty() ? COLOR_TEXT_AMBER : COLOR_TEXT_HEADER;
+        }
+        graphics.drawCenteredString(this.font, this.font.plainSubstrByWidth(line1, hintW - 4), hintX + hintW / 2, hintY + 3, l1Color);
+        graphics.drawCenteredString(this.font, this.font.plainSubstrByWidth(line2, hintW - 4), hintX + hintW / 2, hintY + 12, COLOR_TEXT_MUTED);
+    }
+
+    private void renderAssemblyProgressOverlay(
+            GuiGraphics graphics,
+            int cx,
+            int cy,
+            int cw,
+            int ch,
+            HangarTerminalBlockEntity be
+    ) {
+        int barBoxW = cw - 12;
+        int barBoxH = 24;
+        int bx = cx + 6;
+        int by = cy + ch - barBoxH - 6;
+
+        PoseStack pose = graphics.pose();
+        pose.pushPose();
+        pose.translate(0.0F, 0.0F, VAB_HUD_Z + 5.0F);
+        graphics.fill(bx, by, bx + barBoxW, by + barBoxH, 0xE60B1522);
+        graphics.renderOutline(bx, by, barBoxW, barBoxH, 0xFF38BDF8);
+
+        float pct = be.getAssemblyProgress();
+        int pctInt = Math.round(pct * 100.0F);
+        String label = "Soldando: " + be.getAssemblyCompletedSteps() + "/" + be.getAssemblyTotalSteps() + " (" + pctInt + "%)";
+        graphics.drawCenteredString(this.font, label, bx + barBoxW / 2, by + 3, COLOR_TEXT_AMBER);
+
+        int pBarX = bx + 4;
+        int pBarY = by + 14;
+        int pBarW = barBoxW - 8;
+        graphics.fill(pBarX, pBarY, pBarX + pBarW, pBarY + 6, COLOR_BG_INSET);
+        graphics.renderOutline(pBarX, pBarY, pBarW, 6, COLOR_BORDER_SECTION);
+        int fillW = Math.round((pBarW - 2) * Mth.clamp(pct, 0.0F, 1.0F));
+        if (fillW > 0) {
+            graphics.fill(pBarX + 1, pBarY + 1, pBarX + 1 + fillW, pBarY + 5, 0xFF38BDF8);
+        }
+        pose.popPose();
+    }
+
+    private List<ItemStack> collectDraftStacks() {
+        List<ItemStack> stacks = new ArrayList<>(this.vabDraft.size());
+        for (VabEntry entry : this.vabDraft) {
+            stacks.add(entry.icon);
+        }
+        return stacks;
     }
 
     private void renderRocketTabMode(GuiGraphics graphics, int x, int y, int mouseX, int mouseY, HangarTerminalBlockEntity be) {
@@ -1844,7 +2201,10 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
         graphics.fill(cx + 8, floorY, cx + RKT_CANVAS_W - 8, floorY + 2, 0xFF3B4D63);
 
         this.lastCanvasBands.clear();
-        this.renderMountedStack3D(graphics, cx, cy, RKT_CANVAS_W, RKT_CANVAS_H);
+        this.renderMountedStack3D(graphics, cx, cy, RKT_CANVAS_W, RKT_CANVAS_H, be);
+        if (be.isAssemblyInProgress()) {
+            this.renderAssemblyProgressOverlay(graphics, cx, cy, RKT_CANVAS_W, RKT_CANVAS_H, be);
+        }
 
         // Selected module caption along the bottom left of column 2 (left of > and R buttons)
         if (this.selectedMountedIndex >= 0 && this.selectedMountedIndex < parts.size()) {
@@ -1888,6 +2248,27 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
         drawMiniBadge(graphics, boxX + 25, boxY + 77, "TNK", summary.hasTank());
         drawMiniBadge(graphics, boxX + 47, boxY + 77, "ENG", summary.hasEngine());
         drawMiniBadge(graphics, boxX + 69, boxY + 77, "TWR", summary.twr() >= 1.0 && summary.diameterWithinLimit());
+
+        // Stage & Radial Booster summary card at bottom of right column (replaces Desmontar Pad)
+        int stX = rx + 4;
+        int stY = ry + 183;
+        int stW = VAB_INFO_W - 8;
+        int stH = 21;
+        graphics.fill(stX, stY, stX + stW, stY + stH, COLOR_BG_INSET);
+        graphics.renderOutline(stX, stY, stW, stH, 0xFF1E2D40);
+        RocketAssemblyGraph graph = be.getAssemblyGraph();
+        int stageCount = Math.max(1, graph.activeStages().size());
+        int radialCount = 0;
+        for (RocketStageNode st : graph.activeStages()) {
+            for (var g : st.radialGroups()) {
+                if (!g.decoupled()) {
+                    radialCount += g.symmetry().count();
+                }
+            }
+        }
+        graphics.drawCenteredString(this.font, "Estágios: " + stageCount, stX + stW / 2, stY + 2, COLOR_TEXT_HEADER);
+        String radLine = radialCount > 0 ? ("Boosters: " + radialCount + "x") : "Sem boosters";
+        graphics.drawCenteredString(this.font, radLine, stX + stW / 2, stY + 11, radialCount > 0 ? COLOR_TEXT_BADGE : COLOR_TEXT_MUTED);
     }
 
     private void renderSimulationTabMode(GuiGraphics graphics, int x, int y, int mouseX, int mouseY, HangarTerminalBlockEntity be) {
@@ -2317,14 +2698,16 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
     ) {
         PlanetaryEnvironment origin = PlanetaryEnvironment.fromLevel(be.getLevel());
         if (useDraft && !this.vabDraft.isEmpty()) {
-            List<ItemStack> stacks = new ArrayList<>(this.vabDraft.size());
-            for (VabEntry entry : this.vabDraft) {
-                stacks.add(entry.icon);
-            }
-            RocketFlightValidator.VehicleSnapshot draftSnap = RocketFlightValidator.VehicleSnapshot.fromStacks(stacks, 0L, 0L, null);
-            return RocketFlightValidator.evaluate(draftSnap, origin, destination);
+            RocketAssemblyGraphBuilder.BuildResult built = this.buildPreviewGraph(be);
+            return RocketFlightValidator.evaluateGraph(
+                    built.graph(),
+                    origin,
+                    destination,
+                    built.padMaxMassKg(),
+                    0L
+            ).summary();
         }
-        return be.evaluateFlight(destination);
+        return be.evaluateGraphFlight(destination).summary();
     }
 
     private void drawResourceGauge(
@@ -2461,7 +2844,8 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
             int mouseX,
             int mouseY,
             boolean canvasHovered,
-            @Nullable InventoryPartEntry selectedInvEntry
+            @Nullable InventoryPartEntry selectedInvEntry,
+            HangarTerminalBlockEntity be
     ) {
         boolean showGhost = selectedInvEntry != null && canvasHovered;
         int insertIdx = showGhost ? this.computeHoverInsertIndex(mouseY) : -1;
@@ -2479,6 +2863,30 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
                 VabEntry entry = this.vabDraft.get(i);
                 stackParts.add(new StackPart(i, entry.config, curY, anim, i == this.selectedVabIndex, false));
                 curY += Math.max(1, entry.config.heightBlocks());
+            }
+        }
+
+        // When editing a mounted rocket, also render surviving radial boosters around the editable core
+        if (this.vabEditingMounted && !this.cachedMountedSummary.parts().isEmpty()) {
+            net.minecraft.core.BlockPos padCenter = be.getPadCenterPos();
+            net.minecraft.core.Direction facing = be.getFacing();
+            RocketPartCatalog catalog = RocketPartCatalog.getInstance();
+            int minRelY = Integer.MAX_VALUE;
+            for (HangarTerminalBlockEntity.MountedRocketPart part : this.cachedMountedSummary.parts()) {
+                minRelY = Math.min(minRelY, part.relativeY());
+            }
+            if (minRelY == Integer.MAX_VALUE) {
+                minRelY = 1;
+            }
+            for (HangarTerminalBlockEntity.MountedRocketPart part : this.cachedMountedSummary.parts()) {
+                net.minecraft.core.BlockPos rel = part.pos().subtract(padCenter);
+                boolean radial = part.config() != null && part.config().radial();
+                if (rel.getX() != 0 || rel.getZ() != 0 || radial) {
+                    RocketPartConfig cfg = part.config() != null ? part.config() : catalog.defaultConfigFor(part.category());
+                    float[] visXz = resolveLocalVisualXz(be, padCenter, facing, part.pos());
+                    float baseY = Math.max(0, part.relativeY() - minRelY);
+                    stackParts.add(new StackPart(-1, cfg, visXz[0], baseY, visXz[1], anim, false, false, false));
+                }
             }
         }
 
@@ -2527,7 +2935,132 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
         pose.popPose();
     }
 
-    private void renderMountedStack3D(GuiGraphics graphics, int cx, int cy, int cw, int ch) {
+    private void renderBoosterPreview3D(
+            GuiGraphics graphics,
+            int cx,
+            int cy,
+            int cw,
+            int ch,
+            HangarTerminalBlockEntity be,
+            @Nullable InventoryPartEntry selectedInvEntry,
+            boolean canvasHovered
+    ) {
+        List<HangarTerminalBlockEntity.MountedRocketPart> mounted = this.cachedMountedSummary.parts();
+        if (mounted.isEmpty()) {
+            return;
+        }
+        int centerX = cx + cw / 2;
+        int minRelY = Integer.MAX_VALUE;
+        int coreBaseDiam = 1;
+        int lowestCoreY = Integer.MAX_VALUE;
+        net.minecraft.core.BlockPos padCenter = be.getPadCenterPos();
+        net.minecraft.core.Direction facing = be.getFacing();
+
+        for (HangarTerminalBlockEntity.MountedRocketPart part : mounted) {
+            minRelY = Math.min(minRelY, part.relativeY());
+            net.minecraft.core.BlockPos local = PlatformBlueprint.toLocalPos(padCenter, facing, part.pos());
+            if (local.getX() == 0 && local.getZ() == 0 && part.relativeY() < lowestCoreY) {
+                lowestCoreY = part.relativeY();
+                coreBaseDiam = Math.max(1, part.diameter());
+            }
+        }
+        if (minRelY == Integer.MAX_VALUE) {
+            minRelY = 0;
+        }
+
+        RocketPartCatalog catalog = RocketPartCatalog.getInstance();
+        List<StackPart> stackParts = new ArrayList<>();
+        // 1. Add existing mounted parts at their true pad-local (lx, baseY, lz) + flush visual offset coordinates
+        for (int i = 0; i < mounted.size(); i++) {
+            HangarTerminalBlockEntity.MountedRocketPart part = mounted.get(i);
+            RocketPartConfig cfg = part.config() != null ? part.config() : catalog.defaultConfigFor(part.category());
+            float anim = (this.vabAnimEnabled || part.animationActive()) ? this.vabAnimTime : 0.0F;
+            float[] visXz = resolveLocalVisualXz(be, padCenter, facing, part.pos());
+            float baseY = Math.max(0, part.relativeY() - minRelY);
+            stackParts.add(new StackPart(-1, cfg, visXz[0], baseY, visXz[1], anim, false, false, false));
+        }
+
+        // 2. Add mirrored radial booster preview ghosts from vabDraft (plus optional hovered part)
+        List<RocketPartConfig> boosterConfigs = new ArrayList<>();
+        for (VabEntry entry : this.vabDraft) {
+            boosterConfigs.add(entry.config);
+        }
+        if (boosterConfigs.isEmpty() && selectedInvEntry != null && canvasHovered) {
+            boosterConfigs.add(selectedInvEntry.config);
+        }
+
+        RadialSymmetry sym = resolveBoosterSymmetry(be.getSelectedSymmetry());
+        boolean boosterFits = true;
+        if (!boosterConfigs.isEmpty()) {
+            int boosterMaxDiam = 1;
+            int boosterTotalHeight = 0;
+            for (RocketPartConfig cfg : boosterConfigs) {
+                boosterMaxDiam = Math.max(boosterMaxDiam, Math.max(cfg.diameter(), cfg.topDiameter()));
+                boosterTotalHeight += Math.max(1, cfg.heightBlocks());
+            }
+            int boosterTopRelY = (lowestCoreY == Integer.MAX_VALUE ? 1 : lowestCoreY) + Math.max(1, boosterTotalHeight);
+            for (HangarTerminalBlockEntity.MountedRocketPart part : mounted) {
+                net.minecraft.core.BlockPos local = PlatformBlueprint.toLocalPos(padCenter, facing, part.pos());
+                if (local.getX() == 0 && local.getZ() == 0) {
+                    int pMin = part.relativeY();
+                    int pMax = pMin + Math.max(1, part.heightBlocks());
+                    if (pMin < boosterTopRelY && pMax > (lowestCoreY == Integer.MAX_VALUE ? 1 : lowestCoreY)) {
+                        coreBaseDiam = Math.max(coreBaseDiam, Math.max(1, part.diameter()));
+                    }
+                }
+            }
+            List<net.minecraft.core.BlockPos> origins = RocketAssemblyGraphBuilder.computeRadialBoosterOrigins(
+                    net.minecraft.core.BlockPos.ZERO, coreBaseDiam, boosterMaxDiam, sym
+            );
+            double allowedRad = RocketAssemblyGraphBuilder.computeAllowedClearanceRadius(be.getPlatformSize(), be.getActiveBlueprint());
+            for (net.minecraft.core.BlockPos o : origins) {
+                if (!RocketAssemblyGraphBuilder.fitsWithinPadClearance(o.getX(), o.getZ(), boosterMaxDiam, allowedRad)) {
+                    boosterFits = false;
+                    break;
+                }
+            }
+            float anim = this.vabAnimEnabled ? this.vabAnimTime : 0.0F;
+            for (net.minecraft.core.BlockPos o : origins) {
+                double[] flush = RocketAssemblyGraphBuilder.computeFlushRadialVisualPosition(
+                        coreBaseDiam, boosterMaxDiam, o.getX(), o.getZ(), sym.count()
+                );
+                float curY = 0.0F;
+                for (int j = 0; j < boosterConfigs.size(); j++) {
+                    RocketPartConfig cfg = boosterConfigs.get(j);
+                    stackParts.add(new StackPart(
+                            j, cfg, (float) flush[0], curY, (float) flush[1], anim,
+                            j == this.selectedVabIndex, true, !boosterFits
+                    ));
+                    curY += Math.max(1, cfg.heightBlocks());
+                }
+            }
+        }
+
+        RocketPartGuiPreviewRenderer.renderRocketStack(
+                graphics, stackParts, cx + 2, cy + 14, cw - 4, ch - 22,
+                this.vabYaw, this.vabPitch, this.vabZoom, VAB_Z_OFFSET, VAB_MAX_HALF_DEPTH, this.lastCanvasBands
+        );
+
+        PoseStack pose = graphics.pose();
+        pose.pushPose();
+        pose.translate(0.0F, 0.0F, VAB_HUD_Z);
+        String topLabel;
+        int labelColor;
+        if (boosterConfigs.isEmpty()) {
+            topLabel = "Modo Booster (" + sym.count() + "x) — Clique à esq.";
+            labelColor = COLOR_TEXT_BADGE;
+        } else if (!boosterFits) {
+            topLabel = "ERRO: Excede folga (" + sym.count() + "x)";
+            labelColor = COLOR_TEXT_ERROR;
+        } else {
+            topLabel = "Preview Boosters " + sym.count() + "x (" + this.vabDraft.size() + " pç/col)";
+            labelColor = COLOR_TEXT_OK;
+        }
+        graphics.drawCenteredString(this.font, this.font.plainSubstrByWidth(topLabel, cw - 10), centerX, cy + 4, labelColor);
+        pose.popPose();
+    }
+
+    private void renderMountedStack3D(GuiGraphics graphics, int cx, int cy, int cw, int ch, HangarTerminalBlockEntity be) {
         List<HangarTerminalBlockEntity.MountedRocketPart> parts = this.cachedMountedSummary.parts();
         if (parts.isEmpty()) {
             return;
@@ -2542,14 +3075,17 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
             minRelY = 0;
         }
 
+        net.minecraft.core.BlockPos padCenter = be.getPadCenterPos();
+        net.minecraft.core.Direction facing = be.getFacing();
         RocketPartCatalog catalog = RocketPartCatalog.getInstance();
         List<StackPart> stackParts = new ArrayList<>(parts.size());
         for (int i = 0; i < parts.size(); i++) {
             HangarTerminalBlockEntity.MountedRocketPart part = parts.get(i);
             RocketPartConfig cfg = part.config() != null ? part.config() : catalog.defaultConfigFor(part.category());
             float anim = (this.vabAnimEnabled || part.animationActive()) ? this.vabAnimTime : 0.0F;
+            float[] visXz = resolveLocalVisualXz(be, padCenter, facing, part.pos());
             float baseY = Math.max(0, part.relativeY() - minRelY);
-            stackParts.add(new StackPart(i, cfg, baseY, anim, i == this.selectedMountedIndex, false));
+            stackParts.add(new StackPart(i, cfg, visXz[0], baseY, visXz[1], anim, i == this.selectedMountedIndex, false, false));
         }
 
         RocketPartGuiPreviewRenderer.renderRocketStack(
@@ -2586,43 +3122,169 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
         pose.popPose();
     }
 
+    private static float[] resolveLocalVisualXz(
+            HangarTerminalBlockEntity be,
+            net.minecraft.core.BlockPos padCenter,
+            net.minecraft.core.Direction facing,
+            net.minecraft.core.BlockPos partPos
+    ) {
+        net.minecraft.core.BlockPos local = PlatformBlueprint.toLocalPos(padCenter, facing, partPos);
+        float visX = local.getX();
+        float visZ = local.getZ();
+        if (be.getLevel() != null && be.getLevel().getBlockEntity(partPos) instanceof dev.galacticraft.mod.content.block.entity.ModularRocketPartBlockEntity partBe) {
+            float ox = partBe.getRadialVisualOffsetX();
+            float oz = partBe.getRadialVisualOffsetZ();
+            switch (facing) {
+                case EAST -> {
+                    visX += oz;
+                    visZ -= ox;
+                }
+                case SOUTH -> {
+                    visX -= ox;
+                    visZ -= oz;
+                }
+                case WEST -> {
+                    visX -= oz;
+                    visZ += ox;
+                }
+                default -> {
+                    visX += ox;
+                    visZ += oz;
+                }
+            }
+        }
+        return new float[]{visX, visZ};
+    }
+
+    private RocketAssemblyGraphBuilder.BuildResult buildPreviewGraph(HangarTerminalBlockEntity be) {
+        if (this.vabBoosterMode && !this.cachedMountedSummary.parts().isEmpty() && !this.vabDraft.isEmpty()) {
+            List<RocketAssemblyGraphBuilder.PartInput> combined = new ArrayList<>();
+            net.minecraft.core.BlockPos padCenter = be.getPadCenterPos();
+            int lowestCoreY = Integer.MAX_VALUE;
+            for (HangarTerminalBlockEntity.MountedRocketPart part : this.cachedMountedSummary.parts()) {
+                if (part.config() == null) {
+                    continue;
+                }
+                net.minecraft.core.BlockPos rel = part.pos().subtract(padCenter);
+                combined.add(RocketAssemblyGraphBuilder.PartInput.fromConfig(rel, part.config()));
+                if (rel.getX() == 0 && rel.getZ() == 0 && !part.config().radial() && rel.getY() < lowestCoreY) {
+                    lowestCoreY = rel.getY();
+                }
+            }
+            if (lowestCoreY == Integer.MAX_VALUE) {
+                lowestCoreY = 1;
+            }
+            int boosterMaxDiam = 1;
+            int boosterTotalHeight = 0;
+            for (VabEntry e : this.vabDraft) {
+                boosterMaxDiam = Math.max(boosterMaxDiam, Math.max(e.config.diameter(), e.config.topDiameter()));
+                boosterTotalHeight += Math.max(1, e.config.heightBlocks());
+            }
+            int coreBaseDiam = 1;
+            int boosterTopRelY = lowestCoreY + Math.max(1, boosterTotalHeight);
+            for (HangarTerminalBlockEntity.MountedRocketPart part : this.cachedMountedSummary.parts()) {
+                if (part.config() == null) {
+                    continue;
+                }
+                net.minecraft.core.BlockPos rel = part.pos().subtract(padCenter);
+                if (rel.getX() == 0 && rel.getZ() == 0 && !part.config().radial()) {
+                    int pMin = rel.getY();
+                    int pMax = pMin + Math.max(1, part.heightBlocks());
+                    if (pMin < boosterTopRelY && pMax > lowestCoreY) {
+                        coreBaseDiam = Math.max(coreBaseDiam, Math.max(part.config().diameter(), part.config().topDiameter()));
+                    }
+                }
+            }
+            RadialSymmetry sym = resolveBoosterSymmetry(be.getSelectedSymmetry());
+            List<net.minecraft.core.BlockPos> origins = RocketAssemblyGraphBuilder.computeRadialBoosterOrigins(
+                    new net.minecraft.core.BlockPos(0, lowestCoreY, 0), coreBaseDiam, boosterMaxDiam, sym
+            );
+            for (net.minecraft.core.BlockPos base : origins) {
+                int curY = base.getY();
+                for (VabEntry e : this.vabDraft) {
+                    RocketAssemblyGraphBuilder.PartInput pi = RocketAssemblyGraphBuilder.PartInput.fromStack(
+                            new net.minecraft.core.BlockPos(base.getX(), curY, base.getZ()), e.icon
+                    );
+                    if (pi != null) {
+                        combined.add(pi);
+                    }
+                    curY += Math.max(1, e.config.heightBlocks());
+                }
+            }
+            return RocketAssemblyGraphBuilder.build(
+                    combined, be.getPlatformSize(), be.getActiveBlueprint(),
+                    Map.of(), Map.of(), be.getSelectedCrossfeed()
+            );
+        }
+        if (this.vabEditingMounted && !this.vabBoosterMode && this.hasMountedRadialBoosters(be)) {
+            List<RocketAssemblyGraphBuilder.PartInput> combined = new ArrayList<>();
+            int curY = 1;
+            for (VabEntry e : this.vabDraft) {
+                RocketAssemblyGraphBuilder.PartInput pi = RocketAssemblyGraphBuilder.PartInput.fromStack(
+                        new net.minecraft.core.BlockPos(0, curY, 0), e.icon
+                );
+                if (pi != null) {
+                    combined.add(pi);
+                }
+                curY += Math.max(1, e.config.heightBlocks());
+            }
+            net.minecraft.core.BlockPos padCenter = be.getPadCenterPos();
+            for (HangarTerminalBlockEntity.MountedRocketPart part : this.cachedMountedSummary.parts()) {
+                if (part.config() == null) {
+                    continue;
+                }
+                net.minecraft.core.BlockPos rel = part.pos().subtract(padCenter);
+                if (rel.getX() != 0 || rel.getZ() != 0 || part.config().radial()) {
+                    combined.add(RocketAssemblyGraphBuilder.PartInput.fromConfig(rel, part.config()));
+                }
+            }
+            return RocketAssemblyGraphBuilder.build(
+                    combined, be.getPlatformSize(), be.getActiveBlueprint(),
+                    Map.of(), Map.of(), be.getSelectedCrossfeed()
+            );
+        }
+        return RocketAssemblyGraphBuilder.buildFromStacks(
+                this.collectDraftStacks(),
+                be.getPlatformSize(),
+                be.getActiveBlueprint()
+        );
+    }
+
     private VabTelemetry computeDraftTelemetry(HangarTerminalBlockEntity be) {
-        double dryMassKg = 0.0;
-        double thrustKn = 0.0;
-        long fuelDroplets = 0L;
-        int totalHeight = 0;
+        PlanetaryEnvironment localEnv = PlanetaryEnvironment.fromLevel(be.getLevel());
+        RocketAssemblyGraphBuilder.BuildResult build = this.buildPreviewGraph(be);
+        RocketAssemblyGraph graph = build.graph();
+        RocketFlightValidator.FlightValidationReport report = RocketFlightValidator.evaluateGraph(
+                graph,
+                localEnv,
+                localEnv,
+                build.padMaxMassKg(),
+                0L
+        ).summary();
+
         int maxDiam = 0;
         boolean hasCommand = false;
         boolean hasTank = false;
         boolean hasEngine = false;
-
-        for (VabEntry entry : this.vabDraft) {
-            RocketPartConfig cfg = entry.config;
-            RocketPartStats stats = entry.icon.get(GCDataComponents.ROCKET_PART_STATS);
-            if (stats == null) {
-                stats = RocketPartCostCalculator.calculate(cfg).stats();
-            }
-            dryMassKg += stats.dryWeightKg();
-            thrustKn += stats.thrustKn();
-            fuelDroplets += stats.fuelCapacityDroplets();
-            totalHeight += Math.max(1, cfg.heightBlocks());
+        var allParts = graph.allActiveParts();
+        for (var p : allParts) {
+            RocketPartConfig cfg = p.config();
             maxDiam = Math.max(maxDiam, Math.max(cfg.diameter(), cfg.topDiameter()));
             if (cfg.category() == RocketPartCategory.COMMAND) hasCommand = true;
             else if (cfg.category() == RocketPartCategory.TANK) hasTank = true;
             else if (cfg.category() == RocketPartCategory.ENGINE) hasEngine = true;
         }
 
-        double fuelMassKg = (fuelDroplets / 81_000.0) * 850.0;
-        double wetMassKg = dryMassKg + fuelMassKg;
-        double twr = wetMassKg > 0.0 ? (thrustKn * 1000.0) / (wetMassKg * 9.81) : 0.0;
-        double deltaV = (dryMassKg > 0.0 && wetMassKg > dryMassKg)
-                ? 310.0 * 9.81 * Math.log(wetMassKg / dryMassKg)
-                : 0.0;
         int allowedDiam = be.getPlatformSize().diameter();
-        boolean diamOk = maxDiam == 0 || maxDiam <= allowedDiam;
-        boolean ready = !this.vabDraft.isEmpty() && hasCommand && hasTank && hasEngine && twr >= 1.0 && diamOk;
-        return new VabTelemetry(this.vabDraft.size(), totalHeight, maxDiam, allowedDiam, diamOk,
-                dryMassKg, wetMassKg, thrustKn, twr, deltaV, hasCommand, hasTank, hasEngine, ready);
+        boolean diamOk = !build.hasIssue(RocketAssemblyGraphBuilder.IssueCode.CLEARANCE_OBSTRUCTED)
+                && !build.hasIssue(RocketAssemblyGraphBuilder.IssueCode.DIAMETER_MISMATCH)
+                && (maxDiam == 0 || maxDiam <= allowedDiam);
+        double twr = Double.isFinite(report.originTwr()) ? report.originTwr() : 99.99;
+        boolean ready = !allParts.isEmpty() && hasCommand && hasTank && hasEngine
+                && twr >= 1.0 && diamOk && !build.hasIssue(RocketAssemblyGraphBuilder.IssueCode.PAD_OVERWEIGHT);
+        return new VabTelemetry(allParts.size(), graph.totalHeightBlocks(), maxDiam, allowedDiam, diamOk,
+                report.dryMassKg(), report.wetMassKg(), report.totalThrustKn(), twr, report.maxDeltaV(),
+                hasCommand, hasTank, hasEngine, ready);
     }
 
     private VabTelemetry fromMountedSummary(HangarTerminalBlockEntity.RocketPadSummary s) {
@@ -2698,10 +3360,14 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
 
     private record VabEntry(
             int inventorySlot,
+            @Nullable net.minecraft.core.BlockPos mountedPos,
             ItemStack icon,
             RocketPartConfig config,
             String displayName
     ) {
+        boolean isMounted() {
+            return this.mountedPos != null;
+        }
     }
 
     private record VabTelemetry(

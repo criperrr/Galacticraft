@@ -52,6 +52,8 @@ public class GCPackets {
         PayloadTypeRegistry.playC2S().register(CreativeGcTransferItemPayload.TYPE, CreativeGcTransferItemPayload.STREAM_CODEC);
         PayloadTypeRegistry.playC2S().register(HangarTerminalActionPayload.TYPE, HangarTerminalActionPayload.STREAM_CODEC);
         PayloadTypeRegistry.playC2S().register(BuildRocketFromInventoryPayload.TYPE, BuildRocketFromInventoryPayload.STREAM_CODEC);
+        PayloadTypeRegistry.playC2S().register(AttachRadialBoosterPayload.TYPE, AttachRadialBoosterPayload.STREAM_CODEC);
+        PayloadTypeRegistry.playC2S().register(EditRocketCorePayload.TYPE, EditRocketCorePayload.STREAM_CODEC);
         PayloadTypeRegistry.playC2S().register(SelectPartBuilderConfigPayload.TYPE, SelectPartBuilderConfigPayload.STREAM_CODEC);
         PayloadTypeRegistry.playC2S().register(ResearchTerminalActionPayload.TYPE, ResearchTerminalActionPayload.STREAM_CODEC);
         PayloadTypeRegistry.playC2S().register(ResearchMachineActionPayload.TYPE, ResearchMachineActionPayload.STREAM_CODEC);

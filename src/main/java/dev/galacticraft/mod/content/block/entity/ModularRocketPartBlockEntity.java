@@ -97,6 +97,8 @@ public class ModularRocketPartBlockEntity extends BlockEntity implements MultiVo
     private static final String TAG_OCCUPIED_PROXIES = "OccupiedProxies";
     private static final String TAG_ASSEMBLED_TERMINAL_POS = "AssembledTerminalPos";
     private static final String TAG_SCIENCE_DRIVE = "ScienceDrive";
+    private static final String TAG_RADIAL_VISUAL_OFFSET_X = "RadialVisualOffsetX";
+    private static final String TAG_RADIAL_VISUAL_OFFSET_Z = "RadialVisualOffsetZ";
 
     private RocketPartConfig config;
     private @Nullable RocketPartStats stats;
@@ -104,6 +106,8 @@ public class ModularRocketPartBlockEntity extends BlockEntity implements MultiVo
     private @Nullable RocketPartComposition composition;
     private final List<BlockPos> occupiedProxies = new ArrayList<>();
     private @Nullable BlockPos assembledTerminalPos = null;
+    private float radialVisualOffsetX = 0.0F;
+    private float radialVisualOffsetZ = 0.0F;
     private ItemStack scienceDrive = ItemStack.EMPTY;
     private boolean hatchOpen = false;
     private boolean animationActive = false;
@@ -182,6 +186,24 @@ public class ModularRocketPartBlockEntity extends BlockEntity implements MultiVo
 
     public void clearAssembledTerminalPosQuiet() {
         this.assembledTerminalPos = null;
+    }
+
+    public float getRadialVisualOffsetX() {
+        return this.radialVisualOffsetX;
+    }
+
+    public float getRadialVisualOffsetZ() {
+        return this.radialVisualOffsetZ;
+    }
+
+    public void setRadialVisualOffset(float offsetX, float offsetZ) {
+        float clampedX = Float.isFinite(offsetX) ? Math.clamp(offsetX, -1.5F, 1.5F) : 0.0F;
+        float clampedZ = Float.isFinite(offsetZ) ? Math.clamp(offsetZ, -1.5F, 1.5F) : 0.0F;
+        if (Math.abs(this.radialVisualOffsetX - clampedX) > 1.0e-4F || Math.abs(this.radialVisualOffsetZ - clampedZ) > 1.0e-4F) {
+            this.radialVisualOffsetX = clampedX;
+            this.radialVisualOffsetZ = clampedZ;
+            this.sync();
+        }
     }
 
     public boolean isHatchOpen() {
@@ -685,6 +707,10 @@ public class ModularRocketPartBlockEntity extends BlockEntity implements MultiVo
         if (this.assembledTerminalPos != null) {
             tag.putLong(TAG_ASSEMBLED_TERMINAL_POS, this.assembledTerminalPos.asLong());
         }
+        if (Math.abs(this.radialVisualOffsetX) > 1.0e-4F || Math.abs(this.radialVisualOffsetZ) > 1.0e-4F) {
+            tag.putFloat(TAG_RADIAL_VISUAL_OFFSET_X, this.radialVisualOffsetX);
+            tag.putFloat(TAG_RADIAL_VISUAL_OFFSET_Z, this.radialVisualOffsetZ);
+        }
         if (!this.scienceDrive.isEmpty()) {
             tag.put(TAG_SCIENCE_DRIVE, this.scienceDrive.save(registries));
         }
@@ -742,6 +768,12 @@ public class ModularRocketPartBlockEntity extends BlockEntity implements MultiVo
         this.assembledTerminalPos = tag.contains(TAG_ASSEMBLED_TERMINAL_POS, Tag.TAG_LONG)
                 ? BlockPos.of(tag.getLong(TAG_ASSEMBLED_TERMINAL_POS))
                 : null;
+        this.radialVisualOffsetX = tag.contains(TAG_RADIAL_VISUAL_OFFSET_X, Tag.TAG_FLOAT)
+                ? Math.clamp(tag.getFloat(TAG_RADIAL_VISUAL_OFFSET_X), -1.5F, 1.5F)
+                : 0.0F;
+        this.radialVisualOffsetZ = tag.contains(TAG_RADIAL_VISUAL_OFFSET_Z, Tag.TAG_FLOAT)
+                ? Math.clamp(tag.getFloat(TAG_RADIAL_VISUAL_OFFSET_Z), -1.5F, 1.5F)
+                : 0.0F;
         this.scienceDrive = tag.contains(TAG_SCIENCE_DRIVE, Tag.TAG_COMPOUND)
                 ? ItemStack.parseOptional(registries, tag.getCompound(TAG_SCIENCE_DRIVE))
                 : ItemStack.EMPTY;
