@@ -23,11 +23,7 @@
 package dev.galacticraft.mod.world.biome;
 
 import dev.galacticraft.mod.content.GCSounds;
-import dev.galacticraft.mod.world.gen.carver.GCConfiguredCarvers;
-import dev.galacticraft.mod.world.gen.feature.GCOrePlacedFeatures;
-import dev.galacticraft.mod.world.gen.feature.GCPlacedFeatures;
 import net.minecraft.core.HolderGetter;
-import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.Music;
@@ -35,126 +31,56 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.MobSpawnSettings;
-import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 public class NeptuneBiomes {
 
-    private static void addNeptuneCarversAndOres(BiomeGenerationSettings.Builder builder, boolean canyon) {
-        builder.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.NEPTUNE_CAVE_CARVER);
-        if (canyon) {
-            builder.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.NEPTUNE_CANYON_CARVER);
-        }
-        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_COPPER_NEPTUNE);
-        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_TIN_NEPTUNE);
-        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_IRON_NEPTUNE);
-        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_TITANIUM_NEPTUNE);
-        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_ALUMINUM_NEPTUNE);
-        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_NIOBIUM_NEPTUNE);
-    }
-
     public static Biome createDarkSpotVortex(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
         var mobBuilder = new MobSpawnSettings.Builder();
         var genBuilder = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-
-        BiomeDefaultFeatures.addDefaultCrystalFormations(genBuilder);
-        addNeptuneCarversAndOres(genBuilder, true);
-
-        genBuilder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, GCPlacedFeatures.NEPTUNE_GREAT_DARK_VORTEX);
-        genBuilder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, GCPlacedFeatures.NEPTUNE_SUPERSONIC_WIND_RIDGE);
-
         return createBiome(genBuilder, mobBuilder, -1.8F, 0x264D8A, 0x1E3F73, 0x18325C);
     }
 
     public static Biome createSupersonicWindPlains(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
         var mobBuilder = new MobSpawnSettings.Builder();
         var genBuilder = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-
-        BiomeDefaultFeatures.addDefaultCrystalFormations(genBuilder);
-        addNeptuneCarversAndOres(genBuilder, false);
-
-        genBuilder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, GCPlacedFeatures.NEPTUNE_SUPERSONIC_WIND_RIDGE);
-        genBuilder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, GCPlacedFeatures.NEPTUNE_NITROGEN_CRYOGEYSER);
-
         return createBiome(genBuilder, mobBuilder, -1.6F, 0x2C5696, 0x23477E, 0x1C3966);
     }
 
     public static Biome createTritonGeyserFields(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
         var mobBuilder = new MobSpawnSettings.Builder();
         var genBuilder = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-
-        BiomeDefaultFeatures.addDefaultCrystalFormations(genBuilder);
-        addNeptuneCarversAndOres(genBuilder, true);
-
-        genBuilder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, GCPlacedFeatures.NEPTUNE_NITROGEN_CRYOGEYSER);
-        genBuilder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, GCPlacedFeatures.NEPTUNE_SUPERSONIC_WIND_RIDGE);
-
         return createBiome(genBuilder, mobBuilder, -1.5F, 0x2E5899, 0x254982, 0x1E3B69);
     }
 
     public static Biome createNitrogenIceShelves(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
         var mobBuilder = new MobSpawnSettings.Builder();
         var genBuilder = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-
-        BiomeDefaultFeatures.addDefaultCrystalFormations(genBuilder);
-        addNeptuneCarversAndOres(genBuilder, true);
-
-        genBuilder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, GCPlacedFeatures.NEPTUNE_NITROGEN_CRYOGEYSER);
-        genBuilder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, GCPlacedFeatures.NEPTUNE_SUPERSONIC_WIND_RIDGE);
-
         return createBiome(genBuilder, mobBuilder, -2.0F, 0x315C9E, 0x274C87, 0x203E6E);
     }
 
     public static Biome createCobaltStormHighlands(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
         var mobBuilder = new MobSpawnSettings.Builder();
         var genBuilder = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-
-        BiomeDefaultFeatures.addDefaultCrystalFormations(genBuilder);
-        addNeptuneCarversAndOres(genBuilder, true);
-
-        genBuilder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, GCPlacedFeatures.NEPTUNE_GREAT_DARK_VORTEX);
-        genBuilder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, GCPlacedFeatures.NEPTUNE_SUPERSONIC_WIND_RIDGE);
-
         return createBiome(genBuilder, mobBuilder, -1.7F, 0x295190, 0x204378, 0x1A3561);
     }
 
     public static Biome createDiamondRainCaverns(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
         var mobBuilder = new MobSpawnSettings.Builder();
         var genBuilder = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-
-        BiomeDefaultFeatures.addDefaultCrystalFormations(genBuilder);
-        addNeptuneCarversAndOres(genBuilder, true);
-
-        genBuilder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, GCPlacedFeatures.NEPTUNE_CRYO_SPELEOTHEM);
-        genBuilder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, GCPlacedFeatures.NEPTUNE_SUPERSONIC_WIND_RIDGE);
-
         return createBiome(genBuilder, mobBuilder, -0.8F, 0x244882, 0x1C3B6C, 0x162F57);
     }
 
     public static Biome createCryoMagmaTubes(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
         var mobBuilder = new MobSpawnSettings.Builder();
         var genBuilder = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-
-        BiomeDefaultFeatures.addDefaultCrystalFormations(genBuilder);
-        addNeptuneCarversAndOres(genBuilder, true);
-
-        genBuilder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, GCPlacedFeatures.NEPTUNE_CRYO_SPELEOTHEM);
-        genBuilder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, GCPlacedFeatures.NEPTUNE_SUPERSONIC_WIND_RIDGE);
-
         return createBiome(genBuilder, mobBuilder, -0.6F, 0x22447C, 0x1A3866, 0x152D52);
     }
 
     public static Biome createAbyssalMantleDepths(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
         var mobBuilder = new MobSpawnSettings.Builder();
         var genBuilder = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-
-        BiomeDefaultFeatures.addDefaultCrystalFormations(genBuilder);
-        addNeptuneCarversAndOres(genBuilder, true);
-
-        genBuilder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, GCPlacedFeatures.NEPTUNE_CRYO_SPELEOTHEM);
-        genBuilder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, GCPlacedFeatures.NEPTUNE_SUPERSONIC_WIND_RIDGE);
-
         return createBiome(genBuilder, mobBuilder, -0.4F, 0x1F4075, 0x183460, 0x132A4D);
     }
 
@@ -168,7 +94,6 @@ public class NeptuneBiomes {
     ) {
         var biomeBuilder = new Biome.BiomeBuilder();
         var effectsBuilder = new BiomeSpecialEffects.Builder();
-        BiomeDefaultFeatures.monsters(mobBuilder, 95, 5, 100, false);
 
         effectsBuilder.fogColor(fogColor)
                 .waterColor(waterColor)

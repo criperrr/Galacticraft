@@ -86,7 +86,18 @@ public class PlanetaryRingSkyRenderer {
             float spaceProgress,
             float atmR, float atmG, float atmB
     ) {
-        if (profile == null) {
+        render(basePoseStack, profile, celestialAngle, spaceProgress, atmR, atmG, atmB, 1.0F);
+    }
+
+    public static void render(
+            PoseStack basePoseStack,
+            RingProfile profile,
+            float celestialAngle,
+            float spaceProgress,
+            float atmR, float atmG, float atmB,
+            float opticalTransmittance
+    ) {
+        if (profile == null || opticalTransmittance <= 0.01F) {
             return;
         }
 
@@ -189,10 +200,10 @@ public class PlanetaryRingSkyRenderer {
                     float light0 = ringGlobalBrightness * shadow0;
                     float light1 = ringGlobalBrightness * shadow1;
 
-                    float alpha00 = Mth.clamp(band.alpha * edgeFeather0 * vis0 * (0.35F + 0.65F * shadow0), 0.0F, 0.95F);
-                    float alpha10 = Mth.clamp(band.alpha * edgeFeather0 * vis1 * (0.35F + 0.65F * shadow1), 0.0F, 0.95F);
-                    float alpha11 = Mth.clamp(band.alpha * edgeFeather1 * vis1 * (0.35F + 0.65F * shadow1), 0.0F, 0.95F);
-                    float alpha01 = Mth.clamp(band.alpha * edgeFeather1 * vis0 * (0.35F + 0.65F * shadow0), 0.0F, 0.95F);
+                    float alpha00 = Mth.clamp(band.alpha * edgeFeather0 * vis0 * (0.35F + 0.65F * shadow0) * opticalTransmittance, 0.0F, 0.95F);
+                    float alpha10 = Mth.clamp(band.alpha * edgeFeather0 * vis1 * (0.35F + 0.65F * shadow1) * opticalTransmittance, 0.0F, 0.95F);
+                    float alpha11 = Mth.clamp(band.alpha * edgeFeather1 * vis1 * (0.35F + 0.65F * shadow1) * opticalTransmittance, 0.0F, 0.95F);
+                    float alpha01 = Mth.clamp(band.alpha * edgeFeather1 * vis0 * (0.35F + 0.65F * shadow0) * opticalTransmittance, 0.0F, 0.95F);
 
                     float r0 = Mth.clamp(baseR * light0, 0.0F, 1.0F);
                     float g0 = Mth.clamp(baseG * light0, 0.0F, 1.0F);

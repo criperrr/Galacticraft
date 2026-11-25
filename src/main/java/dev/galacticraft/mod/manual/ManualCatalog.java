@@ -636,33 +636,30 @@ public final class ManualCatalog {
         list.add(planetEntry(ENTRY_ATLAS_JUPITER, 5, 70, GCCelestialBodies.JUPITER.location(), Constant.id("jupiter_palladium_ore"), Optional.empty(), "manual.galacticraft.hint.outer_ephemeris",
                 "manual.galacticraft.atlas.jupiter.title", "manual.galacticraft.atlas.jupiter.hazards",
                 List.of(
-                        ore(Constant.id("jupiter_niobium_ore"), "block.galacticraft.jupiter_niobium_ore", -12, 56, 2.0, 0xFF60A5FA),
-                        ore(Constant.id("jupiter_palladium_ore"), "block.galacticraft.jupiter_palladium_ore", -44, 28, 3.0, 0xFFFDE68A),
-                        ore(Constant.id("jupiter_metallic_hydrogen_rock"), "block.galacticraft.jupiter_metallic_hydrogen_rock", -60, -8, 2.4, 0xFF38BDF8)
+                        ore(Constant.id("jupiter_palladium_ore"), "block.galacticraft.jupiter_palladium_ore", -60, -20, 3.0, 0xFFFDE68A),
+                        ore(Constant.id("jupiter_metallic_hydrogen_rock"), "block.galacticraft.jupiter_metallic_hydrogen_rock", -62, -20, 2.4, 0xFF38BDF8),
+                        ore(Constant.id("jupiter_core_breccia"), "block.galacticraft.jupiter_core_breccia", -62, -20, 2.0, 0xFF60A5FA)
                 )));
 
         list.add(planetEntry(ENTRY_ATLAS_SATURN, 5, 80, GCCelestialBodies.SATURN.location(), Constant.id("saturn_magnesium_ore"), Optional.empty(), "manual.galacticraft.hint.outer_ephemeris",
                 "manual.galacticraft.atlas.saturn.title", "manual.galacticraft.atlas.saturn.hazards",
                 List.of(
-                        ore(Constant.id("saturn_ring_ice_rock"), "block.galacticraft.saturn_ring_ice_rock", 24, 88, 3.0, 0xFFBAE6FD),
-                        ore(Constant.id("saturn_magnesium_ore"), "block.galacticraft.saturn_magnesium_ore", -24, 44, 3.2, 0xFF86EFAC),
-                        ore(Constant.id("saturn_helium_mantle_rock"), "block.galacticraft.saturn_helium_mantle_rock", -60, 0, 3.5, 0xFF22D3EE)
+                        ore(Constant.id("saturn_magnesium_ore"), "block.galacticraft.saturn_magnesium_ore", -60, -20, 3.2, 0xFF86EFAC),
+                        ore(Constant.id("saturn_helium_mantle_rock"), "block.galacticraft.saturn_helium_mantle_rock", -62, -20, 3.5, 0xFF22D3EE)
                 )));
 
         list.add(planetEntry(ENTRY_ATLAS_URANUS, 6, 90, GCCelestialBodies.URANUS.location(), Constant.id("uranus_uranium_ore"), Optional.empty(), "manual.galacticraft.hint.outer_ephemeris",
                 "manual.galacticraft.atlas.uranus.title", "manual.galacticraft.atlas.uranus.hazards",
                 List.of(
-                        ore(Constant.id("uranus_methane_ice"), "block.galacticraft.uranus_methane_ice", 16, 80, 2.8, 0xFF67E8F9),
-                        ore(Constant.id("uranus_uranium_ore"), "block.galacticraft.uranus_uranium_ore", -32, 32, 3.2, 0xFF4ADE80),
-                        ore(Constant.id("uranus_diamond_bearing_rock"), "block.galacticraft.uranus_diamond_bearing_rock", -60, -4, 2.5, 0xFF7FE8FF)
+                        ore(Constant.id("uranus_uranium_ore"), "block.galacticraft.uranus_uranium_ore", -60, -20, 3.2, 0xFF4ADE80),
+                        ore(Constant.id("uranus_diamond_bearing_rock"), "block.galacticraft.uranus_diamond_bearing_rock", -62, -20, 2.5, 0xFF7FE8FF),
+                        ore(Constant.id("uranus_superionic_mantle_rock"), "block.galacticraft.uranus_superionic_mantle_rock", -62, -20, 2.8, 0xFF67E8F9)
                 )));
 
         list.add(planetEntry(ENTRY_ATLAS_NEPTUNE, 6, 100, GCCelestialBodies.NEPTUNE.location(), Constant.id("superionic_ice_crystal"), Optional.empty(), "manual.galacticraft.hint.outer_ephemeris",
                 "manual.galacticraft.atlas.neptune.title", "manual.galacticraft.atlas.neptune.hazards",
                 List.of(
-                        ore(Constant.id("neptune_nitrogen_ice"), "block.galacticraft.neptune_nitrogen_ice", 16, 84, 3.0, 0xFF60A5FA),
-                        ore(Constant.id("neptune_titanium_ore"), "block.galacticraft.neptune_titanium_ore", -24, 40, 2.4, 0xFF93C5FD),
-                        ore(Constant.id("neptune_abyssal_mantle_rock"), "block.galacticraft.neptune_abyssal_mantle_rock", -60, -8, 3.4, 0xFF38BDF8)
+                        ore(Constant.id("neptune_abyssal_mantle_rock"), "block.galacticraft.neptune_abyssal_mantle_rock", -62, -20, 3.4, 0xFF38BDF8)
                 )));
 
         // =====================================================================

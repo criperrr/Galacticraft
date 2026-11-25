@@ -69,22 +69,22 @@ public class GCDimensionEffects {
 
         DimensionRenderingRegistry.registerDimensionEffects(JUPITER, OuterPlanetDimensionEffects.JUPITER);
         DimensionRenderingRegistry.registerCloudRenderer(GCDimensions.JUPITER, EmptyCloudRenderer.INSTANCE);
-        DimensionRenderingRegistry.registerWeatherRenderer(GCDimensions.JUPITER, EmptyWeatherRenderer.INSTANCE);
+        DimensionRenderingRegistry.registerWeatherRenderer(GCDimensions.JUPITER, GasGiantAtmosphereRenderer.JUPITER);
         DimensionRenderingRegistry.registerSkyRenderer(GCDimensions.JUPITER, OuterPlanetSkyRenderer.JUPITER);
 
         DimensionRenderingRegistry.registerDimensionEffects(SATURN, OuterPlanetDimensionEffects.SATURN);
         DimensionRenderingRegistry.registerCloudRenderer(GCDimensions.SATURN, EmptyCloudRenderer.INSTANCE);
-        DimensionRenderingRegistry.registerWeatherRenderer(GCDimensions.SATURN, EmptyWeatherRenderer.INSTANCE);
+        DimensionRenderingRegistry.registerWeatherRenderer(GCDimensions.SATURN, GasGiantAtmosphereRenderer.SATURN);
         DimensionRenderingRegistry.registerSkyRenderer(GCDimensions.SATURN, OuterPlanetSkyRenderer.SATURN);
 
         DimensionRenderingRegistry.registerDimensionEffects(URANUS, OuterPlanetDimensionEffects.URANUS);
         DimensionRenderingRegistry.registerCloudRenderer(GCDimensions.URANUS, EmptyCloudRenderer.INSTANCE);
-        DimensionRenderingRegistry.registerWeatherRenderer(GCDimensions.URANUS, EmptyWeatherRenderer.INSTANCE);
+        DimensionRenderingRegistry.registerWeatherRenderer(GCDimensions.URANUS, GasGiantAtmosphereRenderer.URANUS);
         DimensionRenderingRegistry.registerSkyRenderer(GCDimensions.URANUS, OuterPlanetSkyRenderer.URANUS);
 
         DimensionRenderingRegistry.registerDimensionEffects(NEPTUNE, OuterPlanetDimensionEffects.NEPTUNE);
         DimensionRenderingRegistry.registerCloudRenderer(GCDimensions.NEPTUNE, EmptyCloudRenderer.INSTANCE);
-        DimensionRenderingRegistry.registerWeatherRenderer(GCDimensions.NEPTUNE, EmptyWeatherRenderer.INSTANCE);
+        DimensionRenderingRegistry.registerWeatherRenderer(GCDimensions.NEPTUNE, GasGiantAtmosphereRenderer.NEPTUNE);
         DimensionRenderingRegistry.registerSkyRenderer(GCDimensions.NEPTUNE, OuterPlanetSkyRenderer.NEPTUNE);
     }
 }

@@ -65,50 +65,36 @@ public class OuterPlanetsExoticMineralogyTestSuite implements GalacticraftGameTe
 
         Map<ResourceKey<Biome>, List<ResourceKey<PlacedFeature>>> expected = Map.of(
                 GCBiomes.Jupiter.RED_STORM_VORTEX, List.of(
-                        GCOrePlacedFeatures.ORE_COPPER_JUPITER,
-                        GCOrePlacedFeatures.ORE_TIN_JUPITER,
-                        GCOrePlacedFeatures.ORE_IRON_JUPITER,
-                        GCOrePlacedFeatures.ORE_ALUMINUM_JUPITER,
-                        GCOrePlacedFeatures.ORE_NIOBIUM_JUPITER,
-                        GCOrePlacedFeatures.ORE_TITANIUM_JUPITER,
                         GCOrePlacedFeatures.ORE_PALLADIUM_JUPITER
                 ),
                 GCBiomes.Saturn.HEXAGON_POLAR_PLATEAU, List.of(
-                        GCOrePlacedFeatures.ORE_COPPER_SATURN,
-                        GCOrePlacedFeatures.ORE_TIN_SATURN,
-                        GCOrePlacedFeatures.ORE_IRON_SATURN,
-                        GCOrePlacedFeatures.ORE_TITANIUM_SATURN,
-                        GCOrePlacedFeatures.ORE_ALUMINUM_SATURN,
-                        GCOrePlacedFeatures.ORE_NIOBIUM_SATURN,
                         GCOrePlacedFeatures.ORE_MAGNESIUM_SATURN
                 ),
                 GCBiomes.Uranus.DIAMOND_MANTLE_CAVERNS, List.of(
-                        GCOrePlacedFeatures.ORE_COPPER_URANUS,
-                        GCOrePlacedFeatures.ORE_TIN_URANUS,
-                        GCOrePlacedFeatures.ORE_ALUMINUM_URANUS,
-                        GCOrePlacedFeatures.ORE_TITANIUM_URANUS,
-                        GCOrePlacedFeatures.ORE_IRON_URANUS,
-                        GCOrePlacedFeatures.ORE_NIOBIUM_URANUS,
                         GCOrePlacedFeatures.ORE_URANIUM_URANUS
                 ),
-                GCBiomes.Neptune.ABYSSAL_MANTLE_DEPTHS, List.of(
-                        GCOrePlacedFeatures.ORE_COPPER_NEPTUNE,
-                        GCOrePlacedFeatures.ORE_TIN_NEPTUNE,
-                        GCOrePlacedFeatures.ORE_IRON_NEPTUNE,
-                        GCOrePlacedFeatures.ORE_TITANIUM_NEPTUNE,
-                        GCOrePlacedFeatures.ORE_ALUMINUM_NEPTUNE,
-                        GCOrePlacedFeatures.ORE_NIOBIUM_NEPTUNE
-                )
+                GCBiomes.Neptune.ABYSSAL_MANTLE_DEPTHS, List.of()
         );
 
         for (var entry : expected.entrySet()) {
             Holder<Biome> biome = biomeRegistry.getHolderOrThrow(entry.getKey());
             var features = biome.value().getGenerationSettings().features();
+            if (entry.getValue().isEmpty()) {
+                if (stepIdx < features.size() && features.get(stepIdx).size() > 0) {
+                    context.fail("Neptune biome " + entry.getKey().location() + " must not contain common rocky ores, found: " + features.get(stepIdx).size());
+                    return;
+                }
+                continue;
+            }
             if (stepIdx >= features.size()) {
                 context.fail("Biome missing UNDERGROUND_ORES step: " + entry.getKey().location());
                 return;
             }
             var oreHolders = features.get(stepIdx);
+            if (oreHolders.size() != entry.getValue().size()) {
+                context.fail("Gas giant biome " + entry.getKey().location() + " must only have exotic abyssal core ores (" + entry.getValue().size() + "), found: " + oreHolders.size());
+                return;
+            }
             for (ResourceKey<PlacedFeature> req : entry.getValue()) {
                 boolean found = false;
                 for (Holder<PlacedFeature> holder : oreHolders) {
@@ -197,8 +183,7 @@ public class OuterPlanetsExoticMineralogyTestSuite implements GalacticraftGameTe
                 Map.entry(GCItems.RAW_URANIUM, GCItems.URANIUM_INGOT),
                 Map.entry(GCBlocks.JUPITER_METALLIC_HYDROGEN_ROCK.asItem(), GCItems.METALLIC_HYDROGEN_CELL),
                 Map.entry(GCBlocks.URANUS_DIAMOND_BEARING_ROCK.asItem(), GCItems.LONSDALEITE_GEM),
-                Map.entry(GCBlocks.NEPTUNE_ABYSSAL_MANTLE_ROCK.asItem(), GCItems.SUPERIONIC_ICE_CRYSTAL),
-                Map.entry(GCBlocks.NEPTUNE_CRYO_SLATE.asItem(), GCItems.SUPERIONIC_ICE_CRYSTAL)
+                Map.entry(GCBlocks.NEPTUNE_ABYSSAL_MANTLE_ROCK.asItem(), GCItems.SUPERIONIC_ICE_CRYSTAL)
         );
 
         for (var entry : expectedBlasting.entrySet()) {

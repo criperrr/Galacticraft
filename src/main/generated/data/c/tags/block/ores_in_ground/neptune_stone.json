@@ -1,10 +1,3 @@
 {
-  "values": [
-    "galacticraft:neptune_copper_ore",
-    "galacticraft:neptune_tin_ore",
-    "galacticraft:neptune_iron_ore",
-    "galacticraft:neptune_titanium_ore",
-    "galacticraft:neptune_aluminum_ore",
-    "galacticraft:neptune_niobium_ore"
-  ]
+  "values": []
 }

@@ -201,40 +201,14 @@ public class GCOreConfiguredFeature {
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_LEAD_MERCURY = key("ore_lead_mercury");
     public static final ResourceKey<ConfiguredFeature<?, ?>> MAGMA_PATCH_MERCURY = key("magma_patch_mercury");
 
-    // JUPITER
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_COPPER_JUPITER = key("ore_copper_jupiter");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_TIN_JUPITER = key("ore_tin_jupiter");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_IRON_JUPITER = key("ore_iron_jupiter");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_ALUMINUM_JUPITER = key("ore_aluminum_jupiter");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_NIOBIUM_JUPITER = key("ore_niobium_jupiter");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_TITANIUM_JUPITER = key("ore_titanium_jupiter");
+    // JUPITER (Abyssal Hyperbaric Core)
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_PALLADIUM_JUPITER = key("ore_palladium_jupiter");
 
-    // SATURN
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_COPPER_SATURN = key("ore_copper_saturn");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_TIN_SATURN = key("ore_tin_saturn");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_IRON_SATURN = key("ore_iron_saturn");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_TITANIUM_SATURN = key("ore_titanium_saturn");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_ALUMINUM_SATURN = key("ore_aluminum_saturn");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_NIOBIUM_SATURN = key("ore_niobium_saturn");
+    // SATURN (Abyssal Hyperbaric Core)
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_MAGNESIUM_SATURN = key("ore_magnesium_saturn");
 
-    // URANUS
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_COPPER_URANUS = key("ore_copper_uranus");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_TIN_URANUS = key("ore_tin_uranus");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_ALUMINUM_URANUS = key("ore_aluminum_uranus");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_TITANIUM_URANUS = key("ore_titanium_uranus");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_IRON_URANUS = key("ore_iron_uranus");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_NIOBIUM_URANUS = key("ore_niobium_uranus");
+    // URANUS (Abyssal Hyperbaric Core)
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_URANIUM_URANUS = key("ore_uranium_uranus");
-
-    // NEPTUNE
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_COPPER_NEPTUNE = key("ore_copper_neptune");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_TIN_NEPTUNE = key("ore_tin_neptune");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_IRON_NEPTUNE = key("ore_iron_neptune");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_TITANIUM_NEPTUNE = key("ore_titanium_neptune");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_ALUMINUM_NEPTUNE = key("ore_aluminum_neptune");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_NIOBIUM_NEPTUNE = key("ore_niobium_neptune");
 
     @Contract(pure = true)
     private static @NotNull ResourceKey<ConfiguredFeature<?, ?>> key(String s) {
@@ -334,39 +308,9 @@ public class GCOreConfiguredFeature {
                 OreConfiguration.target(MERCURY_SHOCK_BRECCIA_REPLACEABLE, Blocks.MAGMA_BLOCK.defaultBlockState())
         ), 32)));
 
-        // JUPITER
-        context.register(ORE_COPPER_JUPITER, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(JUPITER_ORE_REPLACEABLE, GCBlocks.JUPITER_COPPER_ORE.defaultBlockState(), 8)));
-        context.register(ORE_TIN_JUPITER, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(JUPITER_ORE_REPLACEABLE, GCBlocks.JUPITER_TIN_ORE.defaultBlockState(), 6)));
-        context.register(ORE_IRON_JUPITER, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(JUPITER_ORE_REPLACEABLE, GCBlocks.JUPITER_IRON_ORE.defaultBlockState(), 9)));
-        context.register(ORE_ALUMINUM_JUPITER, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(JUPITER_ORE_REPLACEABLE, GCBlocks.JUPITER_ALUMINUM_ORE.defaultBlockState(), 6)));
-        context.register(ORE_NIOBIUM_JUPITER, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(JUPITER_ORE_REPLACEABLE, GCBlocks.JUPITER_NIOBIUM_ORE.defaultBlockState(), 7)));
-        context.register(ORE_TITANIUM_JUPITER, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(JUPITER_ORE_REPLACEABLE, GCBlocks.JUPITER_TITANIUM_ORE.defaultBlockState(), 6)));
-        context.register(ORE_PALLADIUM_JUPITER, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(JUPITER_ORE_REPLACEABLE, GCBlocks.JUPITER_PALLADIUM_ORE.defaultBlockState(), 6)));
-
-        // SATURN
-        context.register(ORE_COPPER_SATURN, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(SATURN_ORE_REPLACEABLE, GCBlocks.SATURN_COPPER_ORE.defaultBlockState(), 7)));
-        context.register(ORE_TIN_SATURN, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(SATURN_ORE_REPLACEABLE, GCBlocks.SATURN_TIN_ORE.defaultBlockState(), 7)));
-        context.register(ORE_IRON_SATURN, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(SATURN_ORE_REPLACEABLE, GCBlocks.SATURN_IRON_ORE.defaultBlockState(), 8)));
-        context.register(ORE_TITANIUM_SATURN, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(SATURN_ORE_REPLACEABLE, GCBlocks.SATURN_TITANIUM_ORE.defaultBlockState(), 6)));
-        context.register(ORE_ALUMINUM_SATURN, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(SATURN_ORE_REPLACEABLE, GCBlocks.SATURN_ALUMINUM_ORE.defaultBlockState(), 6)));
-        context.register(ORE_NIOBIUM_SATURN, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(SATURN_ORE_REPLACEABLE, GCBlocks.SATURN_NIOBIUM_ORE.defaultBlockState(), 6)));
+        // GAS & ICE GIANT HYPERBARIC CORE EXOTIC ORES ONLY
+        context.register(ORE_PALLADIUM_JUPITER, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(JUPITER_ORE_REPLACEABLE, GCBlocks.JUPITER_PALLADIUM_ORE.defaultBlockState(), 7)));
         context.register(ORE_MAGNESIUM_SATURN, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(SATURN_ORE_REPLACEABLE, GCBlocks.SATURN_MAGNESIUM_ORE.defaultBlockState(), 7)));
-
-        // URANUS
-        context.register(ORE_COPPER_URANUS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(URANUS_ORE_REPLACEABLE, GCBlocks.URANUS_COPPER_ORE.defaultBlockState(), 7)));
-        context.register(ORE_TIN_URANUS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(URANUS_ORE_REPLACEABLE, GCBlocks.URANUS_TIN_ORE.defaultBlockState(), 6)));
-        context.register(ORE_ALUMINUM_URANUS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(URANUS_ORE_REPLACEABLE, GCBlocks.URANUS_ALUMINUM_ORE.defaultBlockState(), 7)));
-        context.register(ORE_TITANIUM_URANUS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(URANUS_ORE_REPLACEABLE, GCBlocks.URANUS_TITANIUM_ORE.defaultBlockState(), 6)));
-        context.register(ORE_IRON_URANUS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(URANUS_ORE_REPLACEABLE, GCBlocks.URANUS_IRON_ORE.defaultBlockState(), 7)));
-        context.register(ORE_NIOBIUM_URANUS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(URANUS_ORE_REPLACEABLE, GCBlocks.URANUS_NIOBIUM_ORE.defaultBlockState(), 6)));
         context.register(ORE_URANIUM_URANUS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(URANUS_ORE_REPLACEABLE, GCBlocks.URANUS_URANIUM_ORE.defaultBlockState(), 7)));
-
-        // NEPTUNE
-        context.register(ORE_COPPER_NEPTUNE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(NEPTUNE_ORE_REPLACEABLE, GCBlocks.NEPTUNE_COPPER_ORE.defaultBlockState(), 7)));
-        context.register(ORE_TIN_NEPTUNE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(NEPTUNE_ORE_REPLACEABLE, GCBlocks.NEPTUNE_TIN_ORE.defaultBlockState(), 6)));
-        context.register(ORE_IRON_NEPTUNE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(NEPTUNE_ORE_REPLACEABLE, GCBlocks.NEPTUNE_IRON_ORE.defaultBlockState(), 7)));
-        context.register(ORE_TITANIUM_NEPTUNE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(NEPTUNE_ORE_REPLACEABLE, GCBlocks.NEPTUNE_TITANIUM_ORE.defaultBlockState(), 6)));
-        context.register(ORE_ALUMINUM_NEPTUNE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(NEPTUNE_ORE_REPLACEABLE, GCBlocks.NEPTUNE_ALUMINUM_ORE.defaultBlockState(), 6)));
-        context.register(ORE_NIOBIUM_NEPTUNE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(NEPTUNE_ORE_REPLACEABLE, GCBlocks.NEPTUNE_NIOBIUM_ORE.defaultBlockState(), 6)));
     }
 }

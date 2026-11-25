@@ -1,5 +1,5 @@
 {
-  "ambient_light": 0.08,
+  "ambient_light": 0.16,
   "bed_works": true,
   "coordinate_scale": 1.0,
   "effects": "galacticraft:jupiter",

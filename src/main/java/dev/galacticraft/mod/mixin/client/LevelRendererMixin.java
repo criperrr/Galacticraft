@@ -36,6 +36,7 @@ import dev.galacticraft.mod.client.render.astro.AstroSkyRenderer;
 import dev.galacticraft.mod.client.render.astro.AstroStarRenderer;
 import dev.galacticraft.mod.client.render.astro.planets.PlanetRenderer;
 import dev.galacticraft.mod.client.render.dimension.OverworldRenderer;
+import dev.galacticraft.mod.events.GCGasGiantAtmosphereHandler;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -213,6 +214,10 @@ public class LevelRendererMixin {
     public void gc$cancelRainAndSnow(LightTexture lightTexture, float f, double d, double e, double g, CallbackInfo ci) {
         Player player = Minecraft.getInstance().player;
         if (player != null) {
+            // Gas & Ice Giants render multi-altitude 3D cloud decks, wind streams, and storms up through the aerostatic/exosphere zone
+            if (GCGasGiantAtmosphereHandler.isGasGiant(player.level().dimension())) {
+                return;
+            }
             double playerY = player.getVehicle() != null ? player.getVehicle().getY() : player.getY();
             if (playerY > Constant.CLOUD_HEIGHT)
                 ci.cancel();

@@ -185,6 +185,7 @@ public class GCEventHandlers {
         }
         level.galacticraft$getSealerManager().tick();
         GCVenusAtmosphereHandler.onWorldTick(level);
+        GCGasGiantAtmosphereHandler.onWorldTick(level);
         ReactiveSampleContainmentHandler.tickWorld(level);
     }
 

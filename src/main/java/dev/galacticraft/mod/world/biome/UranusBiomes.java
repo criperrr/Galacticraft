@@ -23,11 +23,9 @@
 package dev.galacticraft.mod.world.biome;
 
 import dev.galacticraft.mod.content.GCSounds;
-import dev.galacticraft.mod.world.gen.carver.GCConfiguredCarvers;
 import dev.galacticraft.mod.world.gen.feature.GCOrePlacedFeatures;
 import dev.galacticraft.mod.world.gen.feature.GCPlacedFeatures;
 import net.minecraft.core.HolderGetter;
-import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.Music;
@@ -41,121 +39,66 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 public class UranusBiomes {
 
-    private static void addUranusCarversAndOres(BiomeGenerationSettings.Builder builder, boolean canyon) {
-        builder.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.URANUS_CAVE_CARVER);
-        if (canyon) {
-            builder.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.URANUS_CANYON_CARVER);
-        }
-        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_COPPER_URANUS);
-        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_TIN_URANUS);
-        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_ALUMINUM_URANUS);
-        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_TITANIUM_URANUS);
-        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_IRON_URANUS);
-        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_NIOBIUM_URANUS);
+    private static void addAbyssalCoreFeatures(BiomeGenerationSettings.Builder builder, boolean diamondGeodes) {
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_URANIUM_URANUS);
+        if (diamondGeodes) {
+            builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, GCPlacedFeatures.URANUS_DIAMOND_RAIN_GEODE);
+        }
     }
 
     public static Biome createMirandaCliffscarps(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
         var mobBuilder = new MobSpawnSettings.Builder();
         var genBuilder = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-
-        BiomeDefaultFeatures.addDefaultCrystalFormations(genBuilder);
-        addUranusCarversAndOres(genBuilder, true);
-
-        genBuilder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, GCPlacedFeatures.URANUS_METHANE_ICE_SPIRE);
-        genBuilder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, GCPlacedFeatures.URANUS_FROZEN_SULFIDE_OUTCROP);
-
+        addAbyssalCoreFeatures(genBuilder, false);
         return createBiome(genBuilder, mobBuilder, -1.6F, 0x5EA8B8, 0x4E92A1, 0x3D7885);
     }
 
     public static Biome createCyanMethaneGlaciers(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
         var mobBuilder = new MobSpawnSettings.Builder();
         var genBuilder = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-
-        BiomeDefaultFeatures.addDefaultCrystalFormations(genBuilder);
-        addUranusCarversAndOres(genBuilder, false);
-
-        genBuilder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, GCPlacedFeatures.URANUS_METHANE_ICE_SPIRE);
-        genBuilder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, GCPlacedFeatures.URANUS_COMET_IMPACT);
-
+        addAbyssalCoreFeatures(genBuilder, false);
         return createBiome(genBuilder, mobBuilder, -1.8F, 0x66B0BF, 0x5599A8, 0x437E8C);
     }
 
     public static Biome createTiltedPolarWastes(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
         var mobBuilder = new MobSpawnSettings.Builder();
         var genBuilder = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-
-        BiomeDefaultFeatures.addDefaultCrystalFormations(genBuilder);
-        addUranusCarversAndOres(genBuilder, true);
-
-        genBuilder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, GCPlacedFeatures.URANUS_METHANE_ICE_SPIRE);
-        genBuilder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, GCPlacedFeatures.URANUS_COMET_IMPACT);
-
+        addAbyssalCoreFeatures(genBuilder, false);
         return createBiome(genBuilder, mobBuilder, -2.0F, 0x62ACBC, 0x5295A4, 0x407B88);
     }
 
     public static Biome createRimeIcePlains(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
         var mobBuilder = new MobSpawnSettings.Builder();
         var genBuilder = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-
-        BiomeDefaultFeatures.addDefaultCrystalFormations(genBuilder);
-        addUranusCarversAndOres(genBuilder, false);
-
-        genBuilder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, GCPlacedFeatures.URANUS_FROZEN_SULFIDE_OUTCROP);
-        genBuilder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, GCPlacedFeatures.URANUS_METHANE_ICE_SPIRE);
-
+        addAbyssalCoreFeatures(genBuilder, false);
         return createBiome(genBuilder, mobBuilder, -1.4F, 0x6AB4C4, 0x589DAD, 0x468290);
     }
 
     public static Biome createCryovolcanicRift(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
         var mobBuilder = new MobSpawnSettings.Builder();
         var genBuilder = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-
-        BiomeDefaultFeatures.addDefaultCrystalFormations(genBuilder);
-        addUranusCarversAndOres(genBuilder, true);
-
-        genBuilder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, GCPlacedFeatures.URANUS_FROZEN_SULFIDE_OUTCROP);
-        genBuilder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, GCPlacedFeatures.URANUS_SUPERIONIC_ICE_PILLAR);
-
+        addAbyssalCoreFeatures(genBuilder, false);
         return createBiome(genBuilder, mobBuilder, -1.0F, 0x5AA2B2, 0x4B8D9B, 0x3A7380);
     }
 
     public static Biome createSuperionicIceOcean(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
         var mobBuilder = new MobSpawnSettings.Builder();
         var genBuilder = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-
-        BiomeDefaultFeatures.addDefaultCrystalFormations(genBuilder);
-        addUranusCarversAndOres(genBuilder, true);
-
-        genBuilder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, GCPlacedFeatures.URANUS_SUPERIONIC_ICE_PILLAR);
-        genBuilder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, GCPlacedFeatures.URANUS_DIAMOND_RAIN_GEODE);
-
+        addAbyssalCoreFeatures(genBuilder, true);
         return createBiome(genBuilder, mobBuilder, -0.6F, 0x569CAC, 0x478796, 0x376E7A);
     }
 
     public static Biome createDiamondMantleCaverns(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
         var mobBuilder = new MobSpawnSettings.Builder();
         var genBuilder = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-
-        BiomeDefaultFeatures.addDefaultCrystalFormations(genBuilder);
-        addUranusCarversAndOres(genBuilder, true);
-
-        genBuilder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, GCPlacedFeatures.URANUS_SUPERIONIC_ICE_PILLAR);
-        genBuilder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, GCPlacedFeatures.URANUS_DIAMOND_RAIN_GEODE);
-
+        addAbyssalCoreFeatures(genBuilder, true);
         return createBiome(genBuilder, mobBuilder, -0.4F, 0x5296A6, 0x448290, 0x346975);
     }
 
     public static Biome createSubglacialAmmoniaSea(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
         var mobBuilder = new MobSpawnSettings.Builder();
         var genBuilder = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-
-        BiomeDefaultFeatures.addDefaultCrystalFormations(genBuilder);
-        addUranusCarversAndOres(genBuilder, true);
-
-        genBuilder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, GCPlacedFeatures.URANUS_SUPERIONIC_ICE_PILLAR);
-        genBuilder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, GCPlacedFeatures.URANUS_FROZEN_SULFIDE_OUTCROP);
-
+        addAbyssalCoreFeatures(genBuilder, true);
         return createBiome(genBuilder, mobBuilder, -0.8F, 0x589FAF, 0x498A99, 0x39707D);
     }
 
@@ -169,7 +112,6 @@ public class UranusBiomes {
     ) {
         var biomeBuilder = new Biome.BiomeBuilder();
         var effectsBuilder = new BiomeSpecialEffects.Builder();
-        BiomeDefaultFeatures.monsters(mobBuilder, 95, 5, 100, false);
 
         effectsBuilder.fogColor(fogColor)
                 .waterColor(waterColor)

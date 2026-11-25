@@ -11,27 +11,27 @@
       "hazards": "manual.galacticraft.atlas.jupiter.hazards",
       "ores": [
         {
-          "color": -10443270,
-          "label": "block.galacticraft.jupiter_niobium_ore",
-          "max_y": 56,
-          "min_y": -12,
-          "ore_item": "galacticraft:jupiter_niobium_ore",
-          "rarity": 2.0
-        },
-        {
           "color": -137590,
           "label": "block.galacticraft.jupiter_palladium_ore",
-          "max_y": 28,
-          "min_y": -44,
+          "max_y": -20,
+          "min_y": -60,
           "ore_item": "galacticraft:jupiter_palladium_ore",
           "rarity": 3.0
         },
         {
           "label": "block.galacticraft.jupiter_metallic_hydrogen_rock",
-          "max_y": -8,
-          "min_y": -60,
+          "max_y": -20,
+          "min_y": -62,
           "ore_item": "galacticraft:jupiter_metallic_hydrogen_rock",
           "rarity": 2.4
+        },
+        {
+          "color": -10443270,
+          "label": "block.galacticraft.jupiter_core_breccia",
+          "max_y": -20,
+          "min_y": -62,
+          "ore_item": "galacticraft:jupiter_core_breccia",
+          "rarity": 2.0
         }
       ],
       "title": "manual.galacticraft.atlas.jupiter.title"
@@ -39,8 +39,8 @@
   ],
   "related_items": [
     "galacticraft:jupiter_palladium_ore",
-    "galacticraft:jupiter_niobium_ore",
-    "galacticraft:jupiter_metallic_hydrogen_rock"
+    "galacticraft:jupiter_metallic_hydrogen_rock",
+    "galacticraft:jupiter_core_breccia"
   ],
   "tab": "atlas",
   "title_key": "manual.galacticraft.atlas.jupiter.title"

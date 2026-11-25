@@ -23,9 +23,11 @@
 package dev.galacticraft.mod.client.render.dimension;
 
 import dev.galacticraft.mod.api.dimension.GalacticDimensionEffects;
+import dev.galacticraft.mod.events.GCGasGiantAtmosphereHandler;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Camera;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.util.CubicSampler;
 import net.minecraft.util.Mth;
@@ -39,34 +41,34 @@ import net.minecraft.world.phys.Vec3;
 public class OuterPlanetDimensionEffects extends GalacticDimensionEffects {
     public static final OuterPlanetDimensionEffects JUPITER = new OuterPlanetDimensionEffects(
             Float.NaN,
-            185.0F / 255.0F, 95.0F / 255.0F, 35.0F / 255.0F,
-            60.0F / 255.0F, 25.0F / 255.0F, 10.0F / 255.0F,
-            215.0F / 255.0F, 125.0F / 255.0F, 55.0F / 255.0F,
-            40.0F / 255.0F, 15.0F / 255.0F, 8.0F / 255.0F
+            215.0F / 255.0F, 128.0F / 255.0F, 62.0F / 255.0F,
+            108.0F / 255.0F, 52.0F / 255.0F, 24.0F / 255.0F,
+            232.0F / 255.0F, 148.0F / 255.0F, 78.0F / 255.0F,
+            84.0F / 255.0F, 40.0F / 255.0F, 22.0F / 255.0F
     );
 
     public static final OuterPlanetDimensionEffects SATURN = new OuterPlanetDimensionEffects(
             Float.NaN,
-            210.0F / 255.0F, 175.0F / 255.0F, 105.0F / 255.0F,
-            75.0F / 255.0F, 55.0F / 255.0F, 30.0F / 255.0F,
-            230.0F / 255.0F, 195.0F / 255.0F, 125.0F / 255.0F,
-            50.0F / 255.0F, 38.0F / 255.0F, 20.0F / 255.0F
+            228.0F / 255.0F, 194.0F / 255.0F, 122.0F / 255.0F,
+            112.0F / 255.0F, 88.0F / 255.0F, 48.0F / 255.0F,
+            242.0F / 255.0F, 212.0F / 255.0F, 144.0F / 255.0F,
+            88.0F / 255.0F, 68.0F / 255.0F, 38.0F / 255.0F
     );
 
     public static final OuterPlanetDimensionEffects URANUS = new OuterPlanetDimensionEffects(
             Float.NaN,
-            75.0F / 255.0F, 175.0F / 255.0F, 185.0F / 255.0F,
-            18.0F / 255.0F, 50.0F / 255.0F, 60.0F / 255.0F,
-            95.0F / 255.0F, 200.0F / 255.0F, 210.0F / 255.0F,
-            15.0F / 255.0F, 40.0F / 255.0F, 48.0F / 255.0F
+            92.0F / 255.0F, 198.0F / 255.0F, 210.0F / 255.0F,
+            34.0F / 255.0F, 92.0F / 255.0F, 108.0F / 255.0F,
+            116.0F / 255.0F, 218.0F / 255.0F, 228.0F / 255.0F,
+            28.0F / 255.0F, 76.0F / 255.0F, 92.0F / 255.0F
     );
 
     public static final OuterPlanetDimensionEffects NEPTUNE = new OuterPlanetDimensionEffects(
             Float.NaN,
-            35.0F / 255.0F, 75.0F / 255.0F, 175.0F / 255.0F,
-            8.0F / 255.0F, 20.0F / 255.0F, 55.0F / 255.0F,
-            45.0F / 255.0F, 95.0F / 255.0F, 210.0F / 255.0F,
-            10.0F / 255.0F, 22.0F / 255.0F, 65.0F / 255.0F
+            52.0F / 255.0F, 104.0F / 255.0F, 212.0F / 255.0F,
+            20.0F / 255.0F, 44.0F / 255.0F, 112.0F / 255.0F,
+            66.0F / 255.0F, 124.0F / 255.0F, 234.0F / 255.0F,
+            20.0F / 255.0F, 44.0F / 255.0F, 118.0F / 255.0F
     );
 
     private final float dayFogR, dayFogG, dayFogB;
@@ -101,9 +103,14 @@ public class OuterPlanetDimensionEffects extends GalacticDimensionEffects {
         float starBrightness = getStarBrightness(level, partialTicks);
         float day = 1.0F - starBrightness;
         float night = starBrightness;
-        float r = this.dayFogR * day + this.nightFogR * night;
-        float g = this.dayFogG * day + this.nightFogG * night;
-        float b = this.dayFogB * day + this.nightFogB * night;
+
+        // Beer-Lambert optical sunlight extinction with rich deep-atmosphere colored scatter floor (never pitch-black void)
+        float transmittance = GCGasGiantAtmosphereHandler.computeOpticalTransmittance(level.dimension(), cameraPos.y());
+        float effectiveDay = day * (0.14F + 0.86F * transmittance);
+        float effectiveNight = night * (0.48F + 0.52F * transmittance) + day * (1.0F - transmittance) * 0.58F;
+        float r = this.dayFogR * effectiveDay + this.nightFogR * effectiveNight;
+        float g = this.dayFogG * effectiveDay + this.nightFogG * effectiveNight;
+        float b = this.dayFogB * effectiveDay + this.nightFogB * effectiveNight;
 
         if (cameraPos.y() > dev.galacticraft.mod.Constant.ATMOSPHERE_FADE_START) {
             float spaceProgress = Mth.clamp(
@@ -124,10 +131,15 @@ public class OuterPlanetDimensionEffects extends GalacticDimensionEffects {
         float starBrightness = getStarBrightness(level, partialTicks);
         float day = 1.0F - starBrightness;
         float night = starBrightness;
+        var player = Minecraft.getInstance().player;
+        double playerY = player != null ? (player.getVehicle() != null ? player.getVehicle().getY() : player.getY()) : GCGasGiantAtmosphereHandler.AEROSTATIC_REFERENCE_Y;
+        float transmittance = GCGasGiantAtmosphereHandler.computeOpticalTransmittance(level.dimension(), playerY);
+        float effectiveDay = day * (0.14F + 0.86F * transmittance);
+        float effectiveNight = night * (0.48F + 0.52F * transmittance) + day * (1.0F - transmittance) * 0.58F;
         return new Vec3(
-                this.daySkyR * day + this.nightSkyR * night,
-                this.daySkyG * day + this.nightSkyG * night,
-                this.daySkyB * day + this.nightSkyB * night
+                this.daySkyR * effectiveDay + this.nightSkyR * effectiveNight,
+                this.daySkyG * effectiveDay + this.nightSkyG * effectiveNight,
+                this.daySkyB * effectiveDay + this.nightSkyB * effectiveNight
         );
     }
 

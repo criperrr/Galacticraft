@@ -6,10 +6,6 @@
     "galacticraft:mars_niobium_ore",
     "galacticraft:asteroid_niobium_ore",
     "galacticraft:mercury_niobium_ore",
-    "galacticraft:venus_niobium_ore",
-    "galacticraft:jupiter_niobium_ore",
-    "galacticraft:saturn_niobium_ore",
-    "galacticraft:uranus_niobium_ore",
-    "galacticraft:neptune_niobium_ore"
+    "galacticraft:venus_niobium_ore"
   ]
 }

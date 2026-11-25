@@ -30,6 +30,7 @@ import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.client.render.astro.AstroLightingManager;
 import dev.galacticraft.mod.client.render.astro.AstroSkyEngine;
 import dev.galacticraft.mod.client.render.dimension.OverworldRenderer;
+import dev.galacticraft.mod.events.GCGasGiantAtmosphereHandler;
 import dev.galacticraft.mod.tag.GCFluidTags;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
@@ -163,6 +164,9 @@ public class FogRendererMixin {
                     return net.minecraft.util.Mth.lerp(clearT * clearT, start, 4096.0F);
                 }
                 return net.minecraft.util.Mth.lerp(exitHaze, start, 12.0F);
+            } else if (GCGasGiantAtmosphereHandler.isGasGiant(player.level().dimension()) && playerY < 210.0D) {
+                float scale = GCGasGiantAtmosphereHandler.computeFogDistanceScale(player.level().dimension(), playerY);
+                return Math.min(start, Math.max(4.0F, start * scale * 0.55F));
             }
         }
         return start;
@@ -191,6 +195,9 @@ public class FogRendererMixin {
                     return net.minecraft.util.Mth.lerp(clearT * clearT, end, 8192.0F);
                 }
                 return net.minecraft.util.Mth.lerp(exitHaze, end, 110.0F);
+            } else if (GCGasGiantAtmosphereHandler.isGasGiant(player.level().dimension()) && playerY < 210.0D) {
+                float scale = GCGasGiantAtmosphereHandler.computeFogDistanceScale(player.level().dimension(), playerY);
+                return Math.min(end, Math.max(42.0F, end * scale));
             }
         }
         return end;

@@ -154,7 +154,7 @@ public class GCDimensionTypes {
                 384, // logicalHeight
                 GCBlockTags.INFINIBURN_JUPITER, // infiniburn
                 Constant.id("jupiter"), // effectsLocation
-                0.08F, // ambientLight
+                0.16F, // ambientLight
                 new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 0), 0)
         ));
 
@@ -172,7 +172,7 @@ public class GCDimensionTypes {
                 384, // logicalHeight
                 GCBlockTags.INFINIBURN_SATURN, // infiniburn
                 Constant.id("saturn"), // effectsLocation
-                0.08F, // ambientLight
+                0.16F, // ambientLight
                 new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 0), 0)
         ));
 
@@ -190,7 +190,7 @@ public class GCDimensionTypes {
                 384, // logicalHeight
                 GCBlockTags.INFINIBURN_URANUS, // infiniburn
                 Constant.id("uranus"), // effectsLocation
-                0.06F, // ambientLight
+                0.15F, // ambientLight
                 new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 0), 0)
         ));
 
@@ -208,7 +208,7 @@ public class GCDimensionTypes {
                 384, // logicalHeight
                 GCBlockTags.INFINIBURN_NEPTUNE, // infiniburn
                 Constant.id("neptune"), // effectsLocation
-                0.05F, // ambientLight
+                0.14F, // ambientLight
                 new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 0), 0)
         ));
     }
