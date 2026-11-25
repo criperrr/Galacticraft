@@ -81,6 +81,8 @@ public final class AerospaceTabletItemRenderer implements BuiltinItemRendererReg
     private static final float SCREEN_W = 0.68F;
     private static final float SCREEN_H = 0.42F;
 
+    private boolean renderingLiveScreen = false;
+
     private AerospaceTabletItemRenderer() {
     }
 
@@ -267,8 +269,13 @@ public final class AerospaceTabletItemRenderer implements BuiltinItemRendererReg
         drawFrontQuad(solid, pose, -sw - 0.008F, -sh - 0.008F, sw + 0.008F, sh + 0.008F, screenZ, 0xFF38BDF8, LightTexture.FULL_BRIGHT, overlay);
         drawFrontQuad(solid, pose, -sw, -sh, sw, sh, screenZ + 0.0012F, 0xFF08111F, LightTexture.FULL_BRIGHT, overlay);
 
-        if (drawLiveScreen) {
-            renderLiveScreenDisplay(poseStack, buffer, screenZ + 0.0028F, overlay);
+        if (drawLiveScreen && !this.renderingLiveScreen) {
+            this.renderingLiveScreen = true;
+            try {
+                renderLiveScreenDisplay(poseStack, buffer, screenZ + 0.0028F, overlay);
+            } finally {
+                this.renderingLiveScreen = false;
+            }
         }
     }
 
@@ -362,9 +369,12 @@ public final class AerospaceTabletItemRenderer implements BuiltinItemRendererReg
         drawScreenText(font, poseStack, buffer, footer, (canvasW - font.width(footer)) * 0.5F, 126, 0xFF38BDF8);
         poseStack.popPose();
 
-        // Miniature entry item icon on the top-right of the live display card
+        // Miniature entry item icon on the top-right of the live display card (guard against self-recursion)
         if (entry != null) {
             Item iconItem = BuiltInRegistries.ITEM.get(entry.iconItem());
+            if (iconItem instanceof dev.galacticraft.mod.content.item.AerospaceManualItem) {
+                iconItem = Items.COMPASS;
+            }
             if (iconItem != Items.AIR) {
                 poseStack.pushPose();
                 poseStack.translate(canvasW - 18.0F, 48.0F, 1.5F);
