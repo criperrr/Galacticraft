@@ -787,7 +787,7 @@ class MultiblockLinksAttachmentTest {
         void actionPayloadRoundtrip() {
             BlockPos[] positions = {new BlockPos(5, 64, -9), new BlockPos(-30_000_000, -64, 30_000_000), BlockPos.ZERO};
             int[] values = {0, 1, 5, 300, -1, Integer.MAX_VALUE, Integer.MIN_VALUE};
-            assertEquals(16, HangarTerminalActionPayload.Action.values().length);
+            assertEquals(18, HangarTerminalActionPayload.Action.values().length);
 
             for (HangarTerminalActionPayload.Action action : HangarTerminalActionPayload.Action.values()) {
                 for (BlockPos pos : positions) {
