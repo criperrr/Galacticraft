@@ -300,4 +300,51 @@ public class ModularRocketLaunchTestSuite implements GalacticraftGameTest {
 
         helper.succeed();
     }
+
+    @GameTest(template = PLATFORM_ARENA, batch = "modularLaunch", timeoutTicks = 60)
+    public void testRetroDescentManualThrottleCutoffAndLandingMinigameTelemetry(GameTestHelper helper) {
+        HangarTerminalBlockEntity terminal = createFormedTerminal(helper, new BlockPos(8, 1, 13), PlatformSize.SIZE_3X3);
+        terminal.getRocketSlots().setItem(0, partStack("landing_gear_stabilizer_3x3_1b", RocketPartCategory.UTILITY));
+        terminal.getRocketSlots().setItem(1, partStack("engine_falcon1d_3x3_2b", RocketPartCategory.ENGINE));
+        terminal.getRocketSlots().setItem(2, partStack("tank_fuel_rp1_3x3_2b", RocketPartCategory.TANK));
+        terminal.getRocketSlots().setItem(3, partStack("capsule_gemini_3x3_2b", RocketPartCategory.COMMAND));
+        helper.assertTrue(terminal.buildRocketFromSlots(), "Expected lander rocket built");
+        helper.assertTrue(terminal.creativeToggleFillRocket(), "Expected lander fueled to 100%");
+
+        ServerLevel level = helper.getLevel();
+        BlockPos startPos = helper.absolutePos(new BlockPos(8, 35, 8));
+        ServerPlayer pilot = helper.makeMockServerPlayerInLevel();
+        ModularRocketFlightEntity lander = new ModularRocketFlightEntity(GCEntityTypes.MODULAR_ROCKET_FLIGHT, level);
+        lander.setPos(startPos.getX() + 0.5, startPos.getY(), startPos.getZ() + 0.5);
+        lander.initializeFlightState(terminal.getAssemblyGraph(), 1000L, 500L, Direction.NORTH, null, 0,
+                ModularRocketFlightEntity.FlightPhase.RETRO_DESCENT, List.of(pilot.getUUID()), Map.of());
+        helper.assertTrue(level.addFreshEntity(lander), "Expected lander entity spawned");
+        pilot.startRiding(lander, true);
+
+        // Starts in manual landing minigame mode with engine off and gear retracted
+        helper.assertFalse(lander.isAutopilotEnabled(), "RETRO_DESCENT must start in manual landing minigame mode");
+        helper.assertTrue(lander.getThrottle() <= 0.001F, "RETRO_DESCENT must start with throttle at 0%");
+        helper.assertFalse(lander.isLandingGearDeployed(), "Landing gear must start retracted for landing minigame");
+
+        // Pilot holds Space (throttle up) for 5 ticks -> throttle ramps up cleanly
+        for (int i = 0; i < 5; i++) {
+            lander.applyPilotControl(pilot, 0.0F, 0.0F, 1.0F, false, false, false, true, false);
+            lander.tick();
+        }
+        helper.assertTrue(lander.getThrottle() > 0.15F, "Holding retro burn must increase throttle (got " + lander.getThrottle() + ")");
+        helper.assertTrue(lander.getHoverThrottle() > 0.05F && lander.getHoverThrottle() <= 0.85F,
+                "Expected valid hover throttle telemetry (got " + lander.getHoverThrottle() + ")");
+        helper.assertTrue(lander.getSuicideBurnAlt() >= 4.0F,
+                "Expected valid suicide burn altitude telemetry (got " + lander.getSuicideBurnAlt() + ")");
+
+        // Pilot presses X (engineCutoff) and L (landing gear) -> instant 0% cutoff & gear deployed
+        lander.applyPilotControl(pilot, 0.0F, 0.0F, 0.0F, false, false, true, false, true);
+        lander.tick();
+        helper.assertTrue(lander.getThrottle() <= 0.001F, "Engine cutoff (X) must immediately cut throttle to 0% (got " + lander.getThrottle() + ")");
+        helper.assertTrue(lander.isLandingGearDeployed(), "Landing gear toggle (L) must deploy landing gear");
+
+        pilot.stopRiding();
+        lander.discard();
+        helper.succeed();
+    }
 }
