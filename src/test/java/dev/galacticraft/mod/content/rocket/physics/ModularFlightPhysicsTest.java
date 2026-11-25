@@ -164,4 +164,36 @@ public class ModularFlightPhysicsTest {
         assertTrue(ModularFlightPhysics.shouldAutoJettisonFairings(fairedGraph, PlanetaryEnvironment.EARTH, 420.0, 64.0));
         assertTrue(ModularFlightPhysics.shouldAutoJettisonFairings(fairedGraph, PlanetaryEnvironment.MARS, 260.0, 64.0));
     }
+
+    @Test
+    void testLiftoffTwrIgnoresUnfueledEnginesAndBoosters() {
+        MountedPartNode coreEng = engineNode("engine_falcon1d_3x3_2b", "engine_falcon1d", 40.0F, 0, 0);
+        MountedPartNode boosterEng = engineNode("engine_falcon1d_3x3_2b", "engine_falcon1d", 800.0F, 3, 0);
+
+        RadialBoosterGroup emptyBooster = new RadialBoosterGroup(
+                "b0", RadialSymmetry.TWO, CrossfeedMode.ISOLATED, false,
+                0, 3.0, "rp1", 81_000L * 10L, 0L, List.of(boosterEng), false
+        );
+        RadialBoosterGroup fueledBooster = emptyBooster.withCurrentFuel(81_000L * 10L);
+
+        RocketStageNode stageWithEmptyBoosters = new RocketStageNode(
+                0, Optional.empty(), false, "rp1", 81_000L * 5L, 81_000L * 5L,
+                List.of(coreEng), List.of(emptyBooster), false
+        );
+        RocketStageNode stageWithFueledBoosters = new RocketStageNode(
+                0, Optional.empty(), false, "rp1", 81_000L * 5L, 81_000L * 5L,
+                List.of(coreEng), List.of(fueledBooster), false
+        );
+
+        RocketAssemblyGraph gEmpty = new RocketAssemblyGraph(List.of(stageWithEmptyBoosters), List.of(), 8, 3.0, false, false, false);
+        RocketAssemblyGraph gFueled = new RocketAssemblyGraph(List.of(stageWithFueledBoosters), List.of(), 8, 3.0, false, false, false);
+
+        double twrEmpty = ModularFlightPhysics.computeLiftoffTwr(gEmpty, PlanetaryEnvironment.EARTH);
+        double twrFueled = ModularFlightPhysics.computeLiftoffTwr(gFueled, PlanetaryEnvironment.EARTH);
+
+        assertTrue(twrFueled > twrEmpty * 3.0,
+                "Fueled radial boosters must significantly boost liftoff TWR vs unfueled (" + twrFueled + " vs " + twrEmpty + ")");
+        assertTrue(twrEmpty < ModularFlightPhysics.MIN_LIFTOFF_TWR,
+                "Unfueled radial boosters must NOT inflate liftoff TWR above MIN_LIFTOFF_TWR (got " + twrEmpty + ")");
+    }
 }
