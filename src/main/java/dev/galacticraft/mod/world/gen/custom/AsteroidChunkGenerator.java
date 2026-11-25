@@ -28,7 +28,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.galacticraft.api.vector.BlockVec3;
 import dev.galacticraft.mod.content.GCBlocks;
 import dev.galacticraft.mod.world.biome.GCBiomes;
-import dev.galacticraft.mod.world.gen.base.MapGenAbandonedBase;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -158,8 +157,7 @@ public class AsteroidChunkGenerator extends ChunkGenerator {
             int halfExtentZ,
             // Micro-craters (non-empty when radius >= 14)
             Crater[] craters,
-            long bodySeed,
-            boolean hasAbandonedBase
+            long bodySeed
     ) {
     }
 
@@ -281,8 +279,6 @@ public class AsteroidChunkGenerator extends ChunkGenerator {
                 for (int cy = minCellY; cy <= maxCellY; cy++) {
                     AsteroidBody body = getCellAsteroid(cx, cy, cz);
                     if (body == null) {
-                        // In Kirkwood Resonance Gaps, rare free-floating abandoned capsules can appear in empty cells
-                        maybeGenerateKirkwoodStation(chunk, cx, cy, cz, chunkMinX, chunkMaxX, chunkMinZ, chunkMaxZ);
                         continue;
                     }
 
@@ -293,49 +289,12 @@ public class AsteroidChunkGenerator extends ChunkGenerator {
                     }
 
                     carveAsteroidIntoChunk(chunk, body, chunkMinX, chunkMaxX, chunkMinZ, chunkMaxZ, mutablePos);
-
-                    if (body.hasAbandonedBase) {
-                        MapGenAbandonedBase.generateInChunk(
-                                chunk,
-                                new Random(body.bodySeed ^ 0x517C_C1B7_2722_0A95L),
-                                body.centerX,
-                                body.centerY,
-                                body.centerZ
-                        );
-                    }
                 }
             }
         }
 
         // Generate micro-debris swarms (denser 1-3 block clusters in Kirkwood Resonance Gaps)
         generateMicroDebris(chunk, chunkMinX, chunkMinZ, mutablePos);
-    }
-
-    private void maybeGenerateKirkwoodStation(
-            ChunkAccess chunk,
-            int cx,
-            int cy,
-            int cz,
-            int chunkMinX,
-            int chunkMaxX,
-            int chunkMinZ,
-            int chunkMaxZ
-    ) {
-        long h = mix64(this.seed ^ (cx * 0x9E37_79B9_7F4A_7C15L) ^ (cy * 0xBF58_476D_1CE4_E5B9L) ^ (cz * 0x94D0_49BB_1331_11EBL));
-        // Fast pre-check before biome lookup (~6% of empty cells)
-        if ((h & 0xFFL) >= 15) {
-            return;
-        }
-        int baseX = cx * CELL_SIZE + CELL_MARGIN + (int) (Math.floorMod(h >>> 8, CELL_SIZE - 2 * CELL_MARGIN));
-        int baseY = Mth.clamp(cy * CELL_SIZE + CELL_MARGIN + (int) (Math.floorMod(h >>> 16, CELL_SIZE - 2 * CELL_MARGIN)), MIN_ASTEROID_Y + 8, MAX_ASTEROID_Y - 12);
-        int baseZ = cz * CELL_SIZE + CELL_MARGIN + (int) (Math.floorMod(h >>> 24, CELL_SIZE - 2 * CELL_MARGIN));
-
-        if (baseX + 4 < chunkMinX || baseX - 4 > chunkMaxX || baseZ + 4 < chunkMinZ || baseZ - 4 > chunkMaxZ) {
-            return;
-        }
-        if (classifySpectralType(baseX, baseY, baseZ) == SpectralType.KIRKWOOD_GAP) {
-            MapGenAbandonedBase.generateInChunk(chunk, new Random(h ^ 0xD1B5_4A32_D192_ED03L), baseX, baseY, baseZ);
-        }
     }
 
     private @Nullable AsteroidBody getCellAsteroid(int cx, int cy, int cz) {
@@ -475,9 +434,6 @@ public class AsteroidChunkGenerator extends ChunkGenerator {
             craters = new Crater[0];
         }
 
-        boolean hasBase = (radius >= 15 && rng.nextInt(9) == 0)
-                || (spectralType == SpectralType.KIRKWOOD_GAP && radius >= 10 && rng.nextInt(3) == 0);
-
         return new AsteroidBody(
                 centerX,
                 centerY,
@@ -499,8 +455,7 @@ public class AsteroidChunkGenerator extends ChunkGenerator {
                 maxReach,
                 maxReach,
                 craters,
-                cellHash,
-                hasBase
+                cellHash
         );
     }
 
@@ -683,39 +638,39 @@ public class AsteroidChunkGenerator extends ChunkGenerator {
     }
 
     private static BlockState selectMetallicBlock(double radialDensity, double veinNoise, int roll) {
-        // Type M: METEORIC_IRON_BLOCK, ILMENITE_ORE, ASTEROID_NIOBIUM_ORE, ASTEROID_GOLD_ORE, rare diamond/palladium
-        if (radialDensity < 0.28) {
-            if (roll < 380) {
-                return GCBlocks.METEORIC_IRON_BLOCK.defaultBlockState();
-            }
-            if (roll < 620) {
+        // Type M: dark metallic rock with rich natural ore veins (ilmenite, iron, niobium, gold, rare diamond/palladium)
+        if (radialDensity < 0.30 && veinNoise > 0.34) {
+            if (roll < 360) {
                 return GCBlocks.ILMENITE_ORE.defaultBlockState();
             }
-            if (roll < 800) {
+            if (roll < 640) {
+                return GCBlocks.ASTEROID_IRON_ORE.defaultBlockState();
+            }
+            if (roll < 820) {
                 return GCBlocks.ASTEROID_NIOBIUM_ORE.defaultBlockState();
             }
-            if (roll < 940) {
+            if (roll < 945) {
                 return GCBlocks.ASTEROID_GOLD_ORE.defaultBlockState();
             }
             if (roll < 975) {
-                return Blocks.DIAMOND_ORE.defaultBlockState();
+                return Blocks.DEEPSLATE_DIAMOND_ORE.defaultBlockState();
             }
             return GCBlocks.JUPITER_PALLADIUM_ORE.defaultBlockState();
         }
-        if (veinNoise > 0.46) {
-            if (roll < 320) {
+        if (veinNoise > 0.54) {
+            if (roll < 340) {
                 return GCBlocks.ILMENITE_ORE.defaultBlockState();
             }
-            if (roll < 560) {
-                return GCBlocks.METEORIC_IRON_BLOCK.defaultBlockState();
+            if (roll < 600) {
+                return GCBlocks.ASTEROID_IRON_ORE.defaultBlockState();
             }
-            if (roll < 780) {
+            if (roll < 800) {
                 return GCBlocks.ASTEROID_NIOBIUM_ORE.defaultBlockState();
             }
             if (roll < 960) {
                 return GCBlocks.ASTEROID_GOLD_ORE.defaultBlockState();
             }
-            return roll < 985 ? Blocks.DIAMOND_ORE.defaultBlockState() : GCBlocks.JUPITER_PALLADIUM_ORE.defaultBlockState();
+            return roll < 985 ? Blocks.DEEPSLATE_DIAMOND_ORE.defaultBlockState() : GCBlocks.JUPITER_PALLADIUM_ORE.defaultBlockState();
         }
         return roll < 550 ? GCBlocks.ASTEROID_ROCK.defaultBlockState() : GCBlocks.ASTEROID_ROCK_2.defaultBlockState();
     }
@@ -761,8 +716,8 @@ public class AsteroidChunkGenerator extends ChunkGenerator {
                     : (r < 90 ? GCBlocks.DENSE_ICE.defaultBlockState() : GCBlocks.ASTEROID_GRAPHITE_ORE.defaultBlockState());
             case SILICATE -> r < 72 ? GCBlocks.ASTEROID_ROCK_1.defaultBlockState()
                     : (r < 88 ? GCBlocks.ASTEROID_IRON_ORE.defaultBlockState() : GCBlocks.ASTEROID_ALUMINUM_ORE.defaultBlockState());
-            case METALLIC -> r < 55 ? GCBlocks.ASTEROID_ROCK.defaultBlockState()
-                    : (r < 85 ? GCBlocks.METEORIC_IRON_BLOCK.defaultBlockState() : GCBlocks.ILMENITE_ORE.defaultBlockState());
+            case METALLIC -> r < 60 ? GCBlocks.ASTEROID_ROCK.defaultBlockState()
+                    : (r < 85 ? GCBlocks.ASTEROID_IRON_ORE.defaultBlockState() : GCBlocks.ILMENITE_ORE.defaultBlockState());
             case KIRKWOOD_GAP -> r < 40 ? GCBlocks.ASTEROID_ROCK.defaultBlockState()
                     : (r < 75 ? GCBlocks.ASTEROID_ROCK_1.defaultBlockState()
                     : (r < 92 ? GCBlocks.ASTEROID_ROCK_2.defaultBlockState() : GCBlocks.ILMENITE_ORE.defaultBlockState()));
