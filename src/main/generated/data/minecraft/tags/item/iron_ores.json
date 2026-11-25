@@ -4,10 +4,6 @@
     "galacticraft:mars_iron_ore",
     "galacticraft:asteroid_iron_ore",
     "galacticraft:venus_iron_ore",
-    "galacticraft:mercury_native_iron_ore",
-    "galacticraft:jupiter_iron_ore",
-    "galacticraft:saturn_iron_ore",
-    "galacticraft:uranus_iron_ore",
-    "galacticraft:neptune_iron_ore"
+    "galacticraft:mercury_native_iron_ore"
   ]
 }

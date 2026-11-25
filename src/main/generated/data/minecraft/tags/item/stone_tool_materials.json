@@ -6,10 +6,6 @@
     "galacticraft:asteroid_rock",
     "galacticraft:asteroid_rock_block_1",
     "galacticraft:asteroid_rock_block_2",
-    "galacticraft:mercury_basalt",
-    "galacticraft:jupiter_stone",
-    "galacticraft:saturn_stone",
-    "galacticraft:uranus_stone",
-    "galacticraft:neptune_stone"
+    "galacticraft:mercury_basalt"
   ]
 }

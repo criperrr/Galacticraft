@@ -18,7 +18,7 @@
       "inner_layer_provider": {
         "type": "minecraft:simple_state_provider",
         "state": {
-          "Name": "galacticraft:uranus_methane_ice"
+          "Name": "galacticraft:uranus_superionic_mantle_rock"
         }
       },
       "inner_placements": [
@@ -43,34 +43,34 @@
       "outer_layer_provider": {
         "type": "minecraft:simple_state_provider",
         "state": {
-          "Name": "galacticraft:uranus_stone"
+          "Name": "galacticraft:uranus_superionic_mantle_rock"
         }
       }
     },
     "crack": {
-      "base_crack_size": 2.0,
+      "base_crack_size": 1.8,
       "crack_point_offset": 2,
       "generate_crack_chance": 0.95
     },
     "distribution_points": {
       "type": "minecraft:uniform",
       "max_inclusive": 4,
-      "min_inclusive": 3
+      "min_inclusive": 2
     },
     "invalid_blocks_threshold": 1,
     "layers": {
-      "filling": 1.7,
-      "inner_layer": 2.2,
-      "middle_layer": 3.2,
-      "outer_layer": 4.2
+      "filling": 1.5,
+      "inner_layer": 2.0,
+      "middle_layer": 2.8,
+      "outer_layer": 3.6
     },
-    "max_gen_offset": 16,
-    "min_gen_offset": -16,
+    "max_gen_offset": 12,
+    "min_gen_offset": -12,
     "noise_multiplier": 0.05,
     "outer_wall_distance": {
       "type": "minecraft:uniform",
-      "max_inclusive": 6,
-      "min_inclusive": 4
+      "max_inclusive": 5,
+      "min_inclusive": 3
     },
     "placements_require_layer0_alternate": true,
     "point_offset": {

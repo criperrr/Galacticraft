@@ -1,18 +1,7 @@
 {
   "values": [
-    "galacticraft:jupiter_surface",
-    "galacticraft:jupiter_sub_surface",
-    "galacticraft:jupiter_stone",
-    "galacticraft:jupiter_red_storm_rock",
-    "galacticraft:jupiter_banded_ochre_rock",
     "galacticraft:jupiter_metallic_hydrogen_rock",
     "galacticraft:jupiter_core_breccia",
-    "galacticraft:jupiter_copper_ore",
-    "galacticraft:jupiter_tin_ore",
-    "galacticraft:jupiter_iron_ore",
-    "galacticraft:jupiter_aluminum_ore",
-    "galacticraft:jupiter_niobium_ore",
-    "galacticraft:jupiter_titanium_ore",
     "galacticraft:jupiter_palladium_ore"
   ]
 }

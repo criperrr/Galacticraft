@@ -1,10 +1,5 @@
 {
-  "carvers": {
-    "air": [
-      "galacticraft:uranus_cave_carver",
-      "galacticraft:uranus_canyon_carver"
-    ]
-  },
+  "carvers": {},
   "downfall": 0.0,
   "effects": {
     "fog_color": 5149345,
@@ -23,22 +18,11 @@
   "features": [
     [],
     [],
-    [
-      "minecraft:amethyst_geode",
-      "galacticraft:uranus_frozen_sulfide_outcrop"
-    ],
+    [],
+    [],
+    [],
     [],
     [
-      "galacticraft:uranus_methane_ice_spire"
-    ],
-    [],
-    [
-      "galacticraft:ore_copper_uranus",
-      "galacticraft:ore_tin_uranus",
-      "galacticraft:ore_aluminum_uranus",
-      "galacticraft:ore_titanium_uranus",
-      "galacticraft:ore_iron_uranus",
-      "galacticraft:ore_niobium_uranus",
       "galacticraft:ore_uranium_uranus"
     ]
   ],
@@ -49,56 +33,7 @@
     "axolotls": [],
     "creature": [],
     "misc": [],
-    "monster": [
-      {
-        "type": "minecraft:spider",
-        "maxCount": 4,
-        "minCount": 4,
-        "weight": 100
-      },
-      {
-        "type": "minecraft:zombie",
-        "maxCount": 4,
-        "minCount": 4,
-        "weight": 95
-      },
-      {
-        "type": "minecraft:zombie_villager",
-        "maxCount": 1,
-        "minCount": 1,
-        "weight": 5
-      },
-      {
-        "type": "minecraft:skeleton",
-        "maxCount": 4,
-        "minCount": 4,
-        "weight": 100
-      },
-      {
-        "type": "minecraft:creeper",
-        "maxCount": 4,
-        "minCount": 4,
-        "weight": 100
-      },
-      {
-        "type": "minecraft:slime",
-        "maxCount": 4,
-        "minCount": 4,
-        "weight": 100
-      },
-      {
-        "type": "minecraft:enderman",
-        "maxCount": 4,
-        "minCount": 1,
-        "weight": 10
-      },
-      {
-        "type": "minecraft:witch",
-        "maxCount": 1,
-        "minCount": 1,
-        "weight": 5
-      }
-    ],
+    "monster": [],
     "underground_water_creature": [],
     "water_ambient": [],
     "water_creature": []

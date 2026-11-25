@@ -1,10 +1,5 @@
 {
-  "carvers": {
-    "air": [
-      "galacticraft:saturn_cave_carver",
-      "galacticraft:saturn_canyon_carver"
-    ]
-  },
+  "carvers": {},
   "downfall": 0.0,
   "effects": {
     "fog_color": 10782283,
@@ -22,26 +17,13 @@
   },
   "features": [
     [],
-    [
-      "galacticraft:saturn_ammonia_hydrocarbon_lake"
-    ],
-    [
-      "minecraft:amethyst_geode"
-    ],
+    [],
+    [],
     [],
     [],
     [],
     [
-      "galacticraft:ore_copper_saturn",
-      "galacticraft:ore_tin_saturn",
-      "galacticraft:ore_iron_saturn",
-      "galacticraft:ore_titanium_saturn",
-      "galacticraft:ore_aluminum_saturn",
-      "galacticraft:ore_niobium_saturn",
       "galacticraft:ore_magnesium_saturn"
-    ],
-    [
-      "galacticraft:saturn_helium_rain_speleothem"
     ]
   ],
   "has_precipitation": false,
@@ -51,59 +33,10 @@
     "axolotls": [],
     "creature": [],
     "misc": [],
-    "monster": [
-      {
-        "type": "minecraft:spider",
-        "maxCount": 4,
-        "minCount": 4,
-        "weight": 100
-      },
-      {
-        "type": "minecraft:zombie",
-        "maxCount": 4,
-        "minCount": 4,
-        "weight": 95
-      },
-      {
-        "type": "minecraft:zombie_villager",
-        "maxCount": 1,
-        "minCount": 1,
-        "weight": 5
-      },
-      {
-        "type": "minecraft:skeleton",
-        "maxCount": 4,
-        "minCount": 4,
-        "weight": 100
-      },
-      {
-        "type": "minecraft:creeper",
-        "maxCount": 4,
-        "minCount": 4,
-        "weight": 100
-      },
-      {
-        "type": "minecraft:slime",
-        "maxCount": 4,
-        "minCount": 4,
-        "weight": 100
-      },
-      {
-        "type": "minecraft:enderman",
-        "maxCount": 4,
-        "minCount": 1,
-        "weight": 10
-      },
-      {
-        "type": "minecraft:witch",
-        "maxCount": 1,
-        "minCount": 1,
-        "weight": 5
-      }
-    ],
+    "monster": [],
     "underground_water_creature": [],
     "water_ambient": [],
     "water_creature": []
   },
-  "temperature": 0.8
+  "temperature": 0.2
 }

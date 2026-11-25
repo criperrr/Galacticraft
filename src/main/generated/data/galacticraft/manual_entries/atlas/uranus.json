@@ -11,28 +11,28 @@
       "hazards": "manual.galacticraft.atlas.uranus.hazards",
       "ores": [
         {
-          "color": -9967367,
-          "label": "block.galacticraft.uranus_methane_ice",
-          "max_y": 80,
-          "min_y": 16,
-          "ore_item": "galacticraft:uranus_methane_ice",
-          "rarity": 2.8
-        },
-        {
           "color": -11870592,
           "label": "block.galacticraft.uranus_uranium_ore",
-          "max_y": 32,
-          "min_y": -32,
+          "max_y": -20,
+          "min_y": -60,
           "ore_item": "galacticraft:uranus_uranium_ore",
           "rarity": 3.2
         },
         {
           "color": -8394497,
           "label": "block.galacticraft.uranus_diamond_bearing_rock",
-          "max_y": -4,
-          "min_y": -60,
+          "max_y": -20,
+          "min_y": -62,
           "ore_item": "galacticraft:uranus_diamond_bearing_rock",
           "rarity": 2.5
+        },
+        {
+          "color": -9967367,
+          "label": "block.galacticraft.uranus_superionic_mantle_rock",
+          "max_y": -20,
+          "min_y": -62,
+          "ore_item": "galacticraft:uranus_superionic_mantle_rock",
+          "rarity": 2.8
         }
       ],
       "title": "manual.galacticraft.atlas.uranus.title"
@@ -40,8 +40,8 @@
   ],
   "related_items": [
     "galacticraft:uranus_uranium_ore",
-    "galacticraft:uranus_methane_ice",
-    "galacticraft:uranus_diamond_bearing_rock"
+    "galacticraft:uranus_diamond_bearing_rock",
+    "galacticraft:uranus_superionic_mantle_rock"
   ],
   "tab": "atlas",
   "title_key": "manual.galacticraft.atlas.uranus.title"

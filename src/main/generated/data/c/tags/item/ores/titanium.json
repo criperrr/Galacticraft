@@ -4,10 +4,6 @@
     "galacticraft:moon_ilmenite_ore",
     "galacticraft:mars_titanium_ore",
     "galacticraft:venus_titanium_ore",
-    "galacticraft:mercury_titanium_ore",
-    "galacticraft:jupiter_titanium_ore",
-    "galacticraft:saturn_titanium_ore",
-    "galacticraft:uranus_titanium_ore",
-    "galacticraft:neptune_titanium_ore"
+    "galacticraft:mercury_titanium_ore"
   ]
 }

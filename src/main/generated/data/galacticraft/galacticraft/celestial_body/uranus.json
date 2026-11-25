@@ -64,7 +64,7 @@
       "type": "galacticraft:default",
       "config": {}
     },
-    "teleporter": "galacticraft:lander",
+    "teleporter": "galacticraft:aerostatic",
     "world": "galacticraft:uranus"
   }
 }
