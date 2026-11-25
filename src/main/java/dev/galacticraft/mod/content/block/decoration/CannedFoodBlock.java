@@ -65,6 +65,25 @@ public class CannedFoodBlock extends Block implements EntityBlock {
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final IntegerProperty COUNT = IntegerProperty.create("count", 1, 8);
+    private static final VoxelShape[][] SHAPES = new VoxelShape[4][POSITIONS.length];
+
+    static {
+        for (Direction direction : Direction.Plane.HORIZONTAL) {
+            int dirIndex = direction.get2DDataValue();
+            float a = direction.getStepX();
+            float b = direction.getStepZ();
+            for (int count = 0; count < POSITIONS.length; count++) {
+                VoxelShape shape = Shapes.empty();
+                for (float[] position : POSITIONS[count]) {
+                    float x = a * (position[2] - 8) + b * (position[0] - 8);
+                    float y = position[1];
+                    float z = b * (position[2] - 8) - a * (position[0] - 8);
+                    shape = Shapes.join(shape, Block.box(x + 5, y, z + 5, x + 11, y + 8, z + 11), BooleanOp.OR);
+                }
+                SHAPES[dirIndex][count] = shape.optimize();
+            }
+        }
+    }
 
     public CannedFoodBlock(Properties properties) {
         super(properties);
@@ -92,20 +111,7 @@ public class CannedFoodBlock extends Block implements EntityBlock {
 
     @Override
     public @NotNull VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-        VoxelShape shape = Shapes.empty();
-        Direction direction = state.getValue(FACING);
-        float a = direction.getStepX();
-        float b = direction.getStepZ();
-
-        for (float[] position : CannedFoodBlock.POSITIONS[state.getValue(COUNT)]) {
-            float x = a * (position[2] - 8) + b * (position[0] - 8);
-            float y = position[1];
-            float z = b * (position[2] - 8) - a * (position[0] - 8);
-
-            shape = Shapes.join(shape, Block.box(x + 5, y, z + 5, x + 11, y + 8, z + 11), BooleanOp.OR);
-        }
-
-        return shape;
+        return SHAPES[state.getValue(FACING).get2DDataValue()][state.getValue(COUNT)];
     }
 
     @Override

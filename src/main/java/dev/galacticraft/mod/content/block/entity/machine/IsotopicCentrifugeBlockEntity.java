@@ -333,21 +333,36 @@ public class IsotopicCentrifugeBlockEntity extends MachineBlockEntity {
         }
     }
 
+    private static final long SOLID_SPEC_CACHE_TTL_TICKS = 200L;
+    private @Nullable Item cachedSolidItem;
+    private @Nullable SolidSeparationSpec cachedSolidSpec;
+    private long cachedSolidSpecTick = Long.MIN_VALUE;
+
     private @Nullable SolidSeparationSpec resolveSolidSeparationSpec(ServerLevel level, Item item) {
+        long gameTime = level.getGameTime();
+        if (item == this.cachedSolidItem && this.cachedSolidSpecTick != Long.MIN_VALUE && gameTime - this.cachedSolidSpecTick < SOLID_SPEC_CACHE_TTL_TICKS) {
+            return this.cachedSolidSpec;
+        }
+        SolidSeparationSpec resolved;
         Optional<RecipeHolder<CentrifugeRecipe>> match = this.quickCheck
                 .getRecipeFor(new SingleRecipeInput(new ItemStack(item, 1)), level);
         if (match.isPresent()) {
             CentrifugeRecipe recipe = match.get().value();
             ItemStack outStack = recipe.getOutputItem();
-            return new SolidSeparationSpec(
+            resolved = new SolidSeparationSpec(
                     recipe.getOutputGas(),
                     recipe.getOutputGasMb(),
                     outStack.isEmpty() ? null : outStack.getItem(),
                     outStack.isEmpty() ? 0 : outStack.getCount(),
                     recipe.getProcessingTime()
             );
+        } else {
+            resolved = getSolidSeparationSpecFallback(item);
         }
-        return getSolidSeparationSpecFallback(item);
+        this.cachedSolidItem = item;
+        this.cachedSolidSpec = resolved;
+        this.cachedSolidSpecTick = gameTime;
+        return resolved;
     }
 
     private static @Nullable SolidSeparationSpec getSolidSeparationSpecFallback(Item item) {

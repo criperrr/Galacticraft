@@ -25,6 +25,9 @@ package dev.galacticraft.mod.machine;
 import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.content.block.entity.machine.OxygenSealerBlockEntity;
 import dev.galacticraft.mod.tag.GCBlockTags;
+import it.unimi.dsi.fastutil.longs.LongArrayFIFOQueue;
+import it.unimi.dsi.fastutil.longs.LongIterator;
+import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
@@ -35,16 +38,18 @@ import java.util.*;
 import static dev.galacticraft.mod.content.block.entity.machine.OxygenSealerBlockEntity.SEAL_CHECK_TIME;
 
 public class SealerManager {
+    private static final Direction[] DIRECTIONS = Direction.values();
 
     private static class SpaceToSeal {
 
         private final List<OxygenSealerBlockEntity> sealers = new ArrayList<>();
-        private final Set<BlockPos> blocksToSeal = new HashSet<>();
-        private final Deque<BlockPos> floodFillQueue = new ArrayDeque<>();
+        private final LongOpenHashSet blocksToSeal = new LongOpenHashSet();
+        private final LongArrayFIFOQueue floodFillQueue = new LongArrayFIFOQueue();
 
         public SpaceToSeal(OxygenSealerBlockEntity sealer) {
             sealers.add(sealer);
-            floodFillQueue.add(sealer.getBlockPos().offset(0, 1, 0));
+            BlockPos pos = sealer.getBlockPos();
+            floodFillQueue.enqueue(BlockPos.asLong(pos.getX(), pos.getY() + 1, pos.getZ()));
         }
 
         public boolean willSealSucceed() {
@@ -55,7 +60,7 @@ public class SealerManager {
 
     private final Level level;
     private final Map<BlockPos, OxygenSealerBlockEntity> sealers = new HashMap<>();
-    private Set<BlockPos> sealedBlocks = new HashSet<>();
+    private LongOpenHashSet sealedBlocks = new LongOpenHashSet();
 
     public SealerManager(Level level) {
         this.level = level;
@@ -81,6 +86,7 @@ public class SealerManager {
             return;
         }
 
+        BlockPos.MutableBlockPos cursor = new BlockPos.MutableBlockPos();
         Set<SpaceToSeal> spacesToSeal = new HashSet<>();
         for (Map.Entry<BlockPos, OxygenSealerBlockEntity> entry : this.sealers.entrySet()) {
             OxygenSealerBlockEntity sealer = entry.getValue();
@@ -91,25 +97,37 @@ public class SealerManager {
             // Flood fill to find all blocks this sealer is trying to seal
             SpaceToSeal spaceToSeal = new SpaceToSeal(sealer);
             while (!spaceToSeal.floodFillQueue.isEmpty()) {
-                BlockPos pos = spaceToSeal.floodFillQueue.pollFirst();
-                if (spaceToSeal.blocksToSeal.contains(pos)) continue;
+                long packed = spaceToSeal.floodFillQueue.dequeueLong();
+                if (spaceToSeal.blocksToSeal.contains(packed)) continue;
+                int x = BlockPos.getX(packed);
+                int y = BlockPos.getY(packed);
+                int z = BlockPos.getZ(packed);
+                cursor.set(x, y, z);
                 // TODO: Better check to account for non-full blocks
-                BlockState blockState = this.level.getBlockState(pos);
+                BlockState blockState = this.level.getBlockState(cursor);
                 if (blockState.is(GCBlockTags.SEALABLE)) continue;
-                if (blockState.isCollisionShapeFullBlock(this.level, pos) && !blockState.is(GCBlockTags.UNSEALABLE)) continue;
+                if (blockState.isCollisionShapeFullBlock(this.level, cursor) && !blockState.is(GCBlockTags.UNSEALABLE)) continue;
 
-                spaceToSeal.blocksToSeal.add(pos);
-                for (Direction direction : Direction.values()) spaceToSeal.floodFillQueue.add(pos.relative(direction));
+                spaceToSeal.blocksToSeal.add(packed);
+                for (Direction direction : DIRECTIONS) {
+                    spaceToSeal.floodFillQueue.enqueue(BlockPos.asLong(
+                            x + direction.getStepX(),
+                            y + direction.getStepY(),
+                            z + direction.getStepZ()
+                    ));
+                }
 
                 boolean willAlreadySeal = false;
                 for (SpaceToSeal otherSpace : spacesToSeal) {
                     if (spaceToSeal == otherSpace) continue;
-                    if (!otherSpace.blocksToSeal.contains(pos)) continue;
+                    if (!otherSpace.blocksToSeal.contains(packed)) continue;
                     // We have encountered a block that another sealer is trying to seal,
                     // so both sealers must be within the same space, so we combine them.
                     spaceToSeal.sealers.addAll(otherSpace.sealers);
                     spaceToSeal.blocksToSeal.addAll(otherSpace.blocksToSeal);
-                    spaceToSeal.floodFillQueue.addAll(otherSpace.floodFillQueue);
+                    while (!otherSpace.floodFillQueue.isEmpty()) {
+                        spaceToSeal.floodFillQueue.enqueue(otherSpace.floodFillQueue.dequeueLong());
+                    }
                     willAlreadySeal = otherSpace.willSealSucceed();
                     spacesToSeal.remove(otherSpace);
                     break;
@@ -124,28 +142,32 @@ public class SealerManager {
             spacesToSeal.add(spaceToSeal);
         }
 
-        Set<BlockPos> newSealedBlocks = new HashSet<>();
+        LongOpenHashSet newSealedBlocks = new LongOpenHashSet();
 
         for (SpaceToSeal spaceToSeal : spacesToSeal) {
             for (OxygenSealerBlockEntity sealer : spaceToSeal.sealers) sealer.setSealed(spaceToSeal.willSealSucceed());
             if (!spaceToSeal.willSealSucceed()) continue;
-            for (BlockPos pos : spaceToSeal.blocksToSeal) {
-                newSealedBlocks.add(pos);
-                sealedBlocks.remove(pos);
-                level.setBreathable(pos, true);
+            LongIterator it = spaceToSeal.blocksToSeal.iterator();
+            while (it.hasNext()) {
+                long packed = it.nextLong();
+                newSealedBlocks.add(packed);
+                sealedBlocks.remove(packed);
+                level.setBreathable(BlockPos.getX(packed), BlockPos.getY(packed), BlockPos.getZ(packed), true);
             }
         }
 
         // Reset all sealed blocks from the previous update to not be breathable
-        for (BlockPos pos : sealedBlocks) {
-            level.setBreathable(pos, false);
+        LongIterator unsealIt = sealedBlocks.iterator();
+        while (unsealIt.hasNext()) {
+            long packed = unsealIt.nextLong();
+            level.setBreathable(BlockPos.getX(packed), BlockPos.getY(packed), BlockPos.getZ(packed), false);
         }
 
         sealedBlocks = newSealedBlocks;
     }
 
     public boolean isBlockSealed(BlockPos pos) {
-        return this.sealedBlocks.contains(pos);
+        return this.sealedBlocks.contains(pos.asLong());
     }
 
     public void addSealer(OxygenSealerBlockEntity sealer) {
