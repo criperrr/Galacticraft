@@ -6,7 +6,7 @@
     "targets": [
       {
         "state": {
-          "Name": "galacticraft:asteroid_aluminum_ore"
+          "Name": "galacticraft:deimos_aluminum_ore"
         },
         "target": {
           "predicate_type": "minecraft:tag_match",

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 240,
+  "experience": 1.2,
+  "group": "palladium_ingot",
+  "ingredient": {
+    "item": "galacticraft:ganymede_palladium_ore"
+  },
+  "result": {
+    "id": "galacticraft:palladium_ingot"
+  }
+}

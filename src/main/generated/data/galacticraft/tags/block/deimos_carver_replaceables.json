@@ -1,13 +1,10 @@
 {
   "values": [
-    "galacticraft:asteroid_rock",
-    "galacticraft:asteroid_rock_block_1",
-    "galacticraft:moon_rock",
-    "galacticraft:moon_surface_rock",
-    "galacticraft:mercury_regolith",
-    "galacticraft:lunaslate",
-    "galacticraft:asteroid_silicon_ore",
-    "galacticraft:asteroid_aluminum_ore",
-    "galacticraft:asteroid_iron_ore"
+    "galacticraft:deimos_regolith",
+    "galacticraft:deimos_rock",
+    "galacticraft:deimos_slate",
+    "galacticraft:deimos_silicon_ore",
+    "galacticraft:deimos_aluminum_ore",
+    "galacticraft:deimos_iron_ore"
   ]
 }

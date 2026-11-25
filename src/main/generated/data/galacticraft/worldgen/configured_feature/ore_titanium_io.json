@@ -6,7 +6,7 @@
     "targets": [
       {
         "state": {
-          "Name": "galacticraft:venus_titanium_ore"
+          "Name": "galacticraft:io_titanium_ore"
         },
         "target": {
           "predicate_type": "minecraft:tag_match",

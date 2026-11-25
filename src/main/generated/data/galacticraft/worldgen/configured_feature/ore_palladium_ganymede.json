@@ -6,7 +6,7 @@
     "targets": [
       {
         "state": {
-          "Name": "galacticraft:jupiter_palladium_ore"
+          "Name": "galacticraft:ganymede_palladium_ore"
         },
         "target": {
           "predicate_type": "minecraft:tag_match",

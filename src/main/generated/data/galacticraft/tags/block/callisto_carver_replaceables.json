@@ -1,14 +1,12 @@
 {
   "values": [
-    "galacticraft:asteroid_rock_block_2",
-    "galacticraft:moon_basalt",
-    "galacticraft:mercury_shock_breccia",
-    "galacticraft:mercury_basalt",
-    "galacticraft:lunaslate",
+    "galacticraft:callisto_crust",
+    "galacticraft:callisto_rock",
+    "galacticraft:callisto_valhalla_breccia",
     "galacticraft:dense_ice",
     "minecraft:packed_ice",
-    "galacticraft:asteroid_iron_ore",
-    "galacticraft:asteroid_aluminum_ore",
-    "galacticraft:asteroid_niobium_ore"
+    "galacticraft:callisto_iron_ore",
+    "galacticraft:callisto_aluminum_ore",
+    "galacticraft:callisto_niobium_ore"
   ]
 }

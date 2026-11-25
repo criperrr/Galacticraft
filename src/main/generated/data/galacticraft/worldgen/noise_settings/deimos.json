@@ -1,7 +1,7 @@
 {
   "aquifers_enabled": false,
   "default_block": {
-    "Name": "galacticraft:asteroid_rock_block_1"
+    "Name": "galacticraft:deimos_rock"
   },
   "default_fluid": {
     "Name": "minecraft:air"
@@ -168,14 +168,14 @@
                     "then_run": {
                       "type": "minecraft:block",
                       "result_state": {
-                        "Name": "galacticraft:moon_rock"
+                        "Name": "galacticraft:deimos_rock"
                       }
                     }
                   },
                   {
                     "type": "minecraft:block",
                     "result_state": {
-                      "Name": "galacticraft:asteroid_rock_block_1"
+                      "Name": "galacticraft:deimos_rock"
                     }
                   }
                 ]
@@ -215,14 +215,14 @@
                           "then_run": {
                             "type": "minecraft:block",
                             "result_state": {
-                              "Name": "galacticraft:mercury_regolith"
+                              "Name": "galacticraft:deimos_regolith"
                             }
                           }
                         },
                         {
                           "type": "minecraft:block",
                           "result_state": {
-                            "Name": "galacticraft:moon_surface_rock"
+                            "Name": "galacticraft:deimos_regolith"
                           }
                         }
                       ]
@@ -250,14 +250,14 @@
                           "then_run": {
                             "type": "minecraft:block",
                             "result_state": {
-                              "Name": "galacticraft:moon_rock"
+                              "Name": "galacticraft:deimos_rock"
                             }
                           }
                         },
                         {
                           "type": "minecraft:block",
                           "result_state": {
-                            "Name": "galacticraft:asteroid_rock_block_1"
+                            "Name": "galacticraft:deimos_rock"
                           }
                         }
                       ]
@@ -266,7 +266,7 @@
                   {
                     "type": "minecraft:block",
                     "result_state": {
-                      "Name": "galacticraft:mercury_regolith"
+                      "Name": "galacticraft:deimos_regolith"
                     }
                   }
                 ]
@@ -284,7 +284,7 @@
               "then_run": {
                 "type": "minecraft:block",
                 "result_state": {
-                  "Name": "galacticraft:moon_rock"
+                  "Name": "galacticraft:deimos_rock"
                 }
               }
             }
@@ -327,10 +327,7 @@
                 "then_run": {
                   "type": "minecraft:block",
                   "result_state": {
-                    "Name": "galacticraft:lunaslate",
-                    "Properties": {
-                      "axis": "y"
-                    }
+                    "Name": "galacticraft:deimos_slate"
                   }
                 }
               },
@@ -346,7 +343,7 @@
                 "then_run": {
                   "type": "minecraft:block",
                   "result_state": {
-                    "Name": "galacticraft:moon_rock"
+                    "Name": "galacticraft:deimos_rock"
                   }
                 }
               }
@@ -357,7 +354,7 @@
       {
         "type": "minecraft:block",
         "result_state": {
-          "Name": "galacticraft:asteroid_rock_block_1"
+          "Name": "galacticraft:deimos_rock"
         }
       }
     ]

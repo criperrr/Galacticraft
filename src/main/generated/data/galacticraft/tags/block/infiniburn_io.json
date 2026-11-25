@@ -1,6 +1,7 @@
 {
   "values": [
-    "galacticraft:volcanic_rock",
+    "galacticraft:io_volcanic_rock",
+    "galacticraft:io_magma_crust",
     "minecraft:magma_block"
   ]
 }

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_phobos_iron_ore": {
+      "conditions": {
+        "items": [
+          {
+            "items": "galacticraft:phobos_iron_ore"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "galacticraft:iron_ingot_from_blasting_phobos_iron_ore"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_phobos_iron_ore"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "galacticraft:iron_ingot_from_blasting_phobos_iron_ore"
+    ]
+  }
+}

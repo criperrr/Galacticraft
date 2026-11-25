@@ -1,7 +1,7 @@
 {
   "aquifers_enabled": false,
   "default_block": {
-    "Name": "galacticraft:asteroid_rock_block_2"
+    "Name": "galacticraft:phobos_rock"
   },
   "default_fluid": {
     "Name": "minecraft:air"
@@ -168,14 +168,14 @@
                     "then_run": {
                       "type": "minecraft:block",
                       "result_state": {
-                        "Name": "galacticraft:mercury_shock_breccia"
+                        "Name": "galacticraft:phobos_breccia"
                       }
                     }
                   },
                   {
                     "type": "minecraft:block",
                     "result_state": {
-                      "Name": "galacticraft:moon_basalt"
+                      "Name": "galacticraft:phobos_rock"
                     }
                   }
                 ]
@@ -215,14 +215,14 @@
                           "then_run": {
                             "type": "minecraft:block",
                             "result_state": {
-                              "Name": "galacticraft:mercury_shock_breccia"
+                              "Name": "galacticraft:phobos_breccia"
                             }
                           }
                         },
                         {
                           "type": "minecraft:block",
                           "result_state": {
-                            "Name": "galacticraft:moon_basalt"
+                            "Name": "galacticraft:phobos_rock"
                           }
                         }
                       ]
@@ -250,14 +250,14 @@
                           "then_run": {
                             "type": "minecraft:block",
                             "result_state": {
-                              "Name": "galacticraft:mercury_regolith"
+                              "Name": "galacticraft:phobos_regolith"
                             }
                           }
                         },
                         {
                           "type": "minecraft:block",
                           "result_state": {
-                            "Name": "galacticraft:asteroid_rock_block_2"
+                            "Name": "galacticraft:phobos_regolith"
                           }
                         }
                       ]
@@ -285,14 +285,14 @@
                           "then_run": {
                             "type": "minecraft:block",
                             "result_state": {
-                              "Name": "galacticraft:mercury_regolith"
+                              "Name": "galacticraft:phobos_regolith"
                             }
                           }
                         },
                         {
                           "type": "minecraft:block",
                           "result_state": {
-                            "Name": "galacticraft:asteroid_rock_block_2"
+                            "Name": "galacticraft:phobos_regolith"
                           }
                         }
                       ]
@@ -301,7 +301,7 @@
                   {
                     "type": "minecraft:block",
                     "result_state": {
-                      "Name": "galacticraft:asteroid_rock_block_2"
+                      "Name": "galacticraft:phobos_regolith"
                     }
                   }
                 ]
@@ -319,7 +319,7 @@
               "then_run": {
                 "type": "minecraft:block",
                 "result_state": {
-                  "Name": "galacticraft:moon_basalt"
+                  "Name": "galacticraft:phobos_rock"
                 }
               }
             }
@@ -373,17 +373,14 @@
                       "then_run": {
                         "type": "minecraft:block",
                         "result_state": {
-                          "Name": "galacticraft:mercury_shock_breccia"
+                          "Name": "galacticraft:phobos_breccia"
                         }
                       }
                     },
                     {
                       "type": "minecraft:block",
                       "result_state": {
-                        "Name": "galacticraft:lunaslate",
-                        "Properties": {
-                          "axis": "y"
-                        }
+                        "Name": "galacticraft:phobos_slate"
                       }
                     }
                   ]
@@ -401,10 +398,7 @@
                 "then_run": {
                   "type": "minecraft:block",
                   "result_state": {
-                    "Name": "galacticraft:lunaslate",
-                    "Properties": {
-                      "axis": "y"
-                    }
+                    "Name": "galacticraft:phobos_slate"
                   }
                 }
               }
@@ -415,7 +409,7 @@
       {
         "type": "minecraft:block",
         "result_state": {
-          "Name": "galacticraft:asteroid_rock_block_2"
+          "Name": "galacticraft:phobos_regolith"
         }
       }
     ]

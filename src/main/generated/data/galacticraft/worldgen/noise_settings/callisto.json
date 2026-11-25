@@ -1,7 +1,7 @@
 {
   "aquifers_enabled": false,
   "default_block": {
-    "Name": "galacticraft:moon_basalt"
+    "Name": "galacticraft:callisto_rock"
   },
   "default_fluid": {
     "Name": "minecraft:air"
@@ -175,7 +175,7 @@
                   {
                     "type": "minecraft:block",
                     "result_state": {
-                      "Name": "galacticraft:mercury_shock_breccia"
+                      "Name": "galacticraft:callisto_valhalla_breccia"
                     }
                   }
                 ]
@@ -215,14 +215,14 @@
                           "then_run": {
                             "type": "minecraft:block",
                             "result_state": {
-                              "Name": "galacticraft:asteroid_rock_block_2"
+                              "Name": "galacticraft:callisto_crust"
                             }
                           }
                         },
                         {
                           "type": "minecraft:block",
                           "result_state": {
-                            "Name": "galacticraft:moon_basalt"
+                            "Name": "galacticraft:callisto_rock"
                           }
                         }
                       ]
@@ -265,14 +265,14 @@
                           "then_run": {
                             "type": "minecraft:block",
                             "result_state": {
-                              "Name": "galacticraft:mercury_shock_breccia"
+                              "Name": "galacticraft:callisto_valhalla_breccia"
                             }
                           }
                         },
                         {
                           "type": "minecraft:block",
                           "result_state": {
-                            "Name": "galacticraft:asteroid_rock_block_2"
+                            "Name": "galacticraft:callisto_crust"
                           }
                         }
                       ]
@@ -316,7 +316,7 @@
                   {
                     "type": "minecraft:block",
                     "result_state": {
-                      "Name": "galacticraft:asteroid_rock_block_2"
+                      "Name": "galacticraft:callisto_crust"
                     }
                   }
                 ]
@@ -334,7 +334,7 @@
               "then_run": {
                 "type": "minecraft:block",
                 "result_state": {
-                  "Name": "galacticraft:moon_basalt"
+                  "Name": "galacticraft:callisto_rock"
                 }
               }
             }
@@ -395,10 +395,7 @@
                     {
                       "type": "minecraft:block",
                       "result_state": {
-                        "Name": "galacticraft:lunaslate",
-                        "Properties": {
-                          "axis": "y"
-                        }
+                        "Name": "galacticraft:callisto_rock"
                       }
                     }
                   ]
@@ -416,10 +413,7 @@
                 "then_run": {
                   "type": "minecraft:block",
                   "result_state": {
-                    "Name": "galacticraft:lunaslate",
-                    "Properties": {
-                      "axis": "y"
-                    }
+                    "Name": "galacticraft:callisto_rock"
                   }
                 }
               }
@@ -430,7 +424,7 @@
       {
         "type": "minecraft:block",
         "result_state": {
-          "Name": "galacticraft:moon_basalt"
+          "Name": "galacticraft:callisto_rock"
         }
       }
     ]

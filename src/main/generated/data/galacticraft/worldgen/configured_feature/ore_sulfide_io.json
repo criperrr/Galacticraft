@@ -6,7 +6,7 @@
     "targets": [
       {
         "state": {
-          "Name": "galacticraft:mercury_sulfide_ore"
+          "Name": "galacticraft:io_sulfur_ore"
         },
         "target": {
           "predicate_type": "minecraft:tag_match",

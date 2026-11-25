@@ -6,7 +6,7 @@
     "targets": [
       {
         "state": {
-          "Name": "galacticraft:asteroid_niobium_ore"
+          "Name": "galacticraft:callisto_niobium_ore"
         },
         "target": {
           "predicate_type": "minecraft:tag_match",

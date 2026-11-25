@@ -1,7 +1,7 @@
 {
   "aquifers_enabled": false,
   "default_block": {
-    "Name": "galacticraft:hard_venus_rock"
+    "Name": "galacticraft:io_volcanic_rock"
   },
   "default_fluid": {
     "Name": "minecraft:lava",
@@ -171,10 +171,7 @@
                     "then_run": {
                       "type": "minecraft:block",
                       "result_state": {
-                        "Name": "minecraft:basalt",
-                        "Properties": {
-                          "axis": "y"
-                        }
+                        "Name": "galacticraft:io_silicate_basalt"
                       }
                     }
                   },
@@ -189,14 +186,14 @@
                     "then_run": {
                       "type": "minecraft:block",
                       "result_state": {
-                        "Name": "galacticraft:volcanic_rock"
+                        "Name": "galacticraft:io_silicate_basalt"
                       }
                     }
                   },
                   {
                     "type": "minecraft:block",
                     "result_state": {
-                      "Name": "galacticraft:hard_venus_rock"
+                      "Name": "galacticraft:io_volcanic_rock"
                     }
                   }
                 ]
@@ -236,7 +233,7 @@
                           "then_run": {
                             "type": "minecraft:block",
                             "result_state": {
-                              "Name": "minecraft:yellow_terracotta"
+                              "Name": "galacticraft:io_sulfur_crust"
                             }
                           }
                         },
@@ -251,14 +248,14 @@
                           "then_run": {
                             "type": "minecraft:block",
                             "result_state": {
-                              "Name": "minecraft:orange_terracotta"
+                              "Name": "galacticraft:io_volcanic_rock"
                             }
                           }
                         },
                         {
                           "type": "minecraft:block",
                           "result_state": {
-                            "Name": "galacticraft:pumice"
+                            "Name": "galacticraft:io_sulfur_crust"
                           }
                         }
                       ]
@@ -301,14 +298,14 @@
                           "then_run": {
                             "type": "minecraft:block",
                             "result_state": {
-                              "Name": "galacticraft:scorched_venus_rock"
+                              "Name": "galacticraft:io_magma_crust"
                             }
                           }
                         },
                         {
                           "type": "minecraft:block",
                           "result_state": {
-                            "Name": "minecraft:blackstone"
+                            "Name": "galacticraft:io_silicate_basalt"
                           }
                         }
                       ]
@@ -336,10 +333,7 @@
                           "then_run": {
                             "type": "minecraft:block",
                             "result_state": {
-                              "Name": "minecraft:basalt",
-                              "Properties": {
-                                "axis": "y"
-                              }
+                              "Name": "galacticraft:io_silicate_basalt"
                             }
                           }
                         },
@@ -354,14 +348,14 @@
                           "then_run": {
                             "type": "minecraft:block",
                             "result_state": {
-                              "Name": "galacticraft:volcanic_rock"
+                              "Name": "galacticraft:io_silicate_basalt"
                             }
                           }
                         },
                         {
                           "type": "minecraft:block",
                           "result_state": {
-                            "Name": "galacticraft:scorched_venus_rock"
+                            "Name": "galacticraft:io_magma_crust"
                           }
                         }
                       ]
@@ -370,7 +364,7 @@
                   {
                     "type": "minecraft:block",
                     "result_state": {
-                      "Name": "minecraft:yellow_terracotta"
+                      "Name": "galacticraft:io_sulfur_crust"
                     }
                   }
                 ]
@@ -388,7 +382,7 @@
               "then_run": {
                 "type": "minecraft:block",
                 "result_state": {
-                  "Name": "galacticraft:soft_venus_rock"
+                  "Name": "galacticraft:io_volcanic_rock"
                 }
               }
             }
@@ -457,14 +451,14 @@
                       "then_run": {
                         "type": "minecraft:block",
                         "result_state": {
-                          "Name": "minecraft:blackstone"
+                          "Name": "galacticraft:io_silicate_basalt"
                         }
                       }
                     },
                     {
                       "type": "minecraft:block",
                       "result_state": {
-                        "Name": "galacticraft:scorched_venus_rock"
+                        "Name": "galacticraft:io_magma_crust"
                       }
                     }
                   ]
@@ -482,10 +476,7 @@
                 "then_run": {
                   "type": "minecraft:block",
                   "result_state": {
-                    "Name": "minecraft:basalt",
-                    "Properties": {
-                      "axis": "y"
-                    }
+                    "Name": "galacticraft:io_silicate_basalt"
                   }
                 }
               }
@@ -496,7 +487,7 @@
       {
         "type": "minecraft:block",
         "result_state": {
-          "Name": "galacticraft:hard_venus_rock"
+          "Name": "galacticraft:io_volcanic_rock"
         }
       }
     ]

@@ -1,10 +1,7 @@
 {
   "aquifers_enabled": false,
   "default_block": {
-    "Name": "galacticraft:lunaslate",
-    "Properties": {
-      "axis": "y"
-    }
+    "Name": "galacticraft:ganymede_slate"
   },
   "default_fluid": {
     "Name": "minecraft:air"
@@ -178,10 +175,7 @@
                   {
                     "type": "minecraft:block",
                     "result_state": {
-                      "Name": "galacticraft:lunaslate",
-                      "Properties": {
-                        "axis": "y"
-                      }
+                      "Name": "galacticraft:ganymede_slate"
                     }
                   }
                 ]
@@ -243,7 +237,7 @@
                         {
                           "type": "minecraft:block",
                           "result_state": {
-                            "Name": "galacticraft:moon_rock"
+                            "Name": "galacticraft:ganymede_sulci_rock"
                           }
                         }
                       ]
@@ -271,17 +265,14 @@
                           "then_run": {
                             "type": "minecraft:block",
                             "result_state": {
-                              "Name": "galacticraft:mercury_basalt"
+                              "Name": "galacticraft:ganymede_regio_rock"
                             }
                           }
                         },
                         {
                           "type": "minecraft:block",
                           "result_state": {
-                            "Name": "galacticraft:lunaslate",
-                            "Properties": {
-                              "axis": "y"
-                            }
+                            "Name": "galacticraft:ganymede_slate"
                           }
                         }
                       ]
@@ -325,7 +316,7 @@
                   {
                     "type": "minecraft:block",
                     "result_state": {
-                      "Name": "galacticraft:moon_rock"
+                      "Name": "galacticraft:ganymede_sulci_rock"
                     }
                   }
                 ]
@@ -343,7 +334,7 @@
               "then_run": {
                 "type": "minecraft:block",
                 "result_state": {
-                  "Name": "galacticraft:moon_rock"
+                  "Name": "galacticraft:ganymede_sulci_rock"
                 }
               }
             }
@@ -404,10 +395,7 @@
                     {
                       "type": "minecraft:block",
                       "result_state": {
-                        "Name": "galacticraft:lunaslate",
-                        "Properties": {
-                          "axis": "y"
-                        }
+                        "Name": "galacticraft:ganymede_slate"
                       }
                     }
                   ]
@@ -436,10 +424,7 @@
       {
         "type": "minecraft:block",
         "result_state": {
-          "Name": "galacticraft:lunaslate",
-          "Properties": {
-            "axis": "y"
-          }
+          "Name": "galacticraft:ganymede_slate"
         }
       }
     ]

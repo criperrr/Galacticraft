@@ -1,18 +1,12 @@
 {
   "values": [
-    "galacticraft:pumice",
-    "galacticraft:soft_venus_rock",
-    "galacticraft:hard_venus_rock",
-    "galacticraft:scorched_venus_rock",
-    "galacticraft:volcanic_rock",
-    "minecraft:yellow_terracotta",
-    "minecraft:orange_terracotta",
-    "minecraft:basalt",
-    "minecraft:blackstone",
+    "galacticraft:io_sulfur_crust",
+    "galacticraft:io_volcanic_rock",
+    "galacticraft:io_silicate_basalt",
+    "galacticraft:io_magma_crust",
     "minecraft:magma_block",
-    "galacticraft:jupiter_palladium_ore",
-    "galacticraft:venus_titanium_ore",
-    "galacticraft:mercury_sulfide_ore",
-    "galacticraft:venus_iron_ore"
+    "galacticraft:io_palladium_ore",
+    "galacticraft:io_sulfur_ore",
+    "galacticraft:io_titanium_ore"
   ]
 }
