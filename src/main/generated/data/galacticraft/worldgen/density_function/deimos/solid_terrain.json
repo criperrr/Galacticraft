@@ -2,63 +2,93 @@
   "type": "minecraft:interpolated",
   "argument": {
     "type": "minecraft:add",
-    "argument1": "galacticraft:deimos/base_height",
-    "argument2": {
-      "type": "minecraft:add",
-      "argument1": "galacticraft:deimos/offset",
+    "argument1": {
+      "type": "minecraft:mul",
+      "argument1": 2.5,
       "argument2": {
-        "type": "minecraft:add",
-        "argument1": "galacticraft:deimos/smooth_relief",
-        "argument2": {
-          "type": "minecraft:range_choice",
-          "input": {
-            "type": "minecraft:y_clamped_gradient",
-            "from_value": -64.0,
-            "from_y": -64,
-            "to_value": 320.0,
-            "to_y": 320
-          },
-          "max_exclusive": 184.0,
-          "min_inclusive": 40.0,
-          "when_in_range": {
-            "type": "minecraft:mul",
+        "type": "minecraft:quarter_negative",
+        "argument": {
+          "type": "minecraft:mul",
+          "argument1": {
+            "type": "minecraft:add",
             "argument1": {
-              "type": "minecraft:mul",
-              "argument1": {
-                "type": "minecraft:y_clamped_gradient",
-                "from_value": 0.0,
-                "from_y": 40,
-                "to_value": 1.0,
-                "to_y": 56
-              },
-              "argument2": {
-                "type": "minecraft:y_clamped_gradient",
-                "from_value": 1.0,
-                "from_y": 160,
-                "to_value": 0.0,
-                "to_y": 184
-              }
+              "type": "minecraft:add",
+              "argument1": "galacticraft:deimos/depth",
+              "argument2": "galacticraft:deimos/smooth_relief"
             },
             "argument2": {
-              "type": "minecraft:mul",
-              "argument1": "galacticraft:deimos/factor",
-              "argument2": {
+              "type": "minecraft:range_choice",
+              "input": "galacticraft:deimos/jaggedness",
+              "max_exclusive": 10.0,
+              "min_inclusive": 0.01,
+              "when_in_range": {
                 "type": "minecraft:mul",
-                "argument1": 0.08,
+                "argument1": "galacticraft:deimos/jaggedness",
                 "argument2": {
-                  "type": "minecraft:old_blended_noise",
-                  "smear_scale_multiplier": 8.0,
-                  "xz_factor": 80.0,
-                  "xz_scale": 0.24,
-                  "y_factor": 160.0,
-                  "y_scale": 0.16
+                  "type": "minecraft:half_negative",
+                  "argument": {
+                    "type": "minecraft:noise",
+                    "noise": "minecraft:jagged",
+                    "xz_scale": 1500.0,
+                    "y_scale": 0.0
+                  }
                 }
-              }
+              },
+              "when_out_of_range": 0.0
             }
           },
-          "when_out_of_range": 0.0
+          "argument2": {
+            "type": "minecraft:add",
+            "argument1": 0.65,
+            "argument2": "galacticraft:deimos/factor"
+          }
         }
       }
+    },
+    "argument2": {
+      "type": "minecraft:range_choice",
+      "input": {
+        "type": "minecraft:y_clamped_gradient",
+        "from_value": -64.0,
+        "from_y": -64,
+        "to_value": 320.0,
+        "to_y": 320
+      },
+      "max_exclusive": 190.0,
+      "min_inclusive": 36.0,
+      "when_in_range": {
+        "type": "minecraft:mul",
+        "argument1": {
+          "type": "minecraft:mul",
+          "argument1": {
+            "type": "minecraft:y_clamped_gradient",
+            "from_value": 0.0,
+            "from_y": 36,
+            "to_value": 1.0,
+            "to_y": 52
+          },
+          "argument2": {
+            "type": "minecraft:y_clamped_gradient",
+            "from_value": 1.0,
+            "from_y": 165,
+            "to_value": 0.0,
+            "to_y": 190
+          }
+        },
+        "argument2": {
+          "type": "minecraft:mul",
+          "argument1": 0.08,
+          "argument2": {
+            "type": "minecraft:old_blended_noise",
+            "smear_scale_multiplier": 8.0,
+            "xz_factor": 80.0,
+            "xz_scale": 0.24,
+            "y_factor": 160.0,
+            "y_scale": 0.14
+          }
+        }
+      },
+      "when_out_of_range": 0.0
     }
   }
 }

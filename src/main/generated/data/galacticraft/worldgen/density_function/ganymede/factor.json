@@ -3,22 +3,22 @@
   "argument": {
     "type": "minecraft:spline",
     "spline": {
-      "coordinate": "galacticraft:ganymede/continents",
+      "coordinate": "galacticraft:ganymede/erosion",
       "points": [
         {
-          "derivative": 0.05,
+          "derivative": 0.0,
           "location": -1.0,
-          "value": 0.24
+          "value": 0.46
         },
         {
-          "derivative": 0.2,
-          "location": 0.0,
-          "value": 0.48
+          "derivative": -0.15,
+          "location": 0.1,
+          "value": 0.34
         },
         {
-          "derivative": 0.3,
+          "derivative": 0.0,
           "location": 1.0,
-          "value": 1.05
+          "value": 0.22
         }
       ]
     }

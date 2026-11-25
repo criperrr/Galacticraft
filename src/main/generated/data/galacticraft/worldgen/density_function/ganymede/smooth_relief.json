@@ -7,7 +7,7 @@
       "type": "minecraft:add",
       "argument1": {
         "type": "minecraft:mul",
-        "argument1": 0.15,
+        "argument1": 0.12,
         "argument2": {
           "type": "minecraft:shifted_noise",
           "noise": "galacticraft:mercury/base_noise",
@@ -30,7 +30,7 @@
               "y_scale": 0.25
             }
           },
-          "xz_scale": 0.65,
+          "xz_scale": 0.6,
           "y_scale": 0.0
         }
       },

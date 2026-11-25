@@ -21,18 +21,7 @@
     "barrier": 0.0,
     "continents": "galacticraft:europa/continents",
     "depth": "galacticraft:europa/depth",
-    "erosion": {
-      "type": "minecraft:flat_cache",
-      "argument": {
-        "type": "minecraft:shifted_noise",
-        "noise": "minecraft:erosion_large",
-        "shift_x": "minecraft:shift_x",
-        "shift_y": 0.0,
-        "shift_z": "minecraft:shift_z",
-        "xz_scale": 0.16,
-        "y_scale": 0.0
-      }
-    },
+    "erosion": "galacticraft:europa/erosion",
     "final_density": {
       "type": "minecraft:blend_density",
       "argument": "galacticraft:europa/final_density"
@@ -41,16 +30,32 @@
     "fluid_level_spread": 0.0,
     "initial_density_without_jaggedness": "galacticraft:europa/solid_terrain",
     "lava": 0.0,
-    "ridges": "minecraft:overworld/ridges",
+    "ridges": "galacticraft:europa/ridges",
     "temperature": {
       "type": "minecraft:flat_cache",
       "argument": {
         "type": "minecraft:shifted_noise",
-        "noise": "minecraft:temperature_large",
-        "shift_x": "minecraft:shift_x",
+        "noise": "minecraft:temperature",
+        "shift_x": {
+          "type": "minecraft:cache_2d",
+          "argument": {
+            "type": "minecraft:noise",
+            "noise": "minecraft:offset",
+            "xz_scale": 0.25,
+            "y_scale": 0.0
+          }
+        },
         "shift_y": 0.0,
-        "shift_z": "minecraft:shift_z",
-        "xz_scale": 0.14,
+        "shift_z": {
+          "type": "minecraft:cache_2d",
+          "argument": {
+            "type": "minecraft:noise",
+            "noise": "minecraft:offset",
+            "xz_scale": 0.0,
+            "y_scale": 0.25
+          }
+        },
+        "xz_scale": 0.2,
         "y_scale": 0.0
       }
     },
@@ -58,11 +63,27 @@
       "type": "minecraft:flat_cache",
       "argument": {
         "type": "minecraft:shifted_noise",
-        "noise": "minecraft:vegetation_large",
-        "shift_x": "minecraft:shift_x",
+        "noise": "minecraft:vegetation",
+        "shift_x": {
+          "type": "minecraft:cache_2d",
+          "argument": {
+            "type": "minecraft:noise",
+            "noise": "minecraft:offset",
+            "xz_scale": 0.25,
+            "y_scale": 0.0
+          }
+        },
         "shift_y": 0.0,
-        "shift_z": "minecraft:shift_z",
-        "xz_scale": 0.14,
+        "shift_z": {
+          "type": "minecraft:cache_2d",
+          "argument": {
+            "type": "minecraft:noise",
+            "noise": "minecraft:offset",
+            "xz_scale": 0.0,
+            "y_scale": 0.25
+          }
+        },
+        "xz_scale": 0.2,
         "y_scale": 0.0
       }
     },
@@ -411,30 +432,64 @@
                     "if_true": {
                       "type": "minecraft:stone_depth",
                       "add_surface_depth": false,
-                      "offset": 0,
+                      "offset": 2,
                       "secondary_depth_range": 0,
                       "surface_type": "ceiling"
                     },
                     "then_run": {
-                      "type": "minecraft:block",
-                      "result_state": {
-                        "Name": "minecraft:blue_ice"
-                      }
+                      "type": "minecraft:sequence",
+                      "sequence": [
+                        {
+                          "type": "minecraft:condition",
+                          "if_true": {
+                            "type": "minecraft:noise_threshold",
+                            "max_threshold": 0.45,
+                            "min_threshold": -0.15,
+                            "noise": "minecraft:surface"
+                          },
+                          "then_run": {
+                            "type": "minecraft:block",
+                            "result_state": {
+                              "Name": "minecraft:blue_ice"
+                            }
+                          }
+                        },
+                        {
+                          "type": "minecraft:block",
+                          "result_state": {
+                            "Name": "galacticraft:europa_ice_crust"
+                          }
+                        }
+                      ]
                     }
                   },
                   {
                     "type": "minecraft:condition",
                     "if_true": {
-                      "type": "minecraft:stone_depth",
-                      "add_surface_depth": false,
-                      "offset": 0,
-                      "secondary_depth_range": 0,
-                      "surface_type": "floor"
+                      "type": "minecraft:not",
+                      "invert": {
+                        "type": "minecraft:y_above",
+                        "add_stone_depth": false,
+                        "anchor": {
+                          "absolute": -14
+                        },
+                        "surface_depth_multiplier": 0
+                      }
                     },
                     "then_run": {
-                      "type": "minecraft:block",
-                      "result_state": {
-                        "Name": "galacticraft:europa_seabed_rock"
+                      "type": "minecraft:condition",
+                      "if_true": {
+                        "type": "minecraft:stone_depth",
+                        "add_surface_depth": false,
+                        "offset": 3,
+                        "secondary_depth_range": 0,
+                        "surface_type": "floor"
+                      },
+                      "then_run": {
+                        "type": "minecraft:block",
+                        "result_state": {
+                          "Name": "galacticraft:europa_seabed_rock"
+                        }
                       }
                     }
                   }
