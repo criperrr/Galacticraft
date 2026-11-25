@@ -294,11 +294,13 @@ public final class RocketPartGuiPreviewRenderer {
             }
             anyValid = true;
             RocketPartRuntimeModel m = rm.model();
+            float ox = part.offsetXBlocks();
             float by = part.baseYBlocks();
-            minX = Math.min(minX, m.minX());
-            maxX = Math.max(maxX, m.maxX());
-            minZ = Math.min(minZ, m.minZ());
-            maxZ = Math.max(maxZ, m.maxZ());
+            float oz = part.offsetZBlocks();
+            minX = Math.min(minX, ox + m.minX());
+            maxX = Math.max(maxX, ox + m.maxX());
+            minZ = Math.min(minZ, oz + m.minZ());
+            maxZ = Math.max(maxZ, oz + m.maxZ());
             minY = Math.min(minY, by + m.minY());
             maxY = Math.max(maxY, by + m.maxY());
         }
@@ -357,14 +359,14 @@ public final class RocketPartGuiPreviewRenderer {
 
                 float shroudScaleY = "interstage_engine_shroud".equals(part.config().familyId()) ? 0.0F : 1.0F;
                 RocketPartConfig engineAbove = resolveStackEngineAbove(parts, i);
-                float r = ghostPass ? 0.55F : 1.0F;
-                float g = ghostPass ? 1.0F : 1.0F;
-                float b = ghostPass ? 0.72F : 1.0F;
+                float r = ghostPass ? (part.invalidGhost() ? 1.0F : 0.55F) : 1.0F;
+                float g = ghostPass ? (part.invalidGhost() ? 0.35F : 1.0F) : 1.0F;
+                float b = ghostPass ? (part.invalidGhost() ? 0.35F : 0.72F) : 1.0F;
                 float a = ghostPass ? 0.62F : 1.0F;
 
                 pose.pushPose();
-                if (part.baseYBlocks() != 0.0F) {
-                    pose.translate(0.0F, part.baseYBlocks(), 0.0F);
+                if (part.offsetXBlocks() != 0.0F || part.baseYBlocks() != 0.0F || part.offsetZBlocks() != 0.0F) {
+                    pose.translate(part.offsetXBlocks(), part.baseYBlocks(), part.offsetZBlocks());
                 }
                 RocketPartMeshRenderer.render(
                         rm.model(),
@@ -383,9 +385,9 @@ public final class RocketPartGuiPreviewRenderer {
                 );
                 if (engineAbove != null) {
                     boolean aboveIsGhost = i + 1 < count && parts.get(i + 1).ghost();
-                    float sr = (ghostPass || aboveIsGhost) ? 0.55F : 1.0F;
-                    float sg = 1.0F;
-                    float sb = (ghostPass || aboveIsGhost) ? 0.72F : 1.0F;
+                    float sr = (ghostPass || aboveIsGhost) ? (part.invalidGhost() ? 1.0F : 0.55F) : 1.0F;
+                    float sg = (ghostPass || aboveIsGhost) ? (part.invalidGhost() ? 0.35F : 1.0F) : 1.0F;
+                    float sb = (ghostPass || aboveIsGhost) ? (part.invalidGhost() ? 0.35F : 0.72F) : 1.0F;
                     float sa = (ghostPass || aboveIsGhost) ? 0.62F : 1.0F;
                     RocketPartShroudRenderer.render(
                             part.config(),
@@ -463,14 +465,19 @@ public final class RocketPartGuiPreviewRenderer {
     }
 
     private static @Nullable RocketPartConfig resolveStackEngineAbove(List<StackPart> parts, int index) {
-        RocketPartConfig cfg = parts.get(index).config();
+        StackPart cur = parts.get(index);
+        RocketPartConfig cfg = cur.config();
         if (!RocketPartShroudRenderer.supportsEngineShroud(cfg)) {
             return null;
         }
         if (index + 1 < parts.size()) {
-            RocketPartConfig above = parts.get(index + 1).config();
-            if (RocketPartShroudRenderer.needsEngineShroud(above)) {
-                return above;
+            StackPart next = parts.get(index + 1);
+            if (Math.abs(next.offsetXBlocks() - cur.offsetXBlocks()) < 0.01F
+                    && Math.abs(next.offsetZBlocks() - cur.offsetZBlocks()) < 0.01F) {
+                RocketPartConfig above = next.config();
+                if (RocketPartShroudRenderer.needsEngineShroud(above)) {
+                    return above;
+                }
             }
         }
         return null;
@@ -486,11 +493,24 @@ public final class RocketPartGuiPreviewRenderer {
     public record StackPart(
             int sourceIndex,
             RocketPartConfig config,
+            float offsetXBlocks,
             float baseYBlocks,
+            float offsetZBlocks,
             float animTimeSeconds,
             boolean selected,
-            boolean ghost
+            boolean ghost,
+            boolean invalidGhost
     ) {
+        public StackPart(
+                int sourceIndex,
+                RocketPartConfig config,
+                float baseYBlocks,
+                float animTimeSeconds,
+                boolean selected,
+                boolean ghost
+        ) {
+            this(sourceIndex, config, 0.0F, baseYBlocks, 0.0F, animTimeSeconds, selected, ghost, false);
+        }
     }
 
     public record ProjectedBand(

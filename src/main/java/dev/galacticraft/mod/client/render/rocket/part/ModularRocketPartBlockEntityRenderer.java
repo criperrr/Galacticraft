@@ -122,7 +122,11 @@ public class ModularRocketPartBlockEntityRenderer implements BlockEntityRenderer
         }
 
         poseStack.pushPose();
-        poseStack.translate(0.5F, 0.0F, 0.5F);
+        poseStack.translate(
+                0.5F + blockEntity.getRadialVisualOffsetX(),
+                0.0F,
+                0.5F + blockEntity.getRadialVisualOffsetZ()
+        );
         float yRotDeg = RocketPartMeshRenderer.facingToYRotDegrees(blockEntity.getFacing());
         if (yRotDeg != 0.0F) {
             poseStack.mulPose(Axis.YP.rotationDegrees(yRotDeg));

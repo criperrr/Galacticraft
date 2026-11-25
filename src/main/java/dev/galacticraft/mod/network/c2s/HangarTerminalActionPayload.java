@@ -24,6 +24,7 @@ package dev.galacticraft.mod.network.c2s;
 
 import dev.galacticraft.api.platform.PlatformSize;
 import dev.galacticraft.api.platform.PlatformType;
+import dev.galacticraft.api.rocket.assembly.AttachmentNode.RadialSymmetry;
 import dev.galacticraft.impl.network.c2s.C2SPayload;
 import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.content.block.entity.HangarTerminalBlockEntity;
@@ -126,6 +127,21 @@ public record HangarTerminalActionPayload(BlockPos pos, Action action, int value
                     terminal.creativeToggleFillRocket();
                 }
             }
+            case SET_SYMMETRY -> {
+                if (terminal.isFormed()) {
+                    terminal.setSelectedSymmetry(RadialSymmetry.byOrdinal(this.value));
+                }
+            }
+            case TOGGLE_CROSSFEED -> {
+                if (terminal.isFormed()) {
+                    terminal.toggleSelectedCrossfeed();
+                }
+            }
+            case CANCEL_ASSEMBLY -> {
+                if (terminal.isFormed()) {
+                    terminal.cancelProgressiveAssembly(player);
+                }
+            }
         }
     }
 
@@ -147,7 +163,10 @@ public record HangarTerminalActionPayload(BlockPos pos, Action action, int value
         TOGGLE_PART_HATCH,
         BUILD_ROCKET,
         RECALL_ROCKET,
-        CREATIVE_FILL_ROCKET;
+        CREATIVE_FILL_ROCKET,
+        SET_SYMMETRY,
+        TOGGLE_CROSSFEED,
+        CANCEL_ASSEMBLY;
 
         public static final StreamCodec<ByteBuf, Action> STREAM_CODEC = ByteBufCodecs.idMapper(
                 i -> values()[Math.floorMod(i, values().length)],

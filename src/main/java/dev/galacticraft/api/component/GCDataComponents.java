@@ -27,6 +27,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.galacticraft.api.APIConstants;
 import dev.galacticraft.api.fluid.FluidData;
 import dev.galacticraft.api.rocket.RocketData;
+import dev.galacticraft.api.rocket.assembly.RocketAssemblyGraph;
 import dev.galacticraft.api.rocket.part.data.PartIntegrity;
 import dev.galacticraft.api.rocket.part.data.RocketPartComposition;
 import dev.galacticraft.api.rocket.part.data.RocketPartStats;
@@ -101,6 +102,9 @@ public class GCDataComponents {
     public static final DataComponentType<OrbitalSurveyData> ORBITAL_SURVEY_DATA = register("orbital_survey_data", b -> b
             .persistent(OrbitalSurveyData.CODEC)
             .networkSynchronized(OrbitalSurveyData.STREAM_CODEC));
+    public static final DataComponentType<RocketAssemblyGraph> ROCKET_ASSEMBLY_GRAPH = register("rocket_assembly_graph", b -> b
+            .persistent(RocketAssemblyGraph.CODEC)
+            .networkSynchronized(RocketAssemblyGraph.STREAM_CODEC));
 
     private static <T> DataComponentType<T> register(String id, UnaryOperator<DataComponentType.Builder<T>> op) {
         return Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, APIConstants.id(id), op.apply(DataComponentType.builder()).build());

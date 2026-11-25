@@ -22,18 +22,23 @@
 
 package dev.galacticraft.mod.client;
 
+import dev.galacticraft.api.rocket.assembly.AttachmentNode.RadialSymmetry;
 import dev.galacticraft.mod.attachments.GCAttachments;
 import dev.galacticraft.mod.attachments.ManualReaderAttachment;
 import dev.galacticraft.mod.client.gui.screen.ingame.CelestialSelectionScreen;
 import dev.galacticraft.mod.client.gui.screen.manual.AerospaceManualScreen;
 import dev.galacticraft.mod.client.gui.screen.manual.ResearchUnlockToast;
+import dev.galacticraft.mod.client.render.rocket.part.RocketPartPlacementPreviewRenderer;
+import dev.galacticraft.mod.content.item.ModularRocketPartBlockItem;
 import dev.galacticraft.mod.network.c2s.UpdateManualStatePayload;
 import dev.galacticraft.mod.util.Translations;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
 import org.lwjgl.glfw.GLFW;
 
 @SuppressWarnings("UnstableApiUsage")
@@ -41,11 +46,13 @@ public class GCKeyBinds {
     public static final KeyMapping OPEN_CELESTIAL_SCREEN = new KeyMapping(Translations.Keybindings.OPEN_CELESTIAL_SCREEN, GLFW.GLFW_KEY_M, KeyMapping.CATEGORY_MISC);
     public static final KeyMapping OPEN_ROCKET_INVENTORY = new KeyMapping(Translations.Keybindings.ROCKET_INVENTORY, GLFW.GLFW_KEY_F, KeyMapping.CATEGORY_INVENTORY);
     public static final KeyMapping OPEN_AEROSPACE_MANUAL = new KeyMapping(Translations.Keybindings.OPEN_AEROSPACE_MANUAL, GLFW.GLFW_KEY_G, KeyMapping.CATEGORY_MISC);
+    public static final KeyMapping CYCLE_ROCKET_SYMMETRY = new KeyMapping("key.galacticraft.cycle_rocket_symmetry", GLFW.GLFW_KEY_R, KeyMapping.CATEGORY_MISC);
 
     public static void register() {
         KeyBindingHelper.registerKeyBinding(OPEN_CELESTIAL_SCREEN);
         KeyBindingHelper.registerKeyBinding(OPEN_ROCKET_INVENTORY);
         KeyBindingHelper.registerKeyBinding(OPEN_AEROSPACE_MANUAL);
+        KeyBindingHelper.registerKeyBinding(CYCLE_ROCKET_SYMMETRY);
     }
 
     public static void handleKeybinds(Minecraft client) {
@@ -63,6 +70,18 @@ public class GCKeyBinds {
                         }
                     } else {
                         client.setScreen(new AerospaceManualScreen(ResearchUnlockToast.consumeRecentUnlockedEntry()));
+                    }
+                }
+                while (CYCLE_ROCKET_SYMMETRY.consumeClick()) {
+                    boolean holdingPart = client.player.getMainHandItem().getItem() instanceof ModularRocketPartBlockItem
+                            || client.player.getOffhandItem().getItem() instanceof ModularRocketPartBlockItem;
+                    if (holdingPart && Screen.hasShiftDown()) {
+                        RadialSymmetry next = RocketPartPlacementPreviewRenderer.cycleSymmetry();
+                        client.player.displayClientMessage(
+                                Component.literal("[VAB] Simetria Radial: " + next.getSerializedName())
+                                        .withStyle(ChatFormatting.AQUA),
+                                true
+                        );
                     }
                 }
             }
