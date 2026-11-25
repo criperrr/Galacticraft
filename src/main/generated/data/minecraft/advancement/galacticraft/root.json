@@ -24,5 +24,10 @@
       "root"
     ]
   ],
+  "rewards": {
+    "loot": [
+      "galacticraft:rewards/aerospace_manual"
+    ]
+  },
   "sends_telemetry_event": true
 }

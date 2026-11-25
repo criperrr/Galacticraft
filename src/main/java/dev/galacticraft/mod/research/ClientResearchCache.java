@@ -54,6 +54,7 @@ public final class ClientResearchCache {
     private static int networkBonusPct = 100;
     private static List<String> relaySummaries = List.of();
     private static List<String> experimentLog = List.of();
+    private static boolean initialSyncReceived = false;
 
     static {
         reset();
@@ -62,7 +63,7 @@ public final class ClientResearchCache {
     private ClientResearchCache() {
     }
 
-    public static void applySnapshot(
+    public static @NotNull List<ResourceLocation> applySnapshot(
             int sp,
             int totalSp,
             boolean quantumBoost,
@@ -77,6 +78,20 @@ public final class ClientResearchCache {
             @NotNull List<String> relaysInfo,
             @NotNull List<String> log
     ) {
+        List<ResourceLocation> newlyUnlocked = List.of();
+        if (initialSyncReceived) {
+            List<ResourceLocation> diff = new java.util.ArrayList<>();
+            for (ResourceLocation id : unlockedNodes) {
+                if (!UNLOCKED_NODES.contains(id)) {
+                    diff.add(id);
+                }
+            }
+            if (!diff.isEmpty()) {
+                newlyUnlocked = List.copyOf(diff);
+            }
+        }
+        initialSyncReceived = true;
+
         sciencePoints = Math.max(0, sp);
         totalScienceEarned = Math.max(sciencePoints, totalSp);
         quantumArchiveBoost = quantumBoost;
@@ -97,9 +112,11 @@ public final class ClientResearchCache {
         networkBonusPct = Math.max(100, bonusPct);
         relaySummaries = List.copyOf(relaysInfo);
         experimentLog = List.copyOf(log);
+        return newlyUnlocked;
     }
 
     public static void reset() {
+        initialSyncReceived = false;
         sciencePoints = 0;
         totalScienceEarned = 0;
         quantumArchiveBoost = false;

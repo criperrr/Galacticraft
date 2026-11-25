@@ -133,6 +133,7 @@ public class Galacticraft implements ModInitializer {
         GCSulfuricAcidHandlers.register();
         ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(OxygenBlockDataManager.INSTANCE);
         ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(dev.galacticraft.mod.research.ResearchTreeDataManager.INSTANCE);
+        ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(dev.galacticraft.mod.manual.ManualManager.INSTANCE);
         Constant.LOGGER.info("Initialization complete. (Took {}ms).", System.currentTimeMillis() - startInitTime);
     }
 }

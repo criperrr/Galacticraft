@@ -264,6 +264,7 @@ public interface Translations {
     interface Keybindings {
         String ROCKET_INVENTORY = "key.galacticraft.rocket.inventory";
         String OPEN_CELESTIAL_SCREEN = "key.galacticraft.open_celestial_screen";
+        String OPEN_AEROSPACE_MANUAL = "key.galacticraft.open_aerospace_manual";
     }
 
     interface Items {

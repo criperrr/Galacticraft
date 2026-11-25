@@ -362,6 +362,7 @@ public class GCItems {
     public static final Item RECORDED_DATA_DRIVE = ITEMS.register(Constant.Item.RECORDED_DATA_DRIVE, new RecordedDataDriveItem(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON).fireResistant()));
     public static final Item BLANK_SCHEMATIC_DISC = ITEMS.register(Constant.Item.BLANK_SCHEMATIC_DISC, new BlankSchematicDiscItem(new Item.Properties().stacksTo(16)));
     public static final Item ORBITAL_SURVEY_MAP = ITEMS.register(Constant.Item.ORBITAL_SURVEY_MAP, new OrbitalSurveyMapItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
+    public static final Item AEROSPACE_MANUAL = ITEMS.register(Constant.Item.AEROSPACE_MANUAL, new AerospaceManualItem(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
 
     public static final Item TIER_2_ROCKET_SCHEMATIC = ITEMS.register(Constant.Item.TIER_2_ROCKET_SCHEMATIC, new SchematicItem(new Item.Properties()));
     public static final Item CARGO_ROCKET_SCHEMATIC = ITEMS.register(Constant.Item.CARGO_ROCKET_SCHEMATIC, new SchematicItem(new Item.Properties()));

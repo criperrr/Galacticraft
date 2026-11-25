@@ -1,0 +1,33 @@
+{
+  "icon_item": "galacticraft:part_assembler",
+  "id": "galacticraft:materials/flight_simulator",
+  "order": 10,
+  "pages": [
+    {
+      "type": "text",
+      "body": "manual.galacticraft.entry.flight_simulator.body1",
+      "callout": "manual.galacticraft.entry.flight_simulator.info1",
+      "heading": "manual.galacticraft.entry.flight_simulator.h1",
+      "link_entries": [
+        "galacticraft:materials/early_alloys",
+        "galacticraft:materials/advanced_composites"
+      ],
+      "showcase_items": [
+        "galacticraft:part_assembler",
+        "galacticraft:aero_refurbishment_bench"
+      ]
+    },
+    {
+      "type": "part_material",
+      "include_flight_simulator": true,
+      "title": "manual.galacticraft.entry.flight_simulator.calc_title"
+    }
+  ],
+  "related_items": [
+    "galacticraft:part_assembler",
+    "galacticraft:rocket_workbench",
+    "galacticraft:aero_refurbishment_bench"
+  ],
+  "tab": "materials",
+  "title_key": "manual.galacticraft.entry.flight_simulator.title"
+}

@@ -1,0 +1,57 @@
+{
+  "era": 2,
+  "icon_item": "galacticraft:desh_ore",
+  "id": "galacticraft:atlas/mars",
+  "lock_hint_key": "manual.galacticraft.hint.lunar_deep_sky",
+  "order": 30,
+  "pages": [
+    {
+      "type": "planet_stratigraphy",
+      "body_id": "galacticraft:mars",
+      "hazards": "manual.galacticraft.atlas.mars.hazards",
+      "ores": [
+        {
+          "color": -2525353,
+          "label": "block.galacticraft.mars_iron_ore",
+          "max_y": 72,
+          "min_y": 10,
+          "ore_item": "galacticraft:mars_iron_ore",
+          "rarity": 2.5
+        },
+        {
+          "color": -2074049,
+          "label": "block.galacticraft.desh_ore",
+          "max_y": 36,
+          "min_y": -32,
+          "ore_item": "galacticraft:desh_ore",
+          "rarity": 3.0
+        },
+        {
+          "color": -7092739,
+          "label": "block.galacticraft.mars_titanium_ore",
+          "max_y": 12,
+          "min_y": -48,
+          "ore_item": "galacticraft:mars_titanium_ore",
+          "rarity": 1.2
+        },
+        {
+          "color": -10443270,
+          "label": "block.galacticraft.mars_niobium_ore",
+          "max_y": 8,
+          "min_y": -56,
+          "ore_item": "galacticraft:mars_niobium_ore",
+          "rarity": 1.0
+        }
+      ],
+      "title": "manual.galacticraft.atlas.mars.title"
+    }
+  ],
+  "related_items": [
+    "galacticraft:desh_ore",
+    "galacticraft:mars_iron_ore",
+    "galacticraft:mars_titanium_ore",
+    "galacticraft:mars_niobium_ore"
+  ],
+  "tab": "atlas",
+  "title_key": "manual.galacticraft.atlas.mars.title"
+}

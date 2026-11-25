@@ -1,0 +1,60 @@
+{
+  "era": 3,
+  "icon_item": "galacticraft:sabatier_chemical_reactor",
+  "id": "galacticraft:machines/sabatier_isru",
+  "lock_hint_key": "manual.galacticraft.hint.martian_sabatier",
+  "order": 50,
+  "pages": [
+    {
+      "type": "flowchart",
+      "caption": "manual.galacticraft.entry.sabatier_chain.caption",
+      "steps": [
+        {
+          "color": -1096636,
+          "detail": "manual.galacticraft.flow.sab.d1",
+          "icon": "galacticraft:atmospheric_fractionator",
+          "title": "manual.galacticraft.flow.sab.s1"
+        },
+        {
+          "detail": "manual.galacticraft.flow.sab.d2",
+          "icon": "galacticraft:electrolytic_separator",
+          "title": "manual.galacticraft.flow.sab.s2"
+        },
+        {
+          "color": -15681151,
+          "detail": "manual.galacticraft.flow.sab.d3",
+          "icon": "galacticraft:sabatier_chemical_reactor",
+          "title": "manual.galacticraft.flow.sab.s3"
+        },
+        {
+          "color": -13315175,
+          "detail": "manual.galacticraft.flow.sab.d4",
+          "icon": "galacticraft:liquid_methane_bucket",
+          "title": "manual.galacticraft.flow.sab.s4"
+        }
+      ],
+      "title": "manual.galacticraft.entry.sabatier_chain.flow_title"
+    },
+    {
+      "type": "infuser",
+      "inputs": [
+        "galacticraft:fluid_canister",
+        "galacticraft:liquid_hydrogen_bucket"
+      ],
+      "machine": "block.galacticraft.sabatier_chemical_reactor",
+      "note": "manual.galacticraft.entry.sabatier_chain.reactor_note",
+      "output": "galacticraft:liquid_methane_bucket",
+      "recipe_id": "galacticraft:sabatier_chemical_reactor",
+      "title": "manual.galacticraft.entry.sabatier_chain.reactor_title"
+    }
+  ],
+  "related_items": [
+    "galacticraft:atmospheric_fractionator",
+    "galacticraft:sabatier_chemical_reactor",
+    "galacticraft:liquid_methane_bucket",
+    "galacticraft:electrolytic_separator"
+  ],
+  "required_research": "galacticraft:research/martian_sabatier_isru",
+  "tab": "machines",
+  "title_key": "manual.galacticraft.entry.sabatier_chain.title"
+}

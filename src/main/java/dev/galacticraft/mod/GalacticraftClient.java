@@ -201,6 +201,7 @@ public class GalacticraftClient implements ClientModInitializer {
         registerFeatureRenderers();
         GalacticraftRocketPartRenderers.register();
         GCKeyBinds.register();
+        dev.galacticraft.mod.client.gui.screen.manual.ManualTooltipAndKeyBridge.init();
 
 
 
@@ -375,6 +376,7 @@ public class GalacticraftClient implements ClientModInitializer {
         BuiltinItemRendererRegistry.INSTANCE.register(GCBlocks.ROCKET_PART_ADAPTER.asItem(), ModularRocketPartItemRenderer.INSTANCE);
         BuiltinItemRendererRegistry.INSTANCE.register(GCBlocks.ROCKET_PART_PAYLOAD.asItem(), ModularRocketPartItemRenderer.INSTANCE);
         BuiltinItemRendererRegistry.INSTANCE.register(GCBlocks.ROCKET_PART_UTILITY.asItem(), ModularRocketPartItemRenderer.INSTANCE);
+        BuiltinItemRendererRegistry.INSTANCE.register(GCItems.AEROSPACE_MANUAL, dev.galacticraft.mod.client.render.item.AerospaceTabletItemRenderer.INSTANCE);
 
         InventoryTabRegistry.INSTANCE.register(GCItems.OXYGEN_MASK.getDefaultInstance(), () -> ClientPlayNetworking.send(new OpenGcInventoryPayload()), GCPlayerInventoryMenu.class);
         InventoryTabRegistry.INSTANCE.register(GCItems.ROCKET.getDefaultInstance(), () -> ClientPlayNetworking.send(new OpenRocketPayload()), player -> player.getVehicle() instanceof RocketEntity, RocketMenu.class);
@@ -404,6 +406,7 @@ public class GalacticraftClient implements ClientModInitializer {
         helper.registerReloadListener(PlatformModelLoader.INSTANCE);
         helper.registerReloadListener(RocketPartModelCache.INSTANCE);
         helper.registerReloadListener(AstroSkyEngine.INSTANCE);
+        helper.registerReloadListener(dev.galacticraft.mod.manual.ManualManager.INSTANCE.createClientReloader());
 
         GCModelLoader.registerModelType(UnbakedObjModel.TYPE);
 

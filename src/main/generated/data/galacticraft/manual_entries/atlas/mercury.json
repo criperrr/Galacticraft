@@ -1,0 +1,56 @@
+{
+  "era": 4,
+  "icon_item": "galacticraft:mercury_sulfide_ore",
+  "id": "galacticraft:atlas/mercury",
+  "lock_hint_key": "manual.galacticraft.hint.lunar_deep_sky",
+  "order": 50,
+  "pages": [
+    {
+      "type": "planet_stratigraphy",
+      "body_id": "galacticraft:mercury",
+      "hazards": "manual.galacticraft.atlas.mercury.hazards",
+      "ores": [
+        {
+          "label": "block.galacticraft.mercury_hollow_deposit",
+          "max_y": 96,
+          "min_y": 48,
+          "ore_item": "galacticraft:mercury_hollow_deposit",
+          "rarity": 3.0
+        },
+        {
+          "color": -7035976,
+          "label": "block.galacticraft.mercury_native_iron_ore",
+          "max_y": 60,
+          "min_y": -16,
+          "ore_item": "galacticraft:mercury_native_iron_ore",
+          "rarity": 3.5
+        },
+        {
+          "color": -12102295,
+          "label": "block.galacticraft.mercury_graphite_ore",
+          "max_y": 32,
+          "min_y": -32,
+          "ore_item": "galacticraft:mercury_graphite_ore",
+          "rarity": 2.6
+        },
+        {
+          "color": -680437,
+          "label": "block.galacticraft.mercury_sulfide_ore",
+          "max_y": 16,
+          "min_y": -56,
+          "ore_item": "galacticraft:mercury_sulfide_ore",
+          "rarity": 2.4
+        }
+      ],
+      "title": "manual.galacticraft.atlas.mercury.title"
+    }
+  ],
+  "related_items": [
+    "galacticraft:mercury_sulfide_ore",
+    "galacticraft:mercury_hollow_deposit",
+    "galacticraft:mercury_native_iron_ore",
+    "galacticraft:mercury_graphite_ore"
+  ],
+  "tab": "atlas",
+  "title_key": "manual.galacticraft.atlas.mercury.title"
+}

@@ -1088,6 +1088,7 @@ public class GCModelProvider extends FabricModelProvider {
         generator.generateFlatItem(GCItems.RECORDED_DATA_DRIVE, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(GCItems.BLANK_SCHEMATIC_DISC, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(GCItems.ORBITAL_SURVEY_MAP, ModelTemplates.FLAT_ITEM);
+        this.createBuiltinEntityItem(generator, GCItems.AEROSPACE_MANUAL);
 
         for (Item flag : GCItems.FLAGS.colorMap().values()) {
             GCModelTemplates.FLAG_INVENTORY.create(ModelLocationUtils.getModelLocation(flag), new TextureMapping(), generator.output);

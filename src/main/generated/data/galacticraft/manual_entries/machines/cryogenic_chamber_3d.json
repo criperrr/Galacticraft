@@ -1,0 +1,44 @@
+{
+  "era": 2,
+  "icon_item": "galacticraft:cryogenic_chamber",
+  "id": "galacticraft:machines/cryogenic_chamber_3d",
+  "lock_hint_key": "manual.galacticraft.hint.lunar_electrolysis",
+  "order": 35,
+  "pages": [
+    {
+      "type": "multiblock_3d",
+      "caption": "manual.galacticraft.entry.cryo_3d.caption",
+      "layers": [
+        [
+          "M M",
+          " C ",
+          "M M"
+        ],
+        [
+          "   ",
+          " P ",
+          "   "
+        ],
+        [
+          "   ",
+          " P ",
+          "   "
+        ]
+      ],
+      "palette": {
+        "C": "galacticraft:cryogenic_chamber",
+        "M": "galacticraft:oxygen_storage_module",
+        "P": "galacticraft:cryogenic_chamber_part"
+      },
+      "title": "manual.galacticraft.entry.cryo_3d.mb_title"
+    }
+  ],
+  "related_items": [
+    "galacticraft:cryogenic_chamber",
+    "galacticraft:electrolytic_separator",
+    "galacticraft:oxygen_storage_module"
+  ],
+  "required_research": "galacticraft:research/lunar_polar_electrolysis",
+  "tab": "machines",
+  "title_key": "manual.galacticraft.entry.cryo_3d.title"
+}

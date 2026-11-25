@@ -46,6 +46,15 @@ public final class GCAttachments {
                     .syncWith(MultiblockLinksAttachment.STREAM_CODEC, AttachmentSyncPredicate.all())
     );
 
+    public static final AttachmentType<ManualReaderAttachment> MANUAL_READER = AttachmentRegistry.create(
+            Constant.id(Attachments.MANUAL_READER),
+            builder -> builder
+                    .initializer(() -> ManualReaderAttachment.EMPTY)
+                    .persistent(ManualReaderAttachment.CODEC)
+                    .copyOnDeath()
+                    .syncWith(ManualReaderAttachment.STREAM_CODEC, AttachmentSyncPredicate.targetOnly())
+    );
+
     public static void init() {
     }
 }

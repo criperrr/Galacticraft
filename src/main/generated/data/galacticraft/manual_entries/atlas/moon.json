@@ -1,0 +1,57 @@
+{
+  "icon_item": "galacticraft:moon_turf",
+  "id": "galacticraft:atlas/moon",
+  "lock_hint_key": "manual.galacticraft.hint.moon_ephemeris",
+  "order": 20,
+  "pages": [
+    {
+      "type": "planet_stratigraphy",
+      "body_id": "galacticraft:moon",
+      "hazards": "manual.galacticraft.atlas.moon.hazards",
+      "ores": [
+        {
+          "color": -2525374,
+          "label": "block.galacticraft.moon_copper_ore",
+          "max_y": 72,
+          "min_y": 12,
+          "ore_item": "galacticraft:moon_copper_ore",
+          "rarity": 1.5
+        },
+        {
+          "color": -10443270,
+          "label": "block.galacticraft.moon_ilmenite_ore",
+          "max_y": 44,
+          "min_y": -16,
+          "ore_item": "galacticraft:moon_ilmenite_ore",
+          "rarity": 3.0
+        },
+        {
+          "color": -12877066,
+          "label": "block.galacticraft.lunar_sapphire_ore",
+          "max_y": 18,
+          "min_y": -44,
+          "ore_item": "galacticraft:lunar_sapphire_ore",
+          "rarity": 1.8
+        },
+        {
+          "color": -8074218,
+          "label": "block.galacticraft.olivine_basalt",
+          "max_y": 20,
+          "min_y": -56,
+          "ore_item": "galacticraft:olivine_basalt",
+          "rarity": 2.2
+        }
+      ],
+      "title": "manual.galacticraft.atlas.moon.title"
+    }
+  ],
+  "related_items": [
+    "galacticraft:moon_turf",
+    "galacticraft:moon_copper_ore",
+    "galacticraft:moon_ilmenite_ore",
+    "galacticraft:lunar_sapphire_ore",
+    "galacticraft:olivine_basalt"
+  ],
+  "tab": "atlas",
+  "title_key": "manual.galacticraft.atlas.moon.title"
+}

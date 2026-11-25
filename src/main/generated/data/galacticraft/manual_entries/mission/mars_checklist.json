@@ -1,0 +1,52 @@
+{
+  "era": 2,
+  "icon_item": "galacticraft:compressed_desh",
+  "id": "galacticraft:mission/mars_checklist",
+  "lock_hint_key": "manual.galacticraft.hint.lunar_deep_sky",
+  "order": 30,
+  "pages": [
+    {
+      "type": "launch_checklist",
+      "requirements": [
+        {
+          "accepted_items": [
+            "galacticraft:oxygen_mask"
+          ],
+          "label": "manual.galacticraft.check.oxygen_mask"
+        },
+        {
+          "accepted_items": [
+            "galacticraft:medium_oxygen_tank",
+            "galacticraft:large_oxygen_tank",
+            "galacticraft:infinite_oxygen_tank"
+          ],
+          "label": "manual.galacticraft.check.oxygen_tank"
+        },
+        {
+          "accepted_items": [
+            "galacticraft:thermal_padding_chestpiece",
+            "galacticraft:isothermal_padding_chestpiece"
+          ],
+          "label": "manual.galacticraft.check.thermal_suit"
+        },
+        {
+          "accepted_items": [
+            "galacticraft:blank_data_drive"
+          ],
+          "critical": false,
+          "label": "manual.galacticraft.check.data_drive"
+        }
+      ],
+      "target_body": "galacticraft:mars",
+      "title": "manual.galacticraft.entry.mars_checklist.check_title"
+    }
+  ],
+  "related_items": [
+    "galacticraft:thermal_padding_chestpiece",
+    "galacticraft:geological_analyzer",
+    "galacticraft:blank_data_drive"
+  ],
+  "required_research": "galacticraft:research/lunar_deep_sky_survey",
+  "tab": "mission",
+  "title_key": "manual.galacticraft.entry.mars_checklist.title"
+}

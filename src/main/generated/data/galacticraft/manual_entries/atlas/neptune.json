@@ -1,0 +1,48 @@
+{
+  "era": 6,
+  "icon_item": "galacticraft:superionic_ice_crystal",
+  "id": "galacticraft:atlas/neptune",
+  "lock_hint_key": "manual.galacticraft.hint.outer_ephemeris",
+  "order": 100,
+  "pages": [
+    {
+      "type": "planet_stratigraphy",
+      "body_id": "galacticraft:neptune",
+      "hazards": "manual.galacticraft.atlas.neptune.hazards",
+      "ores": [
+        {
+          "color": -10443270,
+          "label": "block.galacticraft.neptune_nitrogen_ice",
+          "max_y": 84,
+          "min_y": 16,
+          "ore_item": "galacticraft:neptune_nitrogen_ice",
+          "rarity": 3.0
+        },
+        {
+          "color": -7092739,
+          "label": "block.galacticraft.neptune_titanium_ore",
+          "max_y": 40,
+          "min_y": -24,
+          "ore_item": "galacticraft:neptune_titanium_ore",
+          "rarity": 2.4
+        },
+        {
+          "label": "block.galacticraft.neptune_abyssal_mantle_rock",
+          "max_y": -8,
+          "min_y": -60,
+          "ore_item": "galacticraft:neptune_abyssal_mantle_rock",
+          "rarity": 3.4
+        }
+      ],
+      "title": "manual.galacticraft.atlas.neptune.title"
+    }
+  ],
+  "related_items": [
+    "galacticraft:superionic_ice_crystal",
+    "galacticraft:neptune_nitrogen_ice",
+    "galacticraft:neptune_titanium_ore",
+    "galacticraft:neptune_abyssal_mantle_rock"
+  ],
+  "tab": "atlas",
+  "title_key": "manual.galacticraft.atlas.neptune.title"
+}

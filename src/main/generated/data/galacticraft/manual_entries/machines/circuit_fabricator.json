@@ -1,0 +1,36 @@
+{
+  "icon_item": "galacticraft:circuit_fabricator",
+  "id": "galacticraft:machines/circuit_fabricator",
+  "order": 38,
+  "pages": [
+    {
+      "type": "text",
+      "body": "manual.galacticraft.entry.circuit_fabricator.body1",
+      "callout": "manual.galacticraft.entry.circuit_fabricator.tip1",
+      "callout_style": "tip",
+      "heading": "manual.galacticraft.entry.circuit_fabricator.h1",
+      "link_entries": [
+        "galacticraft:machines/niobium_metallurgy"
+      ],
+      "showcase_items": [
+        "galacticraft:circuit_fabricator",
+        "galacticraft:basic_wafer",
+        "galacticraft:advanced_wafer"
+      ]
+    },
+    {
+      "type": "crafting",
+      "caption": "manual.galacticraft.entry.circuit_fabricator.recipe_cap",
+      "recipe_id": "galacticraft:basic_wafer",
+      "title": "manual.galacticraft.entry.circuit_fabricator.recipe"
+    }
+  ],
+  "related_items": [
+    "galacticraft:circuit_fabricator",
+    "galacticraft:basic_wafer",
+    "galacticraft:advanced_wafer",
+    "galacticraft:silicon"
+  ],
+  "tab": "machines",
+  "title_key": "manual.galacticraft.entry.circuit_fabricator.title"
+}

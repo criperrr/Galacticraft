@@ -1,0 +1,30 @@
+{
+  "era": 3,
+  "icon_item": "galacticraft:compressed_titanium",
+  "id": "galacticraft:materials/advanced_composites",
+  "lock_hint_key": "manual.galacticraft.hint.lunar_vacuum",
+  "order": 30,
+  "pages": [
+    {
+      "type": "part_material",
+      "materials": [
+        "galacticraft:compressed_desh",
+        "galacticraft:compressed_titanium",
+        "galacticraft:lead_shielding",
+        "galacticraft:carbon_composite",
+        "galacticraft:compressed_niobium"
+      ],
+      "title": "manual.galacticraft.entry.advanced_composites.list_title"
+    }
+  ],
+  "related_items": [
+    "galacticraft:compressed_desh",
+    "galacticraft:compressed_titanium",
+    "galacticraft:lead_ingot",
+    "galacticraft:carbon_fiber_plate",
+    "galacticraft:compressed_niobium"
+  ],
+  "required_research": "galacticraft:research/lunar_vacuum_metallurgy",
+  "tab": "materials",
+  "title_key": "manual.galacticraft.entry.advanced_composites.title"
+}

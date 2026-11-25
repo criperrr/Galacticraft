@@ -731,6 +731,7 @@ public class GCCreativeModeTabs {
 
                 output.accept(STANDARD_WRENCH);
                 output.accept(GRAPPLE_HOOK);
+                output.accept(AEROSPACE_MANUAL);
 
                 // ARMOR
                 output.accept(HEAVY_DUTY_HELMET);

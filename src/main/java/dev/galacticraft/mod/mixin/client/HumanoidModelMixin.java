@@ -25,6 +25,7 @@ package dev.galacticraft.mod.mixin.client;
 import dev.galacticraft.api.universe.celestialbody.CelestialBody;
 import dev.galacticraft.mod.content.entity.vehicle.AdvancedVehicle;
 import dev.galacticraft.mod.content.entity.vehicle.RocketEntity;
+import dev.galacticraft.mod.content.item.AerospaceManualItem;
 import dev.galacticraft.mod.content.item.RocketItem;
 import net.minecraft.client.model.AnimationUtils;
 import net.minecraft.client.model.EntityModel;
@@ -126,6 +127,32 @@ public abstract class HumanoidModelMixin<T extends LivingEntity> extends EntityM
                 float armZRot = 0.1F * Mth.PI;
                 this.leftArm.setRotation(armXRot, 0.0F, armZRot);
                 this.rightArm.setRotation(armXRot, 0.0F, -armZRot);
+            }
+        }
+
+        boolean mainTablet = entity.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof AerospaceManualItem;
+        boolean offTablet = entity.getItemInHand(InteractionHand.OFF_HAND).getItem() instanceof AerospaceManualItem;
+        if (mainTablet || offTablet) {
+            boolean isLocalOpen = entity == net.minecraft.client.Minecraft.getInstance().player
+                    && dev.galacticraft.mod.client.gui.screen.manual.AerospaceTabletAnimator.isAnimatingOrOpen();
+            if (isLocalOpen) {
+                // Both hands raised gripping the tablet ONLY while opened
+                this.leftArm.xRot = -0.92F;
+                this.leftArm.yRot = 0.34F;
+                this.leftArm.zRot = 0.06F;
+                this.rightArm.xRot = -0.92F;
+                this.rightArm.yRot = -0.34F;
+                this.rightArm.zRot = -0.06F;
+            } else {
+                // Idle: hold cleanly in ONE hand only
+                boolean rightHanded = entity.getMainArm() == HumanoidArm.RIGHT;
+                if ((mainTablet && rightHanded) || (offTablet && !rightHanded)) {
+                    this.rightArm.xRot = -0.78F;
+                    this.rightArm.yRot = -0.18F;
+                } else {
+                    this.leftArm.xRot = -0.78F;
+                    this.leftArm.yRot = 0.18F;
+                }
             }
         }
 

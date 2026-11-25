@@ -85,6 +85,7 @@ public class GCAdvancementProvider extends FabricAdvancementProvider {
                         false // Hidden in the advancement tab
                 )
                 .addCriterion("root", PlayerTrigger.TriggerInstance.tick())
+                .rewards(AdvancementRewards.Builder.loot(GCLootTableProvider.AEROSPACE_MANUAL_REWARD))
                 .save(consumer, Constant.MOD_ID + "/root");
 
         AdvancementHolder coalGeneratorAdvancement = Advancement.Builder.advancement().parent(rootAdvancement)

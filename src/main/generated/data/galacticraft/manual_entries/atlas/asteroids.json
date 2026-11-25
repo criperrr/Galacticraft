@@ -1,0 +1,56 @@
+{
+  "era": 3,
+  "icon_item": "galacticraft:ilmenite_ore",
+  "id": "galacticraft:atlas/asteroids",
+  "lock_hint_key": "manual.galacticraft.hint.lunar_deep_sky",
+  "order": 40,
+  "pages": [
+    {
+      "type": "planet_stratigraphy",
+      "body_id": "galacticraft:asteroid",
+      "hazards": "manual.galacticraft.atlas.asteroids.hazards",
+      "ores": [
+        {
+          "color": -8530948,
+          "label": "block.galacticraft.dense_ice",
+          "max_y": 110,
+          "min_y": 20,
+          "ore_item": "galacticraft:dense_ice",
+          "rarity": 3.2
+        },
+        {
+          "color": -3418655,
+          "label": "block.galacticraft.asteroid_iron_ore",
+          "max_y": 100,
+          "min_y": 10,
+          "ore_item": "galacticraft:asteroid_iron_ore",
+          "rarity": 3.5
+        },
+        {
+          "label": "block.galacticraft.ilmenite_ore",
+          "max_y": 96,
+          "min_y": 0,
+          "ore_item": "galacticraft:ilmenite_ore",
+          "rarity": 3.2
+        },
+        {
+          "color": -8286984,
+          "label": "block.galacticraft.asteroid_niobium_ore",
+          "max_y": 80,
+          "min_y": 0,
+          "ore_item": "galacticraft:asteroid_niobium_ore",
+          "rarity": 1.8
+        }
+      ],
+      "title": "manual.galacticraft.atlas.asteroids.title"
+    }
+  ],
+  "related_items": [
+    "galacticraft:ilmenite_ore",
+    "galacticraft:dense_ice",
+    "galacticraft:asteroid_iron_ore",
+    "galacticraft:asteroid_niobium_ore"
+  ],
+  "tab": "atlas",
+  "title_key": "manual.galacticraft.atlas.asteroids.title"
+}

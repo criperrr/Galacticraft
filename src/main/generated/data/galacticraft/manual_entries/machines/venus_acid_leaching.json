@@ -1,0 +1,43 @@
+{
+  "era": 4,
+  "icon_item": "galacticraft:chemical_leaching_plant",
+  "id": "galacticraft:machines/venus_acid_leaching",
+  "lock_hint_key": "manual.galacticraft.hint.venus_leaching",
+  "order": 60,
+  "pages": [
+    {
+      "type": "flowchart",
+      "caption": "manual.galacticraft.entry.acid_leaching.caption",
+      "steps": [
+        {
+          "color": -1395960,
+          "detail": "manual.galacticraft.flow.acid.d1",
+          "icon": "galacticraft:sulfuric_acid_bucket",
+          "title": "manual.galacticraft.flow.acid.s1"
+        },
+        {
+          "color": -429290,
+          "detail": "manual.galacticraft.flow.acid.d2",
+          "icon": "galacticraft:chemical_leaching_plant",
+          "title": "manual.galacticraft.flow.acid.s2"
+        },
+        {
+          "color": -15681151,
+          "detail": "manual.galacticraft.flow.acid.d3",
+          "icon": "galacticraft:niobium_oxide",
+          "title": "manual.galacticraft.flow.acid.s3"
+        }
+      ],
+      "title": "manual.galacticraft.entry.acid_leaching.flow_title"
+    }
+  ],
+  "related_items": [
+    "galacticraft:chemical_leaching_plant",
+    "galacticraft:sulfuric_acid_bucket",
+    "galacticraft:raw_niobium",
+    "galacticraft:raw_titanium"
+  ],
+  "required_research": "galacticraft:research/venus_acid_leaching",
+  "tab": "machines",
+  "title_key": "manual.galacticraft.entry.acid_leaching.title"
+}

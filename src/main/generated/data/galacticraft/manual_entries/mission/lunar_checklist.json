@@ -1,0 +1,76 @@
+{
+  "icon_item": "galacticraft:rocket_launch_pad",
+  "id": "galacticraft:mission/lunar_checklist",
+  "lock_hint_key": "manual.galacticraft.hint.era1_rocketry",
+  "order": 20,
+  "pages": [
+    {
+      "type": "text",
+      "body": "manual.galacticraft.entry.lunar_checklist.body1",
+      "callout": "manual.galacticraft.entry.lunar_checklist.warn1",
+      "callout_style": "warn",
+      "heading": "manual.galacticraft.entry.lunar_checklist.h1",
+      "link_entries": [
+        "galacticraft:machines/launch_pad_3d",
+        "galacticraft:atlas/moon"
+      ],
+      "showcase_items": [
+        "galacticraft:oxygen_mask",
+        "galacticraft:oxygen_gear",
+        "galacticraft:small_oxygen_tank",
+        "galacticraft:parachute"
+      ]
+    },
+    {
+      "type": "launch_checklist",
+      "requirements": [
+        {
+          "accepted_items": [
+            "galacticraft:oxygen_mask"
+          ],
+          "label": "manual.galacticraft.check.oxygen_mask"
+        },
+        {
+          "accepted_items": [
+            "galacticraft:oxygen_gear"
+          ],
+          "label": "manual.galacticraft.check.oxygen_gear"
+        },
+        {
+          "accepted_items": [
+            "galacticraft:small_oxygen_tank",
+            "galacticraft:medium_oxygen_tank",
+            "galacticraft:large_oxygen_tank",
+            "galacticraft:infinite_oxygen_tank"
+          ],
+          "label": "manual.galacticraft.check.oxygen_tank"
+        },
+        {
+          "accepted_items": [
+            "galacticraft:parachute"
+          ],
+          "label": "manual.galacticraft.check.parachute"
+        },
+        {
+          "accepted_items": [
+            "galacticraft:fuel_bucket",
+            "galacticraft:fluid_canister"
+          ],
+          "critical": false,
+          "label": "manual.galacticraft.check.return_fuel"
+        }
+      ],
+      "target_body": "galacticraft:moon",
+      "title": "manual.galacticraft.entry.lunar_checklist.check_title"
+    }
+  ],
+  "related_items": [
+    "galacticraft:oxygen_mask",
+    "galacticraft:oxygen_gear",
+    "galacticraft:small_oxygen_tank",
+    "galacticraft:parachute",
+    "galacticraft:fuel_bucket"
+  ],
+  "tab": "mission",
+  "title_key": "manual.galacticraft.entry.lunar_checklist.title"
+}

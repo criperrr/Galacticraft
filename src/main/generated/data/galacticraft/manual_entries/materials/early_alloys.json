@@ -1,0 +1,28 @@
+{
+  "icon_item": "galacticraft:compressed_ferroniobium",
+  "id": "galacticraft:materials/early_alloys",
+  "lock_hint_key": "manual.galacticraft.hint.ferroniobium",
+  "order": 20,
+  "pages": [
+    {
+      "type": "part_material",
+      "materials": [
+        "galacticraft:compressed_aluminum",
+        "galacticraft:compressed_bronze",
+        "galacticraft:compressed_steel",
+        "galacticraft:compressed_ferroniobium",
+        "galacticraft:compressed_meteoric_iron"
+      ],
+      "title": "manual.galacticraft.entry.early_alloys.list_title"
+    }
+  ],
+  "related_items": [
+    "galacticraft:compressed_aluminum",
+    "galacticraft:compressed_bronze",
+    "galacticraft:compressed_steel",
+    "galacticraft:compressed_ferroniobium",
+    "galacticraft:compressed_meteoric_iron"
+  ],
+  "tab": "materials",
+  "title_key": "manual.galacticraft.entry.early_alloys.title"
+}

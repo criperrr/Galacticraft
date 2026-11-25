@@ -1,0 +1,39 @@
+{
+  "icon_item": "galacticraft:aerospace_manual",
+  "id": "galacticraft:mission/getting_started",
+  "order": 10,
+  "pages": [
+    {
+      "type": "text",
+      "body": "manual.galacticraft.entry.getting_started.body1",
+      "callout": "manual.galacticraft.entry.getting_started.tip1",
+      "callout_style": "tip",
+      "heading": "manual.galacticraft.entry.getting_started.h1",
+      "link_entries": [
+        "galacticraft:mission/lunar_checklist",
+        "galacticraft:machines/niobium_metallurgy",
+        "galacticraft:materials/flight_simulator"
+      ],
+      "showcase_items": [
+        "galacticraft:research_workbench",
+        "galacticraft:compressor",
+        "galacticraft:circuit_fabricator",
+        "galacticraft:aerospace_rd_terminal"
+      ]
+    },
+    {
+      "type": "crafting",
+      "caption": "manual.galacticraft.entry.getting_started.craft_manual_cap",
+      "recipe_id": "galacticraft:aerospace_manual",
+      "title": "manual.galacticraft.entry.getting_started.craft_manual"
+    }
+  ],
+  "related_items": [
+    "galacticraft:aerospace_manual",
+    "galacticraft:research_workbench",
+    "galacticraft:aerospace_rd_terminal",
+    "galacticraft:raw_niobium"
+  ],
+  "tab": "mission",
+  "title_key": "manual.galacticraft.entry.getting_started.title"
+}

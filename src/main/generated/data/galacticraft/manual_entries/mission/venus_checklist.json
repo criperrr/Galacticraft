@@ -1,0 +1,44 @@
+{
+  "era": 4,
+  "icon_item": "galacticraft:isothermal_padding_chestpiece",
+  "id": "galacticraft:mission/venus_checklist",
+  "lock_hint_key": "manual.galacticraft.hint.venus_hyperbaric",
+  "order": 40,
+  "pages": [
+    {
+      "type": "launch_checklist",
+      "requirements": [
+        {
+          "accepted_items": [
+            "galacticraft:isothermal_padding_chestpiece"
+          ],
+          "label": "manual.galacticraft.check.isothermal_t2"
+        },
+        {
+          "accepted_items": [
+            "galacticraft:lead_ingot",
+            "galacticraft:lonsdaleite_gem"
+          ],
+          "label": "manual.galacticraft.check.lead_shielding"
+        },
+        {
+          "accepted_items": [
+            "galacticraft:large_oxygen_tank",
+            "galacticraft:infinite_oxygen_tank"
+          ],
+          "label": "manual.galacticraft.check.oxygen_tank"
+        }
+      ],
+      "target_body": "galacticraft:venus",
+      "title": "manual.galacticraft.entry.venus_checklist.check_title"
+    }
+  ],
+  "related_items": [
+    "galacticraft:isothermal_padding_chestpiece",
+    "galacticraft:lead_ingot",
+    "galacticraft:shield_controller"
+  ],
+  "required_research": "galacticraft:research/venus_hyperbaric_hulls",
+  "tab": "mission",
+  "title_key": "manual.galacticraft.entry.venus_checklist.title"
+}

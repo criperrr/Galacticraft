@@ -1,0 +1,48 @@
+{
+  "era": 5,
+  "icon_item": "galacticraft:saturn_magnesium_ore",
+  "id": "galacticraft:atlas/saturn",
+  "lock_hint_key": "manual.galacticraft.hint.outer_ephemeris",
+  "order": 80,
+  "pages": [
+    {
+      "type": "planet_stratigraphy",
+      "body_id": "galacticraft:saturn",
+      "hazards": "manual.galacticraft.atlas.saturn.hazards",
+      "ores": [
+        {
+          "color": -4528387,
+          "label": "block.galacticraft.saturn_ring_ice_rock",
+          "max_y": 88,
+          "min_y": 24,
+          "ore_item": "galacticraft:saturn_ring_ice_rock",
+          "rarity": 3.0
+        },
+        {
+          "color": -7934036,
+          "label": "block.galacticraft.saturn_magnesium_ore",
+          "max_y": 44,
+          "min_y": -24,
+          "ore_item": "galacticraft:saturn_magnesium_ore",
+          "rarity": 3.2
+        },
+        {
+          "color": -14494738,
+          "label": "block.galacticraft.saturn_helium_mantle_rock",
+          "max_y": 0,
+          "min_y": -60,
+          "ore_item": "galacticraft:saturn_helium_mantle_rock",
+          "rarity": 3.5
+        }
+      ],
+      "title": "manual.galacticraft.atlas.saturn.title"
+    }
+  ],
+  "related_items": [
+    "galacticraft:saturn_magnesium_ore",
+    "galacticraft:saturn_ring_ice_rock",
+    "galacticraft:saturn_helium_mantle_rock"
+  ],
+  "tab": "atlas",
+  "title_key": "manual.galacticraft.atlas.saturn.title"
+}

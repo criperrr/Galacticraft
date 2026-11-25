@@ -571,6 +571,19 @@ public class GCMiscRecipeProvider extends FabricRecipeProvider {
                 .requires(GCItemTags.PARACHUTES)
                 .unlockedBy("has_parachute", has(GCItemTags.PARACHUTES))
                 .save(output);
+
+        GCShapelessRecipeBuilder.crafting(RecipeCategory.MISC, GCItems.AEROSPACE_MANUAL)
+                .requires(Items.BOOK)
+                .requires(GCItems.RAW_NIOBIUM)
+                .unlockedBy(getHasName(Items.BOOK), has(Items.BOOK))
+                .emiDefaultRecipe(true)
+                .save(output);
+
+        GCShapelessRecipeBuilder.crafting(RecipeCategory.MISC, GCItems.AEROSPACE_MANUAL)
+                .requires(Items.BOOK)
+                .requires(GCItemTags.ALUMINUM_INGOTS)
+                .unlockedBy(getHasName(GCItems.ALUMINUM_INGOT), has(GCItemTags.ALUMINUM_INGOTS))
+                .save(output, Constant.id("aerospace_manual_from_aluminum"));
     }
 
     @Override

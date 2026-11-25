@@ -1,0 +1,49 @@
+{
+  "era": 5,
+  "icon_item": "galacticraft:helium3_fusion_reactor",
+  "id": "galacticraft:machines/helium3_fusion",
+  "lock_hint_key": "manual.galacticraft.hint.helium3_fusion",
+  "order": 70,
+  "pages": [
+    {
+      "type": "flowchart",
+      "caption": "manual.galacticraft.entry.helium3_fusion.caption",
+      "steps": [
+        {
+          "detail": "manual.galacticraft.flow.he3.d1",
+          "icon": "galacticraft:regolith_thermal_desorber",
+          "title": "manual.galacticraft.flow.he3.s1"
+        },
+        {
+          "color": -5745161,
+          "detail": "manual.galacticraft.flow.he3.d2",
+          "icon": "galacticraft:isotopic_centrifuge",
+          "title": "manual.galacticraft.flow.he3.s2"
+        },
+        {
+          "color": -14494738,
+          "detail": "manual.galacticraft.flow.he3.d3",
+          "icon": "galacticraft:helium3_fusion_cell",
+          "title": "manual.galacticraft.flow.he3.s3"
+        },
+        {
+          "color": -15681151,
+          "detail": "manual.galacticraft.flow.he3.d4",
+          "icon": "galacticraft:helium3_fusion_reactor",
+          "title": "manual.galacticraft.flow.he3.s4"
+        }
+      ],
+      "title": "manual.galacticraft.entry.helium3_fusion.flow_title"
+    }
+  ],
+  "related_items": [
+    "galacticraft:regolith_thermal_desorber",
+    "galacticraft:isotopic_centrifuge",
+    "galacticraft:helium3_cell",
+    "galacticraft:helium3_fusion_cell",
+    "galacticraft:helium3_fusion_reactor"
+  ],
+  "required_research": "galacticraft:research/zero_g_aneutronic_mhd_fusion",
+  "tab": "machines",
+  "title_key": "manual.galacticraft.entry.helium3_fusion.title"
+}

@@ -1,0 +1,42 @@
+{
+  "icon_item": "galacticraft:rocket_launch_pad",
+  "id": "galacticraft:machines/launch_pad_3d",
+  "lock_hint_key": "manual.galacticraft.hint.era1_rocketry",
+  "order": 10,
+  "pages": [
+    {
+      "type": "multiblock_3d",
+      "caption": "manual.galacticraft.entry.launch_pad_3d.caption",
+      "layers": [
+        [
+          "PPP",
+          "PPP",
+          "PPP"
+        ],
+        [
+          "   ",
+          "   ",
+          "  F"
+        ]
+      ],
+      "palette": {
+        "F": "galacticraft:fuel_loader",
+        "P": "galacticraft:rocket_launch_pad"
+      },
+      "title": "manual.galacticraft.entry.launch_pad_3d.mb_title"
+    },
+    {
+      "type": "crafting",
+      "caption": "manual.galacticraft.entry.launch_pad_3d.recipe_cap",
+      "recipe_id": "galacticraft:rocket_launch_pad",
+      "title": "manual.galacticraft.entry.launch_pad_3d.recipe"
+    }
+  ],
+  "related_items": [
+    "galacticraft:rocket_launch_pad",
+    "galacticraft:fuel_loader",
+    "galacticraft:reinforced_launch_pad"
+  ],
+  "tab": "machines",
+  "title_key": "manual.galacticraft.entry.launch_pad_3d.title"
+}
