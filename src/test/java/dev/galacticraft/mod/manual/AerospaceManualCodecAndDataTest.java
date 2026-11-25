@@ -182,4 +182,44 @@ class AerospaceManualCodecAndDataTest {
         assertTrue(decoded.result().isPresent(), "Failed to decode ManualReaderAttachment: " + decoded.error());
         assertEquals(state, decoded.result().get());
     }
+
+    @Test
+    void planetarySurveyPrecisionTightensProgressivelyWithResearchAndMachines() {
+        ResourceLocation mars = Constant.id("mars");
+        PlanetarySurveyPrecision tier0 = PlanetarySurveyPrecision.evaluate(mars, false, List.of(), List.of(), Set.of());
+        assertEquals(PlanetarySurveyPrecision.TIER_THEORETICAL, tier0.tier());
+        assertFalse(tier0.isExact());
+        assertTrue(tier0.oreYUncertainty() > 15);
+        assertTrue(tier0.formatGravity(dev.galacticraft.mod.content.rocket.physics.PlanetaryEnvironment.MARS).contains("-"));
+
+        PlanetarySurveyPrecision tier1 = PlanetarySurveyPrecision.evaluate(mars, true, List.of(), List.of(), Set.of());
+        assertEquals(PlanetarySurveyPrecision.TIER_OPTICAL, tier1.tier());
+        assertTrue(tier1.precisionPct() > tier0.precisionPct());
+        assertTrue(tier1.errorFraction() < tier0.errorFraction());
+        assertTrue(tier1.oreYUncertainty() < tier0.oreYUncertainty());
+
+        PlanetarySurveyPrecision tier2 = PlanetarySurveyPrecision.evaluate(
+                mars,
+                true,
+                List.of(),
+                List.of(),
+                Set.of(ResearchCatalog.MARTIAN_SABATIER_ISRU)
+        );
+        assertEquals(PlanetarySurveyPrecision.TIER_TELEMETRY, tier2.tier());
+        assertTrue(tier2.precisionPct() > tier1.precisionPct());
+        assertTrue(tier2.errorFraction() < tier1.errorFraction());
+
+        PlanetarySurveyPrecision tier3 = PlanetarySurveyPrecision.evaluate(
+                mars,
+                true,
+                List.of(),
+                List.of(),
+                Set.of(ResearchCatalog.MARTIAN_SABATIER_ISRU, ResearchCatalog.MARTIAN_DESH_ELASTOMERS)
+        );
+        assertEquals(PlanetarySurveyPrecision.TIER_VERIFIED, tier3.tier());
+        assertTrue(tier3.isExact());
+        assertEquals(100, tier3.precisionPct());
+        assertEquals(0, tier3.oreYUncertainty());
+        assertFalse(tier3.formatGravity(dev.galacticraft.mod.content.rocket.physics.PlanetaryEnvironment.MARS).contains("-"));
+    }
 }
