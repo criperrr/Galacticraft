@@ -228,6 +228,7 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
     private TerminalButton triggerAnimButton;
     private TerminalButton toggleHatchButton;
     private TerminalButton creativeFillButton;
+    private TerminalButton launchRocketButton;
     private TerminalButton axisGuideButton;
 
     // Pre-flight emergent physics destination simulator index (defaults to Moon = 1)
@@ -502,6 +503,21 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
                 Component.empty(),
                 ButtonStyle.STANDARD,
                 btn -> this.sendAction(Action.TOGGLE_CROSSFEED, 0)
+        ));
+
+        this.launchRocketButton = this.addRenderableWidget(new TerminalButton(
+                rx, ry + 94, rw, 16,
+                Component.literal("Lançar (T-10s)"),
+                ButtonStyle.PRIMARY_ASSEMBLE,
+                btn -> {
+                    HangarTerminalBlockEntity be = this.menu.blockEntity;
+                    if (be != null && be.isLaunchSequenceActive()) {
+                        this.sendAction(Action.ABORT_LAUNCH, 0);
+                    } else {
+                        this.sendAction(Action.START_LAUNCH, 0);
+                        this.onClose();
+                    }
+                }
         ));
 
         this.triggerAnimButton = this.addRenderableWidget(new TerminalButton(
@@ -867,6 +883,21 @@ public class HangarTerminalScreen extends AbstractContainerScreen<HangarTerminal
             this.crossfeedButton.active = assemblyTab;
             boolean asparagus = be.getSelectedCrossfeed() == CrossfeedMode.CONTINUOUS_CROSSFEED;
             this.crossfeedButton.setMessage(Component.literal(asparagus ? "Asp:ON" : "Asp:OFF"));
+        }
+        if (this.launchRocketButton != null) {
+            boolean showLaunch = rocketTab && hasMounted && be.isRocketAssembled();
+            this.launchRocketButton.visible = showLaunch;
+            boolean launching = be.isLaunchSequenceActive();
+            this.launchRocketButton.active = showLaunch && !assembling;
+            if (launching) {
+                this.launchRocketButton.setStyle(ButtonStyle.DANGER_DISASSEMBLE);
+                this.launchRocketButton.setMessage(Component.literal(
+                        String.format(java.util.Locale.ROOT, "ABORTAR (T-%.1fs)", be.getLaunchCountdownSeconds())
+                ));
+            } else {
+                this.launchRocketButton.setStyle(ButtonStyle.PRIMARY_ASSEMBLE);
+                this.launchRocketButton.setMessage(Component.literal("Lançar (T-10s)"));
+            }
         }
         if (this.triggerAnimButton != null) {
             this.triggerAnimButton.visible = rocketTab && hasMounted;

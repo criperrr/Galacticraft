@@ -39,6 +39,8 @@ import dev.galacticraft.mod.client.render.dimension.GCDimensionEffects;
 import dev.galacticraft.mod.client.render.entity.*;
 import dev.galacticraft.mod.client.render.entity.feature.*;
 import dev.galacticraft.mod.client.render.entity.model.GCEntityModelLayer;
+import dev.galacticraft.mod.client.render.entity.rocket.DetachedStageEntityRenderer;
+import dev.galacticraft.mod.client.render.entity.rocket.ModularRocketFlightEntityRenderer;
 import dev.galacticraft.mod.client.render.entity.rocket.RocketEntityRenderer;
 import dev.galacticraft.mod.client.render.item.FlagItemRenderer;
 import dev.galacticraft.mod.client.render.item.RocketItemRenderer;
@@ -187,6 +189,8 @@ public class GalacticraftClient implements ClientModInitializer {
         EntityRendererRegistry.register(GCEntityTypes.FALLING_METEOR, FallingMeteorRenderer::new);
         EntityRendererRegistry.register(GCEntityTypes.BUBBLE, BubbleEntityRenderer::new);
         EntityRendererRegistry.register(GCEntityTypes.ROCKET, RocketEntityRenderer::new);
+        EntityRendererRegistry.register(GCEntityTypes.MODULAR_ROCKET_FLIGHT, ModularRocketFlightEntityRenderer::new);
+        EntityRendererRegistry.register(GCEntityTypes.DETACHED_STAGE, DetachedStageEntityRenderer::new);
         EntityRendererRegistry.register(GCEntityTypes.LANDER, LanderEntityRenderer::new);
         EntityRendererRegistry.register(GCEntityTypes.BUGGY, BuggyRenderer::new);
         EntityRendererRegistry.register(GCEntityTypes.PARACHEST, ParachestRenderer::new);

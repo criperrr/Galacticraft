@@ -31,7 +31,9 @@ import dev.galacticraft.impl.universe.celestialbody.landable.teleporter.config.D
 import dev.galacticraft.mod.attachments.GCServerPlayer;
 import dev.galacticraft.mod.content.GCEntityTypes;
 import dev.galacticraft.mod.content.entity.ParachestEntity;
+import dev.galacticraft.mod.content.entity.vehicle.ModularRocketFlightEntity;
 import dev.galacticraft.mod.content.item.ParachuteItem;
+import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -40,6 +42,9 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
+
+import java.util.List;
+import java.util.Map;
 
 public class OverworldCelestialTeleporterType<Config extends CelestialTeleporterConfig> extends CelestialTeleporterType<Config> {
     public static final OverworldCelestialTeleporterType<DefaultCelestialTeleporterConfig> INSTANCE = new OverworldCelestialTeleporterType<>(DefaultCelestialTeleporterConfig.CODEC);
@@ -50,6 +55,31 @@ public class OverworldCelestialTeleporterType<Config extends CelestialTeleporter
 
     @Override
     public void onEnterAtmosphere(ServerLevel level, Entity entity, CelestialBody<?, ?> body, CelestialBody<?, ?> fromBody, Config config) {
+        if (entity instanceof ServerPlayer player) {
+            GCServerPlayer gcPlayer = GCServerPlayer.get(player);
+            if (gcPlayer.hasModularRocketGraph()) {
+                double entryY = level.getMaxBuildHeight() + 96.0;
+                player.teleportTo(level, player.getX(), entryY, player.getZ(), NO_RELATIVE_MOVEMENT, 0.0F, 0.0F);
+                ModularRocketFlightEntity descentRocket = new ModularRocketFlightEntity(GCEntityTypes.MODULAR_ROCKET_FLIGHT, level);
+                descentRocket.setPos(player.getX(), entryY, player.getZ());
+                descentRocket.initializeFlightState(
+                        gcPlayer.getModularRocketGraph(),
+                        gcPlayer.getModularRocketEnergy(),
+                        gcPlayer.getModularRocketOxygen(),
+                        Direction.NORTH,
+                        null,
+                        level.getSeaLevel(),
+                        ModularRocketFlightEntity.FlightPhase.RETRO_DESCENT,
+                        List.of(player.getUUID()),
+                        Map.of()
+                );
+                gcPlayer.clearModularRocketState();
+                if (level.addFreshEntity(descentRocket)) {
+                    player.startRiding(descentRocket, true);
+                    return;
+                }
+            }
+        }
         if (entity instanceof ServerPlayer player && body.config() instanceof PlanetConfig planetConfig) {
             Vec3 chestSpawn = planetConfig.celestialHandler().getParachestSpawnLocation(player.serverLevel(), player, player.getRandom());
             if (chestSpawn != null) {

@@ -24,15 +24,18 @@ package dev.galacticraft.mod.content.entity.data;
 
 import dev.galacticraft.api.rocket.LaunchStage;
 import dev.galacticraft.api.rocket.RocketData;
+import dev.galacticraft.api.rocket.assembly.RocketAssemblyGraph;
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.network.syncher.EntityDataSerializers;
 
 public class GCEntityDataSerializers {
     public static final EntityDataSerializer<RocketData> ROCKET_DATA = EntityDataSerializer.forValueType(RocketData.STREAM_CODEC);
     public static final EntityDataSerializer<LaunchStage> LAUNCH_STAGE = EntityDataSerializer.forValueType(LaunchStage.STREAM_CODEC);
+    public static final EntityDataSerializer<RocketAssemblyGraph> ROCKET_ASSEMBLY_GRAPH = EntityDataSerializer.forValueType(RocketAssemblyGraph.STREAM_CODEC);
 
     public static void register() {
         EntityDataSerializers.registerSerializer(ROCKET_DATA);
         EntityDataSerializers.registerSerializer(LAUNCH_STAGE);
+        EntityDataSerializers.registerSerializer(ROCKET_ASSEMBLY_GRAPH);
     }
 }

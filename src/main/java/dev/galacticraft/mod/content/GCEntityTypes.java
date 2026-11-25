@@ -30,7 +30,9 @@ import dev.galacticraft.mod.content.entity.boss.SkeletonBoss;
 import dev.galacticraft.mod.content.entity.evolved.*;
 import dev.galacticraft.mod.content.entity.moon.*;
 import dev.galacticraft.mod.content.entity.vehicle.Buggy;
+import dev.galacticraft.mod.content.entity.vehicle.DetachedStageEntity;
 import dev.galacticraft.mod.content.entity.vehicle.LanderEntity;
+import dev.galacticraft.mod.content.entity.vehicle.ModularRocketFlightEntity;
 import dev.galacticraft.mod.content.entity.vehicle.RocketEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -155,6 +157,26 @@ public class GCEntityTypes {
             .sized(2.3F, 5.25F)
             .eyeHeight(2.525F)
             .build()); //PLAYER VALUES
+    public static final EntityType<ModularRocketFlightEntity> MODULAR_ROCKET_FLIGHT = ENTITIES.register(
+            Entity.MODULAR_ROCKET_FLIGHT,
+            EntityType.Builder.<ModularRocketFlightEntity>of(ModularRocketFlightEntity::new, MobCategory.MISC)
+                    .clientTrackingRange(128)
+                    .updateInterval(1)
+                    .alwaysUpdateVelocity(true)
+                    .fireImmune()
+                    .sized(3.0F, 8.0F)
+                    .build()
+    );
+    public static final EntityType<DetachedStageEntity> DETACHED_STAGE = ENTITIES.register(
+            Entity.DETACHED_STAGE,
+            EntityType.Builder.<DetachedStageEntity>of(DetachedStageEntity::new, MobCategory.MISC)
+                    .clientTrackingRange(128)
+                    .updateInterval(2)
+                    .alwaysUpdateVelocity(true)
+                    .fireImmune()
+                    .sized(2.0F, 4.0F)
+                    .build()
+    );
     public static final EntityType<LanderEntity> LANDER = ENTITIES.register(Entity.LANDER, EntityType.Builder.<LanderEntity>of(LanderEntity::new, MobCategory.MISC)
             .clientTrackingRange(32)
             .sized(2.5F, 4F)

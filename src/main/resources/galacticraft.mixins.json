@@ -66,6 +66,7 @@
     "client.LivingEntityRendererMixin",
     "client.LocalPlayerMixin",
     "client.MinecraftMixin",
+    "client.ModularRocketCameraMixin",
     "client.MouseHandlerMixin",
     "client.ParrotOnShoulderLayerMixin",
     "client.PauseMenuScreenMixin",

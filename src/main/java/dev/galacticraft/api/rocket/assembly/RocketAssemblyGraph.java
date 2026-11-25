@@ -142,6 +142,106 @@ public record RocketAssemblyGraph(
         return recomputeEnvelope(updated, this.crewSeats, this.hasLandingGear, this.hasLesAbort, this.hasFairing);
     }
 
+    public @NotNull RocketAssemblyGraph withUpdatedStage(@NotNull RocketStageNode updatedStage) {
+        Objects.requireNonNull(updatedStage, "updatedStage");
+        List<RocketStageNode> updated = new ArrayList<>(this.stages.size());
+        for (RocketStageNode stage : this.stages) {
+            updated.add(stage.stageIndex() == updatedStage.stageIndex() ? updatedStage : stage);
+        }
+        return new RocketAssemblyGraph(
+                updated,
+                this.crewSeats,
+                this.totalHeightBlocks,
+                this.maxRadiusBlocks,
+                this.hasLandingGear,
+                this.hasLesAbort,
+                this.hasFairing
+        );
+    }
+
+    /**
+     * Returns a copy of this graph with all aerodynamic fairing parts stripped from active stages
+     * and {@link #hasFairing()} set to {@code false} (used during automatic fairing jettison).
+     */
+    public @NotNull RocketAssemblyGraph withoutFairings() {
+        if (!this.hasFairing) {
+            return this;
+        }
+        List<RocketStageNode> updated = new ArrayList<>(this.stages.size());
+        for (RocketStageNode stage : this.stages) {
+            if (stage.decoupled()) {
+                updated.add(stage);
+                continue;
+            }
+            List<MountedPartNode> keptCore = new ArrayList<>(stage.coreParts().size());
+            for (MountedPartNode part : stage.coreParts()) {
+                if (!isFairingPart(part)) {
+                    keptCore.add(part);
+                }
+            }
+            updated.add(stage.withCoreParts(keptCore));
+        }
+        return recomputeEnvelope(updated, this.crewSeats, this.hasLandingGear, this.hasLesAbort, false);
+    }
+
+    /**
+     * Returns a copy of this graph retaining only the top stage containing command/capsule parts
+     * for emergency Launch Escape System (LES) abort separation.
+     */
+    public @NotNull RocketAssemblyGraph forLesAbortCapsule() {
+        RocketStageNode commandStage = null;
+        for (int i = this.stages.size() - 1; i >= 0; i--) {
+            RocketStageNode stage = this.stages.get(i);
+            if (!stage.decoupled()) {
+                for (MountedPartNode part : stage.coreParts()) {
+                    if (part.config().category() == dev.galacticraft.api.rocket.part.modular.RocketPartCategory.COMMAND) {
+                        commandStage = stage;
+                        break;
+                    }
+                }
+            }
+            if (commandStage != null) {
+                break;
+            }
+        }
+        if (commandStage == null) {
+            return this;
+        }
+        List<MountedPartNode> capsuleParts = new ArrayList<>();
+        for (MountedPartNode part : commandStage.coreParts()) {
+            String family = part.config().familyId().toLowerCase(java.util.Locale.ROOT);
+            if (part.config().category() == dev.galacticraft.api.rocket.part.modular.RocketPartCategory.COMMAND
+                    || family.contains("parachute")
+                    || family.contains("les")
+                    || family.contains("abort")
+                    || family.contains("docking")
+                    || family.contains("heat_shield")
+                    || family.contains("heatshield")) {
+                capsuleParts.add(part);
+            }
+        }
+        if (capsuleParts.isEmpty()) {
+            capsuleParts.addAll(commandStage.coreParts());
+        }
+        RocketStageNode isolatedCapsule = new RocketStageNode(
+                0,
+                java.util.Optional.empty(),
+                false,
+                "solid",
+                0L,
+                0L,
+                capsuleParts,
+                List.of(),
+                false
+        );
+        return recomputeEnvelope(List.of(isolatedCapsule), this.crewSeats, false, false, false);
+    }
+
+    public static boolean isFairingPart(@NotNull MountedPartNode part) {
+        String id = (part.config().familyId() + "_" + part.config().modelId()).toLowerCase(java.util.Locale.ROOT);
+        return id.contains("fairing_nose_cone") || id.contains("fairing_barrel") || id.contains("fairing_");
+    }
+
     private static @NotNull RocketAssemblyGraph recomputeEnvelope(
             List<RocketStageNode> stages,
             List<LocalSeatOffset> crewSeats,

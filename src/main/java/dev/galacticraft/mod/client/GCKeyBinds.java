@@ -29,7 +29,9 @@ import dev.galacticraft.mod.client.gui.screen.ingame.CelestialSelectionScreen;
 import dev.galacticraft.mod.client.gui.screen.manual.AerospaceManualScreen;
 import dev.galacticraft.mod.client.gui.screen.manual.ResearchUnlockToast;
 import dev.galacticraft.mod.client.render.rocket.part.RocketPartPlacementPreviewRenderer;
+import dev.galacticraft.mod.content.entity.vehicle.ModularRocketFlightEntity;
 import dev.galacticraft.mod.content.item.ModularRocketPartBlockItem;
+import dev.galacticraft.mod.network.c2s.ModularRocketControlPayload;
 import dev.galacticraft.mod.network.c2s.UpdateManualStatePayload;
 import dev.galacticraft.mod.util.Translations;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -47,22 +49,48 @@ public class GCKeyBinds {
     public static final KeyMapping OPEN_ROCKET_INVENTORY = new KeyMapping(Translations.Keybindings.ROCKET_INVENTORY, GLFW.GLFW_KEY_F, KeyMapping.CATEGORY_INVENTORY);
     public static final KeyMapping OPEN_AEROSPACE_MANUAL = new KeyMapping(Translations.Keybindings.OPEN_AEROSPACE_MANUAL, GLFW.GLFW_KEY_G, KeyMapping.CATEGORY_MISC);
     public static final KeyMapping CYCLE_ROCKET_SYMMETRY = new KeyMapping("key.galacticraft.cycle_rocket_symmetry", GLFW.GLFW_KEY_R, KeyMapping.CATEGORY_MISC);
+    public static final KeyMapping ROCKET_LES_ABORT = new KeyMapping("key.galacticraft.rocket_les_abort", GLFW.GLFW_KEY_BACKSPACE, KeyMapping.CATEGORY_MISC);
+    public static final KeyMapping ROCKET_LANDING_GEAR = new KeyMapping("key.galacticraft.rocket_landing_gear", GLFW.GLFW_KEY_L, KeyMapping.CATEGORY_MISC);
 
     public static void register() {
         KeyBindingHelper.registerKeyBinding(OPEN_CELESTIAL_SCREEN);
         KeyBindingHelper.registerKeyBinding(OPEN_ROCKET_INVENTORY);
         KeyBindingHelper.registerKeyBinding(OPEN_AEROSPACE_MANUAL);
         KeyBindingHelper.registerKeyBinding(CYCLE_ROCKET_SYMMETRY);
+        KeyBindingHelper.registerKeyBinding(ROCKET_LES_ABORT);
+        KeyBindingHelper.registerKeyBinding(ROCKET_LANDING_GEAR);
     }
 
     public static void handleKeybinds(Minecraft client) {
         if (client.level != null && client.player != null) {
             if (client.screen == null) {
+                ModularRocketFlightEntity modularRocket = client.player.getVehicle() instanceof ModularRocketFlightEntity r ? r : null;
+                if (modularRocket != null) {
+                    while (ROCKET_LES_ABORT.consumeClick()) {
+                        ClientPlayNetworking.send(new ModularRocketControlPayload(
+                                modularRocket.getId(), 0.0F, 0.0F, 0.0F, ModularRocketControlPayload.FLAG_LES_ABORT));
+                    }
+                    while (ROCKET_LANDING_GEAR.consumeClick()) {
+                        ClientPlayNetworking.send(new ModularRocketControlPayload(
+                                modularRocket.getId(), 0.0F, 0.0F, 0.0F, ModularRocketControlPayload.FLAG_TOGGLE_LANDING_GEAR));
+                    }
+                } else {
+                    while (ROCKET_LES_ABORT.consumeClick()) {
+                    }
+                    while (ROCKET_LANDING_GEAR.consumeClick()) {
+                    }
+                }
                 while (OPEN_CELESTIAL_SCREEN.consumeClick()) {
                     client.setScreen(new CelestialSelectionScreen(true, null, false, null, null));
                 }
                 while (OPEN_AEROSPACE_MANUAL.consumeClick()) {
-                    if (Screen.hasShiftDown()) {
+                    if (modularRocket != null) {
+                        int flag = Screen.hasShiftDown()
+                                ? ModularRocketControlPayload.FLAG_TOGGLE_AUTOPILOT
+                                : ModularRocketControlPayload.FLAG_MANUAL_STAGE;
+                        ClientPlayNetworking.send(new ModularRocketControlPayload(
+                                modularRocket.getId(), 0.0F, 0.0F, 0.0F, flag));
+                    } else if (Screen.hasShiftDown()) {
                         ManualReaderAttachment current = client.player.getAttached(GCAttachments.MANUAL_READER);
                         if (current != null && current.pinnedMission().isPresent()) {
                             client.player.setAttached(GCAttachments.MANUAL_READER, current.withPinCollapsedToggled());
