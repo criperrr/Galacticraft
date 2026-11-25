@@ -51,7 +51,6 @@
     "galacticraft:mercury_native_iron_ore",
     "galacticraft:mercury_graphite_ore"
   ],
-  "required_research": "galacticraft:research/lunar_deep_sky_survey",
   "tab": "atlas",
   "title_key": "manual.galacticraft.atlas.mercury.title"
 }

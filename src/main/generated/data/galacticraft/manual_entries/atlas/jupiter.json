@@ -42,7 +42,6 @@
     "galacticraft:jupiter_niobium_ore",
     "galacticraft:jupiter_metallic_hydrogen_rock"
   ],
-  "required_research": "galacticraft:research/outer_system_ephemeris",
   "tab": "atlas",
   "title_key": "manual.galacticraft.atlas.jupiter.title"
 }

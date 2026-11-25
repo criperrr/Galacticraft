@@ -43,7 +43,6 @@
     "galacticraft:saturn_ring_ice_rock",
     "galacticraft:saturn_helium_mantle_rock"
   ],
-  "required_research": "galacticraft:research/outer_system_ephemeris",
   "tab": "atlas",
   "title_key": "manual.galacticraft.atlas.saturn.title"
 }

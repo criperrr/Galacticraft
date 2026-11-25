@@ -52,7 +52,6 @@
     "galacticraft:mars_titanium_ore",
     "galacticraft:mars_niobium_ore"
   ],
-  "required_research": "galacticraft:research/lunar_deep_sky_survey",
   "tab": "atlas",
   "title_key": "manual.galacticraft.atlas.mars.title"
 }

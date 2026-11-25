@@ -43,7 +43,6 @@
     "galacticraft:neptune_titanium_ore",
     "galacticraft:neptune_abyssal_mantle_rock"
   ],
-  "required_research": "galacticraft:research/outer_system_ephemeris",
   "tab": "atlas",
   "title_key": "manual.galacticraft.atlas.neptune.title"
 }

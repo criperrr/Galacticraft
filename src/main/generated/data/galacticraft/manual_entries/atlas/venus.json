@@ -52,7 +52,6 @@
     "galacticraft:solar_ore",
     "galacticraft:venus_niobium_ore"
   ],
-  "required_research": "galacticraft:research/lunar_deep_sky_survey",
   "tab": "atlas",
   "title_key": "manual.galacticraft.atlas.venus.title"
 }
