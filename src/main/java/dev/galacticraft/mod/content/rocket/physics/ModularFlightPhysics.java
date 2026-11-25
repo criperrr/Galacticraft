@@ -301,7 +301,7 @@ public final class ModularFlightPhysics {
     }
 
     /**
-     * Result of a single propulsion & propellant-drain tick on the active {@link RocketStageNode}.
+     * Result of a single propulsion &amp; propellant-drain tick on the active {@link RocketStageNode}.
      */
     public record PropulsionTickResult(
             @NotNull RocketStageNode updatedStage,

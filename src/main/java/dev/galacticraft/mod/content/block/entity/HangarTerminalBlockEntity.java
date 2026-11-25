@@ -561,7 +561,7 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
 
     /**
      * Adopts a modular rocket that touched down safely on this formed launchpad via
-     * {@link RocketStateConverter#convertToStaticBlocks}, restoring exact per-stage fuel, energy & oxygen.
+     * {@link RocketStateConverter#convertToStaticBlocks}, restoring exact per-stage fuel, energy &amp; oxygen.
      */
     public void adoptLandedModularRocket(
             List<BlockPos> masterPartPositions,
