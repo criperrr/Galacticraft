@@ -24,6 +24,7 @@ package dev.galacticraft.mod.particle;
 
 import com.mojang.serialization.MapCodec;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.Util;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
@@ -38,7 +39,7 @@ public class EntityParticleOption implements ParticleOptions {
 
     public EntityParticleOption(ParticleType<?> type, UUID uuid) {
         this.type = type;
-        this.uuid = uuid;
+        this.uuid = uuid != null ? uuid : Util.NIL_UUID;
     }
 
     public static MapCodec<EntityParticleOption> codec(ParticleType<? extends EntityParticleOption> type) {

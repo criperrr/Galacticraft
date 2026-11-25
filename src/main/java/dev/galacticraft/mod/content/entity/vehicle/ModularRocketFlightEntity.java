@@ -1471,7 +1471,7 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
         Entity pilot = this.getFirstPassenger();
         EntityParticleOption flameOption = new EntityParticleOption(
                 GCParticleTypes.LAUNCH_FLAME_LAUNCHED,
-                pilot != null ? pilot.getUUID() : null
+                pilot != null ? pilot.getUUID() : this.getUUID()
         );
         for (int i = 0; i < count; i++) {
             double ox = (level.random.nextDouble() - 0.5) * Math.max(0.6, this.getMaxRadiusBlocks());

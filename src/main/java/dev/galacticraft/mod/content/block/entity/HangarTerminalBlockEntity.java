@@ -635,7 +635,9 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
         // Phase 2: T-3.00s .. T-0.01s -> Thrust Buildup under Hold-Down Clamps + TWR/Weibull safety interlock
         if (this.launchPhase == LaunchSequencePhase.THRUST_BUILDUP) {
             double spread = Math.max(1.2, this.assemblyGraph.maxRadiusBlocks() * 0.75);
-            serverLevel.sendParticles(new EntityParticleOption(GCParticleTypes.LAUNCH_FLAME, null), cx, cy + 0.1, cz, 6, spread * 0.5, 0.15, spread * 0.5, 0.06);
+            java.util.UUID exemptUuid = this.launchCrewUuids.isEmpty() ? net.minecraft.Util.NIL_UUID : this.launchCrewUuids.get(0);
+            serverLevel.sendParticles(new EntityParticleOption(GCParticleTypes.LAUNCH_FLAME, exemptUuid), cx, cy + 0.1, cz, 6, spread * 0.5, 0.15, spread * 0.5, 0.06);
+            serverLevel.sendParticles(ParticleTypes.FLAME, cx, cy + 0.15, cz, 8, spread * 0.45, 0.15, spread * 0.45, 0.08);
             serverLevel.sendParticles(ParticleTypes.CLOUD, cx, cy + 0.2, cz, 10, spread * 1.4, 0.4, spread * 1.4, 0.12);
 
             if ((this.launchCountdownTicks % 20) == 0 && this.launchCountdownTicks > 0) {
