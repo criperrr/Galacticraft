@@ -73,8 +73,11 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
@@ -82,6 +85,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -187,7 +191,7 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
     private @Nullable BlockPos originTerminalPos = null;
     private final List<UUID> crewUuids = new ArrayList<>();
     private final Map<BlockPos, ItemStack> partScienceDrives = new LinkedHashMap<>();
-    private NonNullList<ItemStack> cargoStacks = NonNullList.withSize(8, ItemStack.EMPTY);
+    private final SimpleContainer cargoInventory = new SimpleContainer(27);
 
     // Control inputs & runtime counters
     private float pilotPitchInput = 0.0F;
@@ -475,15 +479,57 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
         return null;
     }
 
+    public @NotNull SimpleContainer getCargoInventory() {
+        return this.cargoInventory;
+    }
+
+    public void loadCargoStacks(@Nullable NonNullList<ItemStack> stacks) {
+        this.cargoInventory.clearContent();
+        if (stacks == null) {
+            return;
+        }
+        int count = Math.min(stacks.size(), this.cargoInventory.getContainerSize());
+        for (int i = 0; i < count; i++) {
+            this.cargoInventory.setItem(i, stacks.get(i).copy());
+        }
+    }
+
+    public @NotNull NonNullList<ItemStack> copyCargoStacks() {
+        int size = this.cargoInventory.getContainerSize();
+        NonNullList<ItemStack> copy = NonNullList.withSize(size, ItemStack.EMPTY);
+        for (int i = 0; i < size; i++) {
+            copy.set(i, this.cargoInventory.getItem(i).copy());
+        }
+        return copy;
+    }
+
+    public void openCargoInventory(@NotNull ServerPlayer player) {
+        player.openMenu(new SimpleMenuProvider(
+                (syncId, playerInv, p) -> ChestMenu.threeRows(syncId, playerInv, this.cargoInventory),
+                Component.literal("Inventário do Foguete Modular")
+        ));
+    }
+
     @Override
     public @NotNull InteractionResult interact(@NotNull Player player, @NotNull InteractionHand hand) {
         if (this.level().isClientSide) {
             return InteractionResult.SUCCESS;
         }
+        if (player instanceof ServerPlayer serverPlayer && player.isShiftKeyDown()) {
+            this.openCargoInventory(serverPlayer);
+            return InteractionResult.CONSUME;
+        }
         if (!player.isPassenger() && this.canAddPassenger(player)) {
             player.startRiding(this, true);
             if (!this.crewUuids.contains(player.getUUID())) {
                 this.crewUuids.add(player.getUUID());
+            }
+            if (this.getFlightPhase() == FlightPhase.LANDED && player instanceof ServerPlayer serverPlayer) {
+                serverPlayer.displayClientMessage(
+                        Component.literal("[FOGUETE POUSADO] [Espaço] Decolar | [F] Inventário | [Shift] Desembarcar")
+                                .withStyle(ChatFormatting.AQUA),
+                        true
+                );
             }
             return InteractionResult.CONSUME;
         }
@@ -559,6 +605,34 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
         this.pilotPitchInput = Math.clamp(pitchInput, -1.0F, 1.0F);
         this.pilotYawInput = Math.clamp(yawInput, -1.0F, 1.0F);
         this.pilotRetroBurnHeld = retroBurn;
+
+        // Re-launch directly from a unified landed rocket when pilot holds Space!
+        if (this.getFlightPhase() == FlightPhase.LANDED) {
+            if (throttleDelta > 0.01F || retroBurn) {
+                RocketAssemblyGraph graph = this.getAssemblyGraph();
+                RocketStageNode active = graph.activeStage();
+                boolean hasProp = active != null
+                        && active.activeThrustKn() > 0.0
+                        && (active.totalCurrentFuelDroplets() > 0L
+                        || ModularFlightPhysics.resolvePropellant(active.propellantId()) == PropellantType.SOLID);
+                if (hasProp) {
+                    this.launchSurfaceY = this.getY();
+                    this.maxReachedAgl = 0.0;
+                    this.flightTicks = 0;
+                    this.targetThrottle = 1.0F;
+                    this.entityData.set(THROTTLE, 1.0F);
+                    this.entityData.set(AUTOPILOT_ENABLED, true);
+                    this.entityData.set(LANDING_GEAR_DEPLOYED, false);
+                    this.entityData.set(PARACHUTES_DEPLOYED, false);
+                    this.setFlightPhase(FlightPhase.ASCENT);
+                    this.level().playSound(null, this.blockPosition(), GCSounds.ROCKET_IGNITE, SoundSource.NEUTRAL, 1.6F, 1.0F);
+                    pilot.displayClientMessage(Component.literal("[IGNIÇÃO] Decolagem planetária iniciada!").withStyle(ChatFormatting.GREEN, ChatFormatting.BOLD), true);
+                } else {
+                    pilot.displayClientMessage(Component.literal("[SEM PROPELENTE] Estágio ativo sem combustível ou motor para decolar!").withStyle(ChatFormatting.RED), true);
+                }
+            }
+            return;
+        }
 
         if (Math.abs(this.pilotPitchInput) > 0.05F || Math.abs(this.pilotYawInput) > 0.05F) {
             this.manualOverrideHoldTicks = 40;
@@ -748,6 +822,19 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
         }
 
         FlightPhase phase = this.getFlightPhase();
+        if (phase == FlightPhase.LANDED) {
+            this.entityData.set(THROTTLE, 0.0F);
+            this.entityData.set(CAMERA_SHAKE, 0.0F);
+            this.entityData.set(CURRENT_TWR, 0.0F);
+            this.entityData.set(CURRENT_G_LOAD, (float) env.gravityG());
+            Vec3 settle = new Vec3(0.0, this.onGround() ? 0.0 : -0.06, 0.0);
+            this.setDeltaMovement(settle);
+            this.move(MoverType.SELF, settle);
+            this.pilotPitchInput = 0.0F;
+            this.pilotYawInput = 0.0F;
+            return;
+        }
+
         switch (phase) {
             case ASCENT, HOT_STAGING -> this.tickPoweredAscent(serverLevel, env, ambientPa, dynamicQ, phase == FlightPhase.HOT_STAGING);
             case LES_ABORT -> this.tickLesAbort(serverLevel, env, ambientPa);
@@ -1522,7 +1609,7 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
                 gcPlayer.setModularRocketEnergy(this.storedEnergyGj);
                 gcPlayer.setModularRocketOxygen(this.storedOxygenDroplets);
                 gcPlayer.setFuel(currentGraph.totalCurrentFuelDroplets());
-                gcPlayer.setRocketStacks(this.cargoStacks);
+                gcPlayer.setRocketStacks(this.copyCargoStacks());
 
                 // Provide synthetic RocketData so CelestialSelectionScreen allows selecting any reachable planet
                 RocketData navData = RocketPrefabs.TIER_1;
@@ -1612,28 +1699,45 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
             serverLevel.playSound(null, landingPos, SoundEvents.ANVIL_LAND, SoundSource.BLOCKS, 0.6F, 0.9F);
         }
 
-        boolean reconverted = RocketStateConverter.convertToStaticBlocks(serverLevel, landingPos, this);
+        // Keep the rocket standing intact as a single unified structure (no dismantling!) so players can inspect inventory, board, and re-launch
+        this.setFlightPhase(FlightPhase.LANDED);
+        this.targetThrottle = 0.0F;
+        this.entityData.set(THROTTLE, 0.0F);
+        this.entityData.set(CAMERA_SHAKE, 0.0F);
+        this.entityData.set(PITCH_DEG, 0.0F);
+        this.entityData.set(ROLL_DEG, 0.0F);
+        this.entityData.set(TVC_PITCH_DEG, 0.0F);
+        this.entityData.set(TVC_YAW_DEG, 0.0F);
+        this.entityData.set(PARACHUTES_DEPLOYED, false);
+        this.entityData.set(CURRENT_TWR, 0.0F);
+        this.setDeltaMovement(Vec3.ZERO);
+
         String statsSummary = String.format(
                 Locale.ROOT,
-                " [%s | Vy: -%.1f m/s | Inclinação: %.1f° | %s]",
+                " [%s | Vy: -%.1f m/s | Inclinação: %.1f° | Nave estacionada intacta — Shift+Clique Dir. para carga ou Clique Dir. para embarcar]",
                 rankLabel,
                 impactSpeedMs,
-                tiltDeg,
-                reconverted ? "Estrutura estática preservada" : "Tripulação desembarcada"
+                tiltDeg
         );
-        for (Entity passenger : passengers) {
+
+        // Safely dismount passengers onto solid ground beside the landed rocket
+        this.ejectPassengers();
+        double safeOffset = Math.max(2.2, this.getMaxRadiusBlocks() + 1.35);
+        for (int i = 0; i < passengers.size(); i++) {
+            Entity passenger = passengers.get(i);
+            double angle = (Math.PI * 2.0 * i) / Math.max(1, passengers.size());
+            double px = this.getX() + Math.cos(angle) * safeOffset;
+            double pz = this.getZ() + Math.sin(angle) * safeOffset;
+            double py = Math.max(this.getY() + 0.25, serverLevel.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BlockPos.containing(px, this.getY(), pz).getX(), BlockPos.containing(px, this.getY(), pz).getZ()));
+            passenger.setDeltaMovement(Vec3.ZERO);
+            passenger.fallDistance = 0.0F;
+            passenger.teleportTo(px, py, pz);
             if (passenger instanceof ServerPlayer sp) {
                 sp.awardStat(GCStats.SAFE_LANDING);
                 GCTriggers.SAFE_LANDING.trigger(sp);
                 ServerPlayNetworking.send(sp, new ResetPerspectivePacket());
                 sp.displayClientMessage(Component.literal(statsSummary).withStyle(rankColor, ChatFormatting.BOLD), false);
             }
-        }
-        if (!reconverted) {
-            this.setFlightPhase(FlightPhase.LANDED);
-            this.setDeltaMovement(Vec3.ZERO);
-            this.ejectPassengers();
-            this.discard();
         }
     }
 
@@ -1658,6 +1762,7 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
                 true,
                 Level.ExplosionInteraction.TNT
         );
+        Containers.dropContents(serverLevel, this.blockPosition(), this.cargoInventory);
         this.discard();
     }
 
@@ -1791,10 +1896,11 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
                 }
             }
         }
-        this.cargoStacks = NonNullList.withSize(8, ItemStack.EMPTY);
+        NonNullList<ItemStack> loadedCargo = NonNullList.withSize(this.cargoInventory.getContainerSize(), ItemStack.EMPTY);
         if (tag.contains("Cargo", Tag.TAG_COMPOUND)) {
-            ContainerHelper.loadAllItems(tag.getCompound("Cargo"), this.cargoStacks, this.registryAccess());
+            ContainerHelper.loadAllItems(tag.getCompound("Cargo"), loadedCargo, this.registryAccess());
         }
+        this.loadCargoStacks(loadedCargo);
         this.refreshDimensions();
     }
 
@@ -1835,7 +1941,7 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
             tag.put("CrewUuids", list);
         }
         CompoundTag cargoTag = new CompoundTag();
-        ContainerHelper.saveAllItems(cargoTag, this.cargoStacks, this.registryAccess());
+        ContainerHelper.saveAllItems(cargoTag, this.copyCargoStacks(), this.registryAccess());
         tag.put("Cargo", cargoTag);
     }
 }

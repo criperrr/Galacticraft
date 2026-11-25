@@ -275,10 +275,12 @@ public class RocketOverlay {
         graphics.fill(fBarX, fBarY, fBarX + fBarW, fBarY + 6, 0xFF1E293B);
         graphics.fill(fBarX, fBarY, fBarX + Math.round(fBarW * fuelFrac), fBarY + 6, fuelFrac > 0.2F ? 0xFF22C55E : 0xFFEF4444);
 
-        // Compact control legend (adapts between Ascent and Retro-Descent Landing Minigame)
-        String keyHint = phase == ModularRocketFlightEntity.FlightPhase.RETRO_DESCENT
-                ? "[Esp]+Pot [Shf]-Pot [X]0% [L]Trem [Shf+G]Auto"
-                : "[WASD]Man [G]Stage [X]0% [Bksp]LES [L]Trem";
+        // Compact control legend (adapts between Landed, Ascent, and Retro-Descent Landing Minigame)
+        String keyHint = switch (phase) {
+            case LANDED -> "[Esp]Decolar  [F]Inventário  [Shift]Sair";
+            case RETRO_DESCENT -> "[Esp]+Pot [Shf]-Pot [X]0% [V]Trem [Shf+G]Auto";
+            default -> "[WASD]Man [G]Stage [X]0% [Bksp]LES [V]Trem";
+        };
         graphics.drawString(
                 font,
                 keyHint,
@@ -392,7 +394,7 @@ public class RocketOverlay {
 
         graphics.drawString(font, velOk ? "[OK] Vel <= 5m/s" : "[!] FREAR AGORA", tx, ly + 56, velOk ? 0xFF4ADE80 : 0xFFF87171, false);
         graphics.drawString(font, tiltOk ? "[OK] Nivelado" : String.format(Locale.ROOT, "[!] Incl %.0f°", tiltDeg), tx, ly + 67, tiltOk ? 0xFF4ADE80 : 0xFFFB923C, false);
-        String gearText = !hasGear ? "[--] Sem Trem" : (gearOk ? "[OK] Trem Aberto" : "[!] Trem [L]");
+        String gearText = !hasGear ? "[--] Sem Trem" : (gearOk ? "[OK] Trem Aberto" : "[!] Trem [V]");
         int gearCol = !hasGear ? 0xFF94A3B8 : (gearOk ? 0xFF4ADE80 : 0xFFFACC15);
         graphics.drawString(font, gearText, tx, ly + 78, gearCol, false);
 

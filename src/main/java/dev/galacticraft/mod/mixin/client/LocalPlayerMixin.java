@@ -150,7 +150,7 @@ public abstract class LocalPlayerMixin extends AbstractClientPlayer {
 
     @ModifyReturnValue(method = "isCrouching", at = @At("RETURN"))
     private boolean gc$isCrouching(boolean original) {
-        if (this.isPassenger() && this.getVehicle() instanceof IgnoreShift) {
+        if (this.isPassenger() && this.getVehicle() instanceof IgnoreShift ignoreShift && ignoreShift.shouldIgnoreShiftExit()) {
             return false;
         }
         return this.isHoldingRocket() || original;
@@ -158,7 +158,7 @@ public abstract class LocalPlayerMixin extends AbstractClientPlayer {
 
     @ModifyReturnValue(method = "isShiftKeyDown", at = @At("RETURN"))
     private boolean gc$isShiftKeyDown(boolean original) {
-        if (this.isPassenger() && this.getVehicle() instanceof IgnoreShift) {
+        if (this.isPassenger() && this.getVehicle() instanceof IgnoreShift ignoreShift && ignoreShift.shouldIgnoreShiftExit()) {
             return false;
         }
         return this.isHoldingRocket() || original;

@@ -68,6 +68,8 @@ public class LanderCelestialTeleporterType<Config extends CelestialTeleporterCon
                         List.of(player.getUUID()),
                         Map.of()
                 );
+                descentRocket.loadCargoStacks(gcPlayer.getRocketStacks());
+                gcPlayer.getRocketStacks().clear();
                 gcPlayer.clearModularRocketState();
                 if (level.addFreshEntity(descentRocket)) {
                     player.startRiding(descentRocket, true);

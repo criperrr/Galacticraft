@@ -32,6 +32,7 @@ import dev.galacticraft.mod.client.render.rocket.part.RocketPartPlacementPreview
 import dev.galacticraft.mod.content.entity.vehicle.ModularRocketFlightEntity;
 import dev.galacticraft.mod.content.item.ModularRocketPartBlockItem;
 import dev.galacticraft.mod.network.c2s.ModularRocketControlPayload;
+import dev.galacticraft.mod.network.c2s.OpenRocketPayload;
 import dev.galacticraft.mod.network.c2s.UpdateManualStatePayload;
 import dev.galacticraft.mod.util.Translations;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -50,7 +51,7 @@ public class GCKeyBinds {
     public static final KeyMapping OPEN_AEROSPACE_MANUAL = new KeyMapping(Translations.Keybindings.OPEN_AEROSPACE_MANUAL, GLFW.GLFW_KEY_G, KeyMapping.CATEGORY_MISC);
     public static final KeyMapping CYCLE_ROCKET_SYMMETRY = new KeyMapping("key.galacticraft.cycle_rocket_symmetry", GLFW.GLFW_KEY_R, KeyMapping.CATEGORY_MISC);
     public static final KeyMapping ROCKET_LES_ABORT = new KeyMapping("key.galacticraft.rocket_les_abort", GLFW.GLFW_KEY_BACKSPACE, KeyMapping.CATEGORY_MISC);
-    public static final KeyMapping ROCKET_LANDING_GEAR = new KeyMapping("key.galacticraft.rocket_landing_gear", GLFW.GLFW_KEY_L, KeyMapping.CATEGORY_MISC);
+    public static final KeyMapping ROCKET_LANDING_GEAR = new KeyMapping("key.galacticraft.rocket_landing_gear", GLFW.GLFW_KEY_V, KeyMapping.CATEGORY_MISC);
     public static final KeyMapping ROCKET_ENGINE_CUTOFF = new KeyMapping("key.galacticraft.rocket_engine_cutoff", GLFW.GLFW_KEY_X, KeyMapping.CATEGORY_MISC);
 
     public static void register() {
@@ -79,6 +80,9 @@ public class GCKeyBinds {
                     while (ROCKET_ENGINE_CUTOFF.consumeClick()) {
                         ClientPlayNetworking.send(new ModularRocketControlPayload(
                                 modularRocket.getId(), 0.0F, 0.0F, 0.0F, ModularRocketControlPayload.FLAG_ENGINE_CUTOFF));
+                    }
+                    while (OPEN_ROCKET_INVENTORY.consumeClick()) {
+                        ClientPlayNetworking.send(OpenRocketPayload.INSTANCE);
                     }
                 } else {
                     while (ROCKET_LES_ABORT.consumeClick()) {
