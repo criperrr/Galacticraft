@@ -200,7 +200,7 @@ public sealed interface ManualPage permits
     }
 
     /**
-     * Planetary geological & atmospheric telemetry sheet with a visual Y-depth ore stratigraphy chart.
+     * Planetary geological and atmospheric telemetry sheet with a visual Y-depth ore stratigraphy chart.
      */
     record PlanetStratigraphyPage(
             @NotNull String titleKey,
