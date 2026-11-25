@@ -260,8 +260,8 @@ public class GCCelestialBodies {
                 0.0F,
                 GCCelestialHandlers.DEFAULT,
                 3,
-                -2,
-                -2,
+                -73,
+                -200,
                 99999999L,
                 null
         )));

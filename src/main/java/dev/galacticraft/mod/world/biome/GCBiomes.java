@@ -58,6 +58,9 @@ public final class GCBiomes {
 
     public static final class Asteroid {
         public static final ResourceKey<Biome> ASTEROID_FIELD = key("asteroid_field");
+        public static final ResourceKey<Biome> INNER_SILICATE_BELT = key("asteroid_inner_silicate_belt");
+        public static final ResourceKey<Biome> METALLIC_CORE_CLUSTER = key("asteroid_metallic_core_cluster");
+        public static final ResourceKey<Biome> KIRKWOOD_RESONANCE_GAP = key("asteroid_kirkwood_gap");
     }
 
     public static final class Mercury {
@@ -206,6 +209,9 @@ public final class GCBiomes {
         context.register(Venus.VENUS_MOUNTAIN, VenusBiomes.createVenusMountain(featureLookup, carverLookup));
 
         context.register(Asteroid.ASTEROID_FIELD, AsteroidBiomes.asteroid(featureLookup, carverLookup));
+        context.register(Asteroid.INNER_SILICATE_BELT, AsteroidBiomes.innerSilicateBelt(featureLookup, carverLookup));
+        context.register(Asteroid.METALLIC_CORE_CLUSTER, AsteroidBiomes.metallicCoreCluster(featureLookup, carverLookup));
+        context.register(Asteroid.KIRKWOOD_RESONANCE_GAP, AsteroidBiomes.kirkwoodGap(featureLookup, carverLookup));
 
         context.register(Mercury.INTER_CRATER_PLAINS, MercuryBiomes.createInterCraterPlains(featureLookup, carverLookup));
         context.register(Mercury.SMOOTH_LAVA_PLAINS, MercuryBiomes.createSmoothLavaPlains(featureLookup, carverLookup));

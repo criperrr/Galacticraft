@@ -70,7 +70,10 @@ public class GCBiomeTagProvider extends FabricTagProvider<Biome> {
                 .add(GCBiomes.Venus.VENUS_MOUNTAIN);
 
         this.tag(GCBiomeTags.ASTEROID)
-                .add(GCBiomes.Asteroid.ASTEROID_FIELD);
+                .add(GCBiomes.Asteroid.ASTEROID_FIELD)
+                .add(GCBiomes.Asteroid.INNER_SILICATE_BELT)
+                .add(GCBiomes.Asteroid.METALLIC_CORE_CLUSTER)
+                .add(GCBiomes.Asteroid.KIRKWOOD_RESONANCE_GAP);
 
         this.tag(GCBiomeTags.JUPITER)
                 .add(GCBiomes.Jupiter.AMMONIA_PLAINS)
