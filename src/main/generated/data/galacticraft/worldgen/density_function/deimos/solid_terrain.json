@@ -54,8 +54,8 @@
         "to_value": 320.0,
         "to_y": 320
       },
-      "max_exclusive": 190.0,
-      "min_inclusive": 36.0,
+      "max_exclusive": 148.0,
+      "min_inclusive": 48.0,
       "when_in_range": {
         "type": "minecraft:mul",
         "argument1": {
@@ -63,28 +63,26 @@
           "argument1": {
             "type": "minecraft:y_clamped_gradient",
             "from_value": 0.0,
-            "from_y": 36,
+            "from_y": 48,
             "to_value": 1.0,
-            "to_y": 52
+            "to_y": 60
           },
           "argument2": {
             "type": "minecraft:y_clamped_gradient",
             "from_value": 1.0,
-            "from_y": 165,
+            "from_y": 128,
             "to_value": 0.0,
-            "to_y": 190
+            "to_y": 148
           }
         },
         "argument2": {
           "type": "minecraft:mul",
-          "argument1": 0.08,
+          "argument1": 0.068,
           "argument2": {
-            "type": "minecraft:old_blended_noise",
-            "smear_scale_multiplier": 8.0,
-            "xz_factor": 80.0,
-            "xz_scale": 0.24,
-            "y_factor": 160.0,
-            "y_scale": 0.14
+            "type": "minecraft:noise",
+            "noise": "galacticraft:mercury/hollow_sponge",
+            "xz_scale": 0.75,
+            "y_scale": 0.65
           }
         }
       },

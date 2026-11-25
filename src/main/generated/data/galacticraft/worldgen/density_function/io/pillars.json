@@ -5,7 +5,7 @@
     "type": "minecraft:range_choice",
     "input": "galacticraft:io/solid_terrain",
     "max_exclusive": 10.0,
-    "min_inclusive": -0.55,
+    "min_inclusive": -0.5,
     "when_in_range": {
       "type": "minecraft:range_choice",
       "input": {
@@ -15,7 +15,7 @@
         "to_value": 320.0,
         "to_y": 320
       },
-      "max_exclusive": 62.0,
+      "max_exclusive": 56.0,
       "min_inclusive": -50.0,
       "when_in_range": {
         "type": "minecraft:min",
@@ -24,21 +24,18 @@
           "type": "minecraft:add",
           "argument1": "galacticraft:io/caves",
           "argument2": {
-            "type": "minecraft:cache_once",
-            "argument": {
-              "type": "minecraft:clamp",
-              "input": {
-                "type": "minecraft:add",
-                "argument1": 3.2,
-                "argument2": {
-                  "type": "minecraft:mul",
-                  "argument1": -22.0,
-                  "argument2": "galacticraft:io/solid_terrain"
-                }
-              },
-              "max": 3.2,
-              "min": 0.0
-            }
+            "type": "minecraft:clamp",
+            "input": {
+              "type": "minecraft:add",
+              "argument1": 3.2,
+              "argument2": {
+                "type": "minecraft:mul",
+                "argument1": -22.0,
+                "argument2": "galacticraft:io/solid_terrain"
+              }
+            },
+            "max": 3.2,
+            "min": 0.0
           }
         }
       },
