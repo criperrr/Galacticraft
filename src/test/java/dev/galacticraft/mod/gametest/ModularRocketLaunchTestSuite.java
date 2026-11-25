@@ -128,11 +128,17 @@ public class ModularRocketLaunchTestSuite implements GalacticraftGameTest {
             helper.assertTrue(launched != null && launched.isAlive(), "Expected live ModularRocketFlightEntity after T-0");
             helper.assertTrue(launched.getPassengers().contains(pilot), "Pilot must be mounted inside flight entity");
 
-            // Zero ghost blocks remaining on the launch pad!
+            // Zero ghost blocks AND zero dropped rocket part items on the launch pad!
             for (BlockPos pos : originalParts) {
                 helper.assertTrue(helper.getLevel().getBlockState(pos).isAir(),
                         "Expected zero ghost blocks at " + pos + ", found " + helper.getLevel().getBlockState(pos));
             }
+            List<net.minecraft.world.entity.item.ItemEntity> droppedItems = helper.getLevel().getEntitiesOfClass(
+                    net.minecraft.world.entity.item.ItemEntity.class,
+                    new AABB(terminal.getPadCenterPos()).inflate(8.0)
+            );
+            helper.assertTrue(droppedItems.isEmpty(),
+                    "Atomic liftoff must drop ZERO rocket part items onto the pad (found " + droppedItems.size() + ")");
             launched.discard();
             helper.succeed();
         });
