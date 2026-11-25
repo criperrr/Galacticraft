@@ -27,6 +27,7 @@ import dev.galacticraft.api.universe.celestialbody.CelestialBody;
 import dev.galacticraft.api.universe.celestialbody.landable.Landable;
 import dev.galacticraft.impl.universe.celestialbody.config.PlanetConfig;
 import dev.galacticraft.mod.Constant;
+import dev.galacticraft.mod.content.GCBlocks;
 import dev.galacticraft.mod.content.GCCelestialBodies;
 import dev.galacticraft.mod.content.rocket.physics.PlanetaryEnvironment;
 import dev.galacticraft.mod.world.biome.GCBiomes;
@@ -146,6 +147,17 @@ public class InnerAndJovianMoonsTestSuite implements GalacticraftGameTest {
         }
         if (!io.defaultFluid().is(Blocks.LAVA)) {
             context.fail("Expected Io default fluid to be LAVA for magma tubes, found: " + io.defaultFluid());
+            return;
+        }
+        if (!io.defaultBlock().is(GCBlocks.IO_VOLCANIC_ROCK) || !europa.defaultBlock().is(GCBlocks.EUROPA_ICE_CRUST)) {
+            context.fail("Expected Io and Europa to use dedicated moon-specific default blocks!");
+            return;
+        }
+        if (!noiseSettingsRegistry.get(GCNoiseGeneratorSettings.PHOBOS).defaultBlock().is(GCBlocks.PHOBOS_ROCK)
+                || !noiseSettingsRegistry.get(GCNoiseGeneratorSettings.DEIMOS).defaultBlock().is(GCBlocks.DEIMOS_ROCK)
+                || !noiseSettingsRegistry.get(GCNoiseGeneratorSettings.GANYMEDE).defaultBlock().is(GCBlocks.GANYMEDE_SLATE)
+                || !noiseSettingsRegistry.get(GCNoiseGeneratorSettings.CALLISTO).defaultBlock().is(GCBlocks.CALLISTO_ROCK)) {
+            context.fail("Expected Phobos, Deimos, Ganymede, and Callisto to use dedicated moon-specific default blocks!");
             return;
         }
         context.succeed();
