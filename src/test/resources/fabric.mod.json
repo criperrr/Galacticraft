@@ -62,7 +62,8 @@
       "dev.galacticraft.mod.gametest.EmergentPhysicsAndRefurbishmentTestSuite",
       "dev.galacticraft.mod.gametest.InSituResearchLaboratoriesTestSuite",
       "dev.galacticraft.mod.gametest.FlightTelemetryAndTechTreeTestSuite",
-      "dev.galacticraft.mod.gametest.AerospaceManualTestSuite"
+      "dev.galacticraft.mod.gametest.AerospaceManualTestSuite",
+      "dev.galacticraft.mod.gametest.ModularRocketAssemblyTestSuite"
     ]
   },
   "custom": {
