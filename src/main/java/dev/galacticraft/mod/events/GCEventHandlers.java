@@ -42,6 +42,7 @@ import dev.galacticraft.mod.misc.footprint.FootprintManager;
 import dev.galacticraft.mod.network.c2s.CapeSelectionPayload;
 import dev.galacticraft.mod.network.s2c.FootprintRemovedPacket;
 import dev.galacticraft.mod.util.Translations;
+import dev.galacticraft.mod.world.dimension.GCDimensions;
 import net.fabricmc.fabric.api.entity.event.v1.ServerEntityWorldChangeEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -244,6 +245,11 @@ public class GCEventHandlers {
     public static float computePlanetaryMeteorFrequency(ServerLevel level, Holder<CelestialBody<?, ?>> bodyHolder) {
         CelestialBody<?, ?> body = bodyHolder.value();
         float gravity = Math.max(0.0f, body.gravity());
+        // Zero-G open space dimensions (e.g. Asteroid Belt, orbital space stations) have no planetary gravity well
+        // to pull falling meteors downward.
+        if (gravity <= 0.001f || (level != null && level.dimension().equals(GCDimensions.ASTEROID))) {
+            return 0.0f;
+        }
         float pressure = Math.max(0.0f, body.atmosphere().pressure());
         double temperature = body.atmosphere().temperature();
 
