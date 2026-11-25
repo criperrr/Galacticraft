@@ -205,7 +205,7 @@ public class RocketOverlay {
 
         // 2. Main aerospace telemetry panel (bottom-left)
         int panelX = 28;
-        int panelW = 196;
+        int panelW = 240;
         int panelH = 88;
         int panelY = screenH - panelH - 12;
 

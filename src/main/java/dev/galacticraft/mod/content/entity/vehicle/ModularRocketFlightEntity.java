@@ -38,6 +38,9 @@ import dev.galacticraft.mod.config.GCConfigUtil;
 import dev.galacticraft.mod.content.GCSounds;
 import dev.galacticraft.mod.content.GCStats;
 import dev.galacticraft.mod.content.advancements.GCTriggers;
+import dev.galacticraft.mod.content.block.multiblock.AbstractBoundsProxyBlock;
+import dev.galacticraft.mod.content.block.platform.HangarTerminalBlock;
+import dev.galacticraft.mod.content.block.rocket.ModularRocketPartBlock;
 import dev.galacticraft.mod.content.entity.damage.GCDamageTypes;
 import dev.galacticraft.mod.content.entity.data.GCEntityDataSerializers;
 import dev.galacticraft.mod.content.entity.orbital.FlightTelemetryEngine;
@@ -441,7 +444,9 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
 
     @Override
     public @Nullable LivingEntity getControllingPassenger() {
-        return this.getFirstPassenger() instanceof LivingEntity living ? living : null;
+        // Return null so the server stays 100% authoritative for rocket position (matching RocketEntity)
+        // and prevents LocalPlayer's ServerboundMoveVehiclePacket from snapping the rocket back to the pad!
+        return null;
     }
 
     @Override
@@ -464,15 +469,18 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
         if (!this.hasPassenger(passenger)) {
             return;
         }
+        RocketAssemblyGraph graph = this.getAssemblyGraph();
+        double minPartY = computeMinPartY(graph);
         int seatIdx = Math.max(0, this.getPassengers().indexOf(passenger));
-        List<LocalSeatOffset> seats = this.getAssemblyGraph().crewSeats();
+        List<LocalSeatOffset> seats = graph.crewSeats();
         double lx = 0.0;
-        double ly = Math.max(1.5, this.getTotalHeightBlocks() - 2.0);
+        double ly = Math.max(0.35, this.getTotalHeightBlocks() - 2.0);
         double lz = 0.0;
         if (!seats.isEmpty()) {
             LocalSeatOffset seat = seats.get(Math.min(seatIdx, seats.size() - 1));
             lx = seat.x();
-            ly = seat.y();
+            // Convert pad-relative seat Y into rocket-base-local Y and seat pilot squarely inside the capsule
+            ly = Math.max(0.20, (seat.y() - minPartY) - 0.65);
             lz = seat.z();
         } else if (seatIdx > 0) {
             double angle = (Math.PI * 2.0 * seatIdx) / Math.max(1, this.getPassengers().size());
@@ -491,6 +499,14 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
                 this.getY() + localVec.y,
                 this.getZ() + localVec.z
         );
+    }
+
+    private static double computeMinPartY(RocketAssemblyGraph graph) {
+        int minY = Integer.MAX_VALUE;
+        for (MountedPartNode part : graph.allActiveParts()) {
+            minY = Math.min(minY, part.relativePos().getY());
+        }
+        return minY == Integer.MAX_VALUE ? 0.0 : (double) minY;
     }
 
     public static @NotNull Quaternionf buildAttitudeQuaternion(float yawDeg, float pitchDeg, float rollDeg) {
@@ -696,7 +712,7 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
 
         Vec3 preMove = this.getDeltaMovement();
         this.lastVerticalSpeedBlocksPerTick = preMove.y;
-        this.move(MoverType.SELF, preMove);
+        this.moveWithHangarClearance(serverLevel, preMove);
 
         // Post-move touchdown / crash resolution (respecting 20-tick liftoff crash-arming delay)
         if (this.flightTicks > CRASH_ARM_DELAY_TICKS) {
@@ -706,6 +722,38 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
         // Reset one-tick pilot inputs
         this.pilotPitchInput *= 0.5F;
         this.pilotYawInput *= 0.5F;
+    }
+
+    private void moveWithHangarClearance(ServerLevel serverLevel, Vec3 preMove) {
+        FlightPhase phase = this.getFlightPhase();
+        boolean ascending = preMove.y > 0.0
+                && (phase == FlightPhase.ASCENT
+                || phase == FlightPhase.HOT_STAGING
+                || phase == FlightPhase.LES_ABORT
+                || phase == FlightPhase.COASTING);
+        if (ascending) {
+            // Check whether solid non-hangar terrain obstructs the nose centerline; bypass hangar gantry/crane proxies cleanly!
+            boolean blockedByNaturalCeiling = false;
+            BlockPos noseCheck = BlockPos.containing(this.getX() + preMove.x, this.getY() + this.getTotalHeightBlocks() + preMove.y, this.getZ() + preMove.z);
+            if (serverLevel.isInWorldBounds(noseCheck) && serverLevel.isLoaded(noseCheck)) {
+                var state = serverLevel.getBlockState(noseCheck);
+                if (!state.isAir()
+                        && !state.getCollisionShape(serverLevel, noseCheck).isEmpty()
+                        && !(state.getBlock() instanceof AbstractBoundsProxyBlock)
+                        && !(state.getBlock() instanceof HangarTerminalBlock)
+                        && !(state.getBlock() instanceof ModularRocketPartBlock)) {
+                    blockedByNaturalCeiling = true;
+                }
+            }
+            if (!blockedByNaturalCeiling) {
+                this.setPos(this.getX() + preMove.x, this.getY() + preMove.y, this.getZ() + preMove.z);
+                this.setOnGround(false);
+                this.horizontalCollision = false;
+                this.verticalCollision = false;
+                return;
+            }
+        }
+        this.move(MoverType.SELF, preMove);
     }
 
     private void tickPassengerWatchdog(ServerLevel serverLevel) {
