@@ -337,11 +337,22 @@ public class ModularRocketLaunchTestSuite implements GalacticraftGameTest {
         helper.assertTrue(lander.getSuicideBurnAlt() >= 4.0F,
                 "Expected valid suicide burn altitude telemetry (got " + lander.getSuicideBurnAlt() + ")");
 
-        // Pilot presses X (engineCutoff) and L (landing gear) -> instant 0% cutoff & gear deployed
+        // Pilot presses X (engineCutoff) and V (landing gear) -> instant 0% cutoff & gear deployed
         lander.applyPilotControl(pilot, 0.0F, 0.0F, 0.0F, false, false, true, false, true);
         lander.tick();
         helper.assertTrue(lander.getThrottle() <= 0.001F, "Engine cutoff (X) must immediately cut throttle to 0% (got " + lander.getThrottle() + ")");
-        helper.assertTrue(lander.isLandingGearDeployed(), "Landing gear toggle (L) must deploy landing gear");
+        helper.assertTrue(lander.isLandingGearDeployed(), "Landing gear toggle (V) must deploy landing gear");
+
+        // Verify unified cargo inventory (27 slots) and re-launch from FlightPhase.LANDED
+        lander.getCargoInventory().setItem(0, new ItemStack(Blocks.IRON_BLOCK, 3));
+        helper.assertTrue(lander.copyCargoStacks().get(0).getCount() == 3, "Expected cargo inventory item preserved");
+        lander.setFlightPhase(ModularRocketFlightEntity.FlightPhase.LANDED);
+        lander.tick();
+        helper.assertTrue(lander.isAlive() && lander.getFlightPhase() == ModularRocketFlightEntity.FlightPhase.LANDED,
+                "Landed modular rocket must stay intact as a unified entity");
+        lander.applyPilotControl(pilot, 0.0F, 0.0F, 1.0F, false, false, false, true, false);
+        helper.assertTrue(lander.getFlightPhase() == ModularRocketFlightEntity.FlightPhase.ASCENT,
+                "Pressing Space while seated in LANDED rocket must re-launch into ASCENT");
 
         pilot.stopRiding();
         lander.discard();
