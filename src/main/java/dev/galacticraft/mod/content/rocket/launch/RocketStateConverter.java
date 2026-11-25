@@ -181,7 +181,7 @@ public final class RocketStateConverter {
         }
         for (BlockPos masterPos : validMasters) {
             if (level.getBlockEntity(masterPos) instanceof ModularRocketPartBlockEntity partBe && !partBe.isRemoved()) {
-                partBe.clearAssembledTerminalPosQuiet();
+                partBe.markConvertedToFlightQuiet();
             }
         }
         BlockState air = Blocks.AIR.defaultBlockState();

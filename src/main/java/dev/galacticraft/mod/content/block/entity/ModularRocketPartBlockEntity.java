@@ -522,6 +522,18 @@ public class ModularRocketPartBlockEntity extends BlockEntity implements MultiVo
     }
 
     /**
+     * Suppresses {@link #tearDown} item drops and terminal callbacks when this static part is
+     * atomically converted into a live {@link dev.galacticraft.mod.content.entity.vehicle.ModularRocketFlightEntity}
+     * at {@code T = 0.00s} by {@link dev.galacticraft.mod.content.rocket.launch.RocketStateConverter}.
+     */
+    public void markConvertedToFlightQuiet() {
+        this.tornDown = true;
+        this.assembledTerminalPos = null;
+        this.occupiedProxies.clear();
+        this.scienceDrive = ItemStack.EMPTY;
+    }
+
+    /**
      * Atomically tears down this part and all of its chunk-linked {@link RocketPartBoundsBlock}
      * proxies, dropping at most one configured {@link ItemStack} when {@code dropItem} is {@code true}.
      */
