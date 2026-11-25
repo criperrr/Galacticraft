@@ -33,6 +33,7 @@ import dev.galacticraft.mod.content.GCEntityTypes;
 import dev.galacticraft.mod.content.block.entity.machine.ShortRangeTelepadBlockEntity;
 import dev.galacticraft.mod.content.entity.GrappleHookEntity;
 import dev.galacticraft.mod.content.entity.SlimelingEntity;
+import dev.galacticraft.mod.events.GCEventHandlers;
 import dev.galacticraft.mod.world.biome.GCBiomes;
 import dev.galacticraft.mod.world.biome.source.GCMultiNoiseBiomeSourceParameterLists;
 import dev.galacticraft.mod.world.dimension.GCDimensions;
@@ -88,6 +89,11 @@ public class AsteroidsTestSuite implements GalacticraftGameTest {
 
         if (asteroid.atmosphere().pressure() != 0.0F) {
             throw new GameTestAssertException("Asteroids atmosphere pressure should be 0.0F vacuum!");
+        }
+
+        var asteroidHolder = registry.getHolderOrThrow(GCCelestialBodies.ASTEROID);
+        if (GCEventHandlers.computePlanetaryMeteorFrequency(helper.getLevel(), asteroidHolder) != 0.0F) {
+            throw new GameTestAssertException("Falling meteors must be disabled in Zero-G Asteroid Belt!");
         }
 
         if (config.dayTemperature() != -73 || config.nightTemperature() != -200) {
