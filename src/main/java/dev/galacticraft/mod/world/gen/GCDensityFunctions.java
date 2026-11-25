@@ -150,9 +150,13 @@ public class GCDensityFunctions {
 
     public static final class Phobos {
         public static final ResourceKey<DensityFunction> CONTINENTS = createKey("phobos/continents");
+        public static final ResourceKey<DensityFunction> EROSION = createKey("phobos/erosion");
+        public static final ResourceKey<DensityFunction> RIDGES = createKey("phobos/ridges");
+        public static final ResourceKey<DensityFunction> PV = createKey("phobos/pv");
         public static final ResourceKey<DensityFunction> BASE_HEIGHT = createKey("phobos/base_height");
         public static final ResourceKey<DensityFunction> OFFSET = createKey("phobos/offset");
         public static final ResourceKey<DensityFunction> FACTOR = createKey("phobos/factor");
+        public static final ResourceKey<DensityFunction> JAGGEDNESS = createKey("phobos/jaggedness");
         public static final ResourceKey<DensityFunction> SMOOTH_RELIEF = createKey("phobos/smooth_relief");
         public static final ResourceKey<DensityFunction> DEPTH = createKey("phobos/depth");
         public static final ResourceKey<DensityFunction> SOLID_TERRAIN = createKey("phobos/solid_terrain");
@@ -163,9 +167,13 @@ public class GCDensityFunctions {
 
     public static final class Deimos {
         public static final ResourceKey<DensityFunction> CONTINENTS = createKey("deimos/continents");
+        public static final ResourceKey<DensityFunction> EROSION = createKey("deimos/erosion");
+        public static final ResourceKey<DensityFunction> RIDGES = createKey("deimos/ridges");
+        public static final ResourceKey<DensityFunction> PV = createKey("deimos/pv");
         public static final ResourceKey<DensityFunction> BASE_HEIGHT = createKey("deimos/base_height");
         public static final ResourceKey<DensityFunction> OFFSET = createKey("deimos/offset");
         public static final ResourceKey<DensityFunction> FACTOR = createKey("deimos/factor");
+        public static final ResourceKey<DensityFunction> JAGGEDNESS = createKey("deimos/jaggedness");
         public static final ResourceKey<DensityFunction> SMOOTH_RELIEF = createKey("deimos/smooth_relief");
         public static final ResourceKey<DensityFunction> DEPTH = createKey("deimos/depth");
         public static final ResourceKey<DensityFunction> SOLID_TERRAIN = createKey("deimos/solid_terrain");
@@ -176,9 +184,13 @@ public class GCDensityFunctions {
 
     public static final class Io {
         public static final ResourceKey<DensityFunction> CONTINENTS = createKey("io/continents");
+        public static final ResourceKey<DensityFunction> EROSION = createKey("io/erosion");
+        public static final ResourceKey<DensityFunction> RIDGES = createKey("io/ridges");
+        public static final ResourceKey<DensityFunction> PV = createKey("io/pv");
         public static final ResourceKey<DensityFunction> BASE_HEIGHT = createKey("io/base_height");
         public static final ResourceKey<DensityFunction> OFFSET = createKey("io/offset");
         public static final ResourceKey<DensityFunction> FACTOR = createKey("io/factor");
+        public static final ResourceKey<DensityFunction> JAGGEDNESS = createKey("io/jaggedness");
         public static final ResourceKey<DensityFunction> SMOOTH_RELIEF = createKey("io/smooth_relief");
         public static final ResourceKey<DensityFunction> DEPTH = createKey("io/depth");
         public static final ResourceKey<DensityFunction> SOLID_TERRAIN = createKey("io/solid_terrain");
@@ -189,9 +201,13 @@ public class GCDensityFunctions {
 
     public static final class Europa {
         public static final ResourceKey<DensityFunction> CONTINENTS = createKey("europa/continents");
+        public static final ResourceKey<DensityFunction> EROSION = createKey("europa/erosion");
+        public static final ResourceKey<DensityFunction> RIDGES = createKey("europa/ridges");
+        public static final ResourceKey<DensityFunction> PV = createKey("europa/pv");
         public static final ResourceKey<DensityFunction> BASE_HEIGHT = createKey("europa/base_height");
         public static final ResourceKey<DensityFunction> OFFSET = createKey("europa/offset");
         public static final ResourceKey<DensityFunction> FACTOR = createKey("europa/factor");
+        public static final ResourceKey<DensityFunction> JAGGEDNESS = createKey("europa/jaggedness");
         public static final ResourceKey<DensityFunction> SMOOTH_RELIEF = createKey("europa/smooth_relief");
         public static final ResourceKey<DensityFunction> DEPTH = createKey("europa/depth");
         public static final ResourceKey<DensityFunction> SOLID_TERRAIN = createKey("europa/solid_terrain");
@@ -202,9 +218,13 @@ public class GCDensityFunctions {
 
     public static final class Ganymede {
         public static final ResourceKey<DensityFunction> CONTINENTS = createKey("ganymede/continents");
+        public static final ResourceKey<DensityFunction> EROSION = createKey("ganymede/erosion");
+        public static final ResourceKey<DensityFunction> RIDGES = createKey("ganymede/ridges");
+        public static final ResourceKey<DensityFunction> PV = createKey("ganymede/pv");
         public static final ResourceKey<DensityFunction> BASE_HEIGHT = createKey("ganymede/base_height");
         public static final ResourceKey<DensityFunction> OFFSET = createKey("ganymede/offset");
         public static final ResourceKey<DensityFunction> FACTOR = createKey("ganymede/factor");
+        public static final ResourceKey<DensityFunction> JAGGEDNESS = createKey("ganymede/jaggedness");
         public static final ResourceKey<DensityFunction> SMOOTH_RELIEF = createKey("ganymede/smooth_relief");
         public static final ResourceKey<DensityFunction> DEPTH = createKey("ganymede/depth");
         public static final ResourceKey<DensityFunction> SOLID_TERRAIN = createKey("ganymede/solid_terrain");
@@ -215,9 +235,13 @@ public class GCDensityFunctions {
 
     public static final class Callisto {
         public static final ResourceKey<DensityFunction> CONTINENTS = createKey("callisto/continents");
+        public static final ResourceKey<DensityFunction> EROSION = createKey("callisto/erosion");
+        public static final ResourceKey<DensityFunction> RIDGES = createKey("callisto/ridges");
+        public static final ResourceKey<DensityFunction> PV = createKey("callisto/pv");
         public static final ResourceKey<DensityFunction> BASE_HEIGHT = createKey("callisto/base_height");
         public static final ResourceKey<DensityFunction> OFFSET = createKey("callisto/offset");
         public static final ResourceKey<DensityFunction> FACTOR = createKey("callisto/factor");
+        public static final ResourceKey<DensityFunction> JAGGEDNESS = createKey("callisto/jaggedness");
         public static final ResourceKey<DensityFunction> SMOOTH_RELIEF = createKey("callisto/smooth_relief");
         public static final ResourceKey<DensityFunction> DEPTH = createKey("callisto/depth");
         public static final ResourceKey<DensityFunction> SOLID_TERRAIN = createKey("callisto/solid_terrain");
@@ -1192,77 +1216,91 @@ public class GCDensityFunctions {
         );
 
         // ==========================================
-        // INNER & JOVIAN MOONS (PHASE 3)
+        // INNER & JOVIAN MOONS (PHASE 3 — C×E×PV SPLINES + QUARTER-NEGATIVE + ORGANIC CAVES)
         // ==========================================
         bootstrapMoon(
                 context, noiseRegistry, altitudeY,
-                Phobos.CONTINENTS, Phobos.BASE_HEIGHT, Phobos.OFFSET, Phobos.FACTOR,
+                Phobos.CONTINENTS, Phobos.EROSION, Phobos.RIDGES, Phobos.PV,
+                Phobos.BASE_HEIGHT, Phobos.OFFSET, Phobos.FACTOR, Phobos.JAGGEDNESS,
                 Phobos.SMOOTH_RELIEF, Phobos.DEPTH, Phobos.SOLID_TERRAIN, Phobos.CAVES,
                 Phobos.PILLARS, Phobos.FINAL_DENSITY,
-                new MoonTerrainProfile(0.32D, -0.42F, -0.18F, 0.24F, 0.30F, 0.55F, 1.15F, 0.14D, false)
+                new MoonTerrainProfile(0.32D, -0.36F, -0.14F, 0.24F, 0.16F, 0.28F, 0.24F, 0.48F, 0.14D, MoonCaveArchetype.MICROGRAVITY_FRACTURES)
         );
         bootstrapMoon(
                 context, noiseRegistry, altitudeY,
-                Deimos.CONTINENTS, Deimos.BASE_HEIGHT, Deimos.OFFSET, Deimos.FACTOR,
+                Deimos.CONTINENTS, Deimos.EROSION, Deimos.RIDGES, Deimos.PV,
+                Deimos.BASE_HEIGHT, Deimos.OFFSET, Deimos.FACTOR, Deimos.JAGGEDNESS,
                 Deimos.SMOOTH_RELIEF, Deimos.DEPTH, Deimos.SOLID_TERRAIN, Deimos.CAVES,
                 Deimos.PILLARS, Deimos.FINAL_DENSITY,
-                new MoonTerrainProfile(0.28D, -0.34F, -0.20F, 0.08F, 0.20F, 0.35F, 0.70F, 0.08D, false)
+                new MoonTerrainProfile(0.28D, -0.28F, -0.16F, 0.10F, 0.08F, 0.14F, 0.18F, 0.34F, 0.08D, MoonCaveArchetype.MICROGRAVITY_FRACTURES)
         );
         bootstrapMoon(
                 context, noiseRegistry, altitudeY,
-                Io.CONTINENTS, Io.BASE_HEIGHT, Io.OFFSET, Io.FACTOR,
+                Io.CONTINENTS, Io.EROSION, Io.RIDGES, Io.PV,
+                Io.BASE_HEIGHT, Io.OFFSET, Io.FACTOR, Io.JAGGEDNESS,
                 Io.SMOOTH_RELIEF, Io.DEPTH, Io.SOLID_TERRAIN, Io.CAVES,
                 Io.PILLARS, Io.FINAL_DENSITY,
-                new MoonTerrainProfile(0.26D, -0.36F, -0.14F, 0.32F, 0.28F, 0.52F, 1.25F, 0.15D, false)
+                new MoonTerrainProfile(0.26D, -0.32F, -0.10F, 0.34F, 0.22F, 0.34F, 0.26F, 0.54F, 0.16D, MoonCaveArchetype.VOLCANIC_MAGMA_TUBES)
         );
         bootstrapMoon(
                 context, noiseRegistry, altitudeY,
-                Europa.CONTINENTS, Europa.BASE_HEIGHT, Europa.OFFSET, Europa.FACTOR,
+                Europa.CONTINENTS, Europa.EROSION, Europa.RIDGES, Europa.PV,
+                Europa.BASE_HEIGHT, Europa.OFFSET, Europa.FACTOR, Europa.JAGGEDNESS,
                 Europa.SMOOTH_RELIEF, Europa.DEPTH, Europa.SOLID_TERRAIN, Europa.CAVES,
                 Europa.PILLARS, Europa.FINAL_DENSITY,
-                new MoonTerrainProfile(0.24D, -0.32F, -0.22F, 0.06F, 0.18F, 0.32F, 0.75F, 0.10D, true)
+                new MoonTerrainProfile(0.24D, -0.26F, -0.18F, 0.08F, 0.14F, 0.18F, 0.18F, 0.36F, 0.09D, MoonCaveArchetype.SUBSURFACE_OCEAN)
         );
         bootstrapMoon(
                 context, noiseRegistry, altitudeY,
-                Ganymede.CONTINENTS, Ganymede.BASE_HEIGHT, Ganymede.OFFSET, Ganymede.FACTOR,
+                Ganymede.CONTINENTS, Ganymede.EROSION, Ganymede.RIDGES, Ganymede.PV,
+                Ganymede.BASE_HEIGHT, Ganymede.OFFSET, Ganymede.FACTOR, Ganymede.JAGGEDNESS,
                 Ganymede.SMOOTH_RELIEF, Ganymede.DEPTH, Ganymede.SOLID_TERRAIN, Ganymede.CAVES,
                 Ganymede.PILLARS, Ganymede.FINAL_DENSITY,
-                new MoonTerrainProfile(0.25D, -0.34F, -0.16F, 0.26F, 0.24F, 0.48F, 1.05F, 0.12D, false)
+                new MoonTerrainProfile(0.25D, -0.30F, -0.12F, 0.28F, 0.18F, 0.26F, 0.22F, 0.46F, 0.12D, MoonCaveArchetype.STRATIFIED_CRYO_CAVERNS)
         );
         bootstrapMoon(
                 context, noiseRegistry, altitudeY,
-                Callisto.CONTINENTS, Callisto.BASE_HEIGHT, Callisto.OFFSET, Callisto.FACTOR,
+                Callisto.CONTINENTS, Callisto.EROSION, Callisto.RIDGES, Callisto.PV,
+                Callisto.BASE_HEIGHT, Callisto.OFFSET, Callisto.FACTOR, Callisto.JAGGEDNESS,
                 Callisto.SMOOTH_RELIEF, Callisto.DEPTH, Callisto.SOLID_TERRAIN, Callisto.CAVES,
                 Callisto.PILLARS, Callisto.FINAL_DENSITY,
-                new MoonTerrainProfile(0.27D, -0.38F, -0.18F, 0.34F, 0.28F, 0.54F, 1.20F, 0.14D, false)
+                new MoonTerrainProfile(0.27D, -0.34F, -0.14F, 0.34F, 0.20F, 0.32F, 0.24F, 0.50F, 0.14D, MoonCaveArchetype.STRATIFIED_CRYO_CAVERNS)
         );
+    }
+
+    private enum MoonCaveArchetype {
+        MICROGRAVITY_FRACTURES,
+        VOLCANIC_MAGMA_TUBES,
+        SUBSURFACE_OCEAN,
+        STRATIFIED_CRYO_CAVERNS
     }
 
     private record MoonTerrainProfile(
             double continentScale,
-            float lowOffset,
-            float midOffset,
-            float highOffset,
+            float basinOffset,
+            float plainsOffset,
+            float highlandOffset,
+            float canyonDepth,
+            float ridgeHeight,
             float lowFactor,
-            float midFactor,
             float highFactor,
             double roughnessAmp,
-            boolean subsurfaceOcean
+            MoonCaveArchetype caveArchetype
     ) {
     }
 
     /**
-     * Builds an optimized DensityFunction DAG for solid rocky/icy moons strictly adhering to
-     * {@code minecraft-worldgen-and-caves/SKILL.md}:
+     * Builds a realistic, high-performance DensityFunction DAG for rocky and icy moons following
+     * {@code minecraft-worldgen-and-caves/SKILL.md} and {@code references/realistic-surface-terrain.md}
+     * + {@code references/cave-archetypes-and-recipes.md}:
      * <ul>
-     *   <li>{@code cache2d} on all 2D layers ({@code shift}, {@code continents}, {@code offset}, {@code factor},
-     *       {@code smooth_relief}, cave selectors).</li>
-     *   <li>{@code interpolated} on 3D noises ({@code SOLID_TERRAIN}, caves, pillars) with NO outer
-     *       {@code interpolated} wrapper on {@code FINAL_DENSITY}.</li>
-     *   <li>{@code cacheOnce} on all reused heavy sub-expressions ({@code surfaceCeilingTaper},
-     *       {@code activeCaves}, {@code clampedPillars}).</li>
-     *   <li>{@code rangeChoice(altitudeY, ...)} pruning on {@code BlendedNoise} and every cave/pillar layer.</li>
-     *   <li>{@code SOLID_TERRAIN} completely decoupled from caves for {@code initialDensityWithoutJaggedness}.</li>
+     *   <li>Nested 3D {@code C x E x PV} CubicSplines in {@code cache2d} for continuous rilles/canyons,
+     *       eroded basins, and crisp cratered ridges.</li>
+     *   <li>{@code quarterNegative()} asymmetric shaping + {@code rangeChoice}-pruned {@code jaggedness}
+     *       for steep cliffs without floating islands.</li>
+     *   <li>Archetype-specific organic caves (microgravity fractures, volcanic magma tubes, Europa's
+     *       subsurface ocean with organic glacial ice-keels &amp; hydrothermal seamounts — ZERO straight
+     *       vertical pillar rods — and stratified cryotectonic caverns).</li>
      * </ul>
      */
     private static void bootstrapMoon(
@@ -1270,9 +1308,13 @@ public class GCDensityFunctions {
             HolderGetter<net.minecraft.world.level.levelgen.synth.NormalNoise.NoiseParameters> noiseRegistry,
             DensityFunction altitudeY,
             ResourceKey<DensityFunction> continentsKey,
+            ResourceKey<DensityFunction> erosionKey,
+            ResourceKey<DensityFunction> ridgesKey,
+            ResourceKey<DensityFunction> pvKey,
             ResourceKey<DensityFunction> baseHeightKey,
             ResourceKey<DensityFunction> offsetKey,
             ResourceKey<DensityFunction> factorKey,
+            ResourceKey<DensityFunction> jaggednessKey,
             ResourceKey<DensityFunction> smoothReliefKey,
             ResourceKey<DensityFunction> depthKey,
             ResourceKey<DensityFunction> solidTerrainKey,
@@ -1281,13 +1323,38 @@ public class GCDensityFunctions {
             ResourceKey<DensityFunction> finalDensityKey,
             MoonTerrainProfile profile
     ) {
-        // 1. 2D Caching for shift & continents
+        // 1. Shared 2D shift & orthogonal terrain coordinates (all in cache2d)
         DensityFunction shiftX = DensityFunctions.cache2d(DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.SHIFT), 0.25, 0.0));
         DensityFunction shiftZ = DensityFunctions.cache2d(DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.SHIFT), 0.0, 0.25));
+
         DensityFunction continents = registerAndWrap(context, continentsKey,
                 DensityFunctions.cache2d(DensityFunctions.shiftedNoise2d(shiftX, shiftZ, profile.continentScale(), noiseRegistry.getOrThrow(Noises.CONTINENTALNESS)))
         );
-        var continentsCoord = new DensityFunctions.Spline.Coordinate(context.lookup(Registries.DENSITY_FUNCTION).getOrThrow(continentsKey));
+        DensityFunction erosion = registerAndWrap(context, erosionKey,
+                DensityFunctions.cache2d(DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.25, noiseRegistry.getOrThrow(Noises.EROSION)))
+        );
+        DensityFunction ridges = registerAndWrap(context, ridgesKey,
+                DensityFunctions.cache2d(DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.28, noiseRegistry.getOrThrow(Noises.RIDGE)))
+        );
+        // Folded Peaks & Valleys: PV = (-| |ridges| - 2/3 | + 1/3) * 3.0 in [-1.0, 1.0]
+        DensityFunction pv = registerAndWrap(context, pvKey,
+                DensityFunctions.cache2d(
+                        DensityFunctions.mul(
+                                DensityFunctions.constant(3.0),
+                                DensityFunctions.add(
+                                        DensityFunctions.constant(1.0 / 3.0),
+                                        DensityFunctions.mul(
+                                                DensityFunctions.constant(-1.0),
+                                                DensityFunctions.add(ridges.abs(), DensityFunctions.constant(-2.0 / 3.0)).abs()
+                                        )
+                                )
+                        )
+                )
+        );
+
+        var cCoord = new DensityFunctions.Spline.Coordinate(context.lookup(Registries.DENSITY_FUNCTION).getOrThrow(continentsKey));
+        var eCoord = new DensityFunctions.Spline.Coordinate(context.lookup(Registries.DENSITY_FUNCTION).getOrThrow(erosionKey));
+        var pvCoord = new DensityFunctions.Spline.Coordinate(context.lookup(Registries.DENSITY_FUNCTION).getOrThrow(pvKey));
 
         // 2. Vertical base height anchor: 0.0 at Y = 96 (1 block = 0.0125)
         DensityFunction baseHeight = registerAndWrap(context, baseHeightKey,
@@ -1295,185 +1362,124 @@ public class GCDensityFunctions {
         );
         DensityFunction bedrockShield = DensityFunctions.yClampedGradient(-64, -50, 6.0, 0.0);
 
-        // 3. Smooth C1 Hermite offset spline for basins, plains, and highlands
-        var offsetSpline = CubicSpline.builder(continentsCoord)
-                .addPoint(-1.00F, profile.lowOffset(), 0.05F)
-                .addPoint(-0.25F, (profile.lowOffset() + profile.midOffset()) * 0.5F, 0.20F)
-                .addPoint(0.25F, profile.midOffset(), 0.28F)
-                .addPoint(0.70F, (profile.midOffset() + profile.highOffset()) * 0.55F, 0.45F)
-                .addPoint(1.00F, profile.highOffset(), 0.30F)
+        // 3. Nested 3D C x E x PV spline for realistic canyons/rilles, basins, and mountain ridges
+        var highlandPvSpline = CubicSpline.builder(pvCoord)
+                .addPoint(-1.00F, profile.plainsOffset() - profile.canyonDepth(), 0.00F)
+                .addPoint(-0.68F, profile.plainsOffset() + 0.04F, 0.65F)
+                .addPoint(0.00F, profile.highlandOffset() * 0.55F, 0.18F)
+                .addPoint(0.70F, profile.highlandOffset() + profile.ridgeHeight() * 0.65F, 0.40F)
+                .addPoint(1.00F, profile.highlandOffset() + profile.ridgeHeight(), 0.10F)
+                .build();
+
+        var plainsPvSpline = CubicSpline.builder(pvCoord)
+                .addPoint(-1.00F, profile.plainsOffset() - profile.canyonDepth() * 0.65F, 0.00F)
+                .addPoint(-0.65F, profile.plainsOffset(), 0.35F)
+                .addPoint(0.50F, profile.plainsOffset() + 0.06F, 0.12F)
+                .addPoint(1.00F, profile.plainsOffset() + profile.ridgeHeight() * 0.40F, 0.08F)
+                .build();
+
+        var highlandByErosion = CubicSpline.builder(eCoord)
+                .addPoint(-1.00F, highlandPvSpline)
+                .addPoint(0.05F, plainsPvSpline)
+                .addPoint(1.00F, profile.plainsOffset() + 0.04F, 0.00F)
+                .build();
+
+        var offsetSpline = CubicSpline.builder(cCoord)
+                .addPoint(-1.00F, profile.basinOffset(), 0.05F)
+                .addPoint(-0.28F, (profile.basinOffset() + profile.plainsOffset()) * 0.5F, 0.28F)
+                .addPoint(0.26F, highlandByErosion)
                 .build();
         DensityFunction offset = registerAndWrap(context, offsetKey, DensityFunctions.cache2d(DensityFunctions.spline(offsetSpline)));
 
         // 4. Surface-anchored DEPTH function (0.0 at surface, >0.18 subterranean)
-        registerAndWrap(context, depthKey, DensityFunctions.add(baseHeight, offset));
+        DensityFunction depth = registerAndWrap(context, depthKey, DensityFunctions.add(baseHeight, offset));
 
-        // 5. Smooth factor spline for regional relief scaling
-        var factorSpline = CubicSpline.builder(continentsCoord)
-                .addPoint(-1.00F, profile.lowFactor(), 0.05F)
-                .addPoint(0.00F, profile.midFactor(), 0.20F)
-                .addPoint(1.00F, profile.highFactor(), 0.30F)
+        // 5. Factor & Jaggedness splines (all in cache2d)
+        var factorSpline = CubicSpline.builder(eCoord)
+                .addPoint(-1.00F, profile.highFactor(), 0.00F)
+                .addPoint(0.10F, (profile.lowFactor() + profile.highFactor()) * 0.5F, -0.15F)
+                .addPoint(1.00F, profile.lowFactor(), 0.00F)
                 .build();
         DensityFunction factor = registerAndWrap(context, factorKey, DensityFunctions.cache2d(DensityFunctions.spline(factorSpline)));
 
-        // 6. 2D multi-generator relief wrapped in cache2d
-        DensityFunction baseNoise = DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.65, noiseRegistry.getOrThrow(GCNoiseData.MERCURY_BASE_NOISE));
+        var jaggedByPv = CubicSpline.builder(pvCoord)
+                .addPoint(-1.00F, 0.00F, 0.00F)
+                .addPoint(0.25F, 0.00F, 0.00F)
+                .addPoint(0.85F, 0.12F, 0.25F)
+                .addPoint(1.00F, 0.20F, 0.05F)
+                .build();
+        var jaggedSpline = CubicSpline.builder(eCoord)
+                .addPoint(-1.00F, jaggedByPv)
+                .addPoint(-0.15F, 0.00F, 0.00F)
+                .addPoint(1.00F, 0.00F, 0.00F)
+                .build();
+        DensityFunction jaggedFactor = registerAndWrap(context, jaggednessKey, DensityFunctions.cache2d(DensityFunctions.spline(jaggedSpline)));
+
+        // 6. 2D ridged micro-relief (cache2d)
+        DensityFunction baseNoise = DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.60, noiseRegistry.getOrThrow(GCNoiseData.MERCURY_BASE_NOISE));
         DensityFunction ridgeNoise = DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.45, noiseRegistry.getOrThrow(GCNoiseData.MERCURY_SCARP_NOISE)).abs();
         DensityFunction smoothRelief = registerAndWrap(context, smoothReliefKey,
                 DensityFunctions.cache2d(
                         DensityFunctions.mul(
                                 factor,
                                 DensityFunctions.add(
-                                        DensityFunctions.mul(DensityFunctions.constant(0.15), baseNoise),
+                                        DensityFunctions.mul(DensityFunctions.constant(0.12), baseNoise),
                                         DensityFunctions.mul(DensityFunctions.constant(0.14), ridgeNoise)
                                 )
                         )
                 )
         );
 
-        // 7. 3D roughness strictly pruned to surface elevation envelope via rangeChoice
+        // 7. Asymmetric quarterNegative shaping + rangeChoice-pruned jaggedness + pruned 3D roughness
+        DensityFunction jagged3d = DensityFunctions.rangeChoice(
+                jaggedFactor,
+                0.01,
+                10.0,
+                DensityFunctions.mul(
+                        jaggedFactor,
+                        DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.JAGGED), 1500.0, 0.0).halfNegative()
+                ),
+                DensityFunctions.zero()
+        );
+        DensityFunction shapedBase = DensityFunctions.mul(
+                DensityFunctions.constant(2.5),
+                DensityFunctions.mul(
+                        DensityFunctions.add(DensityFunctions.add(depth, smoothRelief), jagged3d),
+                        DensityFunctions.add(DensityFunctions.constant(0.65), factor)
+                ).quarterNegative()
+        );
+
         DensityFunction roughnessYFade = DensityFunctions.mul(
-                DensityFunctions.yClampedGradient(40, 56, 0.0, 1.0),
-                DensityFunctions.yClampedGradient(160, 184, 1.0, 0.0)
+                DensityFunctions.yClampedGradient(36, 52, 0.0, 1.0),
+                DensityFunctions.yClampedGradient(165, 190, 1.0, 0.0)
         );
         DensityFunction raw3dRoughness = DensityFunctions.mul(
                 roughnessYFade,
                 DensityFunctions.mul(
-                        factor,
-                        DensityFunctions.mul(
-                                DensityFunctions.constant(profile.roughnessAmp()),
-                                BlendedNoise.createUnseeded(0.24, 0.16, 80.0, 160.0, 8.0)
-                        )
+                        DensityFunctions.constant(profile.roughnessAmp()),
+                        BlendedNoise.createUnseeded(0.24, 0.14, 80.0, 160.0, 8.0)
                 )
         );
-        DensityFunction pruned3dRoughness = DensityFunctions.rangeChoice(altitudeY, 40.0, 184.0, raw3dRoughness, DensityFunctions.zero());
-
-        DensityFunction rawSolidTerrain = DensityFunctions.add(
-                baseHeight,
-                DensityFunctions.add(
-                        offset,
-                        DensityFunctions.add(smoothRelief, pruned3dRoughness)
-                )
-        );
+        DensityFunction pruned3dRoughness = DensityFunctions.rangeChoice(altitudeY, 36.0, 190.0, raw3dRoughness, DensityFunctions.zero());
 
         // 8. Interpolated SOLID_TERRAIN (decoupled from caves for initialDensityWithoutJaggedness)
-        DensityFunction solidTerrain = registerAndWrap(context, solidTerrainKey, DensityFunctions.interpolated(rawSolidTerrain));
+        DensityFunction solidTerrain = registerAndWrap(
+                context,
+                solidTerrainKey,
+                DensityFunctions.interpolated(DensityFunctions.add(shapedBase, pruned3dRoughness))
+        );
 
-        // 9. Subterranean caves (or Europa's global subsurface ocean cavern below Y = 24)
-        DensityFunction totalCaveCarve;
-        if (profile.subsurfaceOcean()) {
-            // Global sub-glacial ocean cavern from Y = -44 to Y = 23 beneath Europa's solid ice crust
-            DensityFunction oceanYDist = DensityFunctions.add(
-                    DensityFunctions.yClampedGradient(-46, -34, 1.5, 0.0),
-                    DensityFunctions.yClampedGradient(14, 24, 0.0, 1.5)
-            );
-            DensityFunction oceanUndulation = DensityFunctions.interpolated(
-                    DensityFunctions.mul(
-                            DensityFunctions.constant(0.35),
-                            DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.MERCURY_MEGABRECCIA_CHEESE), 0.5, 0.4)
-                    )
-            );
-            DensityFunction rawOceanCavern = DensityFunctions.min(
-                    DensityFunctions.zero(),
-                    DensityFunctions.mul(
-                            DensityFunctions.constant(2.6),
-                            DensityFunctions.add(DensityFunctions.add(oceanYDist, oceanUndulation), DensityFunctions.constant(-0.85))
-                    )
-            );
-            DensityFunction prunedOcean = DensityFunctions.rangeChoice(altitudeY, -46.0, 24.0, rawOceanCavern, DensityFunctions.zero());
+        // 9. Archetype-specific organic caves (ZERO artificial straight vertical pillar rods!)
+        DensityFunction totalCaveCarve = switch (profile.caveArchetype()) {
+            case SUBSURFACE_OCEAN -> buildEuropaSubsurfaceOceanCaves(context, noiseRegistry, altitudeY, shiftX, shiftZ, cavesKey);
+            case VOLCANIC_MAGMA_TUBES -> buildIoVolcanicMagmaCaves(context, noiseRegistry, altitudeY, shiftX, shiftZ, cavesKey);
+            case STRATIFIED_CRYO_CAVERNS -> buildStratifiedCryoCaves(context, noiseRegistry, altitudeY, shiftX, shiftZ, cavesKey);
+            case MICROGRAVITY_FRACTURES -> buildMicrogravityFractureCaves(context, noiseRegistry, altitudeY, shiftX, shiftZ, cavesKey);
+        };
 
-            // Upper ice fractures connecting crust to ocean ceiling
-            DensityFunction iceRidgeA = DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.NOODLE_RIDGE_A), 1.8, 1.8).abs();
-            DensityFunction iceRidgeB = DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.NOODLE_RIDGE_B), 1.8, 1.8).abs();
-            DensityFunction iceNoodleDist = DensityFunctions.interpolated(DensityFunctions.max(iceRidgeA, iceRidgeB));
-            DensityFunction iceNoodleYDist = DensityFunctions.add(
-                    DensityFunctions.yClampedGradient(16, 26, 0.25, 0.0),
-                    DensityFunctions.yClampedGradient(48, 60, 0.0, 0.45)
-            );
-            DensityFunction rawIceNoodles = DensityFunctions.min(
-                    DensityFunctions.zero(),
-                    DensityFunctions.mul(
-                            DensityFunctions.constant(14.0),
-                            DensityFunctions.add(DensityFunctions.constant(-0.12), DensityFunctions.add(iceNoodleDist, iceNoodleYDist))
-                    )
-            );
-            DensityFunction prunedIceNoodles = DensityFunctions.rangeChoice(altitudeY, 16.0, 60.0, rawIceNoodles, DensityFunctions.zero());
-
-            totalCaveCarve = registerAndWrap(context, cavesKey, DensityFunctions.min(prunedOcean, prunedIceNoodles));
-        } else {
-            DensityFunction caveSelector = DensityFunctions.cache2d(
-                    DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.30, noiseRegistry.getOrThrow(GCNoiseData.MERCURY_CAVE_SELECTOR))
-            );
-
-            // (A) Horizontal conduits / lava or fracture tubes [Y = 12 to 58]
-            DensityFunction tubeYDist = DensityFunctions.add(
-                    DensityFunctions.yClampedGradient(12, 28, 1.2, 0.0),
-                    DensityFunctions.yClampedGradient(42, 58, 0.0, 1.2)
-            );
-            DensityFunction tube2d = DensityFunctions.cache2d(
-                    DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.20, noiseRegistry.getOrThrow(GCNoiseData.MERCURY_LAVA_TUBES)).abs()
-            );
-            DensityFunction rawTubes = DensityFunctions.min(
-                    DensityFunctions.zero(),
-                    DensityFunctions.mul(
-                            DensityFunctions.constant(2.6),
-                            DensityFunctions.add(
-                                    DensityFunctions.add(
-                                            DensityFunctions.mul(DensityFunctions.constant(4.4), tube2d),
-                                            DensityFunctions.add(tubeYDist, DensityFunctions.mul(DensityFunctions.constant(2.0), caveSelector.abs()))
-                                    ),
-                                    DensityFunctions.constant(-0.48)
-                            )
-                    )
-            );
-            DensityFunction prunedTubes = DensityFunctions.rangeChoice(altitudeY, 10.0, 60.0, rawTubes, DensityFunctions.zero());
-
-            // (B) Deep vaulted caverns [Y = -46 to 24]
-            DensityFunction vaultYDist = DensityFunctions.add(
-                    DensityFunctions.yClampedGradient(-46, -24, 1.35, 0.0),
-                    DensityFunctions.yClampedGradient(4, 24, 0.0, 1.35)
-            );
-            DensityFunction cheese3d = DensityFunctions.interpolated(
-                    DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.MERCURY_MEGABRECCIA_CHEESE), 0.75, 0.65)
-            );
-            DensityFunction rawVaults = DensityFunctions.min(
-                    DensityFunctions.zero(),
-                    DensityFunctions.mul(
-                            DensityFunctions.constant(2.4),
-                            DensityFunctions.add(
-                                    DensityFunctions.add(
-                                            cheese3d,
-                                            DensityFunctions.add(vaultYDist, DensityFunctions.mul(DensityFunctions.constant(1.6), DensityFunctions.add(caveSelector, DensityFunctions.constant(0.25))))
-                                    ),
-                                    DensityFunctions.constant(0.18)
-                            )
-                    )
-            );
-            DensityFunction prunedVaults = DensityFunctions.rangeChoice(altitudeY, -48.0, 26.0, rawVaults, DensityFunctions.zero());
-
-            // (C) Connecting 3D noodle passages [Y = -46 to 56]
-            DensityFunction noodleYDist = DensityFunctions.add(
-                    DensityFunctions.yClampedGradient(-46, -34, 0.35, 0.0),
-                    DensityFunctions.yClampedGradient(42, 56, 0.0, 0.35)
-            );
-            DensityFunction ridgeA = DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.NOODLE_RIDGE_A), 1.85, 1.85).abs();
-            DensityFunction ridgeB = DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.NOODLE_RIDGE_B), 1.85, 1.85).abs();
-            DensityFunction noodleDist = DensityFunctions.interpolated(DensityFunctions.max(ridgeA, ridgeB));
-            DensityFunction rawNoodles = DensityFunctions.min(
-                    DensityFunctions.zero(),
-                    DensityFunctions.mul(
-                            DensityFunctions.constant(15.0),
-                            DensityFunctions.add(DensityFunctions.constant(-0.135), DensityFunctions.add(noodleDist, noodleYDist))
-                    )
-            );
-            DensityFunction prunedNoodles = DensityFunctions.rangeChoice(altitudeY, -48.0, 58.0, rawNoodles, DensityFunctions.zero());
-
-            totalCaveCarve = registerAndWrap(context, cavesKey, DensityFunctions.min(prunedNoodles, DensityFunctions.min(prunedTubes, prunedVaults)));
-        }
-
-        // 10. Dynamic surface ceiling taper + cacheOnce on reused sub-expressions
+        // 10. Dynamic surface ceiling taper (keeps surface crust intact under basins/craters)
         DensityFunction surfaceCeilingTaper = DensityFunctions.cacheOnce(DensityFunctions.add(
-                DensityFunctions.mul(DensityFunctions.constant(-24.0), solidTerrain),
+                DensityFunctions.mul(DensityFunctions.constant(-22.0), solidTerrain),
                 DensityFunctions.constant(3.2)
         ).clamp(0.0, 3.2));
 
@@ -1482,55 +1488,281 @@ public class GCDensityFunctions {
                 DensityFunctions.add(totalCaveCarve, surfaceCeilingTaper)
         );
         DensityFunction altitudeCaves = DensityFunctions.rangeChoice(altitudeY, -50.0, 62.0, boundedCaveCarve, DensityFunctions.zero());
-        DensityFunction activeCaves = DensityFunctions.cacheOnce(
-                DensityFunctions.rangeChoice(solidTerrain, -0.60, 10.0, altitudeCaves, DensityFunctions.zero())
-        );
+        DensityFunction activeCaves = DensityFunctions.rangeChoice(solidTerrain, -0.55, 10.0, altitudeCaves, DensityFunctions.zero());
 
-        // 11. Subterranean pillars with double pruning (altitude + activeCaves < -0.05) and cacheOnce
-        DensityFunction pillarNoise = DensityFunctions.interpolated(DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.PILLAR), 18.0, 0.25));
-        DensityFunction pillarRareness = DensityFunctions.interpolated(DensityFunctions.mappedNoise(noiseRegistry.getOrThrow(Noises.PILLAR_RARENESS), 0.0, -2.0));
-        DensityFunction pillarThickness = DensityFunctions.interpolated(DensityFunctions.mappedNoise(noiseRegistry.getOrThrow(Noises.PILLAR_THICKNESS), 0.0, 1.1));
-        DensityFunction rawPillars = DensityFunctions.mul(
-                DensityFunctions.add(DensityFunctions.mul(pillarNoise, DensityFunctions.constant(2.0)), pillarRareness),
-                pillarThickness.cube()
-        );
-        DensityFunction pillarYBounds = DensityFunctions.mul(
-                DensityFunctions.yClampedGradient(-48, -38, 0.0, 1.0),
-                DensityFunctions.yClampedGradient(20, 34, 1.0, 0.0)
-        );
-        DensityFunction crustSafety = DensityFunctions.add(
-                DensityFunctions.constant(1.0),
-                DensityFunctions.mul(DensityFunctions.constant(-4.0), surfaceCeilingTaper)
-        ).clamp(0.0, 1.0);
-        DensityFunction boundedPillars = DensityFunctions.cacheOnce(
-                DensityFunctions.rangeChoice(
-                        altitudeY,
-                        -48.0,
-                        36.0,
-                        DensityFunctions.mul(rawPillars, DensityFunctions.mul(pillarYBounds, crustSafety)),
-                        DensityFunctions.constant(-1000000.0)
-                )
-        );
-        DensityFunction clampedPillars = DensityFunctions.rangeChoice(
-                boundedPillars,
-                -1000000.0,
-                0.03,
-                DensityFunctions.constant(-1000000.0),
-                boundedPillars
-        );
-        DensityFunction activePillars = DensityFunctions.rangeChoice(
-                activeCaves,
-                -1000.0,
-                -0.05,
-                clampedPillars,
-                DensityFunctions.constant(-1000000.0)
-        );
-
-        DensityFunction terrainWithCaves = DensityFunctions.add(solidTerrain, activeCaves);
-        DensityFunction terrainWithPillars = registerAndWrap(context, pillarsKey, DensityFunctions.max(terrainWithCaves, activePillars));
+        // 11. Organic terrain + caves (no artificial straight vertical pillars; seamounts & arches are sculpted organically in cave noise)
+        DensityFunction terrainWithCaves = registerAndWrap(context, pillarsKey, DensityFunctions.add(solidTerrain, activeCaves));
 
         // 12. Final Density: NO outer interpolated wrapper!
-        context.register(finalDensityKey, DensityFunctions.add(terrainWithPillars, bedrockShield));
+        context.register(finalDensityKey, DensityFunctions.add(terrainWithCaves, bedrockShield));
+    }
+
+    /**
+     * Europa global subsurface liquid ocean (Y = -46..24):
+     * Undulating glacial ice-keel ceiling + organic hydrothermal seamounts rising from the silicate seabed
+     * using isotropic low-frequency 3D noise (ZERO straight vertical pillar rods!), plus narrow ice-fracture
+     * noodles connecting the upper ice shell (Y = 24..58).
+     */
+    private static DensityFunction buildEuropaSubsurfaceOceanCaves(
+            BootstrapContext<DensityFunction> context,
+            HolderGetter<net.minecraft.world.level.levelgen.synth.NormalNoise.NoiseParameters> noiseRegistry,
+            DensityFunction altitudeY,
+            DensityFunction shiftX,
+            DensityFunction shiftZ,
+            ResourceKey<DensityFunction> cavesKey
+    ) {
+        // Organic seabed bathymetry (hills & hydrothermal ridges rising from Y = -46 up to Y = -18)
+        DensityFunction seabedHill2d = DensityFunctions.cache2d(
+                DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.45, noiseRegistry.getOrThrow(GCNoiseData.MERCURY_BASE_NOISE))
+        );
+        // Glacial ice-keels hanging organically down from the Y = 24 ice ceiling
+        DensityFunction iceKeel2d = DensityFunctions.cache2d(
+                DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.55, noiseRegistry.getOrThrow(GCNoiseData.MERCURY_SCARP_NOISE)).abs()
+        );
+
+        DensityFunction floorEnv = DensityFunctions.add(
+                DensityFunctions.yClampedGradient(-48, -26, 1.8, 0.0),
+                DensityFunctions.mul(
+                        DensityFunctions.yClampedGradient(-46, -12, 0.65, 0.0),
+                        DensityFunctions.add(seabedHill2d, DensityFunctions.constant(0.35))
+                )
+        );
+        DensityFunction ceilingEnv = DensityFunctions.add(
+                DensityFunctions.yClampedGradient(10, 25, 0.0, 1.8),
+                DensityFunctions.mul(
+                        DensityFunctions.yClampedGradient(4, 24, 0.0, 0.70),
+                        iceKeel2d
+                )
+        );
+
+        // Isotropic low-frequency 3D noise creates natural organic glacial arches & underwater rock outcroppings
+        // instead of straight vertical pillars!
+        DensityFunction organicOcean3d = DensityFunctions.interpolated(
+                DensityFunctions.mul(
+                        DensityFunctions.constant(0.55),
+                        DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.MERCURY_MEGABRECCIA_CHEESE), 0.55, 0.45)
+                )
+        );
+
+        DensityFunction rawOceanCavern = DensityFunctions.min(
+                DensityFunctions.zero(),
+                DensityFunctions.mul(
+                        DensityFunctions.constant(2.5),
+                        DensityFunctions.add(
+                                DensityFunctions.add(floorEnv, ceilingEnv),
+                                DensityFunctions.add(organicOcean3d, DensityFunctions.constant(-0.92))
+                        )
+                )
+        );
+        DensityFunction prunedOcean = DensityFunctions.rangeChoice(altitudeY, -48.0, 26.0, rawOceanCavern, DensityFunctions.zero());
+
+        // Upper ice-shell tectonic fractures (Y = 20..58)
+        DensityFunction iceRidgeA = DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.NOODLE_RIDGE_A), 1.75, 1.75).abs();
+        DensityFunction iceRidgeB = DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.NOODLE_RIDGE_B), 1.75, 1.75).abs();
+        DensityFunction iceNoodleDist = DensityFunctions.interpolated(DensityFunctions.max(iceRidgeA, iceRidgeB));
+        DensityFunction iceNoodleYDist = DensityFunctions.add(
+                DensityFunctions.yClampedGradient(20, 28, 0.20, 0.0),
+                DensityFunctions.yClampedGradient(46, 58, 0.0, 0.45)
+        );
+        DensityFunction rawIceNoodles = DensityFunctions.min(
+                DensityFunctions.zero(),
+                DensityFunctions.mul(
+                        DensityFunctions.constant(14.0),
+                        DensityFunctions.add(DensityFunctions.constant(-0.115), DensityFunctions.add(iceNoodleDist, iceNoodleYDist))
+                )
+        );
+        DensityFunction prunedIceNoodles = DensityFunctions.rangeChoice(altitudeY, 20.0, 58.0, rawIceNoodles, DensityFunctions.zero());
+
+        return registerAndWrap(context, cavesKey, DensityFunctions.min(prunedOcean, prunedIceNoodles));
+    }
+
+    /**
+     * Io volcanic magma tubes & deep incandescent vaults (lava seaLevel = -36).
+     */
+    private static DensityFunction buildIoVolcanicMagmaCaves(
+            BootstrapContext<DensityFunction> context,
+            HolderGetter<net.minecraft.world.level.levelgen.synth.NormalNoise.NoiseParameters> noiseRegistry,
+            DensityFunction altitudeY,
+            DensityFunction shiftX,
+            DensityFunction shiftZ,
+            ResourceKey<DensityFunction> cavesKey
+    ) {
+        DensityFunction caveSelector = DensityFunctions.cache2d(
+                DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.28, noiseRegistry.getOrThrow(GCNoiseData.MERCURY_CAVE_SELECTOR))
+        );
+
+        // (A) Sinuous horizontal volcanic lava tubes [Y = 8..56]
+        DensityFunction tubeYDist = DensityFunctions.add(
+                DensityFunctions.yClampedGradient(8, 24, 1.25, 0.0),
+                DensityFunctions.yClampedGradient(40, 56, 0.0, 1.25)
+        );
+        DensityFunction tube2d = DensityFunctions.cache2d(
+                DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.20, noiseRegistry.getOrThrow(GCNoiseData.MERCURY_LAVA_TUBES)).abs()
+        );
+        DensityFunction rawTubes = DensityFunctions.min(
+                DensityFunctions.zero(),
+                DensityFunctions.mul(
+                        DensityFunctions.constant(2.6),
+                        DensityFunctions.add(
+                                DensityFunctions.add(
+                                        DensityFunctions.mul(DensityFunctions.constant(4.2), tube2d),
+                                        DensityFunctions.add(tubeYDist, DensityFunctions.mul(DensityFunctions.constant(1.8), caveSelector.abs()))
+                                ),
+                                DensityFunctions.constant(-0.50)
+                        )
+                )
+        );
+        DensityFunction prunedTubes = DensityFunctions.rangeChoice(altitudeY, 6.0, 58.0, rawTubes, DensityFunctions.zero());
+
+        // (B) Deep organic magma chambers [Y = -48..14] with domed roofs & natural basalt islands
+        DensityFunction magmaYDist = DensityFunctions.add(
+                DensityFunctions.yClampedGradient(-48, -32, 1.45, 0.0),
+                DensityFunctions.yClampedGradient(-6, 14, 0.0, 1.45)
+        );
+        DensityFunction magma3d = DensityFunctions.interpolated(
+                DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.MERCURY_MAGMA_CHAMBERS), 0.65, 0.55)
+        );
+        DensityFunction rawMagmaVaults = DensityFunctions.min(
+                DensityFunctions.zero(),
+                DensityFunctions.mul(
+                        DensityFunctions.constant(2.5),
+                        DensityFunctions.add(
+                                DensityFunctions.add(magma3d, magmaYDist),
+                                DensityFunctions.add(DensityFunctions.mul(DensityFunctions.constant(1.4), DensityFunctions.add(caveSelector, DensityFunctions.constant(0.20))), DensityFunctions.constant(0.10))
+                        )
+                )
+        );
+        DensityFunction prunedMagmaVaults = DensityFunctions.rangeChoice(altitudeY, -50.0, 16.0, rawMagmaVaults, DensityFunctions.zero());
+
+        // (C) Connecting volcanic fissures/noodles [Y = -46..54]
+        DensityFunction ridgeA = DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.NOODLE_RIDGE_A), 1.8, 1.8).abs();
+        DensityFunction ridgeB = DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.NOODLE_RIDGE_B), 1.8, 1.8).abs();
+        DensityFunction noodleDist = DensityFunctions.interpolated(DensityFunctions.max(ridgeA, ridgeB));
+        DensityFunction noodleYDist = DensityFunctions.add(
+                DensityFunctions.yClampedGradient(-46, -34, 0.35, 0.0),
+                DensityFunctions.yClampedGradient(40, 54, 0.0, 0.35)
+        );
+        DensityFunction rawNoodles = DensityFunctions.min(
+                DensityFunctions.zero(),
+                DensityFunctions.mul(
+                        DensityFunctions.constant(15.0),
+                        DensityFunctions.add(DensityFunctions.constant(-0.135), DensityFunctions.add(noodleDist, noodleYDist))
+                )
+        );
+        DensityFunction prunedNoodles = DensityFunctions.rangeChoice(altitudeY, -48.0, 56.0, rawNoodles, DensityFunctions.zero());
+
+        return registerAndWrap(context, cavesKey, DensityFunctions.min(prunedNoodles, DensityFunctions.min(prunedTubes, prunedMagmaVaults)));
+    }
+
+    /**
+     * Ganymede & Callisto stratified cryotectonic caverns: horizontally layered lenticular vaults
+     * + connecting cryo-noodles, zero vertical pillar artifacts.
+     */
+    private static DensityFunction buildStratifiedCryoCaves(
+            BootstrapContext<DensityFunction> context,
+            HolderGetter<net.minecraft.world.level.levelgen.synth.NormalNoise.NoiseParameters> noiseRegistry,
+            DensityFunction altitudeY,
+            DensityFunction shiftX,
+            DensityFunction shiftZ,
+            ResourceKey<DensityFunction> cavesKey
+    ) {
+        DensityFunction caveSelector = DensityFunctions.cache2d(
+                DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.25, noiseRegistry.getOrThrow(GCNoiseData.MERCURY_CAVE_SELECTOR))
+        );
+
+        // Horizontally stratified lenticular galleries (higher Y frequency than XZ creates terraced ledges)
+        DensityFunction vaultYDist = DensityFunctions.add(
+                DensityFunctions.yClampedGradient(-46, -24, 1.4, 0.0),
+                DensityFunctions.yClampedGradient(18, 42, 0.0, 1.4)
+        );
+        DensityFunction stratified3d = DensityFunctions.interpolated(
+                DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.MERCURY_MEGABRECCIA_CHEESE), 0.48, 0.95)
+        );
+        DensityFunction rawVaults = DensityFunctions.min(
+                DensityFunctions.zero(),
+                DensityFunctions.mul(
+                        DensityFunctions.constant(2.3),
+                        DensityFunctions.add(
+                                DensityFunctions.add(stratified3d, vaultYDist),
+                                DensityFunctions.add(DensityFunctions.mul(DensityFunctions.constant(1.5), DensityFunctions.add(caveSelector, DensityFunctions.constant(0.25))), DensityFunctions.constant(0.18))
+                        )
+                )
+        );
+        DensityFunction prunedVaults = DensityFunctions.rangeChoice(altitudeY, -48.0, 44.0, rawVaults, DensityFunctions.zero());
+
+        // Connecting cryo-noodles
+        DensityFunction ridgeA = DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.NOODLE_RIDGE_A), 1.9, 1.9).abs();
+        DensityFunction ridgeB = DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.NOODLE_RIDGE_B), 1.9, 1.9).abs();
+        DensityFunction noodleDist = DensityFunctions.interpolated(DensityFunctions.max(ridgeA, ridgeB));
+        DensityFunction noodleYDist = DensityFunctions.add(
+                DensityFunctions.yClampedGradient(-46, -34, 0.35, 0.0),
+                DensityFunctions.yClampedGradient(40, 54, 0.0, 0.35)
+        );
+        DensityFunction rawNoodles = DensityFunctions.min(
+                DensityFunctions.zero(),
+                DensityFunctions.mul(
+                        DensityFunctions.constant(14.5),
+                        DensityFunctions.add(DensityFunctions.constant(-0.13), DensityFunctions.add(noodleDist, noodleYDist))
+                )
+        );
+        DensityFunction prunedNoodles = DensityFunctions.rangeChoice(altitudeY, -48.0, 56.0, rawNoodles, DensityFunctions.zero());
+
+        return registerAndWrap(context, cavesKey, DensityFunctions.min(prunedVaults, prunedNoodles));
+    }
+
+    /**
+     * Phobos & Deimos microgravity fracture caverns & rubble-pile hollow chambers.
+     */
+    private static DensityFunction buildMicrogravityFractureCaves(
+            BootstrapContext<DensityFunction> context,
+            HolderGetter<net.minecraft.world.level.levelgen.synth.NormalNoise.NoiseParameters> noiseRegistry,
+            DensityFunction altitudeY,
+            DensityFunction shiftX,
+            DensityFunction shiftZ,
+            ResourceKey<DensityFunction> cavesKey
+    ) {
+        DensityFunction caveSelector = DensityFunctions.cache2d(
+                DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.32, noiseRegistry.getOrThrow(GCNoiseData.MERCURY_CAVE_SELECTOR))
+        );
+
+        // Organic rubble-pile hollow chambers [Y = -42..36]
+        DensityFunction chamberYDist = DensityFunctions.add(
+                DensityFunctions.yClampedGradient(-42, -20, 1.35, 0.0),
+                DensityFunctions.yClampedGradient(16, 36, 0.0, 1.35)
+        );
+        DensityFunction hollow3d = DensityFunctions.interpolated(
+                DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.MERCURY_MEGABRECCIA_CHEESE), 0.72, 0.72)
+        );
+        DensityFunction rawChambers = DensityFunctions.min(
+                DensityFunctions.zero(),
+                DensityFunctions.mul(
+                        DensityFunctions.constant(2.3),
+                        DensityFunctions.add(
+                                DensityFunctions.add(hollow3d, chamberYDist),
+                                DensityFunctions.add(DensityFunctions.mul(DensityFunctions.constant(1.6), DensityFunctions.add(caveSelector, DensityFunctions.constant(0.28))), DensityFunctions.constant(0.20))
+                        )
+                )
+        );
+        DensityFunction prunedChambers = DensityFunctions.rangeChoice(altitudeY, -44.0, 38.0, rawChambers, DensityFunctions.zero());
+
+        // Narrow impact-fracture noodles
+        DensityFunction ridgeA = DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.NOODLE_RIDGE_A), 2.1, 2.1).abs();
+        DensityFunction ridgeB = DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.NOODLE_RIDGE_B), 2.1, 2.1).abs();
+        DensityFunction noodleDist = DensityFunctions.interpolated(DensityFunctions.max(ridgeA, ridgeB));
+        DensityFunction noodleYDist = DensityFunctions.add(
+                DensityFunctions.yClampedGradient(-44, -32, 0.35, 0.0),
+                DensityFunctions.yClampedGradient(40, 54, 0.0, 0.35)
+        );
+        DensityFunction rawNoodles = DensityFunctions.min(
+                DensityFunctions.zero(),
+                DensityFunctions.mul(
+                        DensityFunctions.constant(15.0),
+                        DensityFunctions.add(DensityFunctions.constant(-0.13), DensityFunctions.add(noodleDist, noodleYDist))
+                )
+        );
+        DensityFunction prunedNoodles = DensityFunctions.rangeChoice(altitudeY, -46.0, 56.0, rawNoodles, DensityFunctions.zero());
+
+        return registerAndWrap(context, cavesKey, DensityFunctions.min(prunedChambers, prunedNoodles));
     }
 
     /**

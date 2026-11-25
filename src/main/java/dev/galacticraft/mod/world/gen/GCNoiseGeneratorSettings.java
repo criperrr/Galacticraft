@@ -216,11 +216,13 @@ public class GCNoiseGeneratorSettings {
                 NoiseSettings.create(-64, 384, 1, 2),
                 GCBlocks.PHOBOS_ROCK.defaultBlockState(),
                 Blocks.AIR.defaultBlockState(),
-                GCNoiseGeneratorSettings.outerPlanetRouter(
+                GCNoiseGeneratorSettings.moonRouter(
                         densityLookup,
                         noiseLookup,
                         GCDensityFunctions.Phobos.CONTINENTS,
+                        GCDensityFunctions.Phobos.EROSION,
                         GCDensityFunctions.Phobos.DEPTH,
+                        GCDensityFunctions.Phobos.RIDGES,
                         GCDensityFunctions.Phobos.SOLID_TERRAIN,
                         GCDensityFunctions.Phobos.FINAL_DENSITY
                 ),
@@ -237,11 +239,13 @@ public class GCNoiseGeneratorSettings {
                 NoiseSettings.create(-64, 384, 1, 2),
                 GCBlocks.DEIMOS_ROCK.defaultBlockState(),
                 Blocks.AIR.defaultBlockState(),
-                GCNoiseGeneratorSettings.outerPlanetRouter(
+                GCNoiseGeneratorSettings.moonRouter(
                         densityLookup,
                         noiseLookup,
                         GCDensityFunctions.Deimos.CONTINENTS,
+                        GCDensityFunctions.Deimos.EROSION,
                         GCDensityFunctions.Deimos.DEPTH,
+                        GCDensityFunctions.Deimos.RIDGES,
                         GCDensityFunctions.Deimos.SOLID_TERRAIN,
                         GCDensityFunctions.Deimos.FINAL_DENSITY
                 ),
@@ -258,11 +262,13 @@ public class GCNoiseGeneratorSettings {
                 NoiseSettings.create(-64, 384, 1, 2),
                 GCBlocks.IO_VOLCANIC_ROCK.defaultBlockState(),
                 Blocks.LAVA.defaultBlockState(),
-                GCNoiseGeneratorSettings.outerPlanetRouter(
+                GCNoiseGeneratorSettings.moonRouter(
                         densityLookup,
                         noiseLookup,
                         GCDensityFunctions.Io.CONTINENTS,
+                        GCDensityFunctions.Io.EROSION,
                         GCDensityFunctions.Io.DEPTH,
+                        GCDensityFunctions.Io.RIDGES,
                         GCDensityFunctions.Io.SOLID_TERRAIN,
                         GCDensityFunctions.Io.FINAL_DENSITY
                 ),
@@ -279,11 +285,13 @@ public class GCNoiseGeneratorSettings {
                 NoiseSettings.create(-64, 384, 1, 2),
                 GCBlocks.EUROPA_ICE_CRUST.defaultBlockState(),
                 Blocks.WATER.defaultBlockState(),
-                GCNoiseGeneratorSettings.outerPlanetRouter(
+                GCNoiseGeneratorSettings.moonRouter(
                         densityLookup,
                         noiseLookup,
                         GCDensityFunctions.Europa.CONTINENTS,
+                        GCDensityFunctions.Europa.EROSION,
                         GCDensityFunctions.Europa.DEPTH,
+                        GCDensityFunctions.Europa.RIDGES,
                         GCDensityFunctions.Europa.SOLID_TERRAIN,
                         GCDensityFunctions.Europa.FINAL_DENSITY
                 ),
@@ -300,11 +308,13 @@ public class GCNoiseGeneratorSettings {
                 NoiseSettings.create(-64, 384, 1, 2),
                 GCBlocks.GANYMEDE_SLATE.defaultBlockState(),
                 Blocks.AIR.defaultBlockState(),
-                GCNoiseGeneratorSettings.outerPlanetRouter(
+                GCNoiseGeneratorSettings.moonRouter(
                         densityLookup,
                         noiseLookup,
                         GCDensityFunctions.Ganymede.CONTINENTS,
+                        GCDensityFunctions.Ganymede.EROSION,
                         GCDensityFunctions.Ganymede.DEPTH,
+                        GCDensityFunctions.Ganymede.RIDGES,
                         GCDensityFunctions.Ganymede.SOLID_TERRAIN,
                         GCDensityFunctions.Ganymede.FINAL_DENSITY
                 ),
@@ -321,11 +331,13 @@ public class GCNoiseGeneratorSettings {
                 NoiseSettings.create(-64, 384, 1, 2),
                 GCBlocks.CALLISTO_ROCK.defaultBlockState(),
                 Blocks.AIR.defaultBlockState(),
-                GCNoiseGeneratorSettings.outerPlanetRouter(
+                GCNoiseGeneratorSettings.moonRouter(
                         densityLookup,
                         noiseLookup,
                         GCDensityFunctions.Callisto.CONTINENTS,
+                        GCDensityFunctions.Callisto.EROSION,
                         GCDensityFunctions.Callisto.DEPTH,
+                        GCDensityFunctions.Callisto.RIDGES,
                         GCDensityFunctions.Callisto.SOLID_TERRAIN,
                         GCDensityFunctions.Callisto.FINAL_DENSITY
                 ),
@@ -337,6 +349,39 @@ public class GCNoiseGeneratorSettings {
                 false,
                 false
         ));
+    }
+
+    public static NoiseRouter moonRouter(
+            HolderGetter<DensityFunction> densityLookup,
+            HolderGetter<NormalNoise.NoiseParameters> noiseLookup,
+            ResourceKey<DensityFunction> continentsKey,
+            ResourceKey<DensityFunction> erosionKey,
+            ResourceKey<DensityFunction> depthKey,
+            ResourceKey<DensityFunction> ridgesKey,
+            ResourceKey<DensityFunction> solidTerrainKey,
+            ResourceKey<DensityFunction> finalDensityKey
+    ) {
+        DensityFunction shiftX = DensityFunctions.cache2d(DensityFunctions.noise(noiseLookup.getOrThrow(Noises.SHIFT), 0.25, 0.0));
+        DensityFunction shiftZ = DensityFunctions.cache2d(DensityFunctions.noise(noiseLookup.getOrThrow(Noises.SHIFT), 0.0, 0.25));
+        DensityFunction finalDensity = GCDensityFunctions.getFunction(densityLookup, finalDensityKey);
+
+        return new NoiseRouter(
+                DensityFunctions.zero(),
+                DensityFunctions.zero(),
+                DensityFunctions.zero(),
+                DensityFunctions.zero(),
+                DensityFunctions.flatCache(DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.20, noiseLookup.getOrThrow(Noises.TEMPERATURE))),
+                DensityFunctions.flatCache(DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.20, noiseLookup.getOrThrow(Noises.VEGETATION))),
+                GCDensityFunctions.getFunction(densityLookup, continentsKey),
+                GCDensityFunctions.getFunction(densityLookup, erosionKey),
+                GCDensityFunctions.getFunction(densityLookup, depthKey),
+                GCDensityFunctions.getFunction(densityLookup, ridgesKey),
+                GCDensityFunctions.getFunction(densityLookup, solidTerrainKey),
+                DensityFunctions.blendDensity(finalDensity),
+                DensityFunctions.zero(),
+                DensityFunctions.zero(),
+                DensityFunctions.zero()
+        );
     }
 
     public static NoiseRouter outerPlanetRouter(

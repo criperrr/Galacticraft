@@ -35,6 +35,7 @@ import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.SurfaceRules.ConditionSource;
 import net.minecraft.world.level.levelgen.SurfaceRules.RuleSource;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
+import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import org.jetbrains.annotations.NotNull;
 
 public class IoSurfaceRules {
@@ -106,12 +107,15 @@ public class IoSurfaceRules {
                 SurfaceRules.ifTrue(
                         isMagmaTubes,
                         SurfaceRules.sequence(
-                                SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, SurfaceRules.sequence(
-                                        SurfaceRules.ifTrue(magmaPatchNoise, MAGMA),
-                                        SurfaceRules.ifTrue(primaryNoise, BLACKSTONE),
-                                        SCORCHED_ROCK
-                                )),
-                                SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, BASALT)
+                                SurfaceRules.ifTrue(
+                                        SurfaceRules.stoneDepthCheck(2, false, 0, CaveSurface.FLOOR),
+                                        SurfaceRules.sequence(
+                                                SurfaceRules.ifTrue(magmaPatchNoise, MAGMA),
+                                                SurfaceRules.ifTrue(primaryNoise, BLACKSTONE),
+                                                SCORCHED_ROCK
+                                        )
+                                ),
+                                SurfaceRules.ifTrue(SurfaceRules.stoneDepthCheck(2, false, 0, CaveSurface.CEILING), BASALT)
                         )
                 )
         );

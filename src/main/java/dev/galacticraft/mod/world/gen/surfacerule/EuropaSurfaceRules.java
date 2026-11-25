@@ -35,6 +35,7 @@ import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.SurfaceRules.ConditionSource;
 import net.minecraft.world.level.levelgen.SurfaceRules.RuleSource;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
+import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import org.jetbrains.annotations.NotNull;
 
 public class EuropaSurfaceRules {
@@ -95,14 +96,24 @@ public class EuropaSurfaceRules {
                 )
         );
 
-        // Subsurface ocean floor (silicate basalt seabed below Y = -24) & blue ice ceiling
+        // Subsurface ocean floor (silicate basalt seabed & seamounts below Y = -14) & thick glacial blue-ice ceiling
+        ConditionSource isBelowSeamountTop = SurfaceRules.not(SurfaceRules.yBlockCheck(VerticalAnchor.absolute(-14), 0));
         RuleSource oceanRules = SurfaceRules.ifTrue(
                 isBelowIceCeiling,
                 SurfaceRules.sequence(
                         SurfaceRules.ifTrue(isBelowSeafloor, SEABED_BASALT),
                         SurfaceRules.ifTrue(isOcean, SurfaceRules.sequence(
-                                SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, BLUE_ICE),
-                                SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, SEABED_BASALT)
+                                SurfaceRules.ifTrue(
+                                        SurfaceRules.stoneDepthCheck(2, false, 0, CaveSurface.CEILING),
+                                        SurfaceRules.sequence(
+                                                SurfaceRules.ifTrue(primaryNoise, BLUE_ICE),
+                                                DENSE_ICE
+                                        )
+                                ),
+                                SurfaceRules.ifTrue(
+                                        isBelowSeamountTop,
+                                        SurfaceRules.ifTrue(SurfaceRules.stoneDepthCheck(3, false, 0, CaveSurface.FLOOR), SEABED_BASALT)
+                                )
                         ))
                 )
         );
