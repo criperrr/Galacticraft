@@ -361,8 +361,8 @@ public class GCNoiseGeneratorSettings {
             ResourceKey<DensityFunction> solidTerrainKey,
             ResourceKey<DensityFunction> finalDensityKey
     ) {
-        DensityFunction shiftX = DensityFunctions.cache2d(DensityFunctions.noise(noiseLookup.getOrThrow(Noises.SHIFT), 0.25, 0.0));
-        DensityFunction shiftZ = DensityFunctions.cache2d(DensityFunctions.noise(noiseLookup.getOrThrow(Noises.SHIFT), 0.0, 0.25));
+        DensityFunction shiftX = GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.SHIFT_X);
+        DensityFunction shiftZ = GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.SHIFT_Z);
         DensityFunction finalDensity = GCDensityFunctions.getFunction(densityLookup, finalDensityKey);
 
         return new NoiseRouter(

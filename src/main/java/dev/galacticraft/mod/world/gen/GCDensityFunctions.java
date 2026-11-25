@@ -1430,7 +1430,7 @@ public class GCDensityFunctions {
                 )
         );
 
-        // 7. Asymmetric quarterNegative shaping + rangeChoice-pruned jaggedness + pruned 3D roughness
+        // 7. Asymmetric quarterNegative shaping + rangeChoice-pruned jaggedness + fast pruned 3D roughness
         DensityFunction jagged3d = DensityFunctions.rangeChoice(
                 jaggedFactor,
                 0.01,
@@ -1449,18 +1449,25 @@ public class GCDensityFunctions {
                 ).quarterNegative()
         );
 
+        // Lightweight 3D roughness strictly pruned INSIDE interpolated(...) to surface band [48..148]
+        // (avoids 32-octave BlendedNoise overhead across air & deep bedrock!)
         DensityFunction roughnessYFade = DensityFunctions.mul(
-                DensityFunctions.yClampedGradient(36, 52, 0.0, 1.0),
-                DensityFunctions.yClampedGradient(165, 190, 1.0, 0.0)
+                DensityFunctions.yClampedGradient(48, 60, 0.0, 1.0),
+                DensityFunctions.yClampedGradient(128, 148, 1.0, 0.0)
         );
-        DensityFunction raw3dRoughness = DensityFunctions.mul(
-                roughnessYFade,
+        DensityFunction pruned3dRoughness = DensityFunctions.rangeChoice(
+                altitudeY,
+                48.0,
+                148.0,
                 DensityFunctions.mul(
-                        DensityFunctions.constant(profile.roughnessAmp()),
-                        BlendedNoise.createUnseeded(0.24, 0.14, 80.0, 160.0, 8.0)
-                )
+                        roughnessYFade,
+                        DensityFunctions.mul(
+                                DensityFunctions.constant(profile.roughnessAmp() * 0.85),
+                                DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.MERCURY_HOLLOW_SPONGE), 0.75, 0.65)
+                        )
+                ),
+                DensityFunctions.zero()
         );
-        DensityFunction pruned3dRoughness = DensityFunctions.rangeChoice(altitudeY, 36.0, 190.0, raw3dRoughness, DensityFunctions.zero());
 
         // 8. Interpolated SOLID_TERRAIN (decoupled from caves for initialDensityWithoutJaggedness)
         DensityFunction solidTerrain = registerAndWrap(
@@ -1469,7 +1476,7 @@ public class GCDensityFunctions {
                 DensityFunctions.interpolated(DensityFunctions.add(shapedBase, pruned3dRoughness))
         );
 
-        // 9. Archetype-specific organic caves (ZERO artificial straight vertical pillar rods!)
+        // 9. Archetype-specific organic caves (rangeChoice INSIDE interpolated for O(1) vertical pruning!)
         DensityFunction totalCaveCarve = switch (profile.caveArchetype()) {
             case SUBSURFACE_OCEAN -> buildEuropaSubsurfaceOceanCaves(context, noiseRegistry, altitudeY, shiftX, shiftZ, cavesKey);
             case VOLCANIC_MAGMA_TUBES -> buildIoVolcanicMagmaCaves(context, noiseRegistry, altitudeY, shiftX, shiftZ, cavesKey);
@@ -1478,19 +1485,19 @@ public class GCDensityFunctions {
         };
 
         // 10. Dynamic surface ceiling taper (keeps surface crust intact under basins/craters)
-        DensityFunction surfaceCeilingTaper = DensityFunctions.cacheOnce(DensityFunctions.add(
+        DensityFunction surfaceCeilingTaper = DensityFunctions.add(
                 DensityFunctions.mul(DensityFunctions.constant(-22.0), solidTerrain),
                 DensityFunctions.constant(3.2)
-        ).clamp(0.0, 3.2));
+        ).clamp(0.0, 3.2);
 
         DensityFunction boundedCaveCarve = DensityFunctions.min(
                 DensityFunctions.zero(),
                 DensityFunctions.add(totalCaveCarve, surfaceCeilingTaper)
         );
-        DensityFunction altitudeCaves = DensityFunctions.rangeChoice(altitudeY, -50.0, 62.0, boundedCaveCarve, DensityFunctions.zero());
-        DensityFunction activeCaves = DensityFunctions.rangeChoice(solidTerrain, -0.55, 10.0, altitudeCaves, DensityFunctions.zero());
+        DensityFunction altitudeCaves = DensityFunctions.rangeChoice(altitudeY, -50.0, 56.0, boundedCaveCarve, DensityFunctions.zero());
+        DensityFunction activeCaves = DensityFunctions.rangeChoice(solidTerrain, -0.50, 10.0, altitudeCaves, DensityFunctions.zero());
 
-        // 11. Organic terrain + caves (no artificial straight vertical pillars; seamounts & arches are sculpted organically in cave noise)
+        // 11. Organic terrain + caves (zero artificial vertical pillars)
         DensityFunction terrainWithCaves = registerAndWrap(context, pillarsKey, DensityFunctions.add(solidTerrain, activeCaves));
 
         // 12. Final Density: NO outer interpolated wrapper!
@@ -1499,9 +1506,9 @@ public class GCDensityFunctions {
 
     /**
      * Europa global subsurface liquid ocean (Y = -46..24):
-     * Undulating glacial ice-keel ceiling + organic hydrothermal seamounts rising from the silicate seabed
-     * using isotropic low-frequency 3D noise (ZERO straight vertical pillar rods!), plus narrow ice-fracture
-     * noodles connecting the upper ice shell (Y = 24..58).
+     * Solid, clean glacial ice shell above Y = 24 (no chaotic noodle spiderwebs!),
+     * dramatic undulating glacial ice-keel ceiling + organic hydrothermal seamounts on the silicate seabed,
+     * with {@code rangeChoice} INSIDE {@code interpolated(...)} so 3D noise never runs outside [-48..26].
      */
     private static DensityFunction buildEuropaSubsurfaceOceanCaves(
             BootstrapContext<DensityFunction> context,
@@ -1535,12 +1542,17 @@ public class GCDensityFunctions {
                 )
         );
 
-        // Isotropic low-frequency 3D noise creates natural organic glacial arches & underwater rock outcroppings
-        // instead of straight vertical pillars!
+        // rangeChoice INSIDE interpolated so 3D noise is ONLY evaluated in [-48..26] (saves ~75% CPU!)
         DensityFunction organicOcean3d = DensityFunctions.interpolated(
-                DensityFunctions.mul(
-                        DensityFunctions.constant(0.55),
-                        DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.MERCURY_MEGABRECCIA_CHEESE), 0.55, 0.45)
+                DensityFunctions.rangeChoice(
+                        altitudeY,
+                        -48.0,
+                        26.0,
+                        DensityFunctions.mul(
+                                DensityFunctions.constant(0.55),
+                                DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.MERCURY_MEGABRECCIA_CHEESE), 0.55, 0.45)
+                        ),
+                        DensityFunctions.zero()
                 )
         );
 
@@ -1556,28 +1568,12 @@ public class GCDensityFunctions {
         );
         DensityFunction prunedOcean = DensityFunctions.rangeChoice(altitudeY, -48.0, 26.0, rawOceanCavern, DensityFunctions.zero());
 
-        // Upper ice-shell tectonic fractures (Y = 20..58)
-        DensityFunction iceRidgeA = DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.NOODLE_RIDGE_A), 1.75, 1.75).abs();
-        DensityFunction iceRidgeB = DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.NOODLE_RIDGE_B), 1.75, 1.75).abs();
-        DensityFunction iceNoodleDist = DensityFunctions.interpolated(DensityFunctions.max(iceRidgeA, iceRidgeB));
-        DensityFunction iceNoodleYDist = DensityFunctions.add(
-                DensityFunctions.yClampedGradient(20, 28, 0.20, 0.0),
-                DensityFunctions.yClampedGradient(46, 58, 0.0, 0.45)
-        );
-        DensityFunction rawIceNoodles = DensityFunctions.min(
-                DensityFunctions.zero(),
-                DensityFunctions.mul(
-                        DensityFunctions.constant(14.0),
-                        DensityFunctions.add(DensityFunctions.constant(-0.115), DensityFunctions.add(iceNoodleDist, iceNoodleYDist))
-                )
-        );
-        DensityFunction prunedIceNoodles = DensityFunctions.rangeChoice(altitudeY, 20.0, 58.0, rawIceNoodles, DensityFunctions.zero());
-
-        return registerAndWrap(context, cavesKey, DensityFunctions.min(prunedOcean, prunedIceNoodles));
+        return registerAndWrap(context, cavesKey, DensityFunctions.add(prunedOcean, DensityFunctions.zero()));
     }
 
     /**
      * Io volcanic magma tubes & deep incandescent vaults (lava seaLevel = -36).
+     * All 3D noises strictly pruned INSIDE {@code interpolated(...)}.
      */
     private static DensityFunction buildIoVolcanicMagmaCaves(
             BootstrapContext<DensityFunction> context,
@@ -1591,10 +1587,10 @@ public class GCDensityFunctions {
                 DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.28, noiseRegistry.getOrThrow(GCNoiseData.MERCURY_CAVE_SELECTOR))
         );
 
-        // (A) Sinuous horizontal volcanic lava tubes [Y = 8..56]
+        // (A) Sinuous horizontal volcanic lava tubes [Y = 8..52] (100% 2D cache2d — near-zero cost!)
         DensityFunction tubeYDist = DensityFunctions.add(
-                DensityFunctions.yClampedGradient(8, 24, 1.25, 0.0),
-                DensityFunctions.yClampedGradient(40, 56, 0.0, 1.25)
+                DensityFunctions.yClampedGradient(8, 22, 1.25, 0.0),
+                DensityFunctions.yClampedGradient(38, 52, 0.0, 1.25)
         );
         DensityFunction tube2d = DensityFunctions.cache2d(
                 DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.20, noiseRegistry.getOrThrow(GCNoiseData.MERCURY_LAVA_TUBES)).abs()
@@ -1605,22 +1601,28 @@ public class GCDensityFunctions {
                         DensityFunctions.constant(2.6),
                         DensityFunctions.add(
                                 DensityFunctions.add(
-                                        DensityFunctions.mul(DensityFunctions.constant(4.2), tube2d),
-                                        DensityFunctions.add(tubeYDist, DensityFunctions.mul(DensityFunctions.constant(1.8), caveSelector.abs()))
+                                        DensityFunctions.mul(DensityFunctions.constant(4.5), tube2d),
+                                        DensityFunctions.add(tubeYDist, DensityFunctions.mul(DensityFunctions.constant(2.0), caveSelector.abs()))
                                 ),
-                                DensityFunctions.constant(-0.50)
+                                DensityFunctions.constant(-0.46)
                         )
                 )
         );
-        DensityFunction prunedTubes = DensityFunctions.rangeChoice(altitudeY, 6.0, 58.0, rawTubes, DensityFunctions.zero());
+        DensityFunction prunedTubes = DensityFunctions.rangeChoice(altitudeY, 6.0, 54.0, rawTubes, DensityFunctions.zero());
 
-        // (B) Deep organic magma chambers [Y = -48..14] with domed roofs & natural basalt islands
+        // (B) Deep organic magma chambers [Y = -48..14] pruned INSIDE interpolated
         DensityFunction magmaYDist = DensityFunctions.add(
                 DensityFunctions.yClampedGradient(-48, -32, 1.45, 0.0),
                 DensityFunctions.yClampedGradient(-6, 14, 0.0, 1.45)
         );
         DensityFunction magma3d = DensityFunctions.interpolated(
-                DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.MERCURY_MAGMA_CHAMBERS), 0.65, 0.55)
+                DensityFunctions.rangeChoice(
+                        altitudeY,
+                        -50.0,
+                        16.0,
+                        DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.MERCURY_MAGMA_CHAMBERS), 0.65, 0.55),
+                        DensityFunctions.zero()
+                )
         );
         DensityFunction rawMagmaVaults = DensityFunctions.min(
                 DensityFunctions.zero(),
@@ -1628,35 +1630,18 @@ public class GCDensityFunctions {
                         DensityFunctions.constant(2.5),
                         DensityFunctions.add(
                                 DensityFunctions.add(magma3d, magmaYDist),
-                                DensityFunctions.add(DensityFunctions.mul(DensityFunctions.constant(1.4), DensityFunctions.add(caveSelector, DensityFunctions.constant(0.20))), DensityFunctions.constant(0.10))
+                                DensityFunctions.add(DensityFunctions.mul(DensityFunctions.constant(1.5), DensityFunctions.add(caveSelector, DensityFunctions.constant(0.25))), DensityFunctions.constant(0.14))
                         )
                 )
         );
         DensityFunction prunedMagmaVaults = DensityFunctions.rangeChoice(altitudeY, -50.0, 16.0, rawMagmaVaults, DensityFunctions.zero());
 
-        // (C) Connecting volcanic fissures/noodles [Y = -46..54]
-        DensityFunction ridgeA = DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.NOODLE_RIDGE_A), 1.8, 1.8).abs();
-        DensityFunction ridgeB = DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.NOODLE_RIDGE_B), 1.8, 1.8).abs();
-        DensityFunction noodleDist = DensityFunctions.interpolated(DensityFunctions.max(ridgeA, ridgeB));
-        DensityFunction noodleYDist = DensityFunctions.add(
-                DensityFunctions.yClampedGradient(-46, -34, 0.35, 0.0),
-                DensityFunctions.yClampedGradient(40, 54, 0.0, 0.35)
-        );
-        DensityFunction rawNoodles = DensityFunctions.min(
-                DensityFunctions.zero(),
-                DensityFunctions.mul(
-                        DensityFunctions.constant(15.0),
-                        DensityFunctions.add(DensityFunctions.constant(-0.135), DensityFunctions.add(noodleDist, noodleYDist))
-                )
-        );
-        DensityFunction prunedNoodles = DensityFunctions.rangeChoice(altitudeY, -48.0, 56.0, rawNoodles, DensityFunctions.zero());
-
-        return registerAndWrap(context, cavesKey, DensityFunctions.min(prunedNoodles, DensityFunctions.min(prunedTubes, prunedMagmaVaults)));
+        return registerAndWrap(context, cavesKey, DensityFunctions.min(prunedTubes, prunedMagmaVaults));
     }
 
     /**
      * Ganymede & Callisto stratified cryotectonic caverns: horizontally layered lenticular vaults
-     * + connecting cryo-noodles, zero vertical pillar artifacts.
+     * with clean walls and zero spaghetti clutter. Pruned INSIDE {@code interpolated(...)}.
      */
     private static DensityFunction buildStratifiedCryoCaves(
             BootstrapContext<DensityFunction> context,
@@ -1670,13 +1655,19 @@ public class GCDensityFunctions {
                 DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.25, noiseRegistry.getOrThrow(GCNoiseData.MERCURY_CAVE_SELECTOR))
         );
 
-        // Horizontally stratified lenticular galleries (higher Y frequency than XZ creates terraced ledges)
+        // Horizontally stratified lenticular galleries [Y = -46..40]
         DensityFunction vaultYDist = DensityFunctions.add(
                 DensityFunctions.yClampedGradient(-46, -24, 1.4, 0.0),
-                DensityFunctions.yClampedGradient(18, 42, 0.0, 1.4)
+                DensityFunctions.yClampedGradient(16, 40, 0.0, 1.4)
         );
         DensityFunction stratified3d = DensityFunctions.interpolated(
-                DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.MERCURY_MEGABRECCIA_CHEESE), 0.48, 0.95)
+                DensityFunctions.rangeChoice(
+                        altitudeY,
+                        -48.0,
+                        42.0,
+                        DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.MERCURY_MEGABRECCIA_CHEESE), 0.48, 0.90),
+                        DensityFunctions.zero()
+                )
         );
         DensityFunction rawVaults = DensityFunctions.min(
                 DensityFunctions.zero(),
@@ -1684,34 +1675,18 @@ public class GCDensityFunctions {
                         DensityFunctions.constant(2.3),
                         DensityFunctions.add(
                                 DensityFunctions.add(stratified3d, vaultYDist),
-                                DensityFunctions.add(DensityFunctions.mul(DensityFunctions.constant(1.5), DensityFunctions.add(caveSelector, DensityFunctions.constant(0.25))), DensityFunctions.constant(0.18))
+                                DensityFunctions.add(DensityFunctions.mul(DensityFunctions.constant(1.6), DensityFunctions.add(caveSelector, DensityFunctions.constant(0.30))), DensityFunctions.constant(0.22))
                         )
                 )
         );
-        DensityFunction prunedVaults = DensityFunctions.rangeChoice(altitudeY, -48.0, 44.0, rawVaults, DensityFunctions.zero());
+        DensityFunction prunedVaults = DensityFunctions.rangeChoice(altitudeY, -48.0, 42.0, rawVaults, DensityFunctions.zero());
 
-        // Connecting cryo-noodles
-        DensityFunction ridgeA = DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.NOODLE_RIDGE_A), 1.9, 1.9).abs();
-        DensityFunction ridgeB = DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.NOODLE_RIDGE_B), 1.9, 1.9).abs();
-        DensityFunction noodleDist = DensityFunctions.interpolated(DensityFunctions.max(ridgeA, ridgeB));
-        DensityFunction noodleYDist = DensityFunctions.add(
-                DensityFunctions.yClampedGradient(-46, -34, 0.35, 0.0),
-                DensityFunctions.yClampedGradient(40, 54, 0.0, 0.35)
-        );
-        DensityFunction rawNoodles = DensityFunctions.min(
-                DensityFunctions.zero(),
-                DensityFunctions.mul(
-                        DensityFunctions.constant(14.5),
-                        DensityFunctions.add(DensityFunctions.constant(-0.13), DensityFunctions.add(noodleDist, noodleYDist))
-                )
-        );
-        DensityFunction prunedNoodles = DensityFunctions.rangeChoice(altitudeY, -48.0, 56.0, rawNoodles, DensityFunctions.zero());
-
-        return registerAndWrap(context, cavesKey, DensityFunctions.min(prunedVaults, prunedNoodles));
+        return registerAndWrap(context, cavesKey, DensityFunctions.add(prunedVaults, DensityFunctions.zero()));
     }
 
     /**
      * Phobos & Deimos microgravity fracture caverns & rubble-pile hollow chambers.
+     * Pruned INSIDE {@code interpolated(...)}.
      */
     private static DensityFunction buildMicrogravityFractureCaves(
             BootstrapContext<DensityFunction> context,
@@ -1728,10 +1703,16 @@ public class GCDensityFunctions {
         // Organic rubble-pile hollow chambers [Y = -42..36]
         DensityFunction chamberYDist = DensityFunctions.add(
                 DensityFunctions.yClampedGradient(-42, -20, 1.35, 0.0),
-                DensityFunctions.yClampedGradient(16, 36, 0.0, 1.35)
+                DensityFunctions.yClampedGradient(14, 36, 0.0, 1.35)
         );
         DensityFunction hollow3d = DensityFunctions.interpolated(
-                DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.MERCURY_MEGABRECCIA_CHEESE), 0.72, 0.72)
+                DensityFunctions.rangeChoice(
+                        altitudeY,
+                        -44.0,
+                        38.0,
+                        DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.MERCURY_MEGABRECCIA_CHEESE), 0.70, 0.70),
+                        DensityFunctions.zero()
+                )
         );
         DensityFunction rawChambers = DensityFunctions.min(
                 DensityFunctions.zero(),
@@ -1739,30 +1720,13 @@ public class GCDensityFunctions {
                         DensityFunctions.constant(2.3),
                         DensityFunctions.add(
                                 DensityFunctions.add(hollow3d, chamberYDist),
-                                DensityFunctions.add(DensityFunctions.mul(DensityFunctions.constant(1.6), DensityFunctions.add(caveSelector, DensityFunctions.constant(0.28))), DensityFunctions.constant(0.20))
+                                DensityFunctions.add(DensityFunctions.mul(DensityFunctions.constant(1.7), DensityFunctions.add(caveSelector, DensityFunctions.constant(0.32))), DensityFunctions.constant(0.24))
                         )
                 )
         );
         DensityFunction prunedChambers = DensityFunctions.rangeChoice(altitudeY, -44.0, 38.0, rawChambers, DensityFunctions.zero());
 
-        // Narrow impact-fracture noodles
-        DensityFunction ridgeA = DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.NOODLE_RIDGE_A), 2.1, 2.1).abs();
-        DensityFunction ridgeB = DensityFunctions.noise(noiseRegistry.getOrThrow(Noises.NOODLE_RIDGE_B), 2.1, 2.1).abs();
-        DensityFunction noodleDist = DensityFunctions.interpolated(DensityFunctions.max(ridgeA, ridgeB));
-        DensityFunction noodleYDist = DensityFunctions.add(
-                DensityFunctions.yClampedGradient(-44, -32, 0.35, 0.0),
-                DensityFunctions.yClampedGradient(40, 54, 0.0, 0.35)
-        );
-        DensityFunction rawNoodles = DensityFunctions.min(
-                DensityFunctions.zero(),
-                DensityFunctions.mul(
-                        DensityFunctions.constant(15.0),
-                        DensityFunctions.add(DensityFunctions.constant(-0.13), DensityFunctions.add(noodleDist, noodleYDist))
-                )
-        );
-        DensityFunction prunedNoodles = DensityFunctions.rangeChoice(altitudeY, -46.0, 56.0, rawNoodles, DensityFunctions.zero());
-
-        return registerAndWrap(context, cavesKey, DensityFunctions.min(prunedChambers, prunedNoodles));
+        return registerAndWrap(context, cavesKey, DensityFunctions.add(prunedChambers, DensityFunctions.zero()));
     }
 
     /**

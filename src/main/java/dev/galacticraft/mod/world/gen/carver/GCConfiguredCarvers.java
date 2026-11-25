@@ -454,14 +454,14 @@ public class GCConfiguredCarvers {
                         0.0f)
         )));
         context.register(EUROPA_CAVE_CARVER, WorldCarver.CAVE.configured(new CaveCarverConfiguration(
-                0.12f,
-                UniformHeight.of(VerticalAnchor.absolute(26), VerticalAnchor.absolute(110)),
-                UniformFloat.of(0.15f, 0.80f),
+                0.025f,
+                UniformHeight.of(VerticalAnchor.absolute(28), VerticalAnchor.absolute(85)),
+                UniformFloat.of(0.15f, 0.55f),
                 VerticalAnchor.aboveBottom(8),
                 BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.EUROPA_CARVER_REPLACEABLES),
-                UniformFloat.of(0.75f, 1.4f),
-                UniformFloat.of(0.75f, 1.3f),
-                UniformFloat.of(-0.9f, -0.4f)
+                UniformFloat.of(0.75f, 1.25f),
+                UniformFloat.of(0.75f, 1.2f),
+                UniformFloat.of(-0.85f, -0.45f)
         )));
         context.register(GANYMEDE_CAVE_CARVER, WorldCarver.CAVE.configured(new CaveCarverConfiguration(
                 0.14f,
