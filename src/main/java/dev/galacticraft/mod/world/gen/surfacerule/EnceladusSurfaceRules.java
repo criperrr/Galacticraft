@@ -58,8 +58,8 @@ public class EnceladusSurfaceRules {
         ConditionSource isBelowSeafloor = SurfaceRules.not(SurfaceRules.yBlockCheck(VerticalAnchor.absolute(-26), 0));
         ConditionSource isBelowIceCeiling = SurfaceRules.not(SurfaceRules.yBlockCheck(VerticalAnchor.absolute(30), 0));
         ConditionSource isBelowSeamountTop = SurfaceRules.not(SurfaceRules.yBlockCheck(VerticalAnchor.absolute(-14), 0));
-        ConditionSource primaryNoise = SurfaceRules.noiseCondition(Noises.SURFACE, -0.15D, 0.50D);
-        ConditionSource stripeNoise = SurfaceRules.noiseCondition(Noises.CALCITE, 0.08D, 0.55D);
+        ConditionSource primaryNoise = SurfaceRules.noiseCondition(Noises.SURFACE, -0.35D, 1.0D);
+        ConditionSource stripeNoise = SurfaceRules.noiseCondition(Noises.CALCITE, 0.14D, 0.60D);
 
         RuleSource steepCliffs = SurfaceRules.ifTrue(
                 SurfaceRules.steep(),

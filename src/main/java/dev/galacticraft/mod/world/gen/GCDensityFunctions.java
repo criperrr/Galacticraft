@@ -1205,7 +1205,7 @@ public class GCDensityFunctions {
                 Titan.BASE_HEIGHT, Titan.OFFSET, Titan.FACTOR, Titan.JAGGEDNESS,
                 Titan.SMOOTH_RELIEF, Titan.DEPTH, Titan.SOLID_TERRAIN, Titan.CAVES,
                 Titan.PILLARS, Titan.FINAL_DENSITY,
-                new OuterMoonProfile(0.24D, -0.44F, -0.18F, 0.14F, 0.10F, 0.16F, 0.18F, 0.36F, 0.08D, false)
+                new OuterMoonProfile(0.24D, -0.52F, -0.14F, 0.34F, 0.18F, 0.28F, 0.22F, 0.46F, 0.14D, 0.14D, 0.55D, false)
         );
         bootstrapOuterMoon(
                 context, noiseRegistry, shiftX, shiftZ, altitudeY,
@@ -1213,7 +1213,7 @@ public class GCDensityFunctions {
                 Enceladus.BASE_HEIGHT, Enceladus.OFFSET, Enceladus.FACTOR, Enceladus.JAGGEDNESS,
                 Enceladus.SMOOTH_RELIEF, Enceladus.DEPTH, Enceladus.SOLID_TERRAIN, Enceladus.CAVES,
                 Enceladus.PILLARS, Enceladus.FINAL_DENSITY,
-                new OuterMoonProfile(0.24D, -0.26F, -0.16F, 0.10F, 0.16F, 0.18F, 0.18F, 0.36F, 0.09D, true)
+                new OuterMoonProfile(0.26D, -0.28F, -0.06F, 0.28F, 0.34F, 0.32F, 0.22F, 0.48F, 0.14D, 0.16D, 0.70D, true)
         );
         bootstrapOuterMoon(
                 context, noiseRegistry, shiftX, shiftZ, altitudeY,
@@ -1221,7 +1221,7 @@ public class GCDensityFunctions {
                 Titania.BASE_HEIGHT, Titania.OFFSET, Titania.FACTOR, Titania.JAGGEDNESS,
                 Titania.SMOOTH_RELIEF, Titania.DEPTH, Titania.SOLID_TERRAIN, Titania.CAVES,
                 Titania.PILLARS, Titania.FINAL_DENSITY,
-                new OuterMoonProfile(0.26D, -0.36F, -0.14F, 0.32F, 0.34F, 0.30F, 0.24F, 0.52F, 0.14D, false)
+                new OuterMoonProfile(0.26D, -0.40F, -0.06F, 0.44F, 0.52F, 0.38F, 0.26F, 0.56F, 0.16D, 0.18D, 0.75D, false)
         );
         bootstrapOuterMoon(
                 context, noiseRegistry, shiftX, shiftZ, altitudeY,
@@ -1229,7 +1229,7 @@ public class GCDensityFunctions {
                 Oberon.BASE_HEIGHT, Oberon.OFFSET, Oberon.FACTOR, Oberon.JAGGEDNESS,
                 Oberon.SMOOTH_RELIEF, Oberon.DEPTH, Oberon.SOLID_TERRAIN, Oberon.CAVES,
                 Oberon.PILLARS, Oberon.FINAL_DENSITY,
-                new OuterMoonProfile(0.27D, -0.34F, -0.14F, 0.36F, 0.18F, 0.34F, 0.24F, 0.50F, 0.14D, false)
+                new OuterMoonProfile(0.27D, -0.38F, -0.08F, 0.48F, 0.24F, 0.42F, 0.26F, 0.54F, 0.16D, 0.18D, 0.80D, false)
         );
         bootstrapOuterMoon(
                 context, noiseRegistry, shiftX, shiftZ, altitudeY,
@@ -1237,7 +1237,7 @@ public class GCDensityFunctions {
                 Triton.BASE_HEIGHT, Triton.OFFSET, Triton.FACTOR, Triton.JAGGEDNESS,
                 Triton.SMOOTH_RELIEF, Triton.DEPTH, Triton.SOLID_TERRAIN, Triton.CAVES,
                 Triton.PILLARS, Triton.FINAL_DENSITY,
-                new OuterMoonProfile(0.32D, -0.28F, -0.14F, 0.22F, 0.16F, 0.28F, 0.22F, 0.44F, 0.13D, false)
+                new OuterMoonProfile(0.32D, -0.30F, -0.04F, 0.34F, 0.26F, 0.38F, 0.24F, 0.50F, 0.18D, 0.20D, 0.95D, false)
         );
     }
 
@@ -1250,7 +1250,9 @@ public class GCDensityFunctions {
             float ridgeHeight,
             float lowFactor,
             float highFactor,
+            double undulationAmp,
             double roughnessAmp,
+            double ridgeFreq,
             boolean hydrothermalOcean
     ) {
     }
@@ -1333,8 +1335,8 @@ public class GCDensityFunctions {
 
         var erosionHighlandSpline = CubicSpline.builder(eCoord)
                 .addPoint(-0.8F, pvHighlandSpline)
-                .addPoint(0.1F, pvPlainsSpline)
-                .addPoint(0.9F, profile.plainsOffset())
+                .addPoint(0.25F, pvPlainsSpline)
+                .addPoint(1.0F, pvPlainsSpline)
                 .build();
 
         var offsetSpline = CubicSpline.builder(cCoord)
@@ -1358,20 +1360,23 @@ public class GCDensityFunctions {
         DensityFunction baseHeight = registerAndWrap(context, baseHeightKey, DensityFunctions.yClampedGradient(-64, 220, 1.60, -1.40));
         DensityFunction depth = registerAndWrap(context, depthKey, DensityFunctions.add(baseHeight, offset));
 
-        // Fast O(1) 2D ridged micro-roughness in cache2d (zero 16-octave 3D JAGGED noise!)
-        DensityFunction jaggedness = registerAndWrap(context, jaggednessKey,
-                DensityFunctions.cache2d(
-                        DensityFunctions.rangeChoice(
-                                erosion,
-                                -2.0,
-                                0.05,
-                                DensityFunctions.mul(
-                                        DensityFunctions.constant(profile.roughnessAmp()),
-                                        DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.85, noiseRegistry.getOrThrow(GCNoiseData.MERCURY_SCARP_NOISE)).abs()
-                                ),
-                                DensityFunctions.zero()
+        // Multi-scale O(1) 2D geomorphology in cache2d: rolling undulation + sharp ridged fractures/dunes/cantaloupe
+        DensityFunction rolling2d = DensityFunctions.mul(
+                DensityFunctions.constant(profile.undulationAmp()),
+                DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.28, noiseRegistry.getOrThrow(GCNoiseData.MERCURY_BASE_NOISE))
+        );
+        DensityFunction ridge2d = DensityFunctions.mul(
+                DensityFunctions.constant(profile.roughnessAmp()),
+                DensityFunctions.add(
+                        DensityFunctions.constant(0.45),
+                        DensityFunctions.mul(
+                                DensityFunctions.constant(-1.0),
+                                DensityFunctions.shiftedNoise2d(shiftX, shiftZ, profile.ridgeFreq(), noiseRegistry.getOrThrow(GCNoiseData.MERCURY_SCARP_NOISE)).abs()
                         )
                 )
+        );
+        DensityFunction jaggedness = registerAndWrap(context, jaggednessKey,
+                DensityFunctions.cache2d(DensityFunctions.add(rolling2d, ridge2d))
         );
 
         DensityFunction smoothRelief = registerAndWrap(context, smoothReliefKey,
