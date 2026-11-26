@@ -1,0 +1,70 @@
+{
+  "type": "minecraft:interpolated",
+  "argument": {
+    "type": "minecraft:add",
+    "argument1": {
+      "type": "minecraft:mul",
+      "argument1": 4.0,
+      "argument2": {
+        "type": "minecraft:quarter_negative",
+        "argument": {
+          "type": "minecraft:mul",
+          "argument1": {
+            "type": "minecraft:add",
+            "argument1": "galacticraft:mars/depth",
+            "argument2": {
+              "type": "minecraft:range_choice",
+              "input": "galacticraft:mars/jaggedness",
+              "max_exclusive": 10.0,
+              "min_inclusive": 0.01,
+              "when_in_range": {
+                "type": "minecraft:mul",
+                "argument1": "galacticraft:mars/jaggedness",
+                "argument2": {
+                  "type": "minecraft:half_negative",
+                  "argument": {
+                    "type": "minecraft:noise",
+                    "noise": "minecraft:jagged",
+                    "xz_scale": 1500.0,
+                    "y_scale": 0.0
+                  }
+                }
+              },
+              "when_out_of_range": 0.0
+            }
+          },
+          "argument2": "galacticraft:mars/factor"
+        }
+      }
+    },
+    "argument2": {
+      "type": "minecraft:range_choice",
+      "input": {
+        "type": "minecraft:y_clamped_gradient",
+        "from_value": -64.0,
+        "from_y": -64,
+        "to_value": 320.0,
+        "to_y": 320
+      },
+      "max_exclusive": 296.0,
+      "min_inclusive": 16.0,
+      "when_in_range": {
+        "type": "minecraft:mul",
+        "argument1": "galacticraft:mars/factor",
+        "argument2": {
+          "type": "minecraft:mul",
+          "argument1": 0.12,
+          "argument2": {
+            "type": "minecraft:old_blended_noise",
+            "smear_scale_multiplier": 8.0,
+            "xz_factor": 80.0,
+            "xz_scale": 0.25,
+            "y_factor": 160.0,
+            "y_scale": 0.125
+          }
+        }
+      },
+      "when_out_of_range": 0.0
+    }
+  }
+}

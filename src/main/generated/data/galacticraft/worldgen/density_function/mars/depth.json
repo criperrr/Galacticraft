@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:add",
+  "argument1": "galacticraft:mars/base_height",
+  "argument2": {
+    "type": "minecraft:add",
+    "argument1": "galacticraft:mars/offset",
+    "argument2": "galacticraft:mars/smooth_relief"
+  }
+}

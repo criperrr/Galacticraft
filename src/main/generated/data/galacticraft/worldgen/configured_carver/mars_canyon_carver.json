@@ -2,9 +2,9 @@
   "type": "minecraft:canyon",
   "config": {
     "lava_level": {
-      "above_bottom": 8
+      "above_bottom": 10
     },
-    "probability": 0.07,
+    "probability": 0.025,
     "replaceable": "#galacticraft:mars_carver_replaceables",
     "shape": {
       "distance_factor": {
@@ -29,18 +29,18 @@
     },
     "vertical_rotation": {
       "type": "minecraft:uniform",
-      "max_exclusive": 0.125,
-      "min_inclusive": -0.125
+      "max_exclusive": 0.08,
+      "min_inclusive": -0.08
     },
     "y": {
       "type": "minecraft:uniform",
       "max_inclusive": {
-        "absolute": 90
+        "absolute": 110
       },
       "min_inclusive": {
         "absolute": 10
       }
     },
-    "yScale": 3.5
+    "yScale": 3.2
   }
 }

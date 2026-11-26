@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:cache_2d",
+  "argument": {
+    "type": "minecraft:mul",
+    "argument1": 0.25,
+    "argument2": {
+      "type": "minecraft:shift_b",
+      "argument": "minecraft:offset"
+    }
+  }
+}

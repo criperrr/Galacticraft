@@ -2,9 +2,7 @@
   "carvers": {
     "air": [
       "galacticraft:mars_cave_carver",
-      "galacticraft:mars_cavern_carver",
-      "galacticraft:mars_crater_carver",
-      "galacticraft:mars_canyon_carver"
+      "galacticraft:mars_crater_carver"
     ]
   },
   "downfall": 0.0,
@@ -31,7 +29,9 @@
     [],
     [],
     [],
-    [],
+    [
+      "galacticraft:mars_surface_outcrop"
+    ],
     [],
     [
       "galacticraft:ore_copper_mars",

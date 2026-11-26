@@ -1,0 +1,79 @@
+{
+  "type": "minecraft:cache_2d",
+  "argument": {
+    "type": "minecraft:spline",
+    "spline": {
+      "coordinate": "galacticraft:mars/continents",
+      "points": [
+        {
+          "derivative": 0.0,
+          "location": -1.0,
+          "value": 0.0
+        },
+        {
+          "derivative": 0.0,
+          "location": 0.2,
+          "value": 0.0
+        },
+        {
+          "derivative": 0.0,
+          "location": 0.45,
+          "value": {
+            "coordinate": "galacticraft:mars/erosion",
+            "points": [
+              {
+                "derivative": 0.0,
+                "location": -1.0,
+                "value": 0.24
+              },
+              {
+                "derivative": -0.25,
+                "location": -0.25,
+                "value": 0.12
+              },
+              {
+                "derivative": 0.0,
+                "location": 0.1,
+                "value": 0.0
+              },
+              {
+                "derivative": 0.0,
+                "location": 1.0,
+                "value": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "derivative": 0.0,
+          "location": 1.0,
+          "value": {
+            "coordinate": "galacticraft:mars/erosion",
+            "points": [
+              {
+                "derivative": 0.0,
+                "location": -1.0,
+                "value": 0.24
+              },
+              {
+                "derivative": -0.25,
+                "location": -0.25,
+                "value": 0.12
+              },
+              {
+                "derivative": 0.0,
+                "location": 0.1,
+                "value": 0.0
+              },
+              {
+                "derivative": 0.0,
+                "location": 1.0,
+                "value": 0.0
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
