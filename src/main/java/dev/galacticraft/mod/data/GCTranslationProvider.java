@@ -228,6 +228,12 @@ public class GCTranslationProvider extends TranslationProvider {
         this.block(GCBlocks.MARS_COBBLESTONE_SLAB, "Mars Cobblestone Slab");
         this.block(GCBlocks.MARS_COBBLESTONE_STAIRS, "Mars Cobblestone Stairs");
         this.block(GCBlocks.MARS_COBBLESTONE_WALL, "Mars Cobblestone Wall");
+        this.block(GCBlocks.MARS_BASALT, "Mars Basalt");
+        this.block(GCBlocks.MARS_SILTSTONE, "Mars Siltstone");
+        this.block(GCBlocks.MARS_BRECCIA, "Mars Breccia");
+        this.block(GCBlocks.MARS_BASALTIC_SAND, "Mars Basaltic Sand");
+        this.block(GCBlocks.MARS_FROST_REGOLITH, "Mars Frost Regolith");
+        this.block(GCBlocks.MARS_DEEP_STONE, "Mars Deep Stone");
 
         // ASTEROID NATURAL
         this.block(GCBlocks.ASTEROID_ROCK, "Asteroid Rock");
@@ -1184,6 +1190,13 @@ public class GCTranslationProvider extends TranslationProvider {
         this.add(GCBiomes.Mars.MARS_FLAT, "Mars Flat");
         this.add(GCBiomes.Mars.MARS_CANYON, "Mars Canyon");
         this.add(GCBiomes.Mars.MARS_HIGHLANDS, "Mars Highlands");
+        this.add(GCBiomes.Mars.MARS_IMPACT_BASIN, "Mars Impact Basin");
+        this.add(GCBiomes.Mars.MARS_DUNE_SEA, "Mars Dune Sea");
+        this.add(GCBiomes.Mars.MARS_THARSIS, "Mars Tharsis Volcanic Province");
+        this.add(GCBiomes.Mars.MARS_POLAR_ICE_CAP, "Mars Polar Ice Cap");
+        this.add(GCBiomes.Mars.MARS_LAVA_TUBES, "Mars Lava Tubes");
+        this.add(GCBiomes.Mars.MARS_DEEP_CAVERNS, "Mars Deep Caverns");
+        this.add(GCBiomes.Mars.MARS_ICE_CAVERNS, "Mars Subglacial Ice Caverns");
         this.add(GCBiomes.Venus.VENUS_FLAT, "Venus Flat");
         this.add(GCBiomes.Venus.VENUS_MOUNTAIN, "Venus Mountain");
         this.add(GCBiomes.Venus.VENUS_VALLEY, "Venus Valley");

@@ -141,6 +141,12 @@ public class GCCreativeModeTabs {
                 output.accept(MARS_COBBLESTONE_STAIRS);
                 output.accept(MARS_COBBLESTONE_SLAB);
                 output.accept(MARS_COBBLESTONE_WALL);
+                output.accept(MARS_BASALT);
+                output.accept(MARS_SILTSTONE);
+                output.accept(MARS_BRECCIA);
+                output.accept(MARS_BASALTIC_SAND);
+                output.accept(MARS_FROST_REGOLITH);
+                output.accept(MARS_DEEP_STONE);
 
                 // ASTEROID NATURAL
                 output.accept(ASTEROID_ROCK);

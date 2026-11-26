@@ -134,6 +134,12 @@ public class GCModelProvider extends FabricModelProvider {
         // MARS NATURAL
         generator.createTrivialCube(GCBlocks.MARS_SURFACE_ROCK);
         generator.createTrivialCube(GCBlocks.MARS_SUB_SURFACE_ROCK);
+        generator.createTrivialCube(GCBlocks.MARS_BASALT);
+        generator.createTrivialCube(GCBlocks.MARS_SILTSTONE);
+        generator.createTrivialCube(GCBlocks.MARS_BRECCIA);
+        generator.createTrivialCube(GCBlocks.MARS_BASALTIC_SAND);
+        generator.createTrivialCube(GCBlocks.MARS_FROST_REGOLITH);
+        generator.createTrivialCube(GCBlocks.MARS_DEEP_STONE);
 
         // ASTEROID NATURAL
         generator.createTrivialCube(GCBlocks.ASTEROID_ROCK);

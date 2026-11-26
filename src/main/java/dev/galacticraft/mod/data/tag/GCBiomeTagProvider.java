@@ -50,7 +50,14 @@ public class GCBiomeTagProvider extends FabricTagProvider<Biome> {
         this.tag(GCBiomeTags.MARS)
                 .add(GCBiomes.Mars.MARS_FLAT)
                 .add(GCBiomes.Mars.MARS_CANYON)
-                .add(GCBiomes.Mars.MARS_HIGHLANDS);
+                .add(GCBiomes.Mars.MARS_HIGHLANDS)
+                .add(GCBiomes.Mars.MARS_IMPACT_BASIN)
+                .add(GCBiomes.Mars.MARS_DUNE_SEA)
+                .add(GCBiomes.Mars.MARS_THARSIS)
+                .add(GCBiomes.Mars.MARS_POLAR_ICE_CAP)
+                .add(GCBiomes.Mars.MARS_LAVA_TUBES)
+                .add(GCBiomes.Mars.MARS_DEEP_CAVERNS)
+                .add(GCBiomes.Mars.MARS_ICE_CAVERNS);
 
         this.tag(GCBiomeTags.MERCURY)
                 .add(GCBiomes.Mercury.CALORIS_BASIN)

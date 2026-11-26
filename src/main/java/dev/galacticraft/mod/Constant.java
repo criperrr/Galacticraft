@@ -165,6 +165,12 @@ public interface Constant {
         String MARS_COBBLESTONE_SLAB = "mars_cobblestone_slab";
         String MARS_COBBLESTONE_STAIRS = "mars_cobblestone_stairs";
         String MARS_COBBLESTONE_WALL = "mars_cobblestone_wall";
+        String MARS_BASALT = "mars_basalt";
+        String MARS_SILTSTONE = "mars_siltstone";
+        String MARS_BRECCIA = "mars_breccia";
+        String MARS_BASALTIC_SAND = "mars_basaltic_sand";
+        String MARS_FROST_REGOLITH = "mars_frost_regolith";
+        String MARS_DEEP_STONE = "mars_deep_stone";
 
         String ASTEROID_ROCK = "asteroid_rock";
         String ASTEROID_ROCK_1 = "asteroid_rock_block_1";
