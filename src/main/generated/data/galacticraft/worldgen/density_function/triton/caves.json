@@ -20,26 +20,10 @@
         "argument1": {
           "type": "minecraft:add",
           "argument1": {
-            "type": "minecraft:interpolated",
-            "argument": {
-              "type": "minecraft:range_choice",
-              "input": {
-                "type": "minecraft:y_clamped_gradient",
-                "from_value": -64.0,
-                "from_y": -64,
-                "to_value": 320.0,
-                "to_y": 320
-              },
-              "max_exclusive": 42.0,
-              "min_inclusive": -48.0,
-              "when_in_range": {
-                "type": "minecraft:noise",
-                "noise": "galacticraft:mercury/megabreccia_cheese",
-                "xz_scale": 0.48,
-                "y_scale": 0.9
-              },
-              "when_out_of_range": 0.0
-            }
+            "type": "minecraft:noise",
+            "noise": "galacticraft:mercury/megabreccia_cheese",
+            "xz_scale": 0.48,
+            "y_scale": 0.9
           },
           "argument2": {
             "type": "minecraft:add",

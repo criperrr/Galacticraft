@@ -95,29 +95,13 @@
           "type": "minecraft:add",
           "argument1": -0.92,
           "argument2": {
-            "type": "minecraft:interpolated",
-            "argument": {
-              "type": "minecraft:range_choice",
-              "input": {
-                "type": "minecraft:y_clamped_gradient",
-                "from_value": -64.0,
-                "from_y": -64,
-                "to_value": 320.0,
-                "to_y": 320
-              },
-              "max_exclusive": 24.0,
-              "min_inclusive": -48.0,
-              "when_in_range": {
-                "type": "minecraft:mul",
-                "argument1": 0.55,
-                "argument2": {
-                  "type": "minecraft:noise",
-                  "noise": "galacticraft:mercury/megabreccia_cheese",
-                  "xz_scale": 0.55,
-                  "y_scale": 0.45
-                }
-              },
-              "when_out_of_range": 0.0
+            "type": "minecraft:mul",
+            "argument1": 0.55,
+            "argument2": {
+              "type": "minecraft:noise",
+              "noise": "galacticraft:mercury/megabreccia_cheese",
+              "xz_scale": 0.55,
+              "y_scale": 0.45
             }
           }
         }
