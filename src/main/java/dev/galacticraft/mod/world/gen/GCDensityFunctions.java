@@ -1211,7 +1211,7 @@ public class GCDensityFunctions {
                 Titan.BASE_HEIGHT, Titan.OFFSET, Titan.FACTOR, Titan.JAGGEDNESS,
                 Titan.SMOOTH_RELIEF, Titan.DEPTH, Titan.SOLID_TERRAIN, Titan.CAVES,
                 Titan.PILLARS, Titan.FINAL_DENSITY,
-                new OuterMoonProfile(0.20D, -0.68F, -0.18F, 0.26F, 0.14F, 0.22F, 0.20F, 0.42F, 0.12D, 0.08D, 0.25D, false)
+                new OuterMoonProfile(0.24D, -0.58F, -0.06F, 0.42F, 0.24F, 0.36F, 0.24F, 0.52F, 0.24D, 0.18D, 0.55D, false)
         );
         bootstrapOuterMoon(
                 context, noiseRegistry, shiftX, shiftZ, altitudeY,
@@ -1219,7 +1219,7 @@ public class GCDensityFunctions {
                 Enceladus.BASE_HEIGHT, Enceladus.OFFSET, Enceladus.FACTOR, Enceladus.JAGGEDNESS,
                 Enceladus.SMOOTH_RELIEF, Enceladus.DEPTH, Enceladus.SOLID_TERRAIN, Enceladus.CAVES,
                 Enceladus.PILLARS, Enceladus.FINAL_DENSITY,
-                new OuterMoonProfile(0.22D, -0.22F, -0.02F, 0.16F, 0.62F, 0.20F, 0.22F, 0.44F, 0.08D, 0.06D, 0.50D, true)
+                new OuterMoonProfile(0.25D, -0.32F, 0.00F, 0.34F, 0.58F, 0.34F, 0.24F, 0.50F, 0.18D, 0.14D, 0.65D, true)
         );
         bootstrapOuterMoon(
                 context, noiseRegistry, shiftX, shiftZ, altitudeY,
@@ -1339,6 +1339,12 @@ public class GCDensityFunctions {
                 .addPoint(1.0F, profile.plainsOffset() + profile.ridgeHeight() * 0.55F, 0.0F)
                 .build();
 
+        var pvBasinSpline = CubicSpline.builder(pvCoord)
+                .addPoint(-1.0F, profile.basinOffset() - profile.canyonDepth() * 0.35F, 0.0F)
+                .addPoint(0.0F, profile.basinOffset(), 0.0F)
+                .addPoint(1.0F, profile.basinOffset() + profile.ridgeHeight() * 0.45F, 0.0F)
+                .build();
+
         var erosionHighlandSpline = CubicSpline.builder(eCoord)
                 .addPoint(-0.8F, pvHighlandSpline)
                 .addPoint(0.25F, pvPlainsSpline)
@@ -1346,8 +1352,8 @@ public class GCDensityFunctions {
                 .build();
 
         var offsetSpline = CubicSpline.builder(cCoord)
-                .addPoint(-1.0F, profile.basinOffset(), 0.0F)
-                .addPoint(-0.30F, profile.basinOffset() * 0.85F, 0.0F)
+                .addPoint(-1.0F, pvBasinSpline)
+                .addPoint(-0.30F, pvBasinSpline)
                 .addPoint(-0.10F, pvPlainsSpline)
                 .addPoint(0.35F, erosionHighlandSpline)
                 .addPoint(1.0F, pvHighlandSpline)
