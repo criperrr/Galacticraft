@@ -1793,7 +1793,9 @@ public interface Constant {
         String ENCELADUS_CAVE_CARVER = "enceladus_cave_carver";
         String TITANIA_CAVE_CARVER = "titania_cave_carver";
         String TITANIA_CANYON_CARVER = "titania_canyon_carver";
+        String TITANIA_CRATER_CARVER = "titania_crater_carver";
         String OBERON_CAVE_CARVER = "oberon_cave_carver";
+        String OBERON_CRATER_CARVER = "oberon_crater_carver";
         String TRITON_CAVE_CARVER = "triton_cave_carver";
     }
 

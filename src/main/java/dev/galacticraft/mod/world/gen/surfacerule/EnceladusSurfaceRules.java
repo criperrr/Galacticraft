@@ -65,8 +65,8 @@ public class EnceladusSurfaceRules {
                 SurfaceRules.steep(),
                 SurfaceRules.sequence(
                         SurfaceRules.ifTrue(isTigerStripes, TIGER_STRIPE),
-                        SurfaceRules.ifTrue(stripeNoise, BLUE_ICE),
-                        ICE_CRUST
+                        SurfaceRules.ifTrue(stripeNoise, TIGER_STRIPE),
+                        BLUE_ICE
                 )
         );
 
@@ -77,23 +77,20 @@ public class EnceladusSurfaceRules {
                         SurfaceRules.ifTrue(
                                 SurfaceRules.ON_FLOOR,
                                 SurfaceRules.sequence(
-                                        SurfaceRules.ifTrue(isSnowPlains, SurfaceRules.sequence(
-                                                SurfaceRules.ifTrue(primaryNoise, SNOW),
-                                                ICE_CRUST
-                                        )),
+                                        SurfaceRules.ifTrue(isSnowPlains, SNOW),
                                         SurfaceRules.ifTrue(isTigerStripes, SurfaceRules.sequence(
                                                 SurfaceRules.ifTrue(stripeNoise, TIGER_STRIPE),
-                                                SurfaceRules.ifTrue(primaryNoise, BLUE_ICE),
-                                                SNOW
+                                                SurfaceRules.ifTrue(primaryNoise, SNOW),
+                                                BLUE_ICE
                                         )),
                                         SurfaceRules.ifTrue(isRidges, SurfaceRules.sequence(
-                                                SurfaceRules.ifTrue(primaryNoise, PACKED_ICE),
-                                                SNOW
+                                                SurfaceRules.ifTrue(primaryNoise, SNOW),
+                                                ICE_CRUST
                                         )),
                                         SNOW
                                 )
                         ),
-                        SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, PACKED_ICE)
+                        SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, ICE_CRUST)
                 )
         );
 

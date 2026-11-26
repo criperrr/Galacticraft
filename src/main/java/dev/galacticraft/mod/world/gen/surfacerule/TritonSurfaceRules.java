@@ -77,14 +77,14 @@ public class TritonSurfaceRules {
                                         )),
                                         SurfaceRules.ifTrue(isGeysers, SurfaceRules.sequence(
                                                 SurfaceRules.ifTrue(streakNoise, CRYO_BASALT),
-                                                SurfaceRules.ifTrue(primaryNoise, BLUE_ICE),
+                                                SurfaceRules.ifTrue(primaryNoise, CANTALOUPE_CRUST),
                                                 NITROGEN_ICE
                                         )),
                                         SurfaceRules.ifTrue(isPolarCap, SurfaceRules.sequence(
-                                                SurfaceRules.ifTrue(primaryNoise, SNOW),
+                                                SurfaceRules.ifTrue(streakNoise, CRYO_BASALT),
                                                 NITROGEN_ICE
                                         )),
-                                        NITROGEN_ICE
+                                        CANTALOUPE_CRUST
                                 )
                         ),
                         SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, NITROGEN_ICE)

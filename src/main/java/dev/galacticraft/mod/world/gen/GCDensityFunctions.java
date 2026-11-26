@@ -1199,13 +1199,19 @@ public class GCDensityFunctions {
         );
 
         // PHASE 4 OUTER MOONS: TITAN, ENCELADUS, TITANIA, OBERON, TRITON
+        // Each moon has a distinct geomorphological signature:
+        // - Titan: wide smooth hydrocarbon dunes & broad liquid methane seas (low-freq sweeping basins)
+        // - Enceladus: smooth ultra-bright snowball scarred by deep narrow Tiger Stripe rifts
+        // - Titania: high icy plateaus ripped apart by colossal Messina Chasmata tectonic canyons
+        // - Oberon: dark crimson heavily-cratered basins & towering impact peak massifs
+        // - Triton: high-frequency dimpled cellular cantaloupe rind & cryogeyser plains
         bootstrapOuterMoon(
                 context, noiseRegistry, shiftX, shiftZ, altitudeY,
                 Titan.CONTINENTS, Titan.EROSION, Titan.RIDGES, Titan.PV,
                 Titan.BASE_HEIGHT, Titan.OFFSET, Titan.FACTOR, Titan.JAGGEDNESS,
                 Titan.SMOOTH_RELIEF, Titan.DEPTH, Titan.SOLID_TERRAIN, Titan.CAVES,
                 Titan.PILLARS, Titan.FINAL_DENSITY,
-                new OuterMoonProfile(0.24D, -0.52F, -0.14F, 0.34F, 0.18F, 0.28F, 0.22F, 0.46F, 0.14D, 0.14D, 0.55D, false)
+                new OuterMoonProfile(0.20D, -0.68F, -0.18F, 0.26F, 0.14F, 0.22F, 0.20F, 0.42F, 0.12D, 0.08D, 0.25D, false)
         );
         bootstrapOuterMoon(
                 context, noiseRegistry, shiftX, shiftZ, altitudeY,
@@ -1213,7 +1219,7 @@ public class GCDensityFunctions {
                 Enceladus.BASE_HEIGHT, Enceladus.OFFSET, Enceladus.FACTOR, Enceladus.JAGGEDNESS,
                 Enceladus.SMOOTH_RELIEF, Enceladus.DEPTH, Enceladus.SOLID_TERRAIN, Enceladus.CAVES,
                 Enceladus.PILLARS, Enceladus.FINAL_DENSITY,
-                new OuterMoonProfile(0.26D, -0.28F, -0.06F, 0.28F, 0.34F, 0.32F, 0.22F, 0.48F, 0.14D, 0.16D, 0.70D, true)
+                new OuterMoonProfile(0.22D, -0.22F, -0.02F, 0.16F, 0.62F, 0.20F, 0.22F, 0.44F, 0.08D, 0.06D, 0.50D, true)
         );
         bootstrapOuterMoon(
                 context, noiseRegistry, shiftX, shiftZ, altitudeY,
@@ -1221,7 +1227,7 @@ public class GCDensityFunctions {
                 Titania.BASE_HEIGHT, Titania.OFFSET, Titania.FACTOR, Titania.JAGGEDNESS,
                 Titania.SMOOTH_RELIEF, Titania.DEPTH, Titania.SOLID_TERRAIN, Titania.CAVES,
                 Titania.PILLARS, Titania.FINAL_DENSITY,
-                new OuterMoonProfile(0.26D, -0.40F, -0.06F, 0.44F, 0.52F, 0.38F, 0.26F, 0.56F, 0.16D, 0.18D, 0.75D, false)
+                new OuterMoonProfile(0.24D, -0.42F, 0.06F, 0.42F, 0.85F, 0.30F, 0.28F, 0.58F, 0.12D, 0.14D, 0.65D, false)
         );
         bootstrapOuterMoon(
                 context, noiseRegistry, shiftX, shiftZ, altitudeY,
@@ -1229,7 +1235,7 @@ public class GCDensityFunctions {
                 Oberon.BASE_HEIGHT, Oberon.OFFSET, Oberon.FACTOR, Oberon.JAGGEDNESS,
                 Oberon.SMOOTH_RELIEF, Oberon.DEPTH, Oberon.SOLID_TERRAIN, Oberon.CAVES,
                 Oberon.PILLARS, Oberon.FINAL_DENSITY,
-                new OuterMoonProfile(0.27D, -0.38F, -0.08F, 0.48F, 0.24F, 0.42F, 0.26F, 0.54F, 0.16D, 0.18D, 0.80D, false)
+                new OuterMoonProfile(0.28D, -0.44F, -0.10F, 0.58F, 0.20F, 0.50F, 0.28F, 0.58F, 0.16D, 0.20D, 0.85D, false)
         );
         bootstrapOuterMoon(
                 context, noiseRegistry, shiftX, shiftZ, altitudeY,
@@ -1237,7 +1243,7 @@ public class GCDensityFunctions {
                 Triton.BASE_HEIGHT, Triton.OFFSET, Triton.FACTOR, Triton.JAGGEDNESS,
                 Triton.SMOOTH_RELIEF, Triton.DEPTH, Triton.SOLID_TERRAIN, Triton.CAVES,
                 Triton.PILLARS, Triton.FINAL_DENSITY,
-                new OuterMoonProfile(0.32D, -0.30F, -0.04F, 0.34F, 0.26F, 0.38F, 0.24F, 0.50F, 0.18D, 0.20D, 0.95D, false)
+                new OuterMoonProfile(0.35D, -0.26F, 0.00F, 0.28F, 0.22F, 0.32F, 0.24F, 0.48F, 0.10D, 0.24D, 1.65D, false)
         );
     }
 

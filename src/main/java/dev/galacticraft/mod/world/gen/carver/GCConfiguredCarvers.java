@@ -68,7 +68,9 @@ public class GCConfiguredCarvers {
     public static final ResourceKey<ConfiguredWorldCarver<?>> ENCELADUS_CAVE_CARVER = key(Constant.Carver.ENCELADUS_CAVE_CARVER);
     public static final ResourceKey<ConfiguredWorldCarver<?>> TITANIA_CAVE_CARVER = key(Constant.Carver.TITANIA_CAVE_CARVER);
     public static final ResourceKey<ConfiguredWorldCarver<?>> TITANIA_CANYON_CARVER = key(Constant.Carver.TITANIA_CANYON_CARVER);
+    public static final ResourceKey<ConfiguredWorldCarver<?>> TITANIA_CRATER_CARVER = key(Constant.Carver.TITANIA_CRATER_CARVER);
     public static final ResourceKey<ConfiguredWorldCarver<?>> OBERON_CAVE_CARVER = key(Constant.Carver.OBERON_CAVE_CARVER);
+    public static final ResourceKey<ConfiguredWorldCarver<?>> OBERON_CRATER_CARVER = key(Constant.Carver.OBERON_CRATER_CARVER);
     public static final ResourceKey<ConfiguredWorldCarver<?>> TRITON_CAVE_CARVER = key(Constant.Carver.TRITON_CAVE_CARVER);
 
     @Contract(pure = true)
@@ -435,20 +437,29 @@ public class GCConfiguredCarvers {
                 UniformFloat.of(-0.9f, -0.4f)
         )));
         context.register(TITANIA_CANYON_CARVER, WorldCarver.CANYON.configured(new CanyonCarverConfiguration(
-                0.06f,
-                UniformHeight.of(VerticalAnchor.absolute(20), VerticalAnchor.absolute(112)),
-                ConstantFloat.of(3.6f),
+                0.10f,
+                UniformHeight.of(VerticalAnchor.absolute(18), VerticalAnchor.absolute(132)),
+                ConstantFloat.of(4.2f),
                 VerticalAnchor.aboveBottom(12),
                 CarverDebugSettings.DEFAULT,
                 BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.TITANIA_CARVER_REPLACEABLES),
-                UniformFloat.of(-0.10f, 0.10f),
+                UniformFloat.of(-0.08f, 0.08f),
                 new CanyonCarverConfiguration.CanyonShapeConfiguration(
-                        UniformFloat.of(0.8f, 1.2f),
-                        TrapezoidFloat.of(0, 8, 2),
+                        UniformFloat.of(1.0f, 1.5f),
+                        TrapezoidFloat.of(0, 10, 2),
                         3,
-                        UniformFloat.of(0.8f, 1.15f),
+                        UniformFloat.of(0.9f, 1.25f),
                         1.0f,
                         0.0f)
+        )));
+        context.register(TITANIA_CRATER_CARVER, GCCarvers.CRATERS.configured(new CraterCarverConfig(
+                0.05f,
+                ConstantHeight.of(VerticalAnchor.absolute(140)),
+                UniformFloat.of(0.45f, 0.65f),
+                CarverDebugSettings.DEFAULT,
+                22,
+                7,
+                8
         )));
         context.register(OBERON_CAVE_CARVER, WorldCarver.CAVE.configured(new CaveCarverConfiguration(
                 0.11f,
@@ -459,6 +470,15 @@ public class GCConfiguredCarvers {
                 UniformFloat.of(0.8f, 1.4f),
                 UniformFloat.of(0.8f, 1.2f),
                 UniformFloat.of(-0.9f, -0.4f)
+        )));
+        context.register(OBERON_CRATER_CARVER, GCCarvers.CRATERS.configured(new CraterCarverConfig(
+                0.09f,
+                ConstantHeight.of(VerticalAnchor.absolute(148)),
+                UniformFloat.of(0.50f, 0.75f),
+                CarverDebugSettings.DEFAULT,
+                28,
+                8,
+                8
         )));
         context.register(TRITON_CAVE_CARVER, WorldCarver.CAVE.configured(new CaveCarverConfiguration(
                 0.11f,

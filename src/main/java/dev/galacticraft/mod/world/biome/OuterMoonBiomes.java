@@ -102,6 +102,7 @@ public final class OuterMoonBiomes {
     private static Biome createTitaniaBiome(HolderGetter<PlacedFeature> features, HolderGetter<ConfiguredWorldCarver<?>> carvers, boolean canyonZones, float temp, int fogColor) {
         var gen = new BiomeGenerationSettings.Builder(features, carvers);
         gen.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.TITANIA_CAVE_CARVER);
+        gen.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.TITANIA_CRATER_CARVER);
         if (canyonZones) {
             gen.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.TITANIA_CANYON_CARVER);
         }
@@ -115,6 +116,7 @@ public final class OuterMoonBiomes {
     private static Biome createOberonBiome(HolderGetter<PlacedFeature> features, HolderGetter<ConfiguredWorldCarver<?>> carvers, float temp, int fogColor) {
         var gen = new BiomeGenerationSettings.Builder(features, carvers);
         gen.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.OBERON_CAVE_CARVER);
+        gen.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.OBERON_CRATER_CARVER);
         gen.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_URANIUM_OBERON);
         gen.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_NIOBIUM_OBERON);
         gen.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GCOrePlacedFeatures.ORE_DENSE_ICE_OBERON);
