@@ -1,0 +1,50 @@
+{
+  "type": "galacticraft:planet",
+  "config": {
+    "parent": "galacticraft:saturn",
+    "access_weight": 5,
+    "atmosphere": {
+      "composition": {},
+      "pressure": 0.0,
+      "temperature": -200.0
+    },
+    "celestial_handler": "galacticraft:default",
+    "day_length": 32890,
+    "day_temperature": -198,
+    "description": {
+      "translate": "planet.galacticraft.enceladus.description"
+    },
+    "display": {
+      "type": "galacticraft:icon",
+      "config": {
+        "height": 8,
+        "rocket_overlay": "galacticraft:textures/gui/rocket/moon_rocket_gui.png",
+        "scale": 1.0,
+        "texture": "galacticraft:textures/gui/celestialbodies/enceladus.png",
+        "u": 0,
+        "v": 0,
+        "width": 8
+      }
+    },
+    "gravity": 0.012,
+    "name": {
+      "translate": "planet.galacticraft.enceladus"
+    },
+    "night_temperature": -201,
+    "position": {
+      "type": "galacticraft:orbital",
+      "config": {
+        "distance": 16.0,
+        "orbit_time": 1.3700000047683716,
+        "phase_shift": 2.35,
+        "planet": false
+      }
+    },
+    "ring": {
+      "type": "galacticraft:default",
+      "config": {}
+    },
+    "teleporter": "galacticraft:lander",
+    "world": "galacticraft:enceladus"
+  }
+}

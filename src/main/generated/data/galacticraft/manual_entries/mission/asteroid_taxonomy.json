@@ -1,0 +1,33 @@
+{
+  "era": 3,
+  "icon_item": "galacticraft:ilmenite_ore",
+  "id": "galacticraft:mission/asteroid_taxonomy",
+  "lock_hint_key": "manual.galacticraft.hint.lunar_deep_sky",
+  "order": 50,
+  "pages": [
+    {
+      "type": "text",
+      "body": "manual.galacticraft.entry.asteroid_taxonomy.body1",
+      "callout": "manual.galacticraft.entry.asteroid_taxonomy.tip1",
+      "heading": "manual.galacticraft.entry.asteroid_taxonomy.h1",
+      "link_entries": [
+        "galacticraft:atlas/asteroids"
+      ],
+      "showcase_items": [
+        "galacticraft:asteroid_graphite_ore",
+        "galacticraft:asteroid_iron_ore",
+        "galacticraft:ilmenite_ore",
+        "galacticraft:asteroid_niobium_ore"
+      ]
+    }
+  ],
+  "related_items": [
+    "galacticraft:asteroid_rock_2",
+    "galacticraft:asteroid_rock_1",
+    "galacticraft:meteoric_iron_block",
+    "galacticraft:ilmenite_ore",
+    "galacticraft:dense_ice"
+  ],
+  "tab": "mission",
+  "title_key": "manual.galacticraft.entry.asteroid_taxonomy.title"
+}

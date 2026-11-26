@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 120,
+  "experience": 1.5,
+  "group": "lonsdaleite_gem",
+  "ingredient": {
+    "item": "galacticraft:titania_lonsdaleite_ore"
+  },
+  "result": {
+    "id": "galacticraft:lonsdaleite_gem"
+  }
+}

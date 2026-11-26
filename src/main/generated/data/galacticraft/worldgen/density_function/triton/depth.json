@@ -1,0 +1,5 @@
+{
+  "type": "minecraft:add",
+  "argument1": "galacticraft:triton/base_height",
+  "argument2": "galacticraft:triton/offset"
+}

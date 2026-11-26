@@ -1,0 +1,50 @@
+{
+  "type": "galacticraft:planet",
+  "config": {
+    "parent": "galacticraft:uranus",
+    "access_weight": 6,
+    "atmosphere": {
+      "composition": {},
+      "pressure": 0.0,
+      "temperature": -200.0
+    },
+    "celestial_handler": "galacticraft:default",
+    "day_length": 208940,
+    "day_temperature": -184,
+    "description": {
+      "translate": "planet.galacticraft.titania.description"
+    },
+    "display": {
+      "type": "galacticraft:icon",
+      "config": {
+        "height": 8,
+        "rocket_overlay": "galacticraft:textures/gui/rocket/moon_rocket_gui.png",
+        "scale": 1.0,
+        "texture": "galacticraft:textures/gui/celestialbodies/titania.png",
+        "u": 0,
+        "v": 0,
+        "width": 8
+      }
+    },
+    "gravity": 0.039,
+    "name": {
+      "translate": "planet.galacticraft.titania"
+    },
+    "night_temperature": -213,
+    "position": {
+      "type": "galacticraft:orbital",
+      "config": {
+        "distance": 18.0,
+        "orbit_time": 8.710000038146973,
+        "phase_shift": 1.15,
+        "planet": false
+      }
+    },
+    "ring": {
+      "type": "galacticraft:default",
+      "config": {}
+    },
+    "teleporter": "galacticraft:lander",
+    "world": "galacticraft:titania"
+  }
+}

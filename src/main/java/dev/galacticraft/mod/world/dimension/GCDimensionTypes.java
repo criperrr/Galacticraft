@@ -49,6 +49,11 @@ public class GCDimensionTypes {
     public static final ResourceKey<DimensionType> SATURN = key("saturn");
     public static final ResourceKey<DimensionType> URANUS = key("uranus");
     public static final ResourceKey<DimensionType> NEPTUNE = key("neptune");
+    public static final ResourceKey<DimensionType> TITAN = key("titan");
+    public static final ResourceKey<DimensionType> ENCELADUS = key("enceladus");
+    public static final ResourceKey<DimensionType> TITANIA = key("titania");
+    public static final ResourceKey<DimensionType> OBERON = key("oberon");
+    public static final ResourceKey<DimensionType> TRITON = key("triton");
 
     public static void bootstrapRegistries(BootstrapContext<DimensionType> context) {
         context.register(MOON, new DimensionType(
@@ -209,6 +214,96 @@ public class GCDimensionTypes {
                 GCBlockTags.INFINIBURN_NEPTUNE, // infiniburn
                 Constant.id("neptune"), // effectsLocation
                 0.14F, // ambientLight
+                new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 0), 0)
+        ));
+
+        context.register(TITAN, new DimensionType(
+                OptionalLong.empty(),
+                true,
+                false,
+                false,
+                false,
+                1.0,
+                true,
+                false,
+                -64,
+                384,
+                384,
+                GCBlockTags.INFINIBURN_TITAN,
+                Constant.id("titan"),
+                0.10F,
+                new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 0), 0)
+        ));
+
+        context.register(ENCELADUS, new DimensionType(
+                OptionalLong.empty(),
+                true,
+                false,
+                false,
+                false,
+                1.0,
+                true,
+                false,
+                -64,
+                384,
+                384,
+                GCBlockTags.INFINIBURN_ENCELADUS,
+                Constant.id("enceladus"),
+                0.05F,
+                new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 0), 0)
+        ));
+
+        context.register(TITANIA, new DimensionType(
+                OptionalLong.empty(),
+                true,
+                false,
+                false,
+                false,
+                1.0,
+                true,
+                false,
+                -64,
+                384,
+                384,
+                GCBlockTags.INFINIBURN_TITANIA,
+                Constant.id("titania"),
+                0.04F,
+                new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 0), 0)
+        ));
+
+        context.register(OBERON, new DimensionType(
+                OptionalLong.empty(),
+                true,
+                false,
+                false,
+                false,
+                1.0,
+                true,
+                false,
+                -64,
+                384,
+                384,
+                GCBlockTags.INFINIBURN_OBERON,
+                Constant.id("oberon"),
+                0.04F,
+                new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 0), 0)
+        ));
+
+        context.register(TRITON, new DimensionType(
+                OptionalLong.empty(),
+                true,
+                false,
+                false,
+                false,
+                1.0,
+                true,
+                false,
+                -64,
+                384,
+                384,
+                GCBlockTags.INFINIBURN_TRITON,
+                Constant.id("triton"),
+                0.05F,
                 new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 0), 0)
         ));
     }

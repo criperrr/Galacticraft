@@ -1,0 +1,213 @@
+{
+  "type": "minecraft:cache_2d",
+  "argument": {
+    "type": "minecraft:spline",
+    "spline": {
+      "coordinate": "galacticraft:oberon/continents",
+      "points": [
+        {
+          "derivative": 0.0,
+          "location": -1.0,
+          "value": {
+            "coordinate": "galacticraft:oberon/pv",
+            "points": [
+              {
+                "derivative": 0.0,
+                "location": -1.0,
+                "value": -0.51
+              },
+              {
+                "derivative": 0.0,
+                "location": 0.0,
+                "value": -0.44
+              },
+              {
+                "derivative": 0.0,
+                "location": 1.0,
+                "value": -0.215
+              }
+            ]
+          }
+        },
+        {
+          "derivative": 0.0,
+          "location": -0.3,
+          "value": {
+            "coordinate": "galacticraft:oberon/pv",
+            "points": [
+              {
+                "derivative": 0.0,
+                "location": -1.0,
+                "value": -0.51
+              },
+              {
+                "derivative": 0.0,
+                "location": 0.0,
+                "value": -0.44
+              },
+              {
+                "derivative": 0.0,
+                "location": 1.0,
+                "value": -0.215
+              }
+            ]
+          }
+        },
+        {
+          "derivative": 0.0,
+          "location": -0.1,
+          "value": {
+            "coordinate": "galacticraft:oberon/pv",
+            "points": [
+              {
+                "derivative": 0.0,
+                "location": -1.0,
+                "value": -0.22999999
+              },
+              {
+                "derivative": 0.0,
+                "location": -0.1,
+                "value": -0.1
+              },
+              {
+                "derivative": 0.0,
+                "location": 0.6,
+                "value": 0.050000004
+              },
+              {
+                "derivative": 0.0,
+                "location": 1.0,
+                "value": 0.17500001
+              }
+            ]
+          }
+        },
+        {
+          "derivative": 0.0,
+          "location": 0.35,
+          "value": {
+            "coordinate": "galacticraft:oberon/erosion",
+            "points": [
+              {
+                "derivative": 0.0,
+                "location": -0.8,
+                "value": {
+                  "coordinate": "galacticraft:oberon/pv",
+                  "points": [
+                    {
+                      "derivative": 0.0,
+                      "location": -1.0,
+                      "value": 0.38
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": -0.2,
+                      "value": 0.58
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": 0.4,
+                      "value": 0.855
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": 1.0,
+                      "value": 1.0799999
+                    }
+                  ]
+                }
+              },
+              {
+                "derivative": 0.0,
+                "location": 0.25,
+                "value": {
+                  "coordinate": "galacticraft:oberon/pv",
+                  "points": [
+                    {
+                      "derivative": 0.0,
+                      "location": -1.0,
+                      "value": -0.22999999
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": -0.1,
+                      "value": -0.1
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": 0.6,
+                      "value": 0.050000004
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": 1.0,
+                      "value": 0.17500001
+                    }
+                  ]
+                }
+              },
+              {
+                "derivative": 0.0,
+                "location": 1.0,
+                "value": {
+                  "coordinate": "galacticraft:oberon/pv",
+                  "points": [
+                    {
+                      "derivative": 0.0,
+                      "location": -1.0,
+                      "value": -0.22999999
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": -0.1,
+                      "value": -0.1
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": 0.6,
+                      "value": 0.050000004
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": 1.0,
+                      "value": 0.17500001
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "derivative": 0.0,
+          "location": 1.0,
+          "value": {
+            "coordinate": "galacticraft:oberon/pv",
+            "points": [
+              {
+                "derivative": 0.0,
+                "location": -1.0,
+                "value": 0.38
+              },
+              {
+                "derivative": 0.0,
+                "location": -0.2,
+                "value": 0.58
+              },
+              {
+                "derivative": 0.0,
+                "location": 0.4,
+                "value": 0.855
+              },
+              {
+                "derivative": 0.0,
+                "location": 1.0,
+                "value": 1.0799999
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

@@ -93,6 +93,11 @@ public class GCMultiNoiseBiomeSourceParameterLists {
     public static final ResourceLocation SATURN_PRESET_ID = Constant.id("saturn");
     public static final ResourceLocation URANUS_PRESET_ID = Constant.id("uranus");
     public static final ResourceLocation NEPTUNE_PRESET_ID = Constant.id("neptune");
+    public static final ResourceLocation TITAN_PRESET_ID = Constant.id("titan");
+    public static final ResourceLocation ENCELADUS_PRESET_ID = Constant.id("enceladus");
+    public static final ResourceLocation TITANIA_PRESET_ID = Constant.id("titania");
+    public static final ResourceLocation OBERON_PRESET_ID = Constant.id("oberon");
+    public static final ResourceLocation TRITON_PRESET_ID = Constant.id("triton");
     public static final MultiNoiseBiomeSourceParameterList.Preset MOON_PRESET = new MultiNoiseBiomeSourceParameterList.Preset(
             MOON_PRESET_ID, GCMultiNoiseBiomeSourceParameterLists::generateMoon
     );
@@ -120,6 +125,21 @@ public class GCMultiNoiseBiomeSourceParameterLists {
     public static final MultiNoiseBiomeSourceParameterList.Preset NEPTUNE_PRESET = new MultiNoiseBiomeSourceParameterList.Preset(
             NEPTUNE_PRESET_ID, GCMultiNoiseBiomeSourceParameterLists::generateNeptune
     );
+    public static final MultiNoiseBiomeSourceParameterList.Preset TITAN_PRESET = new MultiNoiseBiomeSourceParameterList.Preset(
+            TITAN_PRESET_ID, GCMultiNoiseBiomeSourceParameterLists::generateTitan
+    );
+    public static final MultiNoiseBiomeSourceParameterList.Preset ENCELADUS_PRESET = new MultiNoiseBiomeSourceParameterList.Preset(
+            ENCELADUS_PRESET_ID, GCMultiNoiseBiomeSourceParameterLists::generateEnceladus
+    );
+    public static final MultiNoiseBiomeSourceParameterList.Preset TITANIA_PRESET = new MultiNoiseBiomeSourceParameterList.Preset(
+            TITANIA_PRESET_ID, GCMultiNoiseBiomeSourceParameterLists::generateTitania
+    );
+    public static final MultiNoiseBiomeSourceParameterList.Preset OBERON_PRESET = new MultiNoiseBiomeSourceParameterList.Preset(
+            OBERON_PRESET_ID, GCMultiNoiseBiomeSourceParameterLists::generateOberon
+    );
+    public static final MultiNoiseBiomeSourceParameterList.Preset TRITON_PRESET = new MultiNoiseBiomeSourceParameterList.Preset(
+            TRITON_PRESET_ID, GCMultiNoiseBiomeSourceParameterLists::generateTriton
+    );
 
     public static final ResourceKey<MultiNoiseBiomeSourceParameterList> MOON = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "moon");
     public static final ResourceKey<MultiNoiseBiomeSourceParameterList> MARS = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "mars");
@@ -130,6 +150,11 @@ public class GCMultiNoiseBiomeSourceParameterLists {
     public static final ResourceKey<MultiNoiseBiomeSourceParameterList> SATURN = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "saturn");
     public static final ResourceKey<MultiNoiseBiomeSourceParameterList> URANUS = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "uranus");
     public static final ResourceKey<MultiNoiseBiomeSourceParameterList> NEPTUNE = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "neptune");
+    public static final ResourceKey<MultiNoiseBiomeSourceParameterList> TITAN = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "titan");
+    public static final ResourceKey<MultiNoiseBiomeSourceParameterList> ENCELADUS = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "enceladus");
+    public static final ResourceKey<MultiNoiseBiomeSourceParameterList> TITANIA = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "titania");
+    public static final ResourceKey<MultiNoiseBiomeSourceParameterList> OBERON = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "oberon");
+    public static final ResourceKey<MultiNoiseBiomeSourceParameterList> TRITON = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "triton");
 
     @Contract("_ -> new")
     private static <T> Climate.@NotNull ParameterList<T> generateMoon(Function<ResourceKey<Biome>, T> biomeRegistry) {
@@ -716,6 +741,56 @@ public class GCMultiNoiseBiomeSourceParameterLists {
         );
     }
 
+    private static <T> Climate.@NotNull ParameterList<T> generateTitan(Function<ResourceKey<Biome>, T> biomeRegistry) {
+        ImmutableList.Builder<Pair<Climate.ParameterPoint, T>> builder = ImmutableList.builder();
+        Parameter surface = Parameter.span(-1.0F, 0.35F);
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, Parameter.span(-1.0F, -0.22F), FULL_RANGE, surface, FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Titan.METHANE_SEAS));
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, Parameter.span(-0.22F, 0.35F), FULL_RANGE, surface, FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Titan.THOLIN_DUNES));
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, Parameter.span(0.35F, 1.0F), FULL_RANGE, surface, FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Titan.ICE_HIGHLANDS));
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, FULL_RANGE, FULL_RANGE, Parameter.span(0.35F, 1.6F), FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Titan.CRYO_CAVERNS));
+        return new Climate.ParameterList<>(builder.build());
+    }
+
+    private static <T> Climate.@NotNull ParameterList<T> generateEnceladus(Function<ResourceKey<Biome>, T> biomeRegistry) {
+        ImmutableList.Builder<Pair<Climate.ParameterPoint, T>> builder = ImmutableList.builder();
+        Parameter surface = Parameter.span(-1.0F, 0.30F);
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, Parameter.span(-1.0F, 0.15F), FULL_RANGE, surface, Parameter.span(-1.0F, 0.25F), 0.0F, biomeRegistry.apply(GCBiomes.Enceladus.SNOW_PLAINS));
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, Parameter.span(-1.0F, 0.35F), FULL_RANGE, surface, Parameter.span(0.25F, 1.0F), 0.0F, biomeRegistry.apply(GCBiomes.Enceladus.TIGER_STRIPES));
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, Parameter.span(0.15F, 1.0F), FULL_RANGE, surface, FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Enceladus.CRATERED_RIDGES));
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, FULL_RANGE, FULL_RANGE, Parameter.span(0.30F, 1.6F), FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Enceladus.HYDROTHERMAL_OCEAN));
+        return new Climate.ParameterList<>(builder.build());
+    }
+
+    private static <T> Climate.@NotNull ParameterList<T> generateTitania(Function<ResourceKey<Biome>, T> biomeRegistry) {
+        ImmutableList.Builder<Pair<Climate.ParameterPoint, T>> builder = ImmutableList.builder();
+        Parameter surface = Parameter.span(-1.0F, 0.35F);
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, Parameter.span(-1.0F, -0.15F), FULL_RANGE, surface, FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Titania.MESSINA_CHASMATA));
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, Parameter.span(-0.15F, 0.35F), FULL_RANGE, surface, FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Titania.FROST_PLAINS));
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, Parameter.span(0.35F, 1.0F), FULL_RANGE, surface, FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Titania.SCARP_HIGHLANDS));
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, FULL_RANGE, FULL_RANGE, Parameter.span(0.35F, 1.6F), FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Titania.FAULT_CAVERNS));
+        return new Climate.ParameterList<>(builder.build());
+    }
+
+    private static <T> Climate.@NotNull ParameterList<T> generateOberon(Function<ResourceKey<Biome>, T> biomeRegistry) {
+        ImmutableList.Builder<Pair<Climate.ParameterPoint, T>> builder = ImmutableList.builder();
+        Parameter surface = Parameter.span(-1.0F, 0.35F);
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, Parameter.span(-1.0F, -0.20F), FULL_RANGE, surface, FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Oberon.DARK_BASINS));
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, Parameter.span(-0.20F, 0.35F), FULL_RANGE, surface, FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Oberon.RED_PLAINS));
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, Parameter.span(0.35F, 1.0F), FULL_RANGE, surface, FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Oberon.IMPACT_PEAKS));
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, FULL_RANGE, FULL_RANGE, Parameter.span(0.35F, 1.6F), FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Oberon.ANCIENT_CAVERNS));
+        return new Climate.ParameterList<>(builder.build());
+    }
+
+    private static <T> Climate.@NotNull ParameterList<T> generateTriton(Function<ResourceKey<Biome>, T> biomeRegistry) {
+        ImmutableList.Builder<Pair<Climate.ParameterPoint, T>> builder = ImmutableList.builder();
+        Parameter surface = Parameter.span(-1.0F, 0.35F);
+        writeMercury3dBiome(builder::add, Parameter.span(-1.0F, -0.35F), FULL_RANGE, FULL_RANGE, FULL_RANGE, surface, FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Triton.POLAR_ICE_CAP));
+        writeMercury3dBiome(builder::add, Parameter.span(-0.35F, 1.0F), FULL_RANGE, Parameter.span(-1.0F, 0.15F), FULL_RANGE, surface, FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Triton.CANTALOUPE_TERRAIN));
+        writeMercury3dBiome(builder::add, Parameter.span(-0.35F, 1.0F), FULL_RANGE, Parameter.span(0.15F, 1.0F), FULL_RANGE, surface, FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Triton.NITROGEN_GEYSERS));
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, FULL_RANGE, FULL_RANGE, Parameter.span(0.35F, 1.6F), FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Triton.SUPERIONIC_CAVERNS));
+        return new Climate.ParameterList<>(builder.build());
+    }
+
     public static void register() {
         MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(MOON_PRESET_ID, MOON_PRESET);
         MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(MARS_PRESET_ID, MARS_PRESET);
@@ -726,6 +801,11 @@ public class GCMultiNoiseBiomeSourceParameterLists {
         MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(SATURN_PRESET_ID, SATURN_PRESET);
         MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(URANUS_PRESET_ID, URANUS_PRESET);
         MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(NEPTUNE_PRESET_ID, NEPTUNE_PRESET);
+        MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(TITAN_PRESET_ID, TITAN_PRESET);
+        MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(ENCELADUS_PRESET_ID, ENCELADUS_PRESET);
+        MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(TITANIA_PRESET_ID, TITANIA_PRESET);
+        MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(OBERON_PRESET_ID, OBERON_PRESET);
+        MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(TRITON_PRESET_ID, TRITON_PRESET);
     }
 
     public static void bootstrapRegistries(BootstrapContext<MultiNoiseBiomeSourceParameterList> context) {
@@ -739,5 +819,10 @@ public class GCMultiNoiseBiomeSourceParameterLists {
         context.register(SATURN, new MultiNoiseBiomeSourceParameterList(SATURN_PRESET, lookup));
         context.register(URANUS, new MultiNoiseBiomeSourceParameterList(URANUS_PRESET, lookup));
         context.register(NEPTUNE, new MultiNoiseBiomeSourceParameterList(NEPTUNE_PRESET, lookup));
+        context.register(TITAN, new MultiNoiseBiomeSourceParameterList(TITAN_PRESET, lookup));
+        context.register(ENCELADUS, new MultiNoiseBiomeSourceParameterList(ENCELADUS_PRESET, lookup));
+        context.register(TITANIA, new MultiNoiseBiomeSourceParameterList(TITANIA_PRESET, lookup));
+        context.register(OBERON, new MultiNoiseBiomeSourceParameterList(OBERON_PRESET, lookup));
+        context.register(TRITON, new MultiNoiseBiomeSourceParameterList(TRITON_PRESET, lookup));
     }
 }

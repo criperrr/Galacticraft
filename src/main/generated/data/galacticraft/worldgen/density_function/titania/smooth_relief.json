@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:quarter_negative",
+  "argument": {
+    "type": "minecraft:mul",
+    "argument1": {
+      "type": "minecraft:add",
+      "argument1": "galacticraft:titania/depth",
+      "argument2": "galacticraft:titania/jaggedness"
+    },
+    "argument2": "galacticraft:titania/factor"
+  }
+}

@@ -219,7 +219,9 @@ public final class ResearchCatalog {
         register(new ResearchNode(
                 SATURN_HELIUM3_HARVESTING, 6, ResearchBranch.METALLURGY_MACHINES, ResearchDomain.CRYOGENICS,
                 1350, 440, ResearchMilestone.OUTER_PLANET_OBSERVED, 14, -3,
-                List.of(ORBITAL_NANOFABRICATION), ResearchLocationRequirement.forBody(GCCelestialBodies.SATURN.location(), "Saturn Mantle / Atm"), "Geological Analyzer",
+                List.of(ORBITAL_NANOFABRICATION), ResearchLocationRequirement.forBodies(
+                        List.of(GCCelestialBodies.SATURN.location(), GCCelestialBodies.TITAN.location(), GCCelestialBodies.ENCELADUS.location()),
+                        "Saturn / Titan / Enceladus"), "Geological Analyzer",
                 "Saturnian 3He & Mg-Li Alloys",
                 "Extracts 3.5x enriched atmospheric Helium-3 and ultralight magnesium-lithium superstructures.",
                 List.of("Saturn 3He Fractionation", "Magnesium-Lithium Alloys", "7x7-11x11 Lightweight Hulls"),
@@ -528,7 +530,9 @@ public final class ResearchCatalog {
         register(new ResearchNode(
                 URANUS_LONSDALEITE_PRESSURE, 6, ResearchBranch.SUITS_TOOLS, ResearchDomain.STRUCTURES,
                 1480, 480, ResearchMilestone.OUTER_PLANET_OBSERVED, -15, 3,
-                List.of(PLASMA_EXCAVATION_TOOLS), ResearchLocationRequirement.forBody(GCCelestialBodies.URANUS.location(), "Uranus Abyssal Ice"), "Geological Analyzer",
+                List.of(PLASMA_EXCAVATION_TOOLS), ResearchLocationRequirement.forBodies(
+                        List.of(GCCelestialBodies.URANUS.location(), GCCelestialBodies.TITANIA.location(), GCCelestialBodies.OBERON.location()),
+                        "Uranus / Titania / Oberon"), "Geological Analyzer",
                 "Hexagonal Lonsdaleite Lattices",
                 "High-pressure hexagonal diamond lattices endure 100+ atm abyssal descent and deep mining.",
                 List.of("Lonsdaleite Pressure Coatings", "Abyssal Command Domes", "Lonsdaleite Mirror Blank"),
@@ -616,7 +620,9 @@ public final class ResearchCatalog {
         register(new ResearchNode(
                 JUPITER_PALLADIUM_CATALYSIS, 5, ResearchBranch.AEROSPACE_PROPULSION, ResearchDomain.THERMODYNAMICS,
                 890, 310, ResearchMilestone.OUTER_PLANET_OBSERVED, 10, 5,
-                List.of(ORBITAL_SHIPYARD_DOCKS, ZERO_G_HEAVY_ORBITAL_WELDING), ResearchLocationRequirement.forBody(GCCelestialBodies.JUPITER.location(), "Jupiter (2.36G)"), "Geological Analyzer",
+                List.of(ORBITAL_SHIPYARD_DOCKS, ZERO_G_HEAVY_ORBITAL_WELDING), ResearchLocationRequirement.forBodies(
+                        List.of(GCCelestialBodies.JUPITER.location(), Constant.id("io"), Constant.id("ganymede")),
+                        "Jupiter / Io / Ganymede"), "Geological Analyzer",
                 "Supercritical Palladium Engines",
                 "Jovian palladium catalysis and metallic hydrogen fuel high-T/W heavy lift against 2.36G gravity.",
                 List.of("Palladium-Niobium Nozzles", "Metallic Hydrogen Cells", "Shield Controller"),
@@ -634,7 +640,9 @@ public final class ResearchCatalog {
         register(new ResearchNode(
                 NEPTUNE_SUPERIONIC_MAGNETOPLASMA, 6, ResearchBranch.AEROSPACE_PROPULSION, ResearchDomain.NUCLEAR_PLASMA,
                 1600, 520, ResearchMilestone.DEEP_SKY_CATALOGED, 14, 4,
-                List.of(JUPITER_PALLADIUM_CATALYSIS, DEEP_SPACE_OPTICAL_INTERFEROMETRY), ResearchLocationRequirement.forBody(GCCelestialBodies.NEPTUNE.location(), "Neptune (-200C)"), "Geological Analyzer",
+                List.of(JUPITER_PALLADIUM_CATALYSIS, DEEP_SPACE_OPTICAL_INTERFEROMETRY), ResearchLocationRequirement.forBodies(
+                        List.of(GCCelestialBodies.NEPTUNE.location(), GCCelestialBodies.TRITON.location()),
+                        "Neptune / Triton"), "Geological Analyzer",
                 "Superionic VASIMR Magnetoplasma",
                 "Neptunian superionic ice crystals and heavy xenon enable frontier Hall/Ion and VASIMR drives.",
                 List.of("VASIMR Plasma Drive", "Xenon Hall Thrusters", "Superionic Magnet Coils"),

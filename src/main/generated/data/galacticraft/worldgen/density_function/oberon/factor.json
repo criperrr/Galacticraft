@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:cache_2d",
+  "argument": {
+    "type": "minecraft:spline",
+    "spline": {
+      "coordinate": "galacticraft:oberon/continents",
+      "points": [
+        {
+          "derivative": 0.0,
+          "location": -1.0,
+          "value": 0.28
+        },
+        {
+          "derivative": 0.0,
+          "location": 0.0,
+          "value": 0.43
+        },
+        {
+          "derivative": 0.0,
+          "location": 1.0,
+          "value": 0.58
+        }
+      ]
+    }
+  }
+}

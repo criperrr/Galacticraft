@@ -1,0 +1,49 @@
+{
+  "carvers": {
+    "air": [
+      "galacticraft:oberon_cave_carver",
+      "galacticraft:oberon_crater_carver"
+    ]
+  },
+  "downfall": 0.0,
+  "effects": {
+    "fog_color": 1051406,
+    "foliage_color": 6187876,
+    "grass_color": 7174258,
+    "music": {
+      "max_delay": 24000,
+      "min_delay": 12000,
+      "replace_current_music": true,
+      "sound": "galacticraft:music.orbit"
+    },
+    "sky_color": 0,
+    "water_color": 3812920,
+    "water_fog_color": 1445910
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "galacticraft:ore_uranium_oberon",
+      "galacticraft:ore_niobium_oberon",
+      "galacticraft:ore_dense_ice_oberon"
+    ]
+  ],
+  "has_precipitation": false,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": -0.85
+}

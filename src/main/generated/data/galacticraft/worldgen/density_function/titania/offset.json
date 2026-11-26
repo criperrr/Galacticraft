@@ -1,0 +1,213 @@
+{
+  "type": "minecraft:cache_2d",
+  "argument": {
+    "type": "minecraft:spline",
+    "spline": {
+      "coordinate": "galacticraft:titania/continents",
+      "points": [
+        {
+          "derivative": 0.0,
+          "location": -1.0,
+          "value": {
+            "coordinate": "galacticraft:titania/pv",
+            "points": [
+              {
+                "derivative": 0.0,
+                "location": -1.0,
+                "value": -0.7175
+              },
+              {
+                "derivative": 0.0,
+                "location": 0.0,
+                "value": -0.42
+              },
+              {
+                "derivative": 0.0,
+                "location": 1.0,
+                "value": -0.28499997
+              }
+            ]
+          }
+        },
+        {
+          "derivative": 0.0,
+          "location": -0.3,
+          "value": {
+            "coordinate": "galacticraft:titania/pv",
+            "points": [
+              {
+                "derivative": 0.0,
+                "location": -1.0,
+                "value": -0.7175
+              },
+              {
+                "derivative": 0.0,
+                "location": 0.0,
+                "value": -0.42
+              },
+              {
+                "derivative": 0.0,
+                "location": 1.0,
+                "value": -0.28499997
+              }
+            ]
+          }
+        },
+        {
+          "derivative": 0.0,
+          "location": -0.1,
+          "value": {
+            "coordinate": "galacticraft:titania/pv",
+            "points": [
+              {
+                "derivative": 0.0,
+                "location": -1.0,
+                "value": -0.4925
+              },
+              {
+                "derivative": 0.0,
+                "location": -0.1,
+                "value": 0.06
+              },
+              {
+                "derivative": 0.0,
+                "location": 0.6,
+                "value": 0.15
+              },
+              {
+                "derivative": 0.0,
+                "location": 1.0,
+                "value": 0.22500001
+              }
+            ]
+          }
+        },
+        {
+          "derivative": 0.0,
+          "location": 0.35,
+          "value": {
+            "coordinate": "galacticraft:titania/erosion",
+            "points": [
+              {
+                "derivative": 0.0,
+                "location": -0.8,
+                "value": {
+                  "coordinate": "galacticraft:titania/pv",
+                  "points": [
+                    {
+                      "derivative": 0.0,
+                      "location": -1.0,
+                      "value": -0.43000004
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": -0.2,
+                      "value": 0.42
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": 0.4,
+                      "value": 0.585
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": 1.0,
+                      "value": 0.72
+                    }
+                  ]
+                }
+              },
+              {
+                "derivative": 0.0,
+                "location": 0.25,
+                "value": {
+                  "coordinate": "galacticraft:titania/pv",
+                  "points": [
+                    {
+                      "derivative": 0.0,
+                      "location": -1.0,
+                      "value": -0.4925
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": -0.1,
+                      "value": 0.06
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": 0.6,
+                      "value": 0.15
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": 1.0,
+                      "value": 0.22500001
+                    }
+                  ]
+                }
+              },
+              {
+                "derivative": 0.0,
+                "location": 1.0,
+                "value": {
+                  "coordinate": "galacticraft:titania/pv",
+                  "points": [
+                    {
+                      "derivative": 0.0,
+                      "location": -1.0,
+                      "value": -0.4925
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": -0.1,
+                      "value": 0.06
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": 0.6,
+                      "value": 0.15
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": 1.0,
+                      "value": 0.22500001
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "derivative": 0.0,
+          "location": 1.0,
+          "value": {
+            "coordinate": "galacticraft:titania/pv",
+            "points": [
+              {
+                "derivative": 0.0,
+                "location": -1.0,
+                "value": -0.43000004
+              },
+              {
+                "derivative": 0.0,
+                "location": -0.2,
+                "value": 0.42
+              },
+              {
+                "derivative": 0.0,
+                "location": 0.4,
+                "value": 0.585
+              },
+              {
+                "derivative": 0.0,
+                "location": 1.0,
+                "value": 0.72
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

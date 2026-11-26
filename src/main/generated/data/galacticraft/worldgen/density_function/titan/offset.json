@@ -1,0 +1,213 @@
+{
+  "type": "minecraft:cache_2d",
+  "argument": {
+    "type": "minecraft:spline",
+    "spline": {
+      "coordinate": "galacticraft:titan/continents",
+      "points": [
+        {
+          "derivative": 0.0,
+          "location": -1.0,
+          "value": {
+            "coordinate": "galacticraft:titan/pv",
+            "points": [
+              {
+                "derivative": 0.0,
+                "location": -1.0,
+                "value": -0.664
+              },
+              {
+                "derivative": 0.0,
+                "location": 0.0,
+                "value": -0.58
+              },
+              {
+                "derivative": 0.0,
+                "location": 1.0,
+                "value": -0.41799998
+              }
+            ]
+          }
+        },
+        {
+          "derivative": 0.0,
+          "location": -0.3,
+          "value": {
+            "coordinate": "galacticraft:titan/pv",
+            "points": [
+              {
+                "derivative": 0.0,
+                "location": -1.0,
+                "value": -0.664
+              },
+              {
+                "derivative": 0.0,
+                "location": 0.0,
+                "value": -0.58
+              },
+              {
+                "derivative": 0.0,
+                "location": 1.0,
+                "value": -0.41799998
+              }
+            ]
+          }
+        },
+        {
+          "derivative": 0.0,
+          "location": -0.1,
+          "value": {
+            "coordinate": "galacticraft:titan/pv",
+            "points": [
+              {
+                "derivative": 0.0,
+                "location": -1.0,
+                "value": -0.21599999
+              },
+              {
+                "derivative": 0.0,
+                "location": -0.1,
+                "value": -0.06
+              },
+              {
+                "derivative": 0.0,
+                "location": 0.6,
+                "value": 0.04800001
+              },
+              {
+                "derivative": 0.0,
+                "location": 1.0,
+                "value": 0.13800001
+              }
+            ]
+          }
+        },
+        {
+          "derivative": 0.0,
+          "location": 0.35,
+          "value": {
+            "coordinate": "galacticraft:titan/erosion",
+            "points": [
+              {
+                "derivative": 0.0,
+                "location": -0.8,
+                "value": {
+                  "coordinate": "galacticraft:titan/pv",
+                  "points": [
+                    {
+                      "derivative": 0.0,
+                      "location": -1.0,
+                      "value": 0.17999999
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": -0.2,
+                      "value": 0.42
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": 0.4,
+                      "value": 0.61800003
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": 1.0,
+                      "value": 0.78
+                    }
+                  ]
+                }
+              },
+              {
+                "derivative": 0.0,
+                "location": 0.25,
+                "value": {
+                  "coordinate": "galacticraft:titan/pv",
+                  "points": [
+                    {
+                      "derivative": 0.0,
+                      "location": -1.0,
+                      "value": -0.21599999
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": -0.1,
+                      "value": -0.06
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": 0.6,
+                      "value": 0.04800001
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": 1.0,
+                      "value": 0.13800001
+                    }
+                  ]
+                }
+              },
+              {
+                "derivative": 0.0,
+                "location": 1.0,
+                "value": {
+                  "coordinate": "galacticraft:titan/pv",
+                  "points": [
+                    {
+                      "derivative": 0.0,
+                      "location": -1.0,
+                      "value": -0.21599999
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": -0.1,
+                      "value": -0.06
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": 0.6,
+                      "value": 0.04800001
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": 1.0,
+                      "value": 0.13800001
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "derivative": 0.0,
+          "location": 1.0,
+          "value": {
+            "coordinate": "galacticraft:titan/pv",
+            "points": [
+              {
+                "derivative": 0.0,
+                "location": -1.0,
+                "value": 0.17999999
+              },
+              {
+                "derivative": 0.0,
+                "location": -0.2,
+                "value": 0.42
+              },
+              {
+                "derivative": 0.0,
+                "location": 0.4,
+                "value": 0.61800003
+              },
+              {
+                "derivative": 0.0,
+                "location": 1.0,
+                "value": 0.78
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

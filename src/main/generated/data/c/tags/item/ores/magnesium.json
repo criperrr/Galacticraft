@@ -1,5 +1,7 @@
 {
   "values": [
-    "galacticraft:saturn_magnesium_ore"
+    "galacticraft:saturn_magnesium_ore",
+    "galacticraft:titan_magnesium_ore",
+    "galacticraft:enceladus_magnesium_ore"
   ]
 }

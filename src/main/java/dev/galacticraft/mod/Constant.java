@@ -213,6 +213,39 @@ public interface Constant {
         // Neptune Hyperbaric Core
         String NEPTUNE_ABYSSAL_MANTLE_ROCK = "neptune_abyssal_mantle_rock";
 
+        // Phase 4 Outer Moons: Titan, Enceladus, Titania, Oberon, Triton
+        String TITAN_THOLIN_SAND = "titan_tholin_sand";
+        String TITAN_HYDROCARBON_CRUST = "titan_hydrocarbon_crust";
+        String TITAN_WATER_ICE_ROCK = "titan_water_ice_rock";
+        String TITAN_MAGNESIUM_ORE = "titan_magnesium_ore";
+        String TITAN_IRON_ORE = "titan_iron_ore";
+        String TITAN_SILICON_ORE = "titan_silicon_ore";
+
+        String ENCELADUS_ICE_CRUST = "enceladus_ice_crust";
+        String ENCELADUS_TIGER_STRIPE_ICE = "enceladus_tiger_stripe_ice";
+        String ENCELADUS_SEABED_ROCK = "enceladus_seabed_rock";
+        String ENCELADUS_MAGNESIUM_ORE = "enceladus_magnesium_ore";
+        String ENCELADUS_NIOBIUM_ORE = "enceladus_niobium_ore";
+
+        String TITANIA_ICE_SILICATE = "titania_ice_silicate";
+        String TITANIA_FROST_CRUST = "titania_frost_crust";
+        String TITANIA_CHASM_SLATE = "titania_chasm_slate";
+        String TITANIA_URANIUM_ORE = "titania_uranium_ore";
+        String TITANIA_LONSDALEITE_ORE = "titania_lonsdaleite_ore";
+        String TITANIA_TITANIUM_ORE = "titania_titanium_ore";
+
+        String OBERON_DARK_ROCK = "oberon_dark_rock";
+        String OBERON_REDDISH_REGOLITH = "oberon_reddish_regolith";
+        String OBERON_IMPACT_BRECCIA = "oberon_impact_breccia";
+        String OBERON_URANIUM_ORE = "oberon_uranium_ore";
+        String OBERON_NIOBIUM_ORE = "oberon_niobium_ore";
+
+        String TRITON_NITROGEN_ICE = "triton_nitrogen_ice";
+        String TRITON_CANTALOUPE_CRUST = "triton_cantaloupe_crust";
+        String TRITON_CRYO_BASALT = "triton_cryo_basalt";
+        String TRITON_SUPERIONIC_ORE = "triton_superionic_ore";
+        String TRITON_XENON_CLATHRATE_ORE = "triton_xenon_clathrate_ore";
+
         // Ore
         String MARS_IRON_ORE = "mars_iron_ore";
         String MARS_TIN_ORE = "mars_tin_ore";
@@ -1756,6 +1789,14 @@ public interface Constant {
         String URANUS_CANYON_CARVER = "uranus_canyon_carver";
         String NEPTUNE_CAVE_CARVER = "neptune_cave_carver";
         String NEPTUNE_CANYON_CARVER = "neptune_canyon_carver";
+        String TITAN_CAVE_CARVER = "titan_cave_carver";
+        String ENCELADUS_CAVE_CARVER = "enceladus_cave_carver";
+        String TITANIA_CAVE_CARVER = "titania_cave_carver";
+        String TITANIA_CANYON_CARVER = "titania_canyon_carver";
+        String TITANIA_CRATER_CARVER = "titania_crater_carver";
+        String OBERON_CAVE_CARVER = "oberon_cave_carver";
+        String OBERON_CRATER_CARVER = "oberon_crater_carver";
+        String TRITON_CAVE_CARVER = "triton_cave_carver";
     }
 
     interface Packet {

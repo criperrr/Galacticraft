@@ -1,0 +1,48 @@
+{
+  "era": 4,
+  "icon_item": "galacticraft:compressed_palladium",
+  "id": "galacticraft:atlas/io",
+  "lock_hint_key": "manual.galacticraft.hint.outer_ephemeris",
+  "order": 130,
+  "pages": [
+    {
+      "type": "planet_stratigraphy",
+      "body_id": "galacticraft:io",
+      "hazards": "manual.galacticraft.atlas.io.hazards",
+      "ores": [
+        {
+          "color": -137590,
+          "label": "block.galacticraft.jupiter_palladium_ore",
+          "max_y": 36,
+          "min_y": -56,
+          "ore_item": "galacticraft:jupiter_palladium_ore",
+          "rarity": 3.0
+        },
+        {
+          "color": -340971,
+          "label": "block.galacticraft.mercury_sulfide_ore",
+          "max_y": 80,
+          "min_y": -32,
+          "ore_item": "galacticraft:mercury_sulfide_ore",
+          "rarity": 3.2
+        },
+        {
+          "label": "block.galacticraft.ilmenite_ore",
+          "max_y": 48,
+          "min_y": -48,
+          "ore_item": "galacticraft:ilmenite_ore",
+          "rarity": 2.2
+        }
+      ],
+      "title": "manual.galacticraft.atlas.io.title"
+    }
+  ],
+  "related_items": [
+    "galacticraft:compressed_palladium",
+    "galacticraft:jupiter_palladium_ore",
+    "galacticraft:mercury_sulfide_ore",
+    "galacticraft:ilmenite_ore"
+  ],
+  "tab": "atlas",
+  "title_key": "manual.galacticraft.atlas.io.title"
+}

@@ -1,0 +1,11 @@
+{
+  "type": "galacticraft:triton",
+  "generator": {
+    "type": "minecraft:noise",
+    "biome_source": {
+      "type": "minecraft:multi_noise",
+      "preset": "galacticraft:triton"
+    },
+    "settings": "galacticraft:triton"
+  }
+}

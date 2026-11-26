@@ -1,0 +1,47 @@
+{
+  "era": 4,
+  "icon_item": "galacticraft:niobium_ore",
+  "id": "galacticraft:atlas/ganymede",
+  "lock_hint_key": "manual.galacticraft.hint.outer_ephemeris",
+  "order": 150,
+  "pages": [
+    {
+      "type": "planet_stratigraphy",
+      "body_id": "galacticraft:ganymede",
+      "hazards": "manual.galacticraft.atlas.ganymede.hazards",
+      "ores": [
+        {
+          "color": -10443270,
+          "label": "block.galacticraft.niobium_ore",
+          "max_y": 64,
+          "min_y": -56,
+          "ore_item": "galacticraft:niobium_ore",
+          "rarity": 2.6
+        },
+        {
+          "label": "block.galacticraft.ilmenite_ore",
+          "max_y": 48,
+          "min_y": -48,
+          "ore_item": "galacticraft:ilmenite_ore",
+          "rarity": 2.2
+        },
+        {
+          "color": -137590,
+          "label": "block.galacticraft.jupiter_palladium_ore",
+          "max_y": 20,
+          "min_y": -56,
+          "ore_item": "galacticraft:jupiter_palladium_ore",
+          "rarity": 2.0
+        }
+      ],
+      "title": "manual.galacticraft.atlas.ganymede.title"
+    }
+  ],
+  "related_items": [
+    "galacticraft:niobium_ore",
+    "galacticraft:ilmenite_ore",
+    "galacticraft:jupiter_palladium_ore"
+  ],
+  "tab": "atlas",
+  "title_key": "manual.galacticraft.atlas.ganymede.title"
+}

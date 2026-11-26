@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "galacticraft:uranium_ingot_from_blasting_titania_uranium_ore"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_titania_uranium_ore": {
+      "conditions": {
+        "items": [
+          {
+            "items": "galacticraft:titania_uranium_ore"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_titania_uranium_ore"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "galacticraft:uranium_ingot_from_blasting_titania_uranium_ore"
+    ]
+  }
+}

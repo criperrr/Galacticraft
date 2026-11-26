@@ -50,6 +50,11 @@ public class GCLevelStems {
     public static final ResourceKey<LevelStem> SATURN = key("saturn");
     public static final ResourceKey<LevelStem> URANUS = key("uranus");
     public static final ResourceKey<LevelStem> NEPTUNE = key("neptune");
+    public static final ResourceKey<LevelStem> TITAN = key("titan");
+    public static final ResourceKey<LevelStem> ENCELADUS = key("enceladus");
+    public static final ResourceKey<LevelStem> TITANIA = key("titania");
+    public static final ResourceKey<LevelStem> OBERON = key("oberon");
+    public static final ResourceKey<LevelStem> TRITON = key("triton");
 
     public static void bootstrapRegistries(@NotNull BootstrapContext<LevelStem> context) {
         HolderGetter<DimensionType> typeLookup = context.lookup(Registries.DIMENSION_TYPE);
@@ -67,6 +72,11 @@ public class GCLevelStems {
         context.register(SATURN, new LevelStem(typeLookup.getOrThrow(GCDimensionTypes.SATURN), new NoiseBasedChunkGenerator(MultiNoiseBiomeSource.createFromPreset(biomeNoiseLookup.getOrThrow(GCMultiNoiseBiomeSourceParameterLists.SATURN)), noiseLookup.getOrThrow(GCNoiseGeneratorSettings.SATURN))));
         context.register(URANUS, new LevelStem(typeLookup.getOrThrow(GCDimensionTypes.URANUS), new NoiseBasedChunkGenerator(MultiNoiseBiomeSource.createFromPreset(biomeNoiseLookup.getOrThrow(GCMultiNoiseBiomeSourceParameterLists.URANUS)), noiseLookup.getOrThrow(GCNoiseGeneratorSettings.URANUS))));
         context.register(NEPTUNE, new LevelStem(typeLookup.getOrThrow(GCDimensionTypes.NEPTUNE), new NoiseBasedChunkGenerator(MultiNoiseBiomeSource.createFromPreset(biomeNoiseLookup.getOrThrow(GCMultiNoiseBiomeSourceParameterLists.NEPTUNE)), noiseLookup.getOrThrow(GCNoiseGeneratorSettings.NEPTUNE))));
+        context.register(TITAN, new LevelStem(typeLookup.getOrThrow(GCDimensionTypes.TITAN), new NoiseBasedChunkGenerator(MultiNoiseBiomeSource.createFromPreset(biomeNoiseLookup.getOrThrow(GCMultiNoiseBiomeSourceParameterLists.TITAN)), noiseLookup.getOrThrow(GCNoiseGeneratorSettings.TITAN))));
+        context.register(ENCELADUS, new LevelStem(typeLookup.getOrThrow(GCDimensionTypes.ENCELADUS), new NoiseBasedChunkGenerator(MultiNoiseBiomeSource.createFromPreset(biomeNoiseLookup.getOrThrow(GCMultiNoiseBiomeSourceParameterLists.ENCELADUS)), noiseLookup.getOrThrow(GCNoiseGeneratorSettings.ENCELADUS))));
+        context.register(TITANIA, new LevelStem(typeLookup.getOrThrow(GCDimensionTypes.TITANIA), new NoiseBasedChunkGenerator(MultiNoiseBiomeSource.createFromPreset(biomeNoiseLookup.getOrThrow(GCMultiNoiseBiomeSourceParameterLists.TITANIA)), noiseLookup.getOrThrow(GCNoiseGeneratorSettings.TITANIA))));
+        context.register(OBERON, new LevelStem(typeLookup.getOrThrow(GCDimensionTypes.OBERON), new NoiseBasedChunkGenerator(MultiNoiseBiomeSource.createFromPreset(biomeNoiseLookup.getOrThrow(GCMultiNoiseBiomeSourceParameterLists.OBERON)), noiseLookup.getOrThrow(GCNoiseGeneratorSettings.OBERON))));
+        context.register(TRITON, new LevelStem(typeLookup.getOrThrow(GCDimensionTypes.TRITON), new NoiseBasedChunkGenerator(MultiNoiseBiomeSource.createFromPreset(biomeNoiseLookup.getOrThrow(GCMultiNoiseBiomeSourceParameterLists.TRITON)), noiseLookup.getOrThrow(GCNoiseGeneratorSettings.TRITON))));
     }
 
     @Contract(value = "_ -> new", pure = true)

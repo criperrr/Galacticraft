@@ -1,0 +1,39 @@
+{
+  "era": 2,
+  "icon_item": "galacticraft:meteoric_iron_block",
+  "id": "galacticraft:atlas/phobos",
+  "lock_hint_key": "manual.galacticraft.hint.lunar_deep_sky",
+  "order": 110,
+  "pages": [
+    {
+      "type": "planet_stratigraphy",
+      "body_id": "galacticraft:phobos",
+      "hazards": "manual.galacticraft.atlas.phobos.hazards",
+      "ores": [
+        {
+          "color": -7035976,
+          "label": "block.galacticraft.meteoric_iron_block",
+          "max_y": 72,
+          "min_y": -48,
+          "ore_item": "galacticraft:meteoric_iron_block",
+          "rarity": 2.8
+        },
+        {
+          "color": -12102295,
+          "label": "block.galacticraft.asteroid_graphite_ore",
+          "max_y": 64,
+          "min_y": -32,
+          "ore_item": "galacticraft:asteroid_graphite_ore",
+          "rarity": 2.4
+        }
+      ],
+      "title": "manual.galacticraft.atlas.phobos.title"
+    }
+  ],
+  "related_items": [
+    "galacticraft:meteoric_iron_block",
+    "galacticraft:asteroid_graphite_ore"
+  ],
+  "tab": "atlas",
+  "title_key": "manual.galacticraft.atlas.phobos.title"
+}
