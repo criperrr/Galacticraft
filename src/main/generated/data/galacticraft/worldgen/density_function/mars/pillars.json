@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:cache_once",
+  "argument": {
+    "type": "minecraft:range_choice",
+    "input": {
+      "type": "minecraft:y_clamped_gradient",
+      "from_value": -64.0,
+      "from_y": -64,
+      "to_value": 320.0,
+      "to_y": 320
+    },
+    "max_exclusive": 86.0,
+    "min_inclusive": -54.0,
+    "when_in_range": {
+      "type": "minecraft:interpolated",
+      "argument": {
+        "type": "minecraft:mul",
+        "argument1": 2.8,
+        "argument2": {
+          "type": "minecraft:add",
+          "argument1": -0.88,
+          "argument2": {
+            "type": "minecraft:mul",
+            "argument1": 2.0,
+            "argument2": {
+              "type": "minecraft:noise",
+              "noise": "galacticraft:mars/pillar_noise",
+              "xz_scale": 1.25,
+              "y_scale": 0.22
+            }
+          }
+        }
+      }
+    },
+    "when_out_of_range": -1000000.0
+  }
+}

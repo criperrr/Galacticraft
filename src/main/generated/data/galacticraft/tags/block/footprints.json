@@ -1,6 +1,8 @@
 {
   "values": [
     "galacticraft:moon_turf",
-    "galacticraft:mars_surface_rock"
+    "galacticraft:mars_surface_rock",
+    "galacticraft:mars_basaltic_sand",
+    "galacticraft:mars_frost_regolith"
   ]
 }

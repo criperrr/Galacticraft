@@ -39,6 +39,12 @@ public class GCNoiseData {
     public static final ResourceKey<NormalNoise.NoiseParameters> MARS_HILL_NOISE = createKey("mars/hill_noise");
     public static final ResourceKey<NormalNoise.NoiseParameters> MARS_VALLEY_NOISE = createKey("mars/valley_noise");
     public static final ResourceKey<NormalNoise.NoiseParameters> MARS_WE_TERRAIN_NOISE = createKey("mars/we_terrain_noise");
+    public static final ResourceKey<NormalNoise.NoiseParameters> MARS_CAVE_SELECTOR = createKey("mars/cave_selector");
+    public static final ResourceKey<NormalNoise.NoiseParameters> MARS_LAVA_TUBE_PATH = createKey("mars/lava_tube_path");
+    public static final ResourceKey<NormalNoise.NoiseParameters> MARS_LAVA_TUBE_Y = createKey("mars/lava_tube_y");
+    public static final ResourceKey<NormalNoise.NoiseParameters> MARS_CHEESE_CAVE = createKey("mars/cheese_cave");
+    public static final ResourceKey<NormalNoise.NoiseParameters> MARS_PILLAR_NOISE = createKey("mars/pillar_noise");
+    public static final ResourceKey<NormalNoise.NoiseParameters> MARS_ICE_CAVE = createKey("mars/ice_cave");
     public static final ResourceKey<NormalNoise.NoiseParameters> VENUS_SMOOTH_NOISE = createKey("venus/smooth_noise");
     public static final ResourceKey<NormalNoise.NoiseParameters> VENUS_VOLCANIC_NOISE = createKey("venus/volcanic_noise");
     public static final ResourceKey<NormalNoise.NoiseParameters> MERCURY_BASE_NOISE = createKey("mercury/base_noise");
@@ -79,6 +85,13 @@ public class GCNoiseData {
         register(context, MARS_VALLEY_NOISE, -7, 1.0, 0.25);
         // GalaxySpace WorldProviderMars_WE WE_Biome layer (Mars_Plains / Mars_High_Plains / Mars_Mountains: 4 octaves, scaleX=280)
         register(context, MARS_WE_TERRAIN_NOISE, -8, 1.0, 0.65, 0.4225, 0.274625);
+        // Mars 3D subterranean cave networks (province-culled)
+        register(context, MARS_CAVE_SELECTOR, -9, 1.0, 0.5);
+        register(context, MARS_LAVA_TUBE_PATH, -7, 1.0, 0.35);
+        register(context, MARS_LAVA_TUBE_Y, -8, 1.0, 0.4);
+        register(context, MARS_CHEESE_CAVE, -7, 1.0, 0.5, 0.25);
+        register(context, MARS_PILLAR_NOISE, -5, 1.0, 0.5);
+        register(context, MARS_ICE_CAVE, -6, 1.0, 0.45, 0.2);
         // GC4 ChunkProviderVenus noiseGenSmooth1: 4 octaves, persistence 0.25, base frequency 0.015 (0.96 * 2^-6)
         register(context, VENUS_SMOOTH_NOISE, -6, 1.0, 0.25, 0.0625, 0.015625);
         // GalaxySpace WE_Biome volcanic terrain layer: 5 octaves, persistence 0.6

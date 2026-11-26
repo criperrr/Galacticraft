@@ -113,7 +113,9 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         this.tag(GCBlockTags.FOOTPRINTS)
                 .add(GCBlocks.MOON_TURF)
-                .add(GCBlocks.MARS_SURFACE_ROCK);
+                .add(GCBlocks.MARS_SURFACE_ROCK)
+                .add(GCBlocks.MARS_BASALTIC_SAND)
+                .add(GCBlocks.MARS_FROST_REGOLITH);
 
         this.tag(GCBlockTags.INFINIBURN_MOON)
                 .add(GCBlocks.MOON_BASALT_BRICK);
@@ -173,6 +175,12 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(GCBlocks.MARS_STONE)
                 .add(GCBlocks.MARS_SUB_SURFACE_ROCK)
                 .add(GCBlocks.MARS_SURFACE_ROCK)
+                .add(GCBlocks.MARS_BASALT)
+                .add(GCBlocks.MARS_SILTSTONE)
+                .add(GCBlocks.MARS_BRECCIA)
+                .add(GCBlocks.MARS_BASALTIC_SAND)
+                .add(GCBlocks.MARS_FROST_REGOLITH)
+                .add(GCBlocks.MARS_DEEP_STONE)
                 .add(GCBlocks.DENSE_ICE);
         this.tag(GCBlockTags.VENUS_CARVER_REPLACEABLES)
                 .add(GCBlocks.SOFT_VENUS_ROCK)
@@ -232,6 +240,12 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(GCBlocks.MARS_STONE)
                 .add(GCBlocks.MARS_SUB_SURFACE_ROCK)
                 .add(GCBlocks.MARS_SURFACE_ROCK)
+                .add(GCBlocks.MARS_BASALT)
+                .add(GCBlocks.MARS_SILTSTONE)
+                .add(GCBlocks.MARS_BRECCIA)
+                .add(GCBlocks.MARS_BASALTIC_SAND)
+                .add(GCBlocks.MARS_FROST_REGOLITH)
+                .add(GCBlocks.MARS_DEEP_STONE)
                 .add(GCBlocks.DENSE_ICE);
 
         this.tag(GCBlockTags.MOON_ROCK_ORE_REPLACEABLES)
@@ -242,7 +256,11 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(GCBlocks.MOON_BASALT);
         this.tag(GCBlockTags.MARS_STONE_ORE_REPLACEABLES)
                 .add(GCBlocks.MARS_STONE)
-                .add(GCBlocks.MARS_SUB_SURFACE_ROCK);
+                .add(GCBlocks.MARS_SUB_SURFACE_ROCK)
+                .add(GCBlocks.MARS_BASALT)
+                .add(GCBlocks.MARS_SILTSTONE)
+                .add(GCBlocks.MARS_BRECCIA)
+                .add(GCBlocks.MARS_DEEP_STONE);
         this.tag(GCBlockTags.ASTEROID_ROCK_ORE_REPLACEABLES)
                 .add(GCBlocks.ASTEROID_ROCK)
                 .add(GCBlocks.ASTEROID_ROCK_1)
@@ -681,6 +699,10 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(GCBlocks.MARS_SURFACE_ROCK)
                 .add(GCBlocks.MARS_SUB_SURFACE_ROCK)
                 .add(GCBlocks.MARS_STONE)
+                .add(GCBlocks.MARS_BASALT)
+                .add(GCBlocks.MARS_SILTSTONE)
+                .add(GCBlocks.MARS_BRECCIA)
+                .add(GCBlocks.MARS_DEEP_STONE)
                 .add(GCBlocks.SOFT_VENUS_ROCK)
                 .add(GCBlocks.HARD_VENUS_ROCK)
                 .add(GCBlocks.SCORCHED_VENUS_ROCK)
@@ -1163,6 +1185,10 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                         GCBlocks.MOON_DUNGEON_BRICK,
                         GCBlocks.MARS_SURFACE_ROCK,
                         GCBlocks.MARS_SUB_SURFACE_ROCK,
+                        GCBlocks.MARS_BASALT,
+                        GCBlocks.MARS_SILTSTONE,
+                        GCBlocks.MARS_BRECCIA,
+                        GCBlocks.MARS_DEEP_STONE,
                         GCBlocks.SOFT_VENUS_ROCK,
                         GCBlocks.HARD_VENUS_ROCK,
                         GCBlocks.SCORCHED_VENUS_ROCK,

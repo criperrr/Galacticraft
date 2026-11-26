@@ -2,7 +2,6 @@
   "carvers": {
     "air": [
       "galacticraft:mars_cave_carver",
-      "galacticraft:mars_cavern_carver",
       "galacticraft:mars_crater_carver"
     ]
   },
@@ -30,7 +29,9 @@
     [],
     [],
     [],
-    [],
+    [
+      "galacticraft:mars_surface_outcrop"
+    ],
     [],
     [
       "galacticraft:ore_copper_mars",

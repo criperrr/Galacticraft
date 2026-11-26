@@ -85,13 +85,13 @@ public class GCNoiseGeneratorSettings {
         ));
 
         context.register(MARS, new NoiseGeneratorSettings(
-                NoiseSettings.create(-32, 256, 1, 2),
+                NoiseSettings.create(-64, 384, 1, 2),
                 GCBlocks.MARS_STONE.defaultBlockState(),
                 Blocks.AIR.defaultBlockState(),
                 GCNoiseGeneratorSettings.mars(densityLookup, noiseLookup),
                 MarsSurfaceRules.MARS,
                 new OverworldBiomeBuilder().spawnTarget(),
-                -32,
+                -64,
                 false,
                 false,
                 false,
@@ -404,26 +404,21 @@ public class GCNoiseGeneratorSettings {
     }
 
     public static NoiseRouter mars(HolderGetter<DensityFunction> densityLookup, HolderGetter<NormalNoise.NoiseParameters> noiseLookup) {
-        DensityFunction shiftX = GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.SHIFT_X);
-        DensityFunction shiftZ = GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.SHIFT_Z);
+        DensityFunction solidTerrain = GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Mars.SOLID_TERRAIN);
         DensityFunction finalDensity = GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Mars.FINAL_DENSITY);
         return new NoiseRouter(
                 DensityFunctions.zero(), // barrierNoise
                 DensityFunctions.zero(), // fluidLevelFloodednessNoise
                 DensityFunctions.zero(), // fluidLevelSpreadNoise
                 DensityFunctions.zero(), // lavaNoise
-                DensityFunctions.shiftedNoise2d(
-                        shiftX, shiftZ, 0.25, noiseLookup.getOrThrow(Noises.TEMPERATURE)
-                ), // temperature
-                DensityFunctions.shiftedNoise2d(
-                        shiftX, shiftZ, 0.25, noiseLookup.getOrThrow(Noises.VEGETATION)
-                ), // vegetation
-                GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.CONTINENTS), // continents
-                GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.EROSION), // erosion
-                GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.DEPTH), // depth
-                GCDensityFunctions.getFunction(densityLookup, NoiseRouterData.RIDGES), // ridges
-                finalDensity, // initialDensityWithoutJaggedness
-                DensityFunctions.blendDensity(finalDensity), // finalDensity
+                GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Mars.TEMPERATURE), // temperature (flatCache)
+                GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Mars.VEGETATION), // vegetation (flatCache)
+                GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Mars.CONTINENTS), // continents (cache2d)
+                GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Mars.EROSION), // erosion (cache2d)
+                GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Mars.DEPTH), // depth
+                GCDensityFunctions.getFunction(densityLookup, GCDensityFunctions.Mars.RIDGES), // ridges (cache2d)
+                solidTerrain, // initialDensityWithoutJaggedness (cave-free SOLID_TERRAIN)
+                DensityFunctions.blendDensity(finalDensity), // finalDensity (no outer interpolated)
                 DensityFunctions.zero(), // veinToggle
                 DensityFunctions.zero(), // veinRidged
                 DensityFunctions.zero()  // veinGap

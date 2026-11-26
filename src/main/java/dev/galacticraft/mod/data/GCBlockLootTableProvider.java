@@ -168,6 +168,12 @@ public class GCBlockLootTableProvider extends FabricBlockLootTableProvider {
         this.dropSelf(GCBlocks.MARS_COBBLESTONE_SLAB);
         this.dropSelf(GCBlocks.MARS_COBBLESTONE_STAIRS);
         this.dropSelf(GCBlocks.MARS_COBBLESTONE_WALL);
+        this.dropSelf(GCBlocks.MARS_BASALT);
+        this.dropSelf(GCBlocks.MARS_SILTSTONE);
+        this.dropSelf(GCBlocks.MARS_BRECCIA);
+        this.dropSelf(GCBlocks.MARS_BASALTIC_SAND);
+        this.dropSelf(GCBlocks.MARS_FROST_REGOLITH);
+        this.dropSelf(GCBlocks.MARS_DEEP_STONE);
 
         this.dropSelf(GCBlocks.ASTEROID_ROCK);
         this.dropSelf(GCBlocks.ASTEROID_ROCK_1);

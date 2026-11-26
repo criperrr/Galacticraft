@@ -38,6 +38,14 @@ public class GCFeatures {
             "mars_cavern_vines",
             new MarsCavernVinesFeature(NoneFeatureConfiguration.CODEC)
     );
+    public static final Feature<NoneFeatureConfiguration> MARS_SPELEOTHEM = FEATURES.register(
+            "mars_speleothem",
+            new MarsSpeleothemFeature(NoneFeatureConfiguration.CODEC)
+    );
+    public static final Feature<NoneFeatureConfiguration> MARS_SURFACE_OUTCROP = FEATURES.register(
+            "mars_surface_outcrop",
+            new MarsSurfaceOutcropFeature(NoneFeatureConfiguration.CODEC)
+    );
     public static final Feature<NoneFeatureConfiguration> VENUS_LAVA_LAKE = FEATURES.register(
             "venus_lava_lake",
             new VenusLavaLakeFeature(NoneFeatureConfiguration.CODEC)

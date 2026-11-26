@@ -58,6 +58,7 @@ import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FlattenableBlockRegistry;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.ColorRGBA;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.EntityType;
@@ -221,6 +222,12 @@ public class GCBlocks {
     public static final Block MARS_COBBLESTONE_STAIRS = BLOCKS.registerWithItem(Constant.Block.MARS_COBBLESTONE_STAIRS, new StairBlock(MARS_COBBLESTONE.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(MARS_COBBLESTONE)));
     public static final Block MARS_COBBLESTONE_SLAB = BLOCKS.registerWithItem(Constant.Block.MARS_COBBLESTONE_SLAB, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(MARS_COBBLESTONE).strength(3.5F, 6.0F)));
     public static final Block MARS_COBBLESTONE_WALL = BLOCKS.registerWithItem(Constant.Block.MARS_COBBLESTONE_WALL, new WallBlock(BlockBehaviour.Properties.ofFullCopy(MARS_COBBLESTONE)));
+    public static final Block MARS_BASALT = BLOCKS.registerWithItem(Constant.Block.MARS_BASALT, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).instrument(NoteBlockInstrument.BASEDRUM).strength(3.2F, 6.0F).sound(SoundType.BASALT).requiresCorrectToolForDrops()));
+    public static final Block MARS_SILTSTONE = BLOCKS.registerWithItem(Constant.Block.MARS_SILTSTONE, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_ORANGE).instrument(NoteBlockInstrument.BASEDRUM).strength(2.4F, 4.5F).requiresCorrectToolForDrops()));
+    public static final Block MARS_BRECCIA = BLOCKS.registerWithItem(Constant.Block.MARS_BRECCIA, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_RED).instrument(NoteBlockInstrument.BASEDRUM).strength(2.8F, 5.5F).requiresCorrectToolForDrops()));
+    public static final Block MARS_BASALTIC_SAND = BLOCKS.registerWithItem(Constant.Block.MARS_BASALTIC_SAND, new ColoredFallingBlock(new ColorRGBA(0x4A332C), BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.SNARE).strength(0.6F).sound(SoundType.SAND)));
+    public static final Block MARS_FROST_REGOLITH = BLOCKS.registerWithItem(Constant.Block.MARS_FROST_REGOLITH, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).instrument(NoteBlockInstrument.BASEDRUM).strength(1.8F, 3.0F).sound(SoundType.SNOW)));
+    public static final Block MARS_DEEP_STONE = BLOCKS.registerWithItem(Constant.Block.MARS_DEEP_STONE, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).instrument(NoteBlockInstrument.BASEDRUM).strength(4.2F, 7.0F).sound(SoundType.DEEPSLATE).requiresCorrectToolForDrops()));
 
     // ASTEROID NATURAL
     public static final Block ASTEROID_ROCK = BLOCKS.registerWithItem(Constant.Block.ASTEROID_ROCK, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BLACK).instrument(NoteBlockInstrument.BASEDRUM).destroyTime(3.0F).requiresCorrectToolForDrops()));
