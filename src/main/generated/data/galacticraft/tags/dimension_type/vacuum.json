@@ -1,6 +1,10 @@
 {
   "values": [
     "galacticraft:moon",
-    "galacticraft:asteroid"
+    "galacticraft:asteroid",
+    "galacticraft:enceladus",
+    "galacticraft:titania",
+    "galacticraft:oberon",
+    "galacticraft:triton"
   ]
 }

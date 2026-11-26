@@ -1,0 +1,151 @@
+{
+  "type": "minecraft:cache_2d",
+  "argument": {
+    "type": "minecraft:spline",
+    "spline": {
+      "coordinate": "galacticraft:titania/continents",
+      "points": [
+        {
+          "derivative": 0.0,
+          "location": -1.0,
+          "value": -0.36
+        },
+        {
+          "derivative": 0.0,
+          "location": -0.3,
+          "value": -0.30600002
+        },
+        {
+          "derivative": 0.0,
+          "location": -0.1,
+          "value": {
+            "coordinate": "galacticraft:titania/pv",
+            "points": [
+              {
+                "derivative": 0.0,
+                "location": -1.0,
+                "value": -0.361
+              },
+              {
+                "derivative": 0.0,
+                "location": -0.1,
+                "value": -0.14
+              },
+              {
+                "derivative": 0.0,
+                "location": 0.6,
+                "value": -0.049999997
+              },
+              {
+                "derivative": 0.0,
+                "location": 1.0,
+                "value": 0.025000006
+              }
+            ]
+          }
+        },
+        {
+          "derivative": 0.0,
+          "location": 0.35,
+          "value": {
+            "coordinate": "galacticraft:titania/erosion",
+            "points": [
+              {
+                "derivative": 0.0,
+                "location": -0.8,
+                "value": {
+                  "coordinate": "galacticraft:titania/pv",
+                  "points": [
+                    {
+                      "derivative": 0.0,
+                      "location": -1.0,
+                      "value": -0.02000001
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": -0.2,
+                      "value": 0.32
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": 0.4,
+                      "value": 0.485
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": 1.0,
+                      "value": 0.62
+                    }
+                  ]
+                }
+              },
+              {
+                "derivative": 0.0,
+                "location": 0.1,
+                "value": {
+                  "coordinate": "galacticraft:titania/pv",
+                  "points": [
+                    {
+                      "derivative": 0.0,
+                      "location": -1.0,
+                      "value": -0.361
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": -0.1,
+                      "value": -0.14
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": 0.6,
+                      "value": -0.049999997
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": 1.0,
+                      "value": 0.025000006
+                    }
+                  ]
+                }
+              },
+              {
+                "derivative": 0.0,
+                "location": 0.9,
+                "value": -0.14
+              }
+            ]
+          }
+        },
+        {
+          "derivative": 0.0,
+          "location": 1.0,
+          "value": {
+            "coordinate": "galacticraft:titania/pv",
+            "points": [
+              {
+                "derivative": 0.0,
+                "location": -1.0,
+                "value": -0.02000001
+              },
+              {
+                "derivative": 0.0,
+                "location": -0.2,
+                "value": 0.32
+              },
+              {
+                "derivative": 0.0,
+                "location": 0.4,
+                "value": 0.485
+              },
+              {
+                "derivative": 0.0,
+                "location": 1.0,
+                "value": 0.62
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

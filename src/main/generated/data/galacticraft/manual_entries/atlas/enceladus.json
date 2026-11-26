@@ -1,0 +1,49 @@
+{
+  "era": 5,
+  "icon_item": "galacticraft:enceladus_tiger_stripe_ice",
+  "id": "galacticraft:atlas/enceladus",
+  "lock_hint_key": "manual.galacticraft.hint.outer_ephemeris",
+  "order": 180,
+  "pages": [
+    {
+      "type": "planet_stratigraphy",
+      "body_id": "galacticraft:enceladus",
+      "hazards": "manual.galacticraft.atlas.enceladus.hazards",
+      "ores": [
+        {
+          "color": -8530948,
+          "label": "block.galacticraft.dense_ice",
+          "max_y": 92,
+          "min_y": 22,
+          "ore_item": "galacticraft:dense_ice",
+          "rarity": 3.6
+        },
+        {
+          "color": -7934036,
+          "label": "block.galacticraft.enceladus_magnesium_ore",
+          "max_y": 84,
+          "min_y": 22,
+          "ore_item": "galacticraft:enceladus_magnesium_ore",
+          "rarity": 2.8
+        },
+        {
+          "color": -10443270,
+          "label": "block.galacticraft.enceladus_niobium_ore",
+          "max_y": 80,
+          "min_y": 22,
+          "ore_item": "galacticraft:enceladus_niobium_ore",
+          "rarity": 2.2
+        }
+      ],
+      "title": "manual.galacticraft.atlas.enceladus.title"
+    }
+  ],
+  "related_items": [
+    "galacticraft:enceladus_tiger_stripe_ice",
+    "galacticraft:dense_ice",
+    "galacticraft:enceladus_magnesium_ore",
+    "galacticraft:enceladus_niobium_ore"
+  ],
+  "tab": "atlas",
+  "title_key": "manual.galacticraft.atlas.enceladus.title"
+}

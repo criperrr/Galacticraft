@@ -1,0 +1,151 @@
+{
+  "type": "minecraft:cache_2d",
+  "argument": {
+    "type": "minecraft:spline",
+    "spline": {
+      "coordinate": "galacticraft:triton/continents",
+      "points": [
+        {
+          "derivative": 0.0,
+          "location": -1.0,
+          "value": -0.28
+        },
+        {
+          "derivative": 0.0,
+          "location": -0.3,
+          "value": -0.238
+        },
+        {
+          "derivative": 0.0,
+          "location": -0.1,
+          "value": {
+            "coordinate": "galacticraft:triton/pv",
+            "points": [
+              {
+                "derivative": 0.0,
+                "location": -1.0,
+                "value": -0.24399999
+              },
+              {
+                "derivative": 0.0,
+                "location": -0.1,
+                "value": -0.14
+              },
+              {
+                "derivative": 0.0,
+                "location": 0.6,
+                "value": -0.055999994
+              },
+              {
+                "derivative": 0.0,
+                "location": 1.0,
+                "value": 0.013999999
+              }
+            ]
+          }
+        },
+        {
+          "derivative": 0.0,
+          "location": 0.35,
+          "value": {
+            "coordinate": "galacticraft:triton/erosion",
+            "points": [
+              {
+                "derivative": 0.0,
+                "location": -0.8,
+                "value": {
+                  "coordinate": "galacticraft:triton/pv",
+                  "points": [
+                    {
+                      "derivative": 0.0,
+                      "location": -1.0,
+                      "value": 0.060000002
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": -0.2,
+                      "value": 0.22
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": 0.4,
+                      "value": 0.374
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": 1.0,
+                      "value": 0.5
+                    }
+                  ]
+                }
+              },
+              {
+                "derivative": 0.0,
+                "location": 0.1,
+                "value": {
+                  "coordinate": "galacticraft:triton/pv",
+                  "points": [
+                    {
+                      "derivative": 0.0,
+                      "location": -1.0,
+                      "value": -0.24399999
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": -0.1,
+                      "value": -0.14
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": 0.6,
+                      "value": -0.055999994
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": 1.0,
+                      "value": 0.013999999
+                    }
+                  ]
+                }
+              },
+              {
+                "derivative": 0.0,
+                "location": 0.9,
+                "value": -0.14
+              }
+            ]
+          }
+        },
+        {
+          "derivative": 0.0,
+          "location": 1.0,
+          "value": {
+            "coordinate": "galacticraft:triton/pv",
+            "points": [
+              {
+                "derivative": 0.0,
+                "location": -1.0,
+                "value": 0.060000002
+              },
+              {
+                "derivative": 0.0,
+                "location": -0.2,
+                "value": 0.22
+              },
+              {
+                "derivative": 0.0,
+                "location": 0.4,
+                "value": 0.374
+              },
+              {
+                "derivative": 0.0,
+                "location": 1.0,
+                "value": 0.5
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

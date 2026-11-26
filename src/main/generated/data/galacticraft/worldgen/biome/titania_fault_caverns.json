@@ -1,0 +1,47 @@
+{
+  "carvers": {
+    "air": "galacticraft:titania_cave_carver"
+  },
+  "downfall": 0.0,
+  "effects": {
+    "fog_color": 461327,
+    "foliage_color": 6187876,
+    "grass_color": 7174258,
+    "music": {
+      "max_delay": 24000,
+      "min_delay": 12000,
+      "replace_current_music": true,
+      "sound": "galacticraft:music.orbit"
+    },
+    "sky_color": 0,
+    "water_color": 2839666,
+    "water_fog_color": 596523
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "galacticraft:ore_uranium_titania",
+      "galacticraft:ore_lonsdaleite_titania",
+      "galacticraft:ore_titanium_titania",
+      "galacticraft:ore_dense_ice_titania"
+    ]
+  ],
+  "has_precipitation": false,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": -0.75
+}

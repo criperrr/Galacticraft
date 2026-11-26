@@ -8,9 +8,10 @@
   "id": "galacticraft:research/neptune_superionic_magnetoplasma",
   "location_requirement": {
     "allowed_bodies": [
-      "galacticraft:neptune"
+      "galacticraft:neptune",
+      "galacticraft:triton"
     ],
-    "label": "Neptune (-200C)"
+    "label": "Neptune / Triton"
   },
   "prerequisites": [
     "galacticraft:research/jupiter_palladium_catalysis",

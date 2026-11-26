@@ -1,0 +1,48 @@
+{
+  "era": 6,
+  "icon_item": "galacticraft:oberon_uranium_ore",
+  "id": "galacticraft:atlas/oberon",
+  "lock_hint_key": "manual.galacticraft.hint.outer_ephemeris",
+  "order": 200,
+  "pages": [
+    {
+      "type": "planet_stratigraphy",
+      "body_id": "galacticraft:oberon",
+      "hazards": "manual.galacticraft.atlas.oberon.hazards",
+      "ores": [
+        {
+          "color": -11870592,
+          "label": "block.galacticraft.oberon_uranium_ore",
+          "max_y": 56,
+          "min_y": -64,
+          "ore_item": "galacticraft:oberon_uranium_ore",
+          "rarity": 3.0
+        },
+        {
+          "color": -10443270,
+          "label": "block.galacticraft.oberon_niobium_ore",
+          "max_y": 72,
+          "min_y": -64,
+          "ore_item": "galacticraft:oberon_niobium_ore",
+          "rarity": 2.6
+        },
+        {
+          "color": -8530948,
+          "label": "block.galacticraft.dense_ice",
+          "max_y": 80,
+          "min_y": -64,
+          "ore_item": "galacticraft:dense_ice",
+          "rarity": 2.0
+        }
+      ],
+      "title": "manual.galacticraft.atlas.oberon.title"
+    }
+  ],
+  "related_items": [
+    "galacticraft:oberon_uranium_ore",
+    "galacticraft:oberon_niobium_ore",
+    "galacticraft:dense_ice"
+  ],
+  "tab": "atlas",
+  "title_key": "manual.galacticraft.atlas.oberon.title"
+}

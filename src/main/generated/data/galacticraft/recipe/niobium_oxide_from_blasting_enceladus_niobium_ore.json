@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.85,
+  "group": "niobium_oxide",
+  "ingredient": {
+    "item": "galacticraft:enceladus_niobium_ore"
+  },
+  "result": {
+    "id": "galacticraft:niobium_oxide"
+  }
+}

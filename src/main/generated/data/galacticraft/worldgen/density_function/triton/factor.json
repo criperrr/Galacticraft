@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:cache_2d",
+  "argument": {
+    "type": "minecraft:spline",
+    "spline": {
+      "coordinate": "galacticraft:triton/continents",
+      "points": [
+        {
+          "derivative": 0.0,
+          "location": -1.0,
+          "value": 0.22
+        },
+        {
+          "derivative": 0.0,
+          "location": 0.0,
+          "value": 0.32999998
+        },
+        {
+          "derivative": 0.0,
+          "location": 1.0,
+          "value": 0.44
+        }
+      ]
+    }
+  }
+}

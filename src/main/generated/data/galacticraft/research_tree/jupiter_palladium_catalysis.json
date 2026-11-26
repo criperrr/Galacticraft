@@ -8,9 +8,11 @@
   "id": "galacticraft:research/jupiter_palladium_catalysis",
   "location_requirement": {
     "allowed_bodies": [
-      "galacticraft:jupiter"
+      "galacticraft:jupiter",
+      "galacticraft:io",
+      "galacticraft:ganymede"
     ],
-    "label": "Jupiter (2.36G)"
+    "label": "Jupiter / Io / Ganymede"
   },
   "prerequisites": [
     "galacticraft:research/orbital_shipyard_docks",

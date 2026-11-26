@@ -1,0 +1,39 @@
+{
+  "era": 2,
+  "icon_item": "galacticraft:silicon_ore",
+  "id": "galacticraft:atlas/deimos",
+  "lock_hint_key": "manual.galacticraft.hint.lunar_deep_sky",
+  "order": 120,
+  "pages": [
+    {
+      "type": "planet_stratigraphy",
+      "body_id": "galacticraft:deimos",
+      "hazards": "manual.galacticraft.atlas.deimos.hazards",
+      "ores": [
+        {
+          "color": -8680800,
+          "label": "block.galacticraft.silicon_ore",
+          "max_y": 64,
+          "min_y": -48,
+          "ore_item": "galacticraft:silicon_ore",
+          "rarity": 2.4
+        },
+        {
+          "color": -2563348,
+          "label": "block.galacticraft.aluminum_ore",
+          "max_y": 72,
+          "min_y": -32,
+          "ore_item": "galacticraft:aluminum_ore",
+          "rarity": 2.2
+        }
+      ],
+      "title": "manual.galacticraft.atlas.deimos.title"
+    }
+  ],
+  "related_items": [
+    "galacticraft:silicon_ore",
+    "galacticraft:aluminum_ore"
+  ],
+  "tab": "atlas",
+  "title_key": "manual.galacticraft.atlas.deimos.title"
+}

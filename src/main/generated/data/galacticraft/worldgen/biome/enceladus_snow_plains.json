@@ -1,0 +1,46 @@
+{
+  "carvers": {
+    "air": "galacticraft:enceladus_cave_carver"
+  },
+  "downfall": 0.0,
+  "effects": {
+    "fog_color": 988962,
+    "foliage_color": 6187876,
+    "grass_color": 7174258,
+    "music": {
+      "max_delay": 24000,
+      "min_delay": 12000,
+      "replace_current_music": true,
+      "sound": "galacticraft:music.orbit"
+    },
+    "sky_color": 0,
+    "water_color": 2847390,
+    "water_fog_color": 866390
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "galacticraft:ore_magnesium_enceladus",
+      "galacticraft:ore_niobium_enceladus",
+      "galacticraft:ore_dense_ice_enceladus"
+    ]
+  ],
+  "has_precipitation": false,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": -0.9
+}

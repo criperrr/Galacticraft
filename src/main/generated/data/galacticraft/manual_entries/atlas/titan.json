@@ -1,0 +1,57 @@
+{
+  "era": 5,
+  "icon_item": "galacticraft:titan_magnesium_ore",
+  "id": "galacticraft:atlas/titan",
+  "lock_hint_key": "manual.galacticraft.hint.outer_ephemeris",
+  "order": 170,
+  "pages": [
+    {
+      "type": "planet_stratigraphy",
+      "body_id": "galacticraft:titan",
+      "hazards": "manual.galacticraft.atlas.titan.hazards",
+      "ores": [
+        {
+          "color": -7934036,
+          "label": "block.galacticraft.titan_magnesium_ore",
+          "max_y": 64,
+          "min_y": -64,
+          "ore_item": "galacticraft:titan_magnesium_ore",
+          "rarity": 3.0
+        },
+        {
+          "color": -2525353,
+          "label": "block.galacticraft.titan_iron_ore",
+          "max_y": 72,
+          "min_y": -64,
+          "ore_item": "galacticraft:titan_iron_ore",
+          "rarity": 2.6
+        },
+        {
+          "color": -8680800,
+          "label": "block.galacticraft.titan_silicon_ore",
+          "max_y": 64,
+          "min_y": -64,
+          "ore_item": "galacticraft:titan_silicon_ore",
+          "rarity": 2.2
+        },
+        {
+          "color": -8530948,
+          "label": "block.galacticraft.dense_ice",
+          "max_y": 80,
+          "min_y": -64,
+          "ore_item": "galacticraft:dense_ice",
+          "rarity": 2.4
+        }
+      ],
+      "title": "manual.galacticraft.atlas.titan.title"
+    }
+  ],
+  "related_items": [
+    "galacticraft:titan_magnesium_ore",
+    "galacticraft:titan_iron_ore",
+    "galacticraft:titan_silicon_ore",
+    "galacticraft:dense_ice"
+  ],
+  "tab": "atlas",
+  "title_key": "manual.galacticraft.atlas.titan.title"
+}

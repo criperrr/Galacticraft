@@ -1,0 +1,5 @@
+{
+  "type": "minecraft:add",
+  "argument1": "galacticraft:titania/base_height",
+  "argument2": "galacticraft:titania/offset"
+}
