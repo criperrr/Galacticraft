@@ -265,7 +265,7 @@
                           "then_run": {
                             "type": "minecraft:block",
                             "result_state": {
-                              "Name": "minecraft:blue_ice"
+                              "Name": "galacticraft:triton_cantaloupe_crust"
                             }
                           }
                         },
@@ -293,14 +293,14 @@
                           "type": "minecraft:condition",
                           "if_true": {
                             "type": "minecraft:noise_threshold",
-                            "max_threshold": 0.45,
-                            "min_threshold": -0.15,
-                            "noise": "minecraft:surface"
+                            "max_threshold": 0.55,
+                            "min_threshold": 0.1,
+                            "noise": "minecraft:calcite"
                           },
                           "then_run": {
                             "type": "minecraft:block",
                             "result_state": {
-                              "Name": "minecraft:snow_block"
+                              "Name": "galacticraft:triton_cryo_basalt"
                             }
                           }
                         },
@@ -316,7 +316,7 @@
                   {
                     "type": "minecraft:block",
                     "result_state": {
-                      "Name": "galacticraft:triton_nitrogen_ice"
+                      "Name": "galacticraft:triton_cantaloupe_crust"
                     }
                   }
                 ]

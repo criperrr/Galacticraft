@@ -2,6 +2,7 @@
   "carvers": {
     "air": [
       "galacticraft:titania_cave_carver",
+      "galacticraft:titania_crater_carver",
       "galacticraft:titania_canyon_carver"
     ]
   },

@@ -1,6 +1,9 @@
 {
   "carvers": {
-    "air": "galacticraft:titania_cave_carver"
+    "air": [
+      "galacticraft:titania_cave_carver",
+      "galacticraft:titania_crater_carver"
+    ]
   },
   "downfall": 0.0,
   "effects": {

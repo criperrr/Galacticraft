@@ -4,22 +4,22 @@
     "lava_level": {
       "above_bottom": 12
     },
-    "probability": 0.06,
+    "probability": 0.1,
     "replaceable": "#galacticraft:titania_carver_replaceables",
     "shape": {
       "distance_factor": {
         "type": "minecraft:uniform",
-        "max_exclusive": 1.2,
-        "min_inclusive": 0.8
+        "max_exclusive": 1.5,
+        "min_inclusive": 1.0
       },
       "horizontal_radius_factor": {
         "type": "minecraft:uniform",
-        "max_exclusive": 1.15,
-        "min_inclusive": 0.8
+        "max_exclusive": 1.25,
+        "min_inclusive": 0.9
       },
       "thickness": {
         "type": "minecraft:trapezoid",
-        "max": 8.0,
+        "max": 10.0,
         "min": 0.0,
         "plateau": 2.0
       },
@@ -29,18 +29,18 @@
     },
     "vertical_rotation": {
       "type": "minecraft:uniform",
-      "max_exclusive": 0.1,
-      "min_inclusive": -0.1
+      "max_exclusive": 0.08,
+      "min_inclusive": -0.08
     },
     "y": {
       "type": "minecraft:uniform",
       "max_inclusive": {
-        "absolute": 112
+        "absolute": 132
       },
       "min_inclusive": {
-        "absolute": 20
+        "absolute": 18
       }
     },
-    "yScale": 3.6
+    "yScale": 4.2
   }
 }

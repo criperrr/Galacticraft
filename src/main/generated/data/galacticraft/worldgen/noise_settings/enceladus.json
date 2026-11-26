@@ -186,14 +186,14 @@
                     "then_run": {
                       "type": "minecraft:block",
                       "result_state": {
-                        "Name": "minecraft:blue_ice"
+                        "Name": "galacticraft:enceladus_tiger_stripe_ice"
                       }
                     }
                   },
                   {
                     "type": "minecraft:block",
                     "result_state": {
-                      "Name": "galacticraft:enceladus_ice_crust"
+                      "Name": "minecraft:blue_ice"
                     }
                   }
                 ]
@@ -220,30 +220,10 @@
                       ]
                     },
                     "then_run": {
-                      "type": "minecraft:sequence",
-                      "sequence": [
-                        {
-                          "type": "minecraft:condition",
-                          "if_true": {
-                            "type": "minecraft:noise_threshold",
-                            "max_threshold": 1.0,
-                            "min_threshold": -0.35,
-                            "noise": "minecraft:surface"
-                          },
-                          "then_run": {
-                            "type": "minecraft:block",
-                            "result_state": {
-                              "Name": "minecraft:snow_block"
-                            }
-                          }
-                        },
-                        {
-                          "type": "minecraft:block",
-                          "result_state": {
-                            "Name": "galacticraft:enceladus_ice_crust"
-                          }
-                        }
-                      ]
+                      "type": "minecraft:block",
+                      "result_state": {
+                        "Name": "minecraft:snow_block"
+                      }
                     }
                   },
                   {
@@ -283,14 +263,14 @@
                           "then_run": {
                             "type": "minecraft:block",
                             "result_state": {
-                              "Name": "minecraft:blue_ice"
+                              "Name": "minecraft:snow_block"
                             }
                           }
                         },
                         {
                           "type": "minecraft:block",
                           "result_state": {
-                            "Name": "minecraft:snow_block"
+                            "Name": "minecraft:blue_ice"
                           }
                         }
                       ]
@@ -318,14 +298,14 @@
                           "then_run": {
                             "type": "minecraft:block",
                             "result_state": {
-                              "Name": "minecraft:packed_ice"
+                              "Name": "minecraft:snow_block"
                             }
                           }
                         },
                         {
                           "type": "minecraft:block",
                           "result_state": {
-                            "Name": "minecraft:snow_block"
+                            "Name": "galacticraft:enceladus_ice_crust"
                           }
                         }
                       ]
@@ -352,7 +332,7 @@
               "then_run": {
                 "type": "minecraft:block",
                 "result_state": {
-                  "Name": "minecraft:packed_ice"
+                  "Name": "galacticraft:enceladus_ice_crust"
                 }
               }
             }
