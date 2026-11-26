@@ -24,12 +24,17 @@ package dev.galacticraft.mod.world.gen;
 
 import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.content.GCBlocks;
+import dev.galacticraft.mod.world.gen.surfacerule.EnceladusSurfaceRules;
 import dev.galacticraft.mod.world.gen.surfacerule.JupiterSurfaceRules;
 import dev.galacticraft.mod.world.gen.surfacerule.MarsSurfaceRules;
 import dev.galacticraft.mod.world.gen.surfacerule.MercurySurfaceRules;
 import dev.galacticraft.mod.world.gen.surfacerule.MoonSurfaceRules;
 import dev.galacticraft.mod.world.gen.surfacerule.NeptuneSurfaceRules;
+import dev.galacticraft.mod.world.gen.surfacerule.OberonSurfaceRules;
 import dev.galacticraft.mod.world.gen.surfacerule.SaturnSurfaceRules;
+import dev.galacticraft.mod.world.gen.surfacerule.TitanSurfaceRules;
+import dev.galacticraft.mod.world.gen.surfacerule.TitaniaSurfaceRules;
+import dev.galacticraft.mod.world.gen.surfacerule.TritonSurfaceRules;
 import dev.galacticraft.mod.world.gen.surfacerule.UranusSurfaceRules;
 import dev.galacticraft.mod.world.gen.surfacerule.VenusSurfaceRules;
 import net.minecraft.core.HolderGetter;
@@ -55,6 +60,11 @@ public class GCNoiseGeneratorSettings {
     public static final ResourceKey<NoiseGeneratorSettings> SATURN = key("saturn");
     public static final ResourceKey<NoiseGeneratorSettings> URANUS = key("uranus");
     public static final ResourceKey<NoiseGeneratorSettings> NEPTUNE = key("neptune");
+    public static final ResourceKey<NoiseGeneratorSettings> TITAN = key("titan");
+    public static final ResourceKey<NoiseGeneratorSettings> ENCELADUS = key("enceladus");
+    public static final ResourceKey<NoiseGeneratorSettings> TITANIA = key("titania");
+    public static final ResourceKey<NoiseGeneratorSettings> OBERON = key("oberon");
+    public static final ResourceKey<NoiseGeneratorSettings> TRITON = key("triton");
 
     public static void bootstrapRegistries(BootstrapContext<NoiseGeneratorSettings> context) {
         HolderGetter<DensityFunction> densityLookup = context.lookup(Registries.DENSITY_FUNCTION);
@@ -192,6 +202,116 @@ public class GCNoiseGeneratorSettings {
                         GCDensityFunctions.Neptune.FINAL_DENSITY
                 ),
                 NeptuneSurfaceRules.NEPTUNE,
+                new OverworldBiomeBuilder().spawnTarget(),
+                -64,
+                false,
+                false,
+                false,
+                false
+        ));
+
+        // TITAN: Dense N2/CH4 atmosphere + Liquid Methane lakes (seaLevel = 62)
+        context.register(TITAN, new NoiseGeneratorSettings(
+                NoiseSettings.create(-64, 384, 1, 2),
+                GCBlocks.TITAN_WATER_ICE_ROCK.defaultBlockState(),
+                GCBlocks.LIQUID_METHANE.defaultBlockState(),
+                GCNoiseGeneratorSettings.outerPlanetRouter(
+                        densityLookup,
+                        noiseLookup,
+                        GCDensityFunctions.Titan.CONTINENTS,
+                        GCDensityFunctions.Titan.DEPTH,
+                        GCDensityFunctions.Titan.SOLID_TERRAIN,
+                        GCDensityFunctions.Titan.FINAL_DENSITY
+                ),
+                TitanSurfaceRules.TITAN,
+                new OverworldBiomeBuilder().spawnTarget(),
+                62,
+                false,
+                false,
+                false,
+                false
+        ));
+
+        // ENCELADUS: High-albedo ice shell + hydrothermal subsurface ocean (seaLevel = 20)
+        context.register(ENCELADUS, new NoiseGeneratorSettings(
+                NoiseSettings.create(-64, 384, 1, 2),
+                GCBlocks.ENCELADUS_ICE_CRUST.defaultBlockState(),
+                Blocks.WATER.defaultBlockState(),
+                GCNoiseGeneratorSettings.outerPlanetRouter(
+                        densityLookup,
+                        noiseLookup,
+                        GCDensityFunctions.Enceladus.CONTINENTS,
+                        GCDensityFunctions.Enceladus.DEPTH,
+                        GCDensityFunctions.Enceladus.SOLID_TERRAIN,
+                        GCDensityFunctions.Enceladus.FINAL_DENSITY
+                ),
+                EnceladusSurfaceRules.ENCELADUS,
+                new OverworldBiomeBuilder().spawnTarget(),
+                20,
+                false,
+                false,
+                false,
+                false
+        ));
+
+        // TITANIA: Messina Chasmata tectonic canyons
+        context.register(TITANIA, new NoiseGeneratorSettings(
+                NoiseSettings.create(-64, 384, 1, 2),
+                GCBlocks.TITANIA_ICE_SILICATE.defaultBlockState(),
+                Blocks.AIR.defaultBlockState(),
+                GCNoiseGeneratorSettings.outerPlanetRouter(
+                        densityLookup,
+                        noiseLookup,
+                        GCDensityFunctions.Titania.CONTINENTS,
+                        GCDensityFunctions.Titania.DEPTH,
+                        GCDensityFunctions.Titania.SOLID_TERRAIN,
+                        GCDensityFunctions.Titania.FINAL_DENSITY
+                ),
+                TitaniaSurfaceRules.TITANIA,
+                new OverworldBiomeBuilder().spawnTarget(),
+                -64,
+                false,
+                false,
+                false,
+                false
+        ));
+
+        // OBERON: Dark reddish cratered world
+        context.register(OBERON, new NoiseGeneratorSettings(
+                NoiseSettings.create(-64, 384, 1, 2),
+                GCBlocks.OBERON_DARK_ROCK.defaultBlockState(),
+                Blocks.AIR.defaultBlockState(),
+                GCNoiseGeneratorSettings.outerPlanetRouter(
+                        densityLookup,
+                        noiseLookup,
+                        GCDensityFunctions.Oberon.CONTINENTS,
+                        GCDensityFunctions.Oberon.DEPTH,
+                        GCDensityFunctions.Oberon.SOLID_TERRAIN,
+                        GCDensityFunctions.Oberon.FINAL_DENSITY
+                ),
+                OberonSurfaceRules.OBERON,
+                new OverworldBiomeBuilder().spawnTarget(),
+                -64,
+                false,
+                false,
+                false,
+                false
+        ));
+
+        // TRITON: Cantaloupe terrain & nitrogen cryogeysers
+        context.register(TRITON, new NoiseGeneratorSettings(
+                NoiseSettings.create(-64, 384, 1, 2),
+                GCBlocks.TRITON_NITROGEN_ICE.defaultBlockState(),
+                Blocks.AIR.defaultBlockState(),
+                GCNoiseGeneratorSettings.outerPlanetRouter(
+                        densityLookup,
+                        noiseLookup,
+                        GCDensityFunctions.Triton.CONTINENTS,
+                        GCDensityFunctions.Triton.DEPTH,
+                        GCDensityFunctions.Triton.SOLID_TERRAIN,
+                        GCDensityFunctions.Triton.FINAL_DENSITY
+                ),
+                TritonSurfaceRules.TRITON,
                 new OverworldBiomeBuilder().spawnTarget(),
                 -64,
                 false,

@@ -186,6 +186,39 @@ public class GCModelProvider extends FabricModelProvider {
 
         generator.createTrivialCube(GCBlocks.NEPTUNE_ABYSSAL_MANTLE_ROCK);
 
+        // PHASE 4 OUTER MOONS: TITAN, ENCELADUS, TITANIA, OBERON, TRITON
+        generator.createTrivialCube(GCBlocks.TITAN_THOLIN_SAND);
+        generator.createTrivialCube(GCBlocks.TITAN_HYDROCARBON_CRUST);
+        generator.createTrivialCube(GCBlocks.TITAN_WATER_ICE_ROCK);
+        generator.createTrivialCube(GCBlocks.TITAN_MAGNESIUM_ORE);
+        generator.createTrivialCube(GCBlocks.TITAN_IRON_ORE);
+        generator.createTrivialCube(GCBlocks.TITAN_SILICON_ORE);
+
+        generator.createTrivialCube(GCBlocks.ENCELADUS_ICE_CRUST);
+        generator.createTrivialCube(GCBlocks.ENCELADUS_TIGER_STRIPE_ICE);
+        generator.createTrivialCube(GCBlocks.ENCELADUS_SEABED_ROCK);
+        generator.createTrivialCube(GCBlocks.ENCELADUS_MAGNESIUM_ORE);
+        generator.createTrivialCube(GCBlocks.ENCELADUS_NIOBIUM_ORE);
+
+        generator.createTrivialCube(GCBlocks.TITANIA_ICE_SILICATE);
+        generator.createTrivialCube(GCBlocks.TITANIA_FROST_CRUST);
+        generator.createTrivialCube(GCBlocks.TITANIA_CHASM_SLATE);
+        generator.createTrivialCube(GCBlocks.TITANIA_URANIUM_ORE);
+        generator.createTrivialCube(GCBlocks.TITANIA_LONSDALEITE_ORE);
+        generator.createTrivialCube(GCBlocks.TITANIA_TITANIUM_ORE);
+
+        generator.createTrivialCube(GCBlocks.OBERON_DARK_ROCK);
+        generator.createTrivialCube(GCBlocks.OBERON_REDDISH_REGOLITH);
+        generator.createTrivialCube(GCBlocks.OBERON_IMPACT_BRECCIA);
+        generator.createTrivialCube(GCBlocks.OBERON_URANIUM_ORE);
+        generator.createTrivialCube(GCBlocks.OBERON_NIOBIUM_ORE);
+
+        generator.createTrivialCube(GCBlocks.TRITON_NITROGEN_ICE);
+        generator.createTrivialCube(GCBlocks.TRITON_CANTALOUPE_CRUST);
+        generator.createTrivialCube(GCBlocks.TRITON_CRYO_BASALT);
+        generator.createTrivialCube(GCBlocks.TRITON_SUPERIONIC_ORE);
+        generator.createTrivialCube(GCBlocks.TRITON_XENON_CLATHRATE_ORE);
+
         // MISC DECOR
         generator.createNonTemplateHorizontalBlock(GCBlocks.TIN_LADDER);
         generator.createSimpleFlatItemModel(GCBlocks.TIN_LADDER);

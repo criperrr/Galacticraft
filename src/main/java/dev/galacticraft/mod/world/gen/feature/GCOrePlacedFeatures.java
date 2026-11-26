@@ -133,6 +133,29 @@ public class GCOrePlacedFeatures {
     public static final ResourceKey<PlacedFeature> ORE_MAGNESIUM_SATURN = key("ore_magnesium_saturn");
     public static final ResourceKey<PlacedFeature> ORE_URANIUM_URANUS = key("ore_uranium_uranus");
 
+    // PHASE 4 OUTER MOONS
+    public static final ResourceKey<PlacedFeature> ORE_MAGNESIUM_TITAN = key("ore_magnesium_titan");
+    public static final ResourceKey<PlacedFeature> ORE_IRON_TITAN = key("ore_iron_titan");
+    public static final ResourceKey<PlacedFeature> ORE_SILICON_TITAN = key("ore_silicon_titan");
+    public static final ResourceKey<PlacedFeature> ORE_DENSE_ICE_TITAN = key("ore_dense_ice_titan");
+
+    public static final ResourceKey<PlacedFeature> ORE_MAGNESIUM_ENCELADUS = key("ore_magnesium_enceladus");
+    public static final ResourceKey<PlacedFeature> ORE_NIOBIUM_ENCELADUS = key("ore_niobium_enceladus");
+    public static final ResourceKey<PlacedFeature> ORE_DENSE_ICE_ENCELADUS = key("ore_dense_ice_enceladus");
+
+    public static final ResourceKey<PlacedFeature> ORE_URANIUM_TITANIA = key("ore_uranium_titania");
+    public static final ResourceKey<PlacedFeature> ORE_LONSDALEITE_TITANIA = key("ore_lonsdaleite_titania");
+    public static final ResourceKey<PlacedFeature> ORE_TITANIUM_TITANIA = key("ore_titanium_titania");
+    public static final ResourceKey<PlacedFeature> ORE_DENSE_ICE_TITANIA = key("ore_dense_ice_titania");
+
+    public static final ResourceKey<PlacedFeature> ORE_URANIUM_OBERON = key("ore_uranium_oberon");
+    public static final ResourceKey<PlacedFeature> ORE_NIOBIUM_OBERON = key("ore_niobium_oberon");
+    public static final ResourceKey<PlacedFeature> ORE_DENSE_ICE_OBERON = key("ore_dense_ice_oberon");
+
+    public static final ResourceKey<PlacedFeature> ORE_SUPERIONIC_TRITON = key("ore_superionic_triton");
+    public static final ResourceKey<PlacedFeature> ORE_XENON_CLATHRATE_TRITON = key("ore_xenon_clathrate_triton");
+    public static final ResourceKey<PlacedFeature> ORE_DENSE_ICE_TRITON = key("ore_dense_ice_triton");
+
     public static void register() {
         BiomeModifications.create(Constant.id("ores")).add(ModificationPhase.ADDITIONS, BiomeSelectors.foundInOverworld(), context -> {
             context.getGenerationSettings().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ORE_SILICON);
@@ -241,6 +264,29 @@ public class GCOrePlacedFeatures {
         context.register(ORE_PALLADIUM_JUPITER, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_PALLADIUM_JUPITER), modifiersWithCount(16, HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(4), VerticalAnchor.absolute(-20)))));
         context.register(ORE_MAGNESIUM_SATURN, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_MAGNESIUM_SATURN), modifiersWithCount(16, HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(4), VerticalAnchor.absolute(-20)))));
         context.register(ORE_URANIUM_URANUS, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_URANIUM_URANUS), modifiersWithCount(16, HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(4), VerticalAnchor.absolute(-20)))));
+
+        // PHASE 4 OUTER MOONS
+        context.register(ORE_MAGNESIUM_TITAN, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_MAGNESIUM_TITAN), modifiersWithCount(16, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.absolute(64)))));
+        context.register(ORE_IRON_TITAN, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_IRON_TITAN), modifiersWithCount(14, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(72)))));
+        context.register(ORE_SILICON_TITAN, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_SILICON_TITAN), modifiersWithCount(12, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(64)))));
+        context.register(ORE_DENSE_ICE_TITAN, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_DENSE_ICE_TITAN), modifiersWithCount(10, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(80)))));
+
+        context.register(ORE_MAGNESIUM_ENCELADUS, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_MAGNESIUM_ENCELADUS), modifiersWithCount(15, HeightRangePlacement.uniform(VerticalAnchor.absolute(22), VerticalAnchor.absolute(84)))));
+        context.register(ORE_NIOBIUM_ENCELADUS, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_NIOBIUM_ENCELADUS), modifiersWithCount(12, HeightRangePlacement.uniform(VerticalAnchor.absolute(22), VerticalAnchor.absolute(80)))));
+        context.register(ORE_DENSE_ICE_ENCELADUS, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_DENSE_ICE_ENCELADUS), modifiersWithCount(16, HeightRangePlacement.uniform(VerticalAnchor.absolute(22), VerticalAnchor.absolute(92)))));
+
+        context.register(ORE_URANIUM_TITANIA, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_URANIUM_TITANIA), modifiersWithCount(14, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.absolute(56)))));
+        context.register(ORE_LONSDALEITE_TITANIA, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_LONSDALEITE_TITANIA), modifiersWithCount(10, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.absolute(36)))));
+        context.register(ORE_TITANIUM_TITANIA, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_TITANIUM_TITANIA), modifiersWithCount(12, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(68)))));
+        context.register(ORE_DENSE_ICE_TITANIA, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_DENSE_ICE_TITANIA), modifiersWithCount(10, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(84)))));
+
+        context.register(ORE_URANIUM_OBERON, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_URANIUM_OBERON), modifiersWithCount(15, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.absolute(56)))));
+        context.register(ORE_NIOBIUM_OBERON, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_NIOBIUM_OBERON), modifiersWithCount(14, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(72)))));
+        context.register(ORE_DENSE_ICE_OBERON, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_DENSE_ICE_OBERON), modifiersWithCount(10, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(80)))));
+
+        context.register(ORE_SUPERIONIC_TRITON, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_SUPERIONIC_TRITON), modifiersWithCount(14, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.absolute(48)))));
+        context.register(ORE_XENON_CLATHRATE_TRITON, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_XENON_CLATHRATE_TRITON), modifiersWithCount(14, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(72)))));
+        context.register(ORE_DENSE_ICE_TRITON, new PlacedFeature(lookup.getOrThrow(GCOreConfiguredFeature.ORE_DENSE_ICE_TRITON), modifiersWithCount(14, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(88)))));
     }
 
     @Contract(pure = true)

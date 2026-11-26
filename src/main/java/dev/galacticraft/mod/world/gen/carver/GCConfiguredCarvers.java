@@ -64,6 +64,12 @@ public class GCConfiguredCarvers {
     public static final ResourceKey<ConfiguredWorldCarver<?>> URANUS_CANYON_CARVER = key(Constant.Carver.URANUS_CANYON_CARVER);
     public static final ResourceKey<ConfiguredWorldCarver<?>> NEPTUNE_CAVE_CARVER = key(Constant.Carver.NEPTUNE_CAVE_CARVER);
     public static final ResourceKey<ConfiguredWorldCarver<?>> NEPTUNE_CANYON_CARVER = key(Constant.Carver.NEPTUNE_CANYON_CARVER);
+    public static final ResourceKey<ConfiguredWorldCarver<?>> TITAN_CAVE_CARVER = key(Constant.Carver.TITAN_CAVE_CARVER);
+    public static final ResourceKey<ConfiguredWorldCarver<?>> ENCELADUS_CAVE_CARVER = key(Constant.Carver.ENCELADUS_CAVE_CARVER);
+    public static final ResourceKey<ConfiguredWorldCarver<?>> TITANIA_CAVE_CARVER = key(Constant.Carver.TITANIA_CAVE_CARVER);
+    public static final ResourceKey<ConfiguredWorldCarver<?>> TITANIA_CANYON_CARVER = key(Constant.Carver.TITANIA_CANYON_CARVER);
+    public static final ResourceKey<ConfiguredWorldCarver<?>> OBERON_CAVE_CARVER = key(Constant.Carver.OBERON_CAVE_CARVER);
+    public static final ResourceKey<ConfiguredWorldCarver<?>> TRITON_CAVE_CARVER = key(Constant.Carver.TRITON_CAVE_CARVER);
 
     @Contract(pure = true)
     private static @NotNull ResourceKey<ConfiguredWorldCarver<?>> key(String s) {
@@ -395,6 +401,74 @@ public class GCConfiguredCarvers {
                         UniformFloat.of(0.85f, 1.1f),
                         1.0f,
                         0.0f)
+        )));
+
+        // Phase 4 Outer Moons Carvers (surface cave portals + Messina Chasmata tectonic canyons)
+        context.register(TITAN_CAVE_CARVER, WorldCarver.CAVE.configured(new CaveCarverConfiguration(
+                0.10f,
+                UniformHeight.of(VerticalAnchor.aboveBottom(12), VerticalAnchor.absolute(96)),
+                UniformFloat.of(0.15f, 0.65f),
+                VerticalAnchor.aboveBottom(10),
+                BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.TITAN_CARVER_REPLACEABLES),
+                UniformFloat.of(0.8f, 1.4f),
+                UniformFloat.of(0.75f, 1.15f),
+                UniformFloat.of(-0.85f, -0.4f)
+        )));
+        context.register(ENCELADUS_CAVE_CARVER, WorldCarver.CAVE.configured(new CaveCarverConfiguration(
+                0.08f,
+                UniformHeight.of(VerticalAnchor.absolute(28), VerticalAnchor.absolute(92)),
+                UniformFloat.of(0.15f, 0.55f),
+                VerticalAnchor.absolute(24),
+                BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.ENCELADUS_CARVER_REPLACEABLES),
+                UniformFloat.of(0.75f, 1.3f),
+                UniformFloat.of(0.8f, 1.2f),
+                UniformFloat.of(-0.85f, -0.4f)
+        )));
+        context.register(TITANIA_CAVE_CARVER, WorldCarver.CAVE.configured(new CaveCarverConfiguration(
+                0.12f,
+                UniformHeight.of(VerticalAnchor.aboveBottom(12), VerticalAnchor.absolute(110)),
+                UniformFloat.of(0.15f, 0.70f),
+                VerticalAnchor.aboveBottom(10),
+                BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.TITANIA_CARVER_REPLACEABLES),
+                UniformFloat.of(0.8f, 1.5f),
+                UniformFloat.of(0.8f, 1.25f),
+                UniformFloat.of(-0.9f, -0.4f)
+        )));
+        context.register(TITANIA_CANYON_CARVER, WorldCarver.CANYON.configured(new CanyonCarverConfiguration(
+                0.06f,
+                UniformHeight.of(VerticalAnchor.absolute(20), VerticalAnchor.absolute(112)),
+                ConstantFloat.of(3.6f),
+                VerticalAnchor.aboveBottom(12),
+                CarverDebugSettings.DEFAULT,
+                BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.TITANIA_CARVER_REPLACEABLES),
+                UniformFloat.of(-0.10f, 0.10f),
+                new CanyonCarverConfiguration.CanyonShapeConfiguration(
+                        UniformFloat.of(0.8f, 1.2f),
+                        TrapezoidFloat.of(0, 8, 2),
+                        3,
+                        UniformFloat.of(0.8f, 1.15f),
+                        1.0f,
+                        0.0f)
+        )));
+        context.register(OBERON_CAVE_CARVER, WorldCarver.CAVE.configured(new CaveCarverConfiguration(
+                0.11f,
+                UniformHeight.of(VerticalAnchor.aboveBottom(12), VerticalAnchor.absolute(104)),
+                UniformFloat.of(0.15f, 0.65f),
+                VerticalAnchor.aboveBottom(10),
+                BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.OBERON_CARVER_REPLACEABLES),
+                UniformFloat.of(0.8f, 1.4f),
+                UniformFloat.of(0.8f, 1.2f),
+                UniformFloat.of(-0.9f, -0.4f)
+        )));
+        context.register(TRITON_CAVE_CARVER, WorldCarver.CAVE.configured(new CaveCarverConfiguration(
+                0.11f,
+                UniformHeight.of(VerticalAnchor.aboveBottom(12), VerticalAnchor.absolute(104)),
+                UniformFloat.of(0.15f, 0.65f),
+                VerticalAnchor.aboveBottom(10),
+                BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.TRITON_CARVER_REPLACEABLES),
+                UniformFloat.of(0.8f, 1.4f),
+                UniformFloat.of(0.8f, 1.2f),
+                UniformFloat.of(-0.9f, -0.4f)
         )));
     }
 }

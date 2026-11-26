@@ -64,6 +64,7 @@ public class GCDataGenerator implements DataGeneratorEntrypoint {
         var pack = generator.createPack();
 
         pack.addProvider(GCTranslationProvider::new);
+        pack.addProvider(GCPtBrTranslationProvider::new);
         pack.addProvider(GCBlockLootTableProvider::new);
         pack.addProvider(GCLootTableProvider::create);
 

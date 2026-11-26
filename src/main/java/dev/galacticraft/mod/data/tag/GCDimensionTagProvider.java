@@ -49,17 +49,31 @@ public class GCDimensionTagProvider extends FabricTagProvider<DimensionType> {
                 .add(GCDimensionTypes.JUPITER)
                 .add(GCDimensionTypes.SATURN)
                 .add(GCDimensionTypes.URANUS)
-                .add(GCDimensionTypes.NEPTUNE);
+                .add(GCDimensionTypes.NEPTUNE)
+                .add(GCDimensionTypes.TITAN)
+                .add(GCDimensionTypes.ENCELADUS)
+                .add(GCDimensionTypes.TITANIA)
+                .add(GCDimensionTypes.OBERON)
+                .add(GCDimensionTypes.TRITON);
         this.tag(GCDimensionTypeTags.VACUUM)
                 .add(GCDimensionTypes.MOON)
-                .add(GCDimensionTypes.ASTEROID);
+                .add(GCDimensionTypes.ASTEROID)
+                .add(GCDimensionTypes.ENCELADUS)
+                .add(GCDimensionTypes.TITANIA)
+                .add(GCDimensionTypes.OBERON)
+                .add(GCDimensionTypes.TRITON);
         this.tag(GCDimensionTypeTags.NO_WEATHER)
                 .add(GCDimensionTypes.MOON)
                 .add(GCDimensionTypes.ASTEROID)
                 .add(GCDimensionTypes.JUPITER)
                 .add(GCDimensionTypes.SATURN)
                 .add(GCDimensionTypes.URANUS)
-                .add(GCDimensionTypes.NEPTUNE);
+                .add(GCDimensionTypes.NEPTUNE)
+                .add(GCDimensionTypes.TITAN)
+                .add(GCDimensionTypes.ENCELADUS)
+                .add(GCDimensionTypes.TITANIA)
+                .add(GCDimensionTypes.OBERON)
+                .add(GCDimensionTypes.TRITON);
         this.tag(GCDimensionTypeTags.ALLOWS_MOB_SPAWNING);
     }
 }

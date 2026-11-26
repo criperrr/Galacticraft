@@ -70,6 +70,19 @@ public final class ManualCatalog {
     public static final ResourceLocation ENTRY_ATLAS_SATURN = Constant.id("atlas/saturn");
     public static final ResourceLocation ENTRY_ATLAS_URANUS = Constant.id("atlas/uranus");
     public static final ResourceLocation ENTRY_ATLAS_NEPTUNE = Constant.id("atlas/neptune");
+    public static final ResourceLocation ENTRY_ATLAS_PHOBOS = Constant.id("atlas/phobos");
+    public static final ResourceLocation ENTRY_ATLAS_DEIMOS = Constant.id("atlas/deimos");
+    public static final ResourceLocation ENTRY_ATLAS_IO = Constant.id("atlas/io");
+    public static final ResourceLocation ENTRY_ATLAS_EUROPA = Constant.id("atlas/europa");
+    public static final ResourceLocation ENTRY_ATLAS_GANYMEDE = Constant.id("atlas/ganymede");
+    public static final ResourceLocation ENTRY_ATLAS_CALLISTO = Constant.id("atlas/callisto");
+    public static final ResourceLocation ENTRY_ATLAS_TITAN = Constant.id("atlas/titan");
+    public static final ResourceLocation ENTRY_ATLAS_ENCELADUS = Constant.id("atlas/enceladus");
+    public static final ResourceLocation ENTRY_ATLAS_TITANIA = Constant.id("atlas/titania");
+    public static final ResourceLocation ENTRY_ATLAS_OBERON = Constant.id("atlas/oberon");
+    public static final ResourceLocation ENTRY_ATLAS_TRITON = Constant.id("atlas/triton");
+    public static final ResourceLocation ENTRY_GUIDE_ASTEROID_TAXONOMY = Constant.id("mission/asteroid_taxonomy");
+    public static final ResourceLocation ENTRY_GUIDE_AEROSTATIC_GIANTS = Constant.id("mission/aerostatic_giants");
 
     public static final ResourceLocation ENTRY_LAB_IN_SITU_GUIDE = Constant.id("lab_log/in_situ_labs");
     public static final ResourceLocation ENTRY_LAB_TELEMETRY_PROBES = Constant.id("lab_log/flight_telemetry");
@@ -661,6 +674,135 @@ public final class ManualCatalog {
                 List.of(
                         ore(Constant.id("neptune_abyssal_mantle_rock"), "block.galacticraft.neptune_abyssal_mantle_rock", -62, -20, 3.4, 0xFF38BDF8)
                 )));
+
+        // INNER & JOVIAN MOONS (6)
+        list.add(planetEntry(ENTRY_ATLAS_PHOBOS, 2, 110, Constant.id("phobos"), Constant.id("meteoric_iron_block"), Optional.empty(), "manual.galacticraft.hint.lunar_deep_sky",
+                "manual.galacticraft.atlas.phobos.title", "manual.galacticraft.atlas.phobos.hazards",
+                List.of(
+                        ore(Constant.id("meteoric_iron_block"), "block.galacticraft.meteoric_iron_block", -48, 72, 2.8, 0xFF94A3B8),
+                        ore(Constant.id("asteroid_graphite_ore"), "block.galacticraft.asteroid_graphite_ore", -32, 64, 2.4, 0xFF475569)
+                )));
+
+        list.add(planetEntry(ENTRY_ATLAS_DEIMOS, 2, 120, Constant.id("deimos"), Constant.id("silicon_ore"), Optional.empty(), "manual.galacticraft.hint.lunar_deep_sky",
+                "manual.galacticraft.atlas.deimos.title", "manual.galacticraft.atlas.deimos.hazards",
+                List.of(
+                        ore(Constant.id("silicon_ore"), "block.galacticraft.silicon_ore", -48, 64, 2.4, 0xFF7B8AA0),
+                        ore(Constant.id("aluminum_ore"), "block.galacticraft.aluminum_ore", -32, 72, 2.2, 0xFFD8E2EC)
+                )));
+
+        list.add(planetEntry(ENTRY_ATLAS_IO, 4, 130, Constant.id("io"), Constant.id("compressed_palladium"), Optional.empty(), "manual.galacticraft.hint.outer_ephemeris",
+                "manual.galacticraft.atlas.io.title", "manual.galacticraft.atlas.io.hazards",
+                List.of(
+                        ore(Constant.id("jupiter_palladium_ore"), "block.galacticraft.jupiter_palladium_ore", -56, 36, 3.0, 0xFFFDE68A),
+                        ore(Constant.id("mercury_sulfide_ore"), "block.galacticraft.mercury_sulfide_ore", -32, 80, 3.2, 0xFFFACC15),
+                        ore(Constant.id("ilmenite_ore"), "block.galacticraft.ilmenite_ore", -48, 48, 2.2, 0xFF38BDF8)
+                )));
+
+        list.add(planetEntry(ENTRY_ATLAS_EUROPA, 4, 140, Constant.id("europa"), Constant.id("dense_ice"), Optional.empty(), "manual.galacticraft.hint.outer_ephemeris",
+                "manual.galacticraft.atlas.europa.title", "manual.galacticraft.atlas.europa.hazards",
+                List.of(
+                        ore(Constant.id("dense_ice"), "block.galacticraft.dense_ice", 24, 96, 3.8, 0xFF7DD3FC),
+                        ore(Constant.id("niobium_ore"), "block.galacticraft.niobium_ore", -48, 80, 1.8, 0xFF60A5FA)
+                )));
+
+        list.add(planetEntry(ENTRY_ATLAS_GANYMEDE, 4, 150, Constant.id("ganymede"), Constant.id("niobium_ore"), Optional.empty(), "manual.galacticraft.hint.outer_ephemeris",
+                "manual.galacticraft.atlas.ganymede.title", "manual.galacticraft.atlas.ganymede.hazards",
+                List.of(
+                        ore(Constant.id("niobium_ore"), "block.galacticraft.niobium_ore", -56, 64, 2.6, 0xFF60A5FA),
+                        ore(Constant.id("ilmenite_ore"), "block.galacticraft.ilmenite_ore", -48, 48, 2.2, 0xFF38BDF8),
+                        ore(Constant.id("jupiter_palladium_ore"), "block.galacticraft.jupiter_palladium_ore", -56, 20, 2.0, 0xFFFDE68A)
+                )));
+
+        list.add(planetEntry(ENTRY_ATLAS_CALLISTO, 4, 160, Constant.id("callisto"), Constant.id("dense_ice"), Optional.empty(), "manual.galacticraft.hint.outer_ephemeris",
+                "manual.galacticraft.atlas.callisto.title", "manual.galacticraft.atlas.callisto.hazards",
+                List.of(
+                        ore(Constant.id("dense_ice"), "block.galacticraft.dense_ice", -24, 88, 3.2, 0xFF7DD3FC),
+                        ore(Constant.id("aluminum_ore"), "block.galacticraft.aluminum_ore", -32, 72, 2.5, 0xFFD8E2EC),
+                        ore(Constant.id("niobium_ore"), "block.galacticraft.niobium_ore", -56, 48, 2.0, 0xFF60A5FA)
+                )));
+
+        // OUTER SYSTEM MOONS (5): TITAN, ENCELADUS, TITANIA, OBERON, TRITON
+        list.add(planetEntry(ENTRY_ATLAS_TITAN, 5, 170, GCCelestialBodies.TITAN.location(), Constant.id("titan_magnesium_ore"), Optional.empty(), "manual.galacticraft.hint.outer_ephemeris",
+                "manual.galacticraft.atlas.titan.title", "manual.galacticraft.atlas.titan.hazards",
+                List.of(
+                        ore(Constant.id("titan_magnesium_ore"), "block.galacticraft.titan_magnesium_ore", -64, 64, 3.0, 0xFF86EFAC),
+                        ore(Constant.id("titan_iron_ore"), "block.galacticraft.titan_iron_ore", -64, 72, 2.6, 0xFFD97757),
+                        ore(Constant.id("titan_silicon_ore"), "block.galacticraft.titan_silicon_ore", -64, 64, 2.2, 0xFF7B8AA0),
+                        ore(Constant.id("dense_ice"), "block.galacticraft.dense_ice", -64, 80, 2.4, 0xFF7DD3FC)
+                )));
+
+        list.add(planetEntry(ENTRY_ATLAS_ENCELADUS, 5, 180, GCCelestialBodies.ENCELADUS.location(), Constant.id("enceladus_tiger_stripe_ice"), Optional.empty(), "manual.galacticraft.hint.outer_ephemeris",
+                "manual.galacticraft.atlas.enceladus.title", "manual.galacticraft.atlas.enceladus.hazards",
+                List.of(
+                        ore(Constant.id("dense_ice"), "block.galacticraft.dense_ice", 22, 92, 3.6, 0xFF7DD3FC),
+                        ore(Constant.id("enceladus_magnesium_ore"), "block.galacticraft.enceladus_magnesium_ore", 22, 84, 2.8, 0xFF86EFAC),
+                        ore(Constant.id("enceladus_niobium_ore"), "block.galacticraft.enceladus_niobium_ore", 22, 80, 2.2, 0xFF60A5FA)
+                )));
+
+        list.add(planetEntry(ENTRY_ATLAS_TITANIA, 6, 190, GCCelestialBodies.TITANIA.location(), Constant.id("titania_lonsdaleite_ore"), Optional.empty(), "manual.galacticraft.hint.outer_ephemeris",
+                "manual.galacticraft.atlas.titania.title", "manual.galacticraft.atlas.titania.hazards",
+                List.of(
+                        ore(Constant.id("titania_uranium_ore"), "block.galacticraft.titania_uranium_ore", -64, 56, 2.8, 0xFF4ADE80),
+                        ore(Constant.id("titania_lonsdaleite_ore"), "block.galacticraft.titania_lonsdaleite_ore", -64, 36, 2.4, 0xFF7FE8FF),
+                        ore(Constant.id("titania_titanium_ore"), "block.galacticraft.titania_titanium_ore", -64, 68, 2.2, 0xFF93C5FD)
+                )));
+
+        list.add(planetEntry(ENTRY_ATLAS_OBERON, 6, 200, GCCelestialBodies.OBERON.location(), Constant.id("oberon_uranium_ore"), Optional.empty(), "manual.galacticraft.hint.outer_ephemeris",
+                "manual.galacticraft.atlas.oberon.title", "manual.galacticraft.atlas.oberon.hazards",
+                List.of(
+                        ore(Constant.id("oberon_uranium_ore"), "block.galacticraft.oberon_uranium_ore", -64, 56, 3.0, 0xFF4ADE80),
+                        ore(Constant.id("oberon_niobium_ore"), "block.galacticraft.oberon_niobium_ore", -64, 72, 2.6, 0xFF60A5FA),
+                        ore(Constant.id("dense_ice"), "block.galacticraft.dense_ice", -64, 80, 2.0, 0xFF7DD3FC)
+                )));
+
+        list.add(planetEntry(ENTRY_ATLAS_TRITON, 6, 210, GCCelestialBodies.TRITON.location(), Constant.id("triton_superionic_ore"), Optional.empty(), "manual.galacticraft.hint.outer_ephemeris",
+                "manual.galacticraft.atlas.triton.title", "manual.galacticraft.atlas.triton.hazards",
+                List.of(
+                        ore(Constant.id("triton_superionic_ore"), "block.galacticraft.triton_superionic_ore", -64, 48, 3.2, 0xFF38BDF8),
+                        ore(Constant.id("triton_xenon_clathrate_ore"), "block.galacticraft.triton_xenon_clathrate_ore", -64, 72, 3.0, 0xFFA78BFA),
+                        ore(Constant.id("dense_ice"), "block.galacticraft.dense_ice", -64, 88, 2.6, 0xFF7DD3FC)
+                )));
+
+        // SPECIALIZED FIELD GUIDES: ASTEROID TAXONOMY & GAS GIANT AEROSTATIC ENGINEERING
+        list.add(new ManualEntry(
+                ENTRY_GUIDE_ASTEROID_TAXONOMY,
+                ManualTab.MISSION, 3, 50,
+                "manual.galacticraft.entry.asteroid_taxonomy.title",
+                Constant.id("ilmenite_ore"),
+                Optional.empty(),
+                "manual.galacticraft.hint.lunar_deep_sky",
+                List.of(Constant.id("asteroid_rock_2"), Constant.id("asteroid_rock_1"), Constant.id("meteoric_iron_block"), Constant.id("ilmenite_ore"), Constant.id("dense_ice")),
+                List.of(
+                        new ManualPage.TextPage(
+                                "manual.galacticraft.entry.asteroid_taxonomy.h1",
+                                "manual.galacticraft.entry.asteroid_taxonomy.body1",
+                                "info",
+                                "manual.galacticraft.entry.asteroid_taxonomy.tip1",
+                                List.of(Constant.id("asteroid_graphite_ore"), Constant.id("asteroid_iron_ore"), Constant.id("ilmenite_ore"), Constant.id("asteroid_niobium_ore")),
+                                List.of(ENTRY_ATLAS_ASTEROIDS)
+                        )
+                )
+        ));
+
+        list.add(new ManualEntry(
+                ENTRY_GUIDE_AEROSTATIC_GIANTS,
+                ManualTab.MISSION, 5, 60,
+                "manual.galacticraft.entry.aerostatic_giants.title",
+                Constant.id("atmospheric_fractionator"),
+                Optional.empty(),
+                "manual.galacticraft.hint.outer_ephemeris",
+                List.of(Constant.id("atmospheric_fractionator"), Constant.id("shield_controller"), Constant.id("isothermal_padding_chestpiece"), Constant.id("helium3_cell")),
+                List.of(
+                        new ManualPage.TextPage(
+                                "manual.galacticraft.entry.aerostatic_giants.h1",
+                                "manual.galacticraft.entry.aerostatic_giants.body1",
+                                "warn",
+                                "manual.galacticraft.entry.aerostatic_giants.warn1",
+                                List.of(Constant.id("atmospheric_fractionator"), Constant.id("shield_controller"), Constant.id("jupiter_metallic_hydrogen_rock"), Constant.id("saturn_helium_mantle_rock")),
+                                List.of(ENTRY_ATLAS_JUPITER, ENTRY_ATLAS_SATURN, ENTRY_ATLAS_URANUS, ENTRY_ATLAS_NEPTUNE, ENTRY_ATLAS_TITAN)
+                        )
+                )
+        ));
 
         // =====================================================================
         // TAB 5: LABORATORY LOG BY LOCATION

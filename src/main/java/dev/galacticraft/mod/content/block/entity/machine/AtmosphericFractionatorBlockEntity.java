@@ -110,6 +110,7 @@ public class AtmosphericFractionatorBlockEntity extends MachineBlockEntity {
     public static final int PLANET_URANUS = 6;
     public static final int PLANET_NEPTUNE = 7;
     public static final int PLANET_EXO = 8;
+    public static final int PLANET_TITAN = 9;
 
     private static final StorageSpec SPEC = StorageSpec.of(
             MachineItemStorage.spec(
@@ -258,8 +259,19 @@ public class AtmosphericFractionatorBlockEntity extends MachineBlockEntity {
         float pressure = gasComp != null ? gasComp.pressure() : 0.0F;
 
         // Explicit planetary profiles aligned with GCCelestialBodies real astrophysics + ISRU balance
-        if (dim.equals(GCDimensions.MOON) || dim.equals(GCDimensions.MERCURY) || dim.equals(GCDimensions.ASTEROID)) {
+        if (dim.equals(GCDimensions.MOON) || dim.equals(GCDimensions.MERCURY) || dim.equals(GCDimensions.ASTEROID)
+                || dim.equals(GCDimensions.ENCELADUS) || dim.equals(GCDimensions.TITANIA)
+                || dim.equals(GCDimensions.OBERON) || dim.equals(GCDimensions.TRITON)) {
             return new AtmosphereProfile(PLANET_VACUUM, 0, List.of());
+        }
+        if (dim.equals(GCDimensions.TITAN)) {
+            int pMilli = gasComp != null ? Math.round(pressure * 1000.0F) : 1450;
+            return new AtmosphereProfile(PLANET_TITAN, pMilli, List.of(
+                    new GasChannel(Gases.NITROGEN, 75L),
+                    new GasChannel(Gases.METHANE, 42L),
+                    new GasChannel(Gases.HYDROGEN, 8L),
+                    new GasChannel(Gases.ARGON, 3L)
+            ));
         }
         if (dim.equals(Level.OVERWORLD)) {
             int pMilli = gasComp != null ? Math.round(pressure * 1000.0F) : 1000;

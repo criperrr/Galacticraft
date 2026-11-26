@@ -166,6 +166,41 @@ public final class GCBiomes {
         public static final ResourceKey<Biome> COBALT_STORM_HIGHLANDS = SUPERSONIC_WIND_RIDGES;
     }
 
+    public static final class Titan {
+        public static final ResourceKey<Biome> METHANE_SEAS = key("titan_methane_seas");
+        public static final ResourceKey<Biome> THOLIN_DUNES = key("titan_tholin_dunes");
+        public static final ResourceKey<Biome> ICE_HIGHLANDS = key("titan_ice_highlands");
+        public static final ResourceKey<Biome> CRYO_CAVERNS = key("titan_cryo_caverns");
+    }
+
+    public static final class Enceladus {
+        public static final ResourceKey<Biome> SNOW_PLAINS = key("enceladus_snow_plains");
+        public static final ResourceKey<Biome> TIGER_STRIPES = key("enceladus_tiger_stripes");
+        public static final ResourceKey<Biome> CRATERED_RIDGES = key("enceladus_cratered_ridges");
+        public static final ResourceKey<Biome> HYDROTHERMAL_OCEAN = key("enceladus_hydrothermal_ocean");
+    }
+
+    public static final class Titania {
+        public static final ResourceKey<Biome> MESSINA_CHASMATA = key("titania_messina_chasmata");
+        public static final ResourceKey<Biome> FROST_PLAINS = key("titania_frost_plains");
+        public static final ResourceKey<Biome> SCARP_HIGHLANDS = key("titania_scarp_highlands");
+        public static final ResourceKey<Biome> FAULT_CAVERNS = key("titania_fault_caverns");
+    }
+
+    public static final class Oberon {
+        public static final ResourceKey<Biome> RED_PLAINS = key("oberon_red_plains");
+        public static final ResourceKey<Biome> IMPACT_PEAKS = key("oberon_impact_peaks");
+        public static final ResourceKey<Biome> DARK_BASINS = key("oberon_dark_basins");
+        public static final ResourceKey<Biome> ANCIENT_CAVERNS = key("oberon_ancient_caverns");
+    }
+
+    public static final class Triton {
+        public static final ResourceKey<Biome> CANTALOUPE_TERRAIN = key("triton_cantaloupe_terrain");
+        public static final ResourceKey<Biome> NITROGEN_GEYSERS = key("triton_nitrogen_geysers");
+        public static final ResourceKey<Biome> POLAR_ICE_CAP = key("triton_polar_ice_cap");
+        public static final ResourceKey<Biome> SUPERIONIC_CAVERNS = key("triton_superionic_caverns");
+    }
+
     public static final ResourceKey<Biome> SPACE = ResourceKey.create(Registries.BIOME, Constant.id("space"));
 
     public static Biome createSpaceBiome(HolderGetter<PlacedFeature> holderGetter, HolderGetter<ConfiguredWorldCarver<?>> holderGetter2) {
@@ -223,6 +258,7 @@ public final class GCBiomes {
         SaturnBiomes.bootstrapRegistries(context);
         UranusBiomes.bootstrapRegistries(context);
         NeptuneBiomes.bootstrapRegistries(context);
+        OuterMoonBiomes.bootstrapRegistries(context);
     }
 
     @Contract(pure = true)

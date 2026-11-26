@@ -38,6 +38,11 @@ public class GCDimensionEffects {
     public static final ResourceLocation SATURN = Constant.id("saturn");
     public static final ResourceLocation URANUS = Constant.id("uranus");
     public static final ResourceLocation NEPTUNE = Constant.id("neptune");
+    public static final ResourceLocation TITAN = Constant.id("titan");
+    public static final ResourceLocation ENCELADUS = Constant.id("enceladus");
+    public static final ResourceLocation TITANIA = Constant.id("titania");
+    public static final ResourceLocation OBERON = Constant.id("oberon");
+    public static final ResourceLocation TRITON = Constant.id("triton");
 
     public static void register() {
         DimensionRenderingRegistry.registerDimensionEffects(MOON, MoonDimensionEffects.INSTANCE);
@@ -86,5 +91,30 @@ public class GCDimensionEffects {
         DimensionRenderingRegistry.registerCloudRenderer(GCDimensions.NEPTUNE, EmptyCloudRenderer.INSTANCE);
         DimensionRenderingRegistry.registerWeatherRenderer(GCDimensions.NEPTUNE, GasGiantAtmosphereRenderer.NEPTUNE);
         DimensionRenderingRegistry.registerSkyRenderer(GCDimensions.NEPTUNE, OuterPlanetSkyRenderer.NEPTUNE);
+
+        DimensionRenderingRegistry.registerDimensionEffects(TITAN, TitanDimensionEffects.INSTANCE);
+        DimensionRenderingRegistry.registerCloudRenderer(GCDimensions.TITAN, EmptyCloudRenderer.INSTANCE);
+        DimensionRenderingRegistry.registerWeatherRenderer(GCDimensions.TITAN, EmptyWeatherRenderer.INSTANCE);
+        DimensionRenderingRegistry.registerSkyRenderer(GCDimensions.TITAN, MoonParentSkyRenderer.TITAN);
+
+        DimensionRenderingRegistry.registerDimensionEffects(ENCELADUS, SpaceDimensionEffects.INSTANCE);
+        DimensionRenderingRegistry.registerCloudRenderer(GCDimensions.ENCELADUS, EmptyCloudRenderer.INSTANCE);
+        DimensionRenderingRegistry.registerWeatherRenderer(GCDimensions.ENCELADUS, EmptyWeatherRenderer.INSTANCE);
+        DimensionRenderingRegistry.registerSkyRenderer(GCDimensions.ENCELADUS, MoonParentSkyRenderer.ENCELADUS);
+
+        DimensionRenderingRegistry.registerDimensionEffects(TITANIA, SpaceDimensionEffects.INSTANCE);
+        DimensionRenderingRegistry.registerCloudRenderer(GCDimensions.TITANIA, EmptyCloudRenderer.INSTANCE);
+        DimensionRenderingRegistry.registerWeatherRenderer(GCDimensions.TITANIA, EmptyWeatherRenderer.INSTANCE);
+        DimensionRenderingRegistry.registerSkyRenderer(GCDimensions.TITANIA, MoonParentSkyRenderer.TITANIA);
+
+        DimensionRenderingRegistry.registerDimensionEffects(OBERON, SpaceDimensionEffects.INSTANCE);
+        DimensionRenderingRegistry.registerCloudRenderer(GCDimensions.OBERON, EmptyCloudRenderer.INSTANCE);
+        DimensionRenderingRegistry.registerWeatherRenderer(GCDimensions.OBERON, EmptyWeatherRenderer.INSTANCE);
+        DimensionRenderingRegistry.registerSkyRenderer(GCDimensions.OBERON, MoonParentSkyRenderer.OBERON);
+
+        DimensionRenderingRegistry.registerDimensionEffects(TRITON, SpaceDimensionEffects.INSTANCE);
+        DimensionRenderingRegistry.registerCloudRenderer(GCDimensions.TRITON, EmptyCloudRenderer.INSTANCE);
+        DimensionRenderingRegistry.registerWeatherRenderer(GCDimensions.TRITON, EmptyWeatherRenderer.INSTANCE);
+        DimensionRenderingRegistry.registerSkyRenderer(GCDimensions.TRITON, MoonParentSkyRenderer.TRITON);
     }
 }
