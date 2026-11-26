@@ -196,4 +196,45 @@ public class ModularFlightPhysicsTest {
         assertTrue(twrEmpty < ModularFlightPhysics.MIN_LIFTOFF_TWR,
                 "Unfueled radial boosters must NOT inflate liftoff TWR above MIN_LIFTOFF_TWR (got " + twrEmpty + ")");
     }
+
+    @Test
+    void testRebalancedBurnDurationAndSolidCoreDepletion() {
+        // 1-stage 3x3 RP-1 rocket with rebalanced Falcon 1D (thrust ~2756 kN) and 1 tank (27 B = 2,187,000 droplets)
+        // must deplete in < 450 ticks (~15-22s) so it cannot reach Y=1200 without staging
+        var falconSpec = dev.galacticraft.mod.content.rocket.part.RocketPartCatalog.getInstance().getPart("engine_falcon1d_3x3_2b");
+        var tankSpec = dev.galacticraft.mod.content.rocket.part.RocketPartCatalog.getInstance().getPart("tank_fuel_rp1_3x3_2b");
+        var falconCfg = falconSpec.toConfig(RocketLivery.WHITE);
+        var tankCfg = tankSpec.toConfig(RocketLivery.WHITE);
+        var falconStats = dev.galacticraft.mod.content.rocket.part.RocketPartCostCalculator.calculate(falconCfg).stats();
+        var tankStats = dev.galacticraft.mod.content.rocket.part.RocketPartCostCalculator.calculate(tankCfg).stats();
+
+        MountedPartNode engNode = new MountedPartNode(new BlockPos(0, 1, 0), falconCfg, falconStats, PartIntegrity.pristine(), Optional.empty(), 0, false);
+        long tankCap = tankStats.fuelCapacityDroplets();
+        RocketStageNode rp1Stage = new RocketStageNode(
+                0, Optional.empty(), false, "rp1", tankCap, tankCap,
+                List.of(engNode), List.of(), false
+        );
+
+        int burnTicks = 0;
+        for (int t = 0; t < 600; t++) {
+            var res = ModularFlightPhysics.stepStagePropulsion(rp1Stage, 0.5, 1.0, false);
+            rp1Stage = res.updatedStage();
+            burnTicks++;
+            if (res.coreDepleted()) {
+                break;
+            }
+        }
+        assertTrue(burnTicks < 450, "1-stage 3x3 RP-1 tank must deplete in < 450 ticks at full throttle, took " + burnTicks);
+        assertEquals(0L, rp1Stage.currentFuelDroplets());
+
+        // Solid core stage with fuelCapacityDroplets > 0 must stop firing once currentFuelDroplets == 0
+        MountedPartNode srbNode = engineNode("srb_ares_3x3_2b", "srb_ares", 3000.0F, 0, 0);
+        RocketStageNode depletedSrbStage = new RocketStageNode(
+                0, Optional.empty(), false, "solid", 81_000L * 20L, 0L,
+                List.of(srbNode), List.of(), false
+        );
+        var depletedRes = ModularFlightPhysics.stepStagePropulsion(depletedSrbStage, 1.0, 1.0, false);
+        assertEquals(0.0, depletedRes.totalThrustKn(), 1e-6, "Depleted solid core stage must produce zero thrust");
+        assertTrue(depletedRes.coreDepleted(), "Depleted solid core stage must report coreDepleted=true");
+    }
 }

@@ -323,4 +323,62 @@ class RocketAssemblyGraphBuilderTest {
         List<AttachmentNode> tankNodes = RocketAssemblyGraphBuilder.computeAttachmentNodes(tank);
         assertTrue(tankNodes.size() >= 6, "Tank must expose coaxial top/bottom plus 4 radial attachment nodes");
     }
+
+    @Test
+    @DisplayName("Rebalanced engine thrust lifts tall stacks (TWR >= 1.4) while 1-stage chemical dV (< 2800 m/s) requires staging for orbit/Moon")
+    void rebalancedSingleStageVsMultiStageDeltaVAndTwr() {
+        RocketPartConfig eng = part("engine_falcon1d_3x3_2b");
+        RocketPartConfig tank = part("tank_fuel_rp1_3x3_2b");
+        RocketPartConfig decoupler = part("decoupler_inline_3x3_1b");
+        RocketPartConfig vacEng = part("engine_centaur_rl10_3x3_2b");
+        RocketPartConfig cryoTank = part("tank_lox_cryo_3x3_2b");
+        RocketPartConfig cap = part("capsule_gemini_3x3_2b");
+
+        // 1-stage 3x3 RP-1 rocket with 2 tanks: strong liftoff TWR on Earth, but < 2800 m/s dV (cannot reach orbit alone)
+        RocketAssemblyGraph singleStage = RocketAssemblyGraphBuilder.build(
+                List.of(
+                        PartInput.fromConfig(new BlockPos(0, 1, 0), eng),
+                        PartInput.fromConfig(new BlockPos(0, 3, 0), tank),
+                        PartInput.fromConfig(new BlockPos(0, 5, 0), tank),
+                        PartInput.fromConfig(new BlockPos(0, 7, 0), cap)
+                ),
+                PlatformSize.SIZE_3X3, null, Map.of(), Map.of(), CrossfeedMode.ISOLATED
+        ).graph();
+
+        GraphFlightValidationReport singleEarth = RocketFlightValidator.evaluateGraph(
+                singleStage, PlanetaryEnvironment.EARTH, PlanetaryEnvironment.EARTH
+        );
+        assertTrue(singleEarth.summary().originTwr() >= 1.40,
+                "Rebalanced Falcon 1D must lift a 2-tank 3x3 stack with TWR >= 1.40, got " + singleEarth.summary().originTwr());
+        assertTrue(singleEarth.summary().maxDeltaV() < PlanetaryEnvironment.EARTH.orbitAscentDeltaV(),
+                "1-stage chemical RP-1 rocket must deliver < 2800 m/s so staging is required for orbit, got "
+                        + singleEarth.summary().maxDeltaV());
+
+        // 2-stage + 4x SRB boosters reaches Earth orbit and Moon!
+        List<PartInput> twoStageInputs = new ArrayList<>(List.of(
+                PartInput.fromConfig(new BlockPos(0, 1, 0), eng),
+                PartInput.fromConfig(new BlockPos(0, 3, 0), tank),
+                PartInput.fromConfig(new BlockPos(0, 5, 0), tank),
+                PartInput.fromConfig(new BlockPos(0, 7, 0), decoupler),
+                PartInput.fromConfig(new BlockPos(0, 8, 0), vacEng),
+                PartInput.fromConfig(new BlockPos(0, 10, 0), cryoTank),
+                PartInput.fromConfig(new BlockPos(0, 12, 0), cap)
+        ));
+        RocketPartConfig srb = part("srb_ares_3x3_2b");
+        for (BlockPos origin : RocketAssemblyGraphBuilder.computeRadialBoosterOrigins(new BlockPos(0, 1, 0), 3, 3, RadialSymmetry.FOUR_CARDINAL)) {
+            twoStageInputs.add(PartInput.fromConfig(origin, srb));
+        }
+
+        RocketAssemblyGraph twoStageWithBoosters = RocketAssemblyGraphBuilder.build(
+                twoStageInputs, PlatformSize.SIZE_9X9, null, Map.of(), Map.of(), CrossfeedMode.ISOLATED
+        ).graph();
+        GraphFlightValidationReport moonMission = RocketFlightValidator.evaluateGraph(
+                twoStageWithBoosters, PlanetaryEnvironment.EARTH, PlanetaryEnvironment.MOON
+        );
+        assertTrue(moonMission.summary().canLiftoffOrigin(),
+                "2-stage + 4x SRB must lift off Earth cleanly, got TWR=" + moonMission.summary().originTwr());
+        assertTrue(moonMission.summary().hasEnoughDeltaV(),
+                "2-stage + 4x SRB must have enough delta-V for Moon transfer, got dV="
+                        + moonMission.summary().maxDeltaV() + " vs req=" + moonMission.summary().requiredDeltaV());
+    }
 }

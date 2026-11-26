@@ -296,8 +296,9 @@ public final class ModularFlightPhysics {
         double bucketsPerSec = massFlowKgPerSec / Math.max(1.0, propellant.densityKgPerBucket());
         // Playable Minecraft flight scale factor (keeps ascent 25-60s exhilarating while preserving relative Isp ratios)
         double dropletsPerTick = (bucketsPerSec * RocketFlightValidator.DROPLETS_PER_BUCKET) / 20.0;
-        // Scale down modestly for MC block heights (Y=64..1200 is ~1.1km vs 100km real Karman line)
-        return Math.max(1.0, dropletsPerTick * 0.22);
+        // Scale propellant flow to Minecraft's 1.1 km orbital ascent (Y=64..1200) so a single stage
+        // burns for ~9-25 seconds (~175-500 ticks) and requires multi-stage separation to reach orbit
+        return Math.max(1.0, dropletsPerTick * 1.60);
     }
 
     /**
@@ -332,7 +333,8 @@ public final class ModularFlightPhysics {
         }
 
         PropellantType coreProp = resolvePropellant(stage.propellantId());
-        boolean coreHasFuelSource = stage.currentFuelDroplets() > 0L || coreProp == PropellantType.SOLID;
+        boolean coreHasFuelSource = stage.currentFuelDroplets() > 0L
+                || (coreProp == PropellantType.SOLID && stage.fuelCapacityDroplets() == 0L);
 
         // Gather active radial groups sorted by drainPriorityLayer ascending (0 = outermost)
         List<RadialBoosterGroup> activeGroups = new ArrayList<>();
