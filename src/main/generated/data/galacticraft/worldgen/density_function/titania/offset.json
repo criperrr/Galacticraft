@@ -8,12 +8,50 @@
         {
           "derivative": 0.0,
           "location": -1.0,
-          "value": -0.42
+          "value": {
+            "coordinate": "galacticraft:titania/pv",
+            "points": [
+              {
+                "derivative": 0.0,
+                "location": -1.0,
+                "value": -0.7175
+              },
+              {
+                "derivative": 0.0,
+                "location": 0.0,
+                "value": -0.42
+              },
+              {
+                "derivative": 0.0,
+                "location": 1.0,
+                "value": -0.28499997
+              }
+            ]
+          }
         },
         {
           "derivative": 0.0,
           "location": -0.3,
-          "value": -0.357
+          "value": {
+            "coordinate": "galacticraft:titania/pv",
+            "points": [
+              {
+                "derivative": 0.0,
+                "location": -1.0,
+                "value": -0.7175
+              },
+              {
+                "derivative": 0.0,
+                "location": 0.0,
+                "value": -0.42
+              },
+              {
+                "derivative": 0.0,
+                "location": 1.0,
+                "value": -0.28499997
+              }
+            ]
+          }
         },
         {
           "derivative": 0.0,

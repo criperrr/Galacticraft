@@ -8,12 +8,50 @@
         {
           "derivative": 0.0,
           "location": -1.0,
-          "value": -0.26
+          "value": {
+            "coordinate": "galacticraft:triton/pv",
+            "points": [
+              {
+                "derivative": 0.0,
+                "location": -1.0,
+                "value": -0.33699998
+              },
+              {
+                "derivative": 0.0,
+                "location": 0.0,
+                "value": -0.26
+              },
+              {
+                "derivative": 0.0,
+                "location": 1.0,
+                "value": -0.116
+              }
+            ]
+          }
         },
         {
           "derivative": 0.0,
           "location": -0.3,
-          "value": -0.221
+          "value": {
+            "coordinate": "galacticraft:triton/pv",
+            "points": [
+              {
+                "derivative": 0.0,
+                "location": -1.0,
+                "value": -0.33699998
+              },
+              {
+                "derivative": 0.0,
+                "location": 0.0,
+                "value": -0.26
+              },
+              {
+                "derivative": 0.0,
+                "location": 1.0,
+                "value": -0.116
+              }
+            ]
+          }
         },
         {
           "derivative": 0.0,

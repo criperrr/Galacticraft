@@ -8,12 +8,50 @@
         {
           "derivative": 0.0,
           "location": -1.0,
-          "value": -0.44
+          "value": {
+            "coordinate": "galacticraft:oberon/pv",
+            "points": [
+              {
+                "derivative": 0.0,
+                "location": -1.0,
+                "value": -0.51
+              },
+              {
+                "derivative": 0.0,
+                "location": 0.0,
+                "value": -0.44
+              },
+              {
+                "derivative": 0.0,
+                "location": 1.0,
+                "value": -0.215
+              }
+            ]
+          }
         },
         {
           "derivative": 0.0,
           "location": -0.3,
-          "value": -0.374
+          "value": {
+            "coordinate": "galacticraft:oberon/pv",
+            "points": [
+              {
+                "derivative": 0.0,
+                "location": -1.0,
+                "value": -0.51
+              },
+              {
+                "derivative": 0.0,
+                "location": 0.0,
+                "value": -0.44
+              },
+              {
+                "derivative": 0.0,
+                "location": 1.0,
+                "value": -0.215
+              }
+            ]
+          }
         },
         {
           "derivative": 0.0,
