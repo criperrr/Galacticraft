@@ -1383,11 +1383,11 @@ public class GCDensityFunctions {
 
         DensityFunction bedrockShield = DensityFunctions.yClampedGradient(-64, -50, 6.0, 0.0);
         DensityFunction solidTerrain = registerAndWrap(context, solidTerrainKey, DensityFunctions.add(smoothRelief, DensityFunctions.zero()));
-        DensityFunction cachedSolid = DensityFunctions.cacheOnce(solidTerrain);
 
         DensityFunction caves;
         if (profile.hydrothermalOcean()) {
             // Enceladus subsurface hydrothermal ocean (Y = -46..20) with glacial ice-keels & vent seamounts
+            // Evaluated inside the single outer interpolated(...) cell-corner pass (1,225 corners vs 98,304 voxels!)
             DensityFunction seabedHill2d = DensityFunctions.cache2d(
                     DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.45, noiseRegistry.getOrThrow(GCNoiseData.MERCURY_BASE_NOISE))
             );
@@ -1408,17 +1408,9 @@ public class GCDensityFunctions {
                             iceKeel2d
                     )
             );
-            DensityFunction organicOcean3d = DensityFunctions.interpolated(
-                    DensityFunctions.rangeChoice(
-                            altitudeY,
-                            -48.0,
-                            24.0,
-                            DensityFunctions.mul(
-                                    DensityFunctions.constant(0.55),
-                                    DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.MERCURY_MEGABRECCIA_CHEESE), 0.55, 0.45)
-                            ),
-                            DensityFunctions.zero()
-                    )
+            DensityFunction organicOcean3d = DensityFunctions.mul(
+                    DensityFunctions.constant(0.55),
+                    DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.MERCURY_MEGABRECCIA_CHEESE), 0.55, 0.45)
             );
             DensityFunction rawOceanCavern = DensityFunctions.min(
                     DensityFunctions.zero(),
@@ -1434,7 +1426,7 @@ public class GCDensityFunctions {
                     DensityFunctions.rangeChoice(altitudeY, -48.0, 24.0, rawOceanCavern, DensityFunctions.zero())
             );
         } else {
-            // Stratified cryotectonic caverns (pruned INSIDE interpolated)
+            // Stratified cryotectonic caverns (evaluated inside the single outer interpolated(...) cell-corner pass)
             DensityFunction caveSelector = DensityFunctions.cache2d(
                     DensityFunctions.shiftedNoise2d(shiftX, shiftZ, 0.25, noiseRegistry.getOrThrow(GCNoiseData.MERCURY_CAVE_SELECTOR))
             );
@@ -1442,14 +1434,8 @@ public class GCDensityFunctions {
                     DensityFunctions.yClampedGradient(-46, -24, 1.4, 0.0),
                     DensityFunctions.yClampedGradient(16, 40, 0.0, 1.4)
             );
-            DensityFunction stratified3d = DensityFunctions.interpolated(
-                    DensityFunctions.rangeChoice(
-                            altitudeY,
-                            -48.0,
-                            42.0,
-                            DensityFunctions.noise(noiseRegistry.getOrThrow(GCNoiseData.MERCURY_MEGABRECCIA_CHEESE), 0.48, 0.90),
-                            DensityFunctions.zero()
-                    )
+            DensityFunction stratified3d = DensityFunctions.noise(
+                    noiseRegistry.getOrThrow(GCNoiseData.MERCURY_MEGABRECCIA_CHEESE), 0.48, 0.90
             );
             DensityFunction rawVaults = DensityFunctions.min(
                     DensityFunctions.zero(),
@@ -1468,12 +1454,15 @@ public class GCDensityFunctions {
 
         DensityFunction surfaceCeilingTaper = DensityFunctions.add(
                 DensityFunctions.constant(0.85),
-                DensityFunctions.mul(DensityFunctions.constant(-2.0), cachedSolid)
+                DensityFunctions.mul(DensityFunctions.constant(-2.0), solidTerrain)
         ).clamp(0.0, 3.2);
         DensityFunction boundedCave = DensityFunctions.min(DensityFunctions.zero(), DensityFunctions.add(caves, surfaceCeilingTaper));
-        DensityFunction activeCaves = DensityFunctions.rangeChoice(cachedSolid, -0.50, 10.0, boundedCave, DensityFunctions.zero());
+        DensityFunction activeCaves = DensityFunctions.rangeChoice(solidTerrain, -0.50, 10.0, boundedCave, DensityFunctions.zero());
 
-        DensityFunction terrainWithCaves = registerAndWrap(context, pillarsKey, DensityFunctions.add(cachedSolid, activeCaves));
+        // Single outer interpolated(...) with ZERO inner interpolated nodes: evaluates terrain+caves at ~1,225 corners instead of 98,304 voxels!
+        DensityFunction terrainWithCaves = registerAndWrap(context, pillarsKey,
+                DensityFunctions.interpolated(DensityFunctions.add(solidTerrain, activeCaves))
+        );
         context.register(finalDensityKey, DensityFunctions.add(terrainWithCaves, bedrockShield));
     }
 
