@@ -8,12 +8,12 @@
         {
           "derivative": 0.0,
           "location": -1.0,
-          "value": -0.34
+          "value": -0.38
         },
         {
           "derivative": 0.0,
           "location": -0.3,
-          "value": -0.289
+          "value": -0.323
         },
         {
           "derivative": 0.0,
@@ -24,22 +24,22 @@
               {
                 "derivative": 0.0,
                 "location": -1.0,
-                "value": -0.257
+                "value": -0.23599999
               },
               {
                 "derivative": 0.0,
                 "location": -0.1,
-                "value": -0.14
+                "value": -0.08
               },
               {
                 "derivative": 0.0,
                 "location": 0.6,
-                "value": -0.037999995
+                "value": 0.046000004
               },
               {
                 "derivative": 0.0,
                 "location": 1.0,
-                "value": 0.047000006
+                "value": 0.151
               }
             ]
           }
@@ -59,59 +59,83 @@
                     {
                       "derivative": 0.0,
                       "location": -1.0,
-                      "value": 0.18
+                      "value": 0.24
                     },
                     {
                       "derivative": 0.0,
                       "location": -0.2,
-                      "value": 0.36
+                      "value": 0.48
                     },
                     {
                       "derivative": 0.0,
                       "location": 0.4,
-                      "value": 0.54700005
+                      "value": 0.71099997
                     },
                     {
                       "derivative": 0.0,
                       "location": 1.0,
-                      "value": 0.70000005
+                      "value": 0.9
                     }
                   ]
                 }
               },
               {
                 "derivative": 0.0,
-                "location": 0.1,
+                "location": 0.25,
                 "value": {
                   "coordinate": "galacticraft:oberon/pv",
                   "points": [
                     {
                       "derivative": 0.0,
                       "location": -1.0,
-                      "value": -0.257
+                      "value": -0.23599999
                     },
                     {
                       "derivative": 0.0,
                       "location": -0.1,
-                      "value": -0.14
+                      "value": -0.08
                     },
                     {
                       "derivative": 0.0,
                       "location": 0.6,
-                      "value": -0.037999995
+                      "value": 0.046000004
                     },
                     {
                       "derivative": 0.0,
                       "location": 1.0,
-                      "value": 0.047000006
+                      "value": 0.151
                     }
                   ]
                 }
               },
               {
                 "derivative": 0.0,
-                "location": 0.9,
-                "value": -0.14
+                "location": 1.0,
+                "value": {
+                  "coordinate": "galacticraft:oberon/pv",
+                  "points": [
+                    {
+                      "derivative": 0.0,
+                      "location": -1.0,
+                      "value": -0.23599999
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": -0.1,
+                      "value": -0.08
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": 0.6,
+                      "value": 0.046000004
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": 1.0,
+                      "value": 0.151
+                    }
+                  ]
+                }
               }
             ]
           }
@@ -125,22 +149,22 @@
               {
                 "derivative": 0.0,
                 "location": -1.0,
-                "value": 0.18
+                "value": 0.24
               },
               {
                 "derivative": 0.0,
                 "location": -0.2,
-                "value": 0.36
+                "value": 0.48
               },
               {
                 "derivative": 0.0,
                 "location": 0.4,
-                "value": 0.54700005
+                "value": 0.71099997
               },
               {
                 "derivative": 0.0,
                 "location": 1.0,
-                "value": 0.70000005
+                "value": 0.9
               }
             ]
           }
