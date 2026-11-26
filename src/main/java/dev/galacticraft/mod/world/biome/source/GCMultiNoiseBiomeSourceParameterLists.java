@@ -215,34 +215,74 @@ public class GCMultiNoiseBiomeSourceParameterLists {
     @Contract("_ -> new")
     private static <T> Climate.@NotNull ParameterList<T> generateMars(Function<ResourceKey<Biome>, T> biomeRegistry) {
         ImmutableList.Builder<Pair<Climate.ParameterPoint, T>> builder = ImmutableList.builder();
-        // Aligns Mars biome boundaries 100% with GCDensityFunctions.Mars elevation splines and GalaxySpace WorldProviderMars_WE bands:
-        // - MARS_CANYON [-1.0, -0.20]: deep Martian canyons/ravines (GC4 VALLEY_HEIGHT_MOD & GalaxySpace Mars_Ravine)
-        // - MARS_FLAT [-0.20, 0.30]: rusty plains & high plains (GC4 BiomeGenFlatMars & GalaxySpace Mars_Plains / Mars_High_Plains)
-        // - MARS_HIGHLANDS [0.30, 1.0]: rugged highlands & mountains (GC4 MOUNTAIN_HEIGHT_MOD & GalaxySpace Mars_Mountains / Mars_Triangle_Mountains)
-        writeBiomeParameters(builder::add,
-                HOT,
-                FULL_RANGE,
-                Parameter.span(-1.0F, -0.20F),
-                FULL_RANGE,
-                FULL_RANGE,
-                0.0F,
+
+        Parameter surfaceDepth = Parameter.span(-1.0F, 0.17F);
+        Parameter upperCaveDepth = Parameter.span(0.18F, 0.55F);
+        Parameter deepCaveDepth = Parameter.span(0.55F, 1.0F);
+        Parameter polarTemp = Parameter.span(-1.0F, -0.55F);
+        Parameter nonPolarTemp = Parameter.span(-0.55F, 1.0F);
+        Parameter canyonWeirdness = Parameter.span(-0.06F, 0.06F);
+        Parameter[] nonCanyonWeirdness = new Parameter[]{
+                Parameter.span(-1.0F, -0.06F),
+                Parameter.span(0.06F, 1.0F)
+        };
+
+        // ==========================================
+        // 1. SURFACE BIOMES (depth <= 0.17, 100% 6D coverage)
+        // ==========================================
+
+        // Polar Layered Deposits (T in [-1.0, -0.55])
+        writeMercury3dBiome(builder::add, polarTemp, FULL_RANGE, FULL_RANGE, FULL_RANGE, surfaceDepth, FULL_RANGE, 0.0F,
+                biomeRegistry.apply(GCBiomes.Mars.MARS_POLAR_ICE_CAP));
+
+        // Impact Basins / Jezero / Hellas (C in [-1.0, -0.35])
+        writeMercury3dBiome(builder::add, nonPolarTemp, FULL_RANGE, Parameter.span(-1.0F, -0.35F), FULL_RANGE, surfaceDepth, FULL_RANGE, 0.0F,
+                biomeRegistry.apply(GCBiomes.Mars.MARS_IMPACT_BASIN));
+
+        // Rare, monumental Valles Marineris Rift Canyons (narrow PV [-1.0, -0.82] => weirdness [-0.06, 0.06], low/mid erosion E <= 0.10)
+        writeMercury3dBiome(builder::add, nonPolarTemp, FULL_RANGE, Parameter.span(-0.35F, 1.0F), Parameter.span(-1.0F, 0.10F), surfaceDepth, canyonWeirdness, 0.0F,
                 biomeRegistry.apply(GCBiomes.Mars.MARS_CANYON));
-        writeBiomeParameters(builder::add,
-                HOT,
-                FULL_RANGE,
-                Parameter.span(-0.20F, 0.30F),
-                FULL_RANGE,
-                FULL_RANGE,
-                0.0F,
+        // Eroded shallow washes inside weirdness [-0.06, 0.06] stay plains/highlands
+        writeMercury3dBiome(builder::add, nonPolarTemp, FULL_RANGE, Parameter.span(-0.35F, 0.30F), Parameter.span(0.10F, 1.0F), surfaceDepth, canyonWeirdness, 0.0F,
                 biomeRegistry.apply(GCBiomes.Mars.MARS_FLAT));
-        writeBiomeParameters(builder::add,
-                HOT,
-                FULL_RANGE,
-                Parameter.span(0.30F, 1.0F),
-                FULL_RANGE,
-                FULL_RANGE,
-                0.0F,
+        writeMercury3dBiome(builder::add, nonPolarTemp, FULL_RANGE, Parameter.span(0.30F, 1.0F), Parameter.span(0.10F, 1.0F), surfaceDepth, canyonWeirdness, 0.0F,
                 biomeRegistry.apply(GCBiomes.Mars.MARS_HIGHLANDS));
+
+        for (Parameter w : nonCanyonWeirdness) {
+            // Basaltic Dune Seas (dry plains: C in [-0.35, 0.25], H in [-1.0, -0.35])
+            writeMercury3dBiome(builder::add, nonPolarTemp, Parameter.span(-1.0F, -0.35F), Parameter.span(-0.35F, 0.25F), FULL_RANGE, surfaceDepth, w, 0.0F,
+                    biomeRegistry.apply(GCBiomes.Mars.MARS_DUNE_SEA));
+
+            // Ferruginous Plains (C in [-0.35, 0.30], H in [-0.35, 1.0] + dry transition C in [0.25, 0.30])
+            writeMercury3dBiome(builder::add, nonPolarTemp, Parameter.span(-0.35F, 1.0F), Parameter.span(-0.35F, 0.30F), FULL_RANGE, surfaceDepth, w, 0.0F,
+                    biomeRegistry.apply(GCBiomes.Mars.MARS_FLAT));
+            writeMercury3dBiome(builder::add, nonPolarTemp, Parameter.span(-1.0F, -0.35F), Parameter.span(0.25F, 0.30F), FULL_RANGE, surfaceDepth, w, 0.0F,
+                    biomeRegistry.apply(GCBiomes.Mars.MARS_FLAT));
+
+            // Tharsis Volcanic Province / Olympus Mons (highlands with low erosion: C in [0.30, 1.0], E in [-1.0, -0.25])
+            writeMercury3dBiome(builder::add, nonPolarTemp, FULL_RANGE, Parameter.span(0.30F, 1.0F), Parameter.span(-1.0F, -0.25F), surfaceDepth, w, 0.0F,
+                    biomeRegistry.apply(GCBiomes.Mars.MARS_THARSIS));
+
+            // Martian Highlands (C in [0.30, 1.0], E in [-0.25, 1.0])
+            writeMercury3dBiome(builder::add, nonPolarTemp, FULL_RANGE, Parameter.span(0.30F, 1.0F), Parameter.span(-0.25F, 1.0F), surfaceDepth, w, 0.0F,
+                    biomeRegistry.apply(GCBiomes.Mars.MARS_HIGHLANDS));
+        }
+
+        // ==========================================
+        // 2. SUBTERRANEAN 3D CAVE BIOMES (depth >= 0.18)
+        // ==========================================
+
+        // Polar Subglacial Ice Caverns (T in [-1.0, -0.55], depth >= 0.18)
+        writeMercury3dBiome(builder::add, polarTemp, FULL_RANGE, FULL_RANGE, FULL_RANGE, Parameter.span(0.18F, 1.0F), FULL_RANGE, 0.0F,
+                biomeRegistry.apply(GCBiomes.Mars.MARS_ICE_CAVERNS));
+
+        // Tharsis Lava Tubes (upper subterranean crust: depth in [0.18, 0.55])
+        writeMercury3dBiome(builder::add, nonPolarTemp, FULL_RANGE, FULL_RANGE, FULL_RANGE, upperCaveDepth, FULL_RANGE, 0.0F,
+                biomeRegistry.apply(GCBiomes.Mars.MARS_LAVA_TUBES));
+
+        // Deep Terraced Caverns (deep subterranean crust: depth in [0.55, 1.0])
+        writeMercury3dBiome(builder::add, nonPolarTemp, FULL_RANGE, FULL_RANGE, FULL_RANGE, deepCaveDepth, FULL_RANGE, 0.0F,
+                biomeRegistry.apply(GCBiomes.Mars.MARS_DEEP_CAVERNS));
 
         return new Climate.ParameterList<>(builder.build());
     }

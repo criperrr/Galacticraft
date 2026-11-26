@@ -49,6 +49,8 @@ import java.util.List;
 public class GCConfiguredFeature {
     public static final ResourceKey<ConfiguredFeature<?, ?>> OIL_LAKE = ResourceKey.create(Registries.CONFIGURED_FEATURE, Constant.id("oil_lake"));
     public static final ResourceKey<ConfiguredFeature<?, ?>> MARS_CAVERN_VINES = ResourceKey.create(Registries.CONFIGURED_FEATURE, Constant.id("mars_cavern_vines"));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> MARS_SPELEOTHEM = ResourceKey.create(Registries.CONFIGURED_FEATURE, Constant.id("mars_speleothem"));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> MARS_SURFACE_OUTCROP = ResourceKey.create(Registries.CONFIGURED_FEATURE, Constant.id("mars_surface_outcrop"));
     public static final ResourceKey<ConfiguredFeature<?, ?>> VENUS_LAVA_LAKE = ResourceKey.create(Registries.CONFIGURED_FEATURE, Constant.id("venus_lava_lake"));
     public static final ResourceKey<ConfiguredFeature<?, ?>> VENUS_VAPOR_POOL = ResourceKey.create(Registries.CONFIGURED_FEATURE, Constant.id("venus_vapor_pool"));
     public static final ResourceKey<ConfiguredFeature<?, ?>> VENUS_VOLCANO = ResourceKey.create(Registries.CONFIGURED_FEATURE, Constant.id("venus_volcano"));
@@ -71,6 +73,8 @@ public class GCConfiguredFeature {
         context.register(OIL_LAKE, new ConfiguredFeature<>(Feature.LAKE,
                 new LakeFeature.Configuration(BlockStateProvider.simple(GCBlocks.CRUDE_OIL), BlockStateProvider.simple(Blocks.STONE))));
         context.register(MARS_CAVERN_VINES, new ConfiguredFeature<>(GCFeatures.MARS_CAVERN_VINES, FeatureConfiguration.NONE));
+        context.register(MARS_SPELEOTHEM, new ConfiguredFeature<>(GCFeatures.MARS_SPELEOTHEM, FeatureConfiguration.NONE));
+        context.register(MARS_SURFACE_OUTCROP, new ConfiguredFeature<>(GCFeatures.MARS_SURFACE_OUTCROP, FeatureConfiguration.NONE));
         context.register(VENUS_LAVA_LAKE, new ConfiguredFeature<>(GCFeatures.VENUS_LAVA_LAKE, FeatureConfiguration.NONE));
         context.register(VENUS_VAPOR_POOL, new ConfiguredFeature<>(GCFeatures.VENUS_VAPOR_POOL, FeatureConfiguration.NONE));
 

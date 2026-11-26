@@ -48,6 +48,13 @@ public final class GCBiomes {
         public static final ResourceKey<Biome> MARS_FLAT = key("mars_flat");
         public static final ResourceKey<Biome> MARS_CANYON = key("mars_canyon");
         public static final ResourceKey<Biome> MARS_HIGHLANDS = key("mars_highlands");
+        public static final ResourceKey<Biome> MARS_IMPACT_BASIN = key("mars_impact_basin");
+        public static final ResourceKey<Biome> MARS_DUNE_SEA = key("mars_dune_sea");
+        public static final ResourceKey<Biome> MARS_THARSIS = key("mars_tharsis");
+        public static final ResourceKey<Biome> MARS_POLAR_ICE_CAP = key("mars_polar_ice_cap");
+        public static final ResourceKey<Biome> MARS_LAVA_TUBES = key("mars_lava_tubes");
+        public static final ResourceKey<Biome> MARS_DEEP_CAVERNS = key("mars_deep_caverns");
+        public static final ResourceKey<Biome> MARS_ICE_CAVERNS = key("mars_ice_caverns");
     }
 
     public static final class Venus {
@@ -235,6 +242,13 @@ public final class GCBiomes {
         context.register(Mars.MARS_FLAT, MarsBiomes.createMarsFlat(featureLookup, carverLookup));
         context.register(Mars.MARS_CANYON, MarsBiomes.createMarsCanyon(featureLookup, carverLookup));
         context.register(Mars.MARS_HIGHLANDS, MarsBiomes.createMarsHighlands(featureLookup, carverLookup));
+        context.register(Mars.MARS_IMPACT_BASIN, MarsBiomes.createMarsImpactBasin(featureLookup, carverLookup));
+        context.register(Mars.MARS_DUNE_SEA, MarsBiomes.createMarsDuneSea(featureLookup, carverLookup));
+        context.register(Mars.MARS_THARSIS, MarsBiomes.createMarsTharsis(featureLookup, carverLookup));
+        context.register(Mars.MARS_POLAR_ICE_CAP, MarsBiomes.createMarsPolarIceCap(featureLookup, carverLookup));
+        context.register(Mars.MARS_LAVA_TUBES, MarsBiomes.createMarsLavaTubes(featureLookup, carverLookup));
+        context.register(Mars.MARS_DEEP_CAVERNS, MarsBiomes.createMarsDeepCaverns(featureLookup, carverLookup));
+        context.register(Mars.MARS_ICE_CAVERNS, MarsBiomes.createMarsIceCaverns(featureLookup, carverLookup));
 
         context.register(Venus.VENUS_VALLEY, VenusBiomes.createVenusValley(featureLookup, carverLookup));
         context.register(Venus.VENUS_FLAT, VenusBiomes.createVenusFlat(featureLookup, carverLookup));

@@ -83,7 +83,7 @@ public class GCDimensionTypes {
                 1.0, // coordinateScale
                 true, // bedWorks (doesn't explode, we can cancel working later)
                 false, // respawnAnchorWorks
-                -32, // minY
+                -64, // minY
                 384, // height
                 384, // logicalHeight
                 GCBlockTags.INFINIBURN_MARS, // infiniburn

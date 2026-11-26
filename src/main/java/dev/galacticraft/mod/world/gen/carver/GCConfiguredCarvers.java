@@ -125,13 +125,13 @@ public class GCConfiguredCarvers {
                 UniformFloat.of(-1.0f, -0.4f)
         )));
         context.register(MARS_CANYON_CARVER, WorldCarver.CANYON.configured(new CanyonCarverConfiguration(
-                0.07f,
-                UniformHeight.of(VerticalAnchor.absolute(10), VerticalAnchor.absolute(90)),
-                ConstantFloat.of(3.5f),
-                VerticalAnchor.aboveBottom(8),
+                0.025f,
+                UniformHeight.of(VerticalAnchor.absolute(10), VerticalAnchor.absolute(110)),
+                ConstantFloat.of(3.2f),
+                VerticalAnchor.aboveBottom(10),
                 CarverDebugSettings.DEFAULT,
                 BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.MARS_CARVER_REPLACEABLES),
-                UniformFloat.of(-0.125f, 0.125f),
+                UniformFloat.of(-0.08f, 0.08f),
                 new CanyonCarverConfiguration.CanyonShapeConfiguration(
                         UniformFloat.of(0.75f, 1.0f),
                         TrapezoidFloat.of(0, 8, 2),
@@ -141,23 +141,23 @@ public class GCConfiguredCarvers {
                         0.0f)
         )));
         context.register(MARS_CRATER_CARVER, GCCarvers.CRATERS.configured(new CraterCarverConfig(
-                0.04f,
+                0.035f,
                 ConstantHeight.of(VerticalAnchor.absolute(128)),
                 UniformFloat.of(0.4f, 0.6f),
                 CarverDebugSettings.DEFAULT,
-                25,
-                8,
+                22,
+                7,
                 8
         )));
         context.register(MARS_CAVE_CARVER, WorldCarver.CAVE.configured(new CaveCarverConfiguration(
-                0.16f,
-                UniformHeight.of(VerticalAnchor.aboveBottom(8), VerticalAnchor.absolute(180)),
-                UniformFloat.of(0.1f, 0.9f),
-                VerticalAnchor.aboveBottom(8),
+                0.12f,
+                UniformHeight.of(VerticalAnchor.aboveBottom(12), VerticalAnchor.absolute(180)),
+                UniformFloat.of(0.15f, 0.85f),
+                VerticalAnchor.aboveBottom(10),
                 BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.MARS_CARVER_REPLACEABLES),
-                UniformFloat.of(0.8f, 1.6f),
-                UniformFloat.of(0.8f, 1.4f),
-                UniformFloat.of(-1.0f, -0.4f)
+                UniformFloat.of(0.75f, 1.35f),
+                UniformFloat.of(0.75f, 1.25f),
+                UniformFloat.of(-1.0f, -0.45f)
         )));
         // GC4 MapGenCavernMars + GalaxySpace WorldProviderMars_WE: wide, flattened subterranean caverns (y <= 65, caveWidth=40, d3=d2*0.2)
         context.register(MARS_CAVERN_CARVER, WorldCarver.CAVE.configured(new CaveCarverConfiguration(

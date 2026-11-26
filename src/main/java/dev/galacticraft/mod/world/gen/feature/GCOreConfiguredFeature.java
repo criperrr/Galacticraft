@@ -288,7 +288,7 @@ public class GCOreConfiguredFeature {
         context.register(ORE_GRAPHITE_MARS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(GRAPHITE_ORES_MARS, 5)));
         context.register(ORE_DESH_MARS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(DESH_ORES_MARS, 6)));
         context.register(ORE_DESH_SMALL_MARS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(DESH_ORES_MARS, 3)));
-        context.register(ORE_ICE_MARS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(ICE_ORES_MARS, 18)));
+        context.register(ORE_ICE_MARS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(ICE_ORES_MARS, 18, 0.95F)));
         context.register(ORE_SUB_SURFACE_MARS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(SUB_SURFACE_ORES_MARS, 32)));
 
         // VENUS

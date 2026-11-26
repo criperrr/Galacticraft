@@ -53,15 +53,15 @@ public class MarsCavernVinesFeature extends Feature<NoneFeatureConfiguration> {
         RandomSource random = context.random();
         BlockPos origin = context.origin();
 
-        if (origin.getY() > 65 || origin.getY() < level.getMinBuildHeight() + 6) {
+        if (origin.getY() > 72 || origin.getY() < level.getMinBuildHeight() + 6) {
             return false;
         }
 
         BlockPos.MutableBlockPos cursor = origin.mutable();
         BlockPos startPos = null;
-        for (int dy = 0; dy <= 12; dy++) {
+        for (int dy = 0; dy <= 16; dy++) {
             int checkY = origin.getY() + dy;
-            if (checkY > 65) {
+            if (checkY > 72) {
                 break;
             }
             cursor.set(origin.getX(), checkY, origin.getZ());
