@@ -1082,13 +1082,14 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
         double dirX = -Math.sin(yawRad) * horiz;
         double dirZ = Math.cos(yawRad) * horiz;
 
-        // Playable Minecraft ascent integration (any TWR > 1.0 strictly accelerates upward on every planet)
-        double gravityStep = env.gravityG() * 0.032;
+        // Realistic progressive ascent integration: net vertical acceleration scales with (TWR - 1.0) * g,
+        // producing a gradual liftoff off the clamps and accelerating as propellant mass burns off
+        double gravityStep = env.gravityG() * 0.011;
         double effectiveAccelG = (effectiveThrustKn * 1000.0) / (wetMassKg * PlanetaryEnvironment.STANDARD_GRAVITY_MS2);
         double thrustStep = env.gravityG() > 0.001
-                ? Math.min(Math.max(0.24, gravityStep * 3.0), Math.max(0.0, twr * gravityStep * 1.125))
-                : Math.min(0.24, Math.max(0.0, effectiveAccelG * 0.036));
-        double dragFactor = 1.0 - Math.min(0.035, ambientPa * 0.012);
+                ? Math.min(Math.max(0.070, gravityStep * 4.5), Math.max(0.0, twr * gravityStep))
+                : Math.min(0.070, Math.max(0.0, effectiveAccelG * 0.012));
+        double dragFactor = 1.0 - Math.min(0.018, ambientPa * 0.006);
 
         Vec3 vel = this.getDeltaMovement();
         double vx = (vel.x + dirX * thrustStep * 0.35) * dragFactor;

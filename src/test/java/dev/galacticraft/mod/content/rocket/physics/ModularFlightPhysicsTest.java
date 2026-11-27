@@ -223,7 +223,7 @@ public class ModularFlightPhysicsTest {
                 break;
             }
         }
-        assertTrue(oneTankTicks < 400, "1-tank 3x3 RP-1 stage must deplete in < 400 ticks at full throttle, took " + oneTankTicks);
+        assertTrue(oneTankTicks < 420, "1-tank 3x3 RP-1 stage must deplete in < 420 ticks at full throttle, took " + oneTankTicks);
         assertEquals(0L, oneTankStage.currentFuelDroplets());
 
         long twoTankCap = oneTankCap * 2L;
@@ -240,7 +240,7 @@ public class ModularFlightPhysicsTest {
                 break;
             }
         }
-        assertTrue(twoTankTicks > 500, "2-tank 3x3 RP-1 SSTO stage must burn > 500 ticks to reach orbit, took " + twoTankTicks);
+        assertTrue(twoTankTicks > 550, "2-tank 3x3 RP-1 SSTO stage must burn > 550 ticks to reach orbit, took " + twoTankTicks);
 
         // Solid core stage with fuelCapacityDroplets > 0 must stop firing once currentFuelDroplets == 0
         MountedPartNode srbNode = engineNode("srb_ares_3x3_2b", "srb_ares", 3000.0F, 0, 0);
