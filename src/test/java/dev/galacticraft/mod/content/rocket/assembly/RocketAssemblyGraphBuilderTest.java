@@ -325,7 +325,7 @@ class RocketAssemblyGraphBuilderTest {
     }
 
     @Test
-    @DisplayName("Rebalanced engine thrust lifts tall stacks (TWR >= 1.4) while 1-stage chemical dV (< 2800 m/s) requires staging for orbit/Moon")
+    @DisplayName("Rebalanced 1-tank RP-1 is suborbital, 2-tank 1-stage RP-1 reaches SSTO orbit, and 2-stage + SRB reaches Moon")
     void rebalancedSingleStageVsMultiStageDeltaVAndTwr() {
         RocketPartConfig eng = part("engine_falcon1d_3x3_2b");
         RocketPartConfig tank = part("tank_fuel_rp1_3x3_2b");
@@ -334,8 +334,26 @@ class RocketAssemblyGraphBuilderTest {
         RocketPartConfig cryoTank = part("tank_lox_cryo_3x3_2b");
         RocketPartConfig cap = part("capsule_gemini_3x3_2b");
 
-        // 1-stage 3x3 RP-1 rocket with 2 tanks: strong liftoff TWR on Earth, but < 2800 m/s dV (cannot reach orbit alone)
-        RocketAssemblyGraph singleStage = RocketAssemblyGraphBuilder.build(
+        // 1. Minimal 1-tank 3x3 RP-1 rocket: strong Earth TWR, suborbital (< 2800 m/s)
+        RocketAssemblyGraph minimalOneTank = RocketAssemblyGraphBuilder.build(
+                List.of(
+                        PartInput.fromConfig(new BlockPos(0, 1, 0), eng),
+                        PartInput.fromConfig(new BlockPos(0, 3, 0), tank),
+                        PartInput.fromConfig(new BlockPos(0, 5, 0), cap)
+                ),
+                PlatformSize.SIZE_3X3, null, Map.of(), Map.of(), CrossfeedMode.ISOLATED
+        ).graph();
+        GraphFlightValidationReport minimalEarth = RocketFlightValidator.evaluateGraph(
+                minimalOneTank, PlanetaryEnvironment.EARTH, PlanetaryEnvironment.EARTH
+        );
+        assertTrue(minimalEarth.summary().originTwr() >= 1.40,
+                "Rebalanced Falcon 1D must lift a 1-tank 3x3 stack with TWR >= 1.40, got " + minimalEarth.summary().originTwr());
+        assertTrue(minimalEarth.summary().maxDeltaV() < PlanetaryEnvironment.EARTH.orbitAscentDeltaV(),
+                "Minimal 1-tank 1-stage RP-1 rocket must be suborbital (< 2800 m/s), got "
+                        + minimalEarth.summary().maxDeltaV());
+
+        // 2. 2-tank 1-stage 3x3 RP-1 SSTO: reaches Earth orbit (>= 2800 m/s) in 1 stage, but < Moon transfer (4000 m/s)
+        RocketAssemblyGraph sstoTwoTank = RocketAssemblyGraphBuilder.build(
                 List.of(
                         PartInput.fromConfig(new BlockPos(0, 1, 0), eng),
                         PartInput.fromConfig(new BlockPos(0, 3, 0), tank),
@@ -344,17 +362,18 @@ class RocketAssemblyGraphBuilderTest {
                 ),
                 PlatformSize.SIZE_3X3, null, Map.of(), Map.of(), CrossfeedMode.ISOLATED
         ).graph();
-
-        GraphFlightValidationReport singleEarth = RocketFlightValidator.evaluateGraph(
-                singleStage, PlanetaryEnvironment.EARTH, PlanetaryEnvironment.EARTH
+        GraphFlightValidationReport sstoEarth = RocketFlightValidator.evaluateGraph(
+                sstoTwoTank, PlanetaryEnvironment.EARTH, PlanetaryEnvironment.EARTH
         );
-        assertTrue(singleEarth.summary().originTwr() >= 1.40,
-                "Rebalanced Falcon 1D must lift a 2-tank 3x3 stack with TWR >= 1.40, got " + singleEarth.summary().originTwr());
-        assertTrue(singleEarth.summary().maxDeltaV() < PlanetaryEnvironment.EARTH.orbitAscentDeltaV(),
-                "1-stage chemical RP-1 rocket must deliver < 2800 m/s so staging is required for orbit, got "
-                        + singleEarth.summary().maxDeltaV());
+        assertTrue(sstoEarth.summary().originTwr() >= 1.40,
+                "Rebalanced Falcon 1D must lift a 2-tank SSTO stack with TWR >= 1.40, got " + sstoEarth.summary().originTwr());
+        assertTrue(sstoEarth.summary().maxDeltaV() >= PlanetaryEnvironment.EARTH.orbitAscentDeltaV(),
+                "2-tank 1-stage RP-1 SSTO must reach Earth orbit (>= 2800 m/s), got "
+                        + sstoEarth.summary().maxDeltaV());
+        assertTrue(sstoEarth.summary().maxDeltaV() < PlanetaryEnvironment.MOON.requiredDeltaVFrom(PlanetaryEnvironment.EARTH),
+                "2-tank 1-stage RP-1 SSTO should still be below Moon transfer dV, got " + sstoEarth.summary().maxDeltaV());
 
-        // 2-stage + 4x SRB boosters reaches Earth orbit and Moon!
+        // 3. 2-stage + 4x SRB boosters reaches Earth orbit and Moon!
         List<PartInput> twoStageInputs = new ArrayList<>(List.of(
                 PartInput.fromConfig(new BlockPos(0, 1, 0), eng),
                 PartInput.fromConfig(new BlockPos(0, 3, 0), tank),

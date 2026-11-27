@@ -499,7 +499,7 @@ public final class RocketPartCostCalculator {
         switch (config.category()) {
             case ENGINE -> {
                 double dryMass = round1(160.0 * Math.pow(effectiveVolume, 0.72));
-                double baseThrust = 180.0 * Math.pow(effectiveVolume, 0.85);
+                double baseThrust = 175.0 * Math.pow(effectiveVolume, 0.85);
                 double thermal = 2200.0 + diameter * 60.0;
                 double pressure = 12.0 + diameter * 4.0;
                 double solidFuelBuckets = 0.0;
@@ -559,8 +559,8 @@ public final class RocketPartCostCalculator {
             }
             case TANK -> {
                 boolean isUpgrade = idHint.contains("upgrade") || idHint.contains("cryocooler") || idHint.contains("copv_helium");
-                double dryMass = round1((isUpgrade ? 220.0 : 520.0) * Math.pow(effectiveVolume, 0.82));
-                double fuelBuckets = isUpgrade ? effectiveVolume * 0.25 : Math.max(1.0, effectiveVolume * 0.70);
+                double dryMass = round1((isUpgrade ? 180.0 : 410.0) * Math.pow(effectiveVolume, 0.82));
+                double fuelBuckets = isUpgrade ? effectiveVolume * 0.25 : Math.max(1.0, effectiveVolume * 0.80);
                 double pressure = (isUpgrade ? 28.0 : 18.0) + diameter * 5.0;
                 double thermal = (idHint.contains("supercryo") || idHint.contains("cryo") ? 1350.0 : 1100.0) + diameter * 40.0;
 
