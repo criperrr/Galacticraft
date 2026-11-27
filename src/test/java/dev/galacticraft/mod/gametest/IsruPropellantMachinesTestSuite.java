@@ -495,7 +495,7 @@ public class IsruPropellantMachinesTestSuite implements GalacticraftGameTest {
         });
     }
 
-    @GameTest(template = EMPTY_STRUCTURE, timeoutTicks = 120)
+    @GameTest(template = EMPTY_STRUCTURE, batch = "propellantThermodynamics", timeoutTicks = 120)
     public void propellantThermodynamicsAndBuoyancyTest(GameTestHelper context) {
         Registry<CelestialBody<?, ?>> bodies = context.getLevel().registryAccess().registryOrThrow(AddonRegistries.CELESTIAL_BODY);
         CelestialBody<?, ?> moon = bodies.get(GCCelestialBodies.MOON);
