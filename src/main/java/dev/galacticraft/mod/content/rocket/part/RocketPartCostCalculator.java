@@ -499,7 +499,7 @@ public final class RocketPartCostCalculator {
         switch (config.category()) {
             case ENGINE -> {
                 double dryMass = round1(160.0 * Math.pow(effectiveVolume, 0.72));
-                double baseThrust = 165.0 * Math.pow(effectiveVolume, 0.85);
+                double baseThrust = 90.0 * Math.pow(effectiveVolume, 0.85);
                 double thermal = 2200.0 + diameter * 60.0;
                 double pressure = 12.0 + diameter * 4.0;
                 double solidFuelBuckets = 0.0;

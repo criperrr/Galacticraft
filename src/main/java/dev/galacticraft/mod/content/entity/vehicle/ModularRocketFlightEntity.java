@@ -1082,23 +1082,24 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
         double dirZ = Math.cos(yawRad) * horiz;
 
         // Realistic progressive ascent integration: net vertical acceleration scales with (TWR - 1.0) * g,
-        // producing a smooth liftoff off the clamps whenever TWR > 1.0 and accelerating as propellant burns off
-        double effectiveTwr = Math.max(twr, effectiveThrustKn > 0.0 ? 1.04 : 0.0);
-        double gravityStep = env.gravityG() * 0.016;
+        // producing a smooth liftoff off the clamps whenever TWR > 1.0, realistic gravity losses at marginal TWR,
+        // and a 30-46s orbital ascent where fuel visibly drains to ~5-20% remaining on an SSTO
+        double effectiveTwr = Math.max(twr, effectiveThrustKn > 0.0 ? 1.03 : 0.0);
+        double gravityStep = env.gravityG() * 0.012;
         double effectiveAccelG = (effectiveThrustKn * 1000.0) / (wetMassKg * PlanetaryEnvironment.STANDARD_GRAVITY_MS2);
         double ramp = Math.min(1.0, 0.35 + 0.65 * (this.flightTicks / 60.0));
-        double netG = Math.max(0.04, effectiveTwr - 1.0) * ramp;
+        double netG = Math.max(0.03, effectiveTwr - 1.0) * ramp;
         double accelStep = env.gravityG() > 0.001
-                ? Math.min(0.11, netG * gravityStep)
-                : Math.min(0.11, Math.max(0.0, effectiveAccelG * 0.018));
-        double dragFactor = 1.0 - Math.min(0.015, ambientPa * 0.005);
+                ? Math.min(0.075, netG * gravityStep)
+                : Math.min(0.075, Math.max(0.0, effectiveAccelG * 0.014));
+        double dragFactor = 1.0 - Math.min(0.018, ambientPa * 0.008);
 
         Vec3 vel = this.getDeltaMovement();
         double vx = (vel.x + dirX * accelStep * 0.35) * dragFactor;
         double vy = (vel.y + dirY * accelStep) * dragFactor;
         double vz = (vel.z + dirZ * accelStep * 0.35) * dragFactor;
         // Clamp terminal vertical speed so chunk streaming & rendering stay butter-smooth
-        vy = Mth.clamp(vy, -2.5, 3.20);
+        vy = Mth.clamp(vy, -2.5, 2.55);
         vx = Mth.clamp(vx, -1.2, 1.2);
         vz = Mth.clamp(vz, -1.2, 1.2);
         this.setDeltaMovement(vx, vy, vz);

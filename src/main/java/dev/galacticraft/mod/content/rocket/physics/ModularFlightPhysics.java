@@ -296,10 +296,10 @@ public final class ModularFlightPhysics {
         double bucketsPerSec = massFlowKgPerSec / Math.max(1.0, propellant.densityKgPerBucket());
         // Playable Minecraft flight scale factor (keeps ascent 25-60s exhilarating while preserving relative Isp ratios)
         double dropletsPerTick = (bucketsPerSec * RocketFlightValidator.DROPLETS_PER_BUCKET) / 20.0;
-        // Scale propellant flow to Minecraft's 1.1 km orbital ascent (Y=64..1200) so a 1-tank suborbital
-        // stage burns out in ~11s (~220 ticks), a 2-tank SSTO burns for ~20s (~400 ticks, reaching Y=1200 in 1 stage),
-        // and deep-space missions naturally benefit from multi-stage or radial booster staging
-        return Math.max(1.0, dropletsPerTick * 1.85);
+        // Scale propellant flow to Minecraft's 1.1 km orbital ascent (Y=64..1200) so fuel burns at a realistic,
+        // visibly demanding pace: 1-2 tank 3x3 RP-1 stages are suborbital, 3-4 tank SSTOs reach orbit with ~5-15%
+        // fuel remaining, low-TWR launches suffer real gravity losses, and multi-stage stacks shine for deep space
+        return Math.max(1.0, dropletsPerTick * 3.30);
     }
 
     /**
