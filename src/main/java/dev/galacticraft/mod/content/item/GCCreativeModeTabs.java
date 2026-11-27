@@ -27,6 +27,7 @@ import dev.galacticraft.api.gas.Gases;
 import dev.galacticraft.api.rocket.RocketPrefabs;
 import dev.galacticraft.api.rocket.part.modular.RocketLivery;
 import dev.galacticraft.api.rocket.part.modular.RocketPartCategory;
+import dev.galacticraft.api.vehicle.VehicleRegistry;
 import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.api.block.entity.PipeColor;
 import dev.galacticraft.mod.content.GCBlockRegistry;
@@ -474,6 +475,11 @@ public class GCCreativeModeTabs {
                 output.accept(AIR_LOCK_CONTROLLER);
                 output.accept(ROCKET_WORKBENCH);
                 output.accept(HANGAR_TERMINAL);
+                output.accept(CHASSIS_BENCH);
+                output.accept(ELECTRIC_MOTOR_BENCH);
+                output.accept(WHEEL_LOCOMOTION_BENCH);
+                output.accept(VEHICLE_ACCESSORIES_BENCH);
+                output.accept(VEHICLE_PART_FABRICATOR);
             }).build();
 
     public static final CreativeModeTab ITEMS_GROUP = FabricItemGroup
@@ -751,6 +757,40 @@ public class GCCreativeModeTabs {
                 output.accept(STANDARD_WRENCH);
                 output.accept(GRAPPLE_HOOK);
                 output.accept(AEROSPACE_MANUAL);
+
+                // MODULAR VEHICLES
+                output.accept(CHASSIS_BENCH);
+                output.accept(ELECTRIC_MOTOR_BENCH);
+                output.accept(WHEEL_LOCOMOTION_BENCH);
+                output.accept(VEHICLE_ACCESSORIES_BENCH);
+                output.accept(VEHICLE_PART_FABRICATOR);
+                output.accept(VEHICLE_WRENCH);
+                output.accept(SCOUT_ROVER_CHASSIS);
+                output.accept(UTILITY_BUGGY_CHASSIS);
+                output.accept(HEAVY_HAULER_CHASSIS);
+                output.accept(STANDARD_WHEEL_SET);
+                output.accept(HEAVY_TRACKS);
+                output.accept(ROCKER_BOGIE_6X6);
+                output.accept(BATTERY_BANK);
+                output.accept(SOLAR_ARRAY_MODULE);
+                output.accept(RTG_CORE_MODULE);
+                output.accept(LOX_FUEL_ENGINE);
+                output.accept(PILOT_COCKPIT_SEAT);
+                output.accept(PASSENGER_SEAT);
+                output.accept(CREW_BENCH_SEAT);
+                output.accept(CARGO_RACK_BAY);
+                output.accept(HEAVY_CARGO_CONTAINER);
+                output.accept(CAMERA_MAST_360);
+                output.accept(GEOLOGICAL_DRILL_ARM);
+                output.accept(AI_CORE_MODULE);
+                output.accept(GAUGE_SPEEDOMETER);
+                output.accept(GAUGE_BATTERY_FUEL);
+                output.accept(GAUGE_ATMOSPHERE_O2);
+                output.accept(GAUGE_COMPASS_NAV);
+                output.accept(GAUGE_HORIZON_RADAR);
+                output.accept(VehicleCrateItem.createCrate(VehicleRegistry.createCompletePreset(VehicleRegistry.CHASSIS_SCOUT_ROVER)));
+                output.accept(VehicleCrateItem.createCrate(VehicleRegistry.createCompletePreset(VehicleRegistry.CHASSIS_UTILITY_BUGGY)));
+                output.accept(VehicleCrateItem.createCrate(VehicleRegistry.createCompletePreset(VehicleRegistry.CHASSIS_HEAVY_HAULER)));
 
                 // ARMOR
                 output.accept(HEAVY_DUTY_HELMET);

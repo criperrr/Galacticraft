@@ -1,0 +1,440 @@
+{
+  "credit": "Galacticraft 5 Aerospace Workshop Machine",
+  "parent": "minecraft:block/block",
+  "textures": {
+    "particle": "galacticraft:block/vehicle_bench_frame",
+    "frame": "galacticraft:block/vehicle_bench_frame",
+    "carbon": "galacticraft:block/vehicle_bench_carbon",
+    "bp_l": "galacticraft:block/chassis_bench_screen",
+    "bp_r": "galacticraft:block/chassis_bench_blueprint_r",
+    "drawers": "galacticraft:block/vehicle_bench_drawers"
+  },
+  "elements": [
+    {
+      "name": "leg_l_foot",
+      "from": [
+        1,
+        0,
+        1.5
+      ],
+      "to": [
+        3,
+        1.5,
+        14.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#carbon"
+        },
+        "south": {
+          "texture": "#carbon"
+        },
+        "east": {
+          "texture": "#carbon"
+        },
+        "west": {
+          "texture": "#carbon"
+        },
+        "up": {
+          "texture": "#carbon"
+        },
+        "down": {
+          "texture": "#carbon"
+        }
+      }
+    },
+    {
+      "name": "leg_l_front",
+      "from": [
+        1.3,
+        1.5,
+        2.5
+      ],
+      "to": [
+        2.8,
+        10.5,
+        4.2
+      ],
+      "faces": {
+        "north": {
+          "texture": "#frame"
+        },
+        "south": {
+          "texture": "#frame"
+        },
+        "east": {
+          "texture": "#frame"
+        },
+        "west": {
+          "texture": "#frame"
+        },
+        "up": {
+          "texture": "#frame"
+        },
+        "down": {
+          "texture": "#frame"
+        }
+      }
+    },
+    {
+      "name": "leg_l_back",
+      "from": [
+        1.3,
+        1.5,
+        11.8
+      ],
+      "to": [
+        2.8,
+        13.5,
+        13.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#frame"
+        },
+        "south": {
+          "texture": "#frame"
+        },
+        "east": {
+          "texture": "#frame"
+        },
+        "west": {
+          "texture": "#frame"
+        },
+        "up": {
+          "texture": "#frame"
+        },
+        "down": {
+          "texture": "#frame"
+        }
+      }
+    },
+    {
+      "name": "crossbar_l",
+      "from": [
+        2.8,
+        3,
+        7
+      ],
+      "to": [
+        16,
+        4.5,
+        9
+      ],
+      "faces": {
+        "north": {
+          "texture": "#carbon"
+        },
+        "south": {
+          "texture": "#carbon"
+        },
+        "east": {
+          "texture": "#carbon"
+        },
+        "west": {
+          "texture": "#carbon"
+        },
+        "up": {
+          "texture": "#carbon"
+        },
+        "down": {
+          "texture": "#carbon"
+        }
+      }
+    },
+    {
+      "name": "blueprint_roll_1",
+      "from": [
+        4,
+        4.5,
+        6.8
+      ],
+      "to": [
+        15,
+        6.0,
+        8.3
+      ],
+      "faces": {
+        "north": {
+          "texture": "#bp_l"
+        },
+        "south": {
+          "texture": "#bp_l"
+        },
+        "east": {
+          "texture": "#bp_l"
+        },
+        "west": {
+          "texture": "#frame"
+        },
+        "up": {
+          "texture": "#bp_l"
+        },
+        "down": {
+          "texture": "#bp_l"
+        }
+      }
+    },
+    {
+      "name": "board_frame_l",
+      "from": [
+        0.5,
+        10.5,
+        1
+      ],
+      "to": [
+        16,
+        12.0,
+        15
+      ],
+      "faces": {
+        "north": {
+          "texture": "#carbon"
+        },
+        "south": {
+          "texture": "#carbon"
+        },
+        "east": {
+          "texture": "#carbon"
+        },
+        "west": {
+          "texture": "#carbon"
+        },
+        "up": {
+          "texture": "#bp_l"
+        },
+        "down": {
+          "texture": "#carbon"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8,
+          11.5,
+          8
+        ],
+        "axis": "x",
+        "angle": -22.5
+      }
+    },
+    {
+      "name": "pencil_ledge_l",
+      "from": [
+        0.5,
+        8.3,
+        1.0
+      ],
+      "to": [
+        16,
+        9.2,
+        2.0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#frame"
+        },
+        "south": {
+          "texture": "#frame"
+        },
+        "east": {
+          "texture": "#frame"
+        },
+        "west": {
+          "texture": "#frame"
+        },
+        "up": {
+          "texture": "#frame"
+        },
+        "down": {
+          "texture": "#frame"
+        }
+      }
+    },
+    {
+      "name": "lamp_arm_v",
+      "from": [
+        2,
+        13,
+        13.5
+      ],
+      "to": [
+        3.2,
+        20,
+        14.7
+      ],
+      "faces": {
+        "north": {
+          "texture": "#carbon"
+        },
+        "south": {
+          "texture": "#carbon"
+        },
+        "east": {
+          "texture": "#carbon"
+        },
+        "west": {
+          "texture": "#carbon"
+        },
+        "up": {
+          "texture": "#carbon"
+        },
+        "down": {
+          "texture": "#carbon"
+        }
+      }
+    },
+    {
+      "name": "lamp_arm_h",
+      "from": [
+        2,
+        19.5,
+        9
+      ],
+      "to": [
+        3.2,
+        20.7,
+        14.7
+      ],
+      "faces": {
+        "north": {
+          "texture": "#carbon"
+        },
+        "south": {
+          "texture": "#carbon"
+        },
+        "east": {
+          "texture": "#carbon"
+        },
+        "west": {
+          "texture": "#carbon"
+        },
+        "up": {
+          "texture": "#carbon"
+        },
+        "down": {
+          "texture": "#carbon"
+        }
+      }
+    },
+    {
+      "name": "lamp_hood_l",
+      "from": [
+        2,
+        18.8,
+        8
+      ],
+      "to": [
+        14,
+        20.2,
+        10.2
+      ],
+      "faces": {
+        "north": {
+          "texture": "#frame"
+        },
+        "south": {
+          "texture": "#frame"
+        },
+        "east": {
+          "texture": "#frame"
+        },
+        "west": {
+          "texture": "#frame"
+        },
+        "up": {
+          "texture": "#frame"
+        },
+        "down": {
+          "texture": "#bp_l"
+        }
+      }
+    }
+  ],
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "translation": [
+        0,
+        -1,
+        0
+      ],
+      "scale": [
+        0.52,
+        0.52,
+        0.52
+      ]
+    },
+    "ground": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        75,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.35,
+        0.35,
+        0.35
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.38,
+        0.38,
+        0.38
+      ]
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "variants": {
+    "facing=east,part=foot": {
+      "model": "galacticraft:block/vehicle_accessories_bench_left",
+      "y": 90
+    },
+    "facing=east,part=head": {
+      "model": "galacticraft:block/vehicle_accessories_bench_right",
+      "y": 90
+    },
+    "facing=north,part=foot": {
+      "model": "galacticraft:block/vehicle_accessories_bench_left",
+      "y": 0
+    },
+    "facing=north,part=head": {
+      "model": "galacticraft:block/vehicle_accessories_bench_right",
+      "y": 0
+    },
+    "facing=south,part=foot": {
+      "model": "galacticraft:block/vehicle_accessories_bench_left",
+      "y": 180
+    },
+    "facing=south,part=head": {
+      "model": "galacticraft:block/vehicle_accessories_bench_right",
+      "y": 180
+    },
+    "facing=west,part=foot": {
+      "model": "galacticraft:block/vehicle_accessories_bench_left",
+      "y": 270
+    },
+    "facing=west,part=head": {
+      "model": "galacticraft:block/vehicle_accessories_bench_right",
+      "y": 270
+    }
+  }
+}

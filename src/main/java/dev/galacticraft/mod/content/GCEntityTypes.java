@@ -33,7 +33,9 @@ import dev.galacticraft.mod.content.entity.vehicle.Buggy;
 import dev.galacticraft.mod.content.entity.vehicle.DetachedStageEntity;
 import dev.galacticraft.mod.content.entity.vehicle.LanderEntity;
 import dev.galacticraft.mod.content.entity.vehicle.ModularRocketFlightEntity;
+import dev.galacticraft.mod.content.entity.vehicle.ModularVehicleEntity;
 import dev.galacticraft.mod.content.entity.vehicle.RocketEntity;
+import dev.galacticraft.mod.content.entity.vehicle.VehiclePartEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
@@ -190,6 +192,20 @@ public class GCEntityTypes {
             .alwaysUpdateVelocity(true)
             .sized(1.4F, 0.6F)
             .fireImmune()
+            .build());
+    public static final EntityType<ModularVehicleEntity> MODULAR_VEHICLE = ENTITIES.register("modular_vehicle", EntityType.Builder.of(ModularVehicleEntity::new, MobCategory.MISC)
+            .clientTrackingRange(128)
+            .updateInterval(2)
+            .alwaysUpdateVelocity(true)
+            .sized(1.45F, 1.15F)
+            .fireImmune()
+            .build());
+    public static final EntityType<VehiclePartEntity> VEHICLE_PART = ENTITIES.register("vehicle_part", EntityType.Builder.of(VehiclePartEntity::new, MobCategory.MISC)
+            .clientTrackingRange(128)
+            .updateInterval(2)
+            .noSave()
+            .noSummon()
+            .sized(1.2F, 1.0F)
             .build());
     public static final EntityType<ParachestEntity> PARACHEST = ENTITIES.register(Entity.PARACHEST, EntityType.Builder.<ParachestEntity>of(ParachestEntity::new, MobCategory.MISC)
             .clientTrackingRange(150)

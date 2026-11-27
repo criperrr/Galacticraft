@@ -1,0 +1,530 @@
+{
+  "credit": "Galacticraft 5 Aerospace Workshop Machine",
+  "parent": "minecraft:block/block",
+  "textures": {
+    "particle": "galacticraft:block/vehicle_bench_hoist",
+    "frame": "galacticraft:block/vehicle_bench_frame",
+    "carbon": "galacticraft:block/vehicle_bench_carbon",
+    "hoist": "galacticraft:block/vehicle_bench_hoist",
+    "coil": "galacticraft:block/vehicle_bench_copper_coil",
+    "screen": "galacticraft:block/electric_motor_bench_screen"
+  },
+  "elements": [
+    {
+      "name": "leg_front_r",
+      "from": [
+        0,
+        1,
+        2
+      ],
+      "to": [
+        14.5,
+        3.0,
+        4.2
+      ],
+      "faces": {
+        "north": {
+          "texture": "#hoist"
+        },
+        "south": {
+          "texture": "#hoist"
+        },
+        "east": {
+          "texture": "#hoist"
+        },
+        "west": {
+          "texture": "#hoist"
+        },
+        "up": {
+          "texture": "#hoist"
+        },
+        "down": {
+          "texture": "#hoist"
+        }
+      }
+    },
+    {
+      "name": "leg_back_r",
+      "from": [
+        0,
+        1,
+        11.8
+      ],
+      "to": [
+        14.5,
+        3.0,
+        14
+      ],
+      "faces": {
+        "north": {
+          "texture": "#hoist"
+        },
+        "south": {
+          "texture": "#hoist"
+        },
+        "east": {
+          "texture": "#hoist"
+        },
+        "west": {
+          "texture": "#hoist"
+        },
+        "up": {
+          "texture": "#hoist"
+        },
+        "down": {
+          "texture": "#hoist"
+        }
+      }
+    },
+    {
+      "name": "caster_fr",
+      "from": [
+        12.2,
+        0,
+        2.2
+      ],
+      "to": [
+        14.2,
+        1.2,
+        4.0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#carbon"
+        },
+        "south": {
+          "texture": "#carbon"
+        },
+        "east": {
+          "texture": "#carbon"
+        },
+        "west": {
+          "texture": "#carbon"
+        },
+        "up": {
+          "texture": "#carbon"
+        },
+        "down": {
+          "texture": "#carbon"
+        }
+      }
+    },
+    {
+      "name": "caster_br",
+      "from": [
+        12.2,
+        0,
+        12.0
+      ],
+      "to": [
+        14.2,
+        1.2,
+        13.8
+      ],
+      "faces": {
+        "north": {
+          "texture": "#carbon"
+        },
+        "south": {
+          "texture": "#carbon"
+        },
+        "east": {
+          "texture": "#carbon"
+        },
+        "west": {
+          "texture": "#carbon"
+        },
+        "up": {
+          "texture": "#carbon"
+        },
+        "down": {
+          "texture": "#carbon"
+        }
+      }
+    },
+    {
+      "name": "drip_tray",
+      "from": [
+        2,
+        0.5,
+        4.8
+      ],
+      "to": [
+        12.5,
+        1.8,
+        11.2
+      ],
+      "faces": {
+        "north": {
+          "texture": "#carbon"
+        },
+        "south": {
+          "texture": "#carbon"
+        },
+        "east": {
+          "texture": "#carbon"
+        },
+        "west": {
+          "texture": "#carbon"
+        },
+        "up": {
+          "texture": "#carbon"
+        },
+        "down": {
+          "texture": "#carbon"
+        }
+      }
+    },
+    {
+      "name": "jib_boom_r",
+      "from": [
+        0,
+        25.5,
+        6.6
+      ],
+      "to": [
+        10.5,
+        28.5,
+        9.4
+      ],
+      "faces": {
+        "north": {
+          "texture": "#hoist"
+        },
+        "south": {
+          "texture": "#hoist"
+        },
+        "east": {
+          "texture": "#hoist"
+        },
+        "west": {
+          "texture": "#hoist"
+        },
+        "up": {
+          "texture": "#hoist"
+        },
+        "down": {
+          "texture": "#hoist"
+        }
+      }
+    },
+    {
+      "name": "hoist_chain",
+      "from": [
+        6.6,
+        17.5,
+        7.2
+      ],
+      "to": [
+        8.4,
+        25.5,
+        8.8
+      ],
+      "faces": {
+        "north": {
+          "texture": "#carbon"
+        },
+        "south": {
+          "texture": "#carbon"
+        },
+        "east": {
+          "texture": "#carbon"
+        },
+        "west": {
+          "texture": "#carbon"
+        },
+        "up": {
+          "texture": "#carbon"
+        },
+        "down": {
+          "texture": "#carbon"
+        }
+      }
+    },
+    {
+      "name": "hoist_shackle",
+      "from": [
+        5.6,
+        16.0,
+        6.8
+      ],
+      "to": [
+        9.4,
+        17.5,
+        9.2
+      ],
+      "faces": {
+        "north": {
+          "texture": "#frame"
+        },
+        "south": {
+          "texture": "#frame"
+        },
+        "east": {
+          "texture": "#frame"
+        },
+        "west": {
+          "texture": "#frame"
+        },
+        "up": {
+          "texture": "#frame"
+        },
+        "down": {
+          "texture": "#frame"
+        }
+      }
+    },
+    {
+      "name": "motor_endcap_l",
+      "from": [
+        3.0,
+        8.5,
+        5.2
+      ],
+      "to": [
+        4.5,
+        15.5,
+        10.8
+      ],
+      "faces": {
+        "north": {
+          "texture": "#frame"
+        },
+        "south": {
+          "texture": "#frame"
+        },
+        "east": {
+          "texture": "#frame"
+        },
+        "west": {
+          "texture": "#frame"
+        },
+        "up": {
+          "texture": "#frame"
+        },
+        "down": {
+          "texture": "#frame"
+        }
+      }
+    },
+    {
+      "name": "motor_stator",
+      "from": [
+        4.5,
+        8.8,
+        5.5
+      ],
+      "to": [
+        10.5,
+        15.2,
+        10.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#coil"
+        },
+        "south": {
+          "texture": "#coil"
+        },
+        "east": {
+          "texture": "#coil"
+        },
+        "west": {
+          "texture": "#coil"
+        },
+        "up": {
+          "texture": "#coil"
+        },
+        "down": {
+          "texture": "#coil"
+        }
+      }
+    },
+    {
+      "name": "motor_endcap_r",
+      "from": [
+        10.5,
+        8.5,
+        5.2
+      ],
+      "to": [
+        12.0,
+        15.5,
+        10.8
+      ],
+      "faces": {
+        "north": {
+          "texture": "#frame"
+        },
+        "south": {
+          "texture": "#frame"
+        },
+        "east": {
+          "texture": "#frame"
+        },
+        "west": {
+          "texture": "#frame"
+        },
+        "up": {
+          "texture": "#frame"
+        },
+        "down": {
+          "texture": "#frame"
+        }
+      }
+    },
+    {
+      "name": "motor_shaft",
+      "from": [
+        12.0,
+        11.0,
+        7.0
+      ],
+      "to": [
+        14.2,
+        13.0,
+        9.0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#carbon"
+        },
+        "south": {
+          "texture": "#carbon"
+        },
+        "east": {
+          "texture": "#carbon"
+        },
+        "west": {
+          "texture": "#carbon"
+        },
+        "up": {
+          "texture": "#carbon"
+        },
+        "down": {
+          "texture": "#carbon"
+        }
+      }
+    },
+    {
+      "name": "motor_inverter_top",
+      "from": [
+        5.5,
+        15.2,
+        6.2
+      ],
+      "to": [
+        9.5,
+        16.5,
+        9.8
+      ],
+      "faces": {
+        "north": {
+          "texture": "#screen"
+        },
+        "south": {
+          "texture": "#carbon"
+        },
+        "east": {
+          "texture": "#carbon"
+        },
+        "west": {
+          "texture": "#carbon"
+        },
+        "up": {
+          "texture": "#carbon"
+        },
+        "down": {
+          "texture": "#carbon"
+        }
+      }
+    }
+  ],
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "translation": [
+        0,
+        -1,
+        0
+      ],
+      "scale": [
+        0.38,
+        0.38,
+        0.38
+      ]
+    },
+    "ground": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        75,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.35,
+        0.35,
+        0.35
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.38,
+        0.38,
+        0.38
+      ]
+    }
+  }
+}

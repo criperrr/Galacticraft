@@ -53,6 +53,7 @@ public class GCKeyBinds {
     public static final KeyMapping ROCKET_LES_ABORT = new KeyMapping("key.galacticraft.rocket_les_abort", GLFW.GLFW_KEY_BACKSPACE, KeyMapping.CATEGORY_MISC);
     public static final KeyMapping ROCKET_LANDING_GEAR = new KeyMapping("key.galacticraft.rocket_landing_gear", GLFW.GLFW_KEY_V, KeyMapping.CATEGORY_MISC);
     public static final KeyMapping ROCKET_ENGINE_CUTOFF = new KeyMapping("key.galacticraft.rocket_engine_cutoff", GLFW.GLFW_KEY_X, KeyMapping.CATEGORY_MISC);
+    public static final KeyMapping OPEN_VEHICLE_PANEL = new KeyMapping("key.galacticraft.vehicle_panel", GLFW.GLFW_KEY_P, KeyMapping.CATEGORY_MISC);
 
     public static void register() {
         KeyBindingHelper.registerKeyBinding(OPEN_CELESTIAL_SCREEN);
@@ -62,6 +63,7 @@ public class GCKeyBinds {
         KeyBindingHelper.registerKeyBinding(ROCKET_LES_ABORT);
         KeyBindingHelper.registerKeyBinding(ROCKET_LANDING_GEAR);
         KeyBindingHelper.registerKeyBinding(ROCKET_ENGINE_CUTOFF);
+        KeyBindingHelper.registerKeyBinding(OPEN_VEHICLE_PANEL);
     }
 
     public static void handleKeybinds(Minecraft client) {
@@ -90,6 +92,11 @@ public class GCKeyBinds {
                     while (ROCKET_LANDING_GEAR.consumeClick()) {
                     }
                     while (ROCKET_ENGINE_CUTOFF.consumeClick()) {
+                    }
+                }
+                while (OPEN_VEHICLE_PANEL.consumeClick()) {
+                    if (client.player.getVehicle() instanceof dev.galacticraft.mod.content.entity.vehicle.ModularVehicleEntity vehicle) {
+                        dev.galacticraft.mod.client.gui.screen.ingame.VehicleClientBridge.openControlPanel(vehicle);
                     }
                 }
                 while (OPEN_CELESTIAL_SCREEN.consumeClick()) {

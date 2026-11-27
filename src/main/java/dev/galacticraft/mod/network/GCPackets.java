@@ -60,5 +60,7 @@ public class GCPackets {
         PayloadTypeRegistry.playC2S().register(ResearchMachineActionPayload.TYPE, ResearchMachineActionPayload.STREAM_CODEC);
         PayloadTypeRegistry.playC2S().register(ObservatoryCapturePayload.TYPE, ObservatoryCapturePayload.STREAM_CODEC);
         PayloadTypeRegistry.playC2S().register(UpdateManualStatePayload.TYPE, UpdateManualStatePayload.STREAM_CODEC);
+        PayloadTypeRegistry.playC2S().register(CraftVehiclePartPayload.TYPE, CraftVehiclePartPayload.STREAM_CODEC);
+        PayloadTypeRegistry.playC2S().register(VehicleControlActionPayload.TYPE, VehicleControlActionPayload.STREAM_CODEC);
     }
 }

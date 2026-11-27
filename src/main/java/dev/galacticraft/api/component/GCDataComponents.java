@@ -33,6 +33,7 @@ import dev.galacticraft.api.rocket.part.data.RocketPartComposition;
 import dev.galacticraft.api.rocket.part.data.RocketPartStats;
 import dev.galacticraft.api.rocket.part.modular.RocketPartConfig;
 import dev.galacticraft.api.util.StreamCodecs;
+import dev.galacticraft.api.vehicle.VehicleConfiguration;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -105,6 +106,9 @@ public class GCDataComponents {
     public static final DataComponentType<RocketAssemblyGraph> ROCKET_ASSEMBLY_GRAPH = register("rocket_assembly_graph", b -> b
             .persistent(RocketAssemblyGraph.CODEC)
             .networkSynchronized(RocketAssemblyGraph.STREAM_CODEC));
+    public static final DataComponentType<VehicleConfiguration> VEHICLE_CONFIGURATION = register("vehicle_configuration", b -> b
+            .persistent(VehicleConfiguration.CODEC)
+            .networkSynchronized(VehicleConfiguration.STREAM_CODEC));
 
     private static <T> DataComponentType<T> register(String id, UnaryOperator<DataComponentType.Builder<T>> op) {
         return Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, APIConstants.id(id), op.apply(DataComponentType.builder()).build());

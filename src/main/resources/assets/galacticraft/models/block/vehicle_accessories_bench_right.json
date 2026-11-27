@@ -1,0 +1,397 @@
+{
+  "credit": "Galacticraft 5 Aerospace Workshop Machine",
+  "parent": "minecraft:block/block",
+  "textures": {
+    "particle": "galacticraft:block/vehicle_bench_frame",
+    "frame": "galacticraft:block/vehicle_bench_frame",
+    "carbon": "galacticraft:block/vehicle_bench_carbon",
+    "screen": "galacticraft:block/vehicle_accessories_bench_screen",
+    "drawers": "galacticraft:block/vehicle_bench_drawers"
+  },
+  "elements": [
+    {
+      "name": "knee_beam_r",
+      "from": [
+        0,
+        7.8,
+        1.5
+      ],
+      "to": [
+        6,
+        9.5,
+        14.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#carbon"
+        },
+        "south": {
+          "texture": "#carbon"
+        },
+        "east": {
+          "texture": "#carbon"
+        },
+        "west": {
+          "texture": "#carbon"
+        },
+        "up": {
+          "texture": "#carbon"
+        },
+        "down": {
+          "texture": "#carbon"
+        }
+      }
+    },
+    {
+      "name": "drawer_bank_r",
+      "from": [
+        6,
+        0,
+        1.5
+      ],
+      "to": [
+        15.5,
+        9.5,
+        14.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#drawers"
+        },
+        "south": {
+          "texture": "#frame"
+        },
+        "east": {
+          "texture": "#frame"
+        },
+        "west": {
+          "texture": "#frame"
+        },
+        "up": {
+          "texture": "#frame"
+        },
+        "down": {
+          "texture": "#frame"
+        }
+      }
+    },
+    {
+      "name": "worktop_r",
+      "from": [
+        0,
+        9.5,
+        0.8
+      ],
+      "to": [
+        15.8,
+        11.0,
+        15.2
+      ],
+      "faces": {
+        "north": {
+          "texture": "#frame"
+        },
+        "south": {
+          "texture": "#frame"
+        },
+        "east": {
+          "texture": "#frame"
+        },
+        "west": {
+          "texture": "#frame"
+        },
+        "up": {
+          "texture": "#carbon"
+        },
+        "down": {
+          "texture": "#frame"
+        }
+      }
+    },
+    {
+      "name": "calib_pad",
+      "from": [
+        1.2,
+        11.0,
+        2.2
+      ],
+      "to": [
+        9.5,
+        11.4,
+        9.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#screen"
+        },
+        "south": {
+          "texture": "#screen"
+        },
+        "east": {
+          "texture": "#screen"
+        },
+        "west": {
+          "texture": "#screen"
+        },
+        "up": {
+          "texture": "#screen"
+        },
+        "down": {
+          "texture": "#screen"
+        }
+      }
+    },
+    {
+      "name": "part_vise_base",
+      "from": [
+        11.0,
+        11.0,
+        3.0
+      ],
+      "to": [
+        14.5,
+        12.5,
+        7.0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#carbon"
+        },
+        "south": {
+          "texture": "#carbon"
+        },
+        "east": {
+          "texture": "#carbon"
+        },
+        "west": {
+          "texture": "#carbon"
+        },
+        "up": {
+          "texture": "#carbon"
+        },
+        "down": {
+          "texture": "#carbon"
+        }
+      }
+    },
+    {
+      "name": "part_vise_jaw",
+      "from": [
+        11.5,
+        12.5,
+        3.5
+      ],
+      "to": [
+        14.0,
+        14.0,
+        6.0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#frame"
+        },
+        "south": {
+          "texture": "#frame"
+        },
+        "east": {
+          "texture": "#frame"
+        },
+        "west": {
+          "texture": "#frame"
+        },
+        "up": {
+          "texture": "#frame"
+        },
+        "down": {
+          "texture": "#frame"
+        }
+      }
+    },
+    {
+      "name": "back_riser_r",
+      "from": [
+        0,
+        11.0,
+        11.5
+      ],
+      "to": [
+        15.5,
+        17.5,
+        14.8
+      ],
+      "faces": {
+        "north": {
+          "texture": "#frame"
+        },
+        "south": {
+          "texture": "#frame"
+        },
+        "east": {
+          "texture": "#frame"
+        },
+        "west": {
+          "texture": "#frame"
+        },
+        "up": {
+          "texture": "#frame"
+        },
+        "down": {
+          "texture": "#frame"
+        }
+      }
+    },
+    {
+      "name": "gauge_rack",
+      "from": [
+        1.0,
+        12.0,
+        10.8
+      ],
+      "to": [
+        14.5,
+        16.5,
+        12.2
+      ],
+      "faces": {
+        "north": {
+          "texture": "#screen"
+        },
+        "south": {
+          "texture": "#carbon"
+        },
+        "east": {
+          "texture": "#carbon"
+        },
+        "west": {
+          "texture": "#carbon"
+        },
+        "up": {
+          "texture": "#carbon"
+        },
+        "down": {
+          "texture": "#carbon"
+        }
+      }
+    },
+    {
+      "name": "top_shelf_r",
+      "from": [
+        0,
+        17.5,
+        10.5
+      ],
+      "to": [
+        15.5,
+        18.6,
+        15.0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#carbon"
+        },
+        "south": {
+          "texture": "#carbon"
+        },
+        "east": {
+          "texture": "#carbon"
+        },
+        "west": {
+          "texture": "#carbon"
+        },
+        "up": {
+          "texture": "#carbon"
+        },
+        "down": {
+          "texture": "#carbon"
+        }
+      }
+    }
+  ],
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "translation": [
+        0,
+        -1,
+        0
+      ],
+      "scale": [
+        0.52,
+        0.52,
+        0.52
+      ]
+    },
+    "ground": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        75,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.35,
+        0.35,
+        0.35
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.38,
+        0.38,
+        0.38
+      ]
+    }
+  }
+}
