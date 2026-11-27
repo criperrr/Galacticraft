@@ -679,7 +679,7 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
     /**
      * Runs the Hold-Down Clamp T-0 safety interlock:
      * <ol>
-     *   <li>Verifies {@code TWR >= 1.15} against origin {@link PlanetaryEnvironment#gravityG()}</li>
+     *   <li>Verifies {@code TWR > 1.00} against origin {@link PlanetaryEnvironment#gravityG()}, warning on marginal TWR/Δv without blocking liftoff</li>
      *   <li>Rolls calibrated Weibull T-0 ignition check ({@code sigma = 1.20}) on Stage 0 engines &amp; tanks</li>
      * </ol>
      * On any failure, executes {@link #abortLaunchSequence} (Safe Pad Abort: engines cut, clamps stay locked,
@@ -687,14 +687,29 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
      */
     private boolean runHoldDownClampInterlock(ServerLevel serverLevel) {
         PlanetaryEnvironment env = PlanetaryEnvironment.fromLevel(serverLevel);
-        double twr = ModularFlightPhysics.computeLiftoffTwr(this.assemblyGraph, env);
-        if (env.gravityG() > 0.001 && twr < ModularFlightPhysics.MIN_LIFTOFF_TWR) {
+        double atmTwr = ModularFlightPhysics.computeLiftoffTwr(this.assemblyGraph, env);
+        RocketStageNode stage0 = this.assemblyGraph.activeStage();
+        long fueledStage0Droplets = stage0 != null ? stage0.totalCurrentFuelDroplets() : 0L;
+        double nominalFueledTwr = (stage0 != null && fueledStage0Droplets > 0L)
+                ? dev.galacticraft.mod.content.rocket.physics.RocketFlightValidator.computeTwr(
+                        stage0.activeThrustKn(),
+                        ModularFlightPhysics.computeTotalWetMassKg(this.assemblyGraph),
+                        env.gravityG())
+                : atmTwr;
+        double effectiveLiftoffTwr = Math.max(atmTwr, nominalFueledTwr);
+
+        if (env.gravityG() > 0.001 && effectiveLiftoffTwr <= ModularFlightPhysics.MIN_LIFTOFF_TWR) {
             this.abortLaunchSequence(String.format(Locale.ROOT,
-                    "TWR %.2f < %.2f em %s (%.2fG)", twr, ModularFlightPhysics.MIN_LIFTOFF_TWR, env.displayName(), env.gravityG()));
+                    "TWR %.2f <= %.2f em %s (%.2fG)", effectiveLiftoffTwr, ModularFlightPhysics.MIN_LIFTOFF_TWR, env.displayName(), env.gravityG()));
             return false;
         }
+        if (env.gravityG() > 0.001 && atmTwr < 1.25) {
+            this.broadcastLaunchCrew(serverLevel, Component.literal(String.format(Locale.ROOT,
+                    "[AVISO DE VOO] TWR marginal (%.2f atm / %.2f vácuo) em %s — decolagem autorizada, mas pode não atingir a órbita!",
+                    atmTwr, effectiveLiftoffTwr, env.displayName()))
+                    .withStyle(net.minecraft.ChatFormatting.YELLOW, net.minecraft.ChatFormatting.BOLD));
+        }
 
-        RocketStageNode stage0 = this.assemblyGraph.activeStage();
         if (stage0 != null) {
             for (var part : stage0.allActiveParts()) {
                 RocketPartCategory cat = part.config().category();
@@ -1134,10 +1149,7 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
         for (ModularRocketPartBlockEntity partBe : foundEntities) {
             RocketPartConfig cfg = partBe.getConfig();
             RocketPartComposition comp = partBe.getComposition();
-            RocketPartStats stats = partBe.getStats();
-            if (stats == null) {
-                stats = RocketPartCostCalculator.calculate(cfg, comp).stats();
-            }
+            RocketPartStats stats = RocketPartCostCalculator.calculate(cfg, comp).stats();
             PartIntegrity integrity = partBe.getIntegrity();
             double integrityFrac = integrity != null ? integrity.fraction() : 1.0;
             minIntegrity = Math.min(minIntegrity, integrityFrac);
@@ -1306,10 +1318,7 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
             stagedStacks.add(stack);
             RocketPartConfig cfg = partItem.getConfig(stack);
             RocketPartComposition comp = stack.get(GCDataComponents.ROCKET_PART_COMPOSITION);
-            RocketPartStats stats = stack.get(GCDataComponents.ROCKET_PART_STATS);
-            if (stats == null) {
-                stats = RocketPartCostCalculator.calculate(cfg, comp).stats();
-            }
+            RocketPartStats stats = RocketPartCostCalculator.calculate(cfg, comp).stats();
             PartIntegrity integrity = stack.get(GCDataComponents.PART_INTEGRITY);
             double intFrac = integrity != null ? integrity.fraction() : 1.0;
             minIntegrity = Math.min(minIntegrity, intFrac);
@@ -2185,9 +2194,9 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
         this.level.setBlock(origin, masterState, Block.UPDATE_ALL);
 
         if (this.level.getBlockEntity(origin) instanceof ModularRocketPartBlockEntity partBe) {
-            RocketPartStats stats = stack.get(GCDataComponents.ROCKET_PART_STATS);
             PartIntegrity integrity = stack.get(GCDataComponents.PART_INTEGRITY);
             RocketPartComposition composition = stack.get(GCDataComponents.ROCKET_PART_COMPOSITION);
+            RocketPartStats stats = RocketPartCostCalculator.calculate(cfg, composition).stats();
             partBe.initializePart(cfg, stats, integrity, composition, facing);
             if (Math.abs(visualOffsetX) > 1.0e-4F || Math.abs(visualOffsetZ) > 1.0e-4F) {
                 partBe.setRadialVisualOffset(visualOffsetX, visualOffsetZ);
@@ -2304,10 +2313,7 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
             for (BlockPos localPos : localFootprint.keySet()) {
                 reservedVoxels.add(FootprintMode.toWorldPos(origin, facing, localPos).asLong());
             }
-            RocketPartStats stats = stack.get(GCDataComponents.ROCKET_PART_STATS);
-            if (stats == null) {
-                stats = RocketPartCostCalculator.calculate(cfg, stack.get(GCDataComponents.ROCKET_PART_COMPOSITION)).stats();
-            }
+            RocketPartStats stats = RocketPartCostCalculator.calculate(cfg, stack.get(GCDataComponents.ROCKET_PART_COMPOSITION)).stats();
             int durationTicks = computeStepAssemblyTicks(cfg, stats);
             steps.add(new PendingAssemblyStep(origin, facing, stack.copyWithCount(1), durationTicks));
             currentY += Math.max(1, cfg.heightBlocks());
@@ -2531,10 +2537,7 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
                         return false;
                     }
                 }
-                RocketPartStats stats = stack.get(GCDataComponents.ROCKET_PART_STATS);
-                if (stats == null) {
-                    stats = RocketPartCostCalculator.calculate(cfg, stack.get(GCDataComponents.ROCKET_PART_COMPOSITION)).stats();
-                }
+                RocketPartStats stats = RocketPartCostCalculator.calculate(cfg, stack.get(GCDataComponents.ROCKET_PART_COMPOSITION)).stats();
                 int stepTicks = computeStepAssemblyTicks(cfg, stats);
                 steps.add(new PendingAssemblyStep(origin, facing, stack.copyWithCount(1), stepTicks, visOffX, visOffZ));
                 RocketAssemblyGraphBuilder.PartInput simInput = RocketAssemblyGraphBuilder.PartInput.fromStack(origin.subtract(padCenter), stack);
@@ -2810,10 +2813,7 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
                     }
                 }
             }
-            RocketPartStats stats = stack.get(GCDataComponents.ROCKET_PART_STATS);
-            if (stats == null) {
-                stats = RocketPartCostCalculator.calculate(cfg, stack.get(GCDataComponents.ROCKET_PART_COMPOSITION)).stats();
-            }
+            RocketPartStats stats = RocketPartCostCalculator.calculate(cfg, stack.get(GCDataComponents.ROCKET_PART_COMPOSITION)).stats();
             newSteps.add(new PendingAssemblyStep(origin, facing, stack.copyWithCount(1), computeStepAssemblyTicks(cfg, stats)));
             curY += Math.max(1, cfg.heightBlocks());
         }
@@ -2987,9 +2987,9 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
             this.level.setBlock(origin, masterState, Block.UPDATE_ALL);
 
             if (this.level.getBlockEntity(origin) instanceof ModularRocketPartBlockEntity partBe) {
-                RocketPartStats stats = stack.get(GCDataComponents.ROCKET_PART_STATS);
                 PartIntegrity integrity = stack.get(GCDataComponents.PART_INTEGRITY);
                 var composition = stack.get(GCDataComponents.ROCKET_PART_COMPOSITION);
+                RocketPartStats stats = RocketPartCostCalculator.calculate(cfg, composition).stats();
                 partBe.initializePart(cfg, stats, integrity, composition, facing);
             }
 

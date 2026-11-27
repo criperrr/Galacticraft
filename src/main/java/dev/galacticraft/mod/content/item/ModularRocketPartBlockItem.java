@@ -292,9 +292,9 @@ public class ModularRocketPartBlockItem extends BlockItem {
         }
 
         if (level.getBlockEntity(origin) instanceof ModularRocketPartBlockEntity be) {
-            RocketPartStats stats = stack.get(GCDataComponents.ROCKET_PART_STATS);
             PartIntegrity integrity = stack.get(GCDataComponents.PART_INTEGRITY);
             RocketPartComposition composition = stack.get(GCDataComponents.ROCKET_PART_COMPOSITION);
+            RocketPartStats stats = RocketPartCostCalculator.calculate(config, composition).stats();
             be.initializePart(config, stats, integrity, composition, facing);
         }
 
@@ -384,10 +384,7 @@ public class ModularRocketPartBlockItem extends BlockItem {
                 : baseCost;
 
         RocketPartStats baseStats = baseCost.stats();
-        RocketPartStats stats = stack.get(GCDataComponents.ROCKET_PART_STATS);
-        if (stats == null) {
-            stats = effectiveCost.stats();
-        }
+        RocketPartStats stats = effectiveCost.stats();
         PartIntegrity integrity = stack.get(GCDataComponents.PART_INTEGRITY);
 
         tooltip.add(Component.literal("Category: ").withStyle(ChatFormatting.GRAY)

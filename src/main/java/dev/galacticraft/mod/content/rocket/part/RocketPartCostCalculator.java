@@ -498,28 +498,55 @@ public final class RocketPartCostCalculator {
 
         switch (config.category()) {
             case ENGINE -> {
-                double dryMass = round1(180.0 * Math.pow(effectiveVolume, 0.72));
-                double baseThrust = 120.0 * Math.pow(effectiveVolume, 0.85);
+                double dryMass = round1(160.0 * Math.pow(effectiveVolume, 0.72));
+                double baseThrust = 90.0 * Math.pow(effectiveVolume, 0.85);
                 double thermal = 2200.0 + diameter * 60.0;
                 double pressure = 12.0 + diameter * 4.0;
                 double solidFuelBuckets = 0.0;
 
-                if (idHint.contains("ion") || idHint.contains("plasma") || idHint.contains("vasimr")) {
-                    baseThrust *= 0.15;
+                if (idHint.contains("srb_goliath_segment")) {
+                    baseThrust = 0.0;
+                    solidFuelBuckets = 1.6 * effectiveVolume;
+                    dryMass = round1(110.0 * Math.pow(effectiveVolume, 0.75));
+                    pressure += 8.0;
+                } else if (idHint.contains("ion") || idHint.contains("plasma") || idHint.contains("vasimr")) {
+                    baseThrust *= 0.16;
                     thermal += 400.0;
                 } else if (idHint.contains("rcs")) {
-                    baseThrust *= 0.08;
+                    baseThrust *= 0.06;
                     dryMass = round1(dryMass * 0.55);
+                } else if (idHint.contains("draco") || idHint.contains("oms")) {
+                    baseThrust *= 0.45;
+                    dryMass = round1(dryMass * 0.70);
                 } else if (idHint.contains("srb")) {
-                    baseThrust *= 1.45;
-                    solidFuelBuckets = 2.0 * effectiveVolume;
+                    baseThrust *= 1.65;
+                    solidFuelBuckets = 1.6 * effectiveVolume;
                     pressure += 8.0;
                 } else if (idHint.contains("ntr") || idHint.contains("nerva")) {
-                    baseThrust *= 0.65;
+                    baseThrust *= 0.55;
                     thermal += 650.0;
                     dryMass = round1(dryMass * 1.25);
+                } else if (idHint.contains("centaur") || idHint.contains("rl10")) {
+                    baseThrust *= 0.65;
+                    dryMass = round1(dryMass * 0.80);
+                } else if (idHint.contains("merlinvac")) {
+                    baseThrust *= 0.85;
+                    dryMass = round1(dryMass * 0.90);
+                } else if (idHint.contains("raptor")) {
+                    baseThrust *= 1.28;
+                    thermal += 300.0;
+                    pressure += 6.0;
+                } else if (idHint.contains("vulcain") || idHint.contains("ssme")) {
+                    baseThrust *= 1.20;
+                    thermal += 350.0;
+                    pressure += 5.0;
+                } else if (idHint.contains("octaweb9")) {
+                    baseThrust *= 1.45;
+                    dryMass = round1(dryMass * 1.15);
+                    thermal += 250.0;
+                    pressure += 6.0;
                 } else if (idHint.contains("starcluster") || idHint.contains("novaf5")) {
-                    baseThrust *= 1.35;
+                    baseThrust *= 1.55;
                     thermal += 450.0;
                     pressure += 10.0;
                 }
@@ -532,8 +559,8 @@ public final class RocketPartCostCalculator {
             }
             case TANK -> {
                 boolean isUpgrade = idHint.contains("upgrade") || idHint.contains("cryocooler") || idHint.contains("copv_helium");
-                double dryMass = round1((isUpgrade ? 120.0 : 95.0) * Math.pow(effectiveVolume, 0.78));
-                double fuelBuckets = effectiveVolume * (isUpgrade ? 1.0 : 4.0);
+                double dryMass = round1((isUpgrade ? 180.0 : 410.0) * Math.pow(effectiveVolume, 0.82));
+                double fuelBuckets = isUpgrade ? effectiveVolume * 0.25 : Math.max(1.0, effectiveVolume * 0.80);
                 double pressure = (isUpgrade ? 28.0 : 18.0) + diameter * 5.0;
                 double thermal = (idHint.contains("supercryo") || idHint.contains("cryo") ? 1350.0 : 1100.0) + diameter * 40.0;
 
@@ -545,7 +572,7 @@ public final class RocketPartCostCalculator {
             case COMMAND -> {
                 boolean crewed = config.walkableInterior() || idHint.contains("capsule") || idHint.contains("cockpit");
                 double dryMass = round1((crewed ? 240.0 : 145.0) * Math.pow(effectiveVolume, 0.70));
-                double rcsReserveBuckets = crewed ? 0.5 * effectiveVolume : 0.0;
+                double rcsReserveBuckets = crewed ? 0.05 * effectiveVolume : 0.0;
                 double pressure = (crewed ? 26.0 : 16.0) + diameter * 6.0;
                 double thermal = (crewed ? 2500.0 : 1650.0) + diameter * 50.0;
 
