@@ -1149,10 +1149,7 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
         for (ModularRocketPartBlockEntity partBe : foundEntities) {
             RocketPartConfig cfg = partBe.getConfig();
             RocketPartComposition comp = partBe.getComposition();
-            RocketPartStats stats = partBe.getStats();
-            if (stats == null) {
-                stats = RocketPartCostCalculator.calculate(cfg, comp).stats();
-            }
+            RocketPartStats stats = RocketPartCostCalculator.calculate(cfg, comp).stats();
             PartIntegrity integrity = partBe.getIntegrity();
             double integrityFrac = integrity != null ? integrity.fraction() : 1.0;
             minIntegrity = Math.min(minIntegrity, integrityFrac);
@@ -1321,10 +1318,7 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
             stagedStacks.add(stack);
             RocketPartConfig cfg = partItem.getConfig(stack);
             RocketPartComposition comp = stack.get(GCDataComponents.ROCKET_PART_COMPOSITION);
-            RocketPartStats stats = stack.get(GCDataComponents.ROCKET_PART_STATS);
-            if (stats == null) {
-                stats = RocketPartCostCalculator.calculate(cfg, comp).stats();
-            }
+            RocketPartStats stats = RocketPartCostCalculator.calculate(cfg, comp).stats();
             PartIntegrity integrity = stack.get(GCDataComponents.PART_INTEGRITY);
             double intFrac = integrity != null ? integrity.fraction() : 1.0;
             minIntegrity = Math.min(minIntegrity, intFrac);
@@ -2200,9 +2194,9 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
         this.level.setBlock(origin, masterState, Block.UPDATE_ALL);
 
         if (this.level.getBlockEntity(origin) instanceof ModularRocketPartBlockEntity partBe) {
-            RocketPartStats stats = stack.get(GCDataComponents.ROCKET_PART_STATS);
             PartIntegrity integrity = stack.get(GCDataComponents.PART_INTEGRITY);
             RocketPartComposition composition = stack.get(GCDataComponents.ROCKET_PART_COMPOSITION);
+            RocketPartStats stats = RocketPartCostCalculator.calculate(cfg, composition).stats();
             partBe.initializePart(cfg, stats, integrity, composition, facing);
             if (Math.abs(visualOffsetX) > 1.0e-4F || Math.abs(visualOffsetZ) > 1.0e-4F) {
                 partBe.setRadialVisualOffset(visualOffsetX, visualOffsetZ);
@@ -2319,10 +2313,7 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
             for (BlockPos localPos : localFootprint.keySet()) {
                 reservedVoxels.add(FootprintMode.toWorldPos(origin, facing, localPos).asLong());
             }
-            RocketPartStats stats = stack.get(GCDataComponents.ROCKET_PART_STATS);
-            if (stats == null) {
-                stats = RocketPartCostCalculator.calculate(cfg, stack.get(GCDataComponents.ROCKET_PART_COMPOSITION)).stats();
-            }
+            RocketPartStats stats = RocketPartCostCalculator.calculate(cfg, stack.get(GCDataComponents.ROCKET_PART_COMPOSITION)).stats();
             int durationTicks = computeStepAssemblyTicks(cfg, stats);
             steps.add(new PendingAssemblyStep(origin, facing, stack.copyWithCount(1), durationTicks));
             currentY += Math.max(1, cfg.heightBlocks());
@@ -2546,10 +2537,7 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
                         return false;
                     }
                 }
-                RocketPartStats stats = stack.get(GCDataComponents.ROCKET_PART_STATS);
-                if (stats == null) {
-                    stats = RocketPartCostCalculator.calculate(cfg, stack.get(GCDataComponents.ROCKET_PART_COMPOSITION)).stats();
-                }
+                RocketPartStats stats = RocketPartCostCalculator.calculate(cfg, stack.get(GCDataComponents.ROCKET_PART_COMPOSITION)).stats();
                 int stepTicks = computeStepAssemblyTicks(cfg, stats);
                 steps.add(new PendingAssemblyStep(origin, facing, stack.copyWithCount(1), stepTicks, visOffX, visOffZ));
                 RocketAssemblyGraphBuilder.PartInput simInput = RocketAssemblyGraphBuilder.PartInput.fromStack(origin.subtract(padCenter), stack);
@@ -2825,10 +2813,7 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
                     }
                 }
             }
-            RocketPartStats stats = stack.get(GCDataComponents.ROCKET_PART_STATS);
-            if (stats == null) {
-                stats = RocketPartCostCalculator.calculate(cfg, stack.get(GCDataComponents.ROCKET_PART_COMPOSITION)).stats();
-            }
+            RocketPartStats stats = RocketPartCostCalculator.calculate(cfg, stack.get(GCDataComponents.ROCKET_PART_COMPOSITION)).stats();
             newSteps.add(new PendingAssemblyStep(origin, facing, stack.copyWithCount(1), computeStepAssemblyTicks(cfg, stats)));
             curY += Math.max(1, cfg.heightBlocks());
         }
@@ -3002,9 +2987,9 @@ public class HangarTerminalBlockEntity extends BlockEntity implements MultiVoxel
             this.level.setBlock(origin, masterState, Block.UPDATE_ALL);
 
             if (this.level.getBlockEntity(origin) instanceof ModularRocketPartBlockEntity partBe) {
-                RocketPartStats stats = stack.get(GCDataComponents.ROCKET_PART_STATS);
                 PartIntegrity integrity = stack.get(GCDataComponents.PART_INTEGRITY);
                 var composition = stack.get(GCDataComponents.ROCKET_PART_COMPOSITION);
+                RocketPartStats stats = RocketPartCostCalculator.calculate(cfg, composition).stats();
                 partBe.initializePart(cfg, stats, integrity, composition, facing);
             }
 

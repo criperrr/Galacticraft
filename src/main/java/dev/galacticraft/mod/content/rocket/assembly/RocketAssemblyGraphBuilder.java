@@ -142,12 +142,11 @@ public final class RocketAssemblyGraphBuilder {
             RocketPartConfig cfg = partItem.getConfig(stack);
             RocketPartComposition comp = stack.get(GCDataComponents.ROCKET_PART_COMPOSITION);
             RocketPartCostCalculator.CostProfile profile = RocketPartCostCalculator.calculate(cfg, comp);
-            RocketPartStats stats = stack.get(GCDataComponents.ROCKET_PART_STATS);
             PartIntegrity integrity = stack.get(GCDataComponents.PART_INTEGRITY);
             return new PartInput(
                     relativePos,
                     cfg,
-                    stats != null ? stats : profile.stats(),
+                    profile.stats(),
                     integrity != null ? integrity : PartIntegrity.pristine(profile.maxIntegrity()),
                     (comp != null && !comp.isEmpty()) ? comp : null
             );
@@ -157,13 +156,12 @@ public final class RocketAssemblyGraphBuilder {
             RocketPartConfig cfg = be.getConfig();
             RocketPartComposition comp = be.getComposition();
             RocketPartCostCalculator.CostProfile profile = RocketPartCostCalculator.calculate(cfg, comp);
-            RocketPartStats stats = be.getStats();
             PartIntegrity integrity = be.getIntegrity();
             BlockPos rel = be.getBlockPos().subtract(padCenter);
             return new PartInput(
                     rel,
                     cfg,
-                    stats != null ? stats : profile.stats(),
+                    profile.stats(),
                     integrity != null ? integrity : PartIntegrity.pristine(profile.maxIntegrity()),
                     (comp != null && !comp.isEmpty()) ? comp : null
             );

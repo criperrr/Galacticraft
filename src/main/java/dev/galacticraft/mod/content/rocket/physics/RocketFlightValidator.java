@@ -113,10 +113,9 @@ public final class RocketFlightValidator {
                 return null;
             }
             RocketPartConfig config = partItem.getConfig(stack);
-            RocketPartStats stats = stack.get(GCDataComponents.ROCKET_PART_STATS);
             PartIntegrity integrity = stack.get(GCDataComponents.PART_INTEGRITY);
             RocketPartComposition composition = stack.get(GCDataComponents.ROCKET_PART_COMPOSITION);
-            return fromParts(config, stats, integrity, composition);
+            return fromParts(config, null, integrity, composition);
         }
     }
 
