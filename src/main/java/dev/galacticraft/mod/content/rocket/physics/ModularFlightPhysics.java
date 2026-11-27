@@ -54,7 +54,7 @@ import java.util.Objects;
  * </ul>
  */
 public final class ModularFlightPhysics {
-    public static final double MIN_LIFTOFF_TWR = 1.15;
+    public static final double MIN_LIFTOFF_TWR = 1.00;
     public static final double VACUUM_NOZZLE_DANGER_PA_ATM = RocketFlightValidator.VACUUM_NOZZLE_MAX_SAFE_ATM;
     public static final double FAIRING_JETTISON_PA_ATM = 0.05;
     public static final double OVERWORLD_FAIRING_MIN_Y = 400.0;
@@ -296,8 +296,10 @@ public final class ModularFlightPhysics {
         double bucketsPerSec = massFlowKgPerSec / Math.max(1.0, propellant.densityKgPerBucket());
         // Playable Minecraft flight scale factor (keeps ascent 25-60s exhilarating while preserving relative Isp ratios)
         double dropletsPerTick = (bucketsPerSec * RocketFlightValidator.DROPLETS_PER_BUCKET) / 20.0;
-        // Scale down modestly for MC block heights (Y=64..1200 is ~1.1km vs 100km real Karman line)
-        return Math.max(1.0, dropletsPerTick * 0.22);
+        // Scale propellant flow to Minecraft's 1.1 km orbital ascent (Y=64..1200) so fuel burns at a realistic,
+        // visibly demanding pace: 1-2 tank 3x3 RP-1 stages are suborbital, 3-4 tank SSTOs reach orbit with ~5-15%
+        // fuel remaining, low-TWR launches suffer real gravity losses, and multi-stage stacks shine for deep space
+        return Math.max(1.0, dropletsPerTick * 3.30);
     }
 
     /**
@@ -332,7 +334,8 @@ public final class ModularFlightPhysics {
         }
 
         PropellantType coreProp = resolvePropellant(stage.propellantId());
-        boolean coreHasFuelSource = stage.currentFuelDroplets() > 0L || coreProp == PropellantType.SOLID;
+        boolean coreHasFuelSource = stage.currentFuelDroplets() > 0L
+                || (coreProp == PropellantType.SOLID && stage.fuelCapacityDroplets() == 0L);
 
         // Gather active radial groups sorted by drainPriorityLayer ascending (0 = outermost)
         List<RadialBoosterGroup> activeGroups = new ArrayList<>();

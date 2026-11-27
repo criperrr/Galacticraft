@@ -292,6 +292,16 @@ public interface Translations {
         String MOON = "planet.galacticraft.moon";
         String NEPTUNE_DESC = "planet.galacticraft.neptune.description";
         String NEPTUNE = "planet.galacticraft.neptune";
+        String TITAN_DESC = "planet.galacticraft.titan.description";
+        String TITAN = "planet.galacticraft.titan";
+        String ENCELADUS_DESC = "planet.galacticraft.enceladus.description";
+        String ENCELADUS = "planet.galacticraft.enceladus";
+        String TITANIA_DESC = "planet.galacticraft.titania.description";
+        String TITANIA = "planet.galacticraft.titania";
+        String OBERON_DESC = "planet.galacticraft.oberon.description";
+        String OBERON = "planet.galacticraft.oberon";
+        String TRITON_DESC = "planet.galacticraft.triton.description";
+        String TRITON = "planet.galacticraft.triton";
         String SATURN_DESC = "planet.galacticraft.saturn.description";
         String SATURN = "planet.galacticraft.saturn";
         String URANUS_DESC = "planet.galacticraft.uranus.description";

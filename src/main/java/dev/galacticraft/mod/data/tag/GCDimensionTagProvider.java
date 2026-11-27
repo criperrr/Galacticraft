@@ -55,7 +55,12 @@ public class GCDimensionTagProvider extends FabricTagProvider<DimensionType> {
                 .add(GCDimensionTypes.IO)
                 .add(GCDimensionTypes.EUROPA)
                 .add(GCDimensionTypes.GANYMEDE)
-                .add(GCDimensionTypes.CALLISTO);
+                .add(GCDimensionTypes.CALLISTO)
+                .add(GCDimensionTypes.TITAN)
+                .add(GCDimensionTypes.ENCELADUS)
+                .add(GCDimensionTypes.TITANIA)
+                .add(GCDimensionTypes.OBERON)
+                .add(GCDimensionTypes.TRITON);
         this.tag(GCDimensionTypeTags.VACUUM)
                 .add(GCDimensionTypes.MOON)
                 .add(GCDimensionTypes.ASTEROID)
@@ -64,7 +69,11 @@ public class GCDimensionTagProvider extends FabricTagProvider<DimensionType> {
                 .add(GCDimensionTypes.IO)
                 .add(GCDimensionTypes.EUROPA)
                 .add(GCDimensionTypes.GANYMEDE)
-                .add(GCDimensionTypes.CALLISTO);
+                .add(GCDimensionTypes.CALLISTO)
+                .add(GCDimensionTypes.ENCELADUS)
+                .add(GCDimensionTypes.TITANIA)
+                .add(GCDimensionTypes.OBERON)
+                .add(GCDimensionTypes.TRITON);
         this.tag(GCDimensionTypeTags.NO_WEATHER)
                 .add(GCDimensionTypes.MOON)
                 .add(GCDimensionTypes.ASTEROID)
@@ -77,7 +86,12 @@ public class GCDimensionTagProvider extends FabricTagProvider<DimensionType> {
                 .add(GCDimensionTypes.IO)
                 .add(GCDimensionTypes.EUROPA)
                 .add(GCDimensionTypes.GANYMEDE)
-                .add(GCDimensionTypes.CALLISTO);
+                .add(GCDimensionTypes.CALLISTO)
+                .add(GCDimensionTypes.TITAN)
+                .add(GCDimensionTypes.ENCELADUS)
+                .add(GCDimensionTypes.TITANIA)
+                .add(GCDimensionTypes.OBERON)
+                .add(GCDimensionTypes.TRITON);
         this.tag(GCDimensionTypeTags.ALLOWS_MOB_SPAWNING);
     }
 }

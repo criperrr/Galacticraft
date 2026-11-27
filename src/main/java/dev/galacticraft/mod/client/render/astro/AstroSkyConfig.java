@@ -260,7 +260,12 @@ public class AstroSkyConfig {
             new DimensionObserver("galacticraft:io", "Io"),
             new DimensionObserver("galacticraft:europa", "Europa"),
             new DimensionObserver("galacticraft:ganymede", "Ganymede"),
-            new DimensionObserver("galacticraft:callisto", "Callisto")
+            new DimensionObserver("galacticraft:callisto", "Callisto"),
+            new DimensionObserver("galacticraft:titan", "Titan"),
+            new DimensionObserver("galacticraft:enceladus", "Enceladus"),
+            new DimensionObserver("galacticraft:titania", "Titania"),
+            new DimensionObserver("galacticraft:oberon", "Oberon"),
+            new DimensionObserver("galacticraft:triton", "Triton")
     );
 
     public boolean vanillaSun = false;

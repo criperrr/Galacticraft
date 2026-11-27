@@ -30,7 +30,7 @@
       "config": {
         "height": 16,
         "rocket_overlay": "galacticraft:textures/gui/rocket/venus_rocket_gui.png",
-        "scale": 1.0,
+        "scale": 1.3,
         "texture": "galacticraft:textures/gui/celestialbodies/jupiter.png",
         "u": 0,
         "v": 0,

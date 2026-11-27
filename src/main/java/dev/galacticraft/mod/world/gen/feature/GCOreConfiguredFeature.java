@@ -33,6 +33,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
+import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import org.jetbrains.annotations.Contract;
@@ -248,6 +249,28 @@ public class GCOreConfiguredFeature {
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_ALUMINUM_CALLISTO = key("ore_aluminum_callisto");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_NIOBIUM_CALLISTO = key("ore_niobium_callisto");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_DENSE_ICE_CALLISTO = key("ore_dense_ice_callisto");
+    // PHASE 4 OUTER MOONS
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_MAGNESIUM_TITAN = key("ore_magnesium_titan");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_IRON_TITAN = key("ore_iron_titan");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_SILICON_TITAN = key("ore_silicon_titan");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_DENSE_ICE_TITAN = key("ore_dense_ice_titan");
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_MAGNESIUM_ENCELADUS = key("ore_magnesium_enceladus");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_NIOBIUM_ENCELADUS = key("ore_niobium_enceladus");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_DENSE_ICE_ENCELADUS = key("ore_dense_ice_enceladus");
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_URANIUM_TITANIA = key("ore_uranium_titania");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_LONSDALEITE_TITANIA = key("ore_lonsdaleite_titania");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_TITANIUM_TITANIA = key("ore_titanium_titania");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_DENSE_ICE_TITANIA = key("ore_dense_ice_titania");
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_URANIUM_OBERON = key("ore_uranium_oberon");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_NIOBIUM_OBERON = key("ore_niobium_oberon");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_DENSE_ICE_OBERON = key("ore_dense_ice_oberon");
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_SUPERIONIC_TRITON = key("ore_superionic_triton");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_XENON_CLATHRATE_TRITON = key("ore_xenon_clathrate_triton");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_DENSE_ICE_TRITON = key("ore_dense_ice_triton");
 
     @Contract(pure = true)
     private static @NotNull ResourceKey<ConfiguredFeature<?, ?>> key(String s) {
@@ -303,7 +326,7 @@ public class GCOreConfiguredFeature {
         context.register(ORE_GRAPHITE_MARS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(GRAPHITE_ORES_MARS, 5)));
         context.register(ORE_DESH_MARS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(DESH_ORES_MARS, 6)));
         context.register(ORE_DESH_SMALL_MARS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(DESH_ORES_MARS, 3)));
-        context.register(ORE_ICE_MARS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(ICE_ORES_MARS, 18)));
+        context.register(ORE_ICE_MARS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(ICE_ORES_MARS, 18, 0.95F)));
         context.register(ORE_SUB_SURFACE_MARS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(SUB_SURFACE_ORES_MARS, 32)));
 
         // VENUS
@@ -379,5 +402,32 @@ public class GCOreConfiguredFeature {
         context.register(ORE_ALUMINUM_CALLISTO, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(CALLISTO_ORE_REPLACEABLE, GCBlocks.CALLISTO_ALUMINUM_ORE.defaultBlockState(), 9)));
         context.register(ORE_NIOBIUM_CALLISTO, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(CALLISTO_ORE_REPLACEABLE, GCBlocks.CALLISTO_NIOBIUM_ORE.defaultBlockState(), 7)));
         context.register(ORE_DENSE_ICE_CALLISTO, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(CALLISTO_ORE_REPLACEABLE, GCBlocks.DENSE_ICE.defaultBlockState(), 20)));
+        // PHASE 4 OUTER MOONS
+        RuleTest titanRock = new BlockMatchTest(GCBlocks.TITAN_WATER_ICE_ROCK);
+        context.register(ORE_MAGNESIUM_TITAN, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(titanRock, GCBlocks.TITAN_MAGNESIUM_ORE.defaultBlockState(), 8)));
+        context.register(ORE_IRON_TITAN, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(titanRock, GCBlocks.TITAN_IRON_ORE.defaultBlockState(), 9)));
+        context.register(ORE_SILICON_TITAN, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(titanRock, GCBlocks.TITAN_SILICON_ORE.defaultBlockState(), 8)));
+        context.register(ORE_DENSE_ICE_TITAN, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(titanRock, GCBlocks.DENSE_ICE.defaultBlockState(), 18)));
+
+        RuleTest enceladusIce = new BlockMatchTest(GCBlocks.ENCELADUS_ICE_CRUST);
+        context.register(ORE_MAGNESIUM_ENCELADUS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(enceladusIce, GCBlocks.ENCELADUS_MAGNESIUM_ORE.defaultBlockState(), 8)));
+        context.register(ORE_NIOBIUM_ENCELADUS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(enceladusIce, GCBlocks.ENCELADUS_NIOBIUM_ORE.defaultBlockState(), 7)));
+        context.register(ORE_DENSE_ICE_ENCELADUS, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(enceladusIce, GCBlocks.DENSE_ICE.defaultBlockState(), 22)));
+
+        RuleTest titaniaRock = new BlockMatchTest(GCBlocks.TITANIA_ICE_SILICATE);
+        context.register(ORE_URANIUM_TITANIA, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(titaniaRock, GCBlocks.TITANIA_URANIUM_ORE.defaultBlockState(), 7)));
+        context.register(ORE_LONSDALEITE_TITANIA, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(titaniaRock, GCBlocks.TITANIA_LONSDALEITE_ORE.defaultBlockState(), 5)));
+        context.register(ORE_TITANIUM_TITANIA, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(titaniaRock, GCBlocks.TITANIA_TITANIUM_ORE.defaultBlockState(), 7)));
+        context.register(ORE_DENSE_ICE_TITANIA, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(titaniaRock, GCBlocks.DENSE_ICE.defaultBlockState(), 16)));
+
+        RuleTest oberonRock = new BlockMatchTest(GCBlocks.OBERON_DARK_ROCK);
+        context.register(ORE_URANIUM_OBERON, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(oberonRock, GCBlocks.OBERON_URANIUM_ORE.defaultBlockState(), 7)));
+        context.register(ORE_NIOBIUM_OBERON, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(oberonRock, GCBlocks.OBERON_NIOBIUM_ORE.defaultBlockState(), 8)));
+        context.register(ORE_DENSE_ICE_OBERON, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(oberonRock, GCBlocks.DENSE_ICE.defaultBlockState(), 16)));
+
+        RuleTest tritonIce = new BlockMatchTest(GCBlocks.TRITON_NITROGEN_ICE);
+        context.register(ORE_SUPERIONIC_TRITON, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(tritonIce, GCBlocks.TRITON_SUPERIONIC_ORE.defaultBlockState(), 6)));
+        context.register(ORE_XENON_CLATHRATE_TRITON, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(tritonIce, GCBlocks.TRITON_XENON_CLATHRATE_ORE.defaultBlockState(), 7)));
+        context.register(ORE_DENSE_ICE_TRITON, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(tritonIce, GCBlocks.DENSE_ICE.defaultBlockState(), 20)));
     }
 }

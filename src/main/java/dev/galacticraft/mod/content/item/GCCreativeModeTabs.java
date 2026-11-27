@@ -141,6 +141,12 @@ public class GCCreativeModeTabs {
                 output.accept(MARS_COBBLESTONE_STAIRS);
                 output.accept(MARS_COBBLESTONE_SLAB);
                 output.accept(MARS_COBBLESTONE_WALL);
+                output.accept(MARS_BASALT);
+                output.accept(MARS_SILTSTONE);
+                output.accept(MARS_BRECCIA);
+                output.accept(MARS_BASALTIC_SAND);
+                output.accept(MARS_FROST_REGOLITH);
+                output.accept(MARS_DEEP_STONE);
 
                 // ASTEROID NATURAL
                 output.accept(ASTEROID_ROCK);
@@ -162,6 +168,35 @@ public class GCCreativeModeTabs {
                 output.accept(URANUS_SUPERIONIC_MANTLE_ROCK);
                 output.accept(URANUS_DIAMOND_BEARING_ROCK);
                 output.accept(NEPTUNE_ABYSSAL_MANTLE_ROCK);
+
+                // PHASE 4 OUTER MOONS
+                output.accept(TITAN_THOLIN_SAND);
+                output.accept(TITAN_HYDROCARBON_CRUST);
+                output.accept(TITAN_WATER_ICE_ROCK);
+                output.accept(TITAN_MAGNESIUM_ORE);
+                output.accept(TITAN_IRON_ORE);
+                output.accept(TITAN_SILICON_ORE);
+                output.accept(ENCELADUS_ICE_CRUST);
+                output.accept(ENCELADUS_TIGER_STRIPE_ICE);
+                output.accept(ENCELADUS_SEABED_ROCK);
+                output.accept(ENCELADUS_MAGNESIUM_ORE);
+                output.accept(ENCELADUS_NIOBIUM_ORE);
+                output.accept(TITANIA_ICE_SILICATE);
+                output.accept(TITANIA_FROST_CRUST);
+                output.accept(TITANIA_CHASM_SLATE);
+                output.accept(TITANIA_URANIUM_ORE);
+                output.accept(TITANIA_LONSDALEITE_ORE);
+                output.accept(TITANIA_TITANIUM_ORE);
+                output.accept(OBERON_DARK_ROCK);
+                output.accept(OBERON_REDDISH_REGOLITH);
+                output.accept(OBERON_IMPACT_BRECCIA);
+                output.accept(OBERON_URANIUM_ORE);
+                output.accept(OBERON_NIOBIUM_ORE);
+                output.accept(TRITON_NITROGEN_ICE);
+                output.accept(TRITON_CANTALOUPE_CRUST);
+                output.accept(TRITON_CRYO_BASALT);
+                output.accept(TRITON_SUPERIONIC_ORE);
+                output.accept(TRITON_XENON_CLATHRATE_ORE);
 
                 // ORES
                 output.accept(SILICON_ORE);

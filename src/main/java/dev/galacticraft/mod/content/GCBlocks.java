@@ -58,6 +58,7 @@ import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FlattenableBlockRegistry;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.ColorRGBA;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.EntityType;
@@ -221,6 +222,12 @@ public class GCBlocks {
     public static final Block MARS_COBBLESTONE_STAIRS = BLOCKS.registerWithItem(Constant.Block.MARS_COBBLESTONE_STAIRS, new StairBlock(MARS_COBBLESTONE.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(MARS_COBBLESTONE)));
     public static final Block MARS_COBBLESTONE_SLAB = BLOCKS.registerWithItem(Constant.Block.MARS_COBBLESTONE_SLAB, new SlabBlock(BlockBehaviour.Properties.ofFullCopy(MARS_COBBLESTONE).strength(3.5F, 6.0F)));
     public static final Block MARS_COBBLESTONE_WALL = BLOCKS.registerWithItem(Constant.Block.MARS_COBBLESTONE_WALL, new WallBlock(BlockBehaviour.Properties.ofFullCopy(MARS_COBBLESTONE)));
+    public static final Block MARS_BASALT = BLOCKS.registerWithItem(Constant.Block.MARS_BASALT, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).instrument(NoteBlockInstrument.BASEDRUM).strength(3.2F, 6.0F).sound(SoundType.BASALT).requiresCorrectToolForDrops()));
+    public static final Block MARS_SILTSTONE = BLOCKS.registerWithItem(Constant.Block.MARS_SILTSTONE, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_ORANGE).instrument(NoteBlockInstrument.BASEDRUM).strength(2.4F, 4.5F).requiresCorrectToolForDrops()));
+    public static final Block MARS_BRECCIA = BLOCKS.registerWithItem(Constant.Block.MARS_BRECCIA, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_RED).instrument(NoteBlockInstrument.BASEDRUM).strength(2.8F, 5.5F).requiresCorrectToolForDrops()));
+    public static final Block MARS_BASALTIC_SAND = BLOCKS.registerWithItem(Constant.Block.MARS_BASALTIC_SAND, new ColoredFallingBlock(new ColorRGBA(0x4A332C), BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.SNARE).strength(0.6F).sound(SoundType.SAND)));
+    public static final Block MARS_FROST_REGOLITH = BLOCKS.registerWithItem(Constant.Block.MARS_FROST_REGOLITH, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).instrument(NoteBlockInstrument.BASEDRUM).strength(1.8F, 3.0F).sound(SoundType.SNOW)));
+    public static final Block MARS_DEEP_STONE = BLOCKS.registerWithItem(Constant.Block.MARS_DEEP_STONE, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).instrument(NoteBlockInstrument.BASEDRUM).strength(4.2F, 7.0F).sound(SoundType.DEEPSLATE).requiresCorrectToolForDrops()));
 
     // ASTEROID NATURAL
     public static final Block ASTEROID_ROCK = BLOCKS.registerWithItem(Constant.Block.ASTEROID_ROCK, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BLACK).instrument(NoteBlockInstrument.BASEDRUM).destroyTime(3.0F).requiresCorrectToolForDrops()));
@@ -321,6 +328,38 @@ public class GCBlocks {
     public static final Block CALLISTO_IRON_ORE = BLOCKS.registerWithItem(Constant.Block.CALLISTO_IRON_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(CALLISTO_ROCK, 3.8F, 4.5F)));
     public static final Block CALLISTO_ALUMINUM_ORE = BLOCKS.registerWithItem(Constant.Block.CALLISTO_ALUMINUM_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(CALLISTO_ROCK, 3.8F, 4.5F)));
     public static final Block CALLISTO_NIOBIUM_ORE = BLOCKS.registerWithItem(Constant.Block.CALLISTO_NIOBIUM_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(CALLISTO_ROCK, 4.2F, 5.0F)));
+    // PHASE 4 OUTER MOONS: TITAN, ENCELADUS, TITANIA, OBERON, TRITON
+    public static final Block TITAN_THOLIN_SAND = BLOCKS.registerWithItem(Constant.Block.TITAN_THOLIN_SAND, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).strength(0.6F).sound(SoundType.SAND)));
+    public static final Block TITAN_HYDROCARBON_CRUST = BLOCKS.registerWithItem(Constant.Block.TITAN_HYDROCARBON_CRUST, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_ORANGE).instrument(NoteBlockInstrument.BASEDRUM).strength(1.8F, 4.5F).sound(SoundType.BASALT).requiresCorrectToolForDrops()));
+    public static final Block TITAN_WATER_ICE_ROCK = BLOCKS.registerWithItem(Constant.Block.TITAN_WATER_ICE_ROCK, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).instrument(NoteBlockInstrument.BASEDRUM).strength(2.5F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops()));
+    public static final Block TITAN_MAGNESIUM_ORE = BLOCKS.registerWithItem(Constant.Block.TITAN_MAGNESIUM_ORE, new DropExperienceBlock(UniformInt.of(1, 4), oreSettings(TITAN_WATER_ICE_ROCK, 3.8F, 5.5F)));
+    public static final Block TITAN_IRON_ORE = BLOCKS.registerWithItem(Constant.Block.TITAN_IRON_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(TITAN_WATER_ICE_ROCK, 3.2F, 5.0F)));
+    public static final Block TITAN_SILICON_ORE = BLOCKS.registerWithItem(Constant.Block.TITAN_SILICON_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(TITAN_WATER_ICE_ROCK, 3.2F, 5.0F)));
+
+    public static final Block ENCELADUS_ICE_CRUST = BLOCKS.registerWithItem(Constant.Block.ENCELADUS_ICE_CRUST, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.ICE).instrument(NoteBlockInstrument.CHIME).strength(2.0F, 5.0F).friction(0.92F).sound(SoundType.GLASS).requiresCorrectToolForDrops()));
+    public static final Block ENCELADUS_TIGER_STRIPE_ICE = BLOCKS.registerWithItem(Constant.Block.ENCELADUS_TIGER_STRIPE_ICE, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_CYAN).instrument(NoteBlockInstrument.CHIME).strength(2.4F, 5.5F).friction(0.90F).lightLevel(s -> 3).sound(SoundType.GLASS).requiresCorrectToolForDrops()));
+    public static final Block ENCELADUS_SEABED_ROCK = BLOCKS.registerWithItem(Constant.Block.ENCELADUS_SEABED_ROCK, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).instrument(NoteBlockInstrument.BASEDRUM).strength(3.4F, 6.5F).sound(SoundType.BASALT).requiresCorrectToolForDrops()));
+    public static final Block ENCELADUS_MAGNESIUM_ORE = BLOCKS.registerWithItem(Constant.Block.ENCELADUS_MAGNESIUM_ORE, new DropExperienceBlock(UniformInt.of(1, 4), oreSettings(ENCELADUS_ICE_CRUST, 3.8F, 5.5F)));
+    public static final Block ENCELADUS_NIOBIUM_ORE = BLOCKS.registerWithItem(Constant.Block.ENCELADUS_NIOBIUM_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(ENCELADUS_ICE_CRUST, 3.6F, 5.0F)));
+
+    public static final Block TITANIA_ICE_SILICATE = BLOCKS.registerWithItem(Constant.Block.TITANIA_ICE_SILICATE, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).strength(2.8F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops()));
+    public static final Block TITANIA_FROST_CRUST = BLOCKS.registerWithItem(Constant.Block.TITANIA_FROST_CRUST, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).strength(1.2F, 3.5F).sound(SoundType.PACKED_MUD).requiresCorrectToolForDrops()));
+    public static final Block TITANIA_CHASM_SLATE = BLOCKS.registerWithItem(Constant.Block.TITANIA_CHASM_SLATE, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).instrument(NoteBlockInstrument.BASEDRUM).strength(3.6F, 7.0F).sound(SoundType.DEEPSLATE).requiresCorrectToolForDrops()));
+    public static final Block TITANIA_URANIUM_ORE = BLOCKS.registerWithItem(Constant.Block.TITANIA_URANIUM_ORE, new DropExperienceBlock(UniformInt.of(2, 6), oreSettings(TITANIA_ICE_SILICATE, 4.6F, 6.0F).lightLevel(s -> 4)));
+    public static final Block TITANIA_LONSDALEITE_ORE = BLOCKS.registerWithItem(Constant.Block.TITANIA_LONSDALEITE_ORE, new DropExperienceBlock(UniformInt.of(3, 7), oreSettings(TITANIA_ICE_SILICATE, 5.0F, 6.5F).lightLevel(s -> 3)));
+    public static final Block TITANIA_TITANIUM_ORE = BLOCKS.registerWithItem(Constant.Block.TITANIA_TITANIUM_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(TITANIA_ICE_SILICATE, 4.0F, 5.5F)));
+
+    public static final Block OBERON_DARK_ROCK = BLOCKS.registerWithItem(Constant.Block.OBERON_DARK_ROCK, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASEDRUM).strength(3.2F, 6.5F).sound(SoundType.DEEPSLATE).requiresCorrectToolForDrops()));
+    public static final Block OBERON_REDDISH_REGOLITH = BLOCKS.registerWithItem(Constant.Block.OBERON_REDDISH_REGOLITH, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_RED).strength(1.4F, 3.5F).sound(SoundType.GRAVEL).requiresCorrectToolForDrops()));
+    public static final Block OBERON_IMPACT_BRECCIA = BLOCKS.registerWithItem(Constant.Block.OBERON_IMPACT_BRECCIA, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).instrument(NoteBlockInstrument.BASEDRUM).strength(3.6F, 7.0F).sound(SoundType.BASALT).requiresCorrectToolForDrops()));
+    public static final Block OBERON_URANIUM_ORE = BLOCKS.registerWithItem(Constant.Block.OBERON_URANIUM_ORE, new DropExperienceBlock(UniformInt.of(2, 6), oreSettings(OBERON_DARK_ROCK, 4.8F, 6.0F).lightLevel(s -> 4)));
+    public static final Block OBERON_NIOBIUM_ORE = BLOCKS.registerWithItem(Constant.Block.OBERON_NIOBIUM_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(OBERON_DARK_ROCK, 4.0F, 5.5F)));
+
+    public static final Block TRITON_NITROGEN_ICE = BLOCKS.registerWithItem(Constant.Block.TRITON_NITROGEN_ICE, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).instrument(NoteBlockInstrument.CHIME).strength(2.2F, 5.5F).friction(0.90F).sound(SoundType.GLASS).requiresCorrectToolForDrops()));
+    public static final Block TRITON_CANTALOUPE_CRUST = BLOCKS.registerWithItem(Constant.Block.TRITON_CANTALOUPE_CRUST, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_PINK).instrument(NoteBlockInstrument.BASEDRUM).strength(2.6F, 6.0F).sound(SoundType.CALCITE).requiresCorrectToolForDrops()));
+    public static final Block TRITON_CRYO_BASALT = BLOCKS.registerWithItem(Constant.Block.TRITON_CRYO_BASALT, new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE).instrument(NoteBlockInstrument.BASEDRUM).strength(3.8F, 7.5F).sound(SoundType.DEEPSLATE).requiresCorrectToolForDrops()));
+    public static final Block TRITON_SUPERIONIC_ORE = BLOCKS.registerWithItem(Constant.Block.TRITON_SUPERIONIC_ORE, new DropExperienceBlock(UniformInt.of(3, 7), oreSettings(TRITON_NITROGEN_ICE, 4.8F, 6.5F).lightLevel(s -> 5)));
+    public static final Block TRITON_XENON_CLATHRATE_ORE = BLOCKS.registerWithItem(Constant.Block.TRITON_XENON_CLATHRATE_ORE, new DropExperienceBlock(UniformInt.of(2, 5), oreSettings(TRITON_NITROGEN_ICE, 4.4F, 6.0F).lightLevel(s -> 3)));
 
     // ORES
     public static final Block SILICON_ORE = BLOCKS.registerWithItem(Constant.Block.SILICON_ORE, new DropExperienceBlock(ConstantInt.of(0), oreSettings(Blocks.STONE, 3.0F, 3.0F)));

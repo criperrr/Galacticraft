@@ -1,0 +1,73 @@
+{
+  "carvers": {
+    "air": [
+      "galacticraft:mars_cave_carver",
+      "galacticraft:mars_crater_carver"
+    ]
+  },
+  "downfall": 0.0,
+  "effects": {
+    "fog_color": 13793339,
+    "mood_sound": {
+      "block_search_extent": 8,
+      "offset": 2.0,
+      "sound": "minecraft:ambient.cave",
+      "tick_delay": 6000
+    },
+    "music": {
+      "max_delay": 24000,
+      "min_delay": 12000,
+      "replace_current_music": false,
+      "sound": "galacticraft:music.mars"
+    },
+    "sky_color": 10121794,
+    "water_color": 4159204,
+    "water_fog_color": 329011
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [
+      "galacticraft:mars_surface_outcrop"
+    ],
+    [],
+    [
+      "galacticraft:ore_copper_mars",
+      "galacticraft:ore_copper_large_mars",
+      "galacticraft:ore_tin_small_mars",
+      "galacticraft:ore_tin_middle_mars",
+      "galacticraft:ore_tin_upper_mars",
+      "galacticraft:ore_iron_small_mars",
+      "galacticraft:ore_iron_middle_mars",
+      "galacticraft:ore_silicon_mars",
+      "galacticraft:ore_aluminum_mars",
+      "galacticraft:ore_niobium_mars",
+      "galacticraft:ore_gold_mars",
+      "galacticraft:ore_redstone_mars",
+      "galacticraft:ore_titanium_mars",
+      "galacticraft:ore_graphite_mars",
+      "galacticraft:ore_desh_small_mars",
+      "galacticraft:ore_desh_middle_mars",
+      "galacticraft:ore_ice_mars",
+      "galacticraft:ore_sub_surface_mars"
+    ],
+    [
+      "galacticraft:mars_cavern_vines"
+    ]
+  ],
+  "has_precipitation": false,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 2.0
+}

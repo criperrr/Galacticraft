@@ -1,0 +1,213 @@
+{
+  "type": "minecraft:cache_2d",
+  "argument": {
+    "type": "minecraft:spline",
+    "spline": {
+      "coordinate": "galacticraft:enceladus/continents",
+      "points": [
+        {
+          "derivative": 0.0,
+          "location": -1.0,
+          "value": {
+            "coordinate": "galacticraft:enceladus/pv",
+            "points": [
+              {
+                "derivative": 0.0,
+                "location": -1.0,
+                "value": -0.523
+              },
+              {
+                "derivative": 0.0,
+                "location": 0.0,
+                "value": -0.32
+              },
+              {
+                "derivative": 0.0,
+                "location": 1.0,
+                "value": -0.167
+              }
+            ]
+          }
+        },
+        {
+          "derivative": 0.0,
+          "location": -0.3,
+          "value": {
+            "coordinate": "galacticraft:enceladus/pv",
+            "points": [
+              {
+                "derivative": 0.0,
+                "location": -1.0,
+                "value": -0.523
+              },
+              {
+                "derivative": 0.0,
+                "location": 0.0,
+                "value": -0.32
+              },
+              {
+                "derivative": 0.0,
+                "location": 1.0,
+                "value": -0.167
+              }
+            ]
+          }
+        },
+        {
+          "derivative": 0.0,
+          "location": -0.1,
+          "value": {
+            "coordinate": "galacticraft:enceladus/pv",
+            "points": [
+              {
+                "derivative": 0.0,
+                "location": -1.0,
+                "value": -0.37699997
+              },
+              {
+                "derivative": 0.0,
+                "location": -0.1,
+                "value": 0.0
+              },
+              {
+                "derivative": 0.0,
+                "location": 0.6,
+                "value": 0.102000006
+              },
+              {
+                "derivative": 0.0,
+                "location": 1.0,
+                "value": 0.187
+              }
+            ]
+          }
+        },
+        {
+          "derivative": 0.0,
+          "location": 0.35,
+          "value": {
+            "coordinate": "galacticraft:enceladus/erosion",
+            "points": [
+              {
+                "derivative": 0.0,
+                "location": -0.8,
+                "value": {
+                  "coordinate": "galacticraft:enceladus/pv",
+                  "points": [
+                    {
+                      "derivative": 0.0,
+                      "location": -1.0,
+                      "value": -0.23999998
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": -0.2,
+                      "value": 0.34
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": 0.4,
+                      "value": 0.527
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": 1.0,
+                      "value": 0.68
+                    }
+                  ]
+                }
+              },
+              {
+                "derivative": 0.0,
+                "location": 0.25,
+                "value": {
+                  "coordinate": "galacticraft:enceladus/pv",
+                  "points": [
+                    {
+                      "derivative": 0.0,
+                      "location": -1.0,
+                      "value": -0.37699997
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": -0.1,
+                      "value": 0.0
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": 0.6,
+                      "value": 0.102000006
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": 1.0,
+                      "value": 0.187
+                    }
+                  ]
+                }
+              },
+              {
+                "derivative": 0.0,
+                "location": 1.0,
+                "value": {
+                  "coordinate": "galacticraft:enceladus/pv",
+                  "points": [
+                    {
+                      "derivative": 0.0,
+                      "location": -1.0,
+                      "value": -0.37699997
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": -0.1,
+                      "value": 0.0
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": 0.6,
+                      "value": 0.102000006
+                    },
+                    {
+                      "derivative": 0.0,
+                      "location": 1.0,
+                      "value": 0.187
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "derivative": 0.0,
+          "location": 1.0,
+          "value": {
+            "coordinate": "galacticraft:enceladus/pv",
+            "points": [
+              {
+                "derivative": 0.0,
+                "location": -1.0,
+                "value": -0.23999998
+              },
+              {
+                "derivative": 0.0,
+                "location": -0.2,
+                "value": 0.34
+              },
+              {
+                "derivative": 0.0,
+                "location": 0.4,
+                "value": 0.527
+              },
+              {
+                "derivative": 0.0,
+                "location": 1.0,
+                "value": 0.68
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "era": 6,
+  "icon_item": "galacticraft:triton_superionic_ore",
+  "id": "galacticraft:atlas/triton",
+  "lock_hint_key": "manual.galacticraft.hint.outer_ephemeris",
+  "order": 210,
+  "pages": [
+    {
+      "type": "planet_stratigraphy",
+      "body_id": "galacticraft:triton",
+      "hazards": "manual.galacticraft.atlas.triton.hazards",
+      "ores": [
+        {
+          "label": "block.galacticraft.triton_superionic_ore",
+          "max_y": 48,
+          "min_y": -64,
+          "ore_item": "galacticraft:triton_superionic_ore",
+          "rarity": 3.2
+        },
+        {
+          "color": -5796870,
+          "label": "block.galacticraft.triton_xenon_clathrate_ore",
+          "max_y": 72,
+          "min_y": -64,
+          "ore_item": "galacticraft:triton_xenon_clathrate_ore",
+          "rarity": 3.0
+        },
+        {
+          "color": -8530948,
+          "label": "block.galacticraft.dense_ice",
+          "max_y": 88,
+          "min_y": -64,
+          "ore_item": "galacticraft:dense_ice",
+          "rarity": 2.6
+        }
+      ],
+      "title": "manual.galacticraft.atlas.triton.title"
+    }
+  ],
+  "related_items": [
+    "galacticraft:triton_superionic_ore",
+    "galacticraft:triton_xenon_clathrate_ore",
+    "galacticraft:dense_ice"
+  ],
+  "tab": "atlas",
+  "title_key": "manual.galacticraft.atlas.triton.title"
+}

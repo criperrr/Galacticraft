@@ -1,0 +1,37 @@
+{
+  "era": 5,
+  "icon_item": "galacticraft:atmospheric_fractionator",
+  "id": "galacticraft:mission/aerostatic_giants",
+  "lock_hint_key": "manual.galacticraft.hint.outer_ephemeris",
+  "order": 60,
+  "pages": [
+    {
+      "type": "text",
+      "body": "manual.galacticraft.entry.aerostatic_giants.body1",
+      "callout": "manual.galacticraft.entry.aerostatic_giants.warn1",
+      "callout_style": "warn",
+      "heading": "manual.galacticraft.entry.aerostatic_giants.h1",
+      "link_entries": [
+        "galacticraft:atlas/jupiter",
+        "galacticraft:atlas/saturn",
+        "galacticraft:atlas/uranus",
+        "galacticraft:atlas/neptune",
+        "galacticraft:atlas/titan"
+      ],
+      "showcase_items": [
+        "galacticraft:atmospheric_fractionator",
+        "galacticraft:shield_controller",
+        "galacticraft:jupiter_metallic_hydrogen_rock",
+        "galacticraft:saturn_helium_mantle_rock"
+      ]
+    }
+  ],
+  "related_items": [
+    "galacticraft:atmospheric_fractionator",
+    "galacticraft:shield_controller",
+    "galacticraft:isothermal_padding_chestpiece",
+    "galacticraft:helium3_cell"
+  ],
+  "tab": "mission",
+  "title_key": "manual.galacticraft.entry.aerostatic_giants.title"
+}

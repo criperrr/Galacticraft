@@ -89,6 +89,11 @@ public class GCCelestialBodies {
     public static final ResourceKey<CelestialBody<?, ?>> EUROPA = key("europa");
     public static final ResourceKey<CelestialBody<?, ?>> GANYMEDE = key("ganymede");
     public static final ResourceKey<CelestialBody<?, ?>> CALLISTO = key("callisto");
+    public static final ResourceKey<CelestialBody<?, ?>> TITAN = key("titan");
+    public static final ResourceKey<CelestialBody<?, ?>> ENCELADUS = key("enceladus");
+    public static final ResourceKey<CelestialBody<?, ?>> TITANIA = key("titania");
+    public static final ResourceKey<CelestialBody<?, ?>> OBERON = key("oberon");
+    public static final ResourceKey<CelestialBody<?, ?>> TRITON = key("triton");
 
     public static void bootstrapRegistries(BootstrapContext<CelestialBody<?, ?>> context) {
         HolderGetter<CelestialTeleporter<?, ?>> teleporters = context.lookup(AddonRegistries.CELESTIAL_TELEPORTER);
@@ -158,7 +163,7 @@ public class GCCelestialBodies {
                 Component.translatable(Translations.CelestialBody.MOON),
                 Component.translatable(Translations.CelestialBody.MOON_DESC),
                 Optional.of(EARTH),
-                OrbitalCelestialPositionType.INSTANCE.configure(new OrbitalCelestialPositionConfig(1 / 0.01F, 20.0, 0.2667, false)),
+                OrbitalCelestialPositionType.INSTANCE.configure(new OrbitalCelestialPositionConfig(27.32F, 20.0, 0.2667, false)),
                 IconCelestialDisplayType.INSTANCE.configure(new IconCelestialDisplayConfig(Constant.CelestialBody.MOON, 0, 0, 8, 8, Constant.CelestialOverlay.MOON)),
                 DefaultCelestialRingDisplayType.INSTANCE.configure(new DefaultCelestialRingDisplayConfig()),
                 GCDimensions.MOON,
@@ -181,7 +186,7 @@ public class GCCelestialBodies {
                 Component.translatable(Translations.CelestialBody.MERCURY_DESC),
                 Optional.of(SOL),
                 OrbitalCelestialPositionType.INSTANCE.configure(new OrbitalCelestialPositionConfig(0.24096385542168674698795180722892F, 0.387F, 1.45F, true)),
-                IconCelestialDisplayType.INSTANCE.configure(new IconCelestialDisplayConfig(Constant.CelestialBody.MERCURY, 0, 0, 16, 16, Constant.CelestialOverlay.VENUS)),
+                IconCelestialDisplayType.INSTANCE.configure(new IconCelestialDisplayConfig(Constant.CelestialBody.MERCURY, 0, 0, 16, 16, 0.85F, Optional.empty(), Optional.of(Constant.CelestialOverlay.VENUS))),
                 DefaultCelestialRingDisplayType.INSTANCE.configure(new DefaultCelestialRingDisplayConfig()),
                 GCDimensions.MERCURY,
                 teleporters.getOrThrow(GCTeleporterTypes.LANDER_CELESTIAL_TELEPORTER),
@@ -203,7 +208,7 @@ public class GCCelestialBodies {
                 Component.translatable(Translations.CelestialBody.VENUS_DESC),
                 Optional.of(SOL),
                 OrbitalCelestialPositionType.INSTANCE.configure(new OrbitalCelestialPositionConfig(0.61527929901423877327491785323111F, 0.75F, 2.0F, true)),
-                IconCelestialDisplayType.INSTANCE.configure(new IconCelestialDisplayConfig(Constant.CelestialBody.VENUS, 0, 0, 16, 16, Constant.CelestialOverlay.VENUS)),
+                IconCelestialDisplayType.INSTANCE.configure(new IconCelestialDisplayConfig(Constant.CelestialBody.VENUS, 0, 0, 16, 16, 0.96F, Optional.empty(), Optional.of(Constant.CelestialOverlay.VENUS))),
                 DefaultCelestialRingDisplayType.INSTANCE.configure(new DefaultCelestialRingDisplayConfig()),
                 GCDimensions.VENUS,
                 teleporters.getOrThrow(GCTeleporterTypes.LANDER_CELESTIAL_TELEPORTER),
@@ -227,7 +232,7 @@ public class GCCelestialBodies {
                 Component.translatable(Translations.CelestialBody.MARS_DESC),
                 Optional.of(SOL),
                 OrbitalCelestialPositionType.INSTANCE.configure(new OrbitalCelestialPositionConfig(1.8811610076670317634173055859803F, 1.25F, 0.1667F, true)),
-                IconCelestialDisplayType.INSTANCE.configure(new IconCelestialDisplayConfig(Constant.CelestialBody.MARS, 0, 0, 16, 16, Constant.CelestialOverlay.MARS)),
+                IconCelestialDisplayType.INSTANCE.configure(new IconCelestialDisplayConfig(Constant.CelestialBody.MARS, 0, 0, 16, 16, 0.90F, Optional.empty(), Optional.of(Constant.CelestialOverlay.MARS))),
                 DefaultCelestialRingDisplayType.INSTANCE.configure(new DefaultCelestialRingDisplayConfig()),
                 GCDimensions.MARS,
                 teleporters.getOrThrow(GCTeleporterTypes.LANDER_CELESTIAL_TELEPORTER),
@@ -255,7 +260,7 @@ public class GCCelestialBodies {
                 Component.translatable(Translations.CelestialBody.ASTEROID_DESC),
                 Optional.of(SOL),
                 OrbitalCelestialPositionType.INSTANCE.configure(new OrbitalCelestialPositionConfig(45.0F, 1.375F, 0.0F, true)),
-                SpinningIconCelestialDisplayType.INSTANCE.configure(new IconCelestialDisplayConfig(Constant.CelestialBody.ASTEROID, 0, 0, 16, 16)),
+                SpinningIconCelestialDisplayType.INSTANCE.configure(new IconCelestialDisplayConfig(Constant.CelestialBody.ASTEROID, 0, 0, 16, 16, 0.88F, Optional.empty())),
                 AsteroidCelestialRingDisplayType.INSTANCE.configure(new DefaultCelestialRingDisplayConfig()),
                 GCDimensions.ASTEROID,
                 teleporters.getOrThrow(GCTeleporterTypes.LANDER_CELESTIAL_TELEPORTER),
@@ -277,7 +282,7 @@ public class GCCelestialBodies {
                 Component.translatable(Translations.CelestialBody.JUPITER_DESC),
                 Optional.of(SOL),
                 OrbitalCelestialPositionType.INSTANCE.configure(new OrbitalCelestialPositionConfig(11.861993428258488499452354874042F, 1.5F, Mth.PI, true)),
-                IconCelestialDisplayType.INSTANCE.configure(new IconCelestialDisplayConfig(Constant.CelestialBody.JUPITER, 0, 0, 16, 16, Constant.CelestialOverlay.VENUS)),
+                IconCelestialDisplayType.INSTANCE.configure(new IconCelestialDisplayConfig(Constant.CelestialBody.JUPITER, 0, 0, 16, 16, 1.30F, Optional.empty(), Optional.of(Constant.CelestialOverlay.VENUS))),
                 DefaultCelestialRingDisplayType.INSTANCE.configure(new DefaultCelestialRingDisplayConfig()),
                 GCDimensions.JUPITER,
                 teleporters.getOrThrow(GCTeleporterTypes.AEROSTATIC_CELESTIAL_TELEPORTER),
@@ -310,8 +315,8 @@ public class GCCelestialBodies {
                 Optional.of(SOL),
                 OrbitalCelestialPositionType.INSTANCE.configure(new OrbitalCelestialPositionConfig(29.463307776560788608981380065717F, 1.75F, 5.45F, true)),
                 IconCelestialDisplayType.INSTANCE.configure(new IconCelestialDisplayConfig(
-                        Constant.CelestialBody.SATURN, 0, 0, 16, 16, 1.0F,
-                        Optional.of(new IconCelestialDisplayConfig.Decoration(Constant.CelestialBody.SATURN_RINGS, -7.5F, -1.75F, 15.0F, 3.5F, 0, 0, 30, 7)),
+                        Constant.CelestialBody.SATURN, 0, 0, 16, 16, 1.22F,
+                        Optional.of(new IconCelestialDisplayConfig.Decoration(Constant.CelestialBody.SATURN_RINGS, 6.0F, 2.25F, 6.0F, 2.25F, 0, 0, 32, 12)),
                         Optional.of(Constant.CelestialOverlay.VENUS)
                 )),
                 DefaultCelestialRingDisplayType.INSTANCE.configure(new DefaultCelestialRingDisplayConfig()),
@@ -344,8 +349,8 @@ public class GCCelestialBodies {
                 Optional.of(SOL),
                 OrbitalCelestialPositionType.INSTANCE.configure(new OrbitalCelestialPositionConfig(84.063526834611171960569550930997F, 2.0F, 1.38F, true)),
                 IconCelestialDisplayType.INSTANCE.configure(new IconCelestialDisplayConfig(
-                        Constant.CelestialBody.URANUS, 0, 0, 16, 16, 1.0F,
-                        Optional.of(new IconCelestialDisplayConfig.Decoration(Constant.CelestialBody.URANUS_RINGS, -1.75F, -7.0F, 3.5F, 14.0F, 0, 0, 7, 28)),
+                        Constant.CelestialBody.URANUS, 0, 0, 16, 16, 1.12F,
+                        Optional.of(new IconCelestialDisplayConfig.Decoration(Constant.CelestialBody.URANUS_RINGS, 2.25F, 6.0F, 2.25F, 6.0F, 0, 0, 12, 32)),
                         Optional.of(Constant.CelestialOverlay.MARS)
                 )),
                 DefaultCelestialRingDisplayType.INSTANCE.configure(new DefaultCelestialRingDisplayConfig()),
@@ -377,7 +382,7 @@ public class GCCelestialBodies {
                 Component.translatable(Translations.CelestialBody.NEPTUNE_DESC),
                 Optional.of(SOL),
                 OrbitalCelestialPositionType.INSTANCE.configure(new OrbitalCelestialPositionConfig(164.84118291347207009857612267251F, 2.25F, 1.0F, true)),
-                IconCelestialDisplayType.INSTANCE.configure(new IconCelestialDisplayConfig(Constant.CelestialBody.NEPTUNE, 0, 0, 16, 16, Constant.CelestialOverlay.MARS)),
+                IconCelestialDisplayType.INSTANCE.configure(new IconCelestialDisplayConfig(Constant.CelestialBody.NEPTUNE, 0, 0, 16, 16, 1.12F, Optional.empty(), Optional.of(Constant.CelestialOverlay.MARS))),
                 DefaultCelestialRingDisplayType.INSTANCE.configure(new DefaultCelestialRingDisplayConfig()),
                 GCDimensions.NEPTUNE,
                 teleporters.getOrThrow(GCTeleporterTypes.AEROSTATIC_CELESTIAL_TELEPORTER),
@@ -402,6 +407,123 @@ public class GCCelestialBodies {
                 null
         )));
 
+        // SATURN MOONS: TITAN & ENCELADUS
+        context.register(TITAN, PlanetType.INSTANCE.configure(new PlanetConfig(
+                Component.translatable(Translations.CelestialBody.TITAN),
+                Component.translatable(Translations.CelestialBody.TITAN_DESC),
+                Optional.of(SATURN),
+                OrbitalCelestialPositionType.INSTANCE.configure(new OrbitalCelestialPositionConfig(15.95F, 28.0, 0.72, false)),
+                IconCelestialDisplayType.INSTANCE.configure(new IconCelestialDisplayConfig(Constant.CelestialBody.TITAN, 0, 0, 8, 8, Constant.CelestialOverlay.VENUS)),
+                DefaultCelestialRingDisplayType.INSTANCE.configure(new DefaultCelestialRingDisplayConfig()),
+                GCDimensions.TITAN,
+                teleporters.getOrThrow(GCTeleporterTypes.LANDER_CELESTIAL_TELEPORTER),
+                new GasComposition.Builder()
+                        .temperature(-179.5)
+                        .pressure(1.45F)
+                        .gas(Gases.NITROGEN_ID, 942000.000)
+                        .gas(Gases.METHANE_ID, 56500.000)
+                        .gas(Gases.HYDROGEN_ID, 1500.000)
+                        .build(),
+                0.138F,
+                GCCelestialHandlers.DEFAULT,
+                5,
+                -179,
+                -180,
+                382690L,
+                null
+        )));
+
+        context.register(ENCELADUS, PlanetType.INSTANCE.configure(new PlanetConfig(
+                Component.translatable(Translations.CelestialBody.ENCELADUS),
+                Component.translatable(Translations.CelestialBody.ENCELADUS_DESC),
+                Optional.of(SATURN),
+                OrbitalCelestialPositionType.INSTANCE.configure(new OrbitalCelestialPositionConfig(1.37F, 16.0, 2.35, false)),
+                IconCelestialDisplayType.INSTANCE.configure(new IconCelestialDisplayConfig(Constant.CelestialBody.ENCELADUS, 0, 0, 8, 8, Constant.CelestialOverlay.MOON)),
+                DefaultCelestialRingDisplayType.INSTANCE.configure(new DefaultCelestialRingDisplayConfig()),
+                GCDimensions.ENCELADUS,
+                teleporters.getOrThrow(GCTeleporterTypes.LANDER_CELESTIAL_TELEPORTER),
+                new GasComposition.Builder()
+                        .temperature(-200.0)
+                        .pressure(0.0F)
+                        .build(),
+                0.012F,
+                GCCelestialHandlers.DEFAULT,
+                5,
+                -198,
+                -201,
+                32890L,
+                null
+        )));
+
+        // URANUS MOONS: TITANIA & OBERON
+        context.register(TITANIA, PlanetType.INSTANCE.configure(new PlanetConfig(
+                Component.translatable(Translations.CelestialBody.TITANIA),
+                Component.translatable(Translations.CelestialBody.TITANIA_DESC),
+                Optional.of(URANUS),
+                OrbitalCelestialPositionType.INSTANCE.configure(new OrbitalCelestialPositionConfig(8.71F, 18.0, 1.15, false)),
+                IconCelestialDisplayType.INSTANCE.configure(new IconCelestialDisplayConfig(Constant.CelestialBody.TITANIA, 0, 0, 8, 8, Constant.CelestialOverlay.MOON)),
+                DefaultCelestialRingDisplayType.INSTANCE.configure(new DefaultCelestialRingDisplayConfig()),
+                GCDimensions.TITANIA,
+                teleporters.getOrThrow(GCTeleporterTypes.LANDER_CELESTIAL_TELEPORTER),
+                new GasComposition.Builder()
+                        .temperature(-200.0)
+                        .pressure(0.0F)
+                        .build(),
+                0.039F,
+                GCCelestialHandlers.DEFAULT,
+                6,
+                -184,
+                -213,
+                208940L,
+                null
+        )));
+
+        context.register(OBERON, PlanetType.INSTANCE.configure(new PlanetConfig(
+                Component.translatable(Translations.CelestialBody.OBERON),
+                Component.translatable(Translations.CelestialBody.OBERON_DESC),
+                Optional.of(URANUS),
+                OrbitalCelestialPositionType.INSTANCE.configure(new OrbitalCelestialPositionConfig(13.46F, 26.0, 3.80, false)),
+                IconCelestialDisplayType.INSTANCE.configure(new IconCelestialDisplayConfig(Constant.CelestialBody.OBERON, 0, 0, 8, 8, Constant.CelestialOverlay.MARS)),
+                DefaultCelestialRingDisplayType.INSTANCE.configure(new DefaultCelestialRingDisplayConfig()),
+                GCDimensions.OBERON,
+                teleporters.getOrThrow(GCTeleporterTypes.LANDER_CELESTIAL_TELEPORTER),
+                new GasComposition.Builder()
+                        .temperature(-198.0)
+                        .pressure(0.0F)
+                        .build(),
+                0.035F,
+                GCCelestialHandlers.DEFAULT,
+                6,
+                -193,
+                -203,
+                323120L,
+                null
+        )));
+
+        // NEPTUNE MOON: TRITON (retrograde captured Kuiper belt world)
+        context.register(TRITON, PlanetType.INSTANCE.configure(new PlanetConfig(
+                Component.translatable(Translations.CelestialBody.TRITON),
+                Component.translatable(Translations.CelestialBody.TRITON_DESC),
+                Optional.of(NEPTUNE),
+                OrbitalCelestialPositionType.INSTANCE.configure(new OrbitalCelestialPositionConfig(-5.88F, 20.0, 4.90, false)),
+                IconCelestialDisplayType.INSTANCE.configure(new IconCelestialDisplayConfig(Constant.CelestialBody.TRITON, 0, 0, 8, 8, Constant.CelestialOverlay.MOON)),
+                DefaultCelestialRingDisplayType.INSTANCE.configure(new DefaultCelestialRingDisplayConfig()),
+                GCDimensions.TRITON,
+                teleporters.getOrThrow(GCTeleporterTypes.LANDER_CELESTIAL_TELEPORTER),
+                new GasComposition.Builder()
+                        .temperature(-235.0)
+                        .pressure(0.000014F)
+                        .gas(Gases.NITROGEN_ID, 999000.000)
+                        .gas(Gases.METHANE_ID, 1000.000)
+                        .build(),
+                0.079F,
+                GCCelestialHandlers.DEFAULT,
+                7,
+                -235,
+                -238,
+                141050L,
+                null
+        )));
         context.register(PHOBOS, PlanetType.INSTANCE.configure(new PlanetConfig(
                 Component.translatable(Translations.CelestialBody.PHOBOS),
                 Component.translatable(Translations.CelestialBody.PHOBOS_DESC),

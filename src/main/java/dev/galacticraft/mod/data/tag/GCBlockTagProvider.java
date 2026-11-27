@@ -113,7 +113,9 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         this.tag(GCBlockTags.FOOTPRINTS)
                 .add(GCBlocks.MOON_TURF)
-                .add(GCBlocks.MARS_SURFACE_ROCK);
+                .add(GCBlocks.MARS_SURFACE_ROCK)
+                .add(GCBlocks.MARS_BASALTIC_SAND)
+                .add(GCBlocks.MARS_FROST_REGOLITH);
 
         this.tag(GCBlockTags.INFINIBURN_MOON)
                 .add(GCBlocks.MOON_BASALT_BRICK);
@@ -159,6 +161,21 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         this.tag(GCBlockTags.INFINIBURN_CALLISTO)
                 .add(GCBlocks.CALLISTO_ROCK)
                 .add(GCBlocks.DENSE_ICE);
+        this.tag(GCBlockTags.INFINIBURN_TITAN)
+                .add(GCBlocks.TITAN_HYDROCARBON_CRUST)
+                .add(GCBlocks.TITAN_WATER_ICE_ROCK);
+        this.tag(GCBlockTags.INFINIBURN_ENCELADUS)
+                .add(GCBlocks.ENCELADUS_TIGER_STRIPE_ICE)
+                .add(GCBlocks.ENCELADUS_SEABED_ROCK);
+        this.tag(GCBlockTags.INFINIBURN_TITANIA)
+                .add(GCBlocks.TITANIA_CHASM_SLATE)
+                .add(GCBlocks.TITANIA_ICE_SILICATE);
+        this.tag(GCBlockTags.INFINIBURN_OBERON)
+                .add(GCBlocks.OBERON_DARK_ROCK)
+                .add(GCBlocks.OBERON_IMPACT_BRECCIA);
+        this.tag(GCBlockTags.INFINIBURN_TRITON)
+                .add(GCBlocks.TRITON_CRYO_BASALT)
+                .add(GCBlocks.TRITON_NITROGEN_ICE);
         this.tag(GCBlockTags.BASE_STONE_MOON)
                 .add(GCBlocks.MOON_ROCK);
         this.tag(GCBlockTags.BASE_STONE_MARS)
@@ -177,6 +194,12 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(GCBlocks.MARS_STONE)
                 .add(GCBlocks.MARS_SUB_SURFACE_ROCK)
                 .add(GCBlocks.MARS_SURFACE_ROCK)
+                .add(GCBlocks.MARS_BASALT)
+                .add(GCBlocks.MARS_SILTSTONE)
+                .add(GCBlocks.MARS_BRECCIA)
+                .add(GCBlocks.MARS_BASALTIC_SAND)
+                .add(GCBlocks.MARS_FROST_REGOLITH)
+                .add(GCBlocks.MARS_DEEP_STONE)
                 .add(GCBlocks.DENSE_ICE);
         this.tag(GCBlockTags.VENUS_CARVER_REPLACEABLES)
                 .add(GCBlocks.SOFT_VENUS_ROCK)
@@ -289,6 +312,12 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(GCBlocks.MARS_STONE)
                 .add(GCBlocks.MARS_SUB_SURFACE_ROCK)
                 .add(GCBlocks.MARS_SURFACE_ROCK)
+                .add(GCBlocks.MARS_BASALT)
+                .add(GCBlocks.MARS_SILTSTONE)
+                .add(GCBlocks.MARS_BRECCIA)
+                .add(GCBlocks.MARS_BASALTIC_SAND)
+                .add(GCBlocks.MARS_FROST_REGOLITH)
+                .add(GCBlocks.MARS_DEEP_STONE)
                 .add(GCBlocks.DENSE_ICE);
 
         this.tag(GCBlockTags.MOON_ROCK_ORE_REPLACEABLES)
@@ -299,7 +328,11 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(GCBlocks.MOON_BASALT);
         this.tag(GCBlockTags.MARS_STONE_ORE_REPLACEABLES)
                 .add(GCBlocks.MARS_STONE)
-                .add(GCBlocks.MARS_SUB_SURFACE_ROCK);
+                .add(GCBlocks.MARS_SUB_SURFACE_ROCK)
+                .add(GCBlocks.MARS_BASALT)
+                .add(GCBlocks.MARS_SILTSTONE)
+                .add(GCBlocks.MARS_BRECCIA)
+                .add(GCBlocks.MARS_DEEP_STONE);
         this.tag(GCBlockTags.ASTEROID_ROCK_ORE_REPLACEABLES)
                 .add(GCBlocks.ASTEROID_ROCK)
                 .add(GCBlocks.ASTEROID_ROCK_1)
@@ -318,6 +351,35 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(GCBlocks.URANUS_DIAMOND_BEARING_ROCK);
         this.tag(GCBlockTags.NEPTUNE_ROCK_ORE_REPLACEABLES)
                 .add(GCBlocks.NEPTUNE_ABYSSAL_MANTLE_ROCK);
+        this.tag(GCBlockTags.TITAN_CARVER_REPLACEABLES)
+                .add(GCBlocks.TITAN_THOLIN_SAND)
+                .add(GCBlocks.TITAN_HYDROCARBON_CRUST)
+                .add(GCBlocks.TITAN_WATER_ICE_ROCK)
+                .add(GCBlocks.DENSE_ICE);
+        this.tag(GCBlockTags.ENCELADUS_CARVER_REPLACEABLES)
+                .add(GCBlocks.ENCELADUS_ICE_CRUST)
+                .add(GCBlocks.ENCELADUS_TIGER_STRIPE_ICE)
+                .add(GCBlocks.ENCELADUS_SEABED_ROCK)
+                .add(GCBlocks.DENSE_ICE)
+                .add(Blocks.PACKED_ICE)
+                .add(Blocks.BLUE_ICE)
+                .add(Blocks.SNOW_BLOCK);
+        this.tag(GCBlockTags.TITANIA_CARVER_REPLACEABLES)
+                .add(GCBlocks.TITANIA_ICE_SILICATE)
+                .add(GCBlocks.TITANIA_FROST_CRUST)
+                .add(GCBlocks.TITANIA_CHASM_SLATE)
+                .add(GCBlocks.DENSE_ICE);
+        this.tag(GCBlockTags.OBERON_CARVER_REPLACEABLES)
+                .add(GCBlocks.OBERON_DARK_ROCK)
+                .add(GCBlocks.OBERON_REDDISH_REGOLITH)
+                .add(GCBlocks.OBERON_IMPACT_BRECCIA)
+                .add(GCBlocks.DENSE_ICE);
+        this.tag(GCBlockTags.TRITON_CARVER_REPLACEABLES)
+                .add(GCBlocks.TRITON_NITROGEN_ICE)
+                .add(GCBlocks.TRITON_CANTALOUPE_CRUST)
+                .add(GCBlocks.TRITON_CRYO_BASALT)
+                .add(GCBlocks.DENSE_ICE)
+                .add(Blocks.PACKED_ICE);
 
         this.tag(GCBlockTags.ORE_BEARING_GROUND_MOON_ROCK)
                 .add(GCBlocks.MOON_ROCK);
@@ -575,13 +637,19 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(GCBlocks.MARS_NIOBIUM_ORE)
                 .add(GCBlocks.ASTEROID_NIOBIUM_ORE)
                 .add(GCBlocks.MERCURY_NIOBIUM_ORE)
-                .add(GCBlocks.VENUS_NIOBIUM_ORE);
+                .add(GCBlocks.VENUS_NIOBIUM_ORE)
+                .add(GCBlocks.ENCELADUS_NIOBIUM_ORE)
+                .add(GCBlocks.OBERON_NIOBIUM_ORE);
         this.tag(GCBlockTags.PALLADIUM_ORES)
                 .add(GCBlocks.JUPITER_PALLADIUM_ORE);
         this.tag(GCBlockTags.MAGNESIUM_ORES)
-                .add(GCBlocks.SATURN_MAGNESIUM_ORE);
+                .add(GCBlocks.SATURN_MAGNESIUM_ORE)
+                .add(GCBlocks.TITAN_MAGNESIUM_ORE)
+                .add(GCBlocks.ENCELADUS_MAGNESIUM_ORE);
         this.tag(GCBlockTags.URANIUM_ORES)
-                .add(GCBlocks.URANUS_URANIUM_ORE);
+                .add(GCBlocks.URANUS_URANIUM_ORE)
+                .add(GCBlocks.TITANIA_URANIUM_ORE)
+                .add(GCBlocks.OBERON_URANIUM_ORE);
         this.tag(ConventionalBlockTags.ORES)
                 .addTag(BlockTags.IRON_ORES)
                 .addTag(BlockTags.COPPER_ORES)
@@ -703,6 +771,10 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(GCBlocks.MARS_SURFACE_ROCK)
                 .add(GCBlocks.MARS_SUB_SURFACE_ROCK)
                 .add(GCBlocks.MARS_STONE)
+                .add(GCBlocks.MARS_BASALT)
+                .add(GCBlocks.MARS_SILTSTONE)
+                .add(GCBlocks.MARS_BRECCIA)
+                .add(GCBlocks.MARS_DEEP_STONE)
                 .add(GCBlocks.SOFT_VENUS_ROCK)
                 .add(GCBlocks.HARD_VENUS_ROCK)
                 .add(GCBlocks.SCORCHED_VENUS_ROCK)
@@ -1185,6 +1257,10 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                         GCBlocks.MOON_DUNGEON_BRICK,
                         GCBlocks.MARS_SURFACE_ROCK,
                         GCBlocks.MARS_SUB_SURFACE_ROCK,
+                        GCBlocks.MARS_BASALT,
+                        GCBlocks.MARS_SILTSTONE,
+                        GCBlocks.MARS_BRECCIA,
+                        GCBlocks.MARS_DEEP_STONE,
                         GCBlocks.SOFT_VENUS_ROCK,
                         GCBlocks.HARD_VENUS_ROCK,
                         GCBlocks.SCORCHED_VENUS_ROCK,
@@ -1272,6 +1348,32 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                         GCBlocks.CALLISTO_IRON_ORE,
                         GCBlocks.CALLISTO_ALUMINUM_ORE,
                         GCBlocks.CALLISTO_NIOBIUM_ORE,
+                        GCBlocks.TITAN_HYDROCARBON_CRUST,
+                        GCBlocks.TITAN_WATER_ICE_ROCK,
+                        GCBlocks.TITAN_MAGNESIUM_ORE,
+                        GCBlocks.TITAN_IRON_ORE,
+                        GCBlocks.TITAN_SILICON_ORE,
+                        GCBlocks.ENCELADUS_ICE_CRUST,
+                        GCBlocks.ENCELADUS_TIGER_STRIPE_ICE,
+                        GCBlocks.ENCELADUS_SEABED_ROCK,
+                        GCBlocks.ENCELADUS_MAGNESIUM_ORE,
+                        GCBlocks.ENCELADUS_NIOBIUM_ORE,
+                        GCBlocks.TITANIA_ICE_SILICATE,
+                        GCBlocks.TITANIA_FROST_CRUST,
+                        GCBlocks.TITANIA_CHASM_SLATE,
+                        GCBlocks.TITANIA_URANIUM_ORE,
+                        GCBlocks.TITANIA_LONSDALEITE_ORE,
+                        GCBlocks.TITANIA_TITANIUM_ORE,
+                        GCBlocks.OBERON_DARK_ROCK,
+                        GCBlocks.OBERON_REDDISH_REGOLITH,
+                        GCBlocks.OBERON_IMPACT_BRECCIA,
+                        GCBlocks.OBERON_URANIUM_ORE,
+                        GCBlocks.OBERON_NIOBIUM_ORE,
+                        GCBlocks.TRITON_NITROGEN_ICE,
+                        GCBlocks.TRITON_CANTALOUPE_CRUST,
+                        GCBlocks.TRITON_CRYO_BASALT,
+                        GCBlocks.TRITON_SUPERIONIC_ORE,
+                        GCBlocks.TRITON_XENON_CLATHRATE_ORE,
                         GCBlocks.PALLADIUM_BLOCK,
                         GCBlocks.MAGNESIUM_BLOCK,
                         GCBlocks.URANIUM_BLOCK,

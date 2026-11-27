@@ -1,5 +1,7 @@
 {
   "values": [
-    "galacticraft:uranus_uranium_ore"
+    "galacticraft:uranus_uranium_ore",
+    "galacticraft:titania_uranium_ore",
+    "galacticraft:oberon_uranium_ore"
   ]
 }

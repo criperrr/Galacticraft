@@ -27,19 +27,19 @@
       "type": "galacticraft:icon",
       "config": {
         "decoration": {
-          "height": 28,
-          "heightScale": 14.0,
+          "height": 32,
+          "heightScale": 6.0,
           "texture": "galacticraft:textures/gui/celestialbodies/uranus_rings.png",
           "u": 0,
           "v": 0,
-          "width": 7,
-          "widthScale": 3.5,
-          "xScale": -1.75,
-          "yScale": -7.0
+          "width": 12,
+          "widthScale": 2.25,
+          "xScale": 2.25,
+          "yScale": 6.0
         },
         "height": 16,
         "rocket_overlay": "galacticraft:textures/gui/rocket/mars_rocket_gui.png",
-        "scale": 1.0,
+        "scale": 1.12,
         "texture": "galacticraft:textures/gui/celestialbodies/uranus.png",
         "u": 0,
         "v": 0,

@@ -18,7 +18,7 @@
       "type": "galacticraft:spinning_icon",
       "config": {
         "height": 16,
-        "scale": 1.0,
+        "scale": 0.88,
         "texture": "galacticraft:textures/gui/celestialbodies/asteroid.png",
         "u": 0,
         "v": 0,

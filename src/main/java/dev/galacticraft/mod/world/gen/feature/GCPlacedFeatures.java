@@ -24,20 +24,26 @@ package dev.galacticraft.mod.world.gen.feature;
 
 import dev.galacticraft.mod.Constant;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.MiscOverworldFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
+import net.minecraft.world.level.levelgen.placement.CountOnEveryLayerPlacement;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
+import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
 import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
 
 import java.util.List;
@@ -45,6 +51,8 @@ import java.util.List;
 public class GCPlacedFeatures {
     public static final ResourceKey<PlacedFeature> OIL_LAKE = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("oil_lake"));
     public static final ResourceKey<PlacedFeature> MARS_CAVERN_VINES = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("mars_cavern_vines"));
+    public static final ResourceKey<PlacedFeature> MARS_SPELEOTHEM = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("mars_speleothem"));
+    public static final ResourceKey<PlacedFeature> MARS_SURFACE_OUTCROP = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("mars_surface_outcrop"));
     public static final ResourceKey<PlacedFeature> VENUS_LAVA_LAKE = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("venus_lava_lake"));
     public static final ResourceKey<PlacedFeature> VENUS_VALLEY_LAVA_LAKE = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("venus_valley_lava_lake"));
     public static final ResourceKey<PlacedFeature> VENUS_VAPOR_POOL = ResourceKey.create(Registries.PLACED_FEATURE, Constant.id("venus_vapor_pool"));
@@ -72,11 +80,26 @@ public class GCPlacedFeatures {
                 InSquarePlacement.spread(),
                 BiomeFilter.biome()
         )));
-        // GC4 MapGenCavernMars: hanging Cavernous Vines in Martian subterranean caverns (Y = 8..65)
+        // Multi-tier hanging Cavernous Vines anchored cleanly to Martian cave ceilings (Y = -52..72)
         context.register(MARS_CAVERN_VINES, new PlacedFeature(configuredFeatureLookup.getOrThrow(GCConfiguredFeature.MARS_CAVERN_VINES), List.of(
-                CountPlacement.of(24),
+                CountOnEveryLayerPlacement.of(10),
+                HeightRangePlacement.uniform(VerticalAnchor.absolute(-52), VerticalAnchor.absolute(72)),
+                EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 16),
+                RandomOffsetPlacement.vertical(ConstantInt.of(-1)),
+                BiomeFilter.biome()
+        )));
+        // Martian stalactites, stalagmites, and fused basalt/siltstone columns inside deep caverns & lava tubes
+        context.register(MARS_SPELEOTHEM, new PlacedFeature(configuredFeatureLookup.getOrThrow(GCConfiguredFeature.MARS_SPELEOTHEM), List.of(
+                CountPlacement.of(14),
                 InSquarePlacement.spread(),
-                HeightRangePlacement.uniform(VerticalAnchor.absolute(8), VerticalAnchor.absolute(65)),
+                HeightRangePlacement.uniform(VerticalAnchor.absolute(-52), VerticalAnchor.absolute(88)),
+                BiomeFilter.biome()
+        )));
+        // Weathered surface boulder outcrops & ejecta rocks
+        context.register(MARS_SURFACE_OUTCROP, new PlacedFeature(configuredFeatureLookup.getOrThrow(GCConfiguredFeature.MARS_SURFACE_OUTCROP), List.of(
+                RarityFilter.onAverageOnceEvery(5),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
                 BiomeFilter.biome()
         )));
         // GC4 ChunkProviderVenus: 1-in-10 lava lake in standard Venus biomes

@@ -93,10 +93,21 @@ public record PlanetaryEnvironment(
             GCCelestialBodies.GANYMEDE.location(), "Ganimedes", 0.146, 1.0E-11, 160.15, 80.15, 5.203, false, 0.45, 1050.0);
     public static final PlanetaryEnvironment CALLISTO = new PlanetaryEnvironment(
             GCCelestialBodies.CALLISTO.location(), "Calisto", 0.126, 7.0E-12, 165.15, 80.15, 5.203, false, 0.15, 900.0);
+    public static final PlanetaryEnvironment TITAN = new PlanetaryEnvironment(
+            GCCelestialBodies.TITAN.location(), "Titã", 0.138, 1.45, 94.15, 93.15, 9.582, false, 0.12, 1650.0);
+    public static final PlanetaryEnvironment ENCELADUS = new PlanetaryEnvironment(
+            GCCelestialBodies.ENCELADUS.location(), "Encélado", 0.012, 0.0, 75.15, 72.15, 9.582, false, 0.38, 420.0);
+    public static final PlanetaryEnvironment TITANIA = new PlanetaryEnvironment(
+            GCCelestialBodies.TITANIA.location(), "Titânia", 0.039, 0.0, 89.15, 60.15, 19.201, false, 0.25, 650.0);
+    public static final PlanetaryEnvironment OBERON = new PlanetaryEnvironment(
+            GCCelestialBodies.OBERON.location(), "Oberon", 0.035, 0.0, 80.15, 70.15, 19.201, false, 0.22, 620.0);
+    public static final PlanetaryEnvironment TRITON = new PlanetaryEnvironment(
+            GCCelestialBodies.TRITON.location(), "Tritão", 0.079, 0.000014, 38.15, 35.15, 30.047, false, 0.28, 920.0);
 
     public static final List<PlanetaryEnvironment> SOLAR_SYSTEM_PRESETS = List.of(
             EARTH, MOON, MARS, PHOBOS, DEIMOS, VENUS, MERCURY, ASTEROIDS,
-            JUPITER, IO, EUROPA, GANYMEDE, CALLISTO, SATURN, URANUS, NEPTUNE
+            JUPITER, IO, EUROPA, GANYMEDE, CALLISTO,
+            SATURN, TITAN, ENCELADUS, URANUS, TITANIA, OBERON, NEPTUNE, TRITON
     );
 
     private static final Map<String, PlanetaryEnvironment> PRESETS_BY_PATH = Map.ofEntries(
@@ -116,8 +127,13 @@ public record PlanetaryEnvironment(
             Map.entry("ganymede", GANYMEDE),
             Map.entry("callisto", CALLISTO),
             Map.entry("saturn", SATURN),
+            Map.entry("titan", TITAN),
+            Map.entry("enceladus", ENCELADUS),
             Map.entry("uranus", URANUS),
-            Map.entry("neptune", NEPTUNE)
+            Map.entry("titania", TITANIA),
+            Map.entry("oberon", OBERON),
+            Map.entry("neptune", NEPTUNE),
+            Map.entry("triton", TRITON)
     );
 
     public PlanetaryEnvironment {

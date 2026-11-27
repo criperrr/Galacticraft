@@ -45,6 +45,11 @@ public class GCDimensions {
     public static final ResourceKey<Level> EUROPA = key("europa");
     public static final ResourceKey<Level> GANYMEDE = key("ganymede");
     public static final ResourceKey<Level> CALLISTO = key("callisto");
+    public static final ResourceKey<Level> TITAN = key("titan");
+    public static final ResourceKey<Level> ENCELADUS = key("enceladus");
+    public static final ResourceKey<Level> TITANIA = key("titania");
+    public static final ResourceKey<Level> OBERON = key("oberon");
+    public static final ResourceKey<Level> TRITON = key("triton");
 
     @Contract(pure = true)
     private static @NotNull ResourceKey<Level> key(@NotNull String id) {

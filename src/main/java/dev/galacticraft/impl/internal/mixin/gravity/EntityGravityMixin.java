@@ -42,6 +42,14 @@ public abstract class EntityGravityMixin {
     @ModifyExpressionValue(method = "getGravity", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;getDefaultGravity()D"))
     private double replaceGravity(double original) {
         Holder<CelestialBody<?, ?>> holder = this.level.galacticraft$getCelestialBody();
-        return (holder != null ? holder.value().gravity() : 1.0d) * original;
+        if (holder != null) {
+            double g = holder.value().gravity();
+            if (g <= 0.0D) {
+                return 0.0D;
+            }
+            // LivingEntity.aiStep() clamps |vy| < 0.003 to 0 every tick; clamp non-zero microgravity above deadzone
+            return Math.max(g, 0.08D) * original;
+        }
+        return original;
     }
 }

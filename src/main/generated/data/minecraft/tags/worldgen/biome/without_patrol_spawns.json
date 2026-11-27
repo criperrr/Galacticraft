@@ -15,6 +15,11 @@
     "#galacticraft:europa",
     "#galacticraft:ganymede",
     "#galacticraft:callisto",
+    "#galacticraft:titan",
+    "#galacticraft:enceladus",
+    "#galacticraft:titania",
+    "#galacticraft:oberon",
+    "#galacticraft:triton",
     "galacticraft:space"
   ]
 }

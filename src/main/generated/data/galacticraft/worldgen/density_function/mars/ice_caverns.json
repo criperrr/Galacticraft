@@ -1,0 +1,161 @@
+{
+  "type": "minecraft:range_choice",
+  "input": "galacticraft:mars/temperature",
+  "max_exclusive": -0.45,
+  "min_inclusive": -1.0,
+  "when_in_range": {
+    "type": "minecraft:range_choice",
+    "input": {
+      "type": "minecraft:y_clamped_gradient",
+      "from_value": -64.0,
+      "from_y": -64,
+      "to_value": 320.0,
+      "to_y": 320
+    },
+    "max_exclusive": 115.0,
+    "min_inclusive": 10.0,
+    "when_in_range": {
+      "type": "minecraft:min",
+      "argument1": 0.0,
+      "argument2": {
+        "type": "minecraft:add",
+        "argument1": {
+          "type": "galacticraft:smooth_min",
+          "a": {
+            "type": "minecraft:min",
+            "argument1": 0.0,
+            "argument2": {
+              "type": "minecraft:add",
+              "argument1": {
+                "type": "minecraft:interpolated",
+                "argument": {
+                  "type": "galacticraft:worley_cave",
+                  "cell_size": 30.0,
+                  "cellular_network": false,
+                  "threshold": 0.44,
+                  "warp_amp": 4.5
+                }
+              },
+              "argument2": {
+                "type": "minecraft:mul",
+                "argument1": 3.2,
+                "argument2": {
+                  "type": "minecraft:add",
+                  "argument1": {
+                    "type": "minecraft:max",
+                    "argument1": {
+                      "type": "minecraft:y_clamped_gradient",
+                      "from_value": 1.2,
+                      "from_y": 10,
+                      "to_value": 0.0,
+                      "to_y": 24
+                    },
+                    "argument2": {
+                      "type": "minecraft:y_clamped_gradient",
+                      "from_value": 0.0,
+                      "from_y": 95,
+                      "to_value": 1.2,
+                      "to_y": 115
+                    }
+                  },
+                  "argument2": {
+                    "type": "minecraft:mul",
+                    "argument1": 7.0,
+                    "argument2": {
+                      "type": "minecraft:clamp",
+                      "input": {
+                        "type": "minecraft:add",
+                        "argument1": 0.65,
+                        "argument2": "galacticraft:mars/temperature"
+                      },
+                      "max": 0.2,
+                      "min": 0.0
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "b": {
+            "type": "minecraft:min",
+            "argument1": 0.0,
+            "argument2": {
+              "type": "minecraft:mul",
+              "argument1": 5.5,
+              "argument2": {
+                "type": "minecraft:add",
+                "argument1": {
+                  "type": "minecraft:interpolated",
+                  "argument": {
+                    "type": "minecraft:noise",
+                    "noise": "galacticraft:mars/ice_cave",
+                    "xz_scale": 1.05,
+                    "y_scale": 1.55
+                  }
+                },
+                "argument2": {
+                  "type": "minecraft:add",
+                  "argument1": 0.32,
+                  "argument2": {
+                    "type": "minecraft:add",
+                    "argument1": {
+                      "type": "minecraft:max",
+                      "argument1": {
+                        "type": "minecraft:y_clamped_gradient",
+                        "from_value": 1.2,
+                        "from_y": 10,
+                        "to_value": 0.0,
+                        "to_y": 24
+                      },
+                      "argument2": {
+                        "type": "minecraft:y_clamped_gradient",
+                        "from_value": 0.0,
+                        "from_y": 95,
+                        "to_value": 1.2,
+                        "to_y": 115
+                      }
+                    },
+                    "argument2": {
+                      "type": "minecraft:mul",
+                      "argument1": 7.0,
+                      "argument2": {
+                        "type": "minecraft:clamp",
+                        "input": {
+                          "type": "minecraft:add",
+                          "argument1": 0.65,
+                          "argument2": "galacticraft:mars/temperature"
+                        },
+                        "max": 0.2,
+                        "min": 0.0
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "k": 0.35
+        },
+        "argument2": {
+          "type": "minecraft:cache_once",
+          "argument": {
+            "type": "minecraft:clamp",
+            "input": {
+              "type": "minecraft:add",
+              "argument1": 2.8,
+              "argument2": {
+                "type": "minecraft:mul",
+                "argument1": -5.5,
+                "argument2": "galacticraft:mars/solid_terrain"
+              }
+            },
+            "max": 2.8,
+            "min": 0.0
+          }
+        }
+      }
+    },
+    "when_out_of_range": 0.0
+  },
+  "when_out_of_range": 0.0
+}

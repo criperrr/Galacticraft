@@ -55,6 +55,11 @@ public class GCDimensionTypes {
     public static final ResourceKey<DimensionType> EUROPA = key("europa");
     public static final ResourceKey<DimensionType> GANYMEDE = key("ganymede");
     public static final ResourceKey<DimensionType> CALLISTO = key("callisto");
+    public static final ResourceKey<DimensionType> TITAN = key("titan");
+    public static final ResourceKey<DimensionType> ENCELADUS = key("enceladus");
+    public static final ResourceKey<DimensionType> TITANIA = key("titania");
+    public static final ResourceKey<DimensionType> OBERON = key("oberon");
+    public static final ResourceKey<DimensionType> TRITON = key("triton");
 
     public static void bootstrapRegistries(BootstrapContext<DimensionType> context) {
         context.register(MOON, new DimensionType(
@@ -84,7 +89,7 @@ public class GCDimensionTypes {
                 1.0, // coordinateScale
                 true, // bedWorks (doesn't explode, we can cancel working later)
                 false, // respawnAnchorWorks
-                -32, // minY
+                -64, // minY
                 384, // height
                 384, // logicalHeight
                 GCBlockTags.INFINIBURN_MARS, // infiniburn
@@ -218,6 +223,95 @@ public class GCDimensionTypes {
                 new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 0), 0)
         ));
 
+        context.register(TITAN, new DimensionType(
+                OptionalLong.empty(),
+                true,
+                false,
+                false,
+                false,
+                1.0,
+                true,
+                false,
+                -64,
+                384,
+                384,
+                GCBlockTags.INFINIBURN_TITAN,
+                Constant.id("titan"),
+                0.10F,
+                new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 0), 0)
+        ));
+
+        context.register(ENCELADUS, new DimensionType(
+                OptionalLong.empty(),
+                true,
+                false,
+                false,
+                false,
+                1.0,
+                true,
+                false,
+                -64,
+                384,
+                384,
+                GCBlockTags.INFINIBURN_ENCELADUS,
+                Constant.id("enceladus"),
+                0.05F,
+                new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 0), 0)
+        ));
+
+        context.register(TITANIA, new DimensionType(
+                OptionalLong.empty(),
+                true,
+                false,
+                false,
+                false,
+                1.0,
+                true,
+                false,
+                -64,
+                384,
+                384,
+                GCBlockTags.INFINIBURN_TITANIA,
+                Constant.id("titania"),
+                0.04F,
+                new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 0), 0)
+        ));
+
+        context.register(OBERON, new DimensionType(
+                OptionalLong.empty(),
+                true,
+                false,
+                false,
+                false,
+                1.0,
+                true,
+                false,
+                -64,
+                384,
+                384,
+                GCBlockTags.INFINIBURN_OBERON,
+                Constant.id("oberon"),
+                0.04F,
+                new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 0), 0)
+        ));
+
+        context.register(TRITON, new DimensionType(
+                OptionalLong.empty(),
+                true,
+                false,
+                false,
+                false,
+                1.0,
+                true,
+                false,
+                -64,
+                384,
+                384,
+                GCBlockTags.INFINIBURN_TRITON,
+                Constant.id("triton"),
+                0.05F,
+                new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 0), 0)
+        ));
         context.register(PHOBOS, new DimensionType(
                 OptionalLong.empty(),
                 true,

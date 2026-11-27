@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 1.0,
+  "group": "magnesium_ingot",
+  "ingredient": {
+    "item": "galacticraft:enceladus_magnesium_ore"
+  },
+  "result": {
+    "id": "galacticraft:magnesium_ingot"
+  }
+}

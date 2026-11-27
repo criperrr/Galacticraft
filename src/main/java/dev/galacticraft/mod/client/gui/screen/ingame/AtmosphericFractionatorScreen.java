@@ -210,6 +210,7 @@ public class AtmosphericFractionatorScreen extends MachineScreen<AtmosphericFrac
             case AtmosphericFractionatorBlockEntity.PLANET_SATURN -> "SATURN";
             case AtmosphericFractionatorBlockEntity.PLANET_URANUS -> "URANUS";
             case AtmosphericFractionatorBlockEntity.PLANET_NEPTUNE -> "NEPTUNE";
+            case AtmosphericFractionatorBlockEntity.PLANET_TITAN -> "TITAN";
             case AtmosphericFractionatorBlockEntity.PLANET_EXO -> "EXO-ATM";
             default -> "VACUUM";
         };
@@ -224,6 +225,7 @@ public class AtmosphericFractionatorScreen extends MachineScreen<AtmosphericFrac
             case AtmosphericFractionatorBlockEntity.PLANET_SATURN -> "3.5x 3He";
             case AtmosphericFractionatorBlockEntity.PLANET_URANUS -> "CH4/3He";
             case AtmosphericFractionatorBlockEntity.PLANET_NEPTUNE -> "Xe MAX";
+            case AtmosphericFractionatorBlockEntity.PLANET_TITAN -> "N2/CH4";
             case AtmosphericFractionatorBlockEntity.PLANET_EXO -> "ACTIVE";
             default -> "NO ATM";
         };

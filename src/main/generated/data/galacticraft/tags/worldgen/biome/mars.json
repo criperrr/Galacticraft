@@ -2,6 +2,13 @@
   "values": [
     "galacticraft:mars_flat",
     "galacticraft:mars_canyon",
-    "galacticraft:mars_highlands"
+    "galacticraft:mars_highlands",
+    "galacticraft:mars_impact_basin",
+    "galacticraft:mars_dune_sea",
+    "galacticraft:mars_tharsis",
+    "galacticraft:mars_polar_ice_cap",
+    "galacticraft:mars_lava_tubes",
+    "galacticraft:mars_deep_caverns",
+    "galacticraft:mars_ice_caverns"
   ]
 }

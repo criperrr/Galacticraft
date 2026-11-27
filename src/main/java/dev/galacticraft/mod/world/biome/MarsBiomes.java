@@ -37,30 +37,80 @@ public class MarsBiomes {
     // GC4 WorldProviderMars sky RGB (154, 114, 66) -> 0x9A7242; fog RGB (210, 120, 59) -> 0xD2783B
     public static final int MARS_SKY_COLOR = 0x9A7242;
     public static final int MARS_FOG_COLOR = 0xD2783B;
+    public static final int MARS_DUNE_FOG_COLOR = 0xC66B33;
+    public static final int MARS_THARSIS_FOG_COLOR = 0x8F4D32;
+    public static final int MARS_POLAR_SKY_COLOR = 0xA8958A;
+    public static final int MARS_POLAR_FOG_COLOR = 0xC9B4A6;
+    public static final int MARS_CAVE_FOG_COLOR = 0x3D1E14;
+    public static final int MARS_ICE_CAVE_FOG_COLOR = 0x4E687A;
 
     public static Biome createMarsFlat(HolderGetter<PlacedFeature> featureLookup, HolderGetter<ConfiguredWorldCarver<?>> carverLookup) {
         var generation = new BiomeGenerationSettings.Builder(featureLookup, carverLookup);
         generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MARS_CAVE_CARVER);
-        generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MARS_CAVERN_CARVER);
         generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MARS_CRATER_CARVER);
-        return mars(featureLookup, carverLookup, generation);
+        generation.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, GCPlacedFeatures.MARS_SURFACE_OUTCROP);
+        return mars(generation, MARS_SKY_COLOR, MARS_FOG_COLOR, true, false);
     }
 
     public static Biome createMarsCanyon(HolderGetter<PlacedFeature> featureLookup, HolderGetter<ConfiguredWorldCarver<?>> carverLookup) {
         var generation = new BiomeGenerationSettings.Builder(featureLookup, carverLookup);
         generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MARS_CAVE_CARVER);
-        generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MARS_CAVERN_CARVER);
-        generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MARS_CANYON_CARVER);
-        return mars(featureLookup, carverLookup, generation);
+        generation.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, GCPlacedFeatures.MARS_SURFACE_OUTCROP);
+        return mars(generation, MARS_SKY_COLOR, MARS_FOG_COLOR, true, false);
     }
 
     public static Biome createMarsHighlands(HolderGetter<PlacedFeature> featureLookup, HolderGetter<ConfiguredWorldCarver<?>> carverLookup) {
         var generation = new BiomeGenerationSettings.Builder(featureLookup, carverLookup);
         generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MARS_CAVE_CARVER);
-        generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MARS_CAVERN_CARVER);
         generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MARS_CRATER_CARVER);
-        generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MARS_CANYON_CARVER);
-        return mars(featureLookup, carverLookup, generation);
+        generation.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, GCPlacedFeatures.MARS_SURFACE_OUTCROP);
+        return mars(generation, MARS_SKY_COLOR, MARS_FOG_COLOR, true, false);
+    }
+
+    public static Biome createMarsImpactBasin(HolderGetter<PlacedFeature> featureLookup, HolderGetter<ConfiguredWorldCarver<?>> carverLookup) {
+        var generation = new BiomeGenerationSettings.Builder(featureLookup, carverLookup);
+        generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MARS_CAVE_CARVER);
+        generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MARS_CRATER_CARVER);
+        generation.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, GCPlacedFeatures.MARS_SURFACE_OUTCROP);
+        return mars(generation, MARS_SKY_COLOR, MARS_FOG_COLOR, true, false);
+    }
+
+    public static Biome createMarsDuneSea(HolderGetter<PlacedFeature> featureLookup, HolderGetter<ConfiguredWorldCarver<?>> carverLookup) {
+        var generation = new BiomeGenerationSettings.Builder(featureLookup, carverLookup);
+        generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MARS_CAVE_CARVER);
+        return mars(generation, MARS_SKY_COLOR, MARS_DUNE_FOG_COLOR, true, false);
+    }
+
+    public static Biome createMarsTharsis(HolderGetter<PlacedFeature> featureLookup, HolderGetter<ConfiguredWorldCarver<?>> carverLookup) {
+        var generation = new BiomeGenerationSettings.Builder(featureLookup, carverLookup);
+        generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MARS_CAVE_CARVER);
+        generation.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, GCPlacedFeatures.MARS_SURFACE_OUTCROP);
+        return mars(generation, MARS_SKY_COLOR, MARS_THARSIS_FOG_COLOR, true, false);
+    }
+
+    public static Biome createMarsPolarIceCap(HolderGetter<PlacedFeature> featureLookup, HolderGetter<ConfiguredWorldCarver<?>> carverLookup) {
+        var generation = new BiomeGenerationSettings.Builder(featureLookup, carverLookup);
+        generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MARS_CAVE_CARVER);
+        generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MARS_CRATER_CARVER);
+        return mars(generation, MARS_POLAR_SKY_COLOR, MARS_POLAR_FOG_COLOR, false, false);
+    }
+
+    public static Biome createMarsLavaTubes(HolderGetter<PlacedFeature> featureLookup, HolderGetter<ConfiguredWorldCarver<?>> carverLookup) {
+        var generation = new BiomeGenerationSettings.Builder(featureLookup, carverLookup);
+        generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MARS_CAVE_CARVER);
+        return mars(generation, MARS_SKY_COLOR, MARS_CAVE_FOG_COLOR, false, true);
+    }
+
+    public static Biome createMarsDeepCaverns(HolderGetter<PlacedFeature> featureLookup, HolderGetter<ConfiguredWorldCarver<?>> carverLookup) {
+        var generation = new BiomeGenerationSettings.Builder(featureLookup, carverLookup);
+        generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MARS_CAVE_CARVER);
+        return mars(generation, MARS_SKY_COLOR, MARS_CAVE_FOG_COLOR, true, true);
+    }
+
+    public static Biome createMarsIceCaverns(HolderGetter<PlacedFeature> featureLookup, HolderGetter<ConfiguredWorldCarver<?>> carverLookup) {
+        var generation = new BiomeGenerationSettings.Builder(featureLookup, carverLookup);
+        generation.addCarver(GenerationStep.Carving.AIR, GCConfiguredCarvers.MARS_CAVE_CARVER);
+        return mars(generation, MARS_POLAR_SKY_COLOR, MARS_ICE_CAVE_FOG_COLOR, false, false);
     }
 
     public static void monsters(MobSpawnSettings.Builder builder, int zombieWeight, int skeletonWeight) {
@@ -94,26 +144,35 @@ public class MarsBiomes {
         return createMarsFlat(featureGetter, carverGetter);
     }
 
-    public static Biome mars(
-            HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter, BiomeGenerationSettings.Builder generation
+    private static Biome mars(
+            BiomeGenerationSettings.Builder generation,
+            int skyColor,
+            int fogColor,
+            boolean addVines,
+            boolean addSpeleothems
     ) {
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
         BiomeSpecialEffects.Builder specialEffects = new BiomeSpecialEffects.Builder();
         specialEffects.waterColor(4159204)
                 .waterFogColor(329011)
-                .fogColor(MARS_FOG_COLOR)
-                .skyColor(MARS_SKY_COLOR)
+                .fogColor(fogColor)
+                .skyColor(skyColor)
                 .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
                 .backgroundMusic(Musics.createGameMusic(GCSounds.MUSIC_MARS));
 
         MarsBiomes.addDefaultMarsOres(generation);
-        generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, GCPlacedFeatures.MARS_CAVERN_VINES);
+        if (addVines) {
+            generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, GCPlacedFeatures.MARS_CAVERN_VINES);
+        }
+        if (addSpeleothems) {
+            generation.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, GCPlacedFeatures.MARS_SPELEOTHEM);
+        }
         MarsBiomes.monsters(spawnBuilder, 0, 0);
 
         return new Biome.BiomeBuilder()
                 .mobSpawnSettings(spawnBuilder.build())
                 .hasPrecipitation(false)
-                .temperature(2.0F) // temp is hot to prevent snow
+                .temperature(2.0F) // temp is hot to prevent vanilla snow weather
                 .downfall(0.0F)
                 .specialEffects(specialEffects.build())
                 .generationSettings(generation.build())

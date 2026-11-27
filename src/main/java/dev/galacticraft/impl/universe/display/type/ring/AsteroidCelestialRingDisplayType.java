@@ -24,11 +24,14 @@ package dev.galacticraft.impl.universe.display.type.ring;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
+import com.mojang.math.Axis;
 import com.mojang.serialization.Codec;
 import dev.galacticraft.api.universe.celestialbody.CelestialBody;
 import dev.galacticraft.api.universe.display.ring.CelestialRingDisplayType;
 import dev.galacticraft.impl.universe.display.config.ring.DefaultCelestialRingDisplayConfig;
+import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.client.gui.screen.ingame.CelestialSelectionScreen;
+import dev.galacticraft.mod.client.util.Graphics;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
@@ -166,6 +169,40 @@ public class AsteroidCelestialRingDisplayType extends CelestialRingDisplayType<D
 
         RenderSystem.setShader(GameRenderer::getPositionColorShader);
         BufferUploader.drawWithShader(buffer.buildOrThrow());
+
+        // Animated mini pixel-art asteroids orbiting along the belt
+        if (alpha > 0.05F) {
+            long gameTime = Minecraft.getInstance().level != null ? Minecraft.getInstance().level.getGameTime() : 0L;
+            float time = (gameTime + delta) * 0.0022F;
+            int asteroidCount = 28;
+            RenderSystem.enableBlend();
+            RenderSystem.defaultBlendFunc();
+            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, alpha * 0.85F);
+            for (int i = 0; i < asteroidCount; i++) {
+                float hash = Mth.sin(i * 12.9898F) * 43758.5453F;
+                float frac = hash - Mth.floor(hash);
+                float hash2 = Mth.sin((i + 17) * 78.233F) * 24634.6345F;
+                float frac2 = hash2 - Mth.floor(hash2);
+
+                float speed = 0.7F + frac * 0.6F;
+                float angle = (i / (float) asteroidCount) * Mth.TWO_PI + time * speed + frac2 * 0.25F;
+                float radius = Mth.lerp(frac, min + 0.8F, max - 0.8F) * body.position().lineScale();
+                float ax = Mth.sin(angle) * radius;
+                float ay = Mth.cos(angle) * radius;
+                float size = 1.6F + frac2 * 1.4F;
+                float spin = ((gameTime + delta) * (0.8F + frac * 1.4F) + i * 37.0F) % 360.0F;
+
+                matrices.pushPose();
+                matrices.translate(ax, ay, 0.0F);
+                matrices.mulPose(Axis.ZP.rotationDegrees(45.0F));
+                matrices.mulPose(Axis.XN.rotationDegrees(55.0F));
+                matrices.mulPose(Axis.ZP.rotationDegrees(spin));
+                Graphics.blitCentered(matrices.last().pose(), 0.0F, 0.0F, size, size, 0.0F, 0, 0, 16, 16, 16, 16, Constant.CelestialBody.ASTEROID);
+                matrices.popPose();
+            }
+            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        }
+
         matrices.popPose();
         return false;
     }

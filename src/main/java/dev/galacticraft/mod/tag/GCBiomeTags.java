@@ -43,6 +43,11 @@ public class GCBiomeTags {
     public static final TagKey<Biome> EUROPA = TagKey.create(Registries.BIOME, Constant.id("europa"));
     public static final TagKey<Biome> GANYMEDE = TagKey.create(Registries.BIOME, Constant.id("ganymede"));
     public static final TagKey<Biome> CALLISTO = TagKey.create(Registries.BIOME, Constant.id("callisto"));
+    public static final TagKey<Biome> TITAN = TagKey.create(Registries.BIOME, Constant.id("titan"));
+    public static final TagKey<Biome> ENCELADUS = TagKey.create(Registries.BIOME, Constant.id("enceladus"));
+    public static final TagKey<Biome> TITANIA = TagKey.create(Registries.BIOME, Constant.id("titania"));
+    public static final TagKey<Biome> OBERON = TagKey.create(Registries.BIOME, Constant.id("oberon"));
+    public static final TagKey<Biome> TRITON = TagKey.create(Registries.BIOME, Constant.id("triton"));
 
     public static final TagKey<Biome> MOON_PILLAGER_BASE_HAS_STRUCTURE = TagKey.create(Registries.BIOME, Constant.id("has_structure/moon_pillager_base"));
     public static final TagKey<Biome> MOON_VILLAGE_HIGHLANDS_HAS_STRUCTURE = TagKey.create(Registries.BIOME, Constant.id("has_structure/moon_village_highlands"));

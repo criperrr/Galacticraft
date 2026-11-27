@@ -771,6 +771,10 @@ public class ModularRocketPartBlockEntity extends BlockEntity implements MultiVo
             this.composition = null;
         }
 
+        if (this.config != null) {
+            this.stats = RocketPartCostCalculator.calculate(this.config, this.composition).stats();
+        }
+
         this.hatchOpen = tag.getBoolean(TAG_HATCH_OPEN);
         boolean loadedAnimActive = tag.getBoolean(TAG_ANIM_ACTIVE);
         if (loadedAnimActive && !this.animationActive && this.level != null) {

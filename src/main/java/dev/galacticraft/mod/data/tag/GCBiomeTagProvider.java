@@ -50,7 +50,14 @@ public class GCBiomeTagProvider extends FabricTagProvider<Biome> {
         this.tag(GCBiomeTags.MARS)
                 .add(GCBiomes.Mars.MARS_FLAT)
                 .add(GCBiomes.Mars.MARS_CANYON)
-                .add(GCBiomes.Mars.MARS_HIGHLANDS);
+                .add(GCBiomes.Mars.MARS_HIGHLANDS)
+                .add(GCBiomes.Mars.MARS_IMPACT_BASIN)
+                .add(GCBiomes.Mars.MARS_DUNE_SEA)
+                .add(GCBiomes.Mars.MARS_THARSIS)
+                .add(GCBiomes.Mars.MARS_POLAR_ICE_CAP)
+                .add(GCBiomes.Mars.MARS_LAVA_TUBES)
+                .add(GCBiomes.Mars.MARS_DEEP_CAVERNS)
+                .add(GCBiomes.Mars.MARS_ICE_CAVERNS);
 
         this.tag(GCBiomeTags.MERCURY)
                 .add(GCBiomes.Mercury.CALORIS_BASIN)
@@ -146,6 +153,35 @@ public class GCBiomeTagProvider extends FabricTagProvider<Biome> {
                 .add(GCBiomes.Callisto.VALHALLA_RINGS)
                 .add(GCBiomes.Callisto.ICE_PEAKS)
                 .add(GCBiomes.Callisto.ANCIENT_CAVERNS);
+        this.tag(GCBiomeTags.TITAN)
+                .add(GCBiomes.Titan.METHANE_SEAS)
+                .add(GCBiomes.Titan.THOLIN_DUNES)
+                .add(GCBiomes.Titan.ICE_HIGHLANDS)
+                .add(GCBiomes.Titan.CRYO_CAVERNS);
+
+        this.tag(GCBiomeTags.ENCELADUS)
+                .add(GCBiomes.Enceladus.SNOW_PLAINS)
+                .add(GCBiomes.Enceladus.TIGER_STRIPES)
+                .add(GCBiomes.Enceladus.CRATERED_RIDGES)
+                .add(GCBiomes.Enceladus.HYDROTHERMAL_OCEAN);
+
+        this.tag(GCBiomeTags.TITANIA)
+                .add(GCBiomes.Titania.MESSINA_CHASMATA)
+                .add(GCBiomes.Titania.FROST_PLAINS)
+                .add(GCBiomes.Titania.SCARP_HIGHLANDS)
+                .add(GCBiomes.Titania.FAULT_CAVERNS);
+
+        this.tag(GCBiomeTags.OBERON)
+                .add(GCBiomes.Oberon.RED_PLAINS)
+                .add(GCBiomes.Oberon.IMPACT_PEAKS)
+                .add(GCBiomes.Oberon.DARK_BASINS)
+                .add(GCBiomes.Oberon.ANCIENT_CAVERNS);
+
+        this.tag(GCBiomeTags.TRITON)
+                .add(GCBiomes.Triton.CANTALOUPE_TERRAIN)
+                .add(GCBiomes.Triton.NITROGEN_GEYSERS)
+                .add(GCBiomes.Triton.POLAR_ICE_CAP)
+                .add(GCBiomes.Triton.SUPERIONIC_CAVERNS);
 
         this.tag(GCBiomeTags.MOON_RUINS_HAS_STRUCTURE)
                 .add(GCBiomes.Moon.BASALTIC_MARE);
@@ -168,6 +204,11 @@ public class GCBiomeTagProvider extends FabricTagProvider<Biome> {
                 .addTag(GCBiomeTags.EUROPA)
                 .addTag(GCBiomeTags.GANYMEDE)
                 .addTag(GCBiomeTags.CALLISTO)
+                .addTag(GCBiomeTags.TITAN)
+                .addTag(GCBiomeTags.ENCELADUS)
+                .addTag(GCBiomeTags.TITANIA)
+                .addTag(GCBiomeTags.OBERON)
+                .addTag(GCBiomeTags.TRITON)
                 .add(GCBiomes.SPACE);
 
         this.tag(BiomeTags.WITHOUT_WANDERING_TRADER_SPAWNS)
@@ -186,6 +227,11 @@ public class GCBiomeTagProvider extends FabricTagProvider<Biome> {
                 .addTag(GCBiomeTags.EUROPA)
                 .addTag(GCBiomeTags.GANYMEDE)
                 .addTag(GCBiomeTags.CALLISTO)
+                .addTag(GCBiomeTags.TITAN)
+                .addTag(GCBiomeTags.ENCELADUS)
+                .addTag(GCBiomeTags.TITANIA)
+                .addTag(GCBiomeTags.OBERON)
+                .addTag(GCBiomeTags.TRITON)
                 .add(GCBiomes.SPACE);
 
         this.tag(BiomeTags.WITHOUT_ZOMBIE_SIEGES)
@@ -204,6 +250,11 @@ public class GCBiomeTagProvider extends FabricTagProvider<Biome> {
                 .addTag(GCBiomeTags.EUROPA)
                 .addTag(GCBiomeTags.GANYMEDE)
                 .addTag(GCBiomeTags.CALLISTO)
+                .addTag(GCBiomeTags.TITAN)
+                .addTag(GCBiomeTags.ENCELADUS)
+                .addTag(GCBiomeTags.TITANIA)
+                .addTag(GCBiomeTags.OBERON)
+                .addTag(GCBiomeTags.TRITON)
                 .add(GCBiomes.SPACE);
     }
 }

@@ -8,9 +8,11 @@
   "id": "galacticraft:research/saturn_helium3_harvesting",
   "location_requirement": {
     "allowed_bodies": [
-      "galacticraft:saturn"
+      "galacticraft:saturn",
+      "galacticraft:titan",
+      "galacticraft:enceladus"
     ],
-    "label": "Saturn Mantle / Atm"
+    "label": "Saturn / Titan / Enceladus"
   },
   "prerequisites": [
     "galacticraft:research/orbital_nanofabrication"

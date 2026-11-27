@@ -228,6 +228,12 @@ public class GCTranslationProvider extends TranslationProvider {
         this.block(GCBlocks.MARS_COBBLESTONE_SLAB, "Mars Cobblestone Slab");
         this.block(GCBlocks.MARS_COBBLESTONE_STAIRS, "Mars Cobblestone Stairs");
         this.block(GCBlocks.MARS_COBBLESTONE_WALL, "Mars Cobblestone Wall");
+        this.block(GCBlocks.MARS_BASALT, "Mars Basalt");
+        this.block(GCBlocks.MARS_SILTSTONE, "Mars Siltstone");
+        this.block(GCBlocks.MARS_BRECCIA, "Mars Breccia");
+        this.block(GCBlocks.MARS_BASALTIC_SAND, "Mars Basaltic Sand");
+        this.block(GCBlocks.MARS_FROST_REGOLITH, "Mars Frost Regolith");
+        this.block(GCBlocks.MARS_DEEP_STONE, "Mars Deep Stone");
 
         // ASTEROID NATURAL
         this.block(GCBlocks.ASTEROID_ROCK, "Asteroid Rock");
@@ -299,6 +305,39 @@ public class GCTranslationProvider extends TranslationProvider {
         this.block(GCBlocks.URANUS_URANIUM_ORE, "Uranus Uranium Ore");
 
         this.block(GCBlocks.NEPTUNE_ABYSSAL_MANTLE_ROCK, "Neptune Abyssal Mantle Rock");
+
+        // PHASE 4 OUTER MOONS
+        this.block(GCBlocks.TITAN_THOLIN_SAND, "Titan Tholin Sand");
+        this.block(GCBlocks.TITAN_HYDROCARBON_CRUST, "Titan Hydrocarbon Crust");
+        this.block(GCBlocks.TITAN_WATER_ICE_ROCK, "Titan Water-Ice Rock");
+        this.block(GCBlocks.TITAN_MAGNESIUM_ORE, "Titan Magnesium Ore");
+        this.block(GCBlocks.TITAN_IRON_ORE, "Titan Iron Ore");
+        this.block(GCBlocks.TITAN_SILICON_ORE, "Titan Silicon Ore");
+
+        this.block(GCBlocks.ENCELADUS_ICE_CRUST, "Enceladus Ice Crust");
+        this.block(GCBlocks.ENCELADUS_TIGER_STRIPE_ICE, "Enceladus Tiger Stripe Ice");
+        this.block(GCBlocks.ENCELADUS_SEABED_ROCK, "Enceladus Seabed Rock");
+        this.block(GCBlocks.ENCELADUS_MAGNESIUM_ORE, "Enceladus Magnesium Ore");
+        this.block(GCBlocks.ENCELADUS_NIOBIUM_ORE, "Enceladus Niobium Ore");
+
+        this.block(GCBlocks.TITANIA_ICE_SILICATE, "Titania Ice-Silicate Rock");
+        this.block(GCBlocks.TITANIA_FROST_CRUST, "Titania Frost Crust");
+        this.block(GCBlocks.TITANIA_CHASM_SLATE, "Titania Chasm Slate");
+        this.block(GCBlocks.TITANIA_URANIUM_ORE, "Titania Uranium Ore");
+        this.block(GCBlocks.TITANIA_LONSDALEITE_ORE, "Titania Lonsdaleite Ore");
+        this.block(GCBlocks.TITANIA_TITANIUM_ORE, "Titania Titanium Ore");
+
+        this.block(GCBlocks.OBERON_DARK_ROCK, "Oberon Dark Rock");
+        this.block(GCBlocks.OBERON_REDDISH_REGOLITH, "Oberon Reddish Regolith");
+        this.block(GCBlocks.OBERON_IMPACT_BRECCIA, "Oberon Impact Breccia");
+        this.block(GCBlocks.OBERON_URANIUM_ORE, "Oberon Uranium Ore");
+        this.block(GCBlocks.OBERON_NIOBIUM_ORE, "Oberon Niobium Ore");
+
+        this.block(GCBlocks.TRITON_NITROGEN_ICE, "Triton Nitrogen Ice");
+        this.block(GCBlocks.TRITON_CANTALOUPE_CRUST, "Triton Cantaloupe Crust");
+        this.block(GCBlocks.TRITON_CRYO_BASALT, "Triton Cryo-Basalt");
+        this.block(GCBlocks.TRITON_SUPERIONIC_ORE, "Triton Superionic Ore");
+        this.block(GCBlocks.TRITON_XENON_CLATHRATE_ORE, "Triton Xenon Clathrate Ore");
 
         // MISC DECOR
         this.block(GCBlocks.WALKWAY, "Walkway");
@@ -1181,6 +1220,16 @@ public class GCTranslationProvider extends TranslationProvider {
         this.add(CelestialBody.GANYMEDE_DESC, "The largest moon in the Solar System and the only satellite known to generate its own intrinsic magnetosphere. Bright grooved sulci ridges, ancient dark cratered regions, and polar frost caps shimmer beneath magnetic auroras, concealing rich veins of niobium, titanium, and palladium.");
         this.add(CelestialBody.CALLISTO, "Callisto");
         this.add(CelestialBody.CALLISTO_DESC, "Orbiting outside Jupiter's fiercest radiation belts, Callisto is an ancient, heavily cratered ice-rock world dominated by the multi-ring Valhalla impact basin and towering ice peaks. Its low-radiation environment and abundant iron, aluminum, niobium, and water ice make it the premier staging base for the outer Solar System.");
+        this.add(CelestialBody.TITAN, "Titan");
+        this.add(CelestialBody.TITAN_DESC, "Saturn's largest moon and the only natural satellite in the Solar System with a dense 1.45-bar atmosphere of nitrogen (94.2%) and methane (5.65%). Under thick amber tholin haze at -179C, liquid methane seas carve channels across cryogenic water-ice bedrock and organic hydrocarbon dunes.");
+        this.add(CelestialBody.ENCELADUS, "Enceladus");
+        this.add(CelestialBody.ENCELADUS_DESC, "A brilliant, high-albedo icy moon of Saturn scarred by glowing south-polar Tiger Stripes cryovolcanic rifts that vent plumes from a warm, mineral-rich hydrothermal subsurface ocean.");
+        this.add(CelestialBody.TITANIA, "Titania");
+        this.add(CelestialBody.TITANIA_DESC, "Uranus's largest moon, riven by colossal Messina Chasmata tectonic fault canyons carved through frozen ice-silicate strata rich in Uranium and hexagonal Lonsdaleite.");
+        this.add(CelestialBody.OBERON, "Oberon");
+        this.add(CelestialBody.OBERON_DESC, "Uranus's outermost major moon, an ancient heavily cratered dark reddish world with towering impact breccia peaks and deep Uranium and Niobium veins.");
+        this.add(CelestialBody.TRITON, "Triton");
+        this.add(CelestialBody.TRITON_DESC, "Neptune's retrograde captured Kuiper Belt world at -235C, covered in dimpled cantaloupe terrain, nitrogen cryogeysers, Superionic Ice veins, and Xenon Clathrates.");
         this.add(CelestialBody.SATELLITE, "Satellite");
         this.add(CelestialBody.SATELLITES, "Satellites");
         this.add(CelestialBody.SATELLITE_DESC, "");
@@ -1196,6 +1245,13 @@ public class GCTranslationProvider extends TranslationProvider {
         this.add(GCBiomes.Mars.MARS_FLAT, "Mars Flat");
         this.add(GCBiomes.Mars.MARS_CANYON, "Mars Canyon");
         this.add(GCBiomes.Mars.MARS_HIGHLANDS, "Mars Highlands");
+        this.add(GCBiomes.Mars.MARS_IMPACT_BASIN, "Mars Impact Basin");
+        this.add(GCBiomes.Mars.MARS_DUNE_SEA, "Mars Dune Sea");
+        this.add(GCBiomes.Mars.MARS_THARSIS, "Mars Tharsis Volcanic Province");
+        this.add(GCBiomes.Mars.MARS_POLAR_ICE_CAP, "Mars Polar Ice Cap");
+        this.add(GCBiomes.Mars.MARS_LAVA_TUBES, "Mars Lava Tubes");
+        this.add(GCBiomes.Mars.MARS_DEEP_CAVERNS, "Mars Deep Caverns");
+        this.add(GCBiomes.Mars.MARS_ICE_CAVERNS, "Mars Subglacial Ice Caverns");
         this.add(GCBiomes.Venus.VENUS_FLAT, "Venus Flat");
         this.add(GCBiomes.Venus.VENUS_MOUNTAIN, "Venus Mountain");
         this.add(GCBiomes.Venus.VENUS_VALLEY, "Venus Valley");
@@ -1276,6 +1332,30 @@ public class GCTranslationProvider extends TranslationProvider {
         this.add(GCBiomes.Callisto.VALHALLA_RINGS, "Valhalla Rings");
         this.add(GCBiomes.Callisto.ICE_PEAKS, "Ice Peaks");
         this.add(GCBiomes.Callisto.ANCIENT_CAVERNS, "Ancient Caverns");
+        this.add(GCBiomes.Titan.METHANE_SEAS, "Kraken Methane Seas");
+        this.add(GCBiomes.Titan.THOLIN_DUNES, "Tholin Hydrocarbon Dunes");
+        this.add(GCBiomes.Titan.ICE_HIGHLANDS, "Xanadu Ice Highlands");
+        this.add(GCBiomes.Titan.CRYO_CAVERNS, "Titan Cryo-Caverns");
+
+        this.add(GCBiomes.Enceladus.SNOW_PLAINS, "High-Albedo Snow Plains");
+        this.add(GCBiomes.Enceladus.TIGER_STRIPES, "Tiger Stripes Cryovolcanic Rifts");
+        this.add(GCBiomes.Enceladus.CRATERED_RIDGES, "Cratered Ice Ridges");
+        this.add(GCBiomes.Enceladus.HYDROTHERMAL_OCEAN, "Enceladus Hydrothermal Ocean");
+
+        this.add(GCBiomes.Titania.MESSINA_CHASMATA, "Messina Chasmata Canyons");
+        this.add(GCBiomes.Titania.FROST_PLAINS, "Titania Frost Plains");
+        this.add(GCBiomes.Titania.SCARP_HIGHLANDS, "Scarp Highlands");
+        this.add(GCBiomes.Titania.FAULT_CAVERNS, "Tectonic Fault Caverns");
+
+        this.add(GCBiomes.Oberon.RED_PLAINS, "Reddish Cratered Plains");
+        this.add(GCBiomes.Oberon.IMPACT_PEAKS, "Oberon Impact Peaks");
+        this.add(GCBiomes.Oberon.DARK_BASINS, "Carbon-Dark Basins");
+        this.add(GCBiomes.Oberon.ANCIENT_CAVERNS, "Ancient Impact Caverns");
+
+        this.add(GCBiomes.Triton.CANTALOUPE_TERRAIN, "Cantaloupe Terrain");
+        this.add(GCBiomes.Triton.NITROGEN_GEYSERS, "Nitrogen Cryogeyser Fields");
+        this.add(GCBiomes.Triton.POLAR_ICE_CAP, "Triton Nitrogen Polar Cap");
+        this.add(GCBiomes.Triton.SUPERIONIC_CAVERNS, "Superionic Cryo-Caverns");
     }
 
     protected void generateChatTranslations() {
@@ -1975,7 +2055,39 @@ public class GCTranslationProvider extends TranslationProvider {
         this.add("manual.galacticraft.atlas.uranus.title", "Uranus");
         this.add("manual.galacticraft.atlas.uranus.hazards", "Abyssal cold (49K / -224C), diamond hail, 0.003x solar. Uranium & Lonsdaleite.");
         this.add("manual.galacticraft.atlas.neptune.title", "Neptune");
-        this.add("manual.galacticraft.atlas.neptune.hazards", "Supersonic winds, 58K cryo, 0.001x solar. Superionic Ice Crystals & Xenon.");
+        this.add("manual.galacticraft.atlas.neptune.hazards", "Supersonic winds, 58K cryo, 0.001x solar. Aerostatic arrival at Y=216; abyssal core at Y=-64..-20. Superionic Ice & Xenon.");
+        this.add("manual.galacticraft.atlas.phobos.title", "Phobos (Mars Moon)");
+        this.add("manual.galacticraft.atlas.phobos.hazards", "Microgravity (0.015G), vacuum, Stickney Basin & tidal grooves. Rich in Meteoric Iron & Graphite.");
+        this.add("manual.galacticraft.atlas.deimos.title", "Deimos (Mars Moon)");
+        this.add("manual.galacticraft.atlas.deimos.hazards", "Ultra-low gravity (0.012G), smooth regolith slopes, vacuum. Silicon & Aluminum.");
+        this.add("manual.galacticraft.atlas.io.title", "Io (Jupiter Moon)");
+        this.add("manual.galacticraft.atlas.io.hazards", "Intense Jovian radiation & active sulfur volcanism (0.183G). Primary moon source of Palladium, Sulfur & Titanium.");
+        this.add("manual.galacticraft.atlas.europa.title", "Europa (Jupiter Moon)");
+        this.add("manual.galacticraft.atlas.europa.hazards", "Cryogenic ice shell (-220C) over global subsurface ocean (Y<24). Dense Ice, Deuterium & Niobium.");
+        this.add("manual.galacticraft.atlas.ganymede.title", "Ganymede (Jupiter Moon)");
+        this.add("manual.galacticraft.atlas.ganymede.hazards", "Magnetospheric auroras, grooved sulci ridges (0.146G). Niobium, Titanium & Palladium.");
+        this.add("manual.galacticraft.atlas.callisto.title", "Callisto (Jupiter Moon)");
+        this.add("manual.galacticraft.atlas.callisto.hazards", "Lowest Jovian radiation belt, ancient Valhalla impact rings. Safe outpost with Iron, Aluminum, Niobium & Dense Ice.");
+        this.add("manual.galacticraft.atlas.titan.title", "Titan (Saturn Moon)");
+        this.add("manual.galacticraft.atlas.titan.hazards", "1.45 bar dense orange N2/CH4 atmosphere (-180C), liquid methane seas & tholin dunes. Direct CH4/N2 Fractionator ISRU & Magnesium.");
+        this.add("manual.galacticraft.atlas.enceladus.title", "Enceladus (Saturn Moon)");
+        this.add("manual.galacticraft.atlas.enceladus.hazards", "0.012G, high-albedo snow, glowing Tiger Stripes vents over hydrothermal ocean (Y<20). Dense Ice, Magnesium & Niobium.");
+        this.add("manual.galacticraft.atlas.titania.title", "Titania (Uranus Moon)");
+        this.add("manual.galacticraft.atlas.titania.hazards", "Deep Messina Chasmata tectonic canyons (-213C), 0.039G. Primary lunar source of Uranium & Hexagonal Lonsdaleite.");
+        this.add("manual.galacticraft.atlas.oberon.title", "Oberon (Uranus Moon)");
+        this.add("manual.galacticraft.atlas.oberon.hazards", "Dark reddish cratered plains & towering impact peaks (-203C), 0.035G. Rich in Uranium & Niobium.");
+        this.add("manual.galacticraft.atlas.triton.title", "Triton (Neptune Moon)");
+        this.add("manual.galacticraft.atlas.triton.hazards", "Retrograde world at -238C, dimpled cantaloupe terrain & nitrogen geysers. Superionic Ice & Xenon Clathrates.");
+
+        this.add("manual.galacticraft.entry.asteroid_taxonomy.title", "Asteroid Belt Spectral Taxonomy");
+        this.add("manual.galacticraft.entry.asteroid_taxonomy.h1", "C-Type, S-Type, M-Type & Kirkwood Gap");
+        this.add("manual.galacticraft.entry.asteroid_taxonomy.body1", "The Asteroid Belt is partitioned into four spectral biomes: Carbonaceous C-Type (dark rock, graphite, dense ice), Silicate S-Type (iron, aluminum, silicon, copper), Metallic M-Type (meteoric iron, ilmenite, niobium, gold), and the sparse Kirkwood Resonance Gap rich in micro-debris and abandoned stations.");
+        this.add("manual.galacticraft.entry.asteroid_taxonomy.tip1", "Watch for rubble-pile ellipsoids, contact-binary bilobed asteroids, and icy comet fragments.");
+
+        this.add("manual.galacticraft.entry.aerostatic_giants.title", "Gas Giant Aerostatic Engineering");
+        this.add("manual.galacticraft.entry.aerostatic_giants.h1", "Floating Platforms (Y=180-260) & Hyperbaric Cores");
+        this.add("manual.galacticraft.entry.aerostatic_giants.body1", "Jupiter, Saturn, Uranus and Neptune have no rocky surface. Rockets deploy an automated 7x7 Aerostatic Platform at Y=216 in the safe 0.5-2.5 bar upper atmosphere. Descending below Y=175 triggers exponential hyperbaric pressure and zonal jet streams; Atmospheric Fractionators gain up to 2.5x gas yield at pressurized depths.");
+        this.add("manual.galacticraft.entry.aerostatic_giants.warn1", "Reaching the sparse Abyssal Core (Y=-64..-20) under 80-200+ bar requires Shield Controller + Isothermal Padding T2 — or mine equivalent exotic ores on the moons!");
 
         this.add("manual.galacticraft.entry.in_situ_labs.title", "In-Situ Laboratory Guide");
         this.add("manual.galacticraft.entry.in_situ_labs.h1", "Research Where the Physics Happen");

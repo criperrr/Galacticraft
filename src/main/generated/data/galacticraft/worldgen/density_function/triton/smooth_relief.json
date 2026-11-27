@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:quarter_negative",
+  "argument": {
+    "type": "minecraft:mul",
+    "argument1": {
+      "type": "minecraft:add",
+      "argument1": "galacticraft:triton/depth",
+      "argument2": "galacticraft:triton/jaggedness"
+    },
+    "argument2": "galacticraft:triton/factor"
+  }
+}

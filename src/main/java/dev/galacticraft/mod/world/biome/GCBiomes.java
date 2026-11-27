@@ -48,6 +48,13 @@ public final class GCBiomes {
         public static final ResourceKey<Biome> MARS_FLAT = key("mars_flat");
         public static final ResourceKey<Biome> MARS_CANYON = key("mars_canyon");
         public static final ResourceKey<Biome> MARS_HIGHLANDS = key("mars_highlands");
+        public static final ResourceKey<Biome> MARS_IMPACT_BASIN = key("mars_impact_basin");
+        public static final ResourceKey<Biome> MARS_DUNE_SEA = key("mars_dune_sea");
+        public static final ResourceKey<Biome> MARS_THARSIS = key("mars_tharsis");
+        public static final ResourceKey<Biome> MARS_POLAR_ICE_CAP = key("mars_polar_ice_cap");
+        public static final ResourceKey<Biome> MARS_LAVA_TUBES = key("mars_lava_tubes");
+        public static final ResourceKey<Biome> MARS_DEEP_CAVERNS = key("mars_deep_caverns");
+        public static final ResourceKey<Biome> MARS_ICE_CAVERNS = key("mars_ice_caverns");
     }
 
     public static final class Venus {
@@ -207,6 +214,41 @@ public final class GCBiomes {
         public static final ResourceKey<Biome> ANCIENT_CAVERNS = key("callisto_ancient_caverns");
     }
 
+    public static final class Titan {
+        public static final ResourceKey<Biome> METHANE_SEAS = key("titan_methane_seas");
+        public static final ResourceKey<Biome> THOLIN_DUNES = key("titan_tholin_dunes");
+        public static final ResourceKey<Biome> ICE_HIGHLANDS = key("titan_ice_highlands");
+        public static final ResourceKey<Biome> CRYO_CAVERNS = key("titan_cryo_caverns");
+    }
+
+    public static final class Enceladus {
+        public static final ResourceKey<Biome> SNOW_PLAINS = key("enceladus_snow_plains");
+        public static final ResourceKey<Biome> TIGER_STRIPES = key("enceladus_tiger_stripes");
+        public static final ResourceKey<Biome> CRATERED_RIDGES = key("enceladus_cratered_ridges");
+        public static final ResourceKey<Biome> HYDROTHERMAL_OCEAN = key("enceladus_hydrothermal_ocean");
+    }
+
+    public static final class Titania {
+        public static final ResourceKey<Biome> MESSINA_CHASMATA = key("titania_messina_chasmata");
+        public static final ResourceKey<Biome> FROST_PLAINS = key("titania_frost_plains");
+        public static final ResourceKey<Biome> SCARP_HIGHLANDS = key("titania_scarp_highlands");
+        public static final ResourceKey<Biome> FAULT_CAVERNS = key("titania_fault_caverns");
+    }
+
+    public static final class Oberon {
+        public static final ResourceKey<Biome> RED_PLAINS = key("oberon_red_plains");
+        public static final ResourceKey<Biome> IMPACT_PEAKS = key("oberon_impact_peaks");
+        public static final ResourceKey<Biome> DARK_BASINS = key("oberon_dark_basins");
+        public static final ResourceKey<Biome> ANCIENT_CAVERNS = key("oberon_ancient_caverns");
+    }
+
+    public static final class Triton {
+        public static final ResourceKey<Biome> CANTALOUPE_TERRAIN = key("triton_cantaloupe_terrain");
+        public static final ResourceKey<Biome> NITROGEN_GEYSERS = key("triton_nitrogen_geysers");
+        public static final ResourceKey<Biome> POLAR_ICE_CAP = key("triton_polar_ice_cap");
+        public static final ResourceKey<Biome> SUPERIONIC_CAVERNS = key("triton_superionic_caverns");
+    }
+
     public static final ResourceKey<Biome> SPACE = ResourceKey.create(Registries.BIOME, Constant.id("space"));
 
     public static Biome createSpaceBiome(HolderGetter<PlacedFeature> holderGetter, HolderGetter<ConfiguredWorldCarver<?>> holderGetter2) {
@@ -241,6 +283,13 @@ public final class GCBiomes {
         context.register(Mars.MARS_FLAT, MarsBiomes.createMarsFlat(featureLookup, carverLookup));
         context.register(Mars.MARS_CANYON, MarsBiomes.createMarsCanyon(featureLookup, carverLookup));
         context.register(Mars.MARS_HIGHLANDS, MarsBiomes.createMarsHighlands(featureLookup, carverLookup));
+        context.register(Mars.MARS_IMPACT_BASIN, MarsBiomes.createMarsImpactBasin(featureLookup, carverLookup));
+        context.register(Mars.MARS_DUNE_SEA, MarsBiomes.createMarsDuneSea(featureLookup, carverLookup));
+        context.register(Mars.MARS_THARSIS, MarsBiomes.createMarsTharsis(featureLookup, carverLookup));
+        context.register(Mars.MARS_POLAR_ICE_CAP, MarsBiomes.createMarsPolarIceCap(featureLookup, carverLookup));
+        context.register(Mars.MARS_LAVA_TUBES, MarsBiomes.createMarsLavaTubes(featureLookup, carverLookup));
+        context.register(Mars.MARS_DEEP_CAVERNS, MarsBiomes.createMarsDeepCaverns(featureLookup, carverLookup));
+        context.register(Mars.MARS_ICE_CAVERNS, MarsBiomes.createMarsIceCaverns(featureLookup, carverLookup));
 
         context.register(Venus.VENUS_VALLEY, VenusBiomes.createVenusValley(featureLookup, carverLookup));
         context.register(Venus.VENUS_FLAT, VenusBiomes.createVenusFlat(featureLookup, carverLookup));
@@ -265,6 +314,7 @@ public final class GCBiomes {
         UranusBiomes.bootstrapRegistries(context);
         NeptuneBiomes.bootstrapRegistries(context);
         InnerAndJovianMoonBiomes.bootstrapRegistries(context);
+        OuterMoonBiomes.bootstrapRegistries(context);
     }
 
     @Contract(pure = true)

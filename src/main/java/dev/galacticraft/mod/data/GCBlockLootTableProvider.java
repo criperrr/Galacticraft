@@ -168,6 +168,12 @@ public class GCBlockLootTableProvider extends FabricBlockLootTableProvider {
         this.dropSelf(GCBlocks.MARS_COBBLESTONE_SLAB);
         this.dropSelf(GCBlocks.MARS_COBBLESTONE_STAIRS);
         this.dropSelf(GCBlocks.MARS_COBBLESTONE_WALL);
+        this.dropSelf(GCBlocks.MARS_BASALT);
+        this.dropSelf(GCBlocks.MARS_SILTSTONE);
+        this.dropSelf(GCBlocks.MARS_BRECCIA);
+        this.dropSelf(GCBlocks.MARS_BASALTIC_SAND);
+        this.dropSelf(GCBlocks.MARS_FROST_REGOLITH);
+        this.dropSelf(GCBlocks.MARS_DEEP_STONE);
 
         this.dropSelf(GCBlocks.ASTEROID_ROCK);
         this.dropSelf(GCBlocks.ASTEROID_ROCK_1);
@@ -258,6 +264,38 @@ public class GCBlockLootTableProvider extends FabricBlockLootTableProvider {
         this.add(GCBlocks.CALLISTO_IRON_ORE, this.createOreDrop(GCBlocks.CALLISTO_IRON_ORE, Items.RAW_IRON));
         this.add(GCBlocks.CALLISTO_ALUMINUM_ORE, this.createOreDrop(GCBlocks.CALLISTO_ALUMINUM_ORE, GCItems.RAW_ALUMINUM));
         this.add(GCBlocks.CALLISTO_NIOBIUM_ORE, this.createOreDrop(GCBlocks.CALLISTO_NIOBIUM_ORE, GCItems.RAW_NIOBIUM));
+        // PHASE 4 OUTER MOONS
+        this.dropSelf(GCBlocks.TITAN_THOLIN_SAND);
+        this.dropSelf(GCBlocks.TITAN_HYDROCARBON_CRUST);
+        this.dropSelf(GCBlocks.TITAN_WATER_ICE_ROCK);
+        this.add(GCBlocks.TITAN_MAGNESIUM_ORE, this.createOreDrop(GCBlocks.TITAN_MAGNESIUM_ORE, GCItems.RAW_MAGNESIUM));
+        this.add(GCBlocks.TITAN_IRON_ORE, this.createOreDrop(GCBlocks.TITAN_IRON_ORE, Items.RAW_IRON));
+        this.add(GCBlocks.TITAN_SILICON_ORE, this.createOreDrop(GCBlocks.TITAN_SILICON_ORE, GCItems.SILICON, 4.0F, 6.0F));
+
+        this.dropSelf(GCBlocks.ENCELADUS_ICE_CRUST);
+        this.dropSelf(GCBlocks.ENCELADUS_TIGER_STRIPE_ICE);
+        this.dropSelf(GCBlocks.ENCELADUS_SEABED_ROCK);
+        this.add(GCBlocks.ENCELADUS_MAGNESIUM_ORE, this.createOreDrop(GCBlocks.ENCELADUS_MAGNESIUM_ORE, GCItems.RAW_MAGNESIUM));
+        this.add(GCBlocks.ENCELADUS_NIOBIUM_ORE, this.createOreDrop(GCBlocks.ENCELADUS_NIOBIUM_ORE, GCItems.RAW_NIOBIUM));
+
+        this.dropSelf(GCBlocks.TITANIA_ICE_SILICATE);
+        this.dropSelf(GCBlocks.TITANIA_FROST_CRUST);
+        this.dropSelf(GCBlocks.TITANIA_CHASM_SLATE);
+        this.add(GCBlocks.TITANIA_URANIUM_ORE, this.createOreDrop(GCBlocks.TITANIA_URANIUM_ORE, GCItems.RAW_URANIUM));
+        this.add(GCBlocks.TITANIA_LONSDALEITE_ORE, this.createOreDrop(GCBlocks.TITANIA_LONSDALEITE_ORE, GCItems.LONSDALEITE_GEM));
+        this.add(GCBlocks.TITANIA_TITANIUM_ORE, this.createOreDrop(GCBlocks.TITANIA_TITANIUM_ORE, GCItems.RAW_TITANIUM));
+
+        this.dropSelf(GCBlocks.OBERON_DARK_ROCK);
+        this.dropSelf(GCBlocks.OBERON_REDDISH_REGOLITH);
+        this.dropSelf(GCBlocks.OBERON_IMPACT_BRECCIA);
+        this.add(GCBlocks.OBERON_URANIUM_ORE, this.createOreDrop(GCBlocks.OBERON_URANIUM_ORE, GCItems.RAW_URANIUM));
+        this.add(GCBlocks.OBERON_NIOBIUM_ORE, this.createOreDrop(GCBlocks.OBERON_NIOBIUM_ORE, GCItems.RAW_NIOBIUM));
+
+        this.dropSelf(GCBlocks.TRITON_NITROGEN_ICE);
+        this.dropSelf(GCBlocks.TRITON_CANTALOUPE_CRUST);
+        this.dropSelf(GCBlocks.TRITON_CRYO_BASALT);
+        this.add(GCBlocks.TRITON_SUPERIONIC_ORE, this.createOreDrop(GCBlocks.TRITON_SUPERIONIC_ORE, GCItems.SUPERIONIC_ICE_CRYSTAL));
+        this.dropSelf(GCBlocks.TRITON_XENON_CLATHRATE_ORE);
         this.dropSelf(GCBlocks.PUMICE);
         this.add(GCBlocks.VAPOR_SPOUT, this.createSingleItemTableWithSilkTouch(GCBlocks.VAPOR_SPOUT, GCBlocks.SOFT_VENUS_ROCK));
         this.add(GCBlocks.CRASHED_PROBE, this.createSilkTouchOnlyTable(GCBlocks.CRASHED_PROBE));

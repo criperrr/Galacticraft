@@ -99,6 +99,11 @@ public class GCMultiNoiseBiomeSourceParameterLists {
     public static final ResourceLocation EUROPA_PRESET_ID = Constant.id("europa");
     public static final ResourceLocation GANYMEDE_PRESET_ID = Constant.id("ganymede");
     public static final ResourceLocation CALLISTO_PRESET_ID = Constant.id("callisto");
+    public static final ResourceLocation TITAN_PRESET_ID = Constant.id("titan");
+    public static final ResourceLocation ENCELADUS_PRESET_ID = Constant.id("enceladus");
+    public static final ResourceLocation TITANIA_PRESET_ID = Constant.id("titania");
+    public static final ResourceLocation OBERON_PRESET_ID = Constant.id("oberon");
+    public static final ResourceLocation TRITON_PRESET_ID = Constant.id("triton");
     public static final MultiNoiseBiomeSourceParameterList.Preset MOON_PRESET = new MultiNoiseBiomeSourceParameterList.Preset(
             MOON_PRESET_ID, GCMultiNoiseBiomeSourceParameterLists::generateMoon
     );
@@ -144,6 +149,21 @@ public class GCMultiNoiseBiomeSourceParameterLists {
     public static final MultiNoiseBiomeSourceParameterList.Preset CALLISTO_PRESET = new MultiNoiseBiomeSourceParameterList.Preset(
             CALLISTO_PRESET_ID, GCMultiNoiseBiomeSourceParameterLists::generateCallisto
     );
+    public static final MultiNoiseBiomeSourceParameterList.Preset TITAN_PRESET = new MultiNoiseBiomeSourceParameterList.Preset(
+            TITAN_PRESET_ID, GCMultiNoiseBiomeSourceParameterLists::generateTitan
+    );
+    public static final MultiNoiseBiomeSourceParameterList.Preset ENCELADUS_PRESET = new MultiNoiseBiomeSourceParameterList.Preset(
+            ENCELADUS_PRESET_ID, GCMultiNoiseBiomeSourceParameterLists::generateEnceladus
+    );
+    public static final MultiNoiseBiomeSourceParameterList.Preset TITANIA_PRESET = new MultiNoiseBiomeSourceParameterList.Preset(
+            TITANIA_PRESET_ID, GCMultiNoiseBiomeSourceParameterLists::generateTitania
+    );
+    public static final MultiNoiseBiomeSourceParameterList.Preset OBERON_PRESET = new MultiNoiseBiomeSourceParameterList.Preset(
+            OBERON_PRESET_ID, GCMultiNoiseBiomeSourceParameterLists::generateOberon
+    );
+    public static final MultiNoiseBiomeSourceParameterList.Preset TRITON_PRESET = new MultiNoiseBiomeSourceParameterList.Preset(
+            TRITON_PRESET_ID, GCMultiNoiseBiomeSourceParameterLists::generateTriton
+    );
 
     public static final ResourceKey<MultiNoiseBiomeSourceParameterList> MOON = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "moon");
     public static final ResourceKey<MultiNoiseBiomeSourceParameterList> MARS = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "mars");
@@ -160,6 +180,11 @@ public class GCMultiNoiseBiomeSourceParameterLists {
     public static final ResourceKey<MultiNoiseBiomeSourceParameterList> EUROPA = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "europa");
     public static final ResourceKey<MultiNoiseBiomeSourceParameterList> GANYMEDE = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "ganymede");
     public static final ResourceKey<MultiNoiseBiomeSourceParameterList> CALLISTO = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "callisto");
+    public static final ResourceKey<MultiNoiseBiomeSourceParameterList> TITAN = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "titan");
+    public static final ResourceKey<MultiNoiseBiomeSourceParameterList> ENCELADUS = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "enceladus");
+    public static final ResourceKey<MultiNoiseBiomeSourceParameterList> TITANIA = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "titania");
+    public static final ResourceKey<MultiNoiseBiomeSourceParameterList> OBERON = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "oberon");
+    public static final ResourceKey<MultiNoiseBiomeSourceParameterList> TRITON = Constant.key(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, "triton");
 
     @Contract("_ -> new")
     private static <T> Climate.@NotNull ParameterList<T> generateMoon(Function<ResourceKey<Biome>, T> biomeRegistry) {
@@ -220,34 +245,74 @@ public class GCMultiNoiseBiomeSourceParameterLists {
     @Contract("_ -> new")
     private static <T> Climate.@NotNull ParameterList<T> generateMars(Function<ResourceKey<Biome>, T> biomeRegistry) {
         ImmutableList.Builder<Pair<Climate.ParameterPoint, T>> builder = ImmutableList.builder();
-        // Aligns Mars biome boundaries 100% with GCDensityFunctions.Mars elevation splines and GalaxySpace WorldProviderMars_WE bands:
-        // - MARS_CANYON [-1.0, -0.20]: deep Martian canyons/ravines (GC4 VALLEY_HEIGHT_MOD & GalaxySpace Mars_Ravine)
-        // - MARS_FLAT [-0.20, 0.30]: rusty plains & high plains (GC4 BiomeGenFlatMars & GalaxySpace Mars_Plains / Mars_High_Plains)
-        // - MARS_HIGHLANDS [0.30, 1.0]: rugged highlands & mountains (GC4 MOUNTAIN_HEIGHT_MOD & GalaxySpace Mars_Mountains / Mars_Triangle_Mountains)
-        writeBiomeParameters(builder::add,
-                HOT,
-                FULL_RANGE,
-                Parameter.span(-1.0F, -0.20F),
-                FULL_RANGE,
-                FULL_RANGE,
-                0.0F,
+
+        Parameter surfaceDepth = Parameter.span(-1.0F, 0.17F);
+        Parameter upperCaveDepth = Parameter.span(0.18F, 0.55F);
+        Parameter deepCaveDepth = Parameter.span(0.55F, 1.0F);
+        Parameter polarTemp = Parameter.span(-1.0F, -0.55F);
+        Parameter nonPolarTemp = Parameter.span(-0.55F, 1.0F);
+        Parameter canyonWeirdness = Parameter.span(-0.06F, 0.06F);
+        Parameter[] nonCanyonWeirdness = new Parameter[]{
+                Parameter.span(-1.0F, -0.06F),
+                Parameter.span(0.06F, 1.0F)
+        };
+
+        // ==========================================
+        // 1. SURFACE BIOMES (depth <= 0.17, 100% 6D coverage)
+        // ==========================================
+
+        // Polar Layered Deposits (T in [-1.0, -0.55])
+        writeMercury3dBiome(builder::add, polarTemp, FULL_RANGE, FULL_RANGE, FULL_RANGE, surfaceDepth, FULL_RANGE, 0.0F,
+                biomeRegistry.apply(GCBiomes.Mars.MARS_POLAR_ICE_CAP));
+
+        // Impact Basins / Jezero / Hellas (C in [-1.0, -0.35])
+        writeMercury3dBiome(builder::add, nonPolarTemp, FULL_RANGE, Parameter.span(-1.0F, -0.35F), FULL_RANGE, surfaceDepth, FULL_RANGE, 0.0F,
+                biomeRegistry.apply(GCBiomes.Mars.MARS_IMPACT_BASIN));
+
+        // Rare, monumental Valles Marineris Rift Canyons (narrow PV [-1.0, -0.82] => weirdness [-0.06, 0.06], low/mid erosion E <= 0.10)
+        writeMercury3dBiome(builder::add, nonPolarTemp, FULL_RANGE, Parameter.span(-0.35F, 1.0F), Parameter.span(-1.0F, 0.10F), surfaceDepth, canyonWeirdness, 0.0F,
                 biomeRegistry.apply(GCBiomes.Mars.MARS_CANYON));
-        writeBiomeParameters(builder::add,
-                HOT,
-                FULL_RANGE,
-                Parameter.span(-0.20F, 0.30F),
-                FULL_RANGE,
-                FULL_RANGE,
-                0.0F,
+        // Eroded shallow washes inside weirdness [-0.06, 0.06] stay plains/highlands
+        writeMercury3dBiome(builder::add, nonPolarTemp, FULL_RANGE, Parameter.span(-0.35F, 0.30F), Parameter.span(0.10F, 1.0F), surfaceDepth, canyonWeirdness, 0.0F,
                 biomeRegistry.apply(GCBiomes.Mars.MARS_FLAT));
-        writeBiomeParameters(builder::add,
-                HOT,
-                FULL_RANGE,
-                Parameter.span(0.30F, 1.0F),
-                FULL_RANGE,
-                FULL_RANGE,
-                0.0F,
+        writeMercury3dBiome(builder::add, nonPolarTemp, FULL_RANGE, Parameter.span(0.30F, 1.0F), Parameter.span(0.10F, 1.0F), surfaceDepth, canyonWeirdness, 0.0F,
                 biomeRegistry.apply(GCBiomes.Mars.MARS_HIGHLANDS));
+
+        for (Parameter w : nonCanyonWeirdness) {
+            // Basaltic Dune Seas (dry plains: C in [-0.35, 0.25], H in [-1.0, -0.35])
+            writeMercury3dBiome(builder::add, nonPolarTemp, Parameter.span(-1.0F, -0.35F), Parameter.span(-0.35F, 0.25F), FULL_RANGE, surfaceDepth, w, 0.0F,
+                    biomeRegistry.apply(GCBiomes.Mars.MARS_DUNE_SEA));
+
+            // Ferruginous Plains (C in [-0.35, 0.30], H in [-0.35, 1.0] + dry transition C in [0.25, 0.30])
+            writeMercury3dBiome(builder::add, nonPolarTemp, Parameter.span(-0.35F, 1.0F), Parameter.span(-0.35F, 0.30F), FULL_RANGE, surfaceDepth, w, 0.0F,
+                    biomeRegistry.apply(GCBiomes.Mars.MARS_FLAT));
+            writeMercury3dBiome(builder::add, nonPolarTemp, Parameter.span(-1.0F, -0.35F), Parameter.span(0.25F, 0.30F), FULL_RANGE, surfaceDepth, w, 0.0F,
+                    biomeRegistry.apply(GCBiomes.Mars.MARS_FLAT));
+
+            // Tharsis Volcanic Province / Olympus Mons (highlands with low erosion: C in [0.30, 1.0], E in [-1.0, -0.25])
+            writeMercury3dBiome(builder::add, nonPolarTemp, FULL_RANGE, Parameter.span(0.30F, 1.0F), Parameter.span(-1.0F, -0.25F), surfaceDepth, w, 0.0F,
+                    biomeRegistry.apply(GCBiomes.Mars.MARS_THARSIS));
+
+            // Martian Highlands (C in [0.30, 1.0], E in [-0.25, 1.0])
+            writeMercury3dBiome(builder::add, nonPolarTemp, FULL_RANGE, Parameter.span(0.30F, 1.0F), Parameter.span(-0.25F, 1.0F), surfaceDepth, w, 0.0F,
+                    biomeRegistry.apply(GCBiomes.Mars.MARS_HIGHLANDS));
+        }
+
+        // ==========================================
+        // 2. SUBTERRANEAN 3D CAVE BIOMES (depth >= 0.18)
+        // ==========================================
+
+        // Polar Subglacial Ice Caverns (T in [-1.0, -0.55], depth >= 0.18)
+        writeMercury3dBiome(builder::add, polarTemp, FULL_RANGE, FULL_RANGE, FULL_RANGE, Parameter.span(0.18F, 1.0F), FULL_RANGE, 0.0F,
+                biomeRegistry.apply(GCBiomes.Mars.MARS_ICE_CAVERNS));
+
+        // Tharsis Lava Tubes (upper subterranean crust: depth in [0.18, 0.55])
+        writeMercury3dBiome(builder::add, nonPolarTemp, FULL_RANGE, FULL_RANGE, FULL_RANGE, upperCaveDepth, FULL_RANGE, 0.0F,
+                biomeRegistry.apply(GCBiomes.Mars.MARS_LAVA_TUBES));
+
+        // Deep Terraced Caverns (deep subterranean crust: depth in [0.55, 1.0])
+        writeMercury3dBiome(builder::add, nonPolarTemp, FULL_RANGE, FULL_RANGE, FULL_RANGE, deepCaveDepth, FULL_RANGE, 0.0F,
+                biomeRegistry.apply(GCBiomes.Mars.MARS_DEEP_CAVERNS));
 
         return new Climate.ParameterList<>(builder.build());
     }
@@ -840,6 +905,56 @@ public class GCMultiNoiseBiomeSourceParameterLists {
         );
     }
 
+    private static <T> Climate.@NotNull ParameterList<T> generateTitan(Function<ResourceKey<Biome>, T> biomeRegistry) {
+        ImmutableList.Builder<Pair<Climate.ParameterPoint, T>> builder = ImmutableList.builder();
+        Parameter surface = Parameter.span(-1.0F, 0.35F);
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, Parameter.span(-1.0F, -0.22F), FULL_RANGE, surface, FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Titan.METHANE_SEAS));
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, Parameter.span(-0.22F, 0.35F), FULL_RANGE, surface, FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Titan.THOLIN_DUNES));
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, Parameter.span(0.35F, 1.0F), FULL_RANGE, surface, FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Titan.ICE_HIGHLANDS));
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, FULL_RANGE, FULL_RANGE, Parameter.span(0.35F, 1.6F), FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Titan.CRYO_CAVERNS));
+        return new Climate.ParameterList<>(builder.build());
+    }
+
+    private static <T> Climate.@NotNull ParameterList<T> generateEnceladus(Function<ResourceKey<Biome>, T> biomeRegistry) {
+        ImmutableList.Builder<Pair<Climate.ParameterPoint, T>> builder = ImmutableList.builder();
+        Parameter surface = Parameter.span(-1.0F, 0.30F);
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, Parameter.span(-1.0F, 0.15F), FULL_RANGE, surface, Parameter.span(-1.0F, 0.25F), 0.0F, biomeRegistry.apply(GCBiomes.Enceladus.SNOW_PLAINS));
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, Parameter.span(-1.0F, 0.35F), FULL_RANGE, surface, Parameter.span(0.25F, 1.0F), 0.0F, biomeRegistry.apply(GCBiomes.Enceladus.TIGER_STRIPES));
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, Parameter.span(0.15F, 1.0F), FULL_RANGE, surface, FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Enceladus.CRATERED_RIDGES));
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, FULL_RANGE, FULL_RANGE, Parameter.span(0.30F, 1.6F), FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Enceladus.HYDROTHERMAL_OCEAN));
+        return new Climate.ParameterList<>(builder.build());
+    }
+
+    private static <T> Climate.@NotNull ParameterList<T> generateTitania(Function<ResourceKey<Biome>, T> biomeRegistry) {
+        ImmutableList.Builder<Pair<Climate.ParameterPoint, T>> builder = ImmutableList.builder();
+        Parameter surface = Parameter.span(-1.0F, 0.35F);
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, Parameter.span(-1.0F, -0.15F), FULL_RANGE, surface, FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Titania.MESSINA_CHASMATA));
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, Parameter.span(-0.15F, 0.35F), FULL_RANGE, surface, FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Titania.FROST_PLAINS));
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, Parameter.span(0.35F, 1.0F), FULL_RANGE, surface, FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Titania.SCARP_HIGHLANDS));
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, FULL_RANGE, FULL_RANGE, Parameter.span(0.35F, 1.6F), FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Titania.FAULT_CAVERNS));
+        return new Climate.ParameterList<>(builder.build());
+    }
+
+    private static <T> Climate.@NotNull ParameterList<T> generateOberon(Function<ResourceKey<Biome>, T> biomeRegistry) {
+        ImmutableList.Builder<Pair<Climate.ParameterPoint, T>> builder = ImmutableList.builder();
+        Parameter surface = Parameter.span(-1.0F, 0.35F);
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, Parameter.span(-1.0F, -0.20F), FULL_RANGE, surface, FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Oberon.DARK_BASINS));
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, Parameter.span(-0.20F, 0.35F), FULL_RANGE, surface, FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Oberon.RED_PLAINS));
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, Parameter.span(0.35F, 1.0F), FULL_RANGE, surface, FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Oberon.IMPACT_PEAKS));
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, FULL_RANGE, FULL_RANGE, Parameter.span(0.35F, 1.6F), FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Oberon.ANCIENT_CAVERNS));
+        return new Climate.ParameterList<>(builder.build());
+    }
+
+    private static <T> Climate.@NotNull ParameterList<T> generateTriton(Function<ResourceKey<Biome>, T> biomeRegistry) {
+        ImmutableList.Builder<Pair<Climate.ParameterPoint, T>> builder = ImmutableList.builder();
+        Parameter surface = Parameter.span(-1.0F, 0.35F);
+        writeMercury3dBiome(builder::add, Parameter.span(-1.0F, -0.35F), FULL_RANGE, FULL_RANGE, FULL_RANGE, surface, FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Triton.POLAR_ICE_CAP));
+        writeMercury3dBiome(builder::add, Parameter.span(-0.35F, 1.0F), FULL_RANGE, Parameter.span(-1.0F, 0.15F), FULL_RANGE, surface, FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Triton.CANTALOUPE_TERRAIN));
+        writeMercury3dBiome(builder::add, Parameter.span(-0.35F, 1.0F), FULL_RANGE, Parameter.span(0.15F, 1.0F), FULL_RANGE, surface, FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Triton.NITROGEN_GEYSERS));
+        writeMercury3dBiome(builder::add, FULL_RANGE, FULL_RANGE, FULL_RANGE, FULL_RANGE, Parameter.span(0.35F, 1.6F), FULL_RANGE, 0.0F, biomeRegistry.apply(GCBiomes.Triton.SUPERIONIC_CAVERNS));
+        return new Climate.ParameterList<>(builder.build());
+    }
+
     public static void register() {
         MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(MOON_PRESET_ID, MOON_PRESET);
         MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(MARS_PRESET_ID, MARS_PRESET);
@@ -856,6 +971,11 @@ public class GCMultiNoiseBiomeSourceParameterLists {
         MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(EUROPA_PRESET_ID, EUROPA_PRESET);
         MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(GANYMEDE_PRESET_ID, GANYMEDE_PRESET);
         MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(CALLISTO_PRESET_ID, CALLISTO_PRESET);
+        MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(TITAN_PRESET_ID, TITAN_PRESET);
+        MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(ENCELADUS_PRESET_ID, ENCELADUS_PRESET);
+        MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(TITANIA_PRESET_ID, TITANIA_PRESET);
+        MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(OBERON_PRESET_ID, OBERON_PRESET);
+        MultiNoiseBiomeSourceParameterListPresetAccessor.getByName().put(TRITON_PRESET_ID, TRITON_PRESET);
     }
 
     public static void bootstrapRegistries(BootstrapContext<MultiNoiseBiomeSourceParameterList> context) {
@@ -875,5 +995,10 @@ public class GCMultiNoiseBiomeSourceParameterLists {
         context.register(EUROPA, new MultiNoiseBiomeSourceParameterList(EUROPA_PRESET, lookup));
         context.register(GANYMEDE, new MultiNoiseBiomeSourceParameterList(GANYMEDE_PRESET, lookup));
         context.register(CALLISTO, new MultiNoiseBiomeSourceParameterList(CALLISTO_PRESET, lookup));
+        context.register(TITAN, new MultiNoiseBiomeSourceParameterList(TITAN_PRESET, lookup));
+        context.register(ENCELADUS, new MultiNoiseBiomeSourceParameterList(ENCELADUS_PRESET, lookup));
+        context.register(TITANIA, new MultiNoiseBiomeSourceParameterList(TITANIA_PRESET, lookup));
+        context.register(OBERON, new MultiNoiseBiomeSourceParameterList(OBERON_PRESET, lookup));
+        context.register(TRITON, new MultiNoiseBiomeSourceParameterList(TRITON_PRESET, lookup));
     }
 }

@@ -165,6 +165,12 @@ public interface Constant {
         String MARS_COBBLESTONE_SLAB = "mars_cobblestone_slab";
         String MARS_COBBLESTONE_STAIRS = "mars_cobblestone_stairs";
         String MARS_COBBLESTONE_WALL = "mars_cobblestone_wall";
+        String MARS_BASALT = "mars_basalt";
+        String MARS_SILTSTONE = "mars_siltstone";
+        String MARS_BRECCIA = "mars_breccia";
+        String MARS_BASALTIC_SAND = "mars_basaltic_sand";
+        String MARS_FROST_REGOLITH = "mars_frost_regolith";
+        String MARS_DEEP_STONE = "mars_deep_stone";
 
         String ASTEROID_ROCK = "asteroid_rock";
         String ASTEROID_ROCK_1 = "asteroid_rock_block_1";
@@ -255,6 +261,38 @@ public interface Constant {
         String CALLISTO_IRON_ORE = "callisto_iron_ore";
         String CALLISTO_ALUMINUM_ORE = "callisto_aluminum_ore";
         String CALLISTO_NIOBIUM_ORE = "callisto_niobium_ore";
+        // Phase 4 Outer Moons: Titan, Enceladus, Titania, Oberon, Triton
+        String TITAN_THOLIN_SAND = "titan_tholin_sand";
+        String TITAN_HYDROCARBON_CRUST = "titan_hydrocarbon_crust";
+        String TITAN_WATER_ICE_ROCK = "titan_water_ice_rock";
+        String TITAN_MAGNESIUM_ORE = "titan_magnesium_ore";
+        String TITAN_IRON_ORE = "titan_iron_ore";
+        String TITAN_SILICON_ORE = "titan_silicon_ore";
+
+        String ENCELADUS_ICE_CRUST = "enceladus_ice_crust";
+        String ENCELADUS_TIGER_STRIPE_ICE = "enceladus_tiger_stripe_ice";
+        String ENCELADUS_SEABED_ROCK = "enceladus_seabed_rock";
+        String ENCELADUS_MAGNESIUM_ORE = "enceladus_magnesium_ore";
+        String ENCELADUS_NIOBIUM_ORE = "enceladus_niobium_ore";
+
+        String TITANIA_ICE_SILICATE = "titania_ice_silicate";
+        String TITANIA_FROST_CRUST = "titania_frost_crust";
+        String TITANIA_CHASM_SLATE = "titania_chasm_slate";
+        String TITANIA_URANIUM_ORE = "titania_uranium_ore";
+        String TITANIA_LONSDALEITE_ORE = "titania_lonsdaleite_ore";
+        String TITANIA_TITANIUM_ORE = "titania_titanium_ore";
+
+        String OBERON_DARK_ROCK = "oberon_dark_rock";
+        String OBERON_REDDISH_REGOLITH = "oberon_reddish_regolith";
+        String OBERON_IMPACT_BRECCIA = "oberon_impact_breccia";
+        String OBERON_URANIUM_ORE = "oberon_uranium_ore";
+        String OBERON_NIOBIUM_ORE = "oberon_niobium_ore";
+
+        String TRITON_NITROGEN_ICE = "triton_nitrogen_ice";
+        String TRITON_CANTALOUPE_CRUST = "triton_cantaloupe_crust";
+        String TRITON_CRYO_BASALT = "triton_cryo_basalt";
+        String TRITON_SUPERIONIC_ORE = "triton_superionic_ore";
+        String TRITON_XENON_CLATHRATE_ORE = "triton_xenon_clathrate_ore";
 
         // Ore
         String MARS_IRON_ORE = "mars_iron_ore";
@@ -1226,6 +1264,8 @@ public interface Constant {
         ResourceLocation CELESTIAL_SELECTION = id("textures/gui/celestial_selection.png");
         ResourceLocation CELESTIAL_SELECTION_1 = id("textures/gui/celestial_selection_1.png");
         ResourceLocation SELECTION_CURSOR = id("textures/gui/selection_cursor.png");
+        ResourceLocation CELESTIAL_SPACE_BG = id("textures/gui/celestial_space_bg.png");
+        ResourceLocation CELESTIAL_SOLAR_CORONA = id("textures/gui/celestial_solar_corona.png");
 
         ResourceLocation SOL = id("sol");
 
@@ -1806,6 +1846,14 @@ public interface Constant {
         String EUROPA_CAVE_CARVER = "europa_cave_carver";
         String GANYMEDE_CAVE_CARVER = "ganymede_cave_carver";
         String CALLISTO_CAVE_CARVER = "callisto_cave_carver";
+        String TITAN_CAVE_CARVER = "titan_cave_carver";
+        String ENCELADUS_CAVE_CARVER = "enceladus_cave_carver";
+        String TITANIA_CAVE_CARVER = "titania_cave_carver";
+        String TITANIA_CANYON_CARVER = "titania_canyon_carver";
+        String TITANIA_CRATER_CARVER = "titania_crater_carver";
+        String OBERON_CAVE_CARVER = "oberon_cave_carver";
+        String OBERON_CRATER_CARVER = "oberon_crater_carver";
+        String TRITON_CAVE_CARVER = "triton_cave_carver";
     }
 
     interface Packet {

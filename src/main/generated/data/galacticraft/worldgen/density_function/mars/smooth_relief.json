@@ -1,66 +1,243 @@
 {
-  "type": "minecraft:mul",
-  "argument1": "galacticraft:mars/factor",
-  "argument2": {
+  "type": "minecraft:cache_2d",
+  "argument": {
     "type": "minecraft:add",
     "argument1": {
       "type": "minecraft:mul",
       "argument1": 0.11,
       "argument2": {
-        "type": "minecraft:shifted_noise",
-        "noise": "galacticraft:mars/base_noise",
-        "shift_x": "minecraft:shift_x",
-        "shift_y": 0.0,
-        "shift_z": "minecraft:shift_z",
-        "xz_scale": 0.85,
-        "y_scale": 0.0
+        "type": "minecraft:cache_2d",
+        "argument": {
+          "type": "galacticraft:analytical_erosion",
+          "gully_strength": 0.14,
+          "octaves": 3,
+          "scale": 0.0045,
+          "slope_fade_max": 0.65,
+          "slope_fade_min": 0.12
+        }
       }
     },
     "argument2": {
       "type": "minecraft:add",
       "argument1": {
-        "type": "minecraft:mul",
-        "argument1": 0.09,
+        "type": "minecraft:add",
+        "argument1": {
+          "type": "minecraft:mul",
+          "argument1": 0.45,
+          "argument2": {
+            "type": "minecraft:cache_2d",
+            "argument": {
+              "type": "galacticraft:crater_field",
+              "cell_size": 96.0,
+              "density": 0.36,
+              "depth_scale": 0.09,
+              "peak_height": 0.025,
+              "rim_height": 0.035,
+              "seed": 331808396034
+            }
+          }
+        },
         "argument2": {
-          "type": "minecraft:shifted_noise",
-          "noise": "galacticraft:mars/hill_noise",
-          "shift_x": "minecraft:shift_x",
-          "shift_y": 0.0,
-          "shift_z": "minecraft:shift_z",
-          "xz_scale": 1.0,
-          "y_scale": 0.0
+          "type": "minecraft:range_choice",
+          "input": "galacticraft:mars/continents",
+          "max_exclusive": -0.25,
+          "min_inclusive": -1.0,
+          "when_in_range": {
+            "type": "minecraft:mul",
+            "argument1": {
+              "type": "minecraft:clamp",
+              "input": {
+                "type": "minecraft:add",
+                "argument1": -1.25,
+                "argument2": {
+                  "type": "minecraft:mul",
+                  "argument1": -5.0,
+                  "argument2": "galacticraft:mars/continents"
+                }
+              },
+              "max": 1.0,
+              "min": 0.0
+            },
+            "argument2": {
+              "type": "minecraft:add",
+              "argument1": {
+                "type": "minecraft:cache_2d",
+                "argument": {
+                  "type": "galacticraft:crater_field",
+                  "cell_size": 240.0,
+                  "density": 0.42,
+                  "depth_scale": 0.18,
+                  "peak_height": 0.05,
+                  "rim_height": 0.06,
+                  "seed": 331808396033
+                }
+              },
+              "argument2": {
+                "type": "minecraft:mul",
+                "argument1": 0.55,
+                "argument2": {
+                  "type": "minecraft:cache_2d",
+                  "argument": {
+                    "type": "galacticraft:crater_field",
+                    "cell_size": 96.0,
+                    "density": 0.36,
+                    "depth_scale": 0.09,
+                    "peak_height": 0.025,
+                    "rim_height": 0.035,
+                    "seed": 331808396034
+                  }
+                }
+              }
+            }
+          },
+          "when_out_of_range": 0.0
         }
       },
       "argument2": {
         "type": "minecraft:add",
         "argument1": {
-          "type": "minecraft:mul",
-          "argument1": 0.08,
-          "argument2": {
-            "type": "minecraft:abs",
-            "argument": {
-              "type": "minecraft:shifted_noise",
-              "noise": "galacticraft:mars/base_noise",
-              "shift_x": "minecraft:shift_x",
-              "shift_y": 0.0,
-              "shift_z": "minecraft:shift_z",
-              "xz_scale": 0.55,
-              "y_scale": 0.0
-            }
-          }
+          "type": "minecraft:range_choice",
+          "input": "galacticraft:mars/continents",
+          "max_exclusive": 1.0,
+          "min_inclusive": 0.3,
+          "when_in_range": {
+            "type": "minecraft:range_choice",
+            "input": "galacticraft:mars/erosion",
+            "max_exclusive": -0.15,
+            "min_inclusive": -1.0,
+            "when_in_range": {
+              "type": "minecraft:mul",
+              "argument1": {
+                "type": "minecraft:mul",
+                "argument1": {
+                  "type": "minecraft:clamp",
+                  "input": {
+                    "type": "minecraft:mul",
+                    "argument1": 6.0,
+                    "argument2": {
+                      "type": "minecraft:add",
+                      "argument1": -0.3,
+                      "argument2": "galacticraft:mars/continents"
+                    }
+                  },
+                  "max": 1.0,
+                  "min": 0.0
+                },
+                "argument2": {
+                  "type": "minecraft:clamp",
+                  "input": {
+                    "type": "minecraft:mul",
+                    "argument1": 6.0,
+                    "argument2": {
+                      "type": "minecraft:add",
+                      "argument1": -0.15,
+                      "argument2": {
+                        "type": "minecraft:mul",
+                        "argument1": -1.0,
+                        "argument2": "galacticraft:mars/erosion"
+                      }
+                    }
+                  },
+                  "max": 1.0,
+                  "min": 0.0
+                }
+              },
+              "argument2": {
+                "type": "minecraft:cache_2d",
+                "argument": {
+                  "type": "galacticraft:shield_volcano",
+                  "caldera_depth": 0.19,
+                  "caldera_radius": 26.0,
+                  "frequency": 0.38,
+                  "max_height": 0.72,
+                  "region_size": 720.0,
+                  "seed": 1330403661,
+                  "sigma": 135.0
+                }
+              }
+            },
+            "when_out_of_range": 0.0
+          },
+          "when_out_of_range": 0.0
         },
         "argument2": {
-          "type": "minecraft:mul",
-          "argument1": 0.07,
-          "argument2": {
-            "type": "minecraft:shifted_noise",
-            "noise": "galacticraft:mars/we_terrain_noise",
-            "shift_x": "minecraft:shift_x",
-            "shift_y": 0.0,
-            "shift_z": "minecraft:shift_z",
-            "xz_scale": 0.65,
-            "y_scale": 0.0
-          }
+          "type": "minecraft:range_choice",
+          "input": "galacticraft:mars/continents",
+          "max_exclusive": 0.25,
+          "min_inclusive": -0.35,
+          "when_in_range": {
+            "type": "minecraft:range_choice",
+            "input": "galacticraft:mars/vegetation",
+            "max_exclusive": -0.3,
+            "min_inclusive": -1.0,
+            "when_in_range": {
+              "type": "minecraft:mul",
+              "argument1": {
+                "type": "minecraft:mul",
+                "argument1": {
+                  "type": "minecraft:clamp",
+                  "input": {
+                    "type": "minecraft:add",
+                    "argument1": -1.5,
+                    "argument2": {
+                      "type": "minecraft:mul",
+                      "argument1": -5.0,
+                      "argument2": "galacticraft:mars/vegetation"
+                    }
+                  },
+                  "max": 1.0,
+                  "min": 0.0
+                },
+                "argument2": {
+                  "type": "minecraft:mul",
+                  "argument1": {
+                    "type": "minecraft:clamp",
+                    "input": {
+                      "type": "minecraft:mul",
+                      "argument1": 6.0,
+                      "argument2": {
+                        "type": "minecraft:add",
+                        "argument1": 0.35,
+                        "argument2": "galacticraft:mars/continents"
+                      }
+                    },
+                    "max": 1.0,
+                    "min": 0.0
+                  },
+                  "argument2": {
+                    "type": "minecraft:clamp",
+                    "input": {
+                      "type": "minecraft:mul",
+                      "argument1": 6.0,
+                      "argument2": {
+                        "type": "minecraft:add",
+                        "argument1": 0.25,
+                        "argument2": {
+                          "type": "minecraft:mul",
+                          "argument1": -1.0,
+                          "argument2": "galacticraft:mars/continents"
+                        }
+                      }
+                    },
+                    "max": 1.0,
+                    "min": 0.0
+                  }
+                }
+              },
+              "argument2": {
+                "type": "minecraft:cache_2d",
+                "argument": {
+                  "type": "galacticraft:aeolian_dune",
+                  "amplitude": 0.032,
+                  "sharpness": 1.45,
+                  "warp_amp": 28.0,
+                  "wavelength": 76.0
+                }
+              }
+            },
+            "when_out_of_range": 0.0
+          },
+          "when_out_of_range": 0.0
         }
       }
     }
