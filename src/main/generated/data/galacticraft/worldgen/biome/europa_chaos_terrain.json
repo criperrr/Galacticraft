@@ -1,0 +1,46 @@
+{
+  "carvers": {
+    "air": "galacticraft:europa_cave_carver"
+  },
+  "downfall": 0.0,
+  "effects": {
+    "fog_color": 922654,
+    "foliage_color": 6187876,
+    "grass_color": 7174258,
+    "music": {
+      "max_delay": 24000,
+      "min_delay": 12000,
+      "replace_current_music": true,
+      "sound": "galacticraft:music.orbit"
+    },
+    "sky_color": 0,
+    "water_color": 2387612,
+    "water_fog_color": 932444
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "galacticraft:ore_dense_ice_europa",
+      "galacticraft:ore_niobium_europa",
+      "galacticraft:ore_iron_europa"
+    ]
+  ],
+  "has_precipitation": false,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": -0.75
+}

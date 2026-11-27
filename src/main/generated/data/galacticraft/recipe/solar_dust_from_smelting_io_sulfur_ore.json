@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.9,
+  "group": "solar_dust",
+  "ingredient": {
+    "item": "galacticraft:io_sulfur_ore"
+  },
+  "result": {
+    "id": "galacticraft:solar_dust"
+  }
+}

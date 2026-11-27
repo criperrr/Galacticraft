@@ -38,6 +38,12 @@ public class GCDimensionEffects {
     public static final ResourceLocation SATURN = Constant.id("saturn");
     public static final ResourceLocation URANUS = Constant.id("uranus");
     public static final ResourceLocation NEPTUNE = Constant.id("neptune");
+    public static final ResourceLocation PHOBOS = Constant.id("phobos");
+    public static final ResourceLocation DEIMOS = Constant.id("deimos");
+    public static final ResourceLocation IO = Constant.id("io");
+    public static final ResourceLocation EUROPA = Constant.id("europa");
+    public static final ResourceLocation GANYMEDE = Constant.id("ganymede");
+    public static final ResourceLocation CALLISTO = Constant.id("callisto");
     public static final ResourceLocation TITAN = Constant.id("titan");
     public static final ResourceLocation ENCELADUS = Constant.id("enceladus");
     public static final ResourceLocation TITANIA = Constant.id("titania");
@@ -92,6 +98,35 @@ public class GCDimensionEffects {
         DimensionRenderingRegistry.registerWeatherRenderer(GCDimensions.NEPTUNE, GasGiantAtmosphereRenderer.NEPTUNE);
         DimensionRenderingRegistry.registerSkyRenderer(GCDimensions.NEPTUNE, OuterPlanetSkyRenderer.NEPTUNE);
 
+        DimensionRenderingRegistry.registerDimensionEffects(PHOBOS, SpaceDimensionEffects.INSTANCE);
+        DimensionRenderingRegistry.registerCloudRenderer(GCDimensions.PHOBOS, EmptyCloudRenderer.INSTANCE);
+        DimensionRenderingRegistry.registerWeatherRenderer(GCDimensions.PHOBOS, EmptyWeatherRenderer.INSTANCE);
+        DimensionRenderingRegistry.registerSkyRenderer(GCDimensions.PHOBOS, MoonParentSkyRenderer.PHOBOS);
+
+        DimensionRenderingRegistry.registerDimensionEffects(DEIMOS, SpaceDimensionEffects.INSTANCE);
+        DimensionRenderingRegistry.registerCloudRenderer(GCDimensions.DEIMOS, EmptyCloudRenderer.INSTANCE);
+        DimensionRenderingRegistry.registerWeatherRenderer(GCDimensions.DEIMOS, EmptyWeatherRenderer.INSTANCE);
+        DimensionRenderingRegistry.registerSkyRenderer(GCDimensions.DEIMOS, MoonParentSkyRenderer.DEIMOS);
+
+        DimensionRenderingRegistry.registerDimensionEffects(IO, SpaceDimensionEffects.INSTANCE);
+        DimensionRenderingRegistry.registerCloudRenderer(GCDimensions.IO, EmptyCloudRenderer.INSTANCE);
+        DimensionRenderingRegistry.registerWeatherRenderer(GCDimensions.IO, EmptyWeatherRenderer.INSTANCE);
+        DimensionRenderingRegistry.registerSkyRenderer(GCDimensions.IO, MoonParentSkyRenderer.IO);
+
+        DimensionRenderingRegistry.registerDimensionEffects(EUROPA, SpaceDimensionEffects.INSTANCE);
+        DimensionRenderingRegistry.registerCloudRenderer(GCDimensions.EUROPA, EmptyCloudRenderer.INSTANCE);
+        DimensionRenderingRegistry.registerWeatherRenderer(GCDimensions.EUROPA, EmptyWeatherRenderer.INSTANCE);
+        DimensionRenderingRegistry.registerSkyRenderer(GCDimensions.EUROPA, MoonParentSkyRenderer.EUROPA);
+
+        DimensionRenderingRegistry.registerDimensionEffects(GANYMEDE, SpaceDimensionEffects.INSTANCE);
+        DimensionRenderingRegistry.registerCloudRenderer(GCDimensions.GANYMEDE, EmptyCloudRenderer.INSTANCE);
+        DimensionRenderingRegistry.registerWeatherRenderer(GCDimensions.GANYMEDE, EmptyWeatherRenderer.INSTANCE);
+        DimensionRenderingRegistry.registerSkyRenderer(GCDimensions.GANYMEDE, MoonParentSkyRenderer.GANYMEDE);
+
+        DimensionRenderingRegistry.registerDimensionEffects(CALLISTO, SpaceDimensionEffects.INSTANCE);
+        DimensionRenderingRegistry.registerCloudRenderer(GCDimensions.CALLISTO, EmptyCloudRenderer.INSTANCE);
+        DimensionRenderingRegistry.registerWeatherRenderer(GCDimensions.CALLISTO, EmptyWeatherRenderer.INSTANCE);
+        DimensionRenderingRegistry.registerSkyRenderer(GCDimensions.CALLISTO, MoonParentSkyRenderer.CALLISTO);
         DimensionRenderingRegistry.registerDimensionEffects(TITAN, TitanDimensionEffects.INSTANCE);
         DimensionRenderingRegistry.registerCloudRenderer(GCDimensions.TITAN, EmptyCloudRenderer.INSTANCE);
         DimensionRenderingRegistry.registerWeatherRenderer(GCDimensions.TITAN, EmptyWeatherRenderer.INSTANCE);

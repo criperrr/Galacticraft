@@ -64,6 +64,13 @@ public class GCConfiguredCarvers {
     public static final ResourceKey<ConfiguredWorldCarver<?>> URANUS_CANYON_CARVER = key(Constant.Carver.URANUS_CANYON_CARVER);
     public static final ResourceKey<ConfiguredWorldCarver<?>> NEPTUNE_CAVE_CARVER = key(Constant.Carver.NEPTUNE_CAVE_CARVER);
     public static final ResourceKey<ConfiguredWorldCarver<?>> NEPTUNE_CANYON_CARVER = key(Constant.Carver.NEPTUNE_CANYON_CARVER);
+    public static final ResourceKey<ConfiguredWorldCarver<?>> PHOBOS_CAVE_CARVER = key(Constant.Carver.PHOBOS_CAVE_CARVER);
+    public static final ResourceKey<ConfiguredWorldCarver<?>> DEIMOS_CAVE_CARVER = key(Constant.Carver.DEIMOS_CAVE_CARVER);
+    public static final ResourceKey<ConfiguredWorldCarver<?>> IO_CAVE_CARVER = key(Constant.Carver.IO_CAVE_CARVER);
+    public static final ResourceKey<ConfiguredWorldCarver<?>> IO_CANYON_CARVER = key(Constant.Carver.IO_CANYON_CARVER);
+    public static final ResourceKey<ConfiguredWorldCarver<?>> EUROPA_CAVE_CARVER = key(Constant.Carver.EUROPA_CAVE_CARVER);
+    public static final ResourceKey<ConfiguredWorldCarver<?>> GANYMEDE_CAVE_CARVER = key(Constant.Carver.GANYMEDE_CAVE_CARVER);
+    public static final ResourceKey<ConfiguredWorldCarver<?>> CALLISTO_CAVE_CARVER = key(Constant.Carver.CALLISTO_CAVE_CARVER);
     public static final ResourceKey<ConfiguredWorldCarver<?>> TITAN_CAVE_CARVER = key(Constant.Carver.TITAN_CAVE_CARVER);
     public static final ResourceKey<ConfiguredWorldCarver<?>> ENCELADUS_CAVE_CARVER = key(Constant.Carver.ENCELADUS_CAVE_CARVER);
     public static final ResourceKey<ConfiguredWorldCarver<?>> TITANIA_CAVE_CARVER = key(Constant.Carver.TITANIA_CAVE_CARVER);
@@ -405,6 +412,84 @@ public class GCConfiguredCarvers {
                         0.0f)
         )));
 
+        // ===================================        // INNER & JOVIAN MOONS (PHASE 3)
+        // ==========================================
+        context.register(PHOBOS_CAVE_CARVER, WorldCarver.CAVE.configured(new CaveCarverConfiguration(
+                0.14f,
+                UniformHeight.of(VerticalAnchor.aboveBottom(8), VerticalAnchor.absolute(130)),
+                UniformFloat.of(0.15f, 0.85f),
+                VerticalAnchor.aboveBottom(8),
+                BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.PHOBOS_CARVER_REPLACEABLES),
+                UniformFloat.of(0.75f, 1.4f),
+                UniformFloat.of(0.75f, 1.3f),
+                UniformFloat.of(-0.9f, -0.4f)
+        )));
+        context.register(DEIMOS_CAVE_CARVER, WorldCarver.CAVE.configured(new CaveCarverConfiguration(
+                0.12f,
+                UniformHeight.of(VerticalAnchor.aboveBottom(8), VerticalAnchor.absolute(120)),
+                UniformFloat.of(0.15f, 0.80f),
+                VerticalAnchor.aboveBottom(8),
+                BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.DEIMOS_CARVER_REPLACEABLES),
+                UniformFloat.of(0.7f, 1.3f),
+                UniformFloat.of(0.75f, 1.25f),
+                UniformFloat.of(-0.9f, -0.4f)
+        )));
+        context.register(IO_CAVE_CARVER, WorldCarver.CAVE.configured(new CaveCarverConfiguration(
+                0.15f,
+                UniformHeight.of(VerticalAnchor.aboveBottom(12), VerticalAnchor.absolute(135)),
+                UniformFloat.of(0.15f, 0.85f),
+                VerticalAnchor.aboveBottom(16),
+                BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.IO_CARVER_REPLACEABLES),
+                UniformFloat.of(0.85f, 1.6f),
+                UniformFloat.of(0.8f, 1.35f),
+                UniformFloat.of(-0.9f, -0.4f)
+        )));
+        context.register(IO_CANYON_CARVER, WorldCarver.CANYON.configured(new CanyonCarverConfiguration(
+                0.015f,
+                UniformHeight.of(VerticalAnchor.absolute(20), VerticalAnchor.absolute(95)),
+                ConstantFloat.of(3.0f),
+                VerticalAnchor.aboveBottom(16),
+                CarverDebugSettings.DEFAULT,
+                BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.IO_CARVER_REPLACEABLES),
+                UniformFloat.of(-0.08f, 0.08f),
+                new CanyonCarverConfiguration.CanyonShapeConfiguration(
+                        UniformFloat.of(0.8f, 1.2f),
+                        TrapezoidFloat.of(0, 7, 2),
+                        3,
+                        UniformFloat.of(0.8f, 1.1f),
+                        1.0f,
+                        0.0f)
+        )));
+        context.register(EUROPA_CAVE_CARVER, WorldCarver.CAVE.configured(new CaveCarverConfiguration(
+                0.025f,
+                UniformHeight.of(VerticalAnchor.absolute(28), VerticalAnchor.absolute(85)),
+                UniformFloat.of(0.15f, 0.55f),
+                VerticalAnchor.aboveBottom(8),
+                BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.EUROPA_CARVER_REPLACEABLES),
+                UniformFloat.of(0.75f, 1.25f),
+                UniformFloat.of(0.75f, 1.2f),
+                UniformFloat.of(-0.85f, -0.45f)
+        )));
+        context.register(GANYMEDE_CAVE_CARVER, WorldCarver.CAVE.configured(new CaveCarverConfiguration(
+                0.14f,
+                UniformHeight.of(VerticalAnchor.aboveBottom(10), VerticalAnchor.absolute(130)),
+                UniformFloat.of(0.15f, 0.85f),
+                VerticalAnchor.aboveBottom(10),
+                BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.GANYMEDE_CARVER_REPLACEABLES),
+                UniformFloat.of(0.8f, 1.5f),
+                UniformFloat.of(0.8f, 1.35f),
+                UniformFloat.of(-0.9f, -0.4f)
+        )));
+        context.register(CALLISTO_CAVE_CARVER, WorldCarver.CAVE.configured(new CaveCarverConfiguration(
+                0.13f,
+                UniformHeight.of(VerticalAnchor.aboveBottom(10), VerticalAnchor.absolute(130)),
+                UniformFloat.of(0.15f, 0.80f),
+                VerticalAnchor.aboveBottom(10),
+                BuiltInRegistries.BLOCK.getOrCreateTag(GCBlockTags.CALLISTO_CARVER_REPLACEABLES),
+                UniformFloat.of(0.75f, 1.45f),
+                UniformFloat.of(0.75f, 1.3f),
+                UniformFloat.of(-0.9f, -0.4f)
+        )));
         // Phase 4 Outer Moons Carvers (surface cave portals + Messina Chasmata tectonic canyons)
         context.register(TITAN_CAVE_CARVER, WorldCarver.CAVE.configured(new CaveCarverConfiguration(
                 0.10f,

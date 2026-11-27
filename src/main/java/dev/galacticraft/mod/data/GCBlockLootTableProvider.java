@@ -222,6 +222,48 @@ public class GCBlockLootTableProvider extends FabricBlockLootTableProvider {
         // NEPTUNE HYPERBARIC CORE
         this.add(GCBlocks.NEPTUNE_ABYSSAL_MANTLE_ROCK, this.createOreDrop(GCBlocks.NEPTUNE_ABYSSAL_MANTLE_ROCK, GCItems.SUPERIONIC_ICE_CRYSTAL));
 
+        // INNER & JOVIAN MOONS (PHASE 3)
+        this.dropSelf(GCBlocks.PHOBOS_REGOLITH);
+        this.dropSelf(GCBlocks.PHOBOS_ROCK);
+        this.dropSelf(GCBlocks.PHOBOS_BRECCIA);
+        this.dropSelf(GCBlocks.PHOBOS_SLATE);
+        this.add(GCBlocks.PHOBOS_GRAPHITE_ORE, this.createOreDrop(GCBlocks.PHOBOS_GRAPHITE_ORE, GCItems.CARBON_FRAGMENTS, 2.0F, 4.0F));
+        this.add(GCBlocks.PHOBOS_IRON_ORE, this.createOreDrop(GCBlocks.PHOBOS_IRON_ORE, Items.RAW_IRON));
+
+        this.dropSelf(GCBlocks.DEIMOS_REGOLITH);
+        this.dropSelf(GCBlocks.DEIMOS_ROCK);
+        this.dropSelf(GCBlocks.DEIMOS_SLATE);
+        this.add(GCBlocks.DEIMOS_SILICON_ORE, this.createOreDrop(GCBlocks.DEIMOS_SILICON_ORE, GCItems.SILICON, 2.0F, 4.0F));
+        this.add(GCBlocks.DEIMOS_ALUMINUM_ORE, this.createOreDrop(GCBlocks.DEIMOS_ALUMINUM_ORE, GCItems.RAW_ALUMINUM));
+        this.add(GCBlocks.DEIMOS_IRON_ORE, this.createOreDrop(GCBlocks.DEIMOS_IRON_ORE, Items.RAW_IRON));
+
+        this.dropSelf(GCBlocks.IO_SULFUR_CRUST);
+        this.dropSelf(GCBlocks.IO_VOLCANIC_ROCK);
+        this.dropSelf(GCBlocks.IO_SILICATE_BASALT);
+        this.dropSelf(GCBlocks.IO_MAGMA_CRUST);
+        this.add(GCBlocks.IO_PALLADIUM_ORE, this.createOreDrop(GCBlocks.IO_PALLADIUM_ORE, GCItems.RAW_PALLADIUM));
+        this.dropSelf(GCBlocks.IO_SULFUR_ORE);
+        this.add(GCBlocks.IO_TITANIUM_ORE, this.createOreDrop(GCBlocks.IO_TITANIUM_ORE, GCItems.RAW_TITANIUM));
+
+        this.dropSelf(GCBlocks.EUROPA_ICE_CRUST);
+        this.dropSelf(GCBlocks.EUROPA_LINEAE_ICE);
+        this.dropSelf(GCBlocks.EUROPA_SEABED_ROCK);
+        this.add(GCBlocks.EUROPA_NIOBIUM_ORE, this.createOreDrop(GCBlocks.EUROPA_NIOBIUM_ORE, GCItems.RAW_NIOBIUM));
+        this.add(GCBlocks.EUROPA_IRON_ORE, this.createOreDrop(GCBlocks.EUROPA_IRON_ORE, Items.RAW_IRON));
+
+        this.dropSelf(GCBlocks.GANYMEDE_SULCI_ROCK);
+        this.dropSelf(GCBlocks.GANYMEDE_REGIO_ROCK);
+        this.dropSelf(GCBlocks.GANYMEDE_SLATE);
+        this.add(GCBlocks.GANYMEDE_NIOBIUM_ORE, this.createOreDrop(GCBlocks.GANYMEDE_NIOBIUM_ORE, GCItems.RAW_NIOBIUM));
+        this.add(GCBlocks.GANYMEDE_TITANIUM_ORE, this.createOreDrop(GCBlocks.GANYMEDE_TITANIUM_ORE, GCItems.RAW_TITANIUM));
+        this.add(GCBlocks.GANYMEDE_PALLADIUM_ORE, this.createOreDrop(GCBlocks.GANYMEDE_PALLADIUM_ORE, GCItems.RAW_PALLADIUM));
+
+        this.dropSelf(GCBlocks.CALLISTO_CRUST);
+        this.dropSelf(GCBlocks.CALLISTO_ROCK);
+        this.dropSelf(GCBlocks.CALLISTO_VALHALLA_BRECCIA);
+        this.add(GCBlocks.CALLISTO_IRON_ORE, this.createOreDrop(GCBlocks.CALLISTO_IRON_ORE, Items.RAW_IRON));
+        this.add(GCBlocks.CALLISTO_ALUMINUM_ORE, this.createOreDrop(GCBlocks.CALLISTO_ALUMINUM_ORE, GCItems.RAW_ALUMINUM));
+        this.add(GCBlocks.CALLISTO_NIOBIUM_ORE, this.createOreDrop(GCBlocks.CALLISTO_NIOBIUM_ORE, GCItems.RAW_NIOBIUM));
         // PHASE 4 OUTER MOONS
         this.dropSelf(GCBlocks.TITAN_THOLIN_SAND);
         this.dropSelf(GCBlocks.TITAN_HYDROCARBON_CRUST);

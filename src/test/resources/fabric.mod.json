@@ -64,7 +64,8 @@
       "dev.galacticraft.mod.gametest.FlightTelemetryAndTechTreeTestSuite",
       "dev.galacticraft.mod.gametest.AerospaceManualTestSuite",
       "dev.galacticraft.mod.gametest.ModularRocketAssemblyTestSuite",
-      "dev.galacticraft.mod.gametest.ModularRocketLaunchTestSuite"
+      "dev.galacticraft.mod.gametest.ModularRocketLaunchTestSuite",
+      "dev.galacticraft.mod.gametest.InnerAndJovianMoonsTestSuite"
     ]
   },
   "custom": {

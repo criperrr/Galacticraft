@@ -219,6 +219,48 @@ public interface Constant {
         // Neptune Hyperbaric Core
         String NEPTUNE_ABYSSAL_MANTLE_ROCK = "neptune_abyssal_mantle_rock";
 
+        // Inner & Jovian Moons Natural & Ores (Phase 3)
+        String PHOBOS_REGOLITH = "phobos_regolith";
+        String PHOBOS_ROCK = "phobos_rock";
+        String PHOBOS_BRECCIA = "phobos_breccia";
+        String PHOBOS_SLATE = "phobos_slate";
+        String PHOBOS_GRAPHITE_ORE = "phobos_graphite_ore";
+        String PHOBOS_IRON_ORE = "phobos_iron_ore";
+
+        String DEIMOS_REGOLITH = "deimos_regolith";
+        String DEIMOS_ROCK = "deimos_rock";
+        String DEIMOS_SLATE = "deimos_slate";
+        String DEIMOS_SILICON_ORE = "deimos_silicon_ore";
+        String DEIMOS_ALUMINUM_ORE = "deimos_aluminum_ore";
+        String DEIMOS_IRON_ORE = "deimos_iron_ore";
+
+        String IO_SULFUR_CRUST = "io_sulfur_crust";
+        String IO_VOLCANIC_ROCK = "io_volcanic_rock";
+        String IO_SILICATE_BASALT = "io_silicate_basalt";
+        String IO_MAGMA_CRUST = "io_magma_crust";
+        String IO_PALLADIUM_ORE = "io_palladium_ore";
+        String IO_SULFUR_ORE = "io_sulfur_ore";
+        String IO_TITANIUM_ORE = "io_titanium_ore";
+
+        String EUROPA_ICE_CRUST = "europa_ice_crust";
+        String EUROPA_LINEAE_ICE = "europa_lineae_ice";
+        String EUROPA_SEABED_ROCK = "europa_seabed_rock";
+        String EUROPA_NIOBIUM_ORE = "europa_niobium_ore";
+        String EUROPA_IRON_ORE = "europa_iron_ore";
+
+        String GANYMEDE_SULCI_ROCK = "ganymede_sulci_rock";
+        String GANYMEDE_REGIO_ROCK = "ganymede_regio_rock";
+        String GANYMEDE_SLATE = "ganymede_slate";
+        String GANYMEDE_NIOBIUM_ORE = "ganymede_niobium_ore";
+        String GANYMEDE_TITANIUM_ORE = "ganymede_titanium_ore";
+        String GANYMEDE_PALLADIUM_ORE = "ganymede_palladium_ore";
+
+        String CALLISTO_CRUST = "callisto_crust";
+        String CALLISTO_ROCK = "callisto_rock";
+        String CALLISTO_VALHALLA_BRECCIA = "callisto_valhalla_breccia";
+        String CALLISTO_IRON_ORE = "callisto_iron_ore";
+        String CALLISTO_ALUMINUM_ORE = "callisto_aluminum_ore";
+        String CALLISTO_NIOBIUM_ORE = "callisto_niobium_ore";
         // Phase 4 Outer Moons: Titan, Enceladus, Titania, Oberon, Triton
         String TITAN_THOLIN_SAND = "titan_tholin_sand";
         String TITAN_HYDROCARBON_CRUST = "titan_hydrocarbon_crust";
@@ -1797,6 +1839,13 @@ public interface Constant {
         String URANUS_CANYON_CARVER = "uranus_canyon_carver";
         String NEPTUNE_CAVE_CARVER = "neptune_cave_carver";
         String NEPTUNE_CANYON_CARVER = "neptune_canyon_carver";
+        String PHOBOS_CAVE_CARVER = "phobos_cave_carver";
+        String DEIMOS_CAVE_CARVER = "deimos_cave_carver";
+        String IO_CAVE_CARVER = "io_cave_carver";
+        String IO_CANYON_CARVER = "io_canyon_carver";
+        String EUROPA_CAVE_CARVER = "europa_cave_carver";
+        String GANYMEDE_CAVE_CARVER = "ganymede_cave_carver";
+        String CALLISTO_CAVE_CARVER = "callisto_cave_carver";
         String TITAN_CAVE_CARVER = "titan_cave_carver";
         String ENCELADUS_CAVE_CARVER = "enceladus_cave_carver";
         String TITANIA_CAVE_CARVER = "titania_cave_carver";

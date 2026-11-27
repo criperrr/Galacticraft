@@ -1,0 +1,92 @@
+{
+  "type": "minecraft:interpolated",
+  "argument": {
+    "type": "minecraft:add",
+    "argument1": {
+      "type": "minecraft:mul",
+      "argument1": 2.5,
+      "argument2": {
+        "type": "minecraft:quarter_negative",
+        "argument": {
+          "type": "minecraft:mul",
+          "argument1": {
+            "type": "minecraft:add",
+            "argument1": {
+              "type": "minecraft:add",
+              "argument1": "galacticraft:deimos/depth",
+              "argument2": "galacticraft:deimos/smooth_relief"
+            },
+            "argument2": {
+              "type": "minecraft:range_choice",
+              "input": "galacticraft:deimos/jaggedness",
+              "max_exclusive": 10.0,
+              "min_inclusive": 0.01,
+              "when_in_range": {
+                "type": "minecraft:mul",
+                "argument1": "galacticraft:deimos/jaggedness",
+                "argument2": {
+                  "type": "minecraft:half_negative",
+                  "argument": {
+                    "type": "minecraft:noise",
+                    "noise": "minecraft:jagged",
+                    "xz_scale": 1500.0,
+                    "y_scale": 0.0
+                  }
+                }
+              },
+              "when_out_of_range": 0.0
+            }
+          },
+          "argument2": {
+            "type": "minecraft:add",
+            "argument1": 0.65,
+            "argument2": "galacticraft:deimos/factor"
+          }
+        }
+      }
+    },
+    "argument2": {
+      "type": "minecraft:range_choice",
+      "input": {
+        "type": "minecraft:y_clamped_gradient",
+        "from_value": -64.0,
+        "from_y": -64,
+        "to_value": 320.0,
+        "to_y": 320
+      },
+      "max_exclusive": 148.0,
+      "min_inclusive": 48.0,
+      "when_in_range": {
+        "type": "minecraft:mul",
+        "argument1": {
+          "type": "minecraft:mul",
+          "argument1": {
+            "type": "minecraft:y_clamped_gradient",
+            "from_value": 0.0,
+            "from_y": 48,
+            "to_value": 1.0,
+            "to_y": 60
+          },
+          "argument2": {
+            "type": "minecraft:y_clamped_gradient",
+            "from_value": 1.0,
+            "from_y": 128,
+            "to_value": 0.0,
+            "to_y": 148
+          }
+        },
+        "argument2": {
+          "type": "minecraft:mul",
+          "argument1": 0.068,
+          "argument2": {
+            "type": "minecraft:noise",
+            "noise": "galacticraft:mercury/hollow_sponge",
+            "xz_scale": 0.75,
+            "y_scale": 0.65
+          }
+        }
+      },
+      "when_out_of_range": 0.0
+    }
+  }
+}

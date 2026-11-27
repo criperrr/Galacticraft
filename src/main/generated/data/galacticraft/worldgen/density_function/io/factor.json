@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:cache_2d",
+  "argument": {
+    "type": "minecraft:spline",
+    "spline": {
+      "coordinate": "galacticraft:io/erosion",
+      "points": [
+        {
+          "derivative": 0.0,
+          "location": -1.0,
+          "value": 0.54
+        },
+        {
+          "derivative": -0.15,
+          "location": 0.1,
+          "value": 0.4
+        },
+        {
+          "derivative": 0.0,
+          "location": 1.0,
+          "value": 0.26
+        }
+      ]
+    }
+  }
+}

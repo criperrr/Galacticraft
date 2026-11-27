@@ -173,6 +173,47 @@ public final class GCBiomes {
         public static final ResourceKey<Biome> COBALT_STORM_HIGHLANDS = SUPERSONIC_WIND_RIDGES;
     }
 
+    public static final class Phobos {
+        public static final ResourceKey<Biome> STICKNEY_BASIN = key("phobos_stickney_basin");
+        public static final ResourceKey<Biome> TIDAL_GROOVES = key("phobos_tidal_grooves");
+        public static final ResourceKey<Biome> REGOLITH_HIGHLANDS = key("phobos_regolith_highlands");
+        public static final ResourceKey<Biome> FRACTURE_CAVERNS = key("phobos_fracture_caverns");
+    }
+
+    public static final class Deimos {
+        public static final ResourceKey<Biome> SMOOTH_PLAINS = key("deimos_smooth_plains");
+        public static final ResourceKey<Biome> CRATER_SLOPES = key("deimos_crater_slopes");
+        public static final ResourceKey<Biome> CORE_CAVERNS = key("deimos_core_caverns");
+    }
+
+    public static final class Io {
+        public static final ResourceKey<Biome> SULFUR_PLAINS = key("io_sulfur_plains");
+        public static final ResourceKey<Biome> VOLCANIC_CALDERA = key("io_volcanic_caldera");
+        public static final ResourceKey<Biome> SILICATE_FLOWS = key("io_silicate_flows");
+        public static final ResourceKey<Biome> MAGMA_TUBES = key("io_magma_tubes");
+    }
+
+    public static final class Europa {
+        public static final ResourceKey<Biome> ICE_PLAINS = key("europa_ice_plains");
+        public static final ResourceKey<Biome> LINEAE_RIDGES = key("europa_lineae_ridges");
+        public static final ResourceKey<Biome> CHAOS_TERRAIN = key("europa_chaos_terrain");
+        public static final ResourceKey<Biome> SUBSURFACE_OCEAN = key("europa_subsurface_ocean");
+    }
+
+    public static final class Ganymede {
+        public static final ResourceKey<Biome> SULCI_RIDGES = key("ganymede_sulci_ridges");
+        public static final ResourceKey<Biome> DARK_REGIO = key("ganymede_dark_regio");
+        public static final ResourceKey<Biome> POLAR_FROST = key("ganymede_polar_frost");
+        public static final ResourceKey<Biome> ICE_CAVERNS = key("ganymede_ice_caverns");
+    }
+
+    public static final class Callisto {
+        public static final ResourceKey<Biome> CRATERED_PLAINS = key("callisto_cratered_plains");
+        public static final ResourceKey<Biome> VALHALLA_RINGS = key("callisto_valhalla_rings");
+        public static final ResourceKey<Biome> ICE_PEAKS = key("callisto_ice_peaks");
+        public static final ResourceKey<Biome> ANCIENT_CAVERNS = key("callisto_ancient_caverns");
+    }
+
     public static final class Titan {
         public static final ResourceKey<Biome> METHANE_SEAS = key("titan_methane_seas");
         public static final ResourceKey<Biome> THOLIN_DUNES = key("titan_tholin_dunes");
@@ -272,6 +313,7 @@ public final class GCBiomes {
         SaturnBiomes.bootstrapRegistries(context);
         UranusBiomes.bootstrapRegistries(context);
         NeptuneBiomes.bootstrapRegistries(context);
+        InnerAndJovianMoonBiomes.bootstrapRegistries(context);
         OuterMoonBiomes.bootstrapRegistries(context);
     }
 

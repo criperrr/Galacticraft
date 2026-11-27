@@ -49,6 +49,12 @@ public class GCDimensionTypes {
     public static final ResourceKey<DimensionType> SATURN = key("saturn");
     public static final ResourceKey<DimensionType> URANUS = key("uranus");
     public static final ResourceKey<DimensionType> NEPTUNE = key("neptune");
+    public static final ResourceKey<DimensionType> PHOBOS = key("phobos");
+    public static final ResourceKey<DimensionType> DEIMOS = key("deimos");
+    public static final ResourceKey<DimensionType> IO = key("io");
+    public static final ResourceKey<DimensionType> EUROPA = key("europa");
+    public static final ResourceKey<DimensionType> GANYMEDE = key("ganymede");
+    public static final ResourceKey<DimensionType> CALLISTO = key("callisto");
     public static final ResourceKey<DimensionType> TITAN = key("titan");
     public static final ResourceKey<DimensionType> ENCELADUS = key("enceladus");
     public static final ResourceKey<DimensionType> TITANIA = key("titania");
@@ -303,6 +309,113 @@ public class GCDimensionTypes {
                 384,
                 GCBlockTags.INFINIBURN_TRITON,
                 Constant.id("triton"),
+                0.05F,
+                new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 0), 0)
+        ));
+        context.register(PHOBOS, new DimensionType(
+                OptionalLong.empty(),
+                true,
+                false,
+                false,
+                false,
+                1.0,
+                true,
+                false,
+                -64,
+                384,
+                384,
+                GCBlockTags.INFINIBURN_PHOBOS,
+                Constant.id("phobos"),
+                0.05F,
+                new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 0), 0)
+        ));
+
+        context.register(DEIMOS, new DimensionType(
+                OptionalLong.empty(),
+                true,
+                false,
+                false,
+                false,
+                1.0,
+                true,
+                false,
+                -64,
+                384,
+                384,
+                GCBlockTags.INFINIBURN_DEIMOS,
+                Constant.id("deimos"),
+                0.05F,
+                new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 0), 0)
+        ));
+
+        context.register(IO, new DimensionType(
+                OptionalLong.empty(),
+                true,
+                false,
+                false,
+                false,
+                1.0,
+                true,
+                false,
+                -64,
+                384,
+                384,
+                GCBlockTags.INFINIBURN_IO,
+                Constant.id("io"),
+                0.07F,
+                new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 0), 0)
+        ));
+
+        context.register(EUROPA, new DimensionType(
+                OptionalLong.empty(),
+                true,
+                false,
+                false,
+                false,
+                1.0,
+                true,
+                false,
+                -64,
+                384,
+                384,
+                GCBlockTags.INFINIBURN_EUROPA,
+                Constant.id("europa"),
+                0.06F,
+                new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 0), 0)
+        ));
+
+        context.register(GANYMEDE, new DimensionType(
+                OptionalLong.empty(),
+                true,
+                false,
+                false,
+                false,
+                1.0,
+                true,
+                false,
+                -64,
+                384,
+                384,
+                GCBlockTags.INFINIBURN_GANYMEDE,
+                Constant.id("ganymede"),
+                0.06F,
+                new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 0), 0)
+        ));
+
+        context.register(CALLISTO, new DimensionType(
+                OptionalLong.empty(),
+                true,
+                false,
+                false,
+                false,
+                1.0,
+                true,
+                false,
+                -64,
+                384,
+                384,
+                GCBlockTags.INFINIBURN_CALLISTO,
+                Constant.id("callisto"),
                 0.05F,
                 new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 0), 0)
         ));

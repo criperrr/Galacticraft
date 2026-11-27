@@ -1,0 +1,98 @@
+{
+  "type": "minecraft:cache_2d",
+  "argument": {
+    "type": "minecraft:spline",
+    "spline": {
+      "coordinate": "galacticraft:europa/continents",
+      "points": [
+        {
+          "derivative": 0.05,
+          "location": -1.0,
+          "value": -0.26
+        },
+        {
+          "derivative": 0.28,
+          "location": -0.28,
+          "value": -0.22
+        },
+        {
+          "derivative": 0.0,
+          "location": 0.26,
+          "value": {
+            "coordinate": "galacticraft:europa/erosion",
+            "points": [
+              {
+                "derivative": 0.0,
+                "location": -1.0,
+                "value": {
+                  "coordinate": "galacticraft:europa/pv",
+                  "points": [
+                    {
+                      "derivative": 0.0,
+                      "location": -1.0,
+                      "value": -0.32
+                    },
+                    {
+                      "derivative": 0.65,
+                      "location": -0.68,
+                      "value": -0.14000002
+                    },
+                    {
+                      "derivative": 0.18,
+                      "location": 0.0,
+                      "value": 0.044
+                    },
+                    {
+                      "derivative": 0.4,
+                      "location": 0.7,
+                      "value": 0.197
+                    },
+                    {
+                      "derivative": 0.1,
+                      "location": 1.0,
+                      "value": 0.26
+                    }
+                  ]
+                }
+              },
+              {
+                "derivative": 0.0,
+                "location": 0.05,
+                "value": {
+                  "coordinate": "galacticraft:europa/pv",
+                  "points": [
+                    {
+                      "derivative": 0.0,
+                      "location": -1.0,
+                      "value": -0.271
+                    },
+                    {
+                      "derivative": 0.35,
+                      "location": -0.65,
+                      "value": -0.18
+                    },
+                    {
+                      "derivative": 0.12,
+                      "location": 0.5,
+                      "value": -0.120000005
+                    },
+                    {
+                      "derivative": 0.08,
+                      "location": 1.0,
+                      "value": -0.108
+                    }
+                  ]
+                }
+              },
+              {
+                "derivative": 0.0,
+                "location": 1.0,
+                "value": -0.14000002
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

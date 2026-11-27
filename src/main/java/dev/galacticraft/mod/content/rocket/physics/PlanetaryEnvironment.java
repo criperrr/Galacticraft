@@ -81,6 +81,18 @@ public record PlanetaryEnvironment(
             GCCelestialBodies.URANUS.location(), "Urano", 0.886, 5.0, 83.15, 49.15, 19.201, false, 0.55, 3900.0);
     public static final PlanetaryEnvironment NEPTUNE = new PlanetaryEnvironment(
             GCCelestialBodies.NEPTUNE.location(), "Netuno", 1.14, 7.5, 75.15, 58.15, 30.047, false, 0.50, 4400.0);
+    public static final PlanetaryEnvironment PHOBOS = new PlanetaryEnvironment(
+            GCCelestialBodies.PHOBOS.location(), "Fobos", 0.015, 0.0, 269.15, 161.15, 1.524, false, 0.30, 350.0);
+    public static final PlanetaryEnvironment DEIMOS = new PlanetaryEnvironment(
+            GCCelestialBodies.DEIMOS.location(), "Deimos", 0.012, 0.0, 253.15, 153.15, 1.524, false, 0.30, 350.0);
+    public static final PlanetaryEnvironment IO = new PlanetaryEnvironment(
+            GCCelestialBodies.IO.location(), "Io", 0.183, 1.0E-9, 143.15, 110.15, 5.203, false, 1.80, 1150.0);
+    public static final PlanetaryEnvironment EUROPA = new PlanetaryEnvironment(
+            GCCelestialBodies.EUROPA.location(), "Europa", 0.134, 1.0E-12, 113.15, 53.15, 5.203, false, 1.10, 950.0);
+    public static final PlanetaryEnvironment GANYMEDE = new PlanetaryEnvironment(
+            GCCelestialBodies.GANYMEDE.location(), "Ganimedes", 0.146, 1.0E-11, 160.15, 80.15, 5.203, false, 0.45, 1050.0);
+    public static final PlanetaryEnvironment CALLISTO = new PlanetaryEnvironment(
+            GCCelestialBodies.CALLISTO.location(), "Calisto", 0.126, 7.0E-12, 165.15, 80.15, 5.203, false, 0.15, 900.0);
     public static final PlanetaryEnvironment TITAN = new PlanetaryEnvironment(
             GCCelestialBodies.TITAN.location(), "Titã", 0.138, 1.45, 94.15, 93.15, 9.582, false, 0.12, 1650.0);
     public static final PlanetaryEnvironment ENCELADUS = new PlanetaryEnvironment(
@@ -93,7 +105,9 @@ public record PlanetaryEnvironment(
             GCCelestialBodies.TRITON.location(), "Tritão", 0.079, 0.000014, 38.15, 35.15, 30.047, false, 0.28, 920.0);
 
     public static final List<PlanetaryEnvironment> SOLAR_SYSTEM_PRESETS = List.of(
-            EARTH, MOON, MARS, VENUS, MERCURY, ASTEROIDS, JUPITER, SATURN, TITAN, ENCELADUS, URANUS, TITANIA, OBERON, NEPTUNE, TRITON
+            EARTH, MOON, MARS, PHOBOS, DEIMOS, VENUS, MERCURY, ASTEROIDS,
+            JUPITER, IO, EUROPA, GANYMEDE, CALLISTO,
+            SATURN, TITAN, ENCELADUS, URANUS, TITANIA, OBERON, NEPTUNE, TRITON
     );
 
     private static final Map<String, PlanetaryEnvironment> PRESETS_BY_PATH = Map.ofEntries(
@@ -101,11 +115,17 @@ public record PlanetaryEnvironment(
             Map.entry("overworld", EARTH),
             Map.entry("moon", MOON),
             Map.entry("mars", MARS),
+            Map.entry("phobos", PHOBOS),
+            Map.entry("deimos", DEIMOS),
             Map.entry("asteroid", ASTEROIDS),
             Map.entry("asteroids", ASTEROIDS),
             Map.entry("mercury", MERCURY),
             Map.entry("venus", VENUS),
             Map.entry("jupiter", JUPITER),
+            Map.entry("io", IO),
+            Map.entry("europa", EUROPA),
+            Map.entry("ganymede", GANYMEDE),
+            Map.entry("callisto", CALLISTO),
             Map.entry("saturn", SATURN),
             Map.entry("titan", TITAN),
             Map.entry("enceladus", ENCELADUS),

@@ -1,0 +1,54 @@
+{
+  "carvers": {
+    "air": [
+      "galacticraft:io_cave_carver",
+      "galacticraft:io_canyon_carver"
+    ]
+  },
+  "downfall": 0.0,
+  "effects": {
+    "fog_color": 4005387,
+    "foliage_color": 6187876,
+    "grass_color": 7174258,
+    "music": {
+      "max_delay": 24000,
+      "min_delay": 12000,
+      "replace_current_music": true,
+      "sound": "galacticraft:music.orbit"
+    },
+    "sky_color": 1051396,
+    "water_color": 7219726,
+    "water_fog_color": 3873288
+  },
+  "features": [
+    [],
+    [
+      "galacticraft:mercury_lava_lake"
+    ],
+    [],
+    [],
+    [
+      "galacticraft:venus_volcano"
+    ],
+    [],
+    [
+      "galacticraft:ore_palladium_io",
+      "galacticraft:ore_sulfide_io",
+      "galacticraft:ore_titanium_io",
+      "galacticraft:magma_patch_io"
+    ]
+  ],
+  "has_precipitation": false,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 2.4
+}

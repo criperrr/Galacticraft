@@ -1,0 +1,5 @@
+{
+  "type": "minecraft:add",
+  "argument1": "galacticraft:phobos/base_height",
+  "argument2": "galacticraft:phobos/offset"
+}

@@ -39,6 +39,12 @@ public class GCDimensions {
     public static final ResourceKey<Level> SATURN = key("saturn");
     public static final ResourceKey<Level> URANUS = key("uranus");
     public static final ResourceKey<Level> NEPTUNE = key("neptune");
+    public static final ResourceKey<Level> PHOBOS = key("phobos");
+    public static final ResourceKey<Level> DEIMOS = key("deimos");
+    public static final ResourceKey<Level> IO = key("io");
+    public static final ResourceKey<Level> EUROPA = key("europa");
+    public static final ResourceKey<Level> GANYMEDE = key("ganymede");
+    public static final ResourceKey<Level> CALLISTO = key("callisto");
     public static final ResourceKey<Level> TITAN = key("titan");
     public static final ResourceKey<Level> ENCELADUS = key("enceladus");
     public static final ResourceKey<Level> TITANIA = key("titania");

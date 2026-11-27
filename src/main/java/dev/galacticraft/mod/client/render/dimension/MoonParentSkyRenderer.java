@@ -48,6 +48,54 @@ import org.joml.Matrix4f;
  * Uranus, Neptune) and sibling moons appear at their real Keplerian angular sizes and phases.
  */
 public class MoonParentSkyRenderer extends SpaceSkyRenderer implements DimensionRenderingRegistry.SkyRenderer {
+    public static final MoonParentSkyRenderer PHOBOS = new MoonParentSkyRenderer(
+            Constant.CelestialBody.PHOBOS,
+            Constant.CelestialBody.MARS,
+            32.0F,
+            false,
+            0.0F, 0.0F, 0.0F
+    );
+
+    public static final MoonParentSkyRenderer DEIMOS = new MoonParentSkyRenderer(
+            Constant.CelestialBody.DEIMOS,
+            Constant.CelestialBody.MARS,
+            14.0F,
+            false,
+            0.0F, 0.0F, 0.0F
+    );
+
+    public static final MoonParentSkyRenderer IO = new MoonParentSkyRenderer(
+            Constant.CelestialBody.IO,
+            Constant.CelestialBody.JUPITER,
+            26.0F,
+            false,
+            0.65F, 0.50F, 0.12F
+    );
+
+    public static final MoonParentSkyRenderer EUROPA = new MoonParentSkyRenderer(
+            Constant.CelestialBody.EUROPA,
+            Constant.CelestialBody.JUPITER,
+            18.0F,
+            false,
+            0.30F, 0.55F, 0.75F
+    );
+
+    public static final MoonParentSkyRenderer GANYMEDE = new MoonParentSkyRenderer(
+            Constant.CelestialBody.GANYMEDE,
+            Constant.CelestialBody.JUPITER,
+            12.0F,
+            true,
+            0.25F, 0.40F, 0.55F
+    );
+
+    public static final MoonParentSkyRenderer CALLISTO = new MoonParentSkyRenderer(
+            Constant.CelestialBody.CALLISTO,
+            Constant.CelestialBody.JUPITER,
+            8.0F,
+            false,
+            0.15F, 0.18F, 0.22F
+    );
+
     public static final MoonParentSkyRenderer TITAN = new MoonParentSkyRenderer(
             Constant.CelestialBody.TITAN,
             Constant.CelestialBody.SATURN,

@@ -83,6 +83,12 @@ public class GCCelestialBodies {
     public static final ResourceKey<CelestialBody<?, ?>> SATURN = key("saturn");
     public static final ResourceKey<CelestialBody<?, ?>> URANUS = key("uranus");
     public static final ResourceKey<CelestialBody<?, ?>> NEPTUNE = key("neptune");
+    public static final ResourceKey<CelestialBody<?, ?>> PHOBOS = key("phobos");
+    public static final ResourceKey<CelestialBody<?, ?>> DEIMOS = key("deimos");
+    public static final ResourceKey<CelestialBody<?, ?>> IO = key("io");
+    public static final ResourceKey<CelestialBody<?, ?>> EUROPA = key("europa");
+    public static final ResourceKey<CelestialBody<?, ?>> GANYMEDE = key("ganymede");
+    public static final ResourceKey<CelestialBody<?, ?>> CALLISTO = key("callisto");
     public static final ResourceKey<CelestialBody<?, ?>> TITAN = key("titan");
     public static final ResourceKey<CelestialBody<?, ?>> ENCELADUS = key("enceladus");
     public static final ResourceKey<CelestialBody<?, ?>> TITANIA = key("titania");
@@ -516,6 +522,137 @@ public class GCCelestialBodies {
                 -235,
                 -238,
                 141050L,
+                null
+        )));
+        context.register(PHOBOS, PlanetType.INSTANCE.configure(new PlanetConfig(
+                Component.translatable(Translations.CelestialBody.PHOBOS),
+                Component.translatable(Translations.CelestialBody.PHOBOS_DESC),
+                Optional.of(MARS),
+                OrbitalCelestialPositionType.INSTANCE.configure(new OrbitalCelestialPositionConfig(32.0, 14.0, 0.4, false)),
+                IconCelestialDisplayType.INSTANCE.configure(new IconCelestialDisplayConfig(Constant.CelestialBody.PHOBOS, 0, 0, 8, 8, Constant.CelestialOverlay.MOON)),
+                DefaultCelestialRingDisplayType.INSTANCE.configure(new DefaultCelestialRingDisplayConfig()),
+                GCDimensions.PHOBOS,
+                teleporters.getOrThrow(GCTeleporterTypes.LANDER_CELESTIAL_TELEPORTER),
+                new GasComposition.Builder()
+                        .temperature(-58.0)
+                        .pressure(0.0F)
+                        .build(),
+                0.015F,
+                GCCelestialHandlers.DEFAULT,
+                2,
+                -4,
+                -112,
+                7654L,
+                null
+        )));
+
+        context.register(DEIMOS, PlanetType.INSTANCE.configure(new PlanetConfig(
+                Component.translatable(Translations.CelestialBody.DEIMOS),
+                Component.translatable(Translations.CelestialBody.DEIMOS_DESC),
+                Optional.of(MARS),
+                OrbitalCelestialPositionType.INSTANCE.configure(new OrbitalCelestialPositionConfig(126.0, 22.0, 2.1, false)),
+                IconCelestialDisplayType.INSTANCE.configure(new IconCelestialDisplayConfig(Constant.CelestialBody.DEIMOS, 0, 0, 8, 8, Constant.CelestialOverlay.MOON)),
+                DefaultCelestialRingDisplayType.INSTANCE.configure(new DefaultCelestialRingDisplayConfig()),
+                GCDimensions.DEIMOS,
+                teleporters.getOrThrow(GCTeleporterTypes.LANDER_CELESTIAL_TELEPORTER),
+                new GasComposition.Builder()
+                        .temperature(-70.0)
+                        .pressure(0.0F)
+                        .build(),
+                0.012F,
+                GCCelestialHandlers.DEFAULT,
+                2,
+                -20,
+                -120,
+                30312L,
+                null
+        )));
+
+        context.register(IO, PlanetType.INSTANCE.configure(new PlanetConfig(
+                Component.translatable(Translations.CelestialBody.IO),
+                Component.translatable(Translations.CelestialBody.IO_DESC),
+                Optional.of(JUPITER),
+                OrbitalCelestialPositionType.INSTANCE.configure(new OrbitalCelestialPositionConfig(45.0, 15.0, 0.5, false)),
+                IconCelestialDisplayType.INSTANCE.configure(new IconCelestialDisplayConfig(Constant.CelestialBody.IO, 0, 0, 8, 8, Constant.CelestialOverlay.VENUS)),
+                DefaultCelestialRingDisplayType.INSTANCE.configure(new DefaultCelestialRingDisplayConfig()),
+                GCDimensions.IO,
+                teleporters.getOrThrow(GCTeleporterTypes.LANDER_CELESTIAL_TELEPORTER),
+                new GasComposition.Builder()
+                        .temperature(-146.0)
+                        .pressure(1.0E-9F)
+                        .build(),
+                0.183F,
+                GCCelestialHandlers.DEFAULT,
+                4,
+                -130,
+                -163,
+                42460L,
+                null
+        )));
+
+        context.register(EUROPA, PlanetType.INSTANCE.configure(new PlanetConfig(
+                Component.translatable(Translations.CelestialBody.EUROPA),
+                Component.translatable(Translations.CelestialBody.EUROPA_DESC),
+                Optional.of(JUPITER),
+                OrbitalCelestialPositionType.INSTANCE.configure(new OrbitalCelestialPositionConfig(90.0, 21.0, 1.8, false)),
+                IconCelestialDisplayType.INSTANCE.configure(new IconCelestialDisplayConfig(Constant.CelestialBody.EUROPA, 0, 0, 8, 8, Constant.CelestialOverlay.MOON)),
+                DefaultCelestialRingDisplayType.INSTANCE.configure(new DefaultCelestialRingDisplayConfig()),
+                GCDimensions.EUROPA,
+                teleporters.getOrThrow(GCTeleporterTypes.LANDER_CELESTIAL_TELEPORTER),
+                new GasComposition.Builder()
+                        .temperature(-190.0)
+                        .pressure(1.0E-12F)
+                        .build(),
+                0.134F,
+                GCCelestialHandlers.DEFAULT,
+                4,
+                -160,
+                -220,
+                85230L,
+                null
+        )));
+
+        context.register(GANYMEDE, PlanetType.INSTANCE.configure(new PlanetConfig(
+                Component.translatable(Translations.CelestialBody.GANYMEDE),
+                Component.translatable(Translations.CelestialBody.GANYMEDE_DESC),
+                Optional.of(JUPITER),
+                OrbitalCelestialPositionType.INSTANCE.configure(new OrbitalCelestialPositionConfig(180.0, 28.0, 3.2, false)),
+                IconCelestialDisplayType.INSTANCE.configure(new IconCelestialDisplayConfig(Constant.CelestialBody.GANYMEDE, 0, 0, 8, 8, Constant.CelestialOverlay.MOON)),
+                DefaultCelestialRingDisplayType.INSTANCE.configure(new DefaultCelestialRingDisplayConfig()),
+                GCDimensions.GANYMEDE,
+                teleporters.getOrThrow(GCTeleporterTypes.LANDER_CELESTIAL_TELEPORTER),
+                new GasComposition.Builder()
+                        .temperature(-153.0)
+                        .pressure(1.0E-11F)
+                        .build(),
+                0.146F,
+                GCCelestialHandlers.DEFAULT,
+                4,
+                -113,
+                -193,
+                171710L,
+                null
+        )));
+
+        context.register(CALLISTO, PlanetType.INSTANCE.configure(new PlanetConfig(
+                Component.translatable(Translations.CelestialBody.CALLISTO),
+                Component.translatable(Translations.CelestialBody.CALLISTO_DESC),
+                Optional.of(JUPITER),
+                OrbitalCelestialPositionType.INSTANCE.configure(new OrbitalCelestialPositionConfig(420.0, 36.0, 4.9, false)),
+                IconCelestialDisplayType.INSTANCE.configure(new IconCelestialDisplayConfig(Constant.CelestialBody.CALLISTO, 0, 0, 8, 8, Constant.CelestialOverlay.MOON)),
+                DefaultCelestialRingDisplayType.INSTANCE.configure(new DefaultCelestialRingDisplayConfig()),
+                GCDimensions.CALLISTO,
+                teleporters.getOrThrow(GCTeleporterTypes.LANDER_CELESTIAL_TELEPORTER),
+                new GasComposition.Builder()
+                        .temperature(-150.0)
+                        .pressure(7.0E-12F)
+                        .build(),
+                0.126F,
+                GCCelestialHandlers.DEFAULT,
+                4,
+                -108,
+                -193,
+                400540L,
                 null
         )));
     }

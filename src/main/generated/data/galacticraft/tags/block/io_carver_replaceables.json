@@ -1,0 +1,12 @@
+{
+  "values": [
+    "galacticraft:io_sulfur_crust",
+    "galacticraft:io_volcanic_rock",
+    "galacticraft:io_silicate_basalt",
+    "galacticraft:io_magma_crust",
+    "minecraft:magma_block",
+    "galacticraft:io_palladium_ore",
+    "galacticraft:io_sulfur_ore",
+    "galacticraft:io_titanium_ore"
+  ]
+}

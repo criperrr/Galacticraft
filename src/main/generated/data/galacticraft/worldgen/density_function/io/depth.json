@@ -1,0 +1,5 @@
+{
+  "type": "minecraft:add",
+  "argument1": "galacticraft:io/base_height",
+  "argument2": "galacticraft:io/offset"
+}

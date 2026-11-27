@@ -192,6 +192,48 @@ public class GCModelProvider extends FabricModelProvider {
 
         generator.createTrivialCube(GCBlocks.NEPTUNE_ABYSSAL_MANTLE_ROCK);
 
+        // INNER & JOVIAN MOONS (PHASE 3)
+        generator.createTrivialCube(GCBlocks.PHOBOS_REGOLITH);
+        generator.createTrivialCube(GCBlocks.PHOBOS_ROCK);
+        generator.createTrivialCube(GCBlocks.PHOBOS_BRECCIA);
+        generator.createTrivialCube(GCBlocks.PHOBOS_SLATE);
+        generator.createTrivialCube(GCBlocks.PHOBOS_GRAPHITE_ORE);
+        generator.createTrivialCube(GCBlocks.PHOBOS_IRON_ORE);
+
+        generator.createTrivialCube(GCBlocks.DEIMOS_REGOLITH);
+        generator.createTrivialCube(GCBlocks.DEIMOS_ROCK);
+        generator.createTrivialCube(GCBlocks.DEIMOS_SLATE);
+        generator.createTrivialCube(GCBlocks.DEIMOS_SILICON_ORE);
+        generator.createTrivialCube(GCBlocks.DEIMOS_ALUMINUM_ORE);
+        generator.createTrivialCube(GCBlocks.DEIMOS_IRON_ORE);
+
+        generator.createTrivialCube(GCBlocks.IO_SULFUR_CRUST);
+        generator.createTrivialCube(GCBlocks.IO_VOLCANIC_ROCK);
+        generator.createTrivialCube(GCBlocks.IO_SILICATE_BASALT);
+        generator.createTrivialCube(GCBlocks.IO_MAGMA_CRUST);
+        generator.createTrivialCube(GCBlocks.IO_PALLADIUM_ORE);
+        generator.createTrivialCube(GCBlocks.IO_SULFUR_ORE);
+        generator.createTrivialCube(GCBlocks.IO_TITANIUM_ORE);
+
+        generator.createTrivialCube(GCBlocks.EUROPA_ICE_CRUST);
+        generator.createTrivialCube(GCBlocks.EUROPA_LINEAE_ICE);
+        generator.createTrivialCube(GCBlocks.EUROPA_SEABED_ROCK);
+        generator.createTrivialCube(GCBlocks.EUROPA_NIOBIUM_ORE);
+        generator.createTrivialCube(GCBlocks.EUROPA_IRON_ORE);
+
+        generator.createTrivialCube(GCBlocks.GANYMEDE_SULCI_ROCK);
+        generator.createTrivialCube(GCBlocks.GANYMEDE_REGIO_ROCK);
+        generator.createTrivialCube(GCBlocks.GANYMEDE_SLATE);
+        generator.createTrivialCube(GCBlocks.GANYMEDE_NIOBIUM_ORE);
+        generator.createTrivialCube(GCBlocks.GANYMEDE_TITANIUM_ORE);
+        generator.createTrivialCube(GCBlocks.GANYMEDE_PALLADIUM_ORE);
+
+        generator.createTrivialCube(GCBlocks.CALLISTO_CRUST);
+        generator.createTrivialCube(GCBlocks.CALLISTO_ROCK);
+        generator.createTrivialCube(GCBlocks.CALLISTO_VALHALLA_BRECCIA);
+        generator.createTrivialCube(GCBlocks.CALLISTO_IRON_ORE);
+        generator.createTrivialCube(GCBlocks.CALLISTO_ALUMINUM_ORE);
+        generator.createTrivialCube(GCBlocks.CALLISTO_NIOBIUM_ORE);
         // PHASE 4 OUTER MOONS: TITAN, ENCELADUS, TITANIA, OBERON, TRITON
         generator.createTrivialCube(GCBlocks.TITAN_THOLIN_SAND);
         generator.createTrivialCube(GCBlocks.TITAN_HYDROCARBON_CRUST);

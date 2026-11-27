@@ -1,0 +1,46 @@
+{
+  "type": "minecraft:add",
+  "argument1": "galacticraft:ganymede/solid_terrain",
+  "argument2": {
+    "type": "minecraft:range_choice",
+    "input": "galacticraft:ganymede/solid_terrain",
+    "max_exclusive": 10.0,
+    "min_inclusive": -0.5,
+    "when_in_range": {
+      "type": "minecraft:range_choice",
+      "input": {
+        "type": "minecraft:y_clamped_gradient",
+        "from_value": -64.0,
+        "from_y": -64,
+        "to_value": 320.0,
+        "to_y": 320
+      },
+      "max_exclusive": 56.0,
+      "min_inclusive": -50.0,
+      "when_in_range": {
+        "type": "minecraft:min",
+        "argument1": 0.0,
+        "argument2": {
+          "type": "minecraft:add",
+          "argument1": "galacticraft:ganymede/caves",
+          "argument2": {
+            "type": "minecraft:clamp",
+            "input": {
+              "type": "minecraft:add",
+              "argument1": 3.2,
+              "argument2": {
+                "type": "minecraft:mul",
+                "argument1": -22.0,
+                "argument2": "galacticraft:ganymede/solid_terrain"
+              }
+            },
+            "max": 3.2,
+            "min": 0.0
+          }
+        }
+      },
+      "when_out_of_range": 0.0
+    },
+    "when_out_of_range": 0.0
+  }
+}

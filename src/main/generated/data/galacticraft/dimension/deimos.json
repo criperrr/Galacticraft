@@ -1,0 +1,11 @@
+{
+  "type": "galacticraft:deimos",
+  "generator": {
+    "type": "minecraft:noise",
+    "biome_source": {
+      "type": "minecraft:multi_noise",
+      "preset": "galacticraft:deimos"
+    },
+    "settings": "galacticraft:deimos"
+  }
+}

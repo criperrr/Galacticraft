@@ -142,6 +142,25 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         this.tag(GCBlockTags.INFINIBURN_NEPTUNE)
                 .add(GCBlocks.NEPTUNE_ABYSSAL_MANTLE_ROCK)
                 .add(GCBlocks.DENSE_ICE);
+        this.tag(GCBlockTags.INFINIBURN_PHOBOS)
+                .add(GCBlocks.PHOBOS_ROCK)
+                .add(GCBlocks.PHOBOS_BRECCIA);
+        this.tag(GCBlockTags.INFINIBURN_DEIMOS)
+                .add(GCBlocks.DEIMOS_ROCK)
+                .add(GCBlocks.DEIMOS_SLATE);
+        this.tag(GCBlockTags.INFINIBURN_IO)
+                .add(GCBlocks.IO_VOLCANIC_ROCK)
+                .add(GCBlocks.IO_MAGMA_CRUST)
+                .add(Blocks.MAGMA_BLOCK);
+        this.tag(GCBlockTags.INFINIBURN_EUROPA)
+                .add(GCBlocks.EUROPA_ICE_CRUST)
+                .add(GCBlocks.DENSE_ICE);
+        this.tag(GCBlockTags.INFINIBURN_GANYMEDE)
+                .add(GCBlocks.GANYMEDE_SLATE)
+                .add(GCBlocks.DENSE_ICE);
+        this.tag(GCBlockTags.INFINIBURN_CALLISTO)
+                .add(GCBlocks.CALLISTO_ROCK)
+                .add(GCBlocks.DENSE_ICE);
         this.tag(GCBlockTags.INFINIBURN_TITAN)
                 .add(GCBlocks.TITAN_HYDROCARBON_CRUST)
                 .add(GCBlocks.TITAN_WATER_ICE_ROCK);
@@ -219,6 +238,59 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(GCBlocks.URANUS_URANIUM_ORE);
         this.tag(GCBlockTags.NEPTUNE_CARVER_REPLACEABLES)
                 .add(GCBlocks.NEPTUNE_ABYSSAL_MANTLE_ROCK);
+        this.tag(GCBlockTags.PHOBOS_CARVER_REPLACEABLES)
+                .add(GCBlocks.PHOBOS_REGOLITH)
+                .add(GCBlocks.PHOBOS_ROCK)
+                .add(GCBlocks.PHOBOS_BRECCIA)
+                .add(GCBlocks.PHOBOS_SLATE)
+                .add(GCBlocks.RAW_METEORIC_IRON_BLOCK)
+                .add(GCBlocks.PHOBOS_GRAPHITE_ORE)
+                .add(GCBlocks.PHOBOS_IRON_ORE);
+        this.tag(GCBlockTags.DEIMOS_CARVER_REPLACEABLES)
+                .add(GCBlocks.DEIMOS_REGOLITH)
+                .add(GCBlocks.DEIMOS_ROCK)
+                .add(GCBlocks.DEIMOS_SLATE)
+                .add(GCBlocks.DEIMOS_SILICON_ORE)
+                .add(GCBlocks.DEIMOS_ALUMINUM_ORE)
+                .add(GCBlocks.DEIMOS_IRON_ORE);
+        this.tag(GCBlockTags.IO_CARVER_REPLACEABLES)
+                .add(GCBlocks.IO_SULFUR_CRUST)
+                .add(GCBlocks.IO_VOLCANIC_ROCK)
+                .add(GCBlocks.IO_SILICATE_BASALT)
+                .add(GCBlocks.IO_MAGMA_CRUST)
+                .add(Blocks.MAGMA_BLOCK)
+                .add(GCBlocks.IO_PALLADIUM_ORE)
+                .add(GCBlocks.IO_SULFUR_ORE)
+                .add(GCBlocks.IO_TITANIUM_ORE);
+        this.tag(GCBlockTags.EUROPA_CARVER_REPLACEABLES)
+                .add(GCBlocks.EUROPA_ICE_CRUST)
+                .add(GCBlocks.EUROPA_LINEAE_ICE)
+                .add(GCBlocks.EUROPA_SEABED_ROCK)
+                .add(GCBlocks.DENSE_ICE)
+                .add(Blocks.PACKED_ICE)
+                .add(Blocks.BLUE_ICE)
+                .add(Blocks.SNOW_BLOCK)
+                .add(GCBlocks.EUROPA_NIOBIUM_ORE)
+                .add(GCBlocks.EUROPA_IRON_ORE);
+        this.tag(GCBlockTags.GANYMEDE_CARVER_REPLACEABLES)
+                .add(GCBlocks.GANYMEDE_SULCI_ROCK)
+                .add(GCBlocks.GANYMEDE_REGIO_ROCK)
+                .add(GCBlocks.GANYMEDE_SLATE)
+                .add(GCBlocks.DENSE_ICE)
+                .add(Blocks.PACKED_ICE)
+                .add(Blocks.SNOW_BLOCK)
+                .add(GCBlocks.GANYMEDE_NIOBIUM_ORE)
+                .add(GCBlocks.GANYMEDE_TITANIUM_ORE)
+                .add(GCBlocks.GANYMEDE_PALLADIUM_ORE);
+        this.tag(GCBlockTags.CALLISTO_CARVER_REPLACEABLES)
+                .add(GCBlocks.CALLISTO_CRUST)
+                .add(GCBlocks.CALLISTO_ROCK)
+                .add(GCBlocks.CALLISTO_VALHALLA_BRECCIA)
+                .add(GCBlocks.DENSE_ICE)
+                .add(Blocks.PACKED_ICE)
+                .add(GCBlocks.CALLISTO_IRON_ORE)
+                .add(GCBlocks.CALLISTO_ALUMINUM_ORE)
+                .add(GCBlocks.CALLISTO_NIOBIUM_ORE);
         this.tag(GCBlockTags.OLIVINE_CAVE_REPLACEABLES)
                 .add(GCBlocks.LUNASLATE)
                 .add(GCBlocks.MOON_ROCK);
@@ -1242,6 +1314,40 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                         GCBlocks.URANUS_DIAMOND_BEARING_ROCK,
                         GCBlocks.URANUS_URANIUM_ORE,
                         GCBlocks.NEPTUNE_ABYSSAL_MANTLE_ROCK,
+                        GCBlocks.PHOBOS_ROCK,
+                        GCBlocks.PHOBOS_BRECCIA,
+                        GCBlocks.PHOBOS_SLATE,
+                        GCBlocks.PHOBOS_GRAPHITE_ORE,
+                        GCBlocks.PHOBOS_IRON_ORE,
+                        GCBlocks.DEIMOS_ROCK,
+                        GCBlocks.DEIMOS_SLATE,
+                        GCBlocks.DEIMOS_SILICON_ORE,
+                        GCBlocks.DEIMOS_ALUMINUM_ORE,
+                        GCBlocks.DEIMOS_IRON_ORE,
+                        GCBlocks.IO_SULFUR_CRUST,
+                        GCBlocks.IO_VOLCANIC_ROCK,
+                        GCBlocks.IO_SILICATE_BASALT,
+                        GCBlocks.IO_MAGMA_CRUST,
+                        GCBlocks.IO_PALLADIUM_ORE,
+                        GCBlocks.IO_SULFUR_ORE,
+                        GCBlocks.IO_TITANIUM_ORE,
+                        GCBlocks.EUROPA_ICE_CRUST,
+                        GCBlocks.EUROPA_LINEAE_ICE,
+                        GCBlocks.EUROPA_SEABED_ROCK,
+                        GCBlocks.EUROPA_NIOBIUM_ORE,
+                        GCBlocks.EUROPA_IRON_ORE,
+                        GCBlocks.GANYMEDE_SULCI_ROCK,
+                        GCBlocks.GANYMEDE_REGIO_ROCK,
+                        GCBlocks.GANYMEDE_SLATE,
+                        GCBlocks.GANYMEDE_NIOBIUM_ORE,
+                        GCBlocks.GANYMEDE_TITANIUM_ORE,
+                        GCBlocks.GANYMEDE_PALLADIUM_ORE,
+                        GCBlocks.CALLISTO_CRUST,
+                        GCBlocks.CALLISTO_ROCK,
+                        GCBlocks.CALLISTO_VALHALLA_BRECCIA,
+                        GCBlocks.CALLISTO_IRON_ORE,
+                        GCBlocks.CALLISTO_ALUMINUM_ORE,
+                        GCBlocks.CALLISTO_NIOBIUM_ORE,
                         GCBlocks.TITAN_HYDROCARBON_CRUST,
                         GCBlocks.TITAN_WATER_ICE_ROCK,
                         GCBlocks.TITAN_MAGNESIUM_ORE,
@@ -1309,6 +1415,8 @@ public class GCBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         this.tag(BlockTags.MINEABLE_WITH_SHOVEL)
                 .add(GCBlocks.MOON_TURF)
                 .add(GCBlocks.MOON_DIRT)
+                .add(GCBlocks.PHOBOS_REGOLITH)
+                .add(GCBlocks.DEIMOS_REGOLITH)
                 .add(GCBlocks.MOON_DIRT_PATH)
                 .add(GCBlocks.MERCURY_REGOLITH)
                 .add(GCBlocks.MERCURY_FROST_REGOLITH)

@@ -1,0 +1,50 @@
+{
+  "type": "galacticraft:planet",
+  "config": {
+    "parent": "galacticraft:mars",
+    "access_weight": 2,
+    "atmosphere": {
+      "composition": {},
+      "pressure": 0.0,
+      "temperature": -58.0
+    },
+    "celestial_handler": "galacticraft:default",
+    "day_length": 7654,
+    "day_temperature": -4,
+    "description": {
+      "translate": "moon.galacticraft.phobos.description"
+    },
+    "display": {
+      "type": "galacticraft:icon",
+      "config": {
+        "height": 8,
+        "rocket_overlay": "galacticraft:textures/gui/rocket/moon_rocket_gui.png",
+        "scale": 1.0,
+        "texture": "galacticraft:textures/gui/celestialbodies/phobos.png",
+        "u": 0,
+        "v": 0,
+        "width": 8
+      }
+    },
+    "gravity": 0.015,
+    "name": {
+      "translate": "moon.galacticraft.phobos"
+    },
+    "night_temperature": -112,
+    "position": {
+      "type": "galacticraft:orbital",
+      "config": {
+        "distance": 14.0,
+        "orbit_time": 32.0,
+        "phase_shift": 0.4,
+        "planet": false
+      }
+    },
+    "ring": {
+      "type": "galacticraft:default",
+      "config": {}
+    },
+    "teleporter": "galacticraft:lander",
+    "world": "galacticraft:phobos"
+  }
+}

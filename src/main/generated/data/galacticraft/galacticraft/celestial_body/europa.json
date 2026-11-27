@@ -1,0 +1,50 @@
+{
+  "type": "galacticraft:planet",
+  "config": {
+    "parent": "galacticraft:jupiter",
+    "access_weight": 4,
+    "atmosphere": {
+      "composition": {},
+      "pressure": 1.0E-12,
+      "temperature": -190.0
+    },
+    "celestial_handler": "galacticraft:default",
+    "day_length": 85230,
+    "day_temperature": -160,
+    "description": {
+      "translate": "moon.galacticraft.europa.description"
+    },
+    "display": {
+      "type": "galacticraft:icon",
+      "config": {
+        "height": 8,
+        "rocket_overlay": "galacticraft:textures/gui/rocket/moon_rocket_gui.png",
+        "scale": 1.0,
+        "texture": "galacticraft:textures/gui/celestialbodies/europa.png",
+        "u": 0,
+        "v": 0,
+        "width": 8
+      }
+    },
+    "gravity": 0.134,
+    "name": {
+      "translate": "moon.galacticraft.europa"
+    },
+    "night_temperature": -220,
+    "position": {
+      "type": "galacticraft:orbital",
+      "config": {
+        "distance": 21.0,
+        "orbit_time": 90.0,
+        "phase_shift": 1.8,
+        "planet": false
+      }
+    },
+    "ring": {
+      "type": "galacticraft:default",
+      "config": {}
+    },
+    "teleporter": "galacticraft:lander",
+    "world": "galacticraft:europa"
+  }
+}
