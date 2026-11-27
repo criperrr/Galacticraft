@@ -31,7 +31,7 @@ import net.minecraft.world.item.TooltipFlag;
 import java.util.List;
 
 /**
- * Field maintenance & crating wrench for modular vehicles:
+ * Field maintenance and crating wrench for modular vehicles:
  * Right-click a vehicle to detach the last installed module;
  * Shift + Right-click to pack the assembled vehicle into a {@link VehicleCrateItem}.
  */
