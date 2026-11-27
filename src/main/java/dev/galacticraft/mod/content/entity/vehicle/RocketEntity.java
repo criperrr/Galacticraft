@@ -50,6 +50,7 @@ import dev.galacticraft.mod.content.item.GCItems;
 import dev.galacticraft.mod.content.rocket.physics.PlanetaryEnvironment;
 import dev.galacticraft.mod.content.rocket.physics.PropellantType;
 import dev.galacticraft.mod.content.rocket.physics.RocketFlightValidator;
+import dev.galacticraft.mod.content.vehicle.RocketCargoGrid;
 import dev.galacticraft.mod.events.RocketEvents;
 import dev.galacticraft.mod.network.s2c.OpenCelestialScreenPayload;
 import dev.galacticraft.mod.particle.EntityParticleOption;
@@ -136,6 +137,11 @@ public class RocketEntity extends AdvancedVehicle implements Rocket, IgnoreShift
     private final SingleFluidStorage tank = SingleFluidStorage.withFixedCapacity(FluidUtil.bucketsToDroplets(100), () -> {
         this.entityData.set(FUEL, getTank().getAmount());
     });
+    private final RocketCargoGrid cargoGrid = new RocketCargoGrid(9, 4);
+
+    public RocketCargoGrid getCargoGrid() {
+        return this.cargoGrid;
+    }
 
     private int timeBeforeLaunch;
     private float timeSinceLaunch;
@@ -934,6 +940,9 @@ public class RocketEntity extends AdvancedVehicle implements Rocket, IgnoreShift
 
         BlockEntity be = this.level().getBlockEntity(BlockPos.of(tag.getLong("Linked")));
         if (be instanceof FuelDock pad) this.linkedPad = pad;
+        if (tag.contains("CargoGrid", Tag.TAG_COMPOUND)) {
+            this.cargoGrid.loadFromTag(tag.getCompound("CargoGrid"), this.registryAccess());
+        }
     }
 
     @Override
@@ -951,6 +960,7 @@ public class RocketEntity extends AdvancedVehicle implements Rocket, IgnoreShift
         tag.putBoolean("Crashed", this.crashed);
 
         if (this.linkedPad != null) tag.putLong("Linked", this.linkedPad.getDockPos().asLong());
+        tag.put("CargoGrid", this.cargoGrid.saveToTag(this.registryAccess()));
     }
 
     @Override

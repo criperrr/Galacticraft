@@ -56,6 +56,67 @@ public class GCMiscRecipeProvider extends FabricRecipeProvider {
     @Override
     public void buildRecipes(RecipeOutput output) {
         // Gear
+        // Specialized Aerospace Vehicle Benches (Immersive Vehicles style)
+        GCShapedRecipeBuilder.crafting(RecipeCategory.MISC, GCBlocks.CHASSIS_BENCH)
+                .define('S', GCItems.COMPRESSED_STEEL)
+                .define('A', GCItems.COMPRESSED_ALUMINUM)
+                .define('W', GCItems.BASIC_WAFER)
+                .define('C', Items.CRAFTING_TABLE)
+                .pattern("AAA")
+                .pattern("WCW")
+                .pattern("S S")
+                .unlockedBy(getHasName(GCItems.COMPRESSED_STEEL), has(GCItems.COMPRESSED_STEEL))
+                .emiDefaultRecipe(true)
+                .save(output);
+
+        GCShapedRecipeBuilder.crafting(RecipeCategory.MISC, GCBlocks.ELECTRIC_MOTOR_BENCH)
+                .define('S', GCItems.COMPRESSED_STEEL)
+                .define('C', Items.COPPER_INGOT)
+                .define('B', GCItems.BATTERY)
+                .define('W', GCItems.ADVANCED_WAFER)
+                .define('R', Items.REDSTONE_BLOCK)
+                .pattern("CWC")
+                .pattern("SBS")
+                .pattern("SRS")
+                .unlockedBy(getHasName(GCItems.BATTERY), has(GCItems.BATTERY))
+                .emiDefaultRecipe(true)
+                .save(output);
+
+        GCShapedRecipeBuilder.crafting(RecipeCategory.MISC, GCBlocks.WHEEL_LOCOMOTION_BENCH)
+                .define('S', GCItems.COMPRESSED_STEEL)
+                .define('I', GCItems.COMPRESSED_IRON)
+                .define('P', Items.PISTON)
+                .define('W', GCItems.BASIC_WAFER)
+                .define('C', Items.COAL_BLOCK)
+                .pattern("PWS")
+                .pattern("ICI")
+                .pattern("S S")
+                .unlockedBy(getHasName(GCItems.COMPRESSED_STEEL), has(GCItems.COMPRESSED_STEEL))
+                .emiDefaultRecipe(true)
+                .save(output);
+
+        GCShapedRecipeBuilder.crafting(RecipeCategory.MISC, GCBlocks.VEHICLE_ACCESSORIES_BENCH)
+                .define('A', GCItems.COMPRESSED_ALUMINUM)
+                .define('G', ConventionalItemTags.GLASS_PANES_COLORLESS)
+                .define('W', GCItems.ADVANCED_WAFER)
+                .define('R', Items.REDSTONE)
+                .define('L', Items.LEATHER)
+                .pattern("GGG")
+                .pattern("AWA")
+                .pattern("RLR")
+                .unlockedBy(getHasName(GCItems.ADVANCED_WAFER), has(GCItems.ADVANCED_WAFER))
+                .emiDefaultRecipe(true)
+                .save(output);
+
+        GCShapedRecipeBuilder.crafting(RecipeCategory.MISC, GCItems.VEHICLE_WRENCH)
+                .define('S', GCItems.COMPRESSED_STEEL)
+                .define('A', GCItems.COMPRESSED_ALUMINUM)
+                .pattern(" S ")
+                .pattern(" AS")
+                .pattern("A  ")
+                .unlockedBy(getHasName(GCItems.COMPRESSED_STEEL), has(GCItems.COMPRESSED_STEEL))
+                .emiDefaultRecipe(true)
+                .save(output);
         GCShapedRecipeBuilder.crafting(RecipeCategory.MISC, GCItems.OXYGEN_MASK)
                 .define('G', ConventionalItemTags.GLASS_PANES_COLORLESS)
                 .define('H', Items.IRON_HELMET)

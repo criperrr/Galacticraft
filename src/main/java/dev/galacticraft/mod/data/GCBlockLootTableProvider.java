@@ -492,6 +492,11 @@ public class GCBlockLootTableProvider extends FabricBlockLootTableProvider {
         this.dropSelf(GCBlocks.GANTRY_CRANE_RAIL);
         this.dropSelf(GCBlocks.PLATFORM_UPGRADE_SOCKET);
         this.dropSelf(GCBlocks.HANGAR_TERMINAL);
+        this.dropSelf(GCBlocks.VEHICLE_PART_FABRICATOR);
+        this.add(GCBlocks.CHASSIS_BENCH, b -> this.createSinglePropConditionTable(b, net.minecraft.world.level.block.state.properties.BlockStateProperties.BED_PART, net.minecraft.world.level.block.state.properties.BedPart.FOOT));
+        this.add(GCBlocks.ELECTRIC_MOTOR_BENCH, b -> this.createSinglePropConditionTable(b, net.minecraft.world.level.block.state.properties.BlockStateProperties.BED_PART, net.minecraft.world.level.block.state.properties.BedPart.FOOT));
+        this.add(GCBlocks.WHEEL_LOCOMOTION_BENCH, b -> this.createSinglePropConditionTable(b, net.minecraft.world.level.block.state.properties.BlockStateProperties.BED_PART, net.minecraft.world.level.block.state.properties.BedPart.FOOT));
+        this.add(GCBlocks.VEHICLE_ACCESSORIES_BENCH, b -> this.createSinglePropConditionTable(b, net.minecraft.world.level.block.state.properties.BlockStateProperties.BED_PART, net.minecraft.world.level.block.state.properties.BedPart.FOOT));
         this.dropSelf(GCBlocks.SHORT_RANGE_TELEPAD);
         this.dropSelf(GCBlocks.AIR_LOCK_CONTROLLER);
         this.dropSelf(GCBlocks.AIR_LOCK_FRAME);

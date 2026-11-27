@@ -25,6 +25,7 @@ package dev.galacticraft.mod.content.item;
 import dev.galacticraft.api.component.GCDataComponents;
 import dev.galacticraft.api.rocket.RocketPrefabs;
 import dev.galacticraft.api.rocket.part.modular.RocketPartCategory;
+import dev.galacticraft.api.vehicle.VehicleRegistry;
 import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.Galacticraft;
 import dev.galacticraft.mod.content.*;
@@ -408,6 +409,59 @@ public class GCItems {
     public static final Item GREY_SPAWN_EGG = ITEMS.register(Constant.SpawnEgg.GREY, new SpawnEggItem(GCEntityTypes.GREY, 0x656463, 0x769e41, new Item.Properties()));
     public static final Item ARCH_GREY_SPAWN_EGG = ITEMS.register(Constant.SpawnEgg.ARCH_GREY, new SpawnEggItem(GCEntityTypes.ARCH_GREY, 0x656463, 0x2d8563, new Item.Properties()));
     public static final Item SLIMELING_SPAWN_EGG = ITEMS.register(Constant.SpawnEgg.SLIMELING, new SpawnEggItem(GCEntityTypes.SLIMELING, 0x51a03e, 0xd2783b, new Item.Properties()));
+
+    // MODULAR VEHICLES (PHASE 1)
+    public static final Item VEHICLE_CRATE = ITEMS.register("vehicle_crate", new VehicleCrateItem(new Item.Properties()));
+    public static final Item VEHICLE_WRENCH = ITEMS.register("vehicle_wrench", new VehicleWrenchItem(new Item.Properties()));
+
+    public static final Item SCOUT_ROVER_CHASSIS = ITEMS.register("scout_rover_chassis", new VehicleChassisItem(VehicleRegistry.CHASSIS_SCOUT_ROVER, new Item.Properties()));
+    public static final Item UTILITY_BUGGY_CHASSIS = ITEMS.register("utility_buggy_chassis", new VehicleChassisItem(VehicleRegistry.CHASSIS_UTILITY_BUGGY, new Item.Properties()));
+    public static final Item HEAVY_HAULER_CHASSIS = ITEMS.register("heavy_hauler_chassis", new VehicleChassisItem(VehicleRegistry.CHASSIS_HEAVY_HAULER, new Item.Properties()));
+
+    public static final Item STANDARD_WHEEL_SET = ITEMS.register("standard_wheel_set", new VehiclePartItem(VehicleRegistry.PART_STANDARD_WHEELS, new Item.Properties()));
+    public static final Item HEAVY_TRACKS = ITEMS.register("heavy_tracks", new VehiclePartItem(VehicleRegistry.PART_HEAVY_TRACKS, new Item.Properties()));
+    public static final Item ROCKER_BOGIE_6X6 = ITEMS.register("rocker_bogie_6x6", new VehiclePartItem(VehicleRegistry.PART_ROCKER_BOGIE_6X6, new Item.Properties()));
+    public static final Item BATTERY_BANK = ITEMS.register("battery_bank", new VehiclePartItem(VehicleRegistry.PART_BATTERY_BANK, new Item.Properties()));
+    public static final Item SOLAR_ARRAY_MODULE = ITEMS.register("solar_array_module", new VehiclePartItem(VehicleRegistry.PART_SOLAR_ARRAY, new Item.Properties()));
+    public static final Item RTG_CORE_MODULE = ITEMS.register("rtg_core_module", new VehiclePartItem(VehicleRegistry.PART_RTG_CORE, new Item.Properties()));
+    public static final Item LOX_FUEL_ENGINE = ITEMS.register("lox_fuel_engine", new VehiclePartItem(VehicleRegistry.PART_LOX_ENGINE, new Item.Properties()));
+    public static final Item PILOT_COCKPIT_SEAT = ITEMS.register("pilot_cockpit_seat", new VehiclePartItem(VehicleRegistry.PART_PILOT_SEAT, new Item.Properties()));
+    public static final Item PASSENGER_SEAT = ITEMS.register("passenger_seat", new VehiclePartItem(VehicleRegistry.PART_PASSENGER_SEAT, new Item.Properties()));
+    public static final Item CREW_BENCH_SEAT = ITEMS.register("crew_bench_seat", new VehiclePartItem(VehicleRegistry.PART_CREW_BENCH, new Item.Properties()));
+    public static final Item CARGO_RACK_BAY = ITEMS.register("cargo_rack_bay", new VehiclePartItem(VehicleRegistry.PART_CARGO_RACK, new Item.Properties()));
+    public static final Item HEAVY_CARGO_CONTAINER = ITEMS.register("heavy_cargo_container", new VehiclePartItem(VehicleRegistry.PART_HEAVY_CARGO_BAY, new Item.Properties()));
+    public static final Item CAMERA_MAST_360 = ITEMS.register("camera_mast_360", new VehiclePartItem(VehicleRegistry.PART_CAMERA_MAST, new Item.Properties()));
+    public static final Item GEOLOGICAL_DRILL_ARM = ITEMS.register("geological_drill_arm", new VehiclePartItem(VehicleRegistry.PART_DRILL_ARM, new Item.Properties()));
+    public static final Item AI_CORE_MODULE = ITEMS.register("ai_core_module", new VehiclePartItem(VehicleRegistry.PART_AI_CORE, new Item.Properties()));
+    public static final Item GAUGE_SPEEDOMETER = ITEMS.register("gauge_speedometer", new VehiclePartItem(VehicleRegistry.PART_GAUGE_SPEEDOMETER, new Item.Properties()));
+    public static final Item GAUGE_BATTERY_FUEL = ITEMS.register("gauge_battery_fuel", new VehiclePartItem(VehicleRegistry.PART_GAUGE_POWER, new Item.Properties()));
+    public static final Item GAUGE_ATMOSPHERE_O2 = ITEMS.register("gauge_atmosphere_o2", new VehiclePartItem(VehicleRegistry.PART_GAUGE_ATMOSPHERE, new Item.Properties()));
+    public static final Item GAUGE_COMPASS_NAV = ITEMS.register("gauge_compass_nav", new VehiclePartItem(VehicleRegistry.PART_GAUGE_COMPASS, new Item.Properties()));
+    public static final Item GAUGE_HORIZON_RADAR = ITEMS.register("gauge_horizon_radar", new VehiclePartItem(VehicleRegistry.PART_GAUGE_HORIZON, new Item.Properties()));
+
+    public static ItemStack createVehiclePartStack(ResourceLocation partId) {
+        if (VehicleRegistry.PART_STANDARD_WHEELS.equals(partId)) return new ItemStack(STANDARD_WHEEL_SET);
+        if (VehicleRegistry.PART_HEAVY_TRACKS.equals(partId)) return new ItemStack(HEAVY_TRACKS);
+        if (VehicleRegistry.PART_ROCKER_BOGIE_6X6.equals(partId)) return new ItemStack(ROCKER_BOGIE_6X6);
+        if (VehicleRegistry.PART_BATTERY_BANK.equals(partId)) return new ItemStack(BATTERY_BANK);
+        if (VehicleRegistry.PART_SOLAR_ARRAY.equals(partId)) return new ItemStack(SOLAR_ARRAY_MODULE);
+        if (VehicleRegistry.PART_RTG_CORE.equals(partId)) return new ItemStack(RTG_CORE_MODULE);
+        if (VehicleRegistry.PART_LOX_ENGINE.equals(partId)) return new ItemStack(LOX_FUEL_ENGINE);
+        if (VehicleRegistry.PART_PILOT_SEAT.equals(partId)) return new ItemStack(PILOT_COCKPIT_SEAT);
+        if (VehicleRegistry.PART_PASSENGER_SEAT.equals(partId)) return new ItemStack(PASSENGER_SEAT);
+        if (VehicleRegistry.PART_CREW_BENCH.equals(partId)) return new ItemStack(CREW_BENCH_SEAT);
+        if (VehicleRegistry.PART_CARGO_RACK.equals(partId)) return new ItemStack(CARGO_RACK_BAY);
+        if (VehicleRegistry.PART_HEAVY_CARGO_BAY.equals(partId)) return new ItemStack(HEAVY_CARGO_CONTAINER);
+        if (VehicleRegistry.PART_CAMERA_MAST.equals(partId)) return new ItemStack(CAMERA_MAST_360);
+        if (VehicleRegistry.PART_DRILL_ARM.equals(partId)) return new ItemStack(GEOLOGICAL_DRILL_ARM);
+        if (VehicleRegistry.PART_AI_CORE.equals(partId)) return new ItemStack(AI_CORE_MODULE);
+        if (VehicleRegistry.PART_GAUGE_SPEEDOMETER.equals(partId)) return new ItemStack(GAUGE_SPEEDOMETER);
+        if (VehicleRegistry.PART_GAUGE_POWER.equals(partId)) return new ItemStack(GAUGE_BATTERY_FUEL);
+        if (VehicleRegistry.PART_GAUGE_ATMOSPHERE.equals(partId)) return new ItemStack(GAUGE_ATMOSPHERE_O2);
+        if (VehicleRegistry.PART_GAUGE_COMPASS.equals(partId)) return new ItemStack(GAUGE_COMPASS_NAV);
+        if (VehicleRegistry.PART_GAUGE_HORIZON.equals(partId)) return new ItemStack(GAUGE_HORIZON_RADAR);
+        return ItemStack.EMPTY;
+    }
 
     private static Item registerGeneric(String id) {
         return ITEMS.register(id, new Item(new Item.Properties()));

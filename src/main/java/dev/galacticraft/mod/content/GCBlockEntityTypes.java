@@ -108,6 +108,15 @@ public class GCBlockEntityTypes {
     public static final BlockEntityType<AirlockControllerBlockEntity> AIRLOCK_CONTROLLER = register(Constant.Block.AIR_LOCK_CONTROLLER, AirlockControllerBlockEntity::new, GCBlocks.AIR_LOCK_CONTROLLER);
     public static final BlockEntityType<RocketWorkbenchBlockEntity> ROCKET_WORKBENCH = register(Constant.Block.ROCKET_WORKBENCH, RocketWorkbenchBlockEntity::new, GCBlocks.ROCKET_WORKBENCH);
     public static final BlockEntityType<HangarTerminalBlockEntity> HANGAR_TERMINAL = register(Constant.Block.HANGAR_TERMINAL, HangarTerminalBlockEntity::new, GCBlocks.HANGAR_TERMINAL);
+    public static final BlockEntityType<VehiclePartFabricatorBlockEntity> VEHICLE_PART_FABRICATOR = register(
+            "vehicle_part_fabricator",
+            VehiclePartFabricatorBlockEntity::new,
+            GCBlocks.VEHICLE_PART_FABRICATOR,
+            GCBlocks.CHASSIS_BENCH,
+            GCBlocks.ELECTRIC_MOTOR_BENCH,
+            GCBlocks.WHEEL_LOCOMOTION_BENCH,
+            GCBlocks.VEHICLE_ACCESSORIES_BENCH
+    );
     public static final BlockEntityType<ModularRocketPartBlockEntity> MODULAR_ROCKET_PART = register(
             "modular_rocket_part",
             ModularRocketPartBlockEntity::new,

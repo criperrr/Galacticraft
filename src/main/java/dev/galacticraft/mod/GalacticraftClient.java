@@ -168,6 +168,7 @@ public class GalacticraftClient implements ClientModInitializer {
         MenuScreens.register(GCMenuTypes.PART_ASSEMBLER, PartAssemblerScreen::new);
         MenuScreens.register(GCMenuTypes.ROCKET, RocketInventoryScreen::new);
         MenuScreens.register(GCMenuTypes.PARACHEST, ParachestScreen::new);
+        MenuScreens.register(GCMenuTypes.VEHICLE_PART_FABRICATOR, VehiclePartFabricatorScreen::new);
 
         EntityRendererRegistry.register(GCEntityTypes.MOON_VILLAGER, MoonVillagerRenderer::new);
         EntityRendererRegistry.register(GCEntityTypes.EVOLVED_ZOMBIE, EvolvedZombieEntityRenderer::new);
@@ -193,6 +194,8 @@ public class GalacticraftClient implements ClientModInitializer {
         EntityRendererRegistry.register(GCEntityTypes.DETACHED_STAGE, DetachedStageEntityRenderer::new);
         EntityRendererRegistry.register(GCEntityTypes.LANDER, LanderEntityRenderer::new);
         EntityRendererRegistry.register(GCEntityTypes.BUGGY, BuggyRenderer::new);
+        EntityRendererRegistry.register(GCEntityTypes.MODULAR_VEHICLE, ModularVehicleRenderer::new);
+        EntityRendererRegistry.register(GCEntityTypes.VEHICLE_PART, VehiclePartRenderer::new);
         EntityRendererRegistry.register(GCEntityTypes.PARACHEST, ParachestRenderer::new);
         EntityRendererRegistry.register(GCEntityTypes.THROWABLE_METEOR_CHUNK, ThrownItemRenderer::new);
         EntityRendererRegistry.register(GCEntityTypes.GRAPPLE, GrappleHookEntityRenderer::new);

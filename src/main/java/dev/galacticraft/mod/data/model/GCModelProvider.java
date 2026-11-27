@@ -988,6 +988,33 @@ public class GCModelProvider extends FabricModelProvider {
 
     @Override
     public void generateItemModels(ItemModelGenerators generator) {
+        // MODULAR VEHICLES (PHASE 1) — dedicated bespoke 16x16 Jappa-style textures
+        generator.generateFlatItem(GCItems.VEHICLE_CRATE, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.VEHICLE_WRENCH, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.SCOUT_ROVER_CHASSIS, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.UTILITY_BUGGY_CHASSIS, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.HEAVY_HAULER_CHASSIS, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.STANDARD_WHEEL_SET, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.HEAVY_TRACKS, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.ROCKER_BOGIE_6X6, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.BATTERY_BANK, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.SOLAR_ARRAY_MODULE, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.RTG_CORE_MODULE, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.LOX_FUEL_ENGINE, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.PILOT_COCKPIT_SEAT, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.PASSENGER_SEAT, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.CREW_BENCH_SEAT, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.CARGO_RACK_BAY, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.HEAVY_CARGO_CONTAINER, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.CAMERA_MAST_360, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.GEOLOGICAL_DRILL_ARM, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.AI_CORE_MODULE, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.GAUGE_SPEEDOMETER, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.GAUGE_BATTERY_FUEL, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.GAUGE_ATMOSPHERE_O2, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.GAUGE_COMPASS_NAV, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.GAUGE_HORIZON_RADAR, ModelTemplates.FLAT_ITEM);
+
         // MATERIALS
         generator.generateFlatItem(GCItems.SILICON, ModelTemplates.FLAT_ITEM);
 
@@ -1633,5 +1660,43 @@ public class GCModelProvider extends FabricModelProvider {
         var telepadModel = GCModelTemplates.TELEPAD.create(GCBlocks.SHORT_RANGE_TELEPAD, mapping, generator.modelOutput);
         generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(GCBlocks.SHORT_RANGE_TELEPAD, telepadModel));
         generator.delegateItemModel(GCBlocks.SHORT_RANGE_TELEPAD, telepadModel);
+
+        // Vehicle Part Fabricator
+        var fabricatorMapping = new TextureMapping()
+                .put(TextureSlot.PARTICLE, Constant.id("block/titanium_block"))
+                .put(TextureSlot.TOP, Constant.id("block/rocket_workbench_top"))
+                .put(TextureSlot.BOTTOM, Constant.id("block/titanium_block"))
+                .put(TextureSlot.SIDE, Constant.id("block/rocket_workbench_side"));
+        var fabricatorModel = ModelTemplates.CUBE_BOTTOM_TOP.create(GCBlocks.VEHICLE_PART_FABRICATOR, fabricatorMapping, generator.modelOutput);
+        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(GCBlocks.VEHICLE_PART_FABRICATOR, fabricatorModel));
+        generator.delegateItemModel(GCBlocks.VEHICLE_PART_FABRICATOR, fabricatorModel);
+
+        // Specialized 2x1 Multiblock Aerospace Vehicle Benches (sculpted 3D left/right models with horizontal facing)
+        this.createVehicleBench(generator, GCBlocks.CHASSIS_BENCH, "block/chassis_bench");
+        this.createVehicleBench(generator, GCBlocks.ELECTRIC_MOTOR_BENCH, "block/electric_motor_bench");
+        this.createVehicleBench(generator, GCBlocks.WHEEL_LOCOMOTION_BENCH, "block/wheel_locomotion_bench");
+        this.createVehicleBench(generator, GCBlocks.VEHICLE_ACCESSORIES_BENCH, "block/vehicle_accessories_bench");
+    }
+
+    private void createVehicleBench(BlockModelGenerators generator, Block block, String basePath) {
+        ResourceLocation leftModel = Constant.id(basePath + "_left");
+        ResourceLocation rightModel = Constant.id(basePath + "_right");
+        PropertyDispatch.C2<Direction, net.minecraft.world.level.block.state.properties.BedPart> dispatch = PropertyDispatch.properties(
+                dev.galacticraft.mod.content.block.machine.VehiclePartFabricatorBlock.FACING,
+                dev.galacticraft.mod.content.block.machine.VehiclePartFabricatorBlock.PART
+        );
+        for (Direction direction : Direction.Plane.HORIZONTAL) {
+            VariantProperties.Rotation rot = getRotationFromDirection(direction);
+            dispatch.select(direction, net.minecraft.world.level.block.state.properties.BedPart.FOOT,
+                    Variant.variant().with(VariantProperties.MODEL, leftModel).with(VariantProperties.Y_ROT, rot));
+            dispatch.select(direction, net.minecraft.world.level.block.state.properties.BedPart.HEAD,
+                    Variant.variant().with(VariantProperties.MODEL, rightModel).with(VariantProperties.Y_ROT, rot));
+        }
+        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block).with(dispatch));
+        generator.delegateItemModel(block, leftModel);
+    }
+
+    private void generateAliasedFlatItem(ItemModelGenerators generator, Item item, ResourceLocation texture) {
+        ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(item), TextureMapping.layer0(texture), generator.output);
     }
 }

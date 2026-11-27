@@ -34,6 +34,7 @@ import dev.galacticraft.mod.Galacticraft;
 import dev.galacticraft.mod.content.block.special.CryogenicChamberBlock;
 import dev.galacticraft.mod.content.block.special.CryogenicChamberPart;
 import dev.galacticraft.mod.content.entity.vehicle.LanderEntity;
+import dev.galacticraft.mod.content.entity.vehicle.ModularVehicleEntity;
 import dev.galacticraft.mod.content.item.InfiniteOxygenTankItem;
 import dev.galacticraft.mod.tag.GCFluidTags;
 import dev.galacticraft.mod.tag.GCItemTags;
@@ -144,6 +145,11 @@ public abstract class LivingEntityMixin extends Entity implements GearInventoryP
     private void galacticraft_oxygenCheck(CallbackInfo ci) {
         LivingEntity entity = ((LivingEntity) (Object) this);
         if (entity.galacticraft$oxygenConsumptionRate() == 0) return;
+        if (entity.getVehicle() instanceof ModularVehicleEntity vehicle && vehicle.isPressurizedCabin()) {
+            this.lastHurtBySuffocationTimestamp = this.tickCount;
+            entity.setAirSupply(this.increaseAirSupply(entity.getAirSupply()));
+            return;
+        }
         AttributeInstance attribute = entity.getAttribute(GcApiEntityAttributes.CAN_BREATHE_IN_SPACE);
         if (!entity.level().isBreathable(entity.blockPosition().relative(Direction.UP, (int) Math.floor(entity.getEyeHeight(entity.getPose())))) && !(attribute != null && attribute.getValue() >= 0.99D)) {
             if (!entity.isEyeInFluid(GCFluidTags.NON_BREATHABLE) && !(entity instanceof Player player && player.getAbilities().invulnerable)) {
@@ -165,7 +171,10 @@ public abstract class LivingEntityMixin extends Entity implements GearInventoryP
     private boolean galacticraft_testForBreathability(boolean original) {
         LivingEntity entity = (LivingEntity) (Object) this;
         if (entity.galacticraft$oxygenConsumptionRate() == 0) return false;
-        if ((entity.getVehicle() instanceof LanderEntity) || (entity.getInBlockState().getBlock() instanceof CryogenicChamberBlock) || (entity.getInBlockState().getBlock() instanceof CryogenicChamberPart)) {
+        if ((entity.getVehicle() instanceof LanderEntity)
+                || (entity.getVehicle() instanceof ModularVehicleEntity vehicle && vehicle.isPressurizedCabin())
+                || (entity.getInBlockState().getBlock() instanceof CryogenicChamberBlock)
+                || (entity.getInBlockState().getBlock() instanceof CryogenicChamberPart)) {
             this.lastHurtBySuffocationTimestamp = this.tickCount;
             return false;
         }
@@ -183,6 +192,11 @@ public abstract class LivingEntityMixin extends Entity implements GearInventoryP
         LivingEntity entity = ((LivingEntity) (Object) this);
         long rate = entity.galacticraft$oxygenConsumptionRate();
         if (rate == 0) return;
+        if (entity.getVehicle() instanceof ModularVehicleEntity vehicle && vehicle.isPressurizedCabin()) {
+            this.lastHurtBySuffocationTimestamp = this.tickCount;
+            cir.setReturnValue(this.increaseAirSupply(air));
+            return;
+        }
         AttributeInstance attribute = entity.getAttribute(GcApiEntityAttributes.CAN_BREATHE_IN_SPACE);
         if (!this.isEyeInFluid(GCFluidTags.NON_BREATHABLE) && (
                 (attribute != null && attribute.getValue() >= 0.99D) ||

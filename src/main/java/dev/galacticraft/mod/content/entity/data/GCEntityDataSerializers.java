@@ -25,6 +25,8 @@ package dev.galacticraft.mod.content.entity.data;
 import dev.galacticraft.api.rocket.LaunchStage;
 import dev.galacticraft.api.rocket.RocketData;
 import dev.galacticraft.api.rocket.assembly.RocketAssemblyGraph;
+import dev.galacticraft.api.vehicle.VehicleAnimState;
+import dev.galacticraft.api.vehicle.VehicleConfiguration;
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.network.syncher.EntityDataSerializers;
 
@@ -32,10 +34,14 @@ public class GCEntityDataSerializers {
     public static final EntityDataSerializer<RocketData> ROCKET_DATA = EntityDataSerializer.forValueType(RocketData.STREAM_CODEC);
     public static final EntityDataSerializer<LaunchStage> LAUNCH_STAGE = EntityDataSerializer.forValueType(LaunchStage.STREAM_CODEC);
     public static final EntityDataSerializer<RocketAssemblyGraph> ROCKET_ASSEMBLY_GRAPH = EntityDataSerializer.forValueType(RocketAssemblyGraph.STREAM_CODEC);
+    public static final EntityDataSerializer<VehicleConfiguration> VEHICLE_CONFIGURATION = EntityDataSerializer.forValueType(VehicleConfiguration.STREAM_CODEC);
+    public static final EntityDataSerializer<VehicleAnimState> VEHICLE_ANIM_STATE = EntityDataSerializer.forValueType(VehicleAnimState.STREAM_CODEC);
 
     public static void register() {
         EntityDataSerializers.registerSerializer(ROCKET_DATA);
         EntityDataSerializers.registerSerializer(LAUNCH_STAGE);
         EntityDataSerializers.registerSerializer(ROCKET_ASSEMBLY_GRAPH);
+        EntityDataSerializers.registerSerializer(VEHICLE_CONFIGURATION);
+        EntityDataSerializers.registerSerializer(VEHICLE_ANIM_STATE);
     }
 }

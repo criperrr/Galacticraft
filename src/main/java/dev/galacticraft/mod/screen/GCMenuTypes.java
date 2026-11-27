@@ -29,6 +29,7 @@ import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.content.block.entity.machine.*;
 import dev.galacticraft.mod.recipe.CompressingRecipe;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -93,6 +94,7 @@ public class GCMenuTypes {
     public static final MenuType<PartAssemblerMenu> PART_ASSEMBLER = SynchronizedMenuType.create(PartAssemblerMenu::new);
     public static final MenuType<RocketMenu> ROCKET = new ExtendedScreenHandlerType<>(RocketMenu::new, ByteBufCodecs.INT);
     public static final MenuType<ParachestMenu> PARACHEST = new ExtendedScreenHandlerType<>(ParachestMenu::new, ParachestMenu.OpeningData.STREAM_CODEC);
+    public static final MenuType<VehiclePartFabricatorMenu> VEHICLE_PART_FABRICATOR = new ExtendedScreenHandlerType<>(VehiclePartFabricatorMenu::new, BlockPos.STREAM_CODEC);
 
     public static void register() {
         Registry.register(BuiltInRegistries.MENU, Constant.id(Constant.Menu.PLAYER_INVENTORY_MENU), PLAYER_INV_GC);
@@ -148,5 +150,6 @@ public class GCMenuTypes {
         Registry.register(BuiltInRegistries.MENU, Constant.id("part_assembler_menu"), PART_ASSEMBLER);
         Registry.register(BuiltInRegistries.MENU, Constant.id(Constant.Menu.ROCKET), ROCKET);
         Registry.register(BuiltInRegistries.MENU, Constant.id(Constant.Menu.PARACHEST), PARACHEST);
+        Registry.register(BuiltInRegistries.MENU, Constant.id("vehicle_part_fabricator_menu"), VEHICLE_PART_FABRICATOR);
     }
 }
