@@ -27,19 +27,19 @@
       "type": "galacticraft:icon",
       "config": {
         "decoration": {
-          "height": 7,
-          "heightScale": 3.5,
+          "height": 12,
+          "heightScale": 2.25,
           "texture": "galacticraft:textures/gui/celestialbodies/saturn_rings.png",
           "u": 0,
           "v": 0,
-          "width": 30,
-          "widthScale": 15.0,
-          "xScale": -7.5,
-          "yScale": -1.75
+          "width": 32,
+          "widthScale": 6.0,
+          "xScale": 6.0,
+          "yScale": 2.25
         },
         "height": 16,
         "rocket_overlay": "galacticraft:textures/gui/rocket/venus_rocket_gui.png",
-        "scale": 1.0,
+        "scale": 1.22,
         "texture": "galacticraft:textures/gui/celestialbodies/saturn.png",
         "u": 0,
         "v": 0,
