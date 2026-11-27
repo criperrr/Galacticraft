@@ -25,6 +25,7 @@ package dev.galacticraft.mod.mixin.client;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import dev.galacticraft.mod.client.render.astro.ClientTelescopeController;
+import dev.galacticraft.mod.client.render.vehicle.ClientDroneRemoteController;
 import dev.galacticraft.mod.content.block.entity.CryogenicChamberBlockEntity;
 import dev.galacticraft.mod.content.block.entity.CryogenicChamberPartBlockEntity;
 import dev.galacticraft.mod.content.block.special.CryogenicChamberBlock;
@@ -80,6 +81,11 @@ public abstract class CameraMixin {
         if (ClientTelescopeController.isActive()) {
             this.setRotation(ClientTelescopeController.getAimYaw(), ClientTelescopeController.getAimPitch());
             this.setPosition(ClientTelescopeController.getCameraPosition());
+            return;
+        }
+        if (ClientDroneRemoteController.isActive()) {
+            this.setRotation(ClientDroneRemoteController.getCameraYaw(partialTicks), ClientDroneRemoteController.getCameraPitch(partialTicks));
+            this.setPosition(ClientDroneRemoteController.getCameraPosition(partialTicks));
             return;
         }
         if (entity instanceof Player player && player.isInCryoSleep()) {

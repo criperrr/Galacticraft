@@ -117,6 +117,19 @@ public class GCMiscRecipeProvider extends FabricRecipeProvider {
                 .unlockedBy(getHasName(GCItems.COMPRESSED_STEEL), has(GCItems.COMPRESSED_STEEL))
                 .emiDefaultRecipe(true)
                 .save(output);
+
+        GCShapedRecipeBuilder.crafting(RecipeCategory.MISC, GCItems.DRONE_REMOTE_CONTROLLER)
+                .define('A', GCItems.COMPRESSED_ALUMINUM)
+                .define('G', ConventionalItemTags.GLASS_PANES_COLORLESS)
+                .define('W', GCItems.ADVANCED_WAFER)
+                .define('R', Items.REDSTONE)
+                .define('F', GCItems.FREQUENCY_MODULE)
+                .pattern("A A")
+                .pattern("FGF")
+                .pattern("RWR")
+                .unlockedBy(getHasName(GCItems.FREQUENCY_MODULE), has(GCItems.FREQUENCY_MODULE))
+                .emiDefaultRecipe(true)
+                .save(output);
         GCShapedRecipeBuilder.crafting(RecipeCategory.MISC, GCItems.OXYGEN_MASK)
                 .define('G', ConventionalItemTags.GLASS_PANES_COLORLESS)
                 .define('H', Items.IRON_HELMET)

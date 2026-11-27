@@ -109,6 +109,9 @@ public class GCDataComponents {
     public static final DataComponentType<VehicleConfiguration> VEHICLE_CONFIGURATION = register("vehicle_configuration", b -> b
             .persistent(VehicleConfiguration.CODEC)
             .networkSynchronized(VehicleConfiguration.STREAM_CODEC));
+    public static final DataComponentType<String> LINKED_DRONE_UUID = register("linked_drone_uuid", b -> b
+            .persistent(Codec.STRING)
+            .networkSynchronized(ByteBufCodecs.STRING_UTF8));
 
     private static <T> DataComponentType<T> register(String id, UnaryOperator<DataComponentType.Builder<T>> op) {
         return Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, APIConstants.id(id), op.apply(DataComponentType.builder()).build());

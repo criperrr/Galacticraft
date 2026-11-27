@@ -47,10 +47,20 @@ public final class VehicleRegistry {
     public static final ResourceLocation CHASSIS_UTILITY_BUGGY = APIConstants.id("utility_buggy_chassis");
     public static final ResourceLocation CHASSIS_HEAVY_HAULER = APIConstants.id("heavy_hauler_chassis");
 
+    // Phase 2 Rotorcraft & VTOL Chassis IDs (100% Electric)
+    public static final ResourceLocation CHASSIS_MICRO_DRONE = APIConstants.id("micro_drone_chassis");
+    public static final ResourceLocation CHASSIS_LIGHT_HELICOPTER = APIConstants.id("light_helicopter_chassis");
+    public static final ResourceLocation CHASSIS_HEAVY_VTOL = APIConstants.id("heavy_vtol_chassis");
+
     // Phase 1 Part IDs (individual wheels, electric traction motor, electric energy sources, seats, cargo, gauges)
     public static final ResourceLocation PART_STANDARD_WHEELS = APIConstants.id("standard_wheel_set");
     public static final ResourceLocation PART_HEAVY_TRACKS = APIConstants.id("heavy_tracks");
     public static final ResourceLocation PART_ROCKER_BOGIE_6X6 = APIConstants.id("rocker_bogie_6x6");
+
+    // Phase 2 Rotorcraft Lift & Electric Vacuum VTOL Thruster Parts
+    public static final ResourceLocation PART_COAXIAL_MARS_ROTOR = APIConstants.id("coaxial_mars_rotor");
+    public static final ResourceLocation PART_HEAVY_LIFT_ROTOR = APIConstants.id("heavy_lift_rotor");
+    public static final ResourceLocation PART_VTOL_THRUSTER = APIConstants.id("vtol_thruster");
 
     public static final ResourceLocation PART_BATTERY_BANK = APIConstants.id("battery_bank");
     public static final ResourceLocation PART_SOLAR_ARRAY = APIConstants.id("solar_array_module");
@@ -121,9 +131,54 @@ public final class VehicleRegistry {
     }
 
     /**
-     * Builds a ready-to-drive starter configuration for a given chassis (creative crates, commands, tests).
+     * Builds a ready-to-drive/fly starter configuration for a given chassis (creative crates, commands, tests).
      */
     public static @NotNull VehicleConfiguration createCompletePreset(@NotNull ResourceLocation chassisId) {
+        if (CHASSIS_MICRO_DRONE.equals(chassisId)) {
+            Map<String, ResourceLocation> parts = new LinkedHashMap<>();
+            parts.put("rotor_fl", PART_COAXIAL_MARS_ROTOR);
+            parts.put("rotor_fr", PART_COAXIAL_MARS_ROTOR);
+            parts.put("rotor_rl", PART_COAXIAL_MARS_ROTOR);
+            parts.put("rotor_rr", PART_COAXIAL_MARS_ROTOR);
+            parts.put("motor_main", PART_LOX_ENGINE);
+            parts.put("powerplant_main", PART_BATTERY_BANK);
+            parts.put("instrument_mast", PART_CAMERA_MAST);
+            return new VehicleConfiguration(CHASSIS_MICRO_DRONE, parts, 0xE6EAF0, 30_000L, 0L);
+        }
+        if (CHASSIS_LIGHT_HELICOPTER.equals(chassisId)) {
+            Map<String, ResourceLocation> parts = new LinkedHashMap<>();
+            parts.put("rotor_main", PART_HEAVY_LIFT_ROTOR);
+            parts.put("rotor_tail", PART_HEAVY_LIFT_ROTOR);
+            parts.put("motor_main", PART_LOX_ENGINE);
+            parts.put("powerplant_main", PART_BATTERY_BANK);
+            parts.put("seat_pilot", PART_PILOT_SEAT);
+            parts.put("seat_passenger", PART_PASSENGER_SEAT);
+            parts.put("cargo_rear", PART_CARGO_RACK);
+            parts.put("instrument_mast", PART_CAMERA_MAST);
+            parts.put("dash_left", PART_GAUGE_SPEEDOMETER);
+            parts.put("dash_center", PART_GAUGE_HORIZON);
+            parts.put("dash_right", PART_GAUGE_ATMOSPHERE);
+            return new VehicleConfiguration(CHASSIS_LIGHT_HELICOPTER, parts, 0x3B7AC7, 30_000L, 0L);
+        }
+        if (CHASSIS_HEAVY_VTOL.equals(chassisId)) {
+            Map<String, ResourceLocation> parts = new LinkedHashMap<>();
+            parts.put("rotor_fl", PART_HEAVY_LIFT_ROTOR);
+            parts.put("rotor_fr", PART_HEAVY_LIFT_ROTOR);
+            parts.put("rotor_rl", PART_HEAVY_LIFT_ROTOR);
+            parts.put("rotor_rr", PART_HEAVY_LIFT_ROTOR);
+            parts.put("motor_main", PART_LOX_ENGINE);
+            parts.put("powerplant_main", PART_RTG_CORE);
+            parts.put("powerplant_aux", PART_BATTERY_BANK);
+            parts.put("seat_pilot", PART_PILOT_SEAT);
+            parts.put("seat_passenger_left", PART_PASSENGER_SEAT);
+            parts.put("seat_passenger_right", PART_CREW_BENCH);
+            parts.put("cargo_rear", PART_HEAVY_CARGO_BAY);
+            parts.put("instrument_front", PART_DRILL_ARM);
+            parts.put("dash_left", PART_GAUGE_SPEEDOMETER);
+            parts.put("dash_center", PART_GAUGE_HORIZON);
+            parts.put("dash_right", PART_GAUGE_POWER);
+            return new VehicleConfiguration(CHASSIS_HEAVY_VTOL, parts, 0xD98B2B, 80_000L, 0L);
+        }
         if (CHASSIS_HEAVY_HAULER.equals(chassisId)) {
             Map<String, ResourceLocation> parts = new LinkedHashMap<>();
             parts.put("wheel_fl", PART_ROCKER_BOGIE_6X6);
@@ -174,6 +229,22 @@ public final class VehicleRegistry {
         parts.put("instrument_mast", PART_CAMERA_MAST);
         parts.put("dash_center", PART_GAUGE_SPEEDOMETER);
         return new VehicleConfiguration(CHASSIS_SCOUT_ROVER, parts, 0xE6EAF0, 30_000L, 0L);
+    }
+
+    /**
+     * Builds a vacuum-capable electric VTOL preset (fitted with {@link #PART_VTOL_THRUSTER} pods)
+     * ready to fly on airless worlds such as the Moon, Phobos, Mercury, or Asteroids.
+     */
+    public static @NotNull VehicleConfiguration createVacuumVtolPreset(@NotNull ResourceLocation chassisId) {
+        VehicleConfiguration base = createCompletePreset(chassisId);
+        VehicleChassisDefinition chassis = getChassisOrDefault(chassisId);
+        Map<String, ResourceLocation> swapped = new LinkedHashMap<>(base.installedParts());
+        for (VehicleHardpoint hp : chassis.hardpoints()) {
+            if (hp.type() == HardpointType.ROTOR) {
+                swapped.put(hp.id(), PART_VTOL_THRUSTER);
+            }
+        }
+        return new VehicleConfiguration(base.chassisId(), swapped, base.paintColor(), base.storedEnergy(), 0L);
     }
 
     private static void registerDefaults() {
@@ -262,6 +333,85 @@ public final class VehicleRegistry {
                 )
         ));
 
+        // 4. SMALL ROTORCRAFT: NASA Ingenuity / Mars Scout Electric Quadcopter Drone (2x2 crate, remote piloted)
+        registerChassis(new VehicleChassisDefinition(
+                CHASSIS_MICRO_DRONE,
+                "vehicle.galacticraft.chassis.micro_drone",
+                VehicleSizeClass.SMALL,
+                VehicleDomain.ROTORCRAFT,
+                68.0,
+                1.40,
+                false,
+                false,
+                List.of(
+                        new VehicleHardpoint("rotor_fl", HardpointType.ROTOR, -0.88, 0.70, 0.88, VehicleSizeClass.SMALL, true),
+                        new VehicleHardpoint("rotor_fr", HardpointType.ROTOR, 0.88, 0.70, 0.88, VehicleSizeClass.SMALL, true),
+                        new VehicleHardpoint("rotor_rl", HardpointType.ROTOR, -0.88, 0.70, -0.88, VehicleSizeClass.SMALL, true),
+                        new VehicleHardpoint("rotor_rr", HardpointType.ROTOR, 0.88, 0.70, -0.88, VehicleSizeClass.SMALL, true),
+                        new VehicleHardpoint("motor_main", HardpointType.MOTOR, 0.0, 0.34, 0.14, VehicleSizeClass.SMALL, true),
+                        new VehicleHardpoint("powerplant_main", HardpointType.POWERPLANT, 0.0, 0.34, -0.22, VehicleSizeClass.SMALL, true),
+                        new VehicleHardpoint("cargo_belly", HardpointType.CARGO, 0.0, 0.12, 0.0, VehicleSizeClass.SMALL, false),
+                        new VehicleHardpoint("instrument_mast", HardpointType.INSTRUMENT, 0.0, 0.68, 0.34, VehicleSizeClass.SMALL, false),
+                        new VehicleHardpoint("ai_core_slot", HardpointType.AI_CORE, 0.0, 0.68, -0.20, VehicleSizeClass.SMALL, false)
+                )
+        ));
+
+        // 5. MEDIUM ROTORCRAFT: NASA Atmospheric Pressurized Scout Helicopter (3x2 crate, 2 seats, retractable skids)
+        registerChassis(new VehicleChassisDefinition(
+                CHASSIS_LIGHT_HELICOPTER,
+                "vehicle.galacticraft.chassis.light_helicopter",
+                VehicleSizeClass.MEDIUM,
+                VehicleDomain.ROTORCRAFT,
+                480.0,
+                2.80,
+                false,
+                true,
+                List.of(
+                        new VehicleHardpoint("rotor_main", HardpointType.ROTOR, 0.0, 2.52, 0.05, VehicleSizeClass.MEDIUM, true),
+                        new VehicleHardpoint("rotor_tail", HardpointType.ROTOR, 0.24, 1.56, -3.45, VehicleSizeClass.MEDIUM, true),
+                        new VehicleHardpoint("motor_main", HardpointType.MOTOR, 0.0, 1.55, -0.78, VehicleSizeClass.MEDIUM, true),
+                        new VehicleHardpoint("powerplant_main", HardpointType.POWERPLANT, 0.0, 0.86, -0.95, VehicleSizeClass.MEDIUM, true),
+                        new VehicleHardpoint("seat_pilot", HardpointType.SEAT, -0.46, 0.80, 0.42, VehicleSizeClass.MEDIUM, true),
+                        new VehicleHardpoint("seat_passenger", HardpointType.SEAT, 0.46, 0.80, 0.42, VehicleSizeClass.MEDIUM, false),
+                        new VehicleHardpoint("cargo_rear", HardpointType.CARGO, 0.0, 0.82, -0.45, VehicleSizeClass.MEDIUM, false),
+                        new VehicleHardpoint("instrument_mast", HardpointType.INSTRUMENT, 0.0, 0.46, 1.62, VehicleSizeClass.SMALL, false),
+                        new VehicleHardpoint("dash_left", HardpointType.DASHBOARD, -0.52, 1.24, 1.28, VehicleSizeClass.SMALL, false),
+                        new VehicleHardpoint("dash_center", HardpointType.DASHBOARD, 0.0, 1.24, 1.28, VehicleSizeClass.SMALL, false),
+                        new VehicleHardpoint("dash_right", HardpointType.DASHBOARD, 0.52, 1.24, 1.28, VehicleSizeClass.SMALL, false),
+                        new VehicleHardpoint("ai_core_slot", HardpointType.AI_CORE, 0.0, 1.85, -0.42, VehicleSizeClass.SMALL, false)
+                )
+        ));
+
+        // 6. LARGE ROTORCRAFT: NASA Dragonfly Heavy Pressurized Cargo VTOL (4x3 crate, 3 seats, quad nacelles)
+        registerChassis(new VehicleChassisDefinition(
+                CHASSIS_HEAVY_VTOL,
+                "vehicle.galacticraft.chassis.heavy_vtol",
+                VehicleSizeClass.LARGE,
+                VehicleDomain.ROTORCRAFT,
+                1150.0,
+                4.10,
+                false,
+                true,
+                List.of(
+                        new VehicleHardpoint("rotor_fl", HardpointType.ROTOR, -2.35, 2.28, 1.72, VehicleSizeClass.LARGE, true),
+                        new VehicleHardpoint("rotor_fr", HardpointType.ROTOR, 2.35, 2.28, 1.72, VehicleSizeClass.LARGE, true),
+                        new VehicleHardpoint("rotor_rl", HardpointType.ROTOR, -2.35, 2.28, -1.72, VehicleSizeClass.LARGE, true),
+                        new VehicleHardpoint("rotor_rr", HardpointType.ROTOR, 2.35, 2.28, -1.72, VehicleSizeClass.LARGE, true),
+                        new VehicleHardpoint("motor_main", HardpointType.MOTOR, 0.0, 2.15, -0.45, VehicleSizeClass.LARGE, true),
+                        new VehicleHardpoint("powerplant_main", HardpointType.POWERPLANT, 0.0, 1.00, -1.55, VehicleSizeClass.LARGE, true),
+                        new VehicleHardpoint("powerplant_aux", HardpointType.POWERPLANT, 0.0, 2.58, -0.85, VehicleSizeClass.MEDIUM, false),
+                        new VehicleHardpoint("seat_pilot", HardpointType.SEAT, -0.58, 1.04, 1.48, VehicleSizeClass.LARGE, true),
+                        new VehicleHardpoint("seat_passenger_left", HardpointType.SEAT, 0.58, 1.04, 1.48, VehicleSizeClass.LARGE, false),
+                        new VehicleHardpoint("seat_passenger_right", HardpointType.SEAT, 0.0, 1.04, 0.62, VehicleSizeClass.LARGE, false),
+                        new VehicleHardpoint("cargo_rear", HardpointType.CARGO, 0.0, 0.96, -1.25, VehicleSizeClass.LARGE, false),
+                        new VehicleHardpoint("instrument_front", HardpointType.INSTRUMENT, 0.0, 0.72, 2.65, VehicleSizeClass.LARGE, false),
+                        new VehicleHardpoint("dash_left", HardpointType.DASHBOARD, -0.66, 1.56, 2.12, VehicleSizeClass.SMALL, false),
+                        new VehicleHardpoint("dash_center", HardpointType.DASHBOARD, 0.0, 1.56, 2.12, VehicleSizeClass.SMALL, false),
+                        new VehicleHardpoint("dash_right", HardpointType.DASHBOARD, 0.66, 1.56, 2.12, VehicleSizeClass.SMALL, false),
+                        new VehicleHardpoint("ai_core_slot", HardpointType.AI_CORE, 0.0, 2.58, 0.82, VehicleSizeClass.SMALL, false)
+                )
+        ));
+
         // Individual Wheel / Locomotion Units (installed wheel-by-wheel onto each hub!)
         registerPart(new VehiclePartDefinition(
                 PART_STANDARD_WHEELS, "item.galacticraft.standard_wheel_set",
@@ -277,6 +427,26 @@ public final class VehicleRegistry {
                 PART_ROCKER_BOGIE_6X6, "item.galacticraft.rocker_bogie_6x6",
                 HardpointType.LOCOMOTION, VehicleSizeClass.LARGE,
                 62.0, 1400.0, 0.44, 0.0, 0L, 0L, 0, null, 0.0, true, false, false
+        ));
+
+        // Phase 2 Rotorcraft Blades & Electric Vacuum VTOL Thrusters (100% Electric, fuelCapacity == 0)
+        registerPart(new VehiclePartDefinition(
+                PART_COAXIAL_MARS_ROTOR, "item.galacticraft.coaxial_mars_rotor",
+                HardpointType.ROTOR, VehicleSizeClass.SMALL,
+                12.0, 0.0, 0.72, 0.0, 0L, 0L, 0, null, 0.0, false, false, false,
+                7.0, 540.0, 0.0
+        ));
+        registerPart(new VehiclePartDefinition(
+                PART_HEAVY_LIFT_ROTOR, "item.galacticraft.heavy_lift_rotor",
+                HardpointType.ROTOR, VehicleSizeClass.MEDIUM,
+                45.0, 0.0, 0.66, 0.0, 0L, 0L, 0, null, 0.0, false, false, false,
+                16.0, 235.0, 0.0
+        ));
+        registerPart(new VehiclePartDefinition(
+                PART_VTOL_THRUSTER, "item.galacticraft.vtol_thruster",
+                HardpointType.ROTOR, VehicleSizeClass.SMALL,
+                38.0, 0.0, 0.78, 0.0, 0L, 0L, 0, null, 0.0, false, false, false,
+                0.0, 0.0, 5600.0
         ));
 
         // Electric Traction Motor (required in motor_main on every rover!)

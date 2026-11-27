@@ -788,9 +788,20 @@ public class GCCreativeModeTabs {
                 output.accept(GAUGE_ATMOSPHERE_O2);
                 output.accept(GAUGE_COMPASS_NAV);
                 output.accept(GAUGE_HORIZON_RADAR);
+                output.accept(DRONE_REMOTE_CONTROLLER);
+                output.accept(MICRO_DRONE_CHASSIS);
+                output.accept(LIGHT_HELICOPTER_CHASSIS);
+                output.accept(HEAVY_VTOL_CHASSIS);
+                output.accept(COAXIAL_MARS_ROTOR);
+                output.accept(HEAVY_LIFT_ROTOR);
+                output.accept(VTOL_THRUSTER);
                 output.accept(VehicleCrateItem.createCrate(VehicleRegistry.createCompletePreset(VehicleRegistry.CHASSIS_SCOUT_ROVER)));
                 output.accept(VehicleCrateItem.createCrate(VehicleRegistry.createCompletePreset(VehicleRegistry.CHASSIS_UTILITY_BUGGY)));
                 output.accept(VehicleCrateItem.createCrate(VehicleRegistry.createCompletePreset(VehicleRegistry.CHASSIS_HEAVY_HAULER)));
+                output.accept(VehicleCrateItem.createCrate(VehicleRegistry.createCompletePreset(VehicleRegistry.CHASSIS_MICRO_DRONE)));
+                output.accept(VehicleCrateItem.createCrate(VehicleRegistry.createCompletePreset(VehicleRegistry.CHASSIS_LIGHT_HELICOPTER)));
+                output.accept(VehicleCrateItem.createCrate(VehicleRegistry.createCompletePreset(VehicleRegistry.CHASSIS_HEAVY_VTOL)));
+                output.accept(VehicleCrateItem.createCrate(VehicleRegistry.createVacuumVtolPreset(VehicleRegistry.CHASSIS_LIGHT_HELICOPTER)));
 
                 // ARMOR
                 output.accept(HEAVY_DUTY_HELMET);

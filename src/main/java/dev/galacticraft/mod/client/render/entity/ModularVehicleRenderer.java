@@ -69,10 +69,16 @@ import java.util.Map;
  */
 public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity> {
     private static final ResourceLocation ATLAS_TEX = Constant.id("textures/entity/modular_vehicle_atlas.png");
+    private static final ResourceLocation ROTOR_BLUR_TEX = Constant.id("textures/entity/rotor_blur_disc.png");
     private static final ResourceLocation MODEL_APOLLO_LRV = Constant.id("models/vehicle/apollo_lrv.obj");
     private static final ResourceLocation MODEL_NASA_SEV = Constant.id("models/vehicle/nasa_sev.obj");
     private static final ResourceLocation MODEL_MARS_HABITAT = Constant.id("models/vehicle/mars_habitat_6x6.obj");
     private static final ResourceLocation MODEL_LUNAR_WHEEL = Constant.id("models/vehicle/lunar_wheel.obj");
+    private static final ResourceLocation MODEL_MICRO_DRONE = Constant.id("models/vehicle/micro_drone.obj");
+    private static final ResourceLocation MODEL_LIGHT_HELICOPTER = Constant.id("models/vehicle/light_helicopter.obj");
+    private static final ResourceLocation MODEL_HEAVY_VTOL = Constant.id("models/vehicle/heavy_vtol.obj");
+    private static final ResourceLocation MODEL_ROTOR_BLADES = Constant.id("models/vehicle/rotor_blades.obj");
+    private static final ResourceLocation MODEL_VTOL_THRUSTER = Constant.id("models/vehicle/vtol_thruster.obj");
 
     // MTS-style animation bindings per chassis
     private static final VehicleAnimationBinding STEER_LRV = new VehicleAnimationBinding("steering_wheel", VehicleAnimationBinding.Type.ROTATION, 0.0F, 1.06F, 0.36F, 0.0F, 0.0F, 1.0F, 3.2F);
@@ -80,7 +86,10 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
     private static final VehicleAnimationBinding STEER_MARS = new VehicleAnimationBinding("steering_wheel", VehicleAnimationBinding.Type.ROTATION, -0.68F, 1.82F, 1.74F, 0.0F, 0.0F, 1.0F, 3.2F);
     private static final VehicleAnimationBinding DOOR_LEFT_SEV = new VehicleAnimationBinding("door_left", VehicleAnimationBinding.Type.ROTATION, -1.26F, 1.28F, 1.81F, 0.0F, 1.0F, 0.0F, 55.0F);
     private static final VehicleAnimationBinding DOOR_RIGHT_SEV = new VehicleAnimationBinding("door_right", VehicleAnimationBinding.Type.ROTATION, 1.26F, 1.28F, 1.81F, 0.0F, 1.0F, 0.0F, -55.0F);
+    private static final VehicleAnimationBinding DOOR_LEFT_HELI = new VehicleAnimationBinding("door_left", VehicleAnimationBinding.Type.ROTATION, -1.02F, 1.15F, 1.16F, 0.0F, 1.0F, 0.0F, 55.0F);
+    private static final VehicleAnimationBinding DOOR_RIGHT_HELI = new VehicleAnimationBinding("door_right", VehicleAnimationBinding.Type.ROTATION, 1.02F, 1.15F, 1.16F, 0.0F, 1.0F, 0.0F, -55.0F);
     private static final VehicleAnimationBinding RAMP_MARS = new VehicleAnimationBinding("rear_ramp", VehicleAnimationBinding.Type.ROTATION, 0.0F, 1.30F, -2.68F, 1.0F, 0.0F, 0.0F, -82.0F);
+    private static final VehicleAnimationBinding RAMP_VTOL = new VehicleAnimationBinding("rear_ramp", VehicleAnimationBinding.Type.ROTATION, 0.0F, 0.85F, -2.68F, 1.0F, 0.0F, 0.0F, -80.0F);
 
     public ModularVehicleRenderer(EntityRendererProvider.Context context) {
         super(context);
@@ -100,17 +109,26 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
         float yaw = Mth.rotLerp(partialTick, entity.yRotO, entity.getYRot());
         poseStack.mulPose(Axis.YP.rotationDegrees(-yaw));
 
-        ResourceLocation modelLoc = switch (size) {
-            case SMALL -> MODEL_APOLLO_LRV;
-            case MEDIUM -> MODEL_NASA_SEV;
-            case LARGE -> MODEL_MARS_HABITAT;
-        };
+        boolean isRotorcraft = entity.isRotorcraft();
+        if (isRotorcraft) {
+            float pivotY = size == VehicleSizeClass.LARGE ? 1.45F : (size == VehicleSizeClass.MEDIUM ? 1.15F : 0.45F);
+            poseStack.translate(0.0F, pivotY, 0.0F);
+            poseStack.mulPose(Axis.XP.rotationDegrees(entity.clientPitch));
+            poseStack.mulPose(Axis.ZP.rotationDegrees(-entity.clientRoll));
+            poseStack.translate(0.0F, -pivotY, 0.0F);
+        }
+
+        ResourceLocation chassisId = chassis.id();
+        ResourceLocation modelLoc = resolveChassisModel(chassisId, size);
         ObjMeshModel chassisModel = ObjModelLoader.getOrLoad(modelLoc);
         VertexConsumer opaque = bufferSource.getBuffer(RenderType.entityCutoutNoCull(ATLAS_TEX));
 
         float steer = entity.getSteeringAngle();
         float doorOpen = entity.clientDoorProgress;
+        float gearProgress = entity.clientGearProgress;
         boolean headlights = entity.areHeadlightsOn();
+        boolean isLightHeli = VehicleRegistry.CHASSIS_LIGHT_HELICOPTER.equals(chassisId);
+        boolean isHeavyVtol = VehicleRegistry.CHASSIS_HEAVY_VTOL.equals(chassisId);
 
         // 1. Render all opaque Wavefront .obj groups with live MTS animation bindings
         for (Map.Entry<String, ObjMeshModel.Group> entry : chassisModel.groups().entrySet()) {
@@ -127,11 +145,14 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
                 };
                 bind.apply(poseStack, steer);
             } else if ("door_left".equals(name)) {
-                DOOR_LEFT_SEV.apply(poseStack, doorOpen);
+                (isLightHeli ? DOOR_LEFT_HELI : DOOR_LEFT_SEV).apply(poseStack, doorOpen);
             } else if ("door_right".equals(name)) {
-                DOOR_RIGHT_SEV.apply(poseStack, doorOpen);
+                (isLightHeli ? DOOR_RIGHT_HELI : DOOR_RIGHT_SEV).apply(poseStack, doorOpen);
             } else if ("rear_ramp".equals(name)) {
-                RAMP_MARS.apply(poseStack, doorOpen);
+                (isHeavyVtol ? RAMP_VTOL : RAMP_MARS).apply(poseStack, doorOpen);
+            } else if ("landing_gear".equals(name)) {
+                float retractY = gearProgress * (size == VehicleSizeClass.LARGE ? 0.54F : 0.40F);
+                poseStack.translate(0.0F, retractY, 0.0F);
             }
 
             int groupLight = packedLight;
@@ -147,9 +168,11 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
             poseStack.popPose();
         }
 
-        // 2. Render installed modular parts (wheel-by-wheel OBJ hubs, electric motor, batteries, seats, cargo, instruments)
+        // 2. Render installed modular parts (wheels, rotors, VTOL thrusters, motor, batteries, seats, cargo, instruments)
         float halfW = size == VehicleSizeClass.LARGE ? 1.55F : (size == VehicleSizeClass.MEDIUM ? 1.26F : 0.96F);
         float halfL = size == VehicleSizeClass.LARGE ? 3.05F : (size == VehicleSizeClass.MEDIUM ? 2.18F : 1.56F);
+        float rotorRpm = entity.getRotorRpm();
+        float rotorAngle = entity.clientRotorAngle + (float) (rotorRpm * (Math.PI / 600.0)) * partialTick;
         for (VehicleHardpoint hp : chassis.hardpoints()) {
             if (hp.type() == HardpointType.DASHBOARD) {
                 continue;
@@ -158,6 +181,8 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
             if (partId == null) {
                 if (hp.type() == HardpointType.LOCOMOTION) {
                     renderBareWheelAxle(poseStack, opaque, hp, halfW, packedLight);
+                } else if (hp.type() == HardpointType.ROTOR) {
+                    renderBareRotorMount(poseStack, opaque, hp, packedLight);
                 }
                 continue;
             }
@@ -165,7 +190,11 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
             if (part == null) {
                 continue;
             }
-            renderInstalledPart(poseStack, opaque, hp, part, size, halfW, halfL, entity.clientWheelSpin, steer, packedLight);
+            if (part.type() == HardpointType.ROTOR) {
+                renderInstalledRotorOrThruster(poseStack, opaque, hp, part, chassisId, rotorAngle, rotorRpm, entity.isEngineRunning(), packedLight);
+            } else {
+                renderInstalledPart(poseStack, opaque, hp, part, size, halfW, halfL, entity.clientWheelSpin, steer, packedLight);
+            }
         }
 
         // 3. Render MTS-style 128x128 layered analog/digital dial gauges + rotating needles
@@ -180,16 +209,32 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
         ObjMeshModel.Group doorLeftGlass = chassisModel.getGroup("door_left_glass");
         if (doorLeftGlass != null) {
             poseStack.pushPose();
-            DOOR_LEFT_SEV.apply(poseStack, doorOpen);
+            (isLightHeli ? DOOR_LEFT_HELI : DOOR_LEFT_SEV).apply(poseStack, doorOpen);
             doorLeftGlass.render(poseStack, glassConsumer, 1.0F, 1.0F, 1.0F, 1.0F, packedLight);
             poseStack.popPose();
         }
         ObjMeshModel.Group doorRightGlass = chassisModel.getGroup("door_right_glass");
         if (doorRightGlass != null) {
             poseStack.pushPose();
-            DOOR_RIGHT_SEV.apply(poseStack, doorOpen);
+            (isLightHeli ? DOOR_RIGHT_HELI : DOOR_RIGHT_SEV).apply(poseStack, doorOpen);
             doorRightGlass.render(poseStack, glassConsumer, 1.0F, 1.0F, 1.0F, 1.0F, packedLight);
             poseStack.popPose();
+        }
+
+        // 4b. Render translucent radial Rotor Blur Discs above 600 RPM (Sodium/Iris safe!)
+        if (isRotorcraft && rotorRpm >= ModularVehicleEntity.BLUR_DISC_RPM_THRESHOLD) {
+            float blurAlpha = Mth.clamp((rotorRpm - ModularVehicleEntity.BLUR_DISC_RPM_THRESHOLD) / 360.0F, 0.15F, 0.85F);
+            VertexConsumer blurConsumer = bufferSource.getBuffer(RenderType.entityTranslucent(ROTOR_BLUR_TEX));
+            for (VehicleHardpoint hp : chassis.hardpoints()) {
+                if (hp.type() != HardpointType.ROTOR) {
+                    continue;
+                }
+                ResourceLocation partId = cfg.getPart(hp.id());
+                if (partId == null || VehicleRegistry.PART_VTOL_THRUSTER.equals(partId)) {
+                    continue;
+                }
+                renderRotorBlurDisc(poseStack, blurConsumer, hp, chassisId, partId, rotorAngle, blurAlpha, packedLight);
+            }
         }
 
         // 5. Surgical per-slot 3D Raycast Holograms (bright highlight on exact aimed slot!)
@@ -297,6 +342,158 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
             }
         }
         ps.popPose();
+    }
+
+    private static ResourceLocation resolveChassisModel(ResourceLocation chassisId, VehicleSizeClass size) {
+        if (VehicleRegistry.CHASSIS_MICRO_DRONE.equals(chassisId)) {
+            return MODEL_MICRO_DRONE;
+        }
+        if (VehicleRegistry.CHASSIS_LIGHT_HELICOPTER.equals(chassisId)) {
+            return MODEL_LIGHT_HELICOPTER;
+        }
+        if (VehicleRegistry.CHASSIS_HEAVY_VTOL.equals(chassisId)) {
+            return MODEL_HEAVY_VTOL;
+        }
+        return switch (size) {
+            case SMALL -> MODEL_APOLLO_LRV;
+            case MEDIUM -> MODEL_NASA_SEV;
+            case LARGE -> MODEL_MARS_HABITAT;
+        };
+    }
+
+    private static float rotorScaleFor(ResourceLocation chassisId, String hardpointId) {
+        if (VehicleRegistry.CHASSIS_MICRO_DRONE.equals(chassisId)) {
+            return 0.56F;
+        }
+        if (VehicleRegistry.CHASSIS_LIGHT_HELICOPTER.equals(chassisId)) {
+            return "rotor_tail".equals(hardpointId) ? 0.52F : 2.25F;
+        }
+        if (VehicleRegistry.CHASSIS_HEAVY_VTOL.equals(chassisId)) {
+            return 1.48F;
+        }
+        return 1.0F;
+    }
+
+    private void renderBareRotorMount(PoseStack ps, VertexConsumer c, VehicleHardpoint hp, int light) {
+        float x = (float) hp.localX();
+        float y = (float) hp.localY();
+        float z = (float) hp.localZ();
+        drawAtlasBox(ps, c, 2, 0, x - 0.12F, y - 0.06F, z - 0.12F, x + 0.12F, y + 0.10F, z + 0.12F, light);
+        drawAtlasBox(ps, c, 1, 0, x - 0.06F, y + 0.10F, z - 0.06F, x + 0.06F, y + 0.18F, z + 0.06F, light);
+    }
+
+    private void renderInstalledRotorOrThruster(
+            PoseStack ps, VertexConsumer c,
+            VehicleHardpoint hp, VehiclePartDefinition part,
+            ResourceLocation chassisId,
+            float rotorAngle, float rotorRpm, boolean engineOn, int light
+    ) {
+        ps.pushPose();
+        ps.translate(hp.localX(), hp.localY(), hp.localZ());
+        boolean isTail = "rotor_tail".equals(hp.id());
+
+        if (VehicleRegistry.PART_VTOL_THRUSTER.equals(part.id())) {
+            ObjMeshModel thruster = ObjModelLoader.getOrLoad(MODEL_VTOL_THRUSTER);
+            float tScale = VehicleRegistry.CHASSIS_HEAVY_VTOL.equals(chassisId) ? 1.32F
+                    : (VehicleRegistry.CHASSIS_MICRO_DRONE.equals(chassisId) ? 0.72F : 1.02F);
+            if (isTail) {
+                ps.mulPose(Axis.ZP.rotationDegrees(-90.0F));
+                tScale *= 0.65F;
+            }
+            ps.scale(tScale, tScale, tScale);
+            ObjMeshModel.Group housing = thruster.getGroup("housing");
+            if (housing != null) {
+                housing.render(ps, c, 1.0F, 1.0F, 1.0F, 1.0F, light);
+            }
+            ObjMeshModel.Group plasma = thruster.getGroup("plasma_ring");
+            if (plasma != null) {
+                boolean active = engineOn && rotorRpm > 120.0F;
+                float glow = active ? 1.0F : 0.35F;
+                plasma.render(ps, c, glow, glow, glow, 1.0F, active ? LightTexture.FULL_BRIGHT : light);
+            }
+            ps.popPose();
+            return;
+        }
+
+        ObjMeshModel rotorObj = ObjModelLoader.getOrLoad(MODEL_ROTOR_BLADES);
+        float scale = rotorScaleFor(chassisId, hp.id());
+        if (isTail) {
+            ps.mulPose(Axis.ZP.rotationDegrees(-90.0F));
+        }
+        ps.scale(scale, scale, scale);
+
+        ObjMeshModel.Group hub = rotorObj.getGroup("hub");
+        if (hub != null) {
+            hub.render(ps, c, 1.0F, 1.0F, 1.0F, 1.0F, light);
+        }
+
+        // Counter-rotating direction per corner for quadcopters / VTOLs
+        float dir = (hp.id().endsWith("_fr") || hp.id().endsWith("_rl")) ? -1.0F : 1.0F;
+        if (VehicleRegistry.PART_COAXIAL_MARS_ROTOR.equals(part.id())) {
+            ObjMeshModel.Group lower = rotorObj.getGroup("blades_lower");
+            if (lower != null) {
+                ps.pushPose();
+                ps.mulPose(Axis.YP.rotation(rotorAngle * dir));
+                lower.render(ps, c, 1.0F, 1.0F, 1.0F, 1.0F, light);
+                ps.popPose();
+            }
+            ObjMeshModel.Group upper = rotorObj.getGroup("blades_upper");
+            if (upper != null) {
+                ps.pushPose();
+                ps.mulPose(Axis.YP.rotation(-rotorAngle * dir));
+                upper.render(ps, c, 1.0F, 1.0F, 1.0F, 1.0F, light);
+                ps.popPose();
+            }
+        } else {
+            ObjMeshModel.Group heavy = rotorObj.getGroup("blades_heavy");
+            if (heavy != null) {
+                ps.pushPose();
+                ps.mulPose(Axis.YP.rotation(rotorAngle * dir));
+                heavy.render(ps, c, 1.0F, 1.0F, 1.0F, 1.0F, light);
+                ps.popPose();
+            }
+        }
+        ps.popPose();
+    }
+
+    private void renderRotorBlurDisc(
+            PoseStack ps, VertexConsumer c,
+            VehicleHardpoint hp, ResourceLocation chassisId, ResourceLocation partId,
+            float rotorAngle, float alpha, int light
+    ) {
+        float scale = rotorScaleFor(chassisId, hp.id());
+        float radius = (VehicleRegistry.PART_HEAVY_LIFT_ROTOR.equals(partId) ? 1.24F : 1.06F) * scale;
+        boolean isTail = "rotor_tail".equals(hp.id());
+
+        ps.pushPose();
+        ps.translate(hp.localX(), hp.localY(), hp.localZ());
+        if (isTail) {
+            ps.mulPose(Axis.ZP.rotationDegrees(-90.0F));
+        }
+        ps.translate(0.0F, 0.075F * scale, 0.0F);
+        ps.mulPose(Axis.YP.rotation(rotorAngle * 0.35F));
+        drawBlurDiscQuad(ps, c, radius, alpha, light);
+        if (VehicleRegistry.PART_COAXIAL_MARS_ROTOR.equals(partId)) {
+            ps.translate(0.0F, 0.10F * scale, 0.0F);
+            ps.mulPose(Axis.YP.rotation(-rotorAngle * 0.70F));
+            drawBlurDiscQuad(ps, c, radius, alpha * 0.85F, light);
+        }
+        ps.popPose();
+    }
+
+    private static void drawBlurDiscQuad(PoseStack ps, VertexConsumer c, float r, float a, int light) {
+        Matrix4f m = ps.last().pose();
+        PoseStack.Pose pose = ps.last();
+        // Top face (+Y)
+        c.addVertex(m, -r, 0.0F, r).setColor(1.0F, 1.0F, 1.0F, a).setUv(0.0F, 1.0F).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(pose, 0, 1, 0);
+        c.addVertex(m, r, 0.0F, r).setColor(1.0F, 1.0F, 1.0F, a).setUv(1.0F, 1.0F).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(pose, 0, 1, 0);
+        c.addVertex(m, r, 0.0F, -r).setColor(1.0F, 1.0F, 1.0F, a).setUv(1.0F, 0.0F).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(pose, 0, 1, 0);
+        c.addVertex(m, -r, 0.0F, -r).setColor(1.0F, 1.0F, 1.0F, a).setUv(0.0F, 0.0F).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(pose, 0, 1, 0);
+        // Bottom face (-Y) so disc is visible from below too
+        c.addVertex(m, -r, 0.0F, -r).setColor(1.0F, 1.0F, 1.0F, a).setUv(0.0F, 0.0F).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(pose, 0, -1, 0);
+        c.addVertex(m, r, 0.0F, -r).setColor(1.0F, 1.0F, 1.0F, a).setUv(1.0F, 0.0F).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(pose, 0, -1, 0);
+        c.addVertex(m, r, 0.0F, r).setColor(1.0F, 1.0F, 1.0F, a).setUv(1.0F, 1.0F).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(pose, 0, -1, 0);
+        c.addVertex(m, -r, 0.0F, r).setColor(1.0F, 1.0F, 1.0F, a).setUv(0.0F, 1.0F).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(pose, 0, -1, 0);
     }
 
     private void renderBareWheelAxle(PoseStack ps, VertexConsumer c, VehicleHardpoint hp, float halfW, int light) {

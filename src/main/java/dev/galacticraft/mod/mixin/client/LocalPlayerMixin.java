@@ -28,6 +28,7 @@ import dev.galacticraft.api.entity.ControllableEntity;
 import dev.galacticraft.api.entity.IgnoreShift;
 import dev.galacticraft.api.universe.celestialbody.CelestialBody;
 import dev.galacticraft.mod.client.render.astro.ClientTelescopeController;
+import dev.galacticraft.mod.client.render.vehicle.ClientDroneRemoteController;
 import dev.galacticraft.mod.content.entity.vehicle.AbstractLanderEntity;
 import dev.galacticraft.mod.content.entity.vehicle.AdvancedVehicle;
 import dev.galacticraft.mod.content.entity.vehicle.ModularRocketFlightEntity;
@@ -81,7 +82,7 @@ public abstract class LocalPlayerMixin extends AbstractClientPlayer {
 
     @Inject(method = "aiStep", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/AbstractClientPlayer;aiStep()V"))
     private void gc$handleZeroGPreTravel(CallbackInfo ci) {
-        if (ClientTelescopeController.isActive()) {
+        if (ClientTelescopeController.isActive() || ClientDroneRemoteController.isActive()) {
             this.input.forwardImpulse = 0.0F;
             this.input.leftImpulse = 0.0F;
             this.input.up = false;

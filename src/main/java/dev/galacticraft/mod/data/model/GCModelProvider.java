@@ -1015,6 +1015,15 @@ public class GCModelProvider extends FabricModelProvider {
         generator.generateFlatItem(GCItems.GAUGE_COMPASS_NAV, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(GCItems.GAUGE_HORIZON_RADAR, ModelTemplates.FLAT_ITEM);
 
+        // MODULAR VEHICLES (PHASE 2 ROTORCRAFT) — bespoke 16x16 Jappa-style textures
+        generator.generateFlatItem(GCItems.DRONE_REMOTE_CONTROLLER, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.MICRO_DRONE_CHASSIS, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.LIGHT_HELICOPTER_CHASSIS, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.HEAVY_VTOL_CHASSIS, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.COAXIAL_MARS_ROTOR, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.HEAVY_LIFT_ROTOR, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(GCItems.VTOL_THRUSTER, ModelTemplates.FLAT_ITEM);
+
         // MATERIALS
         generator.generateFlatItem(GCItems.SILICON, ModelTemplates.FLAT_ITEM);
 
