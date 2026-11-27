@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "minecraft:coal_block"
+    },
+    "I": {
+      "item": "galacticraft:compressed_iron"
+    },
+    "P": {
+      "item": "minecraft:piston"
+    },
+    "S": {
+      "item": "galacticraft:compressed_steel"
+    },
+    "W": {
+      "item": "galacticraft:basic_wafer"
+    }
+  },
+  "pattern": [
+    "PWS",
+    "ICI",
+    "S S"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:wheel_locomotion_bench"
+  }
+}
