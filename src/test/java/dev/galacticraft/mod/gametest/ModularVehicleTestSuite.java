@@ -30,13 +30,17 @@ import dev.galacticraft.mod.content.GCEntityTypes;
 import dev.galacticraft.mod.content.block.entity.VehiclePartFabricatorBlockEntity;
 import dev.galacticraft.mod.content.entity.vehicle.ModularVehicleEntity;
 import dev.galacticraft.mod.content.entity.vehicle.RocketEntity;
+import dev.galacticraft.mod.content.item.DroneRemoteControllerItem;
 import dev.galacticraft.mod.content.item.GCItems;
 import dev.galacticraft.mod.content.item.VehicleCrateItem;
+import dev.galacticraft.mod.content.rocket.physics.PlanetaryEnvironment;
 import dev.galacticraft.mod.content.vehicle.RocketCargoGrid;
+import dev.galacticraft.mod.content.vehicle.VehicleFabricatorRecipes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestAssertException;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -237,6 +241,139 @@ public class ModularVehicleTestSuite implements GalacticraftGameTest {
                 || !accBe.getInventory().getItem(VehiclePartFabricatorBlockEntity.OUTPUT_SLOT).is(GCItems.GAUGE_SPEEDOMETER)) {
             throw new GameTestAssertException("Accessories bench failed to craft Speedometer Gauge");
         }
+
+        // Phase 2 Rotorcraft blueprints also respect bench specialization
+        chassisBe.getInventory().setItem(VehiclePartFabricatorBlockEntity.OUTPUT_SLOT, ItemStack.EMPTY);
+        motorBe.getInventory().setItem(VehiclePartFabricatorBlockEntity.OUTPUT_SLOT, ItemStack.EMPTY);
+        wheelBe.getInventory().setItem(VehiclePartFabricatorBlockEntity.OUTPUT_SLOT, ItemStack.EMPTY);
+        accBe.getInventory().setItem(VehiclePartFabricatorBlockEntity.OUTPUT_SLOT, ItemStack.EMPTY);
+
+        if (!chassisBe.tryFabricate(creative, VehicleRegistry.CHASSIS_MICRO_DRONE)
+                || !chassisBe.getInventory().getItem(VehiclePartFabricatorBlockEntity.OUTPUT_SLOT).is(GCItems.MICRO_DRONE_CHASSIS)) {
+            throw new GameTestAssertException("Chassis bench failed to craft Micro-Drone chassis");
+        }
+        if (!motorBe.tryFabricate(creative, VehicleRegistry.PART_VTOL_THRUSTER)
+                || !motorBe.getInventory().getItem(VehiclePartFabricatorBlockEntity.OUTPUT_SLOT).is(GCItems.VTOL_THRUSTER)) {
+            throw new GameTestAssertException("Electric motor bench failed to craft Electric VTOL Thruster");
+        }
+        if (!wheelBe.tryFabricate(creative, VehicleRegistry.PART_COAXIAL_MARS_ROTOR)
+                || !wheelBe.getInventory().getItem(VehiclePartFabricatorBlockEntity.OUTPUT_SLOT).is(GCItems.COAXIAL_MARS_ROTOR)) {
+            throw new GameTestAssertException("Locomotion bench failed to craft Coaxial Mars Rotor");
+        }
+        if (!accBe.tryFabricate(creative, VehicleFabricatorRecipes.TOOL_DRONE_REMOTE)
+                || !accBe.getInventory().getItem(VehiclePartFabricatorBlockEntity.OUTPUT_SLOT).is(GCItems.DRONE_REMOTE_CONTROLLER)) {
+            throw new GameTestAssertException("Accessories bench failed to craft Drone Remote Controller");
+        }
+
+        helper.succeed();
+    }
+
+    @GameTest(template = EMPTY_STRUCTURE)
+    public void remoteDronePairsAndFliesInAtmosphere(GameTestHelper helper) {
+        ModularVehicleEntity drone = GCEntityTypes.MODULAR_VEHICLE.create(helper.getLevel());
+        if (drone == null) {
+            throw new GameTestAssertException("Failed to create ModularVehicleEntity for Micro-Drone");
+        }
+        BlockPos spawnPos = helper.absolutePos(new BlockPos(2, 2, 2));
+        drone.setPos(spawnPos.getX() + 0.5, spawnPos.getY() + 0.1, spawnPos.getZ() + 0.5);
+        drone.setConfiguration(VehicleRegistry.createCompletePreset(VehicleRegistry.CHASSIS_MICRO_DRONE));
+        helper.getLevel().addFreshEntity(drone);
+
+        Player player = helper.makeMockPlayer(GameType.SURVIVAL);
+        player.setPos(spawnPos.getX() + 0.5, spawnPos.getY(), spawnPos.getZ() - 2.0);
+        ItemStack remote = new ItemStack(GCItems.DRONE_REMOTE_CONTROLLER);
+        player.setItemInHand(InteractionHand.MAIN_HAND, remote);
+
+        // Right-clicking drone with remote pairs its UUID
+        drone.interact(player, InteractionHand.MAIN_HAND);
+        if (!drone.getUUID().equals(DroneRemoteControllerItem.getLinkedDroneUuid(remote))) {
+            throw new GameTestAssertException("Drone Remote Controller failed to pair with Micro-Drone UUID");
+        }
+        if (DroneRemoteControllerItem.findLinkedDrone(helper.getLevel(), player, remote) != drone) {
+            throw new GameTestAssertException("findLinkedDrone did not resolve paired Micro-Drone within range");
+        }
+
+        double startY = drone.getY();
+        long startEnergy = drone.getConfiguration().storedEnergy();
+        for (int t = 0; t < 28; t++) {
+            drone.applyRemoteControlInput(player, 0.85F, 0.0F, 3.0F, 1.0F, false, false);
+            drone.tick();
+        }
+
+        if (drone.getY() <= startY + 1.5) {
+            throw new GameTestAssertException("Expected Micro-Drone to climb > 1.5 blocks in Earth atmosphere, deltaY=" + (drone.getY() - startY));
+        }
+        if (drone.getRotorRpm() < ModularVehicleEntity.BLUR_DISC_RPM_THRESHOLD) {
+            throw new GameTestAssertException("Expected rotor RPM >= 600 in flight, got " + drone.getRotorRpm());
+        }
+        if (drone.getCyclicPitchDeg() <= 5.0F) {
+            throw new GameTestAssertException("Expected forward cyclic pitch tilt > 5 deg, got " + drone.getCyclicPitchDeg());
+        }
+        if (drone.getConfiguration().storedEnergy() >= startEnergy) {
+            throw new GameTestAssertException("Expected electric Micro-Drone to consume battery energy during flight");
+        }
+
+        drone.discard();
+        helper.succeed();
+    }
+
+    @GameTest(template = EMPTY_STRUCTURE)
+    public void moonVacuumBlocksAeroRotorAndAllowsVtolThruster(GameTestHelper helper) {
+        Player player = helper.makeMockPlayer(GameType.SURVIVAL);
+        BlockPos basePos = helper.absolutePos(new BlockPos(2, 2, 2));
+
+        // 1. Aerodynamic rotor drone in Moon vacuum (0.0 atm): MUST be blocked (zero upward lift)
+        ModularVehicleEntity aeroDrone = GCEntityTypes.MODULAR_VEHICLE.create(helper.getLevel());
+        if (aeroDrone == null) {
+            throw new GameTestAssertException("Failed to create aerodynamic drone");
+        }
+        aeroDrone.setPos(basePos.getX() + 0.5, basePos.getY() + 0.1, basePos.getZ() + 0.5);
+        aeroDrone.setOnGround(true);
+        aeroDrone.setEnvironmentForTest(PlanetaryEnvironment.MOON);
+        aeroDrone.setConfiguration(VehicleRegistry.createCompletePreset(VehicleRegistry.CHASSIS_MICRO_DRONE));
+        helper.getLevel().addFreshEntity(aeroDrone);
+
+        double aeroStartY = aeroDrone.getY();
+        for (int t = 0; t < 25; t++) {
+            aeroDrone.applyRemoteControlInput(player, 0.0F, 0.0F, 0.0F, 1.0F, false, false);
+            aeroDrone.tick();
+        }
+        if (aeroDrone.getY() > aeroStartY + 0.1) {
+            throw new GameTestAssertException("Aerodynamic drone without VTOL_THRUSTER must NOT lift off in Moon vacuum, deltaY=" + (aeroDrone.getY() - aeroStartY));
+        }
+
+        // 2. Same aerodynamic Mars-coaxial drone on Mars (0.006 atm, 0.38g): MUST climb cleanly!
+        aeroDrone.setEnvironmentForTest(PlanetaryEnvironment.MARS);
+        double marsStartY = aeroDrone.getY();
+        for (int t = 0; t < 28; t++) {
+            aeroDrone.applyRemoteControlInput(player, 0.0F, 0.0F, 0.0F, 1.0F, false, false);
+            aeroDrone.tick();
+        }
+        if (aeroDrone.getY() <= marsStartY + 1.2) {
+            throw new GameTestAssertException("Mars Coaxial Micro-Drone should lift off in Mars thin atmosphere, deltaY=" + (aeroDrone.getY() - marsStartY));
+        }
+        aeroDrone.discard();
+
+        // 3. Electric VTOL_THRUSTER drone in Moon vacuum (0.0 atm): MUST take off smoothly!
+        ModularVehicleEntity vtolDrone = GCEntityTypes.MODULAR_VEHICLE.create(helper.getLevel());
+        if (vtolDrone == null) {
+            throw new GameTestAssertException("Failed to create VTOL thruster drone");
+        }
+        vtolDrone.setPos(basePos.getX() + 3.5, basePos.getY() + 0.1, basePos.getZ() + 0.5);
+        vtolDrone.setOnGround(true);
+        vtolDrone.setEnvironmentForTest(PlanetaryEnvironment.MOON);
+        vtolDrone.setConfiguration(VehicleRegistry.createVacuumVtolPreset(VehicleRegistry.CHASSIS_MICRO_DRONE));
+        helper.getLevel().addFreshEntity(vtolDrone);
+
+        double vtolStartY = vtolDrone.getY();
+        for (int t = 0; t < 28; t++) {
+            vtolDrone.applyRemoteControlInput(player, 0.0F, 0.0F, 0.0F, 1.0F, false, false);
+            vtolDrone.tick();
+        }
+        if (vtolDrone.getY() <= vtolStartY + 1.5) {
+            throw new GameTestAssertException("Electric VTOL_THRUSTER drone failed to climb in Moon vacuum, deltaY=" + (vtolDrone.getY() - vtolStartY));
+        }
+        vtolDrone.discard();
 
         helper.succeed();
     }
