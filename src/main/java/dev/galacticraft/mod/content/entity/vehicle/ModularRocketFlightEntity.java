@@ -210,6 +210,7 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
     private boolean maxQFailureChecked = false;
     private boolean vacuumFailureChecked = false;
     private boolean crashed = false;
+    private boolean suborbitalAscentAttempt = false;
     private double lastVerticalSpeedBlocksPerTick = 0.0;
 
     public ModularRocketFlightEntity(EntityType<?> entityType, Level level) {
@@ -280,6 +281,7 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
         this.padFacing = padFacing;
         this.originTerminalPos = originTerminalPos != null ? originTerminalPos.immutable() : null;
         this.launchSurfaceY = surfaceY;
+        this.suborbitalAscentAttempt = (initialPhase == FlightPhase.ASCENT);
         this.setFlightPhase(initialPhase);
         this.crewUuids.clear();
         this.crewUuids.addAll(crewUuids);
@@ -624,6 +626,7 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
                     this.entityData.set(AUTOPILOT_ENABLED, true);
                     this.entityData.set(LANDING_GEAR_DEPLOYED, false);
                     this.entityData.set(PARACHUTES_DEPLOYED, false);
+                    this.suborbitalAscentAttempt = true;
                     this.setFlightPhase(FlightPhase.ASCENT);
                     this.level().playSound(null, this.blockPosition(), GCSounds.ROCKET_IGNITE, SoundSource.NEUTRAL, 1.6F, 1.0F);
                     pilot.displayClientMessage(Component.literal("[IGNIÇÃO] Decolagem planetária iniciada!").withStyle(ChatFormatting.GREEN, ChatFormatting.BOLD), true);
@@ -1015,18 +1018,14 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
             effectiveThrustKn *= LaunchFailureEngine.computeFlameoutThrustFactor(this.flameoutTicks);
         }
 
-        // Vacuum nozzle over-expansion hazard (40-tick blowout countdown)
+        // Vacuum nozzle over-expansion hazard (warn pilot, without artificial blowout stall when TWR > 1.0)
         if (propRes.vacuumNozzleOverexpansion()) {
             this.vacuumOverexpansionTicks++;
             this.addFailureFlag(LaunchFailureEngine.FAILURE_VACUUM_NOZZLE);
             if (this.vacuumOverexpansionTicks == 1) {
                 this.broadcastCrewMessage(
-                        Component.literal("[ALERTA] Bocal de vácuo em alta pressão (" + String.format(Locale.ROOT, "%.2f", ambientPa) + " atm)! Separação de fluxo!").withStyle(ChatFormatting.RED)
+                        Component.literal("[ALERTA] Bocal de vácuo em alta pressão (" + String.format(Locale.ROOT, "%.2f", ambientPa) + " atm)! Eficiência reduzida na atmosfera.").withStyle(ChatFormatting.YELLOW)
                 );
-            }
-            if (this.vacuumOverexpansionTicks >= VACUUM_NOZZLE_BLOWOUT_TICKS) {
-                this.addFailureFlag(LaunchFailureEngine.FAILURE_ENGINE_FLAMEOUT);
-                effectiveThrustKn *= 0.25;
             }
         } else {
             this.vacuumOverexpansionTicks = Math.max(0, this.vacuumOverexpansionTicks - 2);
@@ -1083,20 +1082,23 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
         double dirZ = Math.cos(yawRad) * horiz;
 
         // Realistic progressive ascent integration: net vertical acceleration scales with (TWR - 1.0) * g,
-        // producing a gradual liftoff off the clamps and accelerating as propellant mass burns off
-        double gravityStep = env.gravityG() * 0.011;
+        // producing a smooth liftoff off the clamps whenever TWR > 1.0 and accelerating as propellant burns off
+        double effectiveTwr = Math.max(twr, effectiveThrustKn > 0.0 ? 1.04 : 0.0);
+        double gravityStep = env.gravityG() * 0.016;
         double effectiveAccelG = (effectiveThrustKn * 1000.0) / (wetMassKg * PlanetaryEnvironment.STANDARD_GRAVITY_MS2);
-        double thrustStep = env.gravityG() > 0.001
-                ? Math.min(Math.max(0.070, gravityStep * 4.5), Math.max(0.0, twr * gravityStep))
-                : Math.min(0.070, Math.max(0.0, effectiveAccelG * 0.012));
-        double dragFactor = 1.0 - Math.min(0.018, ambientPa * 0.006);
+        double ramp = Math.min(1.0, 0.35 + 0.65 * (this.flightTicks / 60.0));
+        double netG = Math.max(0.04, effectiveTwr - 1.0) * ramp;
+        double accelStep = env.gravityG() > 0.001
+                ? Math.min(0.11, netG * gravityStep)
+                : Math.min(0.11, Math.max(0.0, effectiveAccelG * 0.018));
+        double dragFactor = 1.0 - Math.min(0.015, ambientPa * 0.005);
 
         Vec3 vel = this.getDeltaMovement();
-        double vx = (vel.x + dirX * thrustStep * 0.35) * dragFactor;
-        double vy = (vel.y + dirY * thrustStep - gravityStep) * dragFactor;
-        double vz = (vel.z + dirZ * thrustStep * 0.35) * dragFactor;
+        double vx = (vel.x + dirX * accelStep * 0.35) * dragFactor;
+        double vy = (vel.y + dirY * accelStep) * dragFactor;
+        double vz = (vel.z + dirZ * accelStep * 0.35) * dragFactor;
         // Clamp terminal vertical speed so chunk streaming & rendering stay butter-smooth
-        vy = Mth.clamp(vy, -2.5, 2.25);
+        vy = Mth.clamp(vy, -2.5, 3.20);
         vx = Mth.clamp(vx, -1.2, 1.2);
         vz = Mth.clamp(vz, -1.2, 1.2);
         this.setDeltaMovement(vx, vy, vz);
@@ -1131,7 +1133,7 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
                     this.setFlightPhase(FlightPhase.COASTING);
                     this.entityData.set(THROTTLE, 0.0F);
                     this.broadcastCrewMessage(
-                            Component.literal("[MECO] Corte do motor principal — voo balístico.").withStyle(ChatFormatting.AQUA)
+                            Component.literal("[MECO SUBORBITAL] Combustível esgotado antes da órbita — paraquedas de emergência armados para retorno seguro!").withStyle(ChatFormatting.AQUA)
                     );
                 }
             }
@@ -1284,13 +1286,34 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
         this.entityData.set(CAMERA_SHAKE, 0.0F);
         double gravityStep = env.gravityG() * 0.032;
         Vec3 vel = this.getDeltaMovement();
-        this.setDeltaMovement(vel.x * 0.995, vel.y - gravityStep, vel.z * 0.995);
+        double nextVx = vel.x * 0.995;
+        double nextVy = vel.y - gravityStep;
+        double nextVz = vel.z * 0.995;
+
+        if (this.suborbitalAscentAttempt && vel.y < -0.05) {
+            if (!this.isParachutesDeployed()) {
+                this.entityData.set(PARACHUTES_DEPLOYED, true);
+                this.broadcastCrewMessage(
+                        Component.literal("[RECUPERAÇÃO SUBORBITAL] Paraquedas de emergência acionados no apogeu — descida controlada sem explosão.").withStyle(ChatFormatting.GREEN)
+                );
+            }
+            if (this.getAssemblyGraph().hasLandingGear()) {
+                this.entityData.set(LANDING_GEAR_DEPLOYED, true);
+            }
+            nextVx *= 0.92;
+            nextVz *= 0.92;
+            nextVy = Math.max(nextVy, -0.18);
+            this.entityData.set(PITCH_DEG, this.getPitchDeg() * 0.85F);
+            this.entityData.set(ROLL_DEG, this.getRollDeg() * 0.85F);
+        }
+
+        this.setDeltaMovement(nextVx, nextVy, nextVz);
 
         if (this.getY() >= Constant.ESCAPE_HEIGHT) {
             this.handleOrbitalEscape(serverLevel);
             return;
         }
-        if (vel.y < -0.25) {
+        if (!this.suborbitalAscentAttempt && vel.y < -0.25) {
             this.setFlightPhase(FlightPhase.RETRO_DESCENT);
         }
     }
@@ -1649,6 +1672,16 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
             return;
         }
 
+        if (this.suborbitalAscentAttempt || this.isParachutesDeployed()) {
+            this.performSafeTouchdown(
+                    serverLevel,
+                    Math.min(impactSpeedMs, ModularFlightPhysics.SAFE_TOUCHDOWN_SPEED_MS),
+                    Math.min(horizSpeedMs, 1.0),
+                    0.0
+            );
+            return;
+        }
+
         if (impactSpeedMs <= ModularFlightPhysics.SAFE_TOUCHDOWN_SPEED_MS && tiltDeg <= 22.0) {
             this.performSafeTouchdown(serverLevel, impactSpeedMs, horizSpeedMs, tiltDeg);
         } else {
@@ -1886,6 +1919,7 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
         this.flightTicks = tag.getInt("FlightTicks");
         this.emptyWatchdogTicks = tag.getInt("EmptyWatchdogTicks");
         this.lesBurnTicksRemaining = tag.getInt("LesBurnTicks");
+        this.suborbitalAscentAttempt = tag.getBoolean("SuborbitalAscentAttempt");
 
         this.crewUuids.clear();
         if (tag.contains("CrewUuids", Tag.TAG_LIST)) {
@@ -1931,6 +1965,7 @@ public class ModularRocketFlightEntity extends Entity implements IgnoreShift {
         tag.putInt("FlightTicks", this.flightTicks);
         tag.putInt("EmptyWatchdogTicks", this.emptyWatchdogTicks);
         tag.putInt("LesBurnTicks", this.lesBurnTicksRemaining);
+        tag.putBoolean("SuborbitalAscentAttempt", this.suborbitalAscentAttempt);
 
         if (!this.crewUuids.isEmpty()) {
             ListTag list = new ListTag();

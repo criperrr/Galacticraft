@@ -199,7 +199,8 @@ public class ModularFlightPhysicsTest {
 
     @Test
     void testRebalancedBurnDurationAndSolidCoreDepletion() {
-        // 1-tank 3x3 RP-1 stage depletes in < 400 ticks (~15-18s), while 2-tank SSTO burns > 500 ticks (~28-32s)
+        assertEquals(1.00, ModularFlightPhysics.MIN_LIFTOFF_TWR, 1.0e-6, "MIN_LIFTOFF_TWR must allow liftoff whenever TWR > 1.0");
+        // 1-tank 3x3 RP-1 stage depletes quickly (~200-250 ticks), while 2-tank SSTO burns ~380-460 ticks
         var falconSpec = dev.galacticraft.mod.content.rocket.part.RocketPartCatalog.getInstance().getPart("engine_falcon1d_3x3_2b");
         var tankSpec = dev.galacticraft.mod.content.rocket.part.RocketPartCatalog.getInstance().getPart("tank_fuel_rp1_3x3_2b");
         var falconCfg = falconSpec.toConfig(RocketLivery.WHITE);
@@ -223,7 +224,8 @@ public class ModularFlightPhysicsTest {
                 break;
             }
         }
-        assertTrue(oneTankTicks < 420, "1-tank 3x3 RP-1 stage must deplete in < 420 ticks at full throttle, took " + oneTankTicks);
+        assertTrue(oneTankTicks >= 160 && oneTankTicks <= 280,
+                "1-tank 3x3 RP-1 stage must deplete in [160, 280] ticks at full throttle, took " + oneTankTicks);
         assertEquals(0L, oneTankStage.currentFuelDroplets());
 
         long twoTankCap = oneTankCap * 2L;
@@ -240,7 +242,8 @@ public class ModularFlightPhysicsTest {
                 break;
             }
         }
-        assertTrue(twoTankTicks > 550, "2-tank 3x3 RP-1 SSTO stage must burn > 550 ticks to reach orbit, took " + twoTankTicks);
+        assertTrue(twoTankTicks >= 340 && twoTankTicks <= 520,
+                "2-tank 3x3 RP-1 SSTO stage must burn in [340, 520] ticks to reach orbit, took " + twoTankTicks);
 
         // Solid core stage with fuelCapacityDroplets > 0 must stop firing once currentFuelDroplets == 0
         MountedPartNode srbNode = engineNode("srb_ares_3x3_2b", "srb_ares", 3000.0F, 0, 0);

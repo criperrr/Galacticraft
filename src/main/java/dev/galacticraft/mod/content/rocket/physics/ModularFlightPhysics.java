@@ -54,7 +54,7 @@ import java.util.Objects;
  * </ul>
  */
 public final class ModularFlightPhysics {
-    public static final double MIN_LIFTOFF_TWR = 1.15;
+    public static final double MIN_LIFTOFF_TWR = 1.00;
     public static final double VACUUM_NOZZLE_DANGER_PA_ATM = RocketFlightValidator.VACUUM_NOZZLE_MAX_SAFE_ATM;
     public static final double FAIRING_JETTISON_PA_ATM = 0.05;
     public static final double OVERWORLD_FAIRING_MIN_Y = 400.0;
@@ -297,9 +297,9 @@ public final class ModularFlightPhysics {
         // Playable Minecraft flight scale factor (keeps ascent 25-60s exhilarating while preserving relative Isp ratios)
         double dropletsPerTick = (bucketsPerSec * RocketFlightValidator.DROPLETS_PER_BUCKET) / 20.0;
         // Scale propellant flow to Minecraft's 1.1 km orbital ascent (Y=64..1200) so a 1-tank suborbital
-        // stage burns for ~16-20s (~320-400 ticks), a 2-3 tank SSTO burns for ~30-45s (reaching Y=1200 in 1 stage),
+        // stage burns out in ~11s (~220 ticks), a 2-tank SSTO burns for ~20s (~400 ticks, reaching Y=1200 in 1 stage),
         // and deep-space missions naturally benefit from multi-stage or radial booster staging
-        return Math.max(1.0, dropletsPerTick * 2.35);
+        return Math.max(1.0, dropletsPerTick * 1.85);
     }
 
     /**
