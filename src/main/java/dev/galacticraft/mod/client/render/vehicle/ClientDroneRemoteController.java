@@ -41,6 +41,8 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -65,6 +67,7 @@ public final class ClientDroneRemoteController {
     private static int enterGraceTicks = 0;
     private static boolean vKeyWasDown = false;
     private static boolean lKeyWasDown = false;
+    private static boolean mKeyWasDown = false;
 
     private ClientDroneRemoteController() {
     }
@@ -92,6 +95,7 @@ public final class ClientDroneRemoteController {
         enterGraceTicks = 10;
         vKeyWasDown = false;
         lKeyWasDown = false;
+        mKeyWasDown = false;
         mc.setScreen(null);
         mc.mouseHandler.grabMouse();
         mc.player.playSound(SoundEvents.BEACON_ACTIVATE, 0.55F, 1.45F);
@@ -120,6 +124,10 @@ public final class ClientDroneRemoteController {
 
     public static boolean isFirstPersonFpv() {
         return firstPersonFpv;
+    }
+
+    public static boolean isFirstPersonFpvFor(@NotNull ModularVehicleEntity entity) {
+        return active && firstPersonFpv && entity.getId() == droneEntityId;
     }
 
     public static @Nullable ModularVehicleEntity getActiveDrone() {
@@ -171,10 +179,19 @@ public final class ClientDroneRemoteController {
         double fx = -Mth.sin(yawRad);
         double fz = Mth.cos(yawRad);
         if (firstPersonFpv) {
-            return pos.add(fx * 0.42, 0.56, fz * 0.42);
+            // Mounted cleanly ahead of the nose camera gimbal (Z=0.495) with unobstructed forward view
+            return pos.add(fx * 0.64, 0.48, fz * 0.64);
         }
-        // 3rd-person chase camera behind & slightly above the drone
-        return pos.add(-fx * 3.45, 1.38, -fz * 3.45);
+        // 3rd-person chase camera behind & slightly above the drone with solid-block collision avoidance
+        Vec3 pivot = pos.add(0.0, 0.68, 0.0);
+        Vec3 desired = pos.add(-fx * 3.45, 1.42, -fz * 3.45);
+        HitResult hit = drone.level().clip(new ClipContext(pivot, desired, ClipContext.Block.VISUAL, ClipContext.Fluid.NONE, drone));
+        if (hit.getType() != HitResult.Type.MISS) {
+            Vec3 dir = desired.subtract(pivot);
+            double dist = Math.max(0.5, pivot.distanceTo(hit.getLocation()) - 0.25);
+            return pivot.add(dir.normalize().scale(dist));
+        }
+        return desired;
     }
 
     private static void onClientTick(Minecraft mc) {
@@ -216,6 +233,10 @@ public final class ClientDroneRemoteController {
         boolean toggleLights = lDown && !lKeyWasDown;
         lKeyWasDown = lDown;
 
+        boolean mDown = InputConstants.isKeyDown(window, GLFW.GLFW_KEY_M);
+        boolean toggleEngine = mDown && !mKeyWasDown;
+        mKeyWasDown = mDown;
+
         float forward = (InputConstants.isKeyDown(window, GLFW.GLFW_KEY_W) ? 1.0F : 0.0F)
                 - (InputConstants.isKeyDown(window, GLFW.GLFW_KEY_S) ? 1.0F : 0.0F);
         float strafe = (InputConstants.isKeyDown(window, GLFW.GLFW_KEY_D) ? 1.0F : 0.0F)
@@ -231,7 +252,7 @@ public final class ClientDroneRemoteController {
         pendingYawDelta = 0.0F;
 
         ClientPlayNetworking.send(new DroneRemoteControlPayload(
-                drone.getId(), forward, strafe, yawDelta, collective, toggleLights, false
+                drone.getId(), forward, strafe, yawDelta, collective, toggleLights, toggleEngine
         ));
     }
 
@@ -295,26 +316,46 @@ public final class ClientDroneRemoteController {
         g.renderOutline(cx - sw / 2, 8, sw, 14, 0xFF2ED1FF);
         g.drawString(font, strip, cx - font.width(strip) / 2, 11, 0xFFEAF6FF, true);
 
-        // Vacuum / Low-TWR Alert Banner
-        if (stats.isBlockedByVacuum(env.pressureAtm())) {
-            String alert = "SEM ATMOSFERA — INSTALE PROPULSORES VTOL ELÉTRICOS!";
-            int aw = font.width(alert) + 14;
-            g.fill(cx - aw / 2, 26, cx + aw / 2, 40, 0xD0450A0A);
-            g.renderOutline(cx - aw / 2, 26, aw, 14, 0xFFFF5252);
-            g.drawString(font, alert, cx - font.width(alert) / 2, 29, 0xFFFFB0B0, true);
+        // Diagnostic Alert Banner (missing parts, empty battery, engine off, vacuum, or low TWR)
+        String alert = null;
+        int alertBg = 0xD0450A0A;
+        int alertBorder = 0xFFFF5252;
+        int alertText = 0xFFFFB0B0;
+        if (!stats.missingRequiredHardpoints().isEmpty()) {
+            alert = "FALTAM PEÇAS NO DRONE: " + String.join(", ", stats.missingRequiredHardpoints());
+        } else if (stats.energyCapacity() > 0L && drone.getConfiguration().storedEnergy() <= 0L) {
+            alert = "BATERIA DESCARREGADA (0%) — INSTALE BATERIA / RTG / PAINEL SOLAR";
+        } else if (!drone.isEngineRunning()) {
+            alert = "MOTOR DESLIGADO — PRESSIONE [M] PARA LIGAR";
+            alertBg = 0xD0422506;
+            alertBorder = 0xFFFFB830;
+            alertText = 0xFFFFE099;
+        } else if (drone.isParkingBrakeOn()) {
+            alert = "FREIO DE MÃO ATIVADO — DESATIVE NO PAINEL [Shift+Clique Direito]";
+            alertBg = 0xD0422506;
+            alertBorder = 0xFFFFB830;
+            alertText = 0xFFFFE099;
+        } else if (stats.isBlockedByVacuum(env.pressureAtm())) {
+            alert = "SEM ATMOSFERA — INSTALE PROPULSORES VTOL ELÉTRICOS!";
         } else if (stats.isDrivable() && twr < 1.0) {
-            String alert = String.format(Locale.ROOT, "EMPUXO INSUFICIENTE (TWR %.2f) — USE ROTORES DE MARTE OU VTOL", twr);
+            alert = String.format(Locale.ROOT, "EMPUXO INSUFICIENTE (TWR %.2f) — USE ROTORES DE MARTE OU VTOL", twr);
+            alertBg = 0xD0422506;
+            alertBorder = 0xFFFFB830;
+            alertText = 0xFFFFE099;
+        }
+        if (alert != null) {
             int aw = font.width(alert) + 14;
-            g.fill(cx - aw / 2, 26, cx + aw / 2, 40, 0xD0422506);
-            g.renderOutline(cx - aw / 2, 26, aw, 14, 0xFFFFB830);
-            g.drawString(font, alert, cx - font.width(alert) / 2, 29, 0xFFFFE099, true);
+            g.fill(cx - aw / 2, 26, cx + aw / 2, 40, alertBg);
+            g.renderOutline(cx - aw / 2, 26, aw, 14, alertBorder);
+            g.drawString(font, alert, cx - font.width(alert) / 2, 29, alertText, true);
         }
 
-        // Bottom Controls Bar
-        String controls = "[WASD] Voar  [SPACE/SHIFT] Subir/Descer  [MOUSE/Q/E] Girar  [V] FPV/3ª Pessoa  [L] Luzes  [ESC/X] Sair";
+        // Bottom Controls Bar positioned cleanly ABOVE the Minecraft hotbar!
+        String controls = "[WASD] Voar  [SPACE/SHIFT] Subir/Descer  [MOUSE/Q/E] Girar  [V] FPV/3ªP  [M] Motor  [L] Luzes  [ESC/X] Sair";
         int cw = font.width(controls) + 14;
-        g.fill(cx - cw / 2, h - 22, cx + cw / 2, h - 8, 0xCC0A1320);
-        g.renderOutline(cx - cw / 2, h - 22, cw, 14, 0xFF3A526E);
-        g.drawString(font, controls, cx - font.width(controls) / 2, h - 19, 0xFFB8D4E8, true);
+        int barTop = h - 46;
+        g.fill(cx - cw / 2, barTop, cx + cw / 2, barTop + 14, 0xCC0A1320);
+        g.renderOutline(cx - cw / 2, barTop, cw, 14, 0xFF3A526E);
+        g.drawString(font, controls, cx - font.width(controls) / 2, barTop + 3, 0xFFB8D4E8, true);
     }
 }

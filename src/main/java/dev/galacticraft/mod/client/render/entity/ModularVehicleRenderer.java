@@ -33,6 +33,7 @@ import dev.galacticraft.api.vehicle.VehiclePartDefinition;
 import dev.galacticraft.api.vehicle.VehicleRegistry;
 import dev.galacticraft.api.vehicle.VehicleSizeClass;
 import dev.galacticraft.mod.Constant;
+import dev.galacticraft.mod.client.render.vehicle.ClientDroneRemoteController;
 import dev.galacticraft.mod.client.render.vehicle.ObjMeshModel;
 import dev.galacticraft.mod.client.render.vehicle.ObjModelLoader;
 import dev.galacticraft.mod.client.render.vehicle.VehicleAnimationBinding;
@@ -89,7 +90,7 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
     private static final VehicleAnimationBinding DOOR_LEFT_HELI = new VehicleAnimationBinding("door_left", VehicleAnimationBinding.Type.ROTATION, -1.02F, 1.15F, 1.16F, 0.0F, 1.0F, 0.0F, 55.0F);
     private static final VehicleAnimationBinding DOOR_RIGHT_HELI = new VehicleAnimationBinding("door_right", VehicleAnimationBinding.Type.ROTATION, 1.02F, 1.15F, 1.16F, 0.0F, 1.0F, 0.0F, -55.0F);
     private static final VehicleAnimationBinding RAMP_MARS = new VehicleAnimationBinding("rear_ramp", VehicleAnimationBinding.Type.ROTATION, 0.0F, 1.30F, -2.68F, 1.0F, 0.0F, 0.0F, -82.0F);
-    private static final VehicleAnimationBinding RAMP_VTOL = new VehicleAnimationBinding("rear_ramp", VehicleAnimationBinding.Type.ROTATION, 0.0F, 0.85F, -2.68F, 1.0F, 0.0F, 0.0F, -80.0F);
+    private static final VehicleAnimationBinding RAMP_VTOL = new VehicleAnimationBinding("rear_ramp", VehicleAnimationBinding.Type.ROTATION, 0.0F, 0.78F, -2.68F, 1.0F, 0.0F, 0.0F, -80.0F);
 
     public ModularVehicleRenderer(EntityRendererProvider.Context context) {
         super(context);
@@ -99,6 +100,9 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
     @Override
     public void render(ModularVehicleEntity entity, float entityYaw, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
         super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
+        if (ClientDroneRemoteController.isFirstPersonFpvFor(entity)) {
+            return; // Hide drone body from its own 1st-person FPV nose lens so view is 100% unobstructed
+        }
 
         VehicleConfiguration cfg = entity.getConfiguration();
         VehicleChassisDefinition chassis = entity.getChassisDefinition();
@@ -111,7 +115,7 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
 
         boolean isRotorcraft = entity.isRotorcraft();
         if (isRotorcraft) {
-            float pivotY = size == VehicleSizeClass.LARGE ? 1.45F : (size == VehicleSizeClass.MEDIUM ? 1.15F : 0.45F);
+            float pivotY = size == VehicleSizeClass.LARGE ? 1.55F : (size == VehicleSizeClass.MEDIUM ? 1.25F : 0.45F);
             poseStack.translate(0.0F, pivotY, 0.0F);
             poseStack.mulPose(Axis.XP.rotationDegrees(entity.clientPitch));
             poseStack.mulPose(Axis.ZP.rotationDegrees(-entity.clientRoll));

@@ -428,6 +428,8 @@ public class GCTranslationProvider extends TranslationProvider {
         this.add("message.galacticraft.vehicle.drone_use_remote", "Unmanned Micro-Drone: pair and fly with a Drone Remote Controller");
         this.add("message.galacticraft.vehicle.vacuum_rotor_blocked", "No atmosphere! Install Electric VTOL Thrusters to fly in vacuum");
         this.add("message.galacticraft.vehicle.insufficient_twr", "Insufficient rotor lift (TWR %s) — install Mars Coaxial Rotors or VTOL Thrusters");
+        this.add("message.galacticraft.vehicle.no_battery", "Battery depleted (0%) — install a Battery Bank, Solar Array, or RTG Core");
+        this.add("message.galacticraft.vehicle.engine_off", "Motor is OFF — press [M] (drone) or [P] (cockpit panel) to start");
         this.add("tooltip.galacticraft.vehicle.pressurized", "Pressurized Cabin (Zero O2 Consumption)");
         this.add("container.galacticraft.rocket_cargo", "Cargo Bay");
         this.add("container.galacticraft.vehicle_cargo", "Vehicle Cargo");

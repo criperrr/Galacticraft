@@ -213,6 +213,8 @@ public class GCPtBrTranslationProvider extends FabricLanguageProvider {
         builder.add("message.galacticraft.vehicle.drone_use_remote", "Micro-Drone não tripulado: pareie e pilote usando o Controle Remoto de Drone");
         builder.add("message.galacticraft.vehicle.vacuum_rotor_blocked", "Sem atmosfera! Instale Propulsores VTOL Elétricos para voar no vácuo");
         builder.add("message.galacticraft.vehicle.insufficient_twr", "Empuxo insuficiente (TWR %s) — use Rotores Coaxiais de Marte ou Propulsores VTOL");
+        builder.add("message.galacticraft.vehicle.no_battery", "Bateria descarregada (0%) — instale Banco de Baterias, Painel Solar ou RTG");
+        builder.add("message.galacticraft.vehicle.engine_off", "Motor desligado — pressione [M] no drone ou abra o painel [P] para ligar");
         builder.add("tooltip.galacticraft.vehicle.pressurized", "Cabine Pressurizada (Zero Consumo de O2)");
         builder.add("container.galacticraft.rocket_cargo", "Porão de Carga");
         builder.add("container.galacticraft.vehicle_cargo", "Carga do Veículo");

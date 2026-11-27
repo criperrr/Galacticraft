@@ -287,7 +287,7 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
 
     @Override
     public boolean shouldIgnoreShiftExit() {
-        return this.isRotorcraft() && !this.onGround();
+        return this.isRotorcraft() && (!this.onGround() || this.computeAltitudeAgl() > 0.35);
     }
 
     @Override
@@ -631,11 +631,30 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
                 ? (this.inputBrake ? 1.0F : 0.0F) - (this.inputDescend ? 1.0F : 0.0F)
                 : (hasRemotePilot ? this.remoteCollective : 0.0F);
 
-        // Warn pilot if attempting takeoff in vacuum without VTOL_THRUSTER or with TWR < 1.0
+        // Warn pilot if attempting takeoff while missing parts, out of battery, engine off, vacuum-blocked, or low TWR
         if (hasAnyPilot && collective > 0.1F && !canLift && this.warningCooldownTicks == 0) {
             Player targetPlayer = seatedPilot instanceof Player p ? p : this.lastRemotePilot;
             if (targetPlayer != null) {
-                if (vacuumBlocked) {
+                if (!this.derivedStats.missingRequiredHardpoints().isEmpty()) {
+                    targetPlayer.displayClientMessage(
+                            Component.translatable("message.galacticraft.vehicle.missing_parts",
+                                    String.join(", ", this.derivedStats.missingRequiredHardpoints())).withStyle(ChatFormatting.RED),
+                            true
+                    );
+                    this.warningCooldownTicks = 40;
+                } else if (!this.hasAvailablePower()) {
+                    targetPlayer.displayClientMessage(
+                            Component.translatable("message.galacticraft.vehicle.no_battery").withStyle(ChatFormatting.RED),
+                            true
+                    );
+                    this.warningCooldownTicks = 40;
+                } else if (!this.isEngineRunning()) {
+                    targetPlayer.displayClientMessage(
+                            Component.translatable("message.galacticraft.vehicle.engine_off").withStyle(ChatFormatting.YELLOW),
+                            true
+                    );
+                    this.warningCooldownTicks = 40;
+                } else if (vacuumBlocked) {
                     targetPlayer.displayClientMessage(
                             Component.translatable("message.galacticraft.vehicle.vacuum_rotor_blocked").withStyle(ChatFormatting.RED),
                             true
@@ -1225,10 +1244,11 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
         }
 
         VehicleConfiguration updated = current.withPart(bestTarget.id(), partId);
-        // Top up starter energy/fuel on initial powerplant install so freshly assembled vehicles can be tested right away
-        if (part.type() == HardpointType.POWERPLANT) {
-            long nextEnergy = Math.min(updated.storedEnergy() + part.energyCapacity() / 2, this.derivedStats.energyCapacity() + part.energyCapacity());
-            long nextFuel = Math.min(updated.storedFuel() + part.fuelCapacity() / 2, this.derivedStats.fuelCapacity() + part.fuelCapacity());
+        // Fully charge newly installed electric powerplant (or motor buffer) so hand-assembled vehicles work immediately
+        if (part.type() == HardpointType.POWERPLANT || part.type() == HardpointType.MOTOR) {
+            long newCap = this.derivedStats.energyCapacity() + part.energyCapacity();
+            long nextEnergy = Math.min(updated.storedEnergy() + part.energyCapacity(), newCap);
+            long nextFuel = Math.min(updated.storedFuel() + part.fuelCapacity(), this.derivedStats.fuelCapacity() + part.fuelCapacity());
             updated = updated.withResources(nextEnergy, nextFuel);
         }
         this.setConfiguration(updated);
@@ -1335,18 +1355,45 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
         List<SeatSpec> seats = this.derivedStats.seats();
         Vec3 local = (idx >= 0 && idx < seats.size()) ? seats.get(idx).localOffset() : new Vec3(0.0, 0.65, 0.0);
 
+        double lx = local.x;
+        double ly = local.y + (this.isRotorcraft() ? 0.06 : 0.14);
+        double lz = local.z;
+
+        // Match rotorcraft cyclic pitch/roll tilt around center-of-mass pivot so pilot stays locked in seat during flight
+        if (this.isRotorcraft()) {
+            VehicleSizeClass size = this.derivedStats.sizeClass();
+            double pivotY = size == VehicleSizeClass.LARGE ? 1.55 : (size == VehicleSizeClass.MEDIUM ? 1.25 : 0.45);
+            double dy = ly - pivotY;
+            float rollDeg = this.level().isClientSide ? this.clientRoll : this.getCyclicRollDeg();
+            float pitchDeg = this.level().isClientSide ? this.clientPitch : this.getCyclicPitchDeg();
+            double rollRad = Math.toRadians(-rollDeg);
+            double cosR = Math.cos(rollRad);
+            double sinR = Math.sin(rollRad);
+            double tx = lx * cosR - dy * sinR;
+            double ty1 = lx * sinR + dy * cosR;
+
+            double pitchRad = Math.toRadians(pitchDeg);
+            double cosP = Math.cos(pitchRad);
+            double sinP = Math.sin(pitchRad);
+            double ty2 = ty1 * cosP - lz * sinP;
+            double tz = ty1 * sinP + lz * cosP;
+
+            lx = tx;
+            ly = pivotY + ty2;
+            lz = tz;
+        }
+
         // Match exact renderer transform Axis.YP.rotationDegrees(-yRot):
         // local +Z is forward (-sin(yRot), +cos(yRot)), local +X is right (+cos(yRot), +sin(yRot))
         double yawRad = Math.toRadians(this.getYRot());
         double sin = Math.sin(yawRad);
         double cos = Math.cos(yawRad);
-        double rx = local.x * cos - local.z * sin;
-        double rz = local.x * sin + local.z * cos;
+        double rx = lx * cos - lz * sin;
+        double rz = lx * sin + lz * cos;
 
         // Place passenger's hips directly on the seat cushion using MC 1.21.1 vehicle attachment point
         Vec3 attach = passenger.getVehicleAttachmentPoint(this);
-        double seatSurfaceY = this.getY() + local.y + 0.14;
-        moveFunction.accept(passenger, this.getX() + rx - attach.x, seatSurfaceY - attach.y, this.getZ() + rz - attach.z);
+        moveFunction.accept(passenger, this.getX() + rx - attach.x, this.getY() + ly - attach.y, this.getZ() + rz - attach.z);
     }
 
     @Override
