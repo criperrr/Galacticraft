@@ -25,8 +25,13 @@ package dev.galacticraft.mod.client.gui.screen.ingame;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.BufferUploader;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.math.Axis;
 import dev.galacticraft.api.client.accessor.ClientSatelliteAccessor;
 import dev.galacticraft.api.registry.AddonRegistries;
@@ -43,6 +48,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
@@ -100,6 +106,54 @@ public class CelestialScreen extends Screen implements ClientSatelliteAccessor.S
     protected float translationX = 0.0F;
     protected float translationY = 0.0F;
     protected boolean mouseDragging = false;
+
+    private static final int SPACE_BASE_COLOR = FastColor.ARGB32.color(255, 4, 6, 14);
+    private final BackgroundStar[] backgroundStars = createBackgroundStars();
+
+    private record BackgroundStar(float normX, float normY, float size, int layer, int r, int g, int b, float twinkleSpeed, float phase, boolean cross) {
+    }
+
+    private static BackgroundStar[] createBackgroundStars() {
+        Random random = new Random(1969L);
+        int total = 240;
+        BackgroundStar[] stars = new BackgroundStar[total];
+        int[][] tints = {
+                {255, 255, 255},
+                {205, 230, 255},
+                {255, 240, 200},
+                {255, 212, 180}
+        };
+        for (int i = 0; i < total; i++) {
+            int layer;
+            float size;
+            boolean cross = false;
+            if (i < 145) {
+                layer = 0;
+                size = 1.0F;
+            } else if (i < 222) {
+                layer = 1;
+                size = random.nextFloat() < 0.35F ? 2.0F : 1.0F;
+            } else {
+                layer = 2;
+                size = 1.5F;
+                cross = true;
+            }
+            int[] tint = layer == 0 ? tints[1] : tints[random.nextInt(tints.length)];
+            stars[i] = new BackgroundStar(
+                    random.nextFloat(),
+                    random.nextFloat(),
+                    size,
+                    layer,
+                    tint[0],
+                    tint[1],
+                    tint[2],
+                    0.04F + random.nextFloat() * 0.09F,
+                    random.nextFloat() * Mth.TWO_PI,
+                    cross
+            );
+        }
+        return stars;
+    }
 
     public CelestialScreen(Component title) {
         super(title);
@@ -432,7 +486,7 @@ public class CelestialScreen extends Screen implements ClientSatelliteAccessor.S
         RenderSystem.disableBlend();
 
         RenderSystem.depthMask(false);
-        graphics.fill(0, 0, this.width, this.height, 0, BLACK);
+        this.drawSpaceBackground(graphics, delta);
 
         this.setIsometric(delta, matrices);
         float gridSize = 7000.0F; // 194.4F;
@@ -497,11 +551,11 @@ public class CelestialScreen extends Screen implements ClientSatelliteAccessor.S
     public int getWidthForCelestialBody(CelestialBody<?, ?> celestialBody) {
         boolean zoomed = celestialBody == this.selectedBody && this.selectionState == EnumSelection.SELECTED;
         if (this.isStar(celestialBody)) {
-            return zoomed ? 12 : 8;
+            return zoomed ? 16 : 12;
         } else if (this.isPlanet(celestialBody) || this.isGrandchildBody(celestialBody)) {
-            return zoomed ? 6 : 4;
+            return zoomed ? 11 : 8;
         }
-        return 2;
+        return 4;
     }
 
     public void drawCelestialBodies(GuiGraphics graphics, double mouseX, double mouseY, float delta) {
@@ -513,6 +567,18 @@ public class CelestialScreen extends Screen implements ClientSatelliteAccessor.S
             if (alpha > 0.0F) {
                 matrices.pushPose();
                 this.setupMatrix(body, matrices, this.isGrandchildBody(body) ? 0.25F : 1.0F, delta);
+
+                if (this.isStar(body)) {
+                    this.drawSolarCorona(matrices, this.getWidthForCelestialBody(body), alpha);
+                }
+
+                float pulseScale = body == this.selectedBody
+                        ? 1.0F + 0.05F * Mth.sin(this.ticksSinceSelectionF * 0.22F)
+                        : 1.0F;
+                if (pulseScale != 1.0F) {
+                    matrices.scale(pulseScale, pulseScale, 1.0F);
+                }
+
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, alpha);
                 body.display().render(graphics, this.getWidthForCelestialBody(body), mouseX, mouseY, delta);
 
@@ -527,7 +593,7 @@ public class CelestialScreen extends Screen implements ClientSatelliteAccessor.S
                 double planetX = 0.5D * (1.0D + projectionMatrix.m30()) * this.minecraft.getWindow().getGuiScaledWidth();
                 double planetY = 0.5D * (1.0D - projectionMatrix.m31()) * this.minecraft.getWindow().getGuiScaledHeight();
                 double iconSize = newVec.y * 0.5D * (double) this.minecraft.getWindow().getScreenHeight();
-                iconSize *= (body.type() instanceof Star ? 2.0D : 1.0D) + (body == this.selectedBody ? 0.5D : 0.0D);
+                iconSize *= ((body.type() instanceof Star ? 2.6D : 1.8D) + (body == this.selectedBody ? 0.6D : 0.0D));
 
                 this.planetPositions.put(body, new Vec3(planetX, planetY, iconSize)); // Store size on-screen in Z-value for ease
                 matrices.popPose();
@@ -567,23 +633,153 @@ public class CelestialScreen extends Screen implements ClientSatelliteAccessor.S
     }
 
     /**
+     * Draw animated pixel-art deep space nebula, parallax twinkling stars, and occasional shooting stars
+     */
+    protected void drawSpaceBackground(GuiGraphics graphics, float delta) {
+        graphics.fill(0, 0, this.width, this.height, 0, SPACE_BASE_COLOR);
+
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
+
+        // Pixel-art nebula backdrop with subtle parallax drift & gentle breathing glow
+        float driftX = Mth.clamp(-this.position.x * 0.04F, -24.0F, 24.0F);
+        float driftY = Mth.clamp(-this.position.y * 0.04F, -16.0F, 16.0F);
+        float nebulaPulse = 0.88F + 0.12F * Mth.sin(this.ticksTotalF * 0.025F);
+        int nebulaColor = FastColor.ARGB32.color((int) (235.0F * nebulaPulse), 255, 255, 255);
+        Graphics.blitRaw(
+                graphics.pose().last().pose(),
+                -28.0F + driftX, -20.0F + driftY,
+                this.width + 28.0F + driftX, this.height + 20.0F + driftY,
+                0.0F, 0.0F, 0.0F, 1.0F, 1.0F,
+                CELESTIAL_SPACE_BG, nebulaColor
+        );
+
+        // Multi-layer parallax twinkling pixel stars
+        Matrix4f matrix = graphics.pose().last().pose();
+        BufferBuilder buffer = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
+        float[] parallaxFactors = {0.04F, 0.10F, 0.18F};
+
+        for (BackgroundStar star : this.backgroundStars) {
+            float p = parallaxFactors[star.layer];
+            float sx = wrapCoord(star.normX * this.width - this.position.x * p, this.width);
+            float sy = wrapCoord(star.normY * this.height - this.position.y * p, this.height);
+
+            float twinkle = 0.55F + 0.45F * Mth.sin(this.ticksTotalF * star.twinkleSpeed + star.phase);
+            int baseAlpha = switch (star.layer) {
+                case 0 -> (int) (115.0F * twinkle);
+                case 1 -> (int) (210.0F * twinkle);
+                default -> (int) (255.0F * (0.72F + 0.28F * twinkle));
+            };
+
+            float s = star.size;
+            addQuad(buffer, matrix, sx, sy, s, s, star.r, star.g, star.b, baseAlpha);
+
+            if (star.cross) {
+                int armAlpha = (int) (baseAlpha * (0.35F + 0.35F * twinkle));
+                float arm = s;
+                addQuad(buffer, matrix, sx - arm, sy, arm, s, star.r, star.g, star.b, armAlpha);
+                addQuad(buffer, matrix, sx + s, sy, arm, s, star.r, star.g, star.b, armAlpha);
+                addQuad(buffer, matrix, sx, sy - arm, s, arm, star.r, star.g, star.b, armAlpha);
+                addQuad(buffer, matrix, sx, sy + s, s, arm, star.r, star.g, star.b, armAlpha);
+            }
+        }
+
+        // Occasional animated shooting star streaking across deep space
+        float cycle = this.ticksTotalF % 160.0F;
+        if (cycle < 22.0F) {
+            int burstIdx = (int) (this.ticksTotalF / 160.0F);
+            float h1 = Mth.sin(burstIdx * 19.19F) * 43758.5453F;
+            float f1 = h1 - Mth.floor(h1);
+            float h2 = Mth.sin(burstIdx * 47.73F) * 24634.6345F;
+            float f2 = h2 - Mth.floor(h2);
+
+            float t = cycle / 22.0F;
+            float startX = (0.15F + f1 * 0.65F) * this.width;
+            float startY = (0.08F + f2 * 0.35F) * this.height;
+            float headX = startX + t * 110.0F;
+            float headY = startY + t * 52.0F;
+            float fade = Mth.sin(t * Mth.PI);
+
+            for (int seg = 0; seg < 6; seg++) {
+                float segFade = fade * (1.0F - seg / 6.0F);
+                int a = (int) (220.0F * segFade);
+                float px = headX - seg * 5.0F;
+                float py = headY - seg * 2.35F;
+                float sz = seg == 0 ? 2.0F : 1.5F;
+                addQuad(buffer, matrix, px, py, sz, sz, 220, 240, 255, a);
+            }
+        }
+
+        RenderSystem.setShader(GameRenderer::getPositionColorShader);
+        BufferUploader.drawWithShader(buffer.buildOrThrow());
+        RenderSystem.disableBlend();
+    }
+
+    private static float wrapCoord(float value, int max) {
+        if (max <= 0) {
+            return 0.0F;
+        }
+        float mod = value % max;
+        return mod < 0.0F ? mod + max : mod;
+    }
+
+    private static void addQuad(BufferBuilder buffer, Matrix4f matrix, float x, float y, float w, float h, int r, int g, int b, int a) {
+        if (a <= 0) {
+            return;
+        }
+        buffer.addVertex(matrix, x, y, 0.0F).setColor(r, g, b, a)
+                .addVertex(matrix, x, y + h, 0.0F).setColor(r, g, b, a)
+                .addVertex(matrix, x + w, y + h, 0.0F).setColor(r, g, b, a)
+                .addVertex(matrix, x + w, y, 0.0F).setColor(r, g, b, a);
+    }
+
+    /**
+     * Draw pulsing pixel-art solar corona glow behind stars
+     */
+    protected void drawSolarCorona(PoseStack matrices, int starSize, float alpha) {
+        float pulse = 1.0F + 0.10F * Mth.sin(this.ticksTotalF * 0.08F);
+        float coronaSize = starSize * 2.8F * pulse;
+        float rotation = (this.ticksTotalF * 0.35F) % 360.0F;
+        int color = FastColor.ARGB32.color((int) (alpha * 220.0F), 255, 255, 255);
+
+        matrices.pushPose();
+        matrices.mulPose(Axis.ZP.rotationDegrees(rotation));
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
+        Graphics.blitCentered(matrices.last().pose(), 0.0F, 0.0F, coronaSize, coronaSize, 0.0F, 0, 0, 32, 32, 32, 32, CELESTIAL_SOLAR_CORONA, color);
+        RenderSystem.disableBlend();
+        matrices.popPose();
+    }
+
+    /**
      * Draw background grid
      */
     public void drawGrid(GuiGraphics graphics, float gridSize, float gridScale) {
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
         VertexConsumer buffer = graphics.bufferSource().getBuffer(RenderType.LINES);
         Matrix4f model = graphics.pose().last().pose();
 
-        RenderSystem.lineWidth(2.0F);
+        RenderSystem.lineWidth(1.5F);
         gridSize += 0.5F * gridScale;
+        float gridPulse = 0.88F + 0.12F * Mth.sin(this.ticksTotalF * 0.03F);
 
+        int idx = 0;
         for (float v = -gridSize; v <= gridSize; v += gridScale) {
-            buffer.addVertex(model, v, -gridSize, 0.0F).setColor(0, 51, 127, 140).setNormal(1.0F, 1.0F, 1.0F)
-                    .addVertex(model, v, gridSize, 0.0F).setColor(0, 51, 127, 140).setNormal(1.0F, 1.0F, 1.0F)
-                    .addVertex(model, -gridSize, v, 0.0F).setColor(0, 51, 127, 140).setNormal(1.0F, 0.0F, 1.0F)
-                    .addVertex(model, gridSize, v, 0.0F).setColor(0, 51, 127, 140).setNormal(1.0F, 0.0F, 1.0F);
+            boolean major = (idx % 2 == 0);
+            int r = major ? 24 : 12;
+            int g = major ? 96 : 60;
+            int b = major ? 184 : 130;
+            int a = (int) ((major ? 92 : 42) * gridPulse);
+            buffer.addVertex(model, v, -gridSize, 0.0F).setColor(r, g, b, a).setNormal(1.0F, 1.0F, 1.0F)
+                    .addVertex(model, v, gridSize, 0.0F).setColor(r, g, b, a).setNormal(1.0F, 1.0F, 1.0F)
+                    .addVertex(model, -gridSize, v, 0.0F).setColor(r, g, b, a).setNormal(1.0F, 0.0F, 1.0F)
+                    .addVertex(model, gridSize, v, 0.0F).setColor(r, g, b, a).setNormal(1.0F, 0.0F, 1.0F);
+            idx++;
         }
 
         graphics.bufferSource().endBatch();
+        RenderSystem.disableBlend();
     }
 
     /**

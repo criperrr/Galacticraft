@@ -1222,6 +1222,8 @@ public interface Constant {
         ResourceLocation CELESTIAL_SELECTION = id("textures/gui/celestial_selection.png");
         ResourceLocation CELESTIAL_SELECTION_1 = id("textures/gui/celestial_selection_1.png");
         ResourceLocation SELECTION_CURSOR = id("textures/gui/selection_cursor.png");
+        ResourceLocation CELESTIAL_SPACE_BG = id("textures/gui/celestial_space_bg.png");
+        ResourceLocation CELESTIAL_SOLAR_CORONA = id("textures/gui/celestial_solar_corona.png");
 
         ResourceLocation SOL = id("sol");
 

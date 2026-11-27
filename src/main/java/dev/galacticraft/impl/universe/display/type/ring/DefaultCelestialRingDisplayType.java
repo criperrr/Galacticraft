@@ -28,6 +28,7 @@ import com.mojang.serialization.Codec;
 import dev.galacticraft.api.universe.celestialbody.CelestialBody;
 import dev.galacticraft.api.universe.display.ring.CelestialRingDisplayType;
 import dev.galacticraft.impl.universe.display.config.ring.DefaultCelestialRingDisplayConfig;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.util.Mth;
@@ -58,10 +59,11 @@ public class DefaultCelestialRingDisplayType extends CelestialRingDisplayType<De
         if (alpha > 0.0F) {
             matrices.pushPose();
             matrices.translate(systemOffset.x(), systemOffset.y(), systemOffset.z());
-//                matrices.multiply(Vector3f.NEGATIVE_X.getDegreesQuaternion(55));
+            long gameTime = Minecraft.getInstance().level != null ? Minecraft.getInstance().level.getGameTime() : 0L;
+            float shimmer = 0.88F + 0.12F * Mth.sin((gameTime + delta) * 0.045F + count * 0.85F);
             float[] color = switch (count % 2) {
-                case 0 -> new float[]{0.0F / 1.4F, 0.6F / 1.4F, 1.0F / 1.4F, alpha / 1.4F};
-                case 1 -> new float[]{0.3F / 1.4F, 0.8F / 1.4F, 1.0F / 1.4F, alpha / 1.4F};
+                case 0 -> new float[]{0.14F * shimmer, 0.70F * shimmer, 1.0F, Math.min(1.0F, alpha * 0.80F)};
+                case 1 -> new float[]{0.38F * shimmer, 0.85F * shimmer, 1.0F, Math.min(1.0F, alpha * 0.80F)};
                 default -> throw new IllegalStateException("Unexpected value: " + count % 2);
             };
 
