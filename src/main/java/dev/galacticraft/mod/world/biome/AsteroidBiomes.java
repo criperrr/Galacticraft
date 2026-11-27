@@ -36,22 +36,48 @@ public class AsteroidBiomes {
     public static Biome asteroid(
             HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter
     ) {
+        return createAsteroidBiome(featureGetter, carverGetter, 0.2F, 0);
+    }
+
+    public static Biome innerSilicateBelt(
+            HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter
+    ) {
+        return createAsteroidBiome(featureGetter, carverGetter, 0.5F, 0x060403);
+    }
+
+    public static Biome metallicCoreCluster(
+            HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter
+    ) {
+        return createAsteroidBiome(featureGetter, carverGetter, 0.3F, 0x040507);
+    }
+
+    public static Biome kirkwoodGap(
+            HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter
+    ) {
+        return createAsteroidBiome(featureGetter, carverGetter, 0.1F, 0);
+    }
+
+    private static Biome createAsteroidBiome(
+            HolderGetter<PlacedFeature> featureGetter,
+            HolderGetter<ConfiguredWorldCarver<?>> carverGetter,
+            float temperature,
+            int fogColor
+    ) {
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
         BiomeGenerationSettings.Builder generation = new BiomeGenerationSettings.Builder(featureGetter, carverGetter);
         BiomeSpecialEffects.Builder specialEffects = new BiomeSpecialEffects.Builder();
         specialEffects.waterColor(0)
                 .waterFogColor(0)
-                .fogColor(0)
+                .fogColor(fogColor)
                 .skyColor(0)
                 .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
                 .backgroundMusic(Musics.createGameMusic(GCSounds.MUSIC_ORBIT));
-        // AsteroidBiomes.monsters(spawnBuilder, 95, 5, 100);
 
         return new Biome.BiomeBuilder()
                 .mobSpawnSettings(spawnBuilder.build())
                 .hasPrecipitation(false)
-                .temperature(2.0F)
-                .downfall(0.5F)
+                .temperature(temperature)
+                .downfall(0.0F)
                 .specialEffects(specialEffects.build())
                 .generationSettings(generation.build())
                 .build();

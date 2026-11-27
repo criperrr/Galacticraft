@@ -33,19 +33,30 @@ import dev.galacticraft.mod.content.GCEntityTypes;
 import dev.galacticraft.mod.content.block.entity.machine.ShortRangeTelepadBlockEntity;
 import dev.galacticraft.mod.content.entity.GrappleHookEntity;
 import dev.galacticraft.mod.content.entity.SlimelingEntity;
+import dev.galacticraft.mod.events.GCEventHandlers;
+import dev.galacticraft.mod.world.biome.GCBiomes;
+import dev.galacticraft.mod.world.biome.source.GCMultiNoiseBiomeSourceParameterLists;
 import dev.galacticraft.mod.world.dimension.GCDimensions;
+import dev.galacticraft.mod.world.gen.custom.AsteroidChunkGenerator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestAssertException;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.world.level.NoiseColumn;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.MultiNoiseBiomeSource;
+import net.minecraft.world.level.biome.MultiNoiseBiomeSourceParameterList;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+
+import java.util.EnumSet;
+import java.util.Set;
 
 public class AsteroidsTestSuite implements GalacticraftGameTest {
 
@@ -80,18 +91,85 @@ public class AsteroidsTestSuite implements GalacticraftGameTest {
             throw new GameTestAssertException("Asteroids atmosphere pressure should be 0.0F vacuum!");
         }
 
+        var asteroidHolder = registry.getHolderOrThrow(GCCelestialBodies.ASTEROID);
+        if (GCEventHandlers.computePlanetaryMeteorFrequency(helper.getLevel(), asteroidHolder) != 0.0F) {
+            throw new GameTestAssertException("Falling meteors must be disabled in Zero-G Asteroid Belt!");
+        }
+
+        if (config.dayTemperature() != -73 || config.nightTemperature() != -200) {
+            throw new GameTestAssertException("Expected Asteroids day/night temperatures -73/-200, got: "
+                    + config.dayTemperature() + "/" + config.nightTemperature());
+        }
+
         Registry<DimensionType> dimTypes = helper.getLevel().registryAccess().registryOrThrow(Registries.DIMENSION_TYPE);
         DimensionType asteroidDimType = dimTypes.get(Constant.id("asteroid"));
         if (asteroidDimType == null) {
             throw new GameTestAssertException("Asteroids DimensionType was not registered!");
         }
-        if (asteroidDimType.hasSkyLight()) {
-            throw new GameTestAssertException("Asteroids DimensionType should have hasSkyLight == false!");
+        if (!asteroidDimType.hasSkyLight()) {
+            throw new GameTestAssertException("Asteroids DimensionType should have hasSkyLight == true for vacuum solar contrast!");
+        }
+        if (Math.abs(asteroidDimType.ambientLight() - 0.02F) > 0.001F) {
+            throw new GameTestAssertException("Expected Asteroids ambientLight == 0.02F, got: " + asteroidDimType.ambientLight());
         }
 
         Registry<Biome> biomes = helper.getLevel().registryAccess().registryOrThrow(Registries.BIOME);
-        if (biomes.get(Constant.id("asteroid_field")) == null) {
+        if (biomes.get(GCBiomes.Asteroid.ASTEROID_FIELD) == null) {
             throw new GameTestAssertException("Asteroids biome 'asteroid_field' was not registered!");
+        }
+        if (biomes.get(GCBiomes.Asteroid.INNER_SILICATE_BELT) == null) {
+            throw new GameTestAssertException("Asteroids biome 'asteroid_inner_silicate_belt' was not registered!");
+        }
+        if (biomes.get(GCBiomes.Asteroid.METALLIC_CORE_CLUSTER) == null) {
+            throw new GameTestAssertException("Asteroids biome 'asteroid_metallic_core_cluster' was not registered!");
+        }
+        if (biomes.get(GCBiomes.Asteroid.KIRKWOOD_RESONANCE_GAP) == null) {
+            throw new GameTestAssertException("Asteroids biome 'asteroid_kirkwood_gap' was not registered!");
+        }
+
+        helper.succeed();
+    }
+
+    @GameTest(template = EMPTY_STRUCTURE)
+    public void asteroidBeltGeneratorBoundsAndSpectralCoverageTest(GameTestHelper helper) {
+        Holder<MultiNoiseBiomeSourceParameterList> preset = helper.getLevel().registryAccess()
+                .registryOrThrow(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST)
+                .getHolderOrThrow(GCMultiNoiseBiomeSourceParameterLists.ASTEROID);
+        AsteroidChunkGenerator generator = new AsteroidChunkGenerator(
+                MultiNoiseBiomeSource.createFromPreset(preset),
+                GCDimensions.ASTEROID,
+                1000L
+        );
+
+        if (generator.getMinY() != -64 || generator.getGenDepth() != 384 || generator.getSeaLevel() != -64) {
+            throw new GameTestAssertException("Unexpected AsteroidChunkGenerator bounds: minY=" + generator.getMinY()
+                    + ", depth=" + generator.getGenDepth() + ", seaLevel=" + generator.getSeaLevel());
+        }
+
+        NoiseColumn baseColumn = generator.getBaseColumn(0, 0, helper.getLevel(), helper.getLevel().getChunkSource().randomState());
+        if (baseColumn == null) {
+            throw new GameTestAssertException("AsteroidChunkGenerator.getBaseColumn returned null!");
+        }
+
+        // Verify all 4 spectral belt biomes are reachable across the belt
+        Set<AsteroidChunkGenerator.SpectralType> foundTypes = EnumSet.noneOf(AsteroidChunkGenerator.SpectralType.class);
+        for (int x = -3200; x <= 3200 && foundTypes.size() < 4; x += 160) {
+            for (int z = -3200; z <= 3200 && foundTypes.size() < 4; z += 160) {
+                foundTypes.add(generator.classifySpectralType(x, 128, z));
+            }
+        }
+        if (foundTypes.size() != 4) {
+            throw new GameTestAssertException("Expected all 4 spectral asteroid types to be generated, found only: " + foundTypes);
+        }
+
+        // Verify deterministic large asteroid lookup
+        var largeAsteroid = generator.isLargeAsteroidAt(0, 0);
+        if (largeAsteroid == null) {
+            throw new GameTestAssertException("Expected at least one large asteroid (R >= 14) near origin!");
+        }
+        var repeatLookup = generator.isLargeAsteroidAt(0, 0);
+        if (!largeAsteroid.equals(repeatLookup)) {
+            throw new GameTestAssertException("AsteroidChunkGenerator.isLargeAsteroidAt is non-deterministic!");
         }
 
         helper.succeed();

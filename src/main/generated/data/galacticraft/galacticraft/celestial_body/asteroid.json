@@ -10,7 +10,7 @@
     },
     "celestial_handler": "galacticraft:default",
     "day_length": 99999999,
-    "day_temperature": -2,
+    "day_temperature": -73,
     "description": {
       "translate": "planet.galacticraft.asteroid.description"
     },
@@ -29,7 +29,7 @@
     "name": {
       "translate": "planet.galacticraft.asteroid"
     },
-    "night_temperature": -2,
+    "night_temperature": -200,
     "position": {
       "type": "galacticraft:orbital",
       "config": {

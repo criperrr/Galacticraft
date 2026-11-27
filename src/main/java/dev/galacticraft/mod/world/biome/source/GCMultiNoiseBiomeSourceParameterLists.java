@@ -353,14 +353,56 @@ public class GCMultiNoiseBiomeSourceParameterLists {
     @Contract("_ -> new")
     private static <T> Climate.@NotNull ParameterList<T> generateAsteroid(Function<ResourceKey<Biome>, T> biomeRegistry) {
         ImmutableList.Builder<Pair<Climate.ParameterPoint, T>> builder = ImmutableList.builder();
-        writeBiomeParameters(builder::add,
-                HOT, // hot to prevent snow
-                DRY,// ,
-                Parameter.span(SHORE_CONTINENTALNESS, MID_INLAND_CONTINENTALNESS),
-                MIN_EROSION,
-                WEIRDNESS_H_MIXED,
+        // 100% 6D coverage across the Main Asteroid Belt spectral taxonomy:
+        // - KIRKWOOD_RESONANCE_GAP: orbital resonance void bands (continentalness [-1.0, -0.45])
+        // - ASTEROID_FIELD (C-type Carbonaceous): dark carbon/ice-rich outer belt (continentalness [-0.45, 0.45], temperature [-1.0, 0.05])
+        // - INNER_SILICATE_BELT (S-type Silicate): stony iron/aluminum/copper belt (continentalness [-0.45, 0.45], temperature [0.05, 1.0])
+        // - METALLIC_CORE_CLUSTER (M-type Metallic): dense metallic core remnants (continentalness [0.45, 1.0])
+        Parameter fullDepth = Parameter.span(-1.0F, 2.0F);
+        writeMercury3dBiome(
+                builder::add,
+                FULL_RANGE,
+                FULL_RANGE,
+                Parameter.span(-1.0F, -0.45F),
+                FULL_RANGE,
+                fullDepth,
+                FULL_RANGE,
                 0.0F,
-                biomeRegistry.apply(GCBiomes.Asteroid.ASTEROID_FIELD));
+                biomeRegistry.apply(GCBiomes.Asteroid.KIRKWOOD_RESONANCE_GAP)
+        );
+        writeMercury3dBiome(
+                builder::add,
+                Parameter.span(-1.0F, 0.05F),
+                FULL_RANGE,
+                Parameter.span(-0.45F, 0.45F),
+                FULL_RANGE,
+                fullDepth,
+                FULL_RANGE,
+                0.0F,
+                biomeRegistry.apply(GCBiomes.Asteroid.ASTEROID_FIELD)
+        );
+        writeMercury3dBiome(
+                builder::add,
+                Parameter.span(0.05F, 1.0F),
+                FULL_RANGE,
+                Parameter.span(-0.45F, 0.45F),
+                FULL_RANGE,
+                fullDepth,
+                FULL_RANGE,
+                0.0F,
+                biomeRegistry.apply(GCBiomes.Asteroid.INNER_SILICATE_BELT)
+        );
+        writeMercury3dBiome(
+                builder::add,
+                FULL_RANGE,
+                FULL_RANGE,
+                Parameter.span(0.45F, 1.0F),
+                FULL_RANGE,
+                fullDepth,
+                FULL_RANGE,
+                0.0F,
+                biomeRegistry.apply(GCBiomes.Asteroid.METALLIC_CORE_CLUSTER)
+        );
 
         return new Climate.ParameterList<>(builder.build());
     }

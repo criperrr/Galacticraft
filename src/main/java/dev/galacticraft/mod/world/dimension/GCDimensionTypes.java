@@ -116,8 +116,8 @@ public class GCDimensionTypes {
                 new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 0), 0)
         ));
         context.register(ASTEROID, new DimensionType(
-                OptionalLong.of(6000L), // fixedTime: perpetual space
-                false, // hasSkyLight
+                OptionalLong.of(6000L), // fixedTime: perpetual space noon for high-contrast vacuum sunlight
+                true, // hasSkyLight
                 false, // hasCeiling
                 false, // ultraWarm
                 false, // natural
@@ -129,7 +129,7 @@ public class GCDimensionTypes {
                 384, // logicalHeight
                 GCBlockTags.INFINIBURN_ASTEROID, // infiniburn
                 Constant.id("asteroid"), // effectsLocation // fixme
-                0.05F, // ambientLight
+                0.02F, // ambientLight
                 new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 0), 0)
         ));
 
