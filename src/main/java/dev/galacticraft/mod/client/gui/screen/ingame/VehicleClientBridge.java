@@ -23,6 +23,7 @@
 package dev.galacticraft.mod.client.gui.screen.ingame;
 
 import dev.galacticraft.mod.client.render.vehicle.ClientDroneRemoteController;
+import dev.galacticraft.mod.client.render.vehicle.VehicleClientEffects;
 import dev.galacticraft.mod.content.entity.vehicle.ModularVehicleEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -44,5 +45,9 @@ public final class VehicleClientBridge {
 
     public static void enterDroneRemote(@NotNull ModularVehicleEntity drone) {
         ClientDroneRemoteController.enterControl(drone);
+    }
+
+    public static void tickClientEffects(@NotNull ModularVehicleEntity vehicle) {
+        VehicleClientEffects.tick(vehicle);
     }
 }

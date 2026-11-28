@@ -774,6 +774,19 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
             return;
         }
 
+        if (VehicleRegistry.CHASSIS_HEAVY_HAULER.equals(this.getChassisDefinition().id())) {
+            // Full 8.6m Mars 6x6 Mobile Habitat solid multi-section hull collision
+            this.spawnChildPart("front", new Vec3(0.0, 0.15, 2.65), 3.30F, 3.25F, true);
+            this.spawnChildPart("cargo", new Vec3(0.0, 0.15, -2.55), 3.35F, 3.45F, true);
+            return;
+        }
+        if (VehicleRegistry.CHASSIS_UTILITY_BUGGY.equals(this.getChassisDefinition().id())) {
+            // Compact 4.25m NASA SEV pressurized rover collision
+            this.spawnChildPart("front", new Vec3(0.0, 0.10, 1.05), 2.35F, 2.05F, true);
+            this.spawnChildPart("cargo", new Vec3(0.0, 0.10, -1.05), 2.35F, 2.05F, true);
+            return;
+        }
+
         double zSpan = size == VehicleSizeClass.LARGE ? 1.45 : 0.95;
         float boxW = size == VehicleSizeClass.LARGE ? 1.95F : 1.55F;
         float boxH = size == VehicleSizeClass.LARGE ? 1.45F : 1.15F;
@@ -820,6 +833,16 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
 
     @Override
     public @NotNull EntityDimensions getDimensions(Pose pose) {
+        ResourceLocation chassisId = this.getChassisDefinition().id();
+        if (VehicleRegistry.CHASSIS_MICRO_DRONE.equals(chassisId)) {
+            return EntityDimensions.scalable(1.65F, 0.82F);
+        }
+        if (VehicleRegistry.CHASSIS_UTILITY_BUGGY.equals(chassisId)) {
+            return EntityDimensions.scalable(2.55F, 2.25F);
+        }
+        if (VehicleRegistry.CHASSIS_HEAVY_HAULER.equals(chassisId)) {
+            return EntityDimensions.scalable(3.65F, 3.65F);
+        }
         VehicleSizeClass size = this.derivedStats.sizeClass();
         return EntityDimensions.scalable(size.baseWidth(), size.baseHeight());
     }
@@ -2021,8 +2044,8 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
         } else {
             // 4-corner wheel contact raycast sampling for smooth ground terrain pitch and roll
             VehicleSizeClass size = this.derivedStats.sizeClass();
-            double halfW = size == VehicleSizeClass.LARGE ? 1.45 : (size == VehicleSizeClass.MEDIUM ? 1.15 : 0.85);
-            double halfL = size == VehicleSizeClass.LARGE ? 1.95 : (size == VehicleSizeClass.MEDIUM ? 1.35 : 0.95);
+            double halfW = size == VehicleSizeClass.LARGE ? 1.74 : (size == VehicleSizeClass.MEDIUM ? 1.24 : 0.85);
+            double halfL = size == VehicleSizeClass.LARGE ? 2.85 : (size == VehicleSizeClass.MEDIUM ? 1.32 : 0.95);
             double yawRad = Math.toRadians(this.getYRot());
             double cos = Math.cos(yawRad);
             double sin = Math.sin(yawRad);
@@ -2040,6 +2063,7 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
             this.clientPitch = Mth.lerp(0.20F, this.clientPitch, targetPitch);
             this.clientRoll = Mth.lerp(0.20F, this.clientRoll, targetRoll);
         }
+        dev.galacticraft.mod.client.gui.screen.ingame.VehicleClientBridge.tickClientEffects(this);
     }
 
     private double sampleWheelGroundY(double lx, double lz, double cos, double sin) {
@@ -2064,9 +2088,10 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
         double z = hp.localZ();
         return switch (hp.type()) {
             case LOCOMOTION -> {
-                double wheelR = size == VehicleSizeClass.LARGE ? 0.66 : (size == VehicleSizeClass.MEDIUM ? 0.54 : 0.42);
+                double wheelR = size == VehicleSizeClass.LARGE ? 0.82 : (size == VehicleSizeClass.MEDIUM ? 0.50 : 0.40);
                 double pad = wheelR + 0.08;
-                yield List.of(new net.minecraft.world.phys.AABB(x - 0.34, Math.max(0.0, y - pad), z - pad, x + 0.34, y + pad, z + pad));
+                double halfThick = size == VehicleSizeClass.LARGE ? 0.44 : 0.30;
+                yield List.of(new net.minecraft.world.phys.AABB(x - halfThick, Math.max(0.0, y - pad), z - pad, x + halfThick, y + pad, z + pad));
             }
             case ROTOR -> {
                 double rad = size == VehicleSizeClass.LARGE ? 0.72 : (size == VehicleSizeClass.MEDIUM ? 0.56 : 0.42);
@@ -2140,11 +2165,11 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
             return cargoRamp.clip(localOrigin, localEnd).isPresent();
         }
         if (size == VehicleSizeClass.MEDIUM) {
-            var leftDoor = new net.minecraft.world.phys.AABB(-1.42, 0.96, -0.22, -1.06, 2.26, 1.84);
-            var rightDoor = new net.minecraft.world.phys.AABB(1.06, 0.96, -0.22, 1.42, 2.26, 1.84);
+            var leftDoor = new net.minecraft.world.phys.AABB(-1.34, 0.96, -0.08, -1.04, 2.08, 1.20);
+            var rightDoor = new net.minecraft.world.phys.AABB(1.04, 0.96, -0.08, 1.34, 2.08, 1.20);
             return leftDoor.clip(localOrigin, localEnd).isPresent() || rightDoor.clip(localOrigin, localEnd).isPresent();
         }
-        var rearRamp = new net.minecraft.world.phys.AABB(-0.82, 1.10, -2.92, 0.82, 2.66, -2.45);
+        var rearRamp = new net.minecraft.world.phys.AABB(-1.24, 1.42, -4.28, 1.24, 3.06, -3.85);
         return rearRamp.clip(localOrigin, localEnd).isPresent();
     }
 
@@ -2506,6 +2531,8 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
         if (this.isFixedWing()) {
             double minClear = this.derivedStats.sizeClass() == VehicleSizeClass.LARGE ? 2.65 : 1.85;
             sideOffset = Math.copySign(Math.max(Math.abs(sideOffset), minClear), sideOffset);
+        } else if (VehicleRegistry.CHASSIS_HEAVY_HAULER.equals(this.getChassisDefinition().id())) {
+            sideOffset = Math.copySign(Math.max(Math.abs(sideOffset), 2.55), sideOffset);
         }
         double yawRad = Math.toRadians(this.getYRot());
         double dx = Math.cos(yawRad) * sideOffset;

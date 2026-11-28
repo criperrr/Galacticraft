@@ -2205,6 +2205,60 @@ public class GCTranslationProvider extends TranslationProvider {
         this.add("manual.galacticraft.entry.flight_telemetry.body1", "Load Blank Data Drives into science_* payload modules before launch. Flight Recorders earn +200% disaster data on thermal failure; Atmospheric Spectrometers sample gas composition remotely; Multispectral Cameras generate Orbital Survey Maps.");
         this.add("manual.galacticraft.entry.flight_telemetry.tip1", "Process Recorded Data Drives in a Telemetry Analyzer to feed SP & Domain points into your R&D Terminal.");
 
+        // Phase 5: Modular Vehicles, Shipping Crates, Planetary Aerodynamics & AI_CORE Manual Pages
+        this.add("manual.galacticraft.entry.vehicles_assembly.title", "Modular Electric Vehicles");
+        this.add("manual.galacticraft.entry.vehicles_assembly.h1", "Part-by-Part Physical Assembly");
+        this.add("manual.galacticraft.entry.vehicles_assembly.body1", "All planetary vehicles in Galacticraft 5 are 100% electric and assembled physically in-world. Craft chassis and modules across the 4 specialized 2x1 NASA Workshop Benches (Chassis, Electric Propulsion, Wheel/Locomotion, and Avionics/Accessories), place the chassis on the ground, and bolt each wheel, rotor, wing, motor, battery, seat, and gauge directly onto its 3D hardpoint.");
+        this.add("manual.galacticraft.entry.vehicles_assembly.tip1", "Press [P] while seated (or Shift+Right-Click the hull) to open the blur-free Cockpit Console. Aim directly at any installed part with the Vehicle Wrench to remove only that exact part.");
+        this.add("manual.galacticraft.entry.vehicles_assembly.flow_title", "4-Step Vehicle Assembly Workflow");
+        this.add("manual.galacticraft.flow.vehicle.s1", "1. Fabricate & Place Chassis");
+        this.add("manual.galacticraft.flow.vehicle.d1", "Build an Apollo LRV, Pressurized SEV, Mars 6x6, Helicopter, VTOL, or Airplane chassis.");
+        this.add("manual.galacticraft.flow.vehicle.s2", "2. Bolt Locomotion / Lift Hardware");
+        this.add("manual.galacticraft.flow.vehicle.d2", "Install wheels hub-by-hub, or rotors, wings, propellers, and retractable landing gear.");
+        this.add("manual.galacticraft.flow.vehicle.s3", "3. Install Electric Motor & Powerplant");
+        this.add("manual.galacticraft.flow.vehicle.d3", "Every vehicle needs an Electric Traction Motor plus Battery Bank, Solar Array, or RTG Core.");
+        this.add("manual.galacticraft.flow.vehicle.s4", "4. Mount Seats, Gauges & Cabin Doors");
+        this.add("manual.galacticraft.flow.vehicle.d4", "Snap analog gauges into dashboard sockets; pressurized cabins (SEV, 6x6, Aircraft) protect riders with zero suit O2 drain.");
+        this.add("manual.galacticraft.entry.vehicles_assembly.flow_cap", "Aim at cabin doors or rear ramps with an empty hand + Shift+Right-Click to toggle them in-world.");
+        this.add("manual.galacticraft.entry.vehicles_assembly.craft_bench", "Chassis Assembly Bench");
+        this.add("manual.galacticraft.entry.vehicles_assembly.craft_bench_cap", "2x1 NASA blueprint drafting table for fabricating vehicle chassis.");
+        this.add("manual.galacticraft.entry.vehicles_assembly.craft_wrench", "Vehicle Assembly Wrench");
+        this.add("manual.galacticraft.entry.vehicles_assembly.craft_wrench_cap", "Highlights exact 3D hardpoints, detaches parts, and packs vehicles into Shipping Crates.");
+
+        this.add("manual.galacticraft.entry.vehicles_crates.title", "Vehicle Crates & Rocket Cargo");
+        this.add("manual.galacticraft.entry.vehicles_crates.h1", "Multi-Slot 2D Rocket Cargo Grid");
+        this.add("manual.galacticraft.entry.vehicles_crates.body1", "Shift+Right-Click any assembled vehicle's chassis with a Vehicle Assembly Wrench to pack it into a portable Vehicle Shipping Crate. All installed parts, stored energy, AI configuration, and cargo are preserved inside DataComponents. Load the crate into your Rocket's 2D cargo grid to deploy vehicles on any planet or moon!");
+        this.add("manual.galacticraft.entry.vehicles_crates.info1", "Crate Grid Footprints: SMALL (Apollo LRV, Micro-Drone) = 2x2 slots | MEDIUM (NASA SEV, Light Helicopter, Bush Plane) = 3x2 slots | LARGE (Mars 6x6, Heavy VTOL, Cargo Plane) = 4x3 slots.");
+
+        this.add("manual.galacticraft.entry.vehicles_aero.title", "Planetary Aerodynamics & VTOL");
+        this.add("manual.galacticraft.entry.vehicles_aero.h1", "Gravity, Atmosphere & Vacuum Propulsion");
+        this.add("manual.galacticraft.entry.vehicles_aero.body1", "Vehicle physics couple directly to each world's real gravity and atmospheric pressure. Ground traction scales with sqrt(g), kicking up higher ballistic regolith arcs on the Moon (0.166G). Rotorcraft lift follows actuator-disc physics T ~ (P * R^2 * rho)^(1/3): Earth and Titan support Heavy Lift Rotors, thin Mars (0.006 atm) favors High-RPM Coaxial Mars Rotors, and airless worlds (Moon, Asteroids, Mercury) require Electric Vacuum VTOL Thrusters.");
+        this.add("manual.galacticraft.entry.vehicles_aero.warn1", "Aerodynamic rotors and fixed-wing airplanes cannot generate lift in vacuum (pressure < 0.005 atm)! Install Electric VTOL Thrusters on rotorcraft or hybrid-VTOL wing pods before flying on airless moons.");
+        this.add("manual.galacticraft.entry.vehicles_aero.h2", "Fixed-Wing Lift, Stall & Drone FPV");
+        this.add("manual.galacticraft.entry.vehicles_aero.body2", "Airplanes compute real aerodynamic lift L = 0.5 * rho * V^2 * S * CL and stall speed V_stall. Use Up/Down Arrow keys (or cockpit levers) for Throttle, retract landing gear after liftoff, and equip High-Aspect Mars Wings for ultra-low stall speeds in thin CO2 air. Micro-Drones can also be piloted remotely in 1st-person FPV using the Drone Remote Controller.");
+        this.add("manual.galacticraft.entry.vehicles_aero.tip2", "Tip: In dense atmospheres (Earth, Titan, Venus), high-speed flight forms wingtip condensation trails and propeller slipstream vortices.");
+
+        this.add("manual.galacticraft.entry.vehicles_ai.title", "Autonomous AI Core Programming");
+        this.add("manual.galacticraft.entry.vehicles_ai.h1", "Server-Authoritative 2.5D & 3D Autonomy");
+        this.add("manual.galacticraft.entry.vehicles_ai.body1", "Install an AI Core Module into any vehicle's ai_core_slot and open the AI Mission Terminal from the Cockpit Console to automate planetary operations. Ground rovers run a NASA JPL ENav-inspired 2.5D costmap with crater-rim cliff sensors, parked-vehicle avoidance, and stuck recovery. Rotorcraft and airplanes execute 3D coarse-grid takeoff, cruise, glide-slope landing, and automatic go-around.");
+        this.add("manual.galacticraft.entry.vehicles_ai.tip1", "When battery drops below 20% or cargo bays fill up, autonomous vehicles automatically enter RETURN_TO_BASE to recharge at their home pad and release moving chunk tickets cleanly.");
+        this.add("manual.galacticraft.entry.vehicles_ai.flow_title", "4 Autonomous Mission Roles");
+        this.add("manual.galacticraft.flow.ai.s1", "1. Science Explorer");
+        this.add("manual.galacticraft.flow.ai.d1", "Patrols waypoints, triggers terrain scanning & geological drilling animations, and stores samples.");
+        this.add("manual.galacticraft.flow.ai.s2", "2. Cargo Shuttle");
+        this.add("manual.galacticraft.flow.ai.d2", "Shuttles items between Origin and Destination pads, lowering boarding ramps for Fabric Transfer API loading.");
+        this.add("manual.galacticraft.flow.ai.s3", "3. Passenger Taxi");
+        this.add("manual.galacticraft.flow.ai.d3", "Safely ferries Players and Moon Villagers between stations while keeping AI navigation active.");
+        this.add("manual.galacticraft.flow.ai.s4", "4. Escort Patrol");
+        this.add("manual.galacticraft.flow.ai.d4", "Tracks the owner at a safe ground convoy or overhead drone/helicopter escort offset.");
+        this.add("manual.galacticraft.entry.vehicles_ai.flow_cap", "AI vehicles never hijack manual controls when switched back to Manual Mode in the Cockpit Console.");
+
+        this.add("subtitles.galacticraft.entity.vehicle.electric_motor", "Electric vehicle motor hums");
+        this.add("subtitles.galacticraft.entity.vehicle.rotor_blades", "Rotor blades spin");
+        this.add("subtitles.galacticraft.entity.vehicle.propeller", "Electric propeller whirs");
+        this.add("subtitles.galacticraft.entity.vehicle.vtol_thruster", "Electric VTOL thruster fires");
+        this.add("subtitles.galacticraft.entity.vehicle.gear_hydraulics", "Landing gear hydraulics actuate");
+
         this.add("manual.galacticraft.entry.recipe_index.title", "Global Search & EMI/REI");
         this.add("manual.galacticraft.entry.recipe_index.h1", "Cross-Linked Aerospace Index");
         this.add("manual.galacticraft.entry.recipe_index.body1", "Type in the top-right search bar to filter every chapter, machine, alloy, and planet instantaneously (accent-insensitive). Click any item icon anywhere in the manual to jump to its chapter, or use the EMI/REI button to inspect full crafting trees.");

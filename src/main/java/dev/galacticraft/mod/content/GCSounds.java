@@ -36,6 +36,11 @@ public class GCSounds {
     public static final SoundEvent AMBIENT_SINGLE_DRIP = register("ambient.single_drip");
     // Entity
     public static final SoundEvent ASTROMINER = register("entity.astrominer");
+    public static final SoundEvent VEHICLE_ELECTRIC_MOTOR = register("entity.vehicle.electric_motor");
+    public static final SoundEvent VEHICLE_ROTOR_BLADES = register("entity.vehicle.rotor_blades");
+    public static final SoundEvent VEHICLE_PROPELLER = register("entity.vehicle.propeller");
+    public static final SoundEvent VEHICLE_VTOL_THRUSTER = register("entity.vehicle.vtol_thruster");
+    public static final SoundEvent VEHICLE_GEAR_HYDRAULICS = register("entity.vehicle.gear_hydraulics");
     public static final SoundEvent SKELETON_BOSS_DEATH = register("entity.skeleton_boss.death");
     public static final SoundEvent SKELETON_BOSS_LAUGH = register("entity.skeleton_boss.laugh");
     public static final SoundEvent SKELETON_BOSS_OOH = register("entity.skeleton_boss.ooh");

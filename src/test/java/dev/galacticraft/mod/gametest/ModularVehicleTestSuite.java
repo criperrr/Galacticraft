@@ -43,7 +43,6 @@ import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameType;
 
 public class ModularVehicleTestSuite implements GalacticraftGameTest {
@@ -63,8 +62,9 @@ public class ModularVehicleTestSuite implements GalacticraftGameTest {
             throw new GameTestAssertException("Fabricator should not craft without materials");
         }
 
-        be.getInventory().setItem(0, new ItemStack(Items.IRON_INGOT, 8));
-        be.getInventory().setItem(1, new ItemStack(Items.COPPER_INGOT, 4));
+        be.getInventory().setItem(0, new ItemStack(GCItems.COMPRESSED_ALUMINUM, 8));
+        be.getInventory().setItem(1, new ItemStack(GCItems.COMPRESSED_STEEL, 4));
+        be.getInventory().setItem(2, new ItemStack(GCItems.BASIC_WAFER, 1));
         if (!be.tryFabricate(player, VehicleRegistry.CHASSIS_SCOUT_ROVER)) {
             throw new GameTestAssertException("Fabricator failed to craft Scout Rover chassis with exact materials");
         }
@@ -73,7 +73,7 @@ public class ModularVehicleTestSuite implements GalacticraftGameTest {
         if (!out.is(GCItems.SCOUT_ROVER_CHASSIS)) {
             throw new GameTestAssertException("Expected SCOUT_ROVER_CHASSIS in output, got " + out);
         }
-        if (!be.getInventory().getItem(0).isEmpty() || !be.getInventory().getItem(1).isEmpty()) {
+        if (!be.getInventory().getItem(0).isEmpty() || !be.getInventory().getItem(1).isEmpty() || !be.getInventory().getItem(2).isEmpty()) {
             throw new GameTestAssertException("Fabricator did not consume input materials");
         }
 

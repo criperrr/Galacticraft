@@ -150,6 +150,60 @@ public class GCPtBrTranslationProvider extends FabricLanguageProvider {
         builder.add("manual.galacticraft.entry.aerostatic_giants.body1", "Júpiter, Saturno, Urano e Netuno não possuem superfície rochosa. Os foguetes montam uma Plataforma Aerostática 7x7 em Y=216 na alta atmosfera segura (0,5-2,5 bar). Descer abaixo de Y=175 eleva exponencialmente a pressão hiperbárica e os ventos zonais; o Fracionador Atmosférico ganha até 2,5x de rendimento em profundidades pressurizadas.");
         builder.add("manual.galacticraft.entry.aerostatic_giants.warn1", "Explorar o Núcleo Abissal esparso (Y=-64..-20) sob 80-200+ bar exige Controlador de Escudo + Revestimento Isotérmico T2 — ou minere os minérios equivalentes nas luas!");
 
+        // Fase 5: Manual Espacial — Veículos Modulares, Caixas Multi-Slot, Aerodinâmica & AI_CORE
+        builder.add("manual.galacticraft.entry.vehicles_assembly.title", "Veículos Elétricos Modulares");
+        builder.add("manual.galacticraft.entry.vehicles_assembly.h1", "Montagem Física Peça por Peça");
+        builder.add("manual.galacticraft.entry.vehicles_assembly.body1", "Todos os veículos planetários do Galacticraft 5 são 100% elétricos e montados fisicamente no mundo. Fabrique chassis e módulos nas 4 Bancadas NASA 2x1 (Chassis, Propulsão Elétrica, Rodas/Locomoção e Aviônicos/Acessórios), posicione o chassi no solo e encaixe cada roda, rotor, asa, motor, bateria, assento e mostrador diretamente no seu hardpoint 3D.");
+        builder.add("manual.galacticraft.entry.vehicles_assembly.tip1", "Pressione [P] sentado (ou Shift+Clique Direito no casco) para abrir o Painel do Cockpit sem blur. Mire diretamente na peça instalada com a Chave de Montagem para remover apenas aquela peça exata.");
+        builder.add("manual.galacticraft.entry.vehicles_assembly.flow_title", "Fluxo de Montagem em 4 Etapas");
+        builder.add("manual.galacticraft.flow.vehicle.s1", "1. Fabrique e Posicione o Chassi");
+        builder.add("manual.galacticraft.flow.vehicle.d1", "Construa um Apollo LRV, NASA SEV Pressurizado, Mars 6x6, Helicóptero, VTOL ou Avião.");
+        builder.add("manual.galacticraft.flow.vehicle.s2", "2. Acople Rodas ou Superfícies de Voo");
+        builder.add("manual.galacticraft.flow.vehicle.d2", "Instale rodas cubo a cubo, ou rotores, asas, hélices e trem de pouso retrátil.");
+        builder.add("manual.galacticraft.flow.vehicle.s3", "3. Instale Motor Elétrico e Energia");
+        builder.add("manual.galacticraft.flow.vehicle.d3", "Todo veículo exige um Motor de Tração Elétrico mais Banco de Baterias, Painel Solar ou RTG.");
+        builder.add("manual.galacticraft.flow.vehicle.s4", "4. Assentos, Mostradores e Cabine");
+        builder.add("manual.galacticraft.flow.vehicle.d4", "Encaixe mostradores analógicos no painel; cabines pressurizadas (SEV, 6x6, aeronaves) protegem sem gastar O2 do traje.");
+        builder.add("manual.galacticraft.entry.vehicles_assembly.flow_cap", "Mire nas portas ou rampa traseira com a mão vazia + Shift+Clique Direito para abrir/fechar no mundo.");
+        builder.add("manual.galacticraft.entry.vehicles_assembly.craft_bench", "Bancada de Montagem de Chassis");
+        builder.add("manual.galacticraft.entry.vehicles_assembly.craft_bench_cap", "Prancheta técnica NASA 2x1 para fabricar chassis de veículos.");
+        builder.add("manual.galacticraft.entry.vehicles_assembly.craft_wrench", "Chave de Montagem de Veículos");
+        builder.add("manual.galacticraft.entry.vehicles_assembly.craft_wrench_cap", "Destaca hardpoints 3D exatos, desacopla peças e empacota veículos em Caixas de Carga.");
+
+        builder.add("manual.galacticraft.entry.vehicles_crates.title", "Caixas de Veículos no Foguete");
+        builder.add("manual.galacticraft.entry.vehicles_crates.h1", "Grade de Carga 2D Multi-Slot");
+        builder.add("manual.galacticraft.entry.vehicles_crates.body1", "Faça Shift+Clique Direito no casco de qualquer veículo com a Chave de Montagem para empacotá-lo em uma Caixa de Transporte portátil. Todas as peças, energia, configuração de IA e carga ficam preservados em DataComponents. Carregue a caixa na grade 2D do foguete para levar veículos a qualquer planeta ou lua!");
+        builder.add("manual.galacticraft.entry.vehicles_crates.info1", "Tamanho na Grade do Foguete: SMALL (Apollo LRV, Micro-Drone) = 2x2 slots | MEDIUM (NASA SEV, Helicóptero Leve, Avião Leve) = 3x2 slots | LARGE (Mars 6x6, VTOL Pesado, Avião de Carga) = 4x3 slots.");
+
+        builder.add("manual.galacticraft.entry.vehicles_aero.title", "Aerodinâmica Planetária e VTOL");
+        builder.add("manual.galacticraft.entry.vehicles_aero.h1", "Gravidade, Atmosfera e Propulsão no Vácuo");
+        builder.add("manual.galacticraft.entry.vehicles_aero.body1", "A física dos veículos responde à gravidade e pressão reais de cada planeta. A tração terrestre escala com raiz(g), erguendo arcos balísticos de regolito lunar (0,166G). O empuxo de rotores segue T ~ (P * R^2 * rho)^(1/3): Terra e Titã suportam Rotores Pesados, Marte rarefeito (0,006 atm) exige Rotores Coaxiais de Alta RPM e mundos sem ar (Lua, Asteroides, Mercúrio) exigem Propulsores VTOL Elétricos.");
+        builder.add("manual.galacticraft.entry.vehicles_aero.warn1", "Rotores aerodinâmicos e aviões não geram sustentação no vácuo (pressão < 0,005 atm)! Instale Propulsores VTOL Elétricos em rotorcraft ou nos pods híbridos das asas antes de voar em luas sem atmosfera.");
+        builder.add("manual.galacticraft.entry.vehicles_aero.h2", "Asa Fixa, Estol e Drone FPV");
+        builder.add("manual.galacticraft.entry.vehicles_aero.body2", "Aviões calculam sustentação L = 0,5 * rho * V^2 * S * CL e velocidade de estol V_stall. Controle o Throttle com as setas Cima/Baixo, recolha o trem de pouso após decolar e use Asas de Alto Alongamento em Marte. Micro-Drones também podem ser pilotados à distância em 1ª pessoa (FPV) com o Controle Remoto de Drone.");
+        builder.add("manual.galacticraft.entry.vehicles_aero.tip2", "Dica: Em atmosferas densas (Terra, Titã, Vênus), voos rápidos formam trilhas de condensação nas pontas das asas e vórtices de poeira atrás das hélices.");
+
+        builder.add("manual.galacticraft.entry.vehicles_ai.title", "Programação do Núcleo AI_CORE");
+        builder.add("manual.galacticraft.entry.vehicles_ai.h1", "Autonomia 2.5D e 3D Autoritativa no Servidor");
+        builder.add("manual.galacticraft.entry.vehicles_ai.body1", "Instale um Módulo Núcleo de IA no slot ai_core_slot de qualquer veículo e abra o Terminal de Missão IA pelo Painel do Cockpit. Rovers terrestres usam mapa de custo 2.5D estilo NASA JPL ENav com sensor de borda de cratera, desvio de outros veículos e recuperação de atolamento. Helicópteros e aviões executam decolagem, cruzeiro 3D, aproximação em rampa e arremetida automática.");
+        builder.add("manual.galacticraft.entry.vehicles_ai.tip1", "Quando a bateria cai abaixo de 20% ou o compartimento de carga enche, veículos autônomos entram em RETURN_TO_BASE para recarregar na base e liberam os chunk tickets com segurança.");
+        builder.add("manual.galacticraft.entry.vehicles_ai.flow_title", "4 Papéis de Missão Autônoma");
+        builder.add("manual.galacticraft.flow.ai.s1", "1. Explorador Científico");
+        builder.add("manual.galacticraft.flow.ai.d1", "Patrulha waypoints, executa escaneamento a laser e perfuração geológica, coletando amostras.");
+        builder.add("manual.galacticraft.flow.ai.s2", "2. Transporte de Carga");
+        builder.add("manual.galacticraft.flow.ai.d2", "Transporta itens entre pads de Origem e Destino, baixando rampas e transferindo via Fabric Transfer API.");
+        builder.add("manual.galacticraft.flow.ai.s3", "3. Táxi de Passageiros");
+        builder.add("manual.galacticraft.flow.ai.d3", "Transporta Jogadores e Aldeões Lunares com segurança mantendo a navegação autônoma ativa.");
+        builder.add("manual.galacticraft.flow.ai.s4", "4. Escolta e Patrulha");
+        builder.add("manual.galacticraft.flow.ai.d4", "Acompanha o proprietário em comboio terrestre ou escolta aérea de drone/helicóptero.");
+        builder.add("manual.galacticraft.entry.vehicles_ai.flow_cap", "Você pode alternar entre Modo Autônomo e Modo Manual a qualquer momento pelo Painel do Cockpit.");
+
+        builder.add("subtitles.galacticraft.entity.vehicle.electric_motor", "Motor elétrico de veículo zune");
+        builder.add("subtitles.galacticraft.entity.vehicle.rotor_blades", "Pás de rotor giram");
+        builder.add("subtitles.galacticraft.entity.vehicle.propeller", "Hélice elétrica gira");
+        builder.add("subtitles.galacticraft.entity.vehicle.vtol_thruster", "Propulsor VTOL elétrico dispara");
+        builder.add("subtitles.galacticraft.entity.vehicle.gear_hydraulics", "Hidráulica do trem de pouso atua");
+
         builder.add("block.galacticraft.vehicle_part_fabricator", "Fabricador Universal de Veículos");
         builder.add("block.galacticraft.chassis_bench", "Bancada de Montagem de Chassis");
         builder.add("block.galacticraft.electric_motor_bench", "Bancada de Propulsão Elétrica");

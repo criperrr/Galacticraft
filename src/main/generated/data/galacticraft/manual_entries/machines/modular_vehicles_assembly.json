@@ -1,0 +1,81 @@
+{
+  "icon_item": "galacticraft:chassis_bench",
+  "id": "galacticraft:machines/modular_vehicles_assembly",
+  "order": 90,
+  "pages": [
+    {
+      "type": "text",
+      "body": "manual.galacticraft.entry.vehicles_assembly.body1",
+      "callout": "manual.galacticraft.entry.vehicles_assembly.tip1",
+      "callout_style": "tip",
+      "heading": "manual.galacticraft.entry.vehicles_assembly.h1",
+      "link_entries": [
+        "galacticraft:mission/vehicle_cargo_crates",
+        "galacticraft:materials/planetary_aerodynamics",
+        "galacticraft:lab_log/autonomous_ai_core"
+      ],
+      "showcase_items": [
+        "galacticraft:chassis_bench",
+        "galacticraft:electric_motor_bench",
+        "galacticraft:wheel_locomotion_bench",
+        "galacticraft:vehicle_accessories_bench",
+        "galacticraft:vehicle_wrench"
+      ]
+    },
+    {
+      "type": "flowchart",
+      "caption": "manual.galacticraft.entry.vehicles_assembly.flow_cap",
+      "steps": [
+        {
+          "detail": "manual.galacticraft.flow.vehicle.d1",
+          "icon": "galacticraft:chassis_bench",
+          "title": "manual.galacticraft.flow.vehicle.s1"
+        },
+        {
+          "color": -680437,
+          "detail": "manual.galacticraft.flow.vehicle.d2",
+          "icon": "galacticraft:standard_wheel_set",
+          "title": "manual.galacticraft.flow.vehicle.s2"
+        },
+        {
+          "color": -15681151,
+          "detail": "manual.galacticraft.flow.vehicle.d3",
+          "icon": "galacticraft:battery_bank",
+          "title": "manual.galacticraft.flow.vehicle.s3"
+        },
+        {
+          "color": -5745161,
+          "detail": "manual.galacticraft.flow.vehicle.d4",
+          "icon": "galacticraft:gauge_speedometer",
+          "title": "manual.galacticraft.flow.vehicle.s4"
+        }
+      ],
+      "title": "manual.galacticraft.entry.vehicles_assembly.flow_title"
+    },
+    {
+      "type": "crafting",
+      "caption": "manual.galacticraft.entry.vehicles_assembly.craft_bench_cap",
+      "recipe_id": "galacticraft:chassis_bench",
+      "title": "manual.galacticraft.entry.vehicles_assembly.craft_bench"
+    },
+    {
+      "type": "crafting",
+      "caption": "manual.galacticraft.entry.vehicles_assembly.craft_wrench_cap",
+      "recipe_id": "galacticraft:vehicle_wrench",
+      "title": "manual.galacticraft.entry.vehicles_assembly.craft_wrench"
+    }
+  ],
+  "related_items": [
+    "galacticraft:chassis_bench",
+    "galacticraft:electric_motor_bench",
+    "galacticraft:wheel_locomotion_bench",
+    "galacticraft:vehicle_accessories_bench",
+    "galacticraft:vehicle_part_fabricator",
+    "galacticraft:vehicle_wrench",
+    "galacticraft:scout_rover_chassis",
+    "galacticraft:utility_buggy_chassis",
+    "galacticraft:heavy_hauler_chassis"
+  ],
+  "tab": "machines",
+  "title_key": "manual.galacticraft.entry.vehicles_assembly.title"
+}

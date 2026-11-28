@@ -357,63 +357,63 @@ public final class VehicleRegistry {
                 )
         ));
 
-        // 2. MEDIUM: NASA SEV / Artemis Pressurized Lunar Cruiser (4 individual wheel hubs + motor + battery)
+        // 2. MEDIUM: Compact NASA SEV / Artemis Pressurized Lunar Cruiser (4.25m L, 4x4 1.00m tires)
         registerChassis(new VehicleChassisDefinition(
                 CHASSIS_UTILITY_BUGGY,
                 "vehicle.galacticraft.chassis.utility_buggy",
                 VehicleSizeClass.MEDIUM,
                 VehicleDomain.GROUND,
                 680.0,
-                2.95,
+                2.64,
                 false,
                 true,
                 List.of(
-                        new VehicleHardpoint("wheel_fl", HardpointType.LOCOMOTION, -1.40, 0.54, 1.40, VehicleSizeClass.MEDIUM, true),
-                        new VehicleHardpoint("wheel_fr", HardpointType.LOCOMOTION, 1.40, 0.54, 1.40, VehicleSizeClass.MEDIUM, true),
-                        new VehicleHardpoint("wheel_rl", HardpointType.LOCOMOTION, -1.40, 0.54, -1.40, VehicleSizeClass.MEDIUM, true),
-                        new VehicleHardpoint("wheel_rr", HardpointType.LOCOMOTION, 1.40, 0.54, -1.40, VehicleSizeClass.MEDIUM, true),
-                        new VehicleHardpoint("motor_main", HardpointType.MOTOR, 0.0, 0.82, -0.78, VehicleSizeClass.MEDIUM, true),
-                        new VehicleHardpoint("powerplant_main", HardpointType.POWERPLANT, 0.0, 0.82, -1.48, VehicleSizeClass.MEDIUM, true),
-                        new VehicleHardpoint("seat_pilot", HardpointType.SEAT, -0.56, 1.00, 0.36, VehicleSizeClass.MEDIUM, true),
-                        new VehicleHardpoint("seat_passenger", HardpointType.SEAT, 0.56, 1.00, 0.36, VehicleSizeClass.MEDIUM, false),
-                        new VehicleHardpoint("cargo_rear", HardpointType.CARGO, 0.0, 1.06, -1.42, VehicleSizeClass.MEDIUM, false),
-                        new VehicleHardpoint("instrument_mast", HardpointType.INSTRUMENT, 0.92, 2.38, 0.65, VehicleSizeClass.MEDIUM, false),
-                        new VehicleHardpoint("dash_left", HardpointType.DASHBOARD, -0.64, 1.40, 1.39, VehicleSizeClass.SMALL, false),
-                        new VehicleHardpoint("dash_center", HardpointType.DASHBOARD, 0.0, 1.40, 1.39, VehicleSizeClass.SMALL, false),
-                        new VehicleHardpoint("dash_right", HardpointType.DASHBOARD, 0.64, 1.40, 1.39, VehicleSizeClass.SMALL, false),
-                        new VehicleHardpoint("ai_core_slot", HardpointType.AI_CORE, 0.0, 1.15, 1.15, VehicleSizeClass.SMALL, false)
+                        new VehicleHardpoint("wheel_fl", HardpointType.LOCOMOTION, -1.24, 0.50, 1.32, VehicleSizeClass.MEDIUM, true),
+                        new VehicleHardpoint("wheel_fr", HardpointType.LOCOMOTION, 1.24, 0.50, 1.32, VehicleSizeClass.MEDIUM, true),
+                        new VehicleHardpoint("wheel_rl", HardpointType.LOCOMOTION, -1.24, 0.50, -1.32, VehicleSizeClass.MEDIUM, true),
+                        new VehicleHardpoint("wheel_rr", HardpointType.LOCOMOTION, 1.24, 0.50, -1.32, VehicleSizeClass.MEDIUM, true),
+                        new VehicleHardpoint("motor_main", HardpointType.MOTOR, 0.0, 0.56, -0.52, VehicleSizeClass.MEDIUM, true),
+                        new VehicleHardpoint("powerplant_main", HardpointType.POWERPLANT, 0.0, 0.56, -1.28, VehicleSizeClass.MEDIUM, true),
+                        new VehicleHardpoint("seat_pilot", HardpointType.SEAT, -0.52, 0.96, 0.36, VehicleSizeClass.MEDIUM, true),
+                        new VehicleHardpoint("seat_passenger", HardpointType.SEAT, 0.52, 0.96, 0.36, VehicleSizeClass.MEDIUM, false),
+                        new VehicleHardpoint("cargo_rear", HardpointType.CARGO, 0.0, 0.96, -1.08, VehicleSizeClass.MEDIUM, false),
+                        new VehicleHardpoint("instrument_mast", HardpointType.INSTRUMENT, 0.76, 2.22, 0.32, VehicleSizeClass.MEDIUM, false),
+                        new VehicleHardpoint("dash_left", HardpointType.DASHBOARD, -0.56, 1.38, 1.34, VehicleSizeClass.SMALL, false),
+                        new VehicleHardpoint("dash_center", HardpointType.DASHBOARD, 0.0, 1.38, 1.34, VehicleSizeClass.SMALL, false),
+                        new VehicleHardpoint("dash_right", HardpointType.DASHBOARD, 0.56, 1.38, 1.34, VehicleSizeClass.SMALL, false),
+                        new VehicleHardpoint("ai_core_slot", HardpointType.AI_CORE, 0.0, 2.22, -0.45, VehicleSizeClass.SMALL, false)
                 )
         ));
 
-        // 3. LARGE: NASA Mars 6x6 Pressurized Mobile Habitat (6 individual wheel hubs + motor + battery)
+        // 3. LARGE: Colossal 8.6m NASA Mars 6x6 Pressurized Mobile Habitat (6x6 monster 1.64m tires, stepped bridge + lab)
         registerChassis(new VehicleChassisDefinition(
                 CHASSIS_HEAVY_HAULER,
                 "vehicle.galacticraft.chassis.heavy_hauler",
                 VehicleSizeClass.LARGE,
                 VehicleDomain.GROUND,
                 1450.0,
-                4.20,
+                5.70,
                 true,
                 true,
                 List.of(
-                        new VehicleHardpoint("wheel_fl", HardpointType.LOCOMOTION, -1.75, 0.66, 2.01, VehicleSizeClass.LARGE, true),
-                        new VehicleHardpoint("wheel_fr", HardpointType.LOCOMOTION, 1.75, 0.66, 2.01, VehicleSizeClass.LARGE, true),
-                        new VehicleHardpoint("wheel_ml", HardpointType.LOCOMOTION, -1.75, 0.66, 0.0, VehicleSizeClass.LARGE, true),
-                        new VehicleHardpoint("wheel_mr", HardpointType.LOCOMOTION, 1.75, 0.66, 0.0, VehicleSizeClass.LARGE, true),
-                        new VehicleHardpoint("wheel_rl", HardpointType.LOCOMOTION, -1.75, 0.66, -2.01, VehicleSizeClass.LARGE, true),
-                        new VehicleHardpoint("wheel_rr", HardpointType.LOCOMOTION, 1.75, 0.66, -2.01, VehicleSizeClass.LARGE, true),
-                        new VehicleHardpoint("motor_main", HardpointType.MOTOR, 0.0, 1.02, -0.80, VehicleSizeClass.LARGE, true),
-                        new VehicleHardpoint("powerplant_main", HardpointType.POWERPLANT, 0.0, 1.02, -2.05, VehicleSizeClass.LARGE, true),
-                        new VehicleHardpoint("powerplant_aux", HardpointType.POWERPLANT, 0.0, 2.86, -0.85, VehicleSizeClass.MEDIUM, false),
-                        new VehicleHardpoint("seat_pilot", HardpointType.SEAT, -0.68, 1.24, 1.25, VehicleSizeClass.LARGE, true),
-                        new VehicleHardpoint("seat_passenger_left", HardpointType.SEAT, 0.68, 1.24, 1.25, VehicleSizeClass.LARGE, false),
-                        new VehicleHardpoint("seat_passenger_right", HardpointType.SEAT, 0.0, 1.24, 0.45, VehicleSizeClass.LARGE, false),
-                        new VehicleHardpoint("cargo_rear", HardpointType.CARGO, 0.0, 1.22, -1.75, VehicleSizeClass.LARGE, false),
-                        new VehicleHardpoint("instrument_front", HardpointType.INSTRUMENT, 0.0, 1.18, 2.55, VehicleSizeClass.LARGE, false),
-                        new VehicleHardpoint("dash_left", HardpointType.DASHBOARD, -0.76, 1.76, 1.88, VehicleSizeClass.SMALL, false),
-                        new VehicleHardpoint("dash_center", HardpointType.DASHBOARD, 0.0, 1.76, 1.88, VehicleSizeClass.SMALL, false),
-                        new VehicleHardpoint("dash_right", HardpointType.DASHBOARD, 0.76, 1.76, 1.88, VehicleSizeClass.SMALL, false),
-                        new VehicleHardpoint("ai_core_slot", HardpointType.AI_CORE, 0.0, 2.86, 0.85, VehicleSizeClass.SMALL, false)
+                        new VehicleHardpoint("wheel_fl", HardpointType.LOCOMOTION, -1.74, 0.82, 2.85, VehicleSizeClass.LARGE, true),
+                        new VehicleHardpoint("wheel_fr", HardpointType.LOCOMOTION, 1.74, 0.82, 2.85, VehicleSizeClass.LARGE, true),
+                        new VehicleHardpoint("wheel_ml", HardpointType.LOCOMOTION, -1.74, 0.82, 0.0, VehicleSizeClass.LARGE, true),
+                        new VehicleHardpoint("wheel_mr", HardpointType.LOCOMOTION, 1.74, 0.82, 0.0, VehicleSizeClass.LARGE, true),
+                        new VehicleHardpoint("wheel_rl", HardpointType.LOCOMOTION, -1.74, 0.82, -2.85, VehicleSizeClass.LARGE, true),
+                        new VehicleHardpoint("wheel_rr", HardpointType.LOCOMOTION, 1.74, 0.82, -2.85, VehicleSizeClass.LARGE, true),
+                        new VehicleHardpoint("motor_main", HardpointType.MOTOR, 0.0, 1.00, -0.75, VehicleSizeClass.LARGE, true),
+                        new VehicleHardpoint("powerplant_main", HardpointType.POWERPLANT, 0.0, 1.00, -2.45, VehicleSizeClass.LARGE, true),
+                        new VehicleHardpoint("powerplant_aux", HardpointType.POWERPLANT, 0.0, 3.64, -1.65, VehicleSizeClass.MEDIUM, false),
+                        new VehicleHardpoint("seat_pilot", HardpointType.SEAT, -0.76, 1.72, 2.38, VehicleSizeClass.LARGE, true),
+                        new VehicleHardpoint("seat_passenger_left", HardpointType.SEAT, 0.76, 1.72, 2.38, VehicleSizeClass.LARGE, false),
+                        new VehicleHardpoint("seat_passenger_right", HardpointType.SEAT, 0.0, 1.48, 0.35, VehicleSizeClass.LARGE, false),
+                        new VehicleHardpoint("cargo_rear", HardpointType.CARGO, 0.0, 1.46, -2.25, VehicleSizeClass.LARGE, false),
+                        new VehicleHardpoint("instrument_front", HardpointType.INSTRUMENT, 0.0, 1.40, 3.92, VehicleSizeClass.LARGE, false),
+                        new VehicleHardpoint("dash_left", HardpointType.DASHBOARD, -0.78, 2.24, 3.04, VehicleSizeClass.SMALL, false),
+                        new VehicleHardpoint("dash_center", HardpointType.DASHBOARD, 0.0, 2.24, 3.04, VehicleSizeClass.SMALL, false),
+                        new VehicleHardpoint("dash_right", HardpointType.DASHBOARD, 0.78, 2.24, 3.04, VehicleSizeClass.SMALL, false),
+                        new VehicleHardpoint("ai_core_slot", HardpointType.AI_CORE, 0.0, 3.64, 0.72, VehicleSizeClass.SMALL, false)
                 )
         ));
 

@@ -87,6 +87,11 @@ public final class ManualCatalog {
     public static final ResourceLocation ENTRY_LAB_IN_SITU_GUIDE = Constant.id("lab_log/in_situ_labs");
     public static final ResourceLocation ENTRY_LAB_TELEMETRY_PROBES = Constant.id("lab_log/flight_telemetry");
 
+    public static final ResourceLocation ENTRY_VEHICLES_ASSEMBLY = Constant.id("machines/modular_vehicles_assembly");
+    public static final ResourceLocation ENTRY_VEHICLES_CRATES = Constant.id("mission/vehicle_cargo_crates");
+    public static final ResourceLocation ENTRY_VEHICLES_AERODYNAMICS = Constant.id("materials/planetary_aerodynamics");
+    public static final ResourceLocation ENTRY_VEHICLES_AI_CORE = Constant.id("lab_log/autonomous_ai_core");
+
     public static final ResourceLocation ENTRY_INDEX_GUIDE = Constant.id("index/recipe_index");
 
     private static final List<ManualEntry> BUILTIN = buildEntries();
@@ -843,6 +848,230 @@ public final class ManualCatalog {
                                 "manual.galacticraft.entry.flight_telemetry.tip1",
                                 List.of(Constant.id("blank_data_drive"), Constant.id("recorded_data_drive"), Constant.id("telemetry_analyzer"), Constant.id("orbital_survey_map")),
                                 List.of(ENTRY_ATLAS_MARS, ENTRY_ATLAS_VENUS)
+                        )
+                )
+        ));
+
+        list.add(new ManualEntry(
+                ENTRY_VEHICLES_ASSEMBLY,
+                ManualTab.MACHINES, 1, 90,
+                "manual.galacticraft.entry.vehicles_assembly.title",
+                Constant.id("chassis_bench"),
+                Optional.empty(),
+                "manual.galacticraft.hint.default",
+                List.of(
+                        Constant.id("chassis_bench"),
+                        Constant.id("electric_motor_bench"),
+                        Constant.id("wheel_locomotion_bench"),
+                        Constant.id("vehicle_accessories_bench"),
+                        Constant.id("vehicle_part_fabricator"),
+                        Constant.id("vehicle_wrench"),
+                        Constant.id("scout_rover_chassis"),
+                        Constant.id("utility_buggy_chassis"),
+                        Constant.id("heavy_hauler_chassis")
+                ),
+                List.of(
+                        new ManualPage.TextPage(
+                                "manual.galacticraft.entry.vehicles_assembly.h1",
+                                "manual.galacticraft.entry.vehicles_assembly.body1",
+                                "tip",
+                                "manual.galacticraft.entry.vehicles_assembly.tip1",
+                                List.of(
+                                        Constant.id("chassis_bench"),
+                                        Constant.id("electric_motor_bench"),
+                                        Constant.id("wheel_locomotion_bench"),
+                                        Constant.id("vehicle_accessories_bench"),
+                                        Constant.id("vehicle_wrench")
+                                ),
+                                List.of(ENTRY_VEHICLES_CRATES, ENTRY_VEHICLES_AERODYNAMICS, ENTRY_VEHICLES_AI_CORE)
+                        ),
+                        new ManualPage.FlowchartPage(
+                                "manual.galacticraft.entry.vehicles_assembly.flow_title",
+                                List.of(
+                                        new ManualPage.FlowchartPage.FlowStep(
+                                                Constant.id("chassis_bench"),
+                                                "manual.galacticraft.flow.vehicle.s1",
+                                                "manual.galacticraft.flow.vehicle.d1",
+                                                0xFF38BDF8
+                                        ),
+                                        new ManualPage.FlowchartPage.FlowStep(
+                                                Constant.id("standard_wheel_set"),
+                                                "manual.galacticraft.flow.vehicle.s2",
+                                                "manual.galacticraft.flow.vehicle.d2",
+                                                0xFFF59E0B
+                                        ),
+                                        new ManualPage.FlowchartPage.FlowStep(
+                                                Constant.id("battery_bank"),
+                                                "manual.galacticraft.flow.vehicle.s3",
+                                                "manual.galacticraft.flow.vehicle.d3",
+                                                0xFF10B981
+                                        ),
+                                        new ManualPage.FlowchartPage.FlowStep(
+                                                Constant.id("gauge_speedometer"),
+                                                "manual.galacticraft.flow.vehicle.s4",
+                                                "manual.galacticraft.flow.vehicle.d4",
+                                                0xFFA855F7
+                                        )
+                                ),
+                                "manual.galacticraft.entry.vehicles_assembly.flow_cap"
+                        ),
+                        new ManualPage.CraftingPage(
+                                "manual.galacticraft.entry.vehicles_assembly.craft_bench",
+                                Constant.id("chassis_bench"),
+                                "manual.galacticraft.entry.vehicles_assembly.craft_bench_cap"
+                        ),
+                        new ManualPage.CraftingPage(
+                                "manual.galacticraft.entry.vehicles_assembly.craft_wrench",
+                                Constant.id("vehicle_wrench"),
+                                "manual.galacticraft.entry.vehicles_assembly.craft_wrench_cap"
+                        )
+                )
+        ));
+
+        list.add(new ManualEntry(
+                ENTRY_VEHICLES_CRATES,
+                ManualTab.MISSION, 1, 50,
+                "manual.galacticraft.entry.vehicles_crates.title",
+                Constant.id("vehicle_crate"),
+                Optional.empty(),
+                "manual.galacticraft.hint.default",
+                List.of(
+                        Constant.id("vehicle_crate"),
+                        Constant.id("vehicle_wrench"),
+                        Constant.id("scout_rover_chassis"),
+                        Constant.id("light_helicopter_chassis"),
+                        Constant.id("cargo_airplane_chassis")
+                ),
+                List.of(
+                        new ManualPage.TextPage(
+                                "manual.galacticraft.entry.vehicles_crates.h1",
+                                "manual.galacticraft.entry.vehicles_crates.body1",
+                                "info",
+                                "manual.galacticraft.entry.vehicles_crates.info1",
+                                List.of(
+                                        Constant.id("vehicle_wrench"),
+                                        Constant.id("vehicle_crate"),
+                                        Constant.id("scout_rover_chassis"),
+                                        Constant.id("utility_buggy_chassis"),
+                                        Constant.id("heavy_hauler_chassis")
+                                ),
+                                List.of(ENTRY_VEHICLES_ASSEMBLY, ENTRY_LAUNCH_CHECKLIST_MOON, ENTRY_LAUNCH_CHECKLIST_MARS)
+                        )
+                )
+        ));
+
+        list.add(new ManualEntry(
+                ENTRY_VEHICLES_AERODYNAMICS,
+                ManualTab.MATERIALS, 2, 50,
+                "manual.galacticraft.entry.vehicles_aero.title",
+                Constant.id("high_aspect_mars_wing"),
+                Optional.empty(),
+                "manual.galacticraft.hint.default",
+                List.of(
+                        Constant.id("micro_drone_chassis"),
+                        Constant.id("light_helicopter_chassis"),
+                        Constant.id("heavy_vtol_chassis"),
+                        Constant.id("light_airplane_chassis"),
+                        Constant.id("cargo_airplane_chassis"),
+                        Constant.id("coaxial_mars_rotor"),
+                        Constant.id("heavy_lift_rotor"),
+                        Constant.id("vtol_thruster"),
+                        Constant.id("standard_airplane_wing"),
+                        Constant.id("high_aspect_mars_wing"),
+                        Constant.id("heavy_cargo_wing"),
+                        Constant.id("electric_propeller"),
+                        Constant.id("high_speed_ducted_fan"),
+                        Constant.id("retractable_landing_gear"),
+                        Constant.id("drone_remote_controller")
+                ),
+                List.of(
+                        new ManualPage.TextPage(
+                                "manual.galacticraft.entry.vehicles_aero.h1",
+                                "manual.galacticraft.entry.vehicles_aero.body1",
+                                "warn",
+                                "manual.galacticraft.entry.vehicles_aero.warn1",
+                                List.of(
+                                        Constant.id("coaxial_mars_rotor"),
+                                        Constant.id("vtol_thruster"),
+                                        Constant.id("high_aspect_mars_wing"),
+                                        Constant.id("electric_propeller"),
+                                        Constant.id("retractable_landing_gear")
+                                ),
+                                List.of(ENTRY_VEHICLES_ASSEMBLY, ENTRY_ATLAS_MOON, ENTRY_ATLAS_MARS, ENTRY_ATLAS_TITAN)
+                        ),
+                        new ManualPage.TextPage(
+                                "manual.galacticraft.entry.vehicles_aero.h2",
+                                "manual.galacticraft.entry.vehicles_aero.body2",
+                                "tip",
+                                "manual.galacticraft.entry.vehicles_aero.tip2",
+                                List.of(
+                                        Constant.id("light_airplane_chassis"),
+                                        Constant.id("cargo_airplane_chassis"),
+                                        Constant.id("drone_remote_controller")
+                                ),
+                                List.of(ENTRY_VEHICLES_AI_CORE)
+                        )
+                )
+        ));
+
+        list.add(new ManualEntry(
+                ENTRY_VEHICLES_AI_CORE,
+                ManualTab.LAB_LOG, 2, 30,
+                "manual.galacticraft.entry.vehicles_ai.title",
+                Constant.id("ai_core_module"),
+                Optional.empty(),
+                "manual.galacticraft.hint.default",
+                List.of(
+                        Constant.id("ai_core_module"),
+                        Constant.id("camera_mast_360"),
+                        Constant.id("geological_drill_arm"),
+                        Constant.id("cargo_rack_bay"),
+                        Constant.id("heavy_cargo_container"),
+                        Constant.id("crew_bench_seat")
+                ),
+                List.of(
+                        new ManualPage.TextPage(
+                                "manual.galacticraft.entry.vehicles_ai.h1",
+                                "manual.galacticraft.entry.vehicles_ai.body1",
+                                "tip",
+                                "manual.galacticraft.entry.vehicles_ai.tip1",
+                                List.of(
+                                        Constant.id("ai_core_module"),
+                                        Constant.id("geological_drill_arm"),
+                                        Constant.id("camera_mast_360"),
+                                        Constant.id("heavy_cargo_container")
+                                ),
+                                List.of(ENTRY_VEHICLES_ASSEMBLY, ENTRY_VEHICLES_AERODYNAMICS, ENTRY_LAB_TELEMETRY_PROBES)
+                        ),
+                        new ManualPage.FlowchartPage(
+                                "manual.galacticraft.entry.vehicles_ai.flow_title",
+                                List.of(
+                                        new ManualPage.FlowchartPage.FlowStep(
+                                                Constant.id("ai_core_module"),
+                                                "manual.galacticraft.flow.ai.s1",
+                                                "manual.galacticraft.flow.ai.d1",
+                                                0xFF38BDF8
+                                        ),
+                                        new ManualPage.FlowchartPage.FlowStep(
+                                                Constant.id("geological_drill_arm"),
+                                                "manual.galacticraft.flow.ai.s2",
+                                                "manual.galacticraft.flow.ai.d2",
+                                                0xFF10B981
+                                        ),
+                                        new ManualPage.FlowchartPage.FlowStep(
+                                                Constant.id("cargo_rack_bay"),
+                                                "manual.galacticraft.flow.ai.s3",
+                                                "manual.galacticraft.flow.ai.d3",
+                                                0xFFF59E0B
+                                        ),
+                                        new ManualPage.FlowchartPage.FlowStep(
+                                                Constant.id("battery_bank"),
+                                                "manual.galacticraft.flow.ai.s4",
+                                                "manual.galacticraft.flow.ai.d4",
+                                                0xFFEC4899
+                                        )
+                                ),
+                                "manual.galacticraft.entry.vehicles_ai.flow_cap"
                         )
                 )
         ));

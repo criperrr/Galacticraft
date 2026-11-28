@@ -1,0 +1,34 @@
+{
+  "icon_item": "galacticraft:vehicle_crate",
+  "id": "galacticraft:mission/vehicle_cargo_crates",
+  "order": 50,
+  "pages": [
+    {
+      "type": "text",
+      "body": "manual.galacticraft.entry.vehicles_crates.body1",
+      "callout": "manual.galacticraft.entry.vehicles_crates.info1",
+      "heading": "manual.galacticraft.entry.vehicles_crates.h1",
+      "link_entries": [
+        "galacticraft:machines/modular_vehicles_assembly",
+        "galacticraft:mission/lunar_checklist",
+        "galacticraft:mission/mars_checklist"
+      ],
+      "showcase_items": [
+        "galacticraft:vehicle_wrench",
+        "galacticraft:vehicle_crate",
+        "galacticraft:scout_rover_chassis",
+        "galacticraft:utility_buggy_chassis",
+        "galacticraft:heavy_hauler_chassis"
+      ]
+    }
+  ],
+  "related_items": [
+    "galacticraft:vehicle_crate",
+    "galacticraft:vehicle_wrench",
+    "galacticraft:scout_rover_chassis",
+    "galacticraft:light_helicopter_chassis",
+    "galacticraft:cargo_airplane_chassis"
+  ],
+  "tab": "mission",
+  "title_key": "manual.galacticraft.entry.vehicles_crates.title"
+}
