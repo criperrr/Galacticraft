@@ -814,6 +814,9 @@ public class GCCreativeModeTabs {
                 output.accept(VehicleCrateItem.createCrate(VehicleRegistry.createMarsFixedWingPreset(VehicleRegistry.CHASSIS_LIGHT_AIRPLANE)));
                 output.accept(VehicleCrateItem.createCrate(VehicleRegistry.createVacuumVtolPreset(VehicleRegistry.CHASSIS_LIGHT_AIRPLANE)));
                 output.accept(VehicleCrateItem.createCrate(VehicleRegistry.createCompletePreset(VehicleRegistry.CHASSIS_CARGO_AIRPLANE)));
+                output.accept(VehicleCrateItem.createCrate(VehicleRegistry.createAutonomousPreset(VehicleRegistry.CHASSIS_SCOUT_ROVER)));
+                output.accept(VehicleCrateItem.createCrate(VehicleRegistry.createAutonomousPreset(VehicleRegistry.CHASSIS_LIGHT_HELICOPTER)));
+                output.accept(VehicleCrateItem.createCrate(VehicleRegistry.createAutonomousPreset(VehicleRegistry.CHASSIS_LIGHT_AIRPLANE)));
 
                 // ARMOR
                 output.accept(HEAVY_DUTY_HELMET);

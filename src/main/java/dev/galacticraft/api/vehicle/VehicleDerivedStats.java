@@ -46,6 +46,8 @@ public record VehicleDerivedStats(
         boolean pressurizedCabin,
         boolean hasPilotSeat,
         boolean hasAiCore,
+        boolean hasCameraMast,
+        boolean hasDrillArm,
         boolean hasSolarRecharge,
         boolean hasRtgTrickle,
         double totalRotorAreaM2,
@@ -85,6 +87,10 @@ public record VehicleDerivedStats(
 
     public boolean hasVacuumThrusters() {
         return this.totalVacuumThrustN > 0.0;
+    }
+
+    public boolean hasScienceInstrument() {
+        return this.hasCameraMast || this.hasDrillArm;
     }
 
     public boolean isDrivable() {
@@ -277,6 +283,8 @@ public record VehicleDerivedStats(
         boolean skidSteer = chassis.skidSteerCapable();
         boolean hasPilot = false;
         boolean hasAi = false;
+        boolean hasCameraMast = false;
+        boolean hasDrillArm = false;
         boolean hasSolar = false;
         boolean hasRtg = false;
         double totalRotorArea = 0.0;
@@ -341,6 +349,13 @@ public record VehicleDerivedStats(
             if (part.type() == HardpointType.AI_CORE) {
                 hasAi = true;
             }
+            if (part.type() == HardpointType.INSTRUMENT) {
+                if (VehicleRegistry.PART_DRILL_ARM.equals(part.id())) {
+                    hasDrillArm = true;
+                } else {
+                    hasCameraMast = true;
+                }
+            }
             if (part.type() == HardpointType.SEAT && part.seatRole() != null) {
                 seats.add(new SeatSpec(hp.id(), hp.localOffset(), part.seatRole(), part.exitSideOffset()));
                 if (part.seatRole() == SeatRole.PILOT) {
@@ -370,6 +385,8 @@ public record VehicleDerivedStats(
                 chassis.pressurizedCabin(),
                 hasPilot,
                 hasAi,
+                hasCameraMast,
+                hasDrillArm,
                 hasSolar,
                 hasRtg,
                 totalRotorArea,
