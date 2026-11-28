@@ -26,6 +26,8 @@ import dev.galacticraft.api.vehicle.ai.AutonomousVehicleContext;
 import dev.galacticraft.api.vehicle.ai.ControlCommand;
 import dev.galacticraft.api.vehicle.ai.NavStatus;
 import dev.galacticraft.api.vehicle.ai.VehicleNavigator;
+import dev.galacticraft.mod.content.entity.vehicle.GCVehicle;
+import dev.galacticraft.mod.content.entity.vehicle.VehiclePartEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
@@ -86,6 +88,10 @@ public final class GroundNavigator25D implements VehicleNavigator {
     private double cachedLeftClearance = HAZARD_RAY_LENGTH;
     private double cachedRightClearance = HAZARD_RAY_LENGTH;
     private boolean cachedEntityAhead = false;
+    private boolean cachedVehicleAhead = false;
+    private double cachedVehicleDist = Double.MAX_VALUE;
+    private int vehicleBlockedTicks = 0;
+    private int replanVehicleCooldownTicks = 0;
     private boolean cachedCliffAhead = false;
     private @Nullable BlockPos lastBlockingCell;
 
@@ -161,6 +167,7 @@ public final class GroundNavigator25D implements VehicleNavigator {
             BlockPos startBlock = BlockPos.containing(vehicle.position().x, vehicle.position().y + 0.1, vehicle.position().z);
             Costmap25D costmap = Costmap25D.buildFromLevel(
                     level,
+                    vehicle.asEntity(),
                     startBlock,
                     this.targetPos,
                     vehicle.entityWidth(),
@@ -341,7 +348,29 @@ public final class GroundNavigator25D implements VehicleNavigator {
             }
         }
 
-        // 7. Dynamic entity yield (pause politely for players/rovers crossing path)
+        // 7. Dynamic vehicle vs pedestrian avoidance ahead
+        if (this.replanVehicleCooldownTicks > 0) {
+            this.replanVehicleCooldownTicks--;
+        }
+        if (this.cachedVehicleAhead) {
+            this.vehicleBlockedTicks++;
+            if (this.cachedVehicleDist < Math.max(2.3, vehicle.entityWidth() + 0.7)) {
+                // Too close to swing around directly -> reverse and replan around the other vehicle
+                this.vehicleBlockedTicks = 0;
+                this.status = NavStatus.STUCK;
+                return ControlCommand.stop();
+            }
+            if (this.vehicleBlockedTicks >= 4 && this.replanVehicleCooldownTicks == 0) {
+                // Dynamically replan costmap with the other vehicle's live footprint stamped as IMPASSABLE
+                this.vehicleBlockedTicks = 0;
+                this.replanVehicleCooldownTicks = 25;
+                this.activeSearch = null;
+                this.status = NavStatus.PLANNING;
+                return ControlCommand.stop();
+            }
+            return ControlCommand.ground(0.0, 0.0F, 0.0F, true, false);
+        }
+        this.vehicleBlockedTicks = 0;
         if (this.cachedEntityAhead) {
             return ControlCommand.ground(0.0, 0.0F, 0.0F, true, false);
         }
@@ -401,18 +430,21 @@ public final class GroundNavigator25D implements VehicleNavigator {
         // Downward cliff/crater drop-off probe ahead of the front bumper
         this.cachedCliffAhead = hasCraterDropAhead(level, vehicle.position(), baseYaw, floorY, vehicle.entityWidth());
 
-        // Dynamic entity check ahead (excluding self, passengers, vehicle hitboxes, and dropped items)
+        // Dynamic entity & other-vehicle check ahead (excluding self, own passengers, own VehiclePartEntity children, and dropped items)
         this.cachedEntityAhead = false;
+        this.cachedVehicleAhead = false;
+        this.cachedVehicleDist = Double.MAX_VALUE;
         Entity self = vehicle.asEntity();
         if (self != null) {
             double yawRad = Math.toRadians(baseYaw);
             double fx = -Math.sin(yawRad);
             double fz = Math.cos(yawRad);
-            Vec3 aheadCenter = vehicle.position().add(fx * 2.1, 0.75, fz * 2.1);
-            double halfW = Math.max(0.85, vehicle.entityWidth() * 0.52);
+            double probeOffset = Math.max(2.4, vehicle.entityWidth() * 0.8 + 1.4);
+            Vec3 aheadCenter = vehicle.position().add(fx * probeOffset, 0.75, fz * probeOffset);
+            double halfW = Math.max(1.1, vehicle.entityWidth() * 0.65);
             AABB aheadBox = new AABB(
-                    aheadCenter.x - halfW, vehicle.position().y + 0.1, aheadCenter.z - halfW,
-                    aheadCenter.x + halfW, vehicle.position().y + vehicle.entityHeight() + 0.3, aheadCenter.z + halfW
+                    aheadCenter.x - halfW, vehicle.position().y - 0.1, aheadCenter.z - halfW,
+                    aheadCenter.x + halfW, vehicle.position().y + vehicle.entityHeight() + 0.4, aheadCenter.z + halfW
             );
             List<Entity> blocking = level.getEntities(self, aheadBox, e ->
                     !e.isRemoved()
@@ -420,9 +452,19 @@ public final class GroundNavigator25D implements VehicleNavigator {
                             && !(e instanceof ItemEntity)
                             && !self.hasPassenger(e)
                             && !e.is(self)
-                            && !(e instanceof dev.galacticraft.mod.content.entity.vehicle.VehiclePartEntity)
             );
-            this.cachedEntityAhead = !blocking.isEmpty();
+            for (Entity blocker : blocking) {
+                if (blocker instanceof GCVehicle || blocker instanceof VehiclePartEntity) {
+                    this.cachedVehicleAhead = true;
+                    double d = horizontalDist(vehicle.position(), blocker.position());
+                    if (d < this.cachedVehicleDist) {
+                        this.cachedVehicleDist = d;
+                        this.lastBlockingCell = blocker.blockPosition().immutable();
+                    }
+                } else {
+                    this.cachedEntityAhead = true;
+                }
+            }
         }
     }
 

@@ -26,6 +26,8 @@ import dev.galacticraft.api.vehicle.ai.AutonomousVehicleContext;
 import dev.galacticraft.api.vehicle.ai.ControlCommand;
 import dev.galacticraft.api.vehicle.ai.NavStatus;
 import dev.galacticraft.api.vehicle.ai.VehicleNavigator;
+import dev.galacticraft.mod.content.entity.vehicle.GCVehicle;
+import dev.galacticraft.mod.content.entity.vehicle.VehiclePartEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
@@ -172,6 +174,7 @@ public final class RotorcraftNavigator3D implements VehicleNavigator {
 
             CoarseGrid3D grid = CoarseGrid3D.buildFromLevel(
                     level,
+                    vehicle.asEntity(),
                     climbStart,
                     approachGoal,
                     cellSize,
@@ -482,6 +485,7 @@ public final class RotorcraftNavigator3D implements VehicleNavigator {
 
         public static @NotNull CoarseGrid3D buildFromLevel(
                 @NotNull ServerLevel level,
+                @Nullable Entity selfEntity,
                 @NotNull BlockPos start,
                 @NotNull BlockPos goal,
                 int cellSize,
@@ -534,6 +538,30 @@ public final class RotorcraftNavigator3D implements VehicleNavigator {
                             }
                         }
                         free[(gx * sizeY + gy) * sizeZ + gz] = cellClear;
+                    }
+                }
+            }
+
+            // Mark macro-cells occupied by other vehicles (e.g. parked/hovering aircraft) as blocked
+            AABB airBounds = new AABB(minWx, minWy, minWz, minWx + sizeX * cellSize, minWy + sizeY * cellSize, minWz + sizeZ * cellSize);
+            List<Entity> otherVehicles = level.getEntities(selfEntity, airBounds, e ->
+                    !e.isRemoved()
+                            && (e instanceof GCVehicle || e instanceof VehiclePartEntity)
+                            && (selfEntity == null || (!e.is(selfEntity) && !selfEntity.hasPassenger(e)))
+            );
+            for (Entity other : otherVehicles) {
+                AABB bb = other.getBoundingBox().inflate(margin);
+                int gx0 = Mth.clamp((Mth.floor(bb.minX) - minWx) / cellSize, 0, sizeX - 1);
+                int gx1 = Mth.clamp((Mth.floor(bb.maxX) - minWx) / cellSize, 0, sizeX - 1);
+                int gy0 = Mth.clamp((Mth.floor(bb.minY) - minWy) / cellSize, 0, sizeY - 1);
+                int gy1 = Mth.clamp((Mth.floor(bb.maxY) - minWy) / cellSize, 0, sizeY - 1);
+                int gz0 = Mth.clamp((Mth.floor(bb.minZ) - minWz) / cellSize, 0, sizeZ - 1);
+                int gz1 = Mth.clamp((Mth.floor(bb.maxZ) - minWz) / cellSize, 0, sizeZ - 1);
+                for (int gx = gx0; gx <= gx1; gx++) {
+                    for (int gy = gy0; gy <= gy1; gy++) {
+                        for (int gz = gz0; gz <= gz1; gz++) {
+                            free[(gx * sizeY + gy) * sizeZ + gz] = false;
+                        }
                     }
                 }
             }

@@ -22,16 +22,22 @@
 
 package dev.galacticraft.mod.content.vehicle.ai;
 
+import dev.galacticraft.mod.content.entity.vehicle.GCVehicle;
+import dev.galacticraft.mod.content.entity.vehicle.VehiclePartEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -82,10 +88,28 @@ public final class Costmap25D {
     }
 
     /**
-     * Builds an immutable 2.5D costmap snapshot on the main server thread around {@code start} and {@code goal}.
+     * Builds an immutable 2.5D costmap snapshot on the main server thread around {@code start} and {@code goal},
+     * including footprints of other vehicles in the search envelope.
      */
     public static @NotNull Costmap25D buildFromLevel(
             @NotNull ServerLevel level,
+            @NotNull BlockPos start,
+            @NotNull BlockPos goal,
+            float entityWidth,
+            float entityHeight,
+            @NotNull Map<BlockPos, Long> tempBlacklist,
+            long gameTime
+    ) {
+        return buildFromLevel(level, null, start, goal, entityWidth, entityHeight, tempBlacklist, gameTime);
+    }
+
+    /**
+     * Builds an immutable 2.5D costmap snapshot on the main server thread around {@code start} and {@code goal},
+     * stamping other {@link GCVehicle} and {@link VehiclePartEntity} hitboxes as impassable before footprint inflation.
+     */
+    public static @NotNull Costmap25D buildFromLevel(
+            @NotNull ServerLevel level,
+            @Nullable Entity selfEntity,
             @NotNull BlockPos start,
             @NotNull BlockPos goal,
             float entityWidth,
@@ -150,6 +174,26 @@ public final class Costmap25D {
                 } else {
                     heights[idx] = NO_SURFACE;
                     raw[idx] = IMPASSABLE;
+                }
+            }
+        }
+
+        // Stamp footprints of other vehicles (including multi-part hitboxes) into rawCost BEFORE footprint inflation
+        AABB searchBox = new AABB(minX, minScanY, minZ, maxX + 1.0, maxScanY + headroom, maxZ + 1.0);
+        List<Entity> otherVehicles = level.getEntities(selfEntity, searchBox, e ->
+                !e.isRemoved()
+                        && (e instanceof GCVehicle || e instanceof VehiclePartEntity)
+                        && (selfEntity == null || (!e.is(selfEntity) && !selfEntity.hasPassenger(e)))
+        );
+        for (Entity other : otherVehicles) {
+            AABB bb = other.getBoundingBox();
+            int bx0 = Math.max(0, Mth.floor(bb.minX) - minX);
+            int bx1 = Math.min(sizeX - 1, Mth.floor(bb.maxX) - minX);
+            int bz0 = Math.max(0, Mth.floor(bb.minZ) - minZ);
+            int bz1 = Math.min(sizeZ - 1, Mth.floor(bb.maxZ) - minZ);
+            for (int gx = bx0; gx <= bx1; gx++) {
+                for (int gz = bz0; gz <= bz1; gz++) {
+                    raw[gx * sizeZ + gz] = IMPASSABLE;
                 }
             }
         }
