@@ -1566,8 +1566,8 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
             return leftDoor.clip(localOrigin, localEnd).isPresent() || rightDoor.clip(localOrigin, localEnd).isPresent();
         }
         if (VehicleRegistry.CHASSIS_LIGHT_AIRPLANE.equals(chassisId)) {
-            var leftDoor = new net.minecraft.world.phys.AABB(-1.12, 0.92, -0.32, -0.78, 2.24, 1.32);
-            var rightDoor = new net.minecraft.world.phys.AABB(0.78, 0.92, -0.32, 1.12, 2.24, 1.32);
+            var leftDoor = new net.minecraft.world.phys.AABB(-1.18, 0.92, -0.40, -0.82, 2.26, 0.86);
+            var rightDoor = new net.minecraft.world.phys.AABB(0.82, 0.92, -0.40, 1.18, 2.26, 0.86);
             return leftDoor.clip(localOrigin, localEnd).isPresent() || rightDoor.clip(localOrigin, localEnd).isPresent();
         }
         if (VehicleRegistry.CHASSIS_HEAVY_VTOL.equals(chassisId)) {

@@ -90,14 +90,14 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
     private static final VehicleAnimationBinding STEER_LRV = new VehicleAnimationBinding("steering_wheel", VehicleAnimationBinding.Type.ROTATION, 0.0F, 1.06F, 0.36F, 0.0F, 0.0F, 1.0F, 3.2F);
     private static final VehicleAnimationBinding STEER_SEV = new VehicleAnimationBinding("steering_wheel", VehicleAnimationBinding.Type.ROTATION, -0.56F, 1.48F, 1.25F, 0.0F, 0.0F, 1.0F, 3.2F);
     private static final VehicleAnimationBinding STEER_MARS = new VehicleAnimationBinding("steering_wheel", VehicleAnimationBinding.Type.ROTATION, -0.68F, 1.82F, 1.74F, 0.0F, 0.0F, 1.0F, 3.2F);
-    private static final VehicleAnimationBinding STEER_LIGHT_PLANE = new VehicleAnimationBinding("steering_wheel", VehicleAnimationBinding.Type.ROTATION, -0.40F, 1.38F, 1.34F, 0.0F, 0.0F, 1.0F, 1.4F);
+    private static final VehicleAnimationBinding STEER_LIGHT_PLANE = new VehicleAnimationBinding("steering_wheel", VehicleAnimationBinding.Type.ROTATION, -0.40F, 1.40F, 1.24F, 0.0F, 0.0F, 1.0F, 1.4F);
     private static final VehicleAnimationBinding STEER_CARGO_PLANE = new VehicleAnimationBinding("steering_wheel", VehicleAnimationBinding.Type.ROTATION, -0.66F, 1.96F, 4.20F, 0.0F, 0.0F, 1.0F, 1.4F);
     private static final VehicleAnimationBinding DOOR_LEFT_SEV = new VehicleAnimationBinding("door_left", VehicleAnimationBinding.Type.ROTATION, -1.26F, 1.28F, 1.81F, 0.0F, 1.0F, 0.0F, 55.0F);
     private static final VehicleAnimationBinding DOOR_RIGHT_SEV = new VehicleAnimationBinding("door_right", VehicleAnimationBinding.Type.ROTATION, 1.26F, 1.28F, 1.81F, 0.0F, 1.0F, 0.0F, -55.0F);
     private static final VehicleAnimationBinding DOOR_LEFT_HELI = new VehicleAnimationBinding("door_left", VehicleAnimationBinding.Type.ROTATION, -1.02F, 1.15F, 1.16F, 0.0F, 1.0F, 0.0F, 55.0F);
     private static final VehicleAnimationBinding DOOR_RIGHT_HELI = new VehicleAnimationBinding("door_right", VehicleAnimationBinding.Type.ROTATION, 1.02F, 1.15F, 1.16F, 0.0F, 1.0F, 0.0F, -55.0F);
-    private static final VehicleAnimationBinding DOOR_LEFT_PLANE = new VehicleAnimationBinding("door_left", VehicleAnimationBinding.Type.ROTATION, -0.90F, 1.45F, 1.18F, 0.0F, 1.0F, 0.0F, 55.0F);
-    private static final VehicleAnimationBinding DOOR_RIGHT_PLANE = new VehicleAnimationBinding("door_right", VehicleAnimationBinding.Type.ROTATION, 0.90F, 1.45F, 1.18F, 0.0F, 1.0F, 0.0F, -55.0F);
+    private static final VehicleAnimationBinding DOOR_LEFT_PLANE = new VehicleAnimationBinding("door_left", VehicleAnimationBinding.Type.ROTATION, -0.98F, 1.48F, 0.80F, 0.0F, 1.0F, 0.0F, 55.0F);
+    private static final VehicleAnimationBinding DOOR_RIGHT_PLANE = new VehicleAnimationBinding("door_right", VehicleAnimationBinding.Type.ROTATION, 0.98F, 1.48F, 0.80F, 0.0F, 1.0F, 0.0F, -55.0F);
     private static final VehicleAnimationBinding RAMP_MARS = new VehicleAnimationBinding("rear_ramp", VehicleAnimationBinding.Type.ROTATION, 0.0F, 1.30F, -2.68F, 1.0F, 0.0F, 0.0F, -82.0F);
     private static final VehicleAnimationBinding RAMP_VTOL = new VehicleAnimationBinding("rear_ramp", VehicleAnimationBinding.Type.ROTATION, 0.0F, 0.78F, -2.68F, 1.0F, 0.0F, 0.0F, -80.0F);
     private static final VehicleAnimationBinding RAMP_CARGO_PLANE = new VehicleAnimationBinding("rear_ramp", VehicleAnimationBinding.Type.ROTATION, 0.0F, 1.04F, -4.25F, 1.0F, 0.0F, 0.0F, -65.0F);
@@ -528,7 +528,7 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
             float propAngle, float alpha, int light
     ) {
         float scale = VehicleRegistry.CHASSIS_CARGO_AIRPLANE.equals(chassisId) ? 1.16F : 1.0F;
-        float radius = (VehicleRegistry.PART_HIGH_SPEED_DUCTED_FAN.equals(partId) ? 0.74F : 1.12F) * scale;
+        float radius = (VehicleRegistry.PART_HIGH_SPEED_DUCTED_FAN.equals(partId) ? 0.74F : 0.94F) * scale;
         ps.pushPose();
         ps.translate(hp.localX(), hp.localY(), hp.localZ() + 0.08F * scale);
         // Rotate horizontal disc into XY plane facing +Z propeller sweep

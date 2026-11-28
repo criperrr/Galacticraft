@@ -482,7 +482,7 @@ public final class VehicleRegistry {
                 )
         ));
 
-        // 7. MEDIUM FIXED-WING: Realistic 9.4m NASA Electric Bush Plane (11.4m wingspan, 3x2 crate, 2 seats, pressurized, optional Hybrid VTOL)
+        // 7. MEDIUM FIXED-WING: Realistic 9.2m Cessna 206 / NASA Electric Bush Plane (11.5m wingspan, 3x2 crate, 2 seats, pressurized, optional Hybrid VTOL)
         registerChassis(new VehicleChassisDefinition(
                 CHASSIS_LIGHT_AIRPLANE,
                 "vehicle.galacticraft.chassis.light_airplane",
@@ -493,24 +493,24 @@ public final class VehicleRegistry {
                 false,
                 true,
                 List.of(
-                        new VehicleHardpoint("wing_left", HardpointType.WING, -0.88, 2.28, 0.25, VehicleSizeClass.MEDIUM, true),
-                        new VehicleHardpoint("wing_right", HardpointType.WING, 0.88, 2.28, 0.25, VehicleSizeClass.MEDIUM, true),
-                        new VehicleHardpoint("prop_nose", HardpointType.PROPELLER, 0.0, 1.38, 3.42, VehicleSizeClass.MEDIUM, true),
-                        new VehicleHardpoint("gear_nose", HardpointType.LANDING_GEAR, 0.0, 0.62, 2.55, VehicleSizeClass.SMALL, true),
-                        new VehicleHardpoint("gear_left", HardpointType.LANDING_GEAR, -1.35, 0.62, -0.25, VehicleSizeClass.SMALL, true),
-                        new VehicleHardpoint("gear_right", HardpointType.LANDING_GEAR, 1.35, 0.62, -0.25, VehicleSizeClass.SMALL, true),
-                        new VehicleHardpoint("motor_main", HardpointType.MOTOR, 0.0, 1.00, 2.05, VehicleSizeClass.MEDIUM, true),
+                        new VehicleHardpoint("wing_left", HardpointType.WING, -0.92, 2.30, 0.22, VehicleSizeClass.MEDIUM, true),
+                        new VehicleHardpoint("wing_right", HardpointType.WING, 0.92, 2.30, 0.22, VehicleSizeClass.MEDIUM, true),
+                        new VehicleHardpoint("prop_nose", HardpointType.PROPELLER, 0.0, 1.38, 3.16, VehicleSizeClass.MEDIUM, true),
+                        new VehicleHardpoint("gear_nose", HardpointType.LANDING_GEAR, 0.0, 0.62, 2.38, VehicleSizeClass.SMALL, true),
+                        new VehicleHardpoint("gear_left", HardpointType.LANDING_GEAR, -1.32, 0.62, -0.25, VehicleSizeClass.SMALL, true),
+                        new VehicleHardpoint("gear_right", HardpointType.LANDING_GEAR, 1.32, 0.62, -0.25, VehicleSizeClass.SMALL, true),
+                        new VehicleHardpoint("motor_main", HardpointType.MOTOR, 0.0, 1.04, 2.05, VehicleSizeClass.MEDIUM, true),
                         new VehicleHardpoint("powerplant_main", HardpointType.POWERPLANT, 0.0, 0.96, -0.95, VehicleSizeClass.MEDIUM, true),
-                        new VehicleHardpoint("seat_pilot", HardpointType.SEAT, -0.40, 0.96, 0.55, VehicleSizeClass.MEDIUM, true),
-                        new VehicleHardpoint("seat_passenger", HardpointType.SEAT, 0.40, 0.96, 0.55, VehicleSizeClass.MEDIUM, false),
+                        new VehicleHardpoint("seat_pilot", HardpointType.SEAT, -0.40, 0.96, 0.35, VehicleSizeClass.MEDIUM, true),
+                        new VehicleHardpoint("seat_passenger", HardpointType.SEAT, 0.40, 0.96, 0.35, VehicleSizeClass.MEDIUM, false),
                         new VehicleHardpoint("vtol_left", HardpointType.ROTOR, -2.25, 2.08, 0.20, VehicleSizeClass.SMALL, false),
                         new VehicleHardpoint("vtol_right", HardpointType.ROTOR, 2.25, 2.08, 0.20, VehicleSizeClass.SMALL, false),
-                        new VehicleHardpoint("cargo_rear", HardpointType.CARGO, 0.0, 0.96, -0.58, VehicleSizeClass.MEDIUM, false),
+                        new VehicleHardpoint("cargo_rear", HardpointType.CARGO, 0.0, 0.96, -0.50, VehicleSizeClass.MEDIUM, false),
                         new VehicleHardpoint("instrument_mast", HardpointType.INSTRUMENT, 0.0, 0.96, -1.10, VehicleSizeClass.SMALL, false),
-                        new VehicleHardpoint("dash_left", HardpointType.DASHBOARD, -0.46, 1.48, 1.52, VehicleSizeClass.SMALL, false),
-                        new VehicleHardpoint("dash_center", HardpointType.DASHBOARD, 0.0, 1.48, 1.52, VehicleSizeClass.SMALL, false),
-                        new VehicleHardpoint("dash_right", HardpointType.DASHBOARD, 0.46, 1.48, 1.52, VehicleSizeClass.SMALL, false),
-                        new VehicleHardpoint("ai_core_slot", HardpointType.AI_CORE, 0.0, 1.46, -0.95, VehicleSizeClass.SMALL, false)
+                        new VehicleHardpoint("dash_left", HardpointType.DASHBOARD, -0.46, 1.48, 1.44, VehicleSizeClass.SMALL, false),
+                        new VehicleHardpoint("dash_center", HardpointType.DASHBOARD, 0.0, 1.48, 1.44, VehicleSizeClass.SMALL, false),
+                        new VehicleHardpoint("dash_right", HardpointType.DASHBOARD, 0.46, 1.48, 1.44, VehicleSizeClass.SMALL, false),
+                        new VehicleHardpoint("ai_core_slot", HardpointType.AI_CORE, 0.0, 1.38, -0.95, VehicleSizeClass.SMALL, false)
                 )
         ));
 
