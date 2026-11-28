@@ -450,10 +450,22 @@ public class ModularVehicleTestSuite implements GalacticraftGameTest {
         double startY = plane.getY();
         long startEnergy = plane.getConfiguration().storedEnergy();
 
-        // Runway takeoff roll: full electric throttle (W) + elevator rotation (Space)
+        // Test dedicated throttle quadrant retention & cutoff via handlePanelAction("set_throttle")
+        plane.handlePanelAction(player, "set_throttle", "", "0.65");
+        plane.tick();
+        if (Math.abs(plane.getThrottle() - 0.65F) > 0.02F) {
+            throw new GameTestAssertException("Expected throttle quadrant to retain 65% setting without holding keys, got " + plane.getThrottle());
+        }
+        plane.handlePanelAction(player, "set_throttle", "", "0.0");
+        if (plane.getThrottle() > 0.01F) {
+            throw new GameTestAssertException("Expected throttle cutoff to zero lever immediately, got " + plane.getThrottle());
+        }
+
+        // Runway takeoff roll: full electric throttle (100% via throttle quadrant) + elevator rotation (Space)
+        plane.handlePanelAction(player, "set_throttle", "", "1.0");
         for (int t = 0; t < 75; t++) {
             boolean pullUp = t >= 18;
-            plane.inputTick(0.0F, 1.0F, true, false, false, false, pullUp, false, false);
+            plane.inputTick(0.0F, 0.0F, false, false, false, false, pullUp, false, false);
             plane.tick();
         }
 
