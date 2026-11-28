@@ -568,9 +568,15 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
         if (size == VehicleSizeClass.SMALL) {
             return;
         }
-        double zSpan = size == VehicleSizeClass.LARGE ? 1.45 : 0.95;
-        float boxW = size == VehicleSizeClass.LARGE ? 1.95F : 1.55F;
-        float boxH = size == VehicleSizeClass.LARGE ? 1.45F : 1.15F;
+        double zSpan = this.isFixedWing()
+                ? (size == VehicleSizeClass.LARGE ? 3.80 : 2.15)
+                : (size == VehicleSizeClass.LARGE ? 1.45 : 0.95);
+        float boxW = this.isFixedWing()
+                ? (size == VehicleSizeClass.LARGE ? 3.10F : 1.80F)
+                : (size == VehicleSizeClass.LARGE ? 1.95F : 1.55F);
+        float boxH = this.isFixedWing()
+                ? (size == VehicleSizeClass.LARGE ? 2.80F : 1.85F)
+                : (size == VehicleSizeClass.LARGE ? 1.45F : 1.15F);
 
         VehiclePartEntity front = GCEntityTypes.VEHICLE_PART.create(this.level());
         VehiclePartEntity rear = GCEntityTypes.VEHICLE_PART.create(this.level());
@@ -1487,17 +1493,20 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
                 yield List.of(new net.minecraft.world.phys.AABB(x - rad, y - 0.24, z - rad, x + rad, y + 0.34, z + rad));
             }
             case WING -> {
-                double span = size == VehicleSizeClass.LARGE ? 3.8 : 2.6;
-                double chord = size == VehicleSizeClass.LARGE ? 0.95 : 0.72;
+                double span = size == VehicleSizeClass.LARGE ? 7.8 : 4.6;
+                double chord = size == VehicleSizeClass.LARGE ? 1.45 : 0.85;
                 double x0 = x < 0.0 ? x - span : x;
                 double x1 = x < 0.0 ? x : x + span;
-                yield List.of(new net.minecraft.world.phys.AABB(x0, y - 0.26, z - chord, x1, y + 0.26, z + chord));
+                yield List.of(new net.minecraft.world.phys.AABB(x0, y - 0.36, z - chord, x1, y + 0.42, z + chord));
             }
             case PROPELLER -> {
-                double r = size == VehicleSizeClass.LARGE ? 0.68 : 0.56;
-                yield List.of(new net.minecraft.world.phys.AABB(x - r, y - r, z - 0.30, x + r, y + r, z + 0.38));
+                double r = size == VehicleSizeClass.LARGE ? 1.05 : 0.92;
+                yield List.of(new net.minecraft.world.phys.AABB(x - r, y - r, z - 0.36, x + r, y + r, z + 0.48));
             }
-            case LANDING_GEAR -> List.of(new net.minecraft.world.phys.AABB(x - 0.32, Math.max(0.0, y - 0.48), z - 0.36, x + 0.32, y + 0.34, z + 0.36));
+            case LANDING_GEAR -> {
+                double drop = size == VehicleSizeClass.LARGE ? 0.88 : 0.64;
+                yield List.of(new net.minecraft.world.phys.AABB(x - 0.38, Math.max(0.0, y - drop), z - 0.42, x + 0.38, y + 0.36, z + 0.42));
+            }
             case MOTOR -> List.of(new net.minecraft.world.phys.AABB(x - 0.42, y, z - 0.38, x + 0.42, y + 0.52, z + 0.38));
             case DASHBOARD -> List.of(new net.minecraft.world.phys.AABB(x - 0.24, y - 0.22, z - 0.22, x + 0.24, y + 0.22, z + 0.22));
             case SEAT -> List.of(new net.minecraft.world.phys.AABB(x - 0.36, y, z - 0.34, x + 0.36, y + 0.86, z + 0.34));
@@ -1538,8 +1547,8 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
             return leftDoor.clip(localOrigin, localEnd).isPresent() || rightDoor.clip(localOrigin, localEnd).isPresent();
         }
         if (VehicleRegistry.CHASSIS_LIGHT_AIRPLANE.equals(chassisId)) {
-            var leftDoor = new net.minecraft.world.phys.AABB(-1.14, 0.84, -0.22, -0.82, 1.88, 1.16);
-            var rightDoor = new net.minecraft.world.phys.AABB(0.82, 0.84, -0.22, 1.14, 1.88, 1.16);
+            var leftDoor = new net.minecraft.world.phys.AABB(-1.12, 0.92, -0.32, -0.78, 2.24, 1.32);
+            var rightDoor = new net.minecraft.world.phys.AABB(0.78, 0.92, -0.32, 1.12, 2.24, 1.32);
             return leftDoor.clip(localOrigin, localEnd).isPresent() || rightDoor.clip(localOrigin, localEnd).isPresent();
         }
         if (VehicleRegistry.CHASSIS_HEAVY_VTOL.equals(chassisId)) {
@@ -1547,7 +1556,7 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
             return vtolRamp.clip(localOrigin, localEnd).isPresent();
         }
         if (VehicleRegistry.CHASSIS_CARGO_AIRPLANE.equals(chassisId)) {
-            var cargoRamp = new net.minecraft.world.phys.AABB(-1.26, 0.90, -3.55, 1.26, 2.55, -2.95);
+            var cargoRamp = new net.minecraft.world.phys.AABB(-1.42, 1.08, -5.35, 1.42, 2.85, -4.15);
             return cargoRamp.clip(localOrigin, localEnd).isPresent();
         }
         if (size == VehicleSizeClass.MEDIUM) {
@@ -1578,7 +1587,8 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
         Vec3 rel = eyeWorld.subtract(this.getX(), this.getY(), this.getZ());
         Vec3 localOrigin = new Vec3(rel.x * cos + rel.z * sin, rel.y, -rel.x * sin + rel.z * cos);
         Vec3 localDir = new Vec3(lookWorld.x * cos + lookWorld.z * sin, lookWorld.y, -lookWorld.x * sin + lookWorld.z * cos);
-        Vec3 localEnd = localOrigin.add(localDir.scale(7.5));
+        double reach = this.isFixedWing() ? 11.0 : 7.5;
+        Vec3 localEnd = localOrigin.add(localDir.scale(reach));
 
         VehicleConfiguration cfg = this.getConfiguration();
         VehicleHardpoint closest = null;

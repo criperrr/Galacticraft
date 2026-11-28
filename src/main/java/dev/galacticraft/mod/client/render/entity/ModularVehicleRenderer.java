@@ -90,21 +90,21 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
     private static final VehicleAnimationBinding STEER_LRV = new VehicleAnimationBinding("steering_wheel", VehicleAnimationBinding.Type.ROTATION, 0.0F, 1.06F, 0.36F, 0.0F, 0.0F, 1.0F, 3.2F);
     private static final VehicleAnimationBinding STEER_SEV = new VehicleAnimationBinding("steering_wheel", VehicleAnimationBinding.Type.ROTATION, -0.56F, 1.48F, 1.25F, 0.0F, 0.0F, 1.0F, 3.2F);
     private static final VehicleAnimationBinding STEER_MARS = new VehicleAnimationBinding("steering_wheel", VehicleAnimationBinding.Type.ROTATION, -0.68F, 1.82F, 1.74F, 0.0F, 0.0F, 1.0F, 3.2F);
-    private static final VehicleAnimationBinding STEER_LIGHT_PLANE = new VehicleAnimationBinding("steering_wheel", VehicleAnimationBinding.Type.ROTATION, -0.42F, 1.24F, 1.18F, 0.0F, 0.0F, 1.0F, 1.4F);
-    private static final VehicleAnimationBinding STEER_CARGO_PLANE = new VehicleAnimationBinding("steering_wheel", VehicleAnimationBinding.Type.ROTATION, -0.56F, 1.54F, 2.52F, 0.0F, 0.0F, 1.0F, 1.4F);
+    private static final VehicleAnimationBinding STEER_LIGHT_PLANE = new VehicleAnimationBinding("steering_wheel", VehicleAnimationBinding.Type.ROTATION, -0.40F, 1.38F, 1.34F, 0.0F, 0.0F, 1.0F, 1.4F);
+    private static final VehicleAnimationBinding STEER_CARGO_PLANE = new VehicleAnimationBinding("steering_wheel", VehicleAnimationBinding.Type.ROTATION, -0.66F, 1.96F, 4.20F, 0.0F, 0.0F, 1.0F, 1.4F);
     private static final VehicleAnimationBinding DOOR_LEFT_SEV = new VehicleAnimationBinding("door_left", VehicleAnimationBinding.Type.ROTATION, -1.26F, 1.28F, 1.81F, 0.0F, 1.0F, 0.0F, 55.0F);
     private static final VehicleAnimationBinding DOOR_RIGHT_SEV = new VehicleAnimationBinding("door_right", VehicleAnimationBinding.Type.ROTATION, 1.26F, 1.28F, 1.81F, 0.0F, 1.0F, 0.0F, -55.0F);
     private static final VehicleAnimationBinding DOOR_LEFT_HELI = new VehicleAnimationBinding("door_left", VehicleAnimationBinding.Type.ROTATION, -1.02F, 1.15F, 1.16F, 0.0F, 1.0F, 0.0F, 55.0F);
     private static final VehicleAnimationBinding DOOR_RIGHT_HELI = new VehicleAnimationBinding("door_right", VehicleAnimationBinding.Type.ROTATION, 1.02F, 1.15F, 1.16F, 0.0F, 1.0F, 0.0F, -55.0F);
-    private static final VehicleAnimationBinding DOOR_LEFT_PLANE = new VehicleAnimationBinding("door_left", VehicleAnimationBinding.Type.ROTATION, -0.92F, 1.24F, 1.08F, 0.0F, 1.0F, 0.0F, 55.0F);
-    private static final VehicleAnimationBinding DOOR_RIGHT_PLANE = new VehicleAnimationBinding("door_right", VehicleAnimationBinding.Type.ROTATION, 0.92F, 1.24F, 1.08F, 0.0F, 1.0F, 0.0F, -55.0F);
+    private static final VehicleAnimationBinding DOOR_LEFT_PLANE = new VehicleAnimationBinding("door_left", VehicleAnimationBinding.Type.ROTATION, -0.90F, 1.45F, 1.26F, 0.0F, 1.0F, 0.0F, 55.0F);
+    private static final VehicleAnimationBinding DOOR_RIGHT_PLANE = new VehicleAnimationBinding("door_right", VehicleAnimationBinding.Type.ROTATION, 0.90F, 1.45F, 1.26F, 0.0F, 1.0F, 0.0F, -55.0F);
     private static final VehicleAnimationBinding RAMP_MARS = new VehicleAnimationBinding("rear_ramp", VehicleAnimationBinding.Type.ROTATION, 0.0F, 1.30F, -2.68F, 1.0F, 0.0F, 0.0F, -82.0F);
     private static final VehicleAnimationBinding RAMP_VTOL = new VehicleAnimationBinding("rear_ramp", VehicleAnimationBinding.Type.ROTATION, 0.0F, 0.78F, -2.68F, 1.0F, 0.0F, 0.0F, -80.0F);
-    private static final VehicleAnimationBinding RAMP_CARGO_PLANE = new VehicleAnimationBinding("rear_ramp", VehicleAnimationBinding.Type.ROTATION, 0.0F, 0.94F, -3.12F, 1.0F, 0.0F, 0.0F, -78.0F);
-    private static final VehicleAnimationBinding ELEVATOR_LIGHT_PLANE = new VehicleAnimationBinding("elevator", VehicleAnimationBinding.Type.ROTATION, 0.0F, 1.60F, -3.68F, 1.0F, 0.0F, 0.0F, 24.0F);
-    private static final VehicleAnimationBinding ELEVATOR_CARGO_PLANE = new VehicleAnimationBinding("elevator", VehicleAnimationBinding.Type.ROTATION, 0.0F, 2.42F, -5.12F, 1.0F, 0.0F, 0.0F, 24.0F);
-    private static final VehicleAnimationBinding RUDDER_LIGHT_PLANE = new VehicleAnimationBinding("rudder", VehicleAnimationBinding.Type.ROTATION, 0.0F, 2.25F, -3.76F, 0.0F, 1.0F, 0.0F, 26.0F);
-    private static final VehicleAnimationBinding RUDDER_CARGO_PLANE = new VehicleAnimationBinding("rudder", VehicleAnimationBinding.Type.ROTATION, 0.0F, 3.35F, -5.18F, 0.0F, 1.0F, 0.0F, 26.0F);
+    private static final VehicleAnimationBinding RAMP_CARGO_PLANE = new VehicleAnimationBinding("rear_ramp", VehicleAnimationBinding.Type.ROTATION, 0.0F, 1.14F, -4.35F, 1.0F, 0.0F, 0.0F, -78.0F);
+    private static final VehicleAnimationBinding ELEVATOR_LIGHT_PLANE = new VehicleAnimationBinding("elevator", VehicleAnimationBinding.Type.ROTATION, 0.0F, 1.72F, -5.05F, 1.0F, 0.0F, 0.0F, 24.0F);
+    private static final VehicleAnimationBinding ELEVATOR_CARGO_PLANE = new VehicleAnimationBinding("elevator", VehicleAnimationBinding.Type.ROTATION, 0.0F, 3.65F, -8.85F, 1.0F, 0.0F, 0.0F, 24.0F);
+    private static final VehicleAnimationBinding RUDDER_LIGHT_PLANE = new VehicleAnimationBinding("rudder", VehicleAnimationBinding.Type.ROTATION, 0.0F, 2.60F, -5.18F, 0.0F, 1.0F, 0.0F, 26.0F);
+    private static final VehicleAnimationBinding RUDDER_CARGO_PLANE = new VehicleAnimationBinding("rudder", VehicleAnimationBinding.Type.ROTATION, 0.0F, 4.95F, -8.98F, 0.0F, 1.0F, 0.0F, 26.0F);
 
     public ModularVehicleRenderer(EntityRendererProvider.Context context) {
         super(context);
@@ -121,7 +121,9 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
         VehicleConfiguration cfg = entity.getConfiguration();
         VehicleChassisDefinition chassis = entity.getChassisDefinition();
         VehicleSizeClass size = chassis.sizeClass();
-        this.shadowRadius = size == VehicleSizeClass.LARGE ? 2.8F : (size == VehicleSizeClass.MEDIUM ? 2.0F : 1.45F);
+        this.shadowRadius = entity.isFixedWing()
+                ? (size == VehicleSizeClass.LARGE ? 5.2F : 3.2F)
+                : (size == VehicleSizeClass.LARGE ? 2.8F : (size == VehicleSizeClass.MEDIUM ? 2.0F : 1.45F));
 
         poseStack.pushPose();
         float yaw = Mth.rotLerp(partialTick, entity.yRotO, entity.getYRot());
@@ -285,7 +287,8 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
 
         // 5. Surgical per-slot 3D Raycast Holograms (bright highlight on exact aimed slot!)
         Player player = Minecraft.getInstance().player;
-        if (player != null && player.distanceToSqr(entity) <= 81.0) {
+        double hologramDistSqr = entity.isFixedWing() ? 256.0 : 81.0;
+        if (player != null && player.distanceToSqr(entity) <= hologramDistSqr) {
             ItemStack main = player.getMainHandItem();
             boolean holdingWrench = main.getItem() instanceof VehicleWrenchItem;
             VehiclePartDefinition heldPart = main.getItem() instanceof VehiclePartItem pi ? VehicleRegistry.getPart(pi.getPartId()) : null;
@@ -449,13 +452,13 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
         float aileronHingeZ;
         if (VehicleRegistry.PART_HIGH_ASPECT_MARS_WING.equals(part.id())) {
             prefix = "mars";
-            aileronHingeZ = -0.15F;
+            aileronHingeZ = -0.22F;
         } else if (VehicleRegistry.PART_HEAVY_CARGO_WING.equals(part.id())) {
             prefix = "cargo";
-            aileronHingeZ = -0.30F;
+            aileronHingeZ = -0.58F;
         } else {
             prefix = "std";
-            aileronHingeZ = -0.22F;
+            aileronHingeZ = -0.36F;
         }
 
         ps.pushPose();
@@ -485,7 +488,7 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
             ResourceLocation chassisId, float propAngle, int light
     ) {
         ObjMeshModel propObj = ObjModelLoader.getOrLoad(MODEL_ELECTRIC_PROPELLER);
-        float scale = VehicleRegistry.CHASSIS_CARGO_AIRPLANE.equals(chassisId) ? 1.25F : 1.02F;
+        float scale = VehicleRegistry.CHASSIS_CARGO_AIRPLANE.equals(chassisId) ? 1.16F : 1.0F;
         float dir = hp.id().contains("right") ? -1.0F : 1.0F;
 
         ps.pushPose();
@@ -524,10 +527,10 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
             VehicleHardpoint hp, ResourceLocation chassisId, ResourceLocation partId,
             float propAngle, float alpha, int light
     ) {
-        float scale = VehicleRegistry.CHASSIS_CARGO_AIRPLANE.equals(chassisId) ? 1.25F : 1.02F;
-        float radius = (VehicleRegistry.PART_HIGH_SPEED_DUCTED_FAN.equals(partId) ? 0.58F : 0.90F) * scale;
+        float scale = VehicleRegistry.CHASSIS_CARGO_AIRPLANE.equals(chassisId) ? 1.16F : 1.0F;
+        float radius = (VehicleRegistry.PART_HIGH_SPEED_DUCTED_FAN.equals(partId) ? 0.74F : 1.12F) * scale;
         ps.pushPose();
-        ps.translate(hp.localX(), hp.localY(), hp.localZ() + 0.06F * scale);
+        ps.translate(hp.localX(), hp.localY(), hp.localZ() + 0.08F * scale);
         // Rotate horizontal disc into XY plane facing +Z propeller sweep
         ps.mulPose(Axis.XP.rotationDegrees(90.0F));
         ps.mulPose(Axis.YP.rotation(propAngle * 0.40F));
@@ -541,11 +544,11 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
             float gearProgress, float steerDeg, int light
     ) {
         ObjMeshModel gearObj = ObjModelLoader.getOrLoad(MODEL_RETRACTABLE_GEAR);
-        float scale = size == VehicleSizeClass.LARGE ? 1.22F : 1.0F;
+        float scale = size == VehicleSizeClass.LARGE ? 1.42F : 1.0F;
         boolean isNose = hp.id().contains("nose");
 
         ps.pushPose();
-        ps.translate(hp.localX(), hp.localY() + gearProgress * 0.34F, hp.localZ());
+        ps.translate(hp.localX(), hp.localY() + gearProgress * (size == VehicleSizeClass.LARGE ? 0.52F : 0.36F), hp.localZ());
         if (isNose && gearProgress < 0.25F) {
             ps.mulPose(Axis.YP.rotationDegrees(-steerDeg * 0.65F));
         }
