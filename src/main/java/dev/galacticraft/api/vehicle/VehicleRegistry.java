@@ -499,18 +499,18 @@ public final class VehicleRegistry {
                         new VehicleHardpoint("gear_nose", HardpointType.LANDING_GEAR, 0.0, 0.62, 2.55, VehicleSizeClass.SMALL, true),
                         new VehicleHardpoint("gear_left", HardpointType.LANDING_GEAR, -1.35, 0.62, -0.25, VehicleSizeClass.SMALL, true),
                         new VehicleHardpoint("gear_right", HardpointType.LANDING_GEAR, 1.35, 0.62, -0.25, VehicleSizeClass.SMALL, true),
-                        new VehicleHardpoint("motor_main", HardpointType.MOTOR, 0.0, 1.22, 2.15, VehicleSizeClass.MEDIUM, true),
+                        new VehicleHardpoint("motor_main", HardpointType.MOTOR, 0.0, 1.00, 2.05, VehicleSizeClass.MEDIUM, true),
                         new VehicleHardpoint("powerplant_main", HardpointType.POWERPLANT, 0.0, 0.96, -0.95, VehicleSizeClass.MEDIUM, true),
                         new VehicleHardpoint("seat_pilot", HardpointType.SEAT, -0.40, 0.96, 0.55, VehicleSizeClass.MEDIUM, true),
                         new VehicleHardpoint("seat_passenger", HardpointType.SEAT, 0.40, 0.96, 0.55, VehicleSizeClass.MEDIUM, false),
                         new VehicleHardpoint("vtol_left", HardpointType.ROTOR, -2.25, 2.08, 0.20, VehicleSizeClass.SMALL, false),
                         new VehicleHardpoint("vtol_right", HardpointType.ROTOR, 2.25, 2.08, 0.20, VehicleSizeClass.SMALL, false),
-                        new VehicleHardpoint("cargo_rear", HardpointType.CARGO, 0.0, 0.96, -0.82, VehicleSizeClass.MEDIUM, false),
-                        new VehicleHardpoint("instrument_mast", HardpointType.INSTRUMENT, 0.0, 0.64, 1.55, VehicleSizeClass.SMALL, false),
+                        new VehicleHardpoint("cargo_rear", HardpointType.CARGO, 0.0, 0.96, -0.58, VehicleSizeClass.MEDIUM, false),
+                        new VehicleHardpoint("instrument_mast", HardpointType.INSTRUMENT, 0.0, 0.96, -1.10, VehicleSizeClass.SMALL, false),
                         new VehicleHardpoint("dash_left", HardpointType.DASHBOARD, -0.46, 1.48, 1.52, VehicleSizeClass.SMALL, false),
                         new VehicleHardpoint("dash_center", HardpointType.DASHBOARD, 0.0, 1.48, 1.52, VehicleSizeClass.SMALL, false),
                         new VehicleHardpoint("dash_right", HardpointType.DASHBOARD, 0.46, 1.48, 1.52, VehicleSizeClass.SMALL, false),
-                        new VehicleHardpoint("ai_core_slot", HardpointType.AI_CORE, 0.0, 2.02, -0.95, VehicleSizeClass.SMALL, false)
+                        new VehicleHardpoint("ai_core_slot", HardpointType.AI_CORE, 0.0, 1.46, -0.95, VehicleSizeClass.SMALL, false)
                 )
         ));
 
@@ -532,9 +532,9 @@ public final class VehicleRegistry {
                         new VehicleHardpoint("gear_nose", HardpointType.LANDING_GEAR, 0.0, 0.88, 4.75, VehicleSizeClass.SMALL, true),
                         new VehicleHardpoint("gear_left", HardpointType.LANDING_GEAR, -1.92, 0.88, -0.55, VehicleSizeClass.SMALL, true),
                         new VehicleHardpoint("gear_right", HardpointType.LANDING_GEAR, 1.92, 0.88, -0.55, VehicleSizeClass.SMALL, true),
-                        new VehicleHardpoint("motor_main", HardpointType.MOTOR, 0.0, 3.25, 0.40, VehicleSizeClass.LARGE, true),
+                        new VehicleHardpoint("motor_main", HardpointType.MOTOR, 0.0, 2.15, 0.45, VehicleSizeClass.LARGE, true),
                         new VehicleHardpoint("powerplant_main", HardpointType.POWERPLANT, 0.0, 1.22, -2.35, VehicleSizeClass.LARGE, true),
-                        new VehicleHardpoint("powerplant_aux", HardpointType.POWERPLANT, 0.0, 3.72, -1.45, VehicleSizeClass.MEDIUM, false),
+                        new VehicleHardpoint("powerplant_aux", HardpointType.POWERPLANT, 0.0, 1.22, 0.45, VehicleSizeClass.MEDIUM, false),
                         new VehicleHardpoint("seat_pilot", HardpointType.SEAT, -0.66, 1.52, 3.55, VehicleSizeClass.LARGE, true),
                         new VehicleHardpoint("seat_passenger_left", HardpointType.SEAT, 0.66, 1.52, 3.55, VehicleSizeClass.LARGE, false),
                         new VehicleHardpoint("seat_passenger_right", HardpointType.SEAT, 0.0, 1.52, 2.45, VehicleSizeClass.LARGE, false),
@@ -542,12 +542,12 @@ public final class VehicleRegistry {
                         new VehicleHardpoint("vtol_fr", HardpointType.ROTOR, 3.20, 3.10, 1.55, VehicleSizeClass.SMALL, false),
                         new VehicleHardpoint("vtol_rl", HardpointType.ROTOR, -3.20, 3.10, -1.45, VehicleSizeClass.SMALL, false),
                         new VehicleHardpoint("vtol_rr", HardpointType.ROTOR, 3.20, 3.10, -1.45, VehicleSizeClass.SMALL, false),
-                        new VehicleHardpoint("cargo_rear", HardpointType.CARGO, 0.0, 1.18, -1.85, VehicleSizeClass.LARGE, false),
-                        new VehicleHardpoint("instrument_front", HardpointType.INSTRUMENT, 0.0, 0.92, 5.45, VehicleSizeClass.LARGE, false),
+                        new VehicleHardpoint("cargo_rear", HardpointType.CARGO, 0.0, 1.18, -1.45, VehicleSizeClass.LARGE, false),
+                        new VehicleHardpoint("instrument_front", HardpointType.INSTRUMENT, 0.0, 1.22, 1.55, VehicleSizeClass.LARGE, false),
                         new VehicleHardpoint("dash_left", HardpointType.DASHBOARD, -0.72, 2.08, 4.30, VehicleSizeClass.SMALL, false),
                         new VehicleHardpoint("dash_center", HardpointType.DASHBOARD, 0.0, 2.08, 4.30, VehicleSizeClass.SMALL, false),
                         new VehicleHardpoint("dash_right", HardpointType.DASHBOARD, 0.72, 2.08, 4.30, VehicleSizeClass.SMALL, false),
-                        new VehicleHardpoint("ai_core_slot", HardpointType.AI_CORE, 0.0, 3.72, 1.45, VehicleSizeClass.SMALL, false)
+                        new VehicleHardpoint("ai_core_slot", HardpointType.AI_CORE, 0.0, 2.15, 1.85, VehicleSizeClass.SMALL, false)
                 )
         ));
 

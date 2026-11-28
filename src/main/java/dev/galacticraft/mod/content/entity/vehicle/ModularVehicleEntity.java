@@ -1575,7 +1575,7 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
             return vtolRamp.clip(localOrigin, localEnd).isPresent();
         }
         if (VehicleRegistry.CHASSIS_CARGO_AIRPLANE.equals(chassisId)) {
-            var cargoRamp = new net.minecraft.world.phys.AABB(-1.38, 1.08, -4.60, 1.38, 2.70, -4.15);
+            var cargoRamp = new net.minecraft.world.phys.AABB(-1.42, 1.00, -5.65, 1.42, 2.68, -4.15);
             return cargoRamp.clip(localOrigin, localEnd).isPresent();
         }
         if (size == VehicleSizeClass.MEDIUM) {

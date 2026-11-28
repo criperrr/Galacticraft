@@ -96,11 +96,11 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
     private static final VehicleAnimationBinding DOOR_RIGHT_SEV = new VehicleAnimationBinding("door_right", VehicleAnimationBinding.Type.ROTATION, 1.26F, 1.28F, 1.81F, 0.0F, 1.0F, 0.0F, -55.0F);
     private static final VehicleAnimationBinding DOOR_LEFT_HELI = new VehicleAnimationBinding("door_left", VehicleAnimationBinding.Type.ROTATION, -1.02F, 1.15F, 1.16F, 0.0F, 1.0F, 0.0F, 55.0F);
     private static final VehicleAnimationBinding DOOR_RIGHT_HELI = new VehicleAnimationBinding("door_right", VehicleAnimationBinding.Type.ROTATION, 1.02F, 1.15F, 1.16F, 0.0F, 1.0F, 0.0F, -55.0F);
-    private static final VehicleAnimationBinding DOOR_LEFT_PLANE = new VehicleAnimationBinding("door_left", VehicleAnimationBinding.Type.ROTATION, -0.90F, 1.45F, 1.26F, 0.0F, 1.0F, 0.0F, 55.0F);
-    private static final VehicleAnimationBinding DOOR_RIGHT_PLANE = new VehicleAnimationBinding("door_right", VehicleAnimationBinding.Type.ROTATION, 0.90F, 1.45F, 1.26F, 0.0F, 1.0F, 0.0F, -55.0F);
+    private static final VehicleAnimationBinding DOOR_LEFT_PLANE = new VehicleAnimationBinding("door_left", VehicleAnimationBinding.Type.ROTATION, -0.90F, 1.45F, 1.18F, 0.0F, 1.0F, 0.0F, 55.0F);
+    private static final VehicleAnimationBinding DOOR_RIGHT_PLANE = new VehicleAnimationBinding("door_right", VehicleAnimationBinding.Type.ROTATION, 0.90F, 1.45F, 1.18F, 0.0F, 1.0F, 0.0F, -55.0F);
     private static final VehicleAnimationBinding RAMP_MARS = new VehicleAnimationBinding("rear_ramp", VehicleAnimationBinding.Type.ROTATION, 0.0F, 1.30F, -2.68F, 1.0F, 0.0F, 0.0F, -82.0F);
     private static final VehicleAnimationBinding RAMP_VTOL = new VehicleAnimationBinding("rear_ramp", VehicleAnimationBinding.Type.ROTATION, 0.0F, 0.78F, -2.68F, 1.0F, 0.0F, 0.0F, -80.0F);
-    private static final VehicleAnimationBinding RAMP_CARGO_PLANE = new VehicleAnimationBinding("rear_ramp", VehicleAnimationBinding.Type.ROTATION, 0.0F, 1.14F, -4.35F, 1.0F, 0.0F, 0.0F, -78.0F);
+    private static final VehicleAnimationBinding RAMP_CARGO_PLANE = new VehicleAnimationBinding("rear_ramp", VehicleAnimationBinding.Type.ROTATION, 0.0F, 1.04F, -4.25F, 1.0F, 0.0F, 0.0F, -65.0F);
     private static final VehicleAnimationBinding ELEVATOR_LIGHT_PLANE = new VehicleAnimationBinding("elevator", VehicleAnimationBinding.Type.ROTATION, 0.0F, 1.72F, -5.05F, 1.0F, 0.0F, 0.0F, 24.0F);
     private static final VehicleAnimationBinding ELEVATOR_CARGO_PLANE = new VehicleAnimationBinding("elevator", VehicleAnimationBinding.Type.ROTATION, 0.0F, 3.65F, -8.85F, 1.0F, 0.0F, 0.0F, 24.0F);
     private static final VehicleAnimationBinding RUDDER_LIGHT_PLANE = new VehicleAnimationBinding("rudder", VehicleAnimationBinding.Type.ROTATION, 0.0F, 2.60F, -5.18F, 0.0F, 1.0F, 0.0F, 26.0F);
