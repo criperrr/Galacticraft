@@ -795,6 +795,14 @@ public class GCCreativeModeTabs {
                 output.accept(COAXIAL_MARS_ROTOR);
                 output.accept(HEAVY_LIFT_ROTOR);
                 output.accept(VTOL_THRUSTER);
+                output.accept(LIGHT_AIRPLANE_CHASSIS);
+                output.accept(CARGO_AIRPLANE_CHASSIS);
+                output.accept(STANDARD_AIRPLANE_WING);
+                output.accept(HIGH_ASPECT_MARS_WING);
+                output.accept(HEAVY_CARGO_WING);
+                output.accept(ELECTRIC_PROPELLER);
+                output.accept(HIGH_SPEED_DUCTED_FAN);
+                output.accept(RETRACTABLE_LANDING_GEAR);
                 output.accept(VehicleCrateItem.createCrate(VehicleRegistry.createCompletePreset(VehicleRegistry.CHASSIS_SCOUT_ROVER)));
                 output.accept(VehicleCrateItem.createCrate(VehicleRegistry.createCompletePreset(VehicleRegistry.CHASSIS_UTILITY_BUGGY)));
                 output.accept(VehicleCrateItem.createCrate(VehicleRegistry.createCompletePreset(VehicleRegistry.CHASSIS_HEAVY_HAULER)));
@@ -802,6 +810,10 @@ public class GCCreativeModeTabs {
                 output.accept(VehicleCrateItem.createCrate(VehicleRegistry.createCompletePreset(VehicleRegistry.CHASSIS_LIGHT_HELICOPTER)));
                 output.accept(VehicleCrateItem.createCrate(VehicleRegistry.createCompletePreset(VehicleRegistry.CHASSIS_HEAVY_VTOL)));
                 output.accept(VehicleCrateItem.createCrate(VehicleRegistry.createVacuumVtolPreset(VehicleRegistry.CHASSIS_LIGHT_HELICOPTER)));
+                output.accept(VehicleCrateItem.createCrate(VehicleRegistry.createCompletePreset(VehicleRegistry.CHASSIS_LIGHT_AIRPLANE)));
+                output.accept(VehicleCrateItem.createCrate(VehicleRegistry.createMarsFixedWingPreset(VehicleRegistry.CHASSIS_LIGHT_AIRPLANE)));
+                output.accept(VehicleCrateItem.createCrate(VehicleRegistry.createVacuumVtolPreset(VehicleRegistry.CHASSIS_LIGHT_AIRPLANE)));
+                output.accept(VehicleCrateItem.createCrate(VehicleRegistry.createCompletePreset(VehicleRegistry.CHASSIS_CARGO_AIRPLANE)));
 
                 // ARMOR
                 output.accept(HEAVY_DUTY_HELMET);

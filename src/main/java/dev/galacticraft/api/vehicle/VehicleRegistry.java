@@ -52,6 +52,10 @@ public final class VehicleRegistry {
     public static final ResourceLocation CHASSIS_LIGHT_HELICOPTER = APIConstants.id("light_helicopter_chassis");
     public static final ResourceLocation CHASSIS_HEAVY_VTOL = APIConstants.id("heavy_vtol_chassis");
 
+    // Phase 3 Fixed-Wing Airplane Chassis IDs (100% Electric, optional Hybrid VTOL)
+    public static final ResourceLocation CHASSIS_LIGHT_AIRPLANE = APIConstants.id("light_airplane_chassis");
+    public static final ResourceLocation CHASSIS_CARGO_AIRPLANE = APIConstants.id("cargo_airplane_chassis");
+
     // Phase 1 Part IDs (individual wheels, electric traction motor, electric energy sources, seats, cargo, gauges)
     public static final ResourceLocation PART_STANDARD_WHEELS = APIConstants.id("standard_wheel_set");
     public static final ResourceLocation PART_HEAVY_TRACKS = APIConstants.id("heavy_tracks");
@@ -61,6 +65,14 @@ public final class VehicleRegistry {
     public static final ResourceLocation PART_COAXIAL_MARS_ROTOR = APIConstants.id("coaxial_mars_rotor");
     public static final ResourceLocation PART_HEAVY_LIFT_ROTOR = APIConstants.id("heavy_lift_rotor");
     public static final ResourceLocation PART_VTOL_THRUSTER = APIConstants.id("vtol_thruster");
+
+    // Phase 3 Fixed-Wing Wings, Electric Propellers & Retractable Landing Gear (100% Electric)
+    public static final ResourceLocation PART_STANDARD_WING = APIConstants.id("standard_airplane_wing");
+    public static final ResourceLocation PART_HIGH_ASPECT_MARS_WING = APIConstants.id("high_aspect_mars_wing");
+    public static final ResourceLocation PART_HEAVY_CARGO_WING = APIConstants.id("heavy_cargo_wing");
+    public static final ResourceLocation PART_ELECTRIC_PROPELLER = APIConstants.id("electric_propeller");
+    public static final ResourceLocation PART_HIGH_SPEED_DUCTED_FAN = APIConstants.id("high_speed_ducted_fan");
+    public static final ResourceLocation PART_RETRACTABLE_GEAR = APIConstants.id("retractable_landing_gear");
 
     public static final ResourceLocation PART_BATTERY_BANK = APIConstants.id("battery_bank");
     public static final ResourceLocation PART_SOLAR_ARRAY = APIConstants.id("solar_array_module");
@@ -134,6 +146,47 @@ public final class VehicleRegistry {
      * Builds a ready-to-drive/fly starter configuration for a given chassis (creative crates, commands, tests).
      */
     public static @NotNull VehicleConfiguration createCompletePreset(@NotNull ResourceLocation chassisId) {
+        if (CHASSIS_LIGHT_AIRPLANE.equals(chassisId)) {
+            Map<String, ResourceLocation> parts = new LinkedHashMap<>();
+            parts.put("wing_left", PART_STANDARD_WING);
+            parts.put("wing_right", PART_STANDARD_WING);
+            parts.put("prop_nose", PART_ELECTRIC_PROPELLER);
+            parts.put("gear_nose", PART_RETRACTABLE_GEAR);
+            parts.put("gear_left", PART_RETRACTABLE_GEAR);
+            parts.put("gear_right", PART_RETRACTABLE_GEAR);
+            parts.put("motor_main", PART_LOX_ENGINE);
+            parts.put("powerplant_main", PART_BATTERY_BANK);
+            parts.put("seat_pilot", PART_PILOT_SEAT);
+            parts.put("seat_passenger", PART_PASSENGER_SEAT);
+            parts.put("cargo_rear", PART_CARGO_RACK);
+            parts.put("instrument_mast", PART_CAMERA_MAST);
+            parts.put("dash_left", PART_GAUGE_SPEEDOMETER);
+            parts.put("dash_center", PART_GAUGE_HORIZON);
+            parts.put("dash_right", PART_GAUGE_ATMOSPHERE);
+            return new VehicleConfiguration(CHASSIS_LIGHT_AIRPLANE, parts, 0xE6EAF0, 30_000L, 0L);
+        }
+        if (CHASSIS_CARGO_AIRPLANE.equals(chassisId)) {
+            Map<String, ResourceLocation> parts = new LinkedHashMap<>();
+            parts.put("wing_left", PART_HEAVY_CARGO_WING);
+            parts.put("wing_right", PART_HEAVY_CARGO_WING);
+            parts.put("prop_left", PART_HIGH_SPEED_DUCTED_FAN);
+            parts.put("prop_right", PART_HIGH_SPEED_DUCTED_FAN);
+            parts.put("gear_nose", PART_RETRACTABLE_GEAR);
+            parts.put("gear_left", PART_RETRACTABLE_GEAR);
+            parts.put("gear_right", PART_RETRACTABLE_GEAR);
+            parts.put("motor_main", PART_LOX_ENGINE);
+            parts.put("powerplant_main", PART_RTG_CORE);
+            parts.put("powerplant_aux", PART_BATTERY_BANK);
+            parts.put("seat_pilot", PART_PILOT_SEAT);
+            parts.put("seat_passenger_left", PART_PASSENGER_SEAT);
+            parts.put("seat_passenger_right", PART_CREW_BENCH);
+            parts.put("cargo_rear", PART_HEAVY_CARGO_BAY);
+            parts.put("instrument_front", PART_CAMERA_MAST);
+            parts.put("dash_left", PART_GAUGE_SPEEDOMETER);
+            parts.put("dash_center", PART_GAUGE_HORIZON);
+            parts.put("dash_right", PART_GAUGE_POWER);
+            return new VehicleConfiguration(CHASSIS_CARGO_AIRPLANE, parts, 0xD98B2B, 80_000L, 0L);
+        }
         if (CHASSIS_MICRO_DRONE.equals(chassisId)) {
             Map<String, ResourceLocation> parts = new LinkedHashMap<>();
             parts.put("rotor_fl", PART_COAXIAL_MARS_ROTOR);
@@ -234,6 +287,7 @@ public final class VehicleRegistry {
     /**
      * Builds a vacuum-capable electric VTOL preset (fitted with {@link #PART_VTOL_THRUSTER} pods)
      * ready to fly on airless worlds such as the Moon, Phobos, Mercury, or Asteroids.
+     * Works for both Rotorcraft and Hybrid Fixed-Wing Airplanes.
      */
     public static @NotNull VehicleConfiguration createVacuumVtolPreset(@NotNull ResourceLocation chassisId) {
         VehicleConfiguration base = createCompletePreset(chassisId);
@@ -242,6 +296,22 @@ public final class VehicleRegistry {
         for (VehicleHardpoint hp : chassis.hardpoints()) {
             if (hp.type() == HardpointType.ROTOR) {
                 swapped.put(hp.id(), PART_VTOL_THRUSTER);
+            }
+        }
+        return new VehicleConfiguration(base.chassisId(), swapped, base.paintColor(), base.storedEnergy(), 0L);
+    }
+
+    /**
+     * Builds a Mars thin-atmosphere aerodynamic fixed-wing preset fitted with
+     * {@link #PART_HIGH_ASPECT_MARS_WING} ultralight high-lift wings.
+     */
+    public static @NotNull VehicleConfiguration createMarsFixedWingPreset(@NotNull ResourceLocation chassisId) {
+        VehicleConfiguration base = createCompletePreset(chassisId);
+        VehicleChassisDefinition chassis = getChassisOrDefault(chassisId);
+        Map<String, ResourceLocation> swapped = new LinkedHashMap<>(base.installedParts());
+        for (VehicleHardpoint hp : chassis.hardpoints()) {
+            if (hp.type() == HardpointType.WING) {
+                swapped.put(hp.id(), PART_HIGH_ASPECT_MARS_WING);
             }
         }
         return new VehicleConfiguration(base.chassisId(), swapped, base.paintColor(), base.storedEnergy(), 0L);
@@ -412,6 +482,75 @@ public final class VehicleRegistry {
                 )
         ));
 
+        // 7. MEDIUM FIXED-WING: Realistic 9.2m Cessna 206 / NASA Electric Bush Plane (11.5m wingspan, 3x2 crate, 2 seats, pressurized, optional Hybrid VTOL)
+        registerChassis(new VehicleChassisDefinition(
+                CHASSIS_LIGHT_AIRPLANE,
+                "vehicle.galacticraft.chassis.light_airplane",
+                VehicleSizeClass.MEDIUM,
+                VehicleDomain.FIXED_WING,
+                420.0,
+                3.40,
+                false,
+                true,
+                List.of(
+                        new VehicleHardpoint("wing_left", HardpointType.WING, -0.92, 2.30, 0.22, VehicleSizeClass.MEDIUM, true),
+                        new VehicleHardpoint("wing_right", HardpointType.WING, 0.92, 2.30, 0.22, VehicleSizeClass.MEDIUM, true),
+                        new VehicleHardpoint("prop_nose", HardpointType.PROPELLER, 0.0, 1.38, 3.16, VehicleSizeClass.MEDIUM, true),
+                        new VehicleHardpoint("gear_nose", HardpointType.LANDING_GEAR, 0.0, 0.62, 2.38, VehicleSizeClass.SMALL, true),
+                        new VehicleHardpoint("gear_left", HardpointType.LANDING_GEAR, -1.32, 0.62, -0.25, VehicleSizeClass.SMALL, true),
+                        new VehicleHardpoint("gear_right", HardpointType.LANDING_GEAR, 1.32, 0.62, -0.25, VehicleSizeClass.SMALL, true),
+                        new VehicleHardpoint("motor_main", HardpointType.MOTOR, 0.0, 1.04, 2.05, VehicleSizeClass.MEDIUM, true),
+                        new VehicleHardpoint("powerplant_main", HardpointType.POWERPLANT, 0.0, 0.96, -0.95, VehicleSizeClass.MEDIUM, true),
+                        new VehicleHardpoint("seat_pilot", HardpointType.SEAT, -0.40, 0.96, 0.35, VehicleSizeClass.MEDIUM, true),
+                        new VehicleHardpoint("seat_passenger", HardpointType.SEAT, 0.40, 0.96, 0.35, VehicleSizeClass.MEDIUM, false),
+                        new VehicleHardpoint("vtol_left", HardpointType.ROTOR, -2.25, 2.08, 0.20, VehicleSizeClass.SMALL, false),
+                        new VehicleHardpoint("vtol_right", HardpointType.ROTOR, 2.25, 2.08, 0.20, VehicleSizeClass.SMALL, false),
+                        new VehicleHardpoint("cargo_rear", HardpointType.CARGO, 0.0, 0.96, -0.50, VehicleSizeClass.MEDIUM, false),
+                        new VehicleHardpoint("instrument_mast", HardpointType.INSTRUMENT, 0.0, 0.96, -1.10, VehicleSizeClass.SMALL, false),
+                        new VehicleHardpoint("dash_left", HardpointType.DASHBOARD, -0.46, 1.48, 1.44, VehicleSizeClass.SMALL, false),
+                        new VehicleHardpoint("dash_center", HardpointType.DASHBOARD, 0.0, 1.48, 1.44, VehicleSizeClass.SMALL, false),
+                        new VehicleHardpoint("dash_right", HardpointType.DASHBOARD, 0.46, 1.48, 1.44, VehicleSizeClass.SMALL, false),
+                        new VehicleHardpoint("ai_core_slot", HardpointType.AI_CORE, 0.0, 1.38, -0.95, VehicleSizeClass.SMALL, false)
+                )
+        ));
+
+        // 8. LARGE FIXED-WING: Realistic 16.2m NASA Electric Planetary Cargo Plane (19.6m wingspan, 4x3 crate, 3 seats, pressurized, rear ramp, optional Hybrid VTOL)
+        registerChassis(new VehicleChassisDefinition(
+                CHASSIS_CARGO_AIRPLANE,
+                "vehicle.galacticraft.chassis.cargo_airplane",
+                VehicleSizeClass.LARGE,
+                VehicleDomain.FIXED_WING,
+                1080.0,
+                5.30,
+                false,
+                true,
+                List.of(
+                        new VehicleHardpoint("wing_left", HardpointType.WING, -1.62, 3.65, 0.45, VehicleSizeClass.LARGE, true),
+                        new VehicleHardpoint("wing_right", HardpointType.WING, 1.62, 3.65, 0.45, VehicleSizeClass.LARGE, true),
+                        new VehicleHardpoint("prop_left", HardpointType.PROPELLER, -3.85, 3.35, 2.60, VehicleSizeClass.MEDIUM, true),
+                        new VehicleHardpoint("prop_right", HardpointType.PROPELLER, 3.85, 3.35, 2.60, VehicleSizeClass.MEDIUM, true),
+                        new VehicleHardpoint("gear_nose", HardpointType.LANDING_GEAR, 0.0, 0.88, 4.75, VehicleSizeClass.SMALL, true),
+                        new VehicleHardpoint("gear_left", HardpointType.LANDING_GEAR, -1.92, 0.88, -0.55, VehicleSizeClass.SMALL, true),
+                        new VehicleHardpoint("gear_right", HardpointType.LANDING_GEAR, 1.92, 0.88, -0.55, VehicleSizeClass.SMALL, true),
+                        new VehicleHardpoint("motor_main", HardpointType.MOTOR, 0.0, 2.15, 0.45, VehicleSizeClass.LARGE, true),
+                        new VehicleHardpoint("powerplant_main", HardpointType.POWERPLANT, 0.0, 1.22, -2.35, VehicleSizeClass.LARGE, true),
+                        new VehicleHardpoint("powerplant_aux", HardpointType.POWERPLANT, 0.0, 1.22, 0.45, VehicleSizeClass.MEDIUM, false),
+                        new VehicleHardpoint("seat_pilot", HardpointType.SEAT, -0.66, 1.52, 3.55, VehicleSizeClass.LARGE, true),
+                        new VehicleHardpoint("seat_passenger_left", HardpointType.SEAT, 0.66, 1.52, 3.55, VehicleSizeClass.LARGE, false),
+                        new VehicleHardpoint("seat_passenger_right", HardpointType.SEAT, 0.0, 1.52, 2.45, VehicleSizeClass.LARGE, false),
+                        new VehicleHardpoint("vtol_fl", HardpointType.ROTOR, -3.20, 3.10, 1.55, VehicleSizeClass.SMALL, false),
+                        new VehicleHardpoint("vtol_fr", HardpointType.ROTOR, 3.20, 3.10, 1.55, VehicleSizeClass.SMALL, false),
+                        new VehicleHardpoint("vtol_rl", HardpointType.ROTOR, -3.20, 3.10, -1.45, VehicleSizeClass.SMALL, false),
+                        new VehicleHardpoint("vtol_rr", HardpointType.ROTOR, 3.20, 3.10, -1.45, VehicleSizeClass.SMALL, false),
+                        new VehicleHardpoint("cargo_rear", HardpointType.CARGO, 0.0, 1.18, -1.45, VehicleSizeClass.LARGE, false),
+                        new VehicleHardpoint("instrument_front", HardpointType.INSTRUMENT, 0.0, 1.22, 1.55, VehicleSizeClass.LARGE, false),
+                        new VehicleHardpoint("dash_left", HardpointType.DASHBOARD, -0.72, 2.08, 4.30, VehicleSizeClass.SMALL, false),
+                        new VehicleHardpoint("dash_center", HardpointType.DASHBOARD, 0.0, 2.08, 4.30, VehicleSizeClass.SMALL, false),
+                        new VehicleHardpoint("dash_right", HardpointType.DASHBOARD, 0.72, 2.08, 4.30, VehicleSizeClass.SMALL, false),
+                        new VehicleHardpoint("ai_core_slot", HardpointType.AI_CORE, 0.0, 2.15, 1.85, VehicleSizeClass.SMALL, false)
+                )
+        ));
+
         // Individual Wheel / Locomotion Units (installed wheel-by-wheel onto each hub!)
         registerPart(new VehiclePartDefinition(
                 PART_STANDARD_WHEELS, "item.galacticraft.standard_wheel_set",
@@ -447,6 +586,48 @@ public final class VehicleRegistry {
                 HardpointType.ROTOR, VehicleSizeClass.SMALL,
                 38.0, 0.0, 0.78, 0.0, 0L, 0L, 0, null, 0.0, false, false, false,
                 0.0, 0.0, 5600.0
+        ));
+
+        // Phase 3 Fixed-Wing Airfoil Wings, Electric Propellers & Retractable Landing Gear (100% Electric, fuelCapacity == 0)
+        registerPart(new VehiclePartDefinition(
+                PART_STANDARD_WING, "item.galacticraft.standard_airplane_wing",
+                HardpointType.WING, VehicleSizeClass.SMALL,
+                42.0, 0.0, 0.95, 0.0, 0L, 0L, 0, null, 0.0, false, false, false,
+                0.0, 0.0, 0.0,
+                9.0, 1.65, 0.0
+        ));
+        registerPart(new VehiclePartDefinition(
+                PART_HIGH_ASPECT_MARS_WING, "item.galacticraft.high_aspect_mars_wing",
+                HardpointType.WING, VehicleSizeClass.SMALL,
+                28.0, 0.0, 1.16, 0.0, 0L, 0L, 0, null, 0.0, false, false, false,
+                0.0, 0.0, 0.0,
+                82.0, 3.50, 0.0
+        ));
+        registerPart(new VehiclePartDefinition(
+                PART_HEAVY_CARGO_WING, "item.galacticraft.heavy_cargo_wing",
+                HardpointType.WING, VehicleSizeClass.LARGE,
+                95.0, 0.0, 1.06, 0.0, 0L, 0L, 0, null, 0.0, false, false, false,
+                0.0, 0.0, 0.0,
+                24.0, 1.75, 0.0
+        ));
+        registerPart(new VehiclePartDefinition(
+                PART_ELECTRIC_PROPELLER, "item.galacticraft.electric_propeller",
+                HardpointType.PROPELLER, VehicleSizeClass.SMALL,
+                26.0, 1200.0, 0.95, 0.0, 0L, 0L, 0, null, 0.0, false, false, false,
+                0.0, 0.0, 0.0,
+                0.0, 0.0, 4200.0
+        ));
+        registerPart(new VehiclePartDefinition(
+                PART_HIGH_SPEED_DUCTED_FAN, "item.galacticraft.high_speed_ducted_fan",
+                HardpointType.PROPELLER, VehicleSizeClass.MEDIUM,
+                48.0, 1900.0, 1.15, 0.0, 0L, 0L, 0, null, 0.0, false, false, false,
+                0.0, 0.0, 0.0,
+                0.0, 0.0, 7600.0
+        ));
+        registerPart(new VehiclePartDefinition(
+                PART_RETRACTABLE_GEAR, "item.galacticraft.retractable_landing_gear",
+                HardpointType.LANDING_GEAR, VehicleSizeClass.SMALL,
+                18.0, 420.0, 0.45, 0.0, 0L, 0L, 0, null, 0.0, false, false, false
         ));
 
         // Electric Traction Motor (required in motor_main on every rover!)

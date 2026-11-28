@@ -265,6 +265,29 @@ public class ModularVehicleTestSuite implements GalacticraftGameTest {
             throw new GameTestAssertException("Accessories bench failed to craft Drone Remote Controller");
         }
 
+        // Phase 3 Fixed-Wing blueprints also respect bench specialization
+        chassisBe.getInventory().setItem(VehiclePartFabricatorBlockEntity.OUTPUT_SLOT, ItemStack.EMPTY);
+        motorBe.getInventory().setItem(VehiclePartFabricatorBlockEntity.OUTPUT_SLOT, ItemStack.EMPTY);
+        wheelBe.getInventory().setItem(VehiclePartFabricatorBlockEntity.OUTPUT_SLOT, ItemStack.EMPTY);
+
+        if (!chassisBe.tryFabricate(creative, VehicleRegistry.CHASSIS_LIGHT_AIRPLANE)
+                || !chassisBe.getInventory().getItem(VehiclePartFabricatorBlockEntity.OUTPUT_SLOT).is(GCItems.LIGHT_AIRPLANE_CHASSIS)) {
+            throw new GameTestAssertException("Chassis bench failed to craft Light Airplane chassis");
+        }
+        if (!motorBe.tryFabricate(creative, VehicleRegistry.PART_ELECTRIC_PROPELLER)
+                || !motorBe.getInventory().getItem(VehiclePartFabricatorBlockEntity.OUTPUT_SLOT).is(GCItems.ELECTRIC_PROPELLER)) {
+            throw new GameTestAssertException("Electric motor bench failed to craft Electric Propeller");
+        }
+        if (!wheelBe.tryFabricate(creative, VehicleRegistry.PART_STANDARD_WING)
+                || !wheelBe.getInventory().getItem(VehiclePartFabricatorBlockEntity.OUTPUT_SLOT).is(GCItems.STANDARD_AIRPLANE_WING)) {
+            throw new GameTestAssertException("Locomotion bench failed to craft Standard Airplane Wing");
+        }
+        wheelBe.getInventory().setItem(VehiclePartFabricatorBlockEntity.OUTPUT_SLOT, ItemStack.EMPTY);
+        if (!wheelBe.tryFabricate(creative, VehicleRegistry.PART_RETRACTABLE_GEAR)
+                || !wheelBe.getInventory().getItem(VehiclePartFabricatorBlockEntity.OUTPUT_SLOT).is(GCItems.RETRACTABLE_LANDING_GEAR)) {
+            throw new GameTestAssertException("Locomotion bench failed to craft Retractable Landing Gear");
+        }
+
         helper.succeed();
     }
 
@@ -374,6 +397,195 @@ public class ModularVehicleTestSuite implements GalacticraftGameTest {
             throw new GameTestAssertException("Electric VTOL_THRUSTER drone failed to climb in Moon vacuum, deltaY=" + (vtolDrone.getY() - vtolStartY));
         }
         vtolDrone.discard();
+
+        helper.succeed();
+    }
+
+    @GameTest(template = EMPTY_STRUCTURE)
+    public void fixedWingAssemblyTakeoffRollAndGearRetraction(GameTestHelper helper) {
+        ModularVehicleEntity plane = GCEntityTypes.MODULAR_VEHICLE.create(helper.getLevel());
+        if (plane == null) {
+            throw new GameTestAssertException("Failed to create ModularVehicleEntity for Light Airplane");
+        }
+        // Build a clear elevated runway above adjacent GameTest boxes so the airplane has an unobstructed takeoff roll
+        BlockPos runwayOrigin = helper.absolutePos(new BlockPos(2, 22, 2));
+        for (int dz = -2; dz <= 28; dz++) {
+            for (int dx = -2; dx <= 2; dx++) {
+                helper.getLevel().setBlockAndUpdate(runwayOrigin.offset(dx, -1, dz), net.minecraft.world.level.block.Blocks.STONE.defaultBlockState());
+            }
+        }
+        plane.setPos(runwayOrigin.getX() + 0.5, runwayOrigin.getY() + 0.02, runwayOrigin.getZ() + 0.5);
+        plane.setYRot(0.0F);
+        plane.setOnGround(true);
+        plane.setEnvironmentForTest(PlanetaryEnvironment.EARTH);
+        plane.setConfiguration(VehicleConfiguration.emptyChassis(VehicleRegistry.CHASSIS_LIGHT_AIRPLANE));
+        helper.getLevel().addFreshEntity(plane);
+
+        if (plane.getDerivedStats().isDrivable()) {
+            throw new GameTestAssertException("Bare Light Airplane chassis must not be flyable before wings/prop/gear/motor/battery/seat are installed");
+        }
+
+        Player player = helper.makeMockPlayer(GameType.SURVIVAL);
+        player.setPos(runwayOrigin.getX() + 0.5, runwayOrigin.getY(), runwayOrigin.getZ() + 0.5);
+
+        // Piece-by-piece Immersive-Vehicles-style assembly
+        plane.tryInstallPart(player, new ItemStack(GCItems.STANDARD_AIRPLANE_WING), VehicleRegistry.PART_STANDARD_WING);
+        plane.tryInstallPart(player, new ItemStack(GCItems.STANDARD_AIRPLANE_WING), VehicleRegistry.PART_STANDARD_WING);
+        plane.tryInstallPart(player, new ItemStack(GCItems.ELECTRIC_PROPELLER), VehicleRegistry.PART_ELECTRIC_PROPELLER);
+        plane.tryInstallPart(player, new ItemStack(GCItems.RETRACTABLE_LANDING_GEAR), VehicleRegistry.PART_RETRACTABLE_GEAR);
+        plane.tryInstallPart(player, new ItemStack(GCItems.RETRACTABLE_LANDING_GEAR), VehicleRegistry.PART_RETRACTABLE_GEAR);
+        plane.tryInstallPart(player, new ItemStack(GCItems.LOX_FUEL_ENGINE), VehicleRegistry.PART_LOX_ENGINE);
+        plane.tryInstallPart(player, new ItemStack(GCItems.BATTERY_BANK), VehicleRegistry.PART_BATTERY_BANK);
+        plane.tryInstallPart(player, new ItemStack(GCItems.PILOT_COCKPIT_SEAT), VehicleRegistry.PART_PILOT_SEAT);
+
+        if (plane.getDerivedStats().isDrivable()) {
+            throw new GameTestAssertException("Light Airplane missing 3rd landing gear must not be flyable yet");
+        }
+        plane.tryInstallPart(player, new ItemStack(GCItems.RETRACTABLE_LANDING_GEAR), VehicleRegistry.PART_RETRACTABLE_GEAR);
+        if (!plane.getDerivedStats().isDrivable()) {
+            throw new GameTestAssertException("Fully assembled Light Airplane should be flyable");
+        }
+
+        player.startRiding(plane, true);
+        double startY = plane.getY();
+        long startEnergy = plane.getConfiguration().storedEnergy();
+
+        // Test dedicated throttle quadrant retention & cutoff via handlePanelAction("set_throttle")
+        plane.handlePanelAction(player, "set_throttle", "", "0.65");
+        plane.tick();
+        if (Math.abs(plane.getThrottle() - 0.65F) > 0.02F) {
+            throw new GameTestAssertException("Expected throttle quadrant to retain 65% setting without holding keys, got " + plane.getThrottle());
+        }
+        plane.handlePanelAction(player, "set_throttle", "", "0.0");
+        if (plane.getThrottle() > 0.01F) {
+            throw new GameTestAssertException("Expected throttle cutoff to zero lever immediately, got " + plane.getThrottle());
+        }
+
+        // Runway takeoff roll: full electric throttle (100% via throttle quadrant) + elevator rotation (Space)
+        plane.handlePanelAction(player, "set_throttle", "", "1.0");
+        for (int t = 0; t < 75; t++) {
+            boolean pullUp = t >= 18;
+            plane.inputTick(0.0F, 0.0F, false, false, false, false, pullUp, false, false);
+            plane.tick();
+        }
+
+        double deltaY = plane.getY() - startY;
+        float speed = plane.getSyncedSpeed();
+        float throttle = plane.getThrottle();
+        float rpm = plane.getRotorRpm();
+        float gear = plane.getGearProgress();
+        long endEnergy = plane.getConfiguration().storedEnergy();
+        double agl = plane.computeAltitudeAgl();
+
+        // Clean up temporary runway blocks before assertions/succeed
+        player.stopRiding();
+        plane.discard();
+        for (int dz = -2; dz <= 28; dz++) {
+            for (int dx = -2; dx <= 2; dx++) {
+                helper.getLevel().setBlockAndUpdate(runwayOrigin.offset(dx, -1, dz), net.minecraft.world.level.block.Blocks.AIR.defaultBlockState());
+            }
+        }
+
+        if (deltaY <= 2.5) {
+            throw new GameTestAssertException(String.format(
+                    "Expected Light Airplane to take off and climb > 2.5 blocks on Earth, deltaY=%.2f speed=%.3f thr=%.2f rpm=%.0f",
+                    deltaY, speed, throttle, rpm));
+        }
+        if (rpm < ModularVehicleEntity.BLUR_DISC_RPM_THRESHOLD) {
+            throw new GameTestAssertException("Expected electric propeller RPM >= 600 at full throttle, got " + rpm);
+        }
+        if (endEnergy >= startEnergy) {
+            throw new GameTestAssertException("Expected electric airplane to draw battery energy during takeoff & climb");
+        }
+        if (agl > ModularVehicleEntity.GEAR_RETRACT_AGL_BLOCKS && gear <= 0.05F) {
+            throw new GameTestAssertException("Expected retractable landing gear to retract above 4 blocks AGL, gearProgress=" + gear);
+        }
+
+        helper.succeed();
+    }
+
+    @GameTest(template = EMPTY_STRUCTURE)
+    public void fixedWingStallRecoveryAndMoonVacuumHybridVtol(GameTestHelper helper) {
+        Player player = helper.makeMockPlayer(GameType.SURVIVAL);
+        BlockPos basePos = helper.absolutePos(new BlockPos(2, 2, 2));
+
+        // 1. Mid-air stall recovery on Earth: airplane at zero speed < V_stall MUST enter stall & pitch nose down smoothly
+        ModularVehicleEntity stallPlane = GCEntityTypes.MODULAR_VEHICLE.create(helper.getLevel());
+        if (stallPlane == null) {
+            throw new GameTestAssertException("Failed to create stall test airplane");
+        }
+        stallPlane.setPos(basePos.getX() + 0.5, basePos.getY() + 20.0, basePos.getZ() + 0.5);
+        stallPlane.setOnGround(false);
+        stallPlane.setEnvironmentForTest(PlanetaryEnvironment.EARTH);
+        stallPlane.setConfiguration(VehicleRegistry.createCompletePreset(VehicleRegistry.CHASSIS_LIGHT_AIRPLANE));
+        helper.getLevel().addFreshEntity(stallPlane);
+        player.startRiding(stallPlane, true);
+
+        boolean observedStall = false;
+        for (int t = 0; t < 16; t++) {
+            stallPlane.inputTick(0.0F, 0.0F, false, false, false, false, false, false, false);
+            stallPlane.tick();
+            if (stallPlane.isStalling()) {
+                observedStall = true;
+            }
+        }
+        if (!observedStall) {
+            throw new GameTestAssertException("Expected mid-air zero-speed fixed-wing airplane to detect aerodynamic stall");
+        }
+        if (stallPlane.getCyclicPitchDeg() <= 8.0F) {
+            throw new GameTestAssertException("Expected stalled airplane to pitch nose downward smoothly (> 8 deg), got " + stallPlane.getCyclicPitchDeg());
+        }
+        if (stallPlane.getSyncedSpeed() <= 0.05F) {
+            throw new GameTestAssertException("Expected nose-down stall dive to accelerate airspeed, got " + stallPlane.getSyncedSpeed());
+        }
+        player.stopRiding();
+        stallPlane.discard();
+
+        // 2. Pure aerodynamic airplane in Moon vacuum (0.0 atm): MUST NOT lift off
+        ModularVehicleEntity vacuumPlane = GCEntityTypes.MODULAR_VEHICLE.create(helper.getLevel());
+        if (vacuumPlane == null) {
+            throw new GameTestAssertException("Failed to create Moon vacuum airplane");
+        }
+        vacuumPlane.setPos(basePos.getX() + 0.5, basePos.getY() + 0.05, basePos.getZ() + 0.5);
+        vacuumPlane.setOnGround(true);
+        vacuumPlane.setEnvironmentForTest(PlanetaryEnvironment.MOON);
+        vacuumPlane.setConfiguration(VehicleRegistry.createCompletePreset(VehicleRegistry.CHASSIS_LIGHT_AIRPLANE));
+        helper.getLevel().addFreshEntity(vacuumPlane);
+        player.startRiding(vacuumPlane, true);
+
+        double vacStartY = vacuumPlane.getY();
+        for (int t = 0; t < 35; t++) {
+            vacuumPlane.inputTick(0.0F, 1.0F, true, false, false, false, true, false, false);
+            vacuumPlane.tick();
+        }
+        if (vacuumPlane.getY() > vacStartY + 0.1) {
+            throw new GameTestAssertException("Pure aerodynamic airplane must NOT lift off in Moon vacuum, deltaY=" + (vacuumPlane.getY() - vacStartY));
+        }
+        player.stopRiding();
+        vacuumPlane.discard();
+
+        // 3. Hybrid VTOL airplane (with VTOL_THRUSTER pods) in Moon vacuum: MUST lift off cleanly!
+        ModularVehicleEntity hybridPlane = GCEntityTypes.MODULAR_VEHICLE.create(helper.getLevel());
+        if (hybridPlane == null) {
+            throw new GameTestAssertException("Failed to create Hybrid VTOL airplane");
+        }
+        hybridPlane.setPos(basePos.getX() + 3.5, basePos.getY() + 0.05, basePos.getZ() + 0.5);
+        hybridPlane.setOnGround(true);
+        hybridPlane.setEnvironmentForTest(PlanetaryEnvironment.MOON);
+        hybridPlane.setConfiguration(VehicleRegistry.createVacuumVtolPreset(VehicleRegistry.CHASSIS_LIGHT_AIRPLANE));
+        helper.getLevel().addFreshEntity(hybridPlane);
+        player.startRiding(hybridPlane, true);
+
+        double hybridStartY = hybridPlane.getY();
+        for (int t = 0; t < 28; t++) {
+            hybridPlane.inputTick(0.0F, 0.0F, false, false, false, false, true, false, false);
+            hybridPlane.tick();
+        }
+        if (hybridPlane.getY() <= hybridStartY + 1.5) {
+            throw new GameTestAssertException("Hybrid VTOL airplane failed to lift off vertically in Moon vacuum, deltaY=" + (hybridPlane.getY() - hybridStartY));
+        }
+        player.stopRiding();
+        hybridPlane.discard();
 
         helper.succeed();
     }

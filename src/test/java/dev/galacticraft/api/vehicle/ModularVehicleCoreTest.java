@@ -148,4 +148,98 @@ class ModularVehicleCoreTest {
         assertTrue(rotorHp.accepts(HardpointType.ROTOR, VehicleSizeClass.SMALL));
         assertTrue(rotorHp.accepts(HardpointType.ROTOR, VehicleSizeClass.MEDIUM));
     }
+
+    @Test
+    void fixedWingAerodynamicsStallSpeedAndHybridVtolPhysics() {
+        // 1. Bare Light Airplane chassis reports all required piece-by-piece hardpoints
+        VehicleConfiguration barePlane = VehicleConfiguration.emptyChassis(VehicleRegistry.CHASSIS_LIGHT_AIRPLANE);
+        VehicleDerivedStats bareStats = VehicleRegistry.computeStats(barePlane);
+        assertTrue(bareStats.isFixedWing());
+        assertFalse(bareStats.isDrivable());
+        assertTrue(bareStats.missingRequiredHardpoints().contains("wing_left"));
+        assertTrue(bareStats.missingRequiredHardpoints().contains("wing_right"));
+        assertTrue(bareStats.missingRequiredHardpoints().contains("prop_nose"));
+        assertTrue(bareStats.missingRequiredHardpoints().contains("gear_nose"));
+        assertTrue(bareStats.missingRequiredHardpoints().contains("gear_left"));
+        assertTrue(bareStats.missingRequiredHardpoints().contains("gear_right"));
+        assertTrue(bareStats.missingRequiredHardpoints().contains("motor_main"));
+        assertTrue(bareStats.missingRequiredHardpoints().contains("powerplant_main"));
+        assertTrue(bareStats.missingRequiredHardpoints().contains("seat_pilot"));
+
+        // 2. Complete Earth Light Airplane: L proportional to V^2 * rho, flies on Earth & Titan, blocked in Moon vacuum
+        VehicleConfiguration earthPlaneCfg = VehicleRegistry.createCompletePreset(VehicleRegistry.CHASSIS_LIGHT_AIRPLANE);
+        VehicleDerivedStats earthPlane = VehicleRegistry.computeStats(earthPlaneCfg);
+        assertTrue(earthPlane.isDrivable());
+        assertEquals(2, earthPlane.wingCount());
+        assertEquals(1, earthPlane.propellerCount());
+        assertEquals(3, earthPlane.landingGearCount());
+
+        double liftV1 = earthPlane.computeFixedWingLiftN(0.30, 1.0, 1.0);
+        double liftV2 = earthPlane.computeFixedWingLiftN(0.60, 1.0, 1.0);
+        assertEquals(liftV1 * 4.0, liftV2, 1e-4, "Aerodynamic lift must scale quadratically with airspeed");
+        assertEquals(0.0, earthPlane.computeFixedWingLiftN(0.80, 0.0, 1.65), 1e-6, "Vacuum must produce zero aerodynamic lift");
+
+        double titanStall = earthPlane.computeStallSpeedBlocksPerTick(0.138, 1.45);
+        double earthStall = earthPlane.computeStallSpeedBlocksPerTick(1.0, 1.0);
+        double marsStall = earthPlane.computeStallSpeedBlocksPerTick(0.38, 0.006);
+        double moonStall = earthPlane.computeStallSpeedBlocksPerTick(0.166, 0.0);
+        assertTrue(titanStall < earthStall, "Dense low-g Titan atmosphere must yield lower stall speed than Earth");
+        assertTrue(earthStall < marsStall, "Thin Mars atmosphere must yield higher stall speed than Earth");
+        assertTrue(Double.isInfinite(moonStall), "Vacuum stall speed must be infinite");
+
+        assertTrue(earthPlane.canFlyFixedWingIn(1.0, 1.0), "Light Airplane with standard wings must fly on Earth");
+        assertTrue(earthPlane.canFlyFixedWingIn(0.138, 1.45), "Light Airplane with standard wings must fly on Titan");
+        assertFalse(earthPlane.canFlyFixedWingIn(0.38, 0.006), "Standard wings should be unable to reach V_stall on Mars");
+        assertTrue(earthPlane.isBlockedByVacuum(0.0), "Pure aerodynamic airplane must be blocked in Moon vacuum");
+        assertFalse(earthPlane.canFlyFixedWingIn(0.166, 0.0), "Pure aerodynamic airplane must not fly on the Moon");
+
+        // 3. High-Aspect Mars Wings unlock aerodynamic fixed-wing flight on Mars (0.006 atm, 0.38g)
+        VehicleDerivedStats marsPlane = VehicleRegistry.computeStats(
+                VehicleRegistry.createMarsFixedWingPreset(VehicleRegistry.CHASSIS_LIGHT_AIRPLANE)
+        );
+        assertTrue(marsPlane.canFlyFixedWingIn(0.38, 0.006), "Mars High-Aspect Wings must enable aerodynamic flight on Mars");
+
+        // 4. Hybrid VTOL Fixed-Wing (fitted with optional VTOL_THRUSTER pods) flies in Moon vacuum & 0g Asteroids
+        VehicleDerivedStats hybridLight = VehicleRegistry.computeStats(
+                VehicleRegistry.createVacuumVtolPreset(VehicleRegistry.CHASSIS_LIGHT_AIRPLANE)
+        );
+        assertTrue(hybridLight.isHybridVtolFixedWing());
+        assertFalse(hybridLight.isBlockedByVacuum(0.0));
+        assertTrue(hybridLight.canHoverIn(0.166, 0.0), "Hybrid VTOL Light Airplane must hover on the Moon");
+        assertTrue(hybridLight.canFlyFixedWingIn(0.166, 0.0), "Hybrid VTOL Light Airplane must fly on the Moon");
+        assertTrue(hybridLight.canHoverIn(0.0, 0.0), "Hybrid VTOL Light Airplane must maneuver in 0g Asteroids");
+
+        // 5. Heavy Cargo Airplane: pressurized, LARGE 4x3 cargo footprint, Earth flight + Hybrid VTOL Moon flight + Codec roundtrip
+        VehicleConfiguration cargoCfg = VehicleRegistry.createCompletePreset(VehicleRegistry.CHASSIS_CARGO_AIRPLANE);
+        VehicleChassisDefinition cargoChassis = VehicleRegistry.getChassisOrDefault(VehicleRegistry.CHASSIS_CARGO_AIRPLANE);
+        assertTrue(cargoChassis.pressurizedCabin());
+        assertEquals(VehicleSizeClass.LARGE, cargoChassis.sizeClass());
+        assertEquals(4, cargoChassis.sizeClass().cargoWidth());
+        assertEquals(3, cargoChassis.sizeClass().cargoHeight());
+        VehicleDerivedStats cargoStats = VehicleRegistry.computeStats(cargoCfg);
+        assertTrue(cargoStats.canFlyFixedWingIn(1.0, 1.0), "Cargo Airplane must fly on Earth");
+        assertEquals(36, cargoStats.totalCargoSlots());
+
+        VehicleDerivedStats hybridCargo = VehicleRegistry.computeStats(
+                VehicleRegistry.createVacuumVtolPreset(VehicleRegistry.CHASSIS_CARGO_AIRPLANE)
+        );
+        assertTrue(hybridCargo.canHoverIn(0.166, 0.0), "Hybrid VTOL Cargo Airplane must lift off on the Moon");
+
+        var json = VehicleConfiguration.CODEC.encodeStart(JsonOps.INSTANCE, cargoCfg).getOrThrow();
+        assertEquals(cargoCfg, VehicleConfiguration.CODEC.parse(JsonOps.INSTANCE, json).getOrThrow());
+
+        // 6. Hardpoint type safety for new fixed-wing sockets
+        VehicleHardpoint wingHp = cargoChassis.findHardpoint("wing_left");
+        VehicleHardpoint propHp = cargoChassis.findHardpoint("prop_left");
+        VehicleHardpoint gearHp = cargoChassis.findHardpoint("gear_nose");
+        assertNotNull(wingHp);
+        assertNotNull(propHp);
+        assertNotNull(gearHp);
+        assertTrue(wingHp.accepts(HardpointType.WING, VehicleSizeClass.LARGE));
+        assertFalse(wingHp.accepts(HardpointType.ROTOR, VehicleSizeClass.SMALL));
+        assertTrue(propHp.accepts(HardpointType.PROPELLER, VehicleSizeClass.MEDIUM));
+        assertFalse(propHp.accepts(HardpointType.WING, VehicleSizeClass.SMALL));
+        assertTrue(gearHp.accepts(HardpointType.LANDING_GEAR, VehicleSizeClass.SMALL));
+        assertFalse(gearHp.accepts(HardpointType.LOCOMOTION, VehicleSizeClass.SMALL));
+    }
 }

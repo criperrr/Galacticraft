@@ -56,6 +56,9 @@ public class GCKeyBinds {
     public static final KeyMapping ROCKET_LANDING_GEAR = new KeyMapping("key.galacticraft.rocket_landing_gear", GLFW.GLFW_KEY_V, KeyMapping.CATEGORY_MISC);
     public static final KeyMapping ROCKET_ENGINE_CUTOFF = new KeyMapping("key.galacticraft.rocket_engine_cutoff", GLFW.GLFW_KEY_X, KeyMapping.CATEGORY_MISC);
     public static final KeyMapping OPEN_VEHICLE_PANEL = new KeyMapping("key.galacticraft.vehicle_panel", GLFW.GLFW_KEY_P, KeyMapping.CATEGORY_MISC);
+    public static final KeyMapping AIRCRAFT_THROTTLE_UP = new KeyMapping("key.galacticraft.aircraft_throttle_up", GLFW.GLFW_KEY_R, KeyMapping.CATEGORY_MISC);
+    public static final KeyMapping AIRCRAFT_THROTTLE_DOWN = new KeyMapping("key.galacticraft.aircraft_throttle_down", GLFW.GLFW_KEY_C, KeyMapping.CATEGORY_MISC);
+    public static final KeyMapping AIRCRAFT_THROTTLE_CUTOFF = new KeyMapping("key.galacticraft.aircraft_throttle_cutoff", GLFW.GLFW_KEY_X, KeyMapping.CATEGORY_MISC);
 
     public static void register() {
         KeyBindingHelper.registerKeyBinding(OPEN_CELESTIAL_SCREEN);
@@ -66,6 +69,9 @@ public class GCKeyBinds {
         KeyBindingHelper.registerKeyBinding(ROCKET_LANDING_GEAR);
         KeyBindingHelper.registerKeyBinding(ROCKET_ENGINE_CUTOFF);
         KeyBindingHelper.registerKeyBinding(OPEN_VEHICLE_PANEL);
+        KeyBindingHelper.registerKeyBinding(AIRCRAFT_THROTTLE_UP);
+        KeyBindingHelper.registerKeyBinding(AIRCRAFT_THROTTLE_DOWN);
+        KeyBindingHelper.registerKeyBinding(AIRCRAFT_THROTTLE_CUTOFF);
     }
 
     public static void handleKeybinds(Minecraft client) {
@@ -86,6 +92,8 @@ public class GCKeyBinds {
                 while (ROCKET_ENGINE_CUTOFF.consumeClick()) {
                 }
                 while (OPEN_VEHICLE_PANEL.consumeClick()) {
+                }
+                while (AIRCRAFT_THROTTLE_CUTOFF.consumeClick()) {
                 }
                 return;
             }

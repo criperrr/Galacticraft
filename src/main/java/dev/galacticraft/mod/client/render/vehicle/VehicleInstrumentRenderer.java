@@ -122,10 +122,14 @@ public final class VehicleInstrumentRenderer {
                 faceTex = TEX_HORIZON;
                 rotateFaceInsteadOfNeedle = true;
                 drawNeedle = false;
-                needleDeg = entity.isRotorcraft() ? entity.clientRoll : entity.getSteeringAngle() * 0.85F;
-                digitalLabel = entity.isRotorcraft()
-                        ? String.format("A:%.0fm", entity.computeAltitudeAgl())
-                        : String.format("Y:%d", entity.blockPosition().getY());
+                needleDeg = entity.isAircraft() ? entity.clientRoll : entity.getSteeringAngle() * 0.85F;
+                if (entity.isFixedWing() && entity.isStalling()) {
+                    digitalLabel = "STALL";
+                } else {
+                    digitalLabel = entity.isAircraft()
+                            ? String.format("A:%.0fm", entity.computeAltitudeAgl())
+                            : String.format("Y:%d", entity.blockPosition().getY());
+                }
             }
 
             // Layer 1: Dial Face (rotated for compass/horizon, static for needle gauges)

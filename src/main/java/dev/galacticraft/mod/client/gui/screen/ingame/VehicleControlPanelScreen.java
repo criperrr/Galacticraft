@@ -169,6 +169,27 @@ public class VehicleControlPanelScreen extends Screen {
             return true;
         }
 
+        // 2b. Quick Throttle detent bar above panel for Fixed-Wing Airplanes (0% IDLE / 50% CRZ / 100% MAX)
+        if (this.vehicle.isFixedWing()) {
+            int barX = this.panelX + 10;
+            int barY = this.panelY - 22;
+            if (hit(mouseX, mouseY, barX, barY, 54, 18)) {
+                this.vehicle.setThrottleDirect(0.0F);
+                this.sendAction("set_throttle", "", "0.0");
+                return true;
+            }
+            if (hit(mouseX, mouseY, barX + 58, barY, 54, 18)) {
+                this.vehicle.setThrottleDirect(0.5F);
+                this.sendAction("set_throttle", "", "0.5");
+                return true;
+            }
+            if (hit(mouseX, mouseY, barX + 116, barY, 54, 18)) {
+                this.vehicle.setThrottleDirect(1.0F);
+                this.sendAction("set_throttle", "", "1.0");
+                return true;
+            }
+        }
+
         // 3. Right circular analog dial sockets (Left-Click: open gauge picker; Right-Click: eject gauge)
         int dialAreaX = this.panelX + 190;
         int dialY = this.panelY + 22;
@@ -223,6 +244,13 @@ public class VehicleControlPanelScreen extends Screen {
         // Left aerospace switches
         int swX = x + 10;
         int swY = y + 22;
+        if (this.vehicle.isFixedWing()) {
+            int barY = y - 22;
+            float thr = this.vehicle.getThrottle();
+            drawRockerSwitch(g, swX, barY, 54, 18, "THR 0%", thr < 0.05F, 0xFF7CE8FF, mouseX, mouseY);
+            drawRockerSwitch(g, swX + 58, barY, 54, 18, "THR 50%", thr >= 0.35F && thr <= 0.70F, 0xFF3BF078, mouseX, mouseY);
+            drawRockerSwitch(g, swX + 116, barY, 54, 18, "THR MAX", thr > 0.85F, 0xFFFF8833, mouseX, mouseY);
+        }
         drawRockerSwitch(g, swX, swY, 54, 24, "MOTOR", this.vehicle.isEngineRunning(), 0xFF3BF078, mouseX, mouseY);
         drawRockerSwitch(g, swX + 58, swY, 54, 24, "FARÓIS", this.vehicle.areHeadlightsOn(), 0xFFFFD84D, mouseX, mouseY);
         drawRockerSwitch(g, swX + 116, swY, 54, 24, "PORTAS", this.vehicle.areDoorsOpen(), 0xFF2ED1FF, mouseX, mouseY);
@@ -260,6 +288,25 @@ public class VehicleControlPanelScreen extends Screen {
                 warn = warn.substring(0, 52) + "..";
             }
             g.drawString(this.font, warn, x + 10, barY, 0xFFFF6E6E, false);
+        } else if (this.vehicle.isFixedWing()) {
+            PlanetaryEnvironment env = PlanetaryEnvironment.fromLevel(this.vehicle.level());
+            long energyKj = this.vehicle.getConfiguration().storedEnergy() / 1000L;
+            long capKj = Math.max(1L, stats.energyCapacity() / 1000L);
+            double iasKmh = Math.abs(this.vehicle.getSyncedSpeed()) * 72.0;
+            double stallBpt = stats.computeStallSpeedBlocksPerTick(env.gravityG(), env.pressureAtm());
+            if (stats.isBlockedByVacuum(env.pressureAtm())) {
+                g.drawString(this.font, "VÁCUO! VOO AERODINÂMICO DESATIVADO — INSTALE VTOL | BAT " + energyKj + "/" + capKj + " kJ", x + 10, barY, 0xFFFF6E6E, false);
+            } else if (this.vehicle.isStalling()) {
+                String warn = String.format("ESTOL! ACELERE (W) / BAIXE NARIZ | IAS %.0f/%.0f km/h | AGL %.1fm",
+                        iasKmh, Double.isFinite(stallBpt) ? stallBpt * 72.0 : 999.0, this.vehicle.computeAltitudeAgl());
+                g.drawString(this.font, warn, x + 10, barY, 0xFFFF5A5A, false);
+            } else {
+                String tag = stats.isHybridVtolFixedWing() ? "HÍBRIDO" : "AVIÃO";
+                String stallTxt = Double.isFinite(stallBpt) ? String.format("%.0f", stallBpt * 72.0) : "VTOL";
+                String telemetry = String.format("%s | IAS %.0f/%s km/h | THR %d%% | AGL %.1fm | BAT %d/%d kJ",
+                        tag, iasKmh, stallTxt, Math.round(this.vehicle.getThrottle() * 100.0F), this.vehicle.computeAltitudeAgl(), energyKj, capKj);
+                g.drawString(this.font, telemetry, x + 10, barY, 0xFF7CE8FF, false);
+            }
         } else if (this.vehicle.isRotorcraft()) {
             PlanetaryEnvironment env = PlanetaryEnvironment.fromLevel(this.vehicle.level());
             double twr = stats.computeRotorTwr(env.gravityG(), env.pressureAtm());

@@ -77,8 +77,14 @@ public final class VehicleFabricatorRecipes {
             new Blueprint(VehicleRegistry.CHASSIS_HEAVY_VTOL, VehicleBenchCategory.CHASSIS, "item.galacticraft.heavy_vtol_chassis",
                     () -> new ItemStack(GCItems.HEAVY_VTOL_CHASSIS),
                     List.of(new IngredientCost(Items.IRON_INGOT, 28), new IngredientCost(Items.GOLD_INGOT, 8), new IngredientCost(Items.REDSTONE, 10))),
+            new Blueprint(VehicleRegistry.CHASSIS_LIGHT_AIRPLANE, VehicleBenchCategory.CHASSIS, "item.galacticraft.light_airplane_chassis",
+                    () -> new ItemStack(GCItems.LIGHT_AIRPLANE_CHASSIS),
+                    List.of(new IngredientCost(Items.IRON_INGOT, 16), new IngredientCost(Items.COPPER_INGOT, 8), new IngredientCost(Items.GLASS, 6))),
+            new Blueprint(VehicleRegistry.CHASSIS_CARGO_AIRPLANE, VehicleBenchCategory.CHASSIS, "item.galacticraft.cargo_airplane_chassis",
+                    () -> new ItemStack(GCItems.CARGO_AIRPLANE_CHASSIS),
+                    List.of(new IngredientCost(Items.IRON_INGOT, 30), new IngredientCost(Items.COPPER_INGOT, 12), new IngredientCost(Items.GOLD_INGOT, 6), new IngredientCost(Items.GLASS, 8))),
 
-            // Wheel, Suspension & Rotor Blades Bench
+            // Wheel, Suspension, Rotor Blades, Wings & Landing Gear Bench
             new Blueprint(VehicleRegistry.PART_STANDARD_WHEELS, VehicleBenchCategory.LOCOMOTION, "item.galacticraft.standard_wheel_set",
                     () -> new ItemStack(GCItems.STANDARD_WHEEL_SET),
                     List.of(new IngredientCost(Items.IRON_INGOT, 2), new IngredientCost(Items.COAL, 2))),
@@ -94,8 +100,20 @@ public final class VehicleFabricatorRecipes {
             new Blueprint(VehicleRegistry.PART_HEAVY_LIFT_ROTOR, VehicleBenchCategory.LOCOMOTION, "item.galacticraft.heavy_lift_rotor",
                     () -> new ItemStack(GCItems.HEAVY_LIFT_ROTOR),
                     List.of(new IngredientCost(Items.IRON_INGOT, 8), new IngredientCost(Items.COPPER_INGOT, 4), new IngredientCost(Items.COAL, 4))),
+            new Blueprint(VehicleRegistry.PART_STANDARD_WING, VehicleBenchCategory.LOCOMOTION, "item.galacticraft.standard_airplane_wing",
+                    () -> new ItemStack(GCItems.STANDARD_AIRPLANE_WING),
+                    List.of(new IngredientCost(Items.IRON_INGOT, 6), new IngredientCost(Items.COPPER_INGOT, 4))),
+            new Blueprint(VehicleRegistry.PART_HIGH_ASPECT_MARS_WING, VehicleBenchCategory.LOCOMOTION, "item.galacticraft.high_aspect_mars_wing",
+                    () -> new ItemStack(GCItems.HIGH_ASPECT_MARS_WING),
+                    List.of(new IngredientCost(Items.IRON_INGOT, 4), new IngredientCost(Items.GOLD_INGOT, 4), new IngredientCost(Items.LAPIS_LAZULI, 6))),
+            new Blueprint(VehicleRegistry.PART_HEAVY_CARGO_WING, VehicleBenchCategory.LOCOMOTION, "item.galacticraft.heavy_cargo_wing",
+                    () -> new ItemStack(GCItems.HEAVY_CARGO_WING),
+                    List.of(new IngredientCost(Items.IRON_INGOT, 12), new IngredientCost(Items.COPPER_INGOT, 6), new IngredientCost(Items.REDSTONE, 4))),
+            new Blueprint(VehicleRegistry.PART_RETRACTABLE_GEAR, VehicleBenchCategory.LOCOMOTION, "item.galacticraft.retractable_landing_gear",
+                    () -> new ItemStack(GCItems.RETRACTABLE_LANDING_GEAR),
+                    List.of(new IngredientCost(Items.IRON_INGOT, 4), new IngredientCost(Items.COAL, 2), new IngredientCost(Items.REDSTONE, 2))),
 
-            // Electric Propulsion Bench (100% Electric, including Vacuum VTOL Thrusters)
+            // Electric Propulsion Bench (100% Electric: Motors, Batteries, Propellers & Vacuum VTOL Thrusters)
             new Blueprint(VehicleRegistry.PART_BATTERY_BANK, VehicleBenchCategory.POWERPLANT, "item.galacticraft.battery_bank",
                     () -> new ItemStack(GCItems.BATTERY_BANK),
                     List.of(new IngredientCost(Items.COPPER_INGOT, 6), new IngredientCost(Items.REDSTONE, 8))),
@@ -111,6 +129,12 @@ public final class VehicleFabricatorRecipes {
             new Blueprint(VehicleRegistry.PART_VTOL_THRUSTER, VehicleBenchCategory.POWERPLANT, "item.galacticraft.vtol_thruster",
                     () -> new ItemStack(GCItems.VTOL_THRUSTER),
                     List.of(new IngredientCost(Items.IRON_INGOT, 8), new IngredientCost(Items.GOLD_INGOT, 4), new IngredientCost(Items.REDSTONE_BLOCK, 1), new IngredientCost(Items.DIAMOND, 1))),
+            new Blueprint(VehicleRegistry.PART_ELECTRIC_PROPELLER, VehicleBenchCategory.POWERPLANT, "item.galacticraft.electric_propeller",
+                    () -> new ItemStack(GCItems.ELECTRIC_PROPELLER),
+                    List.of(new IngredientCost(Items.IRON_INGOT, 6), new IngredientCost(Items.COPPER_INGOT, 4), new IngredientCost(Items.COAL, 3))),
+            new Blueprint(VehicleRegistry.PART_HIGH_SPEED_DUCTED_FAN, VehicleBenchCategory.POWERPLANT, "item.galacticraft.high_speed_ducted_fan",
+                    () -> new ItemStack(GCItems.HIGH_SPEED_DUCTED_FAN),
+                    List.of(new IngredientCost(Items.IRON_INGOT, 10), new IngredientCost(Items.COPPER_INGOT, 6), new IngredientCost(Items.REDSTONE, 6), new IngredientCost(Items.GOLD_INGOT, 2))),
 
             // Avionics, Seats & Accessories Bench
             new Blueprint(TOOL_VEHICLE_WRENCH, VehicleBenchCategory.ACCESSORIES, "item.galacticraft.vehicle_wrench",
