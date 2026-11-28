@@ -827,6 +827,63 @@ public class AutonomousVehicleAiTestSuite implements GalacticraftGameTest {
         helper.succeed();
     }
 
+    @GameTest(template = EMPTY_STRUCTURE)
+    public void roverAvoidsParkedVehicle(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        BlockPos origin = helper.absolutePos(new BlockPos(0, 284, 0));
+        ModularVehicleEntity rover = null;
+        ModularVehicleEntity parked = null;
+        try {
+            fillBox(level, origin, -2, -1, -6, 20, -1, 10, Blocks.STONE.defaultBlockState());
+
+            BlockPos start = origin.offset(2, 0, 2);
+            BlockPos parkedPos = origin.offset(9, 0, 2);
+            BlockPos goal = origin.offset(16, 0, 2);
+
+            // Park a wide Utility Buggy (with multi-part hitboxes) directly across the straight road
+            parked = spawnAutonomousVehicle(level, VehicleRegistry.CHASSIS_UTILITY_BUGGY, parkedPos, 0.0F, PlanetaryEnvironment.EARTH);
+            parked.setMissionConfig(VehicleMissionConfig.DEFAULT.withEnabled(false));
+
+            rover = spawnAutonomousVehicle(level, VehicleRegistry.CHASSIS_SCOUT_ROVER, start, -90.0F, PlanetaryEnvironment.EARTH);
+            rover.setMissionConfig(VehicleMissionConfig.DEFAULT
+                    .withEnabled(true)
+                    .withRole(VehicleMissionRole.SCIENCE_EXPLORER)
+                    .withWaypoints(List.of(goal)));
+
+            boolean collidedParked = false;
+            double bestDist = Double.MAX_VALUE;
+            for (int t = 0; t < 380; t++) {
+                rover.tick();
+                if (rover.getBoundingBox().intersects(parked.getBoundingBox())) {
+                    collidedParked = true;
+                }
+                double d = Math.hypot(rover.getX() - (goal.getX() + 0.5), rover.getZ() - (goal.getZ() + 0.5));
+                bestDist = Math.min(bestDist, d);
+                if (d <= 1.0) {
+                    break;
+                }
+            }
+
+            if (collidedParked) {
+                throw new GameTestAssertException("Autonomous rover collided with parked vehicle instead of routing around it");
+            }
+            if (bestDist > 1.0) {
+                throw new GameTestAssertException(String.format(
+                        "Autonomous rover failed to route around parked vehicle to goal: bestDist=%.2f state=%s",
+                        bestDist, rover.getAiState()));
+            }
+        } finally {
+            if (rover != null && !rover.isRemoved()) {
+                rover.discard();
+            }
+            if (parked != null && !parked.isRemoved()) {
+                parked.discard();
+            }
+            fillBox(level, origin, -2, -1, -6, 20, 2, 10, Blocks.AIR.defaultBlockState());
+        }
+        helper.succeed();
+    }
+
     private static int countItem(ChestBlockEntity chest, net.minecraft.world.item.Item item) {
         int total = 0;
         for (int i = 0; i < chest.getContainerSize(); i++) {
