@@ -26,6 +26,7 @@ import dev.galacticraft.api.vehicle.HardpointType;
 import dev.galacticraft.api.vehicle.VehicleDerivedStats;
 import dev.galacticraft.api.vehicle.VehicleHardpoint;
 import dev.galacticraft.api.vehicle.VehicleRegistry;
+import dev.galacticraft.api.vehicle.ai.VehicleAiState;
 import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.content.entity.vehicle.ModularVehicleEntity;
 import dev.galacticraft.mod.content.item.GCItems;
@@ -190,6 +191,20 @@ public class VehicleControlPanelScreen extends Screen {
             }
         }
 
+        // 2c. AI_CORE Mission Config & Passenger Taxi quick-depart strip above right side of panel
+        if (this.vehicle.getDerivedStats().hasAiCore()) {
+            int aiX = this.panelX + this.panelW - 110;
+            int aiY = this.panelY - 22;
+            if (hit(mouseX, mouseY, aiX, aiY, 100, 18)) {
+                VehicleClientBridge.openAiMissionScreen(this.vehicle);
+                return true;
+            }
+            if (this.vehicle.getAiState() == VehicleAiState.BOARDING && hit(mouseX, mouseY, aiX - 78, aiY, 74, 18)) {
+                this.sendAction("ai_depart_now", "", "");
+                return true;
+            }
+        }
+
         // 3. Right circular analog dial sockets (Left-Click: open gauge picker; Right-Click: eject gauge)
         int dialAreaX = this.panelX + 190;
         int dialY = this.panelY + 22;
@@ -250,6 +265,19 @@ public class VehicleControlPanelScreen extends Screen {
             drawRockerSwitch(g, swX, barY, 54, 18, "THR 0%", thr < 0.05F, 0xFF7CE8FF, mouseX, mouseY);
             drawRockerSwitch(g, swX + 58, barY, 54, 18, "THR 50%", thr >= 0.35F && thr <= 0.70F, 0xFF3BF078, mouseX, mouseY);
             drawRockerSwitch(g, swX + 116, barY, 54, 18, "THR MAX", thr > 0.85F, 0xFFFF8833, mouseX, mouseY);
+        }
+        if (this.vehicle.getDerivedStats().hasAiCore()) {
+            int aiX = x + this.panelW - 110;
+            int aiY = y - 22;
+            boolean aiOn = this.vehicle.getMissionConfig().enabled();
+            String aiLabel = aiOn ? ("AI: " + this.vehicle.getAiState().name()) : "AI CORE [OFF]";
+            if (aiLabel.length() > 14) {
+                aiLabel = aiLabel.substring(0, 14);
+            }
+            drawRockerSwitch(g, aiX, aiY, 100, 18, aiLabel, aiOn, 0xFF2ED1FF, mouseX, mouseY);
+            if (this.vehicle.getAiState() == VehicleAiState.BOARDING) {
+                drawRockerSwitch(g, aiX - 78, aiY, 74, 18, "PARTIR", true, 0xFF5BF5A0, mouseX, mouseY);
+            }
         }
         drawRockerSwitch(g, swX, swY, 54, 24, "MOTOR", this.vehicle.isEngineRunning(), 0xFF3BF078, mouseX, mouseY);
         drawRockerSwitch(g, swX + 58, swY, 54, 24, "FARÓIS", this.vehicle.areHeadlightsOn(), 0xFFFFD84D, mouseX, mouseY);

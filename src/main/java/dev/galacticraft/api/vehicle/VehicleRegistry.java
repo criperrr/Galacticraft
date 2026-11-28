@@ -317,6 +317,20 @@ public final class VehicleRegistry {
         return new VehicleConfiguration(base.chassisId(), swapped, base.paintColor(), base.storedEnergy(), 0L);
     }
 
+    /**
+     * Builds a ready-to-run autonomous preset with {@link #PART_AI_CORE} installed in {@code ai_core_slot}.
+     */
+    public static @NotNull VehicleConfiguration createAutonomousPreset(@NotNull ResourceLocation chassisId) {
+        return createCompletePreset(chassisId).withPart("ai_core_slot", PART_AI_CORE);
+    }
+
+    /**
+     * Builds a vacuum-capable autonomous VTOL preset with both {@link #PART_VTOL_THRUSTER} and {@link #PART_AI_CORE}.
+     */
+    public static @NotNull VehicleConfiguration createAutonomousVacuumVtolPreset(@NotNull ResourceLocation chassisId) {
+        return createVacuumVtolPreset(chassisId).withPart("ai_core_slot", PART_AI_CORE);
+    }
+
     private static void registerDefaults() {
         // 1. SMALL: NASA Apollo LRV / Artemis LTV (4 individual wheel hubs + motor + battery)
         registerChassis(new VehicleChassisDefinition(

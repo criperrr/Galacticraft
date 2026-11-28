@@ -29,6 +29,7 @@ import dev.galacticraft.api.vehicle.VehicleConfiguration;
 import dev.galacticraft.api.vehicle.VehicleDerivedStats;
 import dev.galacticraft.api.vehicle.VehicleRegistry;
 import dev.galacticraft.api.vehicle.VehicleSizeClass;
+import dev.galacticraft.api.vehicle.ai.VehicleMissionConfig;
 import dev.galacticraft.mod.content.GCEntityTypes;
 import dev.galacticraft.mod.content.entity.vehicle.ModularVehicleEntity;
 import net.minecraft.ChatFormatting;
@@ -56,8 +57,15 @@ public class VehicleCrateItem extends Item implements SpatialCargoItem {
     }
 
     public static @NotNull ItemStack createCrate(@NotNull VehicleConfiguration config) {
+        return createCrate(config, null);
+    }
+
+    public static @NotNull ItemStack createCrate(@NotNull VehicleConfiguration config, @org.jetbrains.annotations.Nullable VehicleMissionConfig missionConfig) {
         ItemStack stack = new ItemStack(GCItems.VEHICLE_CRATE);
         stack.set(GCDataComponents.VEHICLE_CONFIGURATION, config);
+        if (missionConfig != null) {
+            stack.set(GCDataComponents.VEHICLE_MISSION_CONFIG, missionConfig);
+        }
         return stack;
     }
 
@@ -93,6 +101,10 @@ public class VehicleCrateItem extends Item implements SpatialCargoItem {
         vehicle.setPos(pos.getX() + 0.5, pos.getY() + 0.05, pos.getZ() + 0.5);
         vehicle.setYRot(context.getRotation());
         vehicle.setConfiguration(config);
+        VehicleMissionConfig savedMission = context.getItemInHand().get(GCDataComponents.VEHICLE_MISSION_CONFIG);
+        if (savedMission != null) {
+            vehicle.setMissionConfig(savedMission);
+        }
         level.addFreshEntity(vehicle);
         level.playSound(null, pos, SoundEvents.WOOD_BREAK, SoundSource.BLOCKS, 0.9F, 1.0F);
         if (context.getPlayer() == null || !context.getPlayer().getAbilities().instabuild) {
@@ -113,6 +125,10 @@ public class VehicleCrateItem extends Item implements SpatialCargoItem {
         if (chassis.pressurizedCabin()) {
             tooltip.add(Component.translatable("tooltip.galacticraft.vehicle.pressurized")
                     .withStyle(ChatFormatting.GREEN));
+        }
+        if (stats.hasAiCore()) {
+            tooltip.add(Component.translatable("tooltip.galacticraft.vehicle_crate.ai_core")
+                    .withStyle(ChatFormatting.AQUA));
         }
         tooltip.add(Component.translatable("tooltip.galacticraft.vehicle_crate.footprint", size.cargoWidth(), size.cargoHeight())
                 .withStyle(ChatFormatting.GOLD));

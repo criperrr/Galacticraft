@@ -194,6 +194,9 @@ public class GCPtBrTranslationProvider extends FabricLanguageProvider {
         builder.add("item.galacticraft.rtg_core_module", "Núcleo Nuclear RTG");
         builder.add("item.galacticraft.lox_fuel_engine", "Motor Elétrico de Tração de Alta Potência");
         builder.add("gui.galacticraft.vehicle_panel.title", "Painel de Controle e Instrumentos");
+        builder.add("gui.galacticraft.vehicle_ai.title", "Console de Missão Autônoma (Núcleo de IA)");
+        builder.add("message.galacticraft.vehicle.ai.stuck_aborted", "Veículo autônomo preso após 3 tentativas de recuperação — missão pausada");
+        builder.add("message.galacticraft.vehicle.ai.taxi_arrived", "Táxi Autônomo chegou à Estação #%s");
         builder.add("item.galacticraft.pilot_cockpit_seat", "Assento de Piloto");
         builder.add("item.galacticraft.passenger_seat", "Assento de Passageiro");
         builder.add("item.galacticraft.crew_bench_seat", "Banco de Tripulação NPC");
@@ -232,6 +235,7 @@ public class GCPtBrTranslationProvider extends FabricLanguageProvider {
         builder.add("message.galacticraft.vehicle.no_battery", "Bateria descarregada (0%) — instale Banco de Baterias, Painel Solar ou RTG");
         builder.add("message.galacticraft.vehicle.engine_off", "Motor desligado — pressione [M] no drone ou abra o painel [P] para ligar");
         builder.add("tooltip.galacticraft.vehicle.pressurized", "Cabine Pressurizada (Zero Consumo de O2)");
+        builder.add("tooltip.galacticraft.vehicle_crate.ai_core", "Piloto Automático: Núcleo de IA Instalado");
         builder.add("container.galacticraft.rocket_cargo", "Porão de Carga");
         builder.add("container.galacticraft.vehicle_cargo", "Carga do Veículo");
         builder.add("gui.galacticraft.vehicle_fabricator.craft", "Fabricar");

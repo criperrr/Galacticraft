@@ -63,5 +63,6 @@ public class GCPackets {
         PayloadTypeRegistry.playC2S().register(CraftVehiclePartPayload.TYPE, CraftVehiclePartPayload.STREAM_CODEC);
         PayloadTypeRegistry.playC2S().register(VehicleControlActionPayload.TYPE, VehicleControlActionPayload.STREAM_CODEC);
         PayloadTypeRegistry.playC2S().register(DroneRemoteControlPayload.TYPE, DroneRemoteControlPayload.STREAM_CODEC);
+        PayloadTypeRegistry.playC2S().register(VehicleAiConfigPayload.TYPE, VehicleAiConfigPayload.STREAM_CODEC);
     }
 }

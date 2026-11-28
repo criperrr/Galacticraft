@@ -26,12 +26,14 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import dev.galacticraft.api.vehicle.HardpointType;
+import dev.galacticraft.api.vehicle.VehicleAnimState;
 import dev.galacticraft.api.vehicle.VehicleChassisDefinition;
 import dev.galacticraft.api.vehicle.VehicleConfiguration;
 import dev.galacticraft.api.vehicle.VehicleHardpoint;
 import dev.galacticraft.api.vehicle.VehiclePartDefinition;
 import dev.galacticraft.api.vehicle.VehicleRegistry;
 import dev.galacticraft.api.vehicle.VehicleSizeClass;
+import dev.galacticraft.api.vehicle.ai.VehicleAiState;
 import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.client.render.vehicle.ClientDroneRemoteController;
 import dev.galacticraft.mod.client.render.vehicle.ObjMeshModel;
@@ -138,6 +140,11 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
             // Local +Z is nose forward and -X is pilot right: +Z rotation banks right wing (-X) down!
             poseStack.mulPose(Axis.ZP.rotationDegrees(isFixedWing ? entity.clientRoll : -entity.clientRoll));
             poseStack.translate(0.0F, -pivotY, 0.0F);
+        } else if (Math.abs(entity.clientPitch) > 0.25F || Math.abs(entity.clientRoll) > 0.25F) {
+            poseStack.translate(0.0F, 0.45F, 0.0F);
+            poseStack.mulPose(Axis.XP.rotationDegrees(entity.clientPitch));
+            poseStack.mulPose(Axis.ZP.rotationDegrees(entity.clientRoll));
+            poseStack.translate(0.0F, -0.45F, 0.0F);
         }
 
         ResourceLocation chassisId = chassis.id();
@@ -240,7 +247,7 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
             } else if (part.type() == HardpointType.LANDING_GEAR) {
                 renderInstalledLandingGear(poseStack, opaque, hp, size, gearProgress, steer, packedLight);
             } else {
-                renderInstalledPart(poseStack, opaque, hp, part, size, halfW, halfL, entity.clientWheelSpin, steer, packedLight);
+                renderInstalledPart(poseStack, opaque, bufferSource, entity, partialTick, hp, part, size, halfW, halfL, entity.clientWheelSpin, steer, packedLight);
             }
         }
 
@@ -327,7 +334,8 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
     }
 
     private void renderInstalledPart(
-            PoseStack ps, VertexConsumer c,
+            PoseStack ps, VertexConsumer c, MultiBufferSource bufferSource,
+            ModularVehicleEntity entity, float partialTick,
             VehicleHardpoint hp, VehiclePartDefinition part,
             VehicleSizeClass size, float halfW, float halfL,
             float wheelSpin, float steerDeg, int light
@@ -336,6 +344,9 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
             renderSingleObjWheel(ps, c, hp, part, size, halfW, wheelSpin, steerDeg, light);
             return;
         }
+
+        VehicleAnimState animState = entity.getAnimState();
+        float animTime = entity.tickCount + partialTick;
 
         ps.pushPose();
         ps.translate(hp.localX(), hp.localY(), hp.localZ());
@@ -375,22 +386,86 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
             }
             case INSTRUMENT -> {
                 if (VehicleRegistry.PART_DRILL_ARM.equals(part.id())) {
+                    boolean drilling = animState == VehicleAnimState.DRILLING_SAMPLE;
                     drawAtlasBox(ps, c, 2, 0, -0.14F, 0.0F, -0.14F, 0.14F, 0.34F, 0.14F, light);
+                    ps.pushPose();
+                    if (drilling) {
+                        // Lower articulated drill arm smoothly toward planetary surface
+                        float plunge = 0.22F + 0.06F * Mth.sin(animTime * 0.65F);
+                        ps.translate(0.0F, -plunge, 0.0F);
+                        ps.mulPose(Axis.XP.rotationDegrees(14.0F));
+                    }
                     drawAtlasBox(ps, c, 3, 0, -0.08F, 0.28F, 0.0F, 0.08F, 0.42F, 0.62F, light);
-                    drawAtlasBox(ps, c, 2, 0, -0.07F, -0.22F, 0.50F, 0.07F, 0.38F, 0.66F, light);
+                    ps.pushPose();
+                    ps.translate(0.0F, 0.08F, 0.58F);
+                    if (drilling) {
+                        ps.mulPose(Axis.YP.rotationDegrees(animTime * 36.0F));
+                    }
+                    drawAtlasBox(ps, c, 2, 0, -0.07F, -0.34F, -0.08F, 0.07F, 0.30F, 0.08F, drilling ? LightTexture.FULL_BRIGHT : light);
+                    ps.popPose();
+                    ps.popPose();
                 } else {
+                    boolean scanning = animState == VehicleAnimState.SCANNING_TERRAIN;
                     drawAtlasBox(ps, c, 2, 0, -0.06F, 0.0F, -0.06F, 0.06F, 0.84F, 0.06F, light);
-                    drawAtlasBox(ps, c, 0, 0, -0.24F, 0.80F, -0.12F, 0.24F, 0.98F, 0.14F, light);
+                    ps.pushPose();
+                    ps.translate(0.0F, 0.88F, 0.0F);
+                    if (scanning) {
+                        float panDeg = Mth.sin(animTime * 0.16F) * 90.0F;
+                        ps.mulPose(Axis.YP.rotationDegrees(panDeg));
+                    }
+                    drawAtlasBox(ps, c, 0, 0, -0.24F, -0.08F, -0.12F, 0.24F, 0.10F, 0.14F, light);
+                    // Spectrometer lens aperture
+                    drawAtlasBox(ps, c, 0, 2, -0.08F, -0.04F, 0.13F, 0.08F, 0.06F, 0.16F, scanning ? LightTexture.FULL_BRIGHT : light);
+                    if (scanning) {
+                        renderScanLaserBeam(ps, bufferSource);
+                    }
+                    ps.popPose();
                 }
             }
             case AI_CORE -> {
+                VehicleAiState aiState = entity.getAiState();
+                boolean active = entity.isAutonomousModeActive() && aiState != VehicleAiState.IDLE;
+                boolean pulse = !active || ((entity.tickCount / 6) % 2 == 0) || aiState == VehicleAiState.TRANSIT;
+                int beaconTileX = switch (aiState) {
+                    case WORKING, BOARDING -> 3;
+                    case STUCK_RECOVERY, HOVER_HOLD, GO_AROUND, RETURN_TO_BASE, CHARGING -> 3;
+                    default -> 0;
+                };
+                int beaconTileY = switch (aiState) {
+                    case WORKING, BOARDING -> 2;
+                    case STUCK_RECOVERY, HOVER_HOLD, GO_AROUND, RETURN_TO_BASE, CHARGING -> 0;
+                    default -> 2;
+                };
                 drawAtlasBox(ps, c, 1, 0, -0.20F, 0.0F, -0.20F, 0.20F, 0.26F, 0.20F, light);
-                drawAtlasBox(ps, c, 0, 2, -0.14F, 0.26F, -0.14F, 0.14F, 0.30F, 0.14F, LightTexture.FULL_BRIGHT);
+                drawAtlasBox(ps, c, beaconTileX, beaconTileY, -0.14F, 0.26F, -0.14F, 0.14F, 0.31F, 0.14F,
+                        (active && pulse) ? LightTexture.FULL_BRIGHT : light);
             }
             default -> {
             }
         }
         ps.popPose();
+    }
+
+    private static void renderScanLaserBeam(PoseStack ps, MultiBufferSource bufferSource) {
+        VertexConsumer beam = bufferSource.getBuffer(RenderType.entityTranslucent(ROTOR_BLUR_TEX));
+        Matrix4f m = ps.last().pose();
+        PoseStack.Pose pose = ps.last();
+        float x0 = -0.04F;
+        float x1 = 0.04F;
+        float y0 = 0.0F;
+        float z0 = 0.16F;
+        float y1 = -1.65F;
+        float z1 = 2.65F;
+        // Glowing cyan spectrometer scan sheet (Sodium/Iris-safe MultiBufferSource quad)
+        beam.addVertex(m, x0, y0, z0).setColor(0.18F, 0.92F, 1.0F, 0.78F).setUv(0.45F, 0.45F).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(pose, 0, 1, 0);
+        beam.addVertex(m, x1, y0, z0).setColor(0.18F, 0.92F, 1.0F, 0.78F).setUv(0.55F, 0.45F).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(pose, 0, 1, 0);
+        beam.addVertex(m, x1 * 4.5F, y1, z1).setColor(0.18F, 0.92F, 1.0F, 0.18F).setUv(0.55F, 0.55F).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(pose, 0, 1, 0);
+        beam.addVertex(m, x0 * 4.5F, y1, z1).setColor(0.18F, 0.92F, 1.0F, 0.18F).setUv(0.45F, 0.55F).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(pose, 0, 1, 0);
+        // Backface so beam is visible from both sides
+        beam.addVertex(m, x0 * 4.5F, y1, z1).setColor(0.18F, 0.92F, 1.0F, 0.18F).setUv(0.45F, 0.55F).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(pose, 0, -1, 0);
+        beam.addVertex(m, x1 * 4.5F, y1, z1).setColor(0.18F, 0.92F, 1.0F, 0.18F).setUv(0.55F, 0.55F).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(pose, 0, -1, 0);
+        beam.addVertex(m, x1, y0, z0).setColor(0.18F, 0.92F, 1.0F, 0.78F).setUv(0.55F, 0.45F).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(pose, 0, -1, 0);
+        beam.addVertex(m, x0, y0, z0).setColor(0.18F, 0.92F, 1.0F, 0.78F).setUv(0.45F, 0.45F).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(pose, 0, -1, 0);
     }
 
     private static ResourceLocation resolveChassisModel(ResourceLocation chassisId, VehicleSizeClass size) {

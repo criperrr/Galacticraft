@@ -409,6 +409,9 @@ public class GCTranslationProvider extends TranslationProvider {
         this.item(GCItems.RTG_CORE_MODULE, "RTG Nuclear Core");
         this.item(GCItems.LOX_FUEL_ENGINE, "High-Output Electric Traction Motor");
         this.add("gui.galacticraft.vehicle_panel.title", "Vehicle Control & Instrument Panel");
+        this.add("gui.galacticraft.vehicle_ai.title", "AI Core Autonomous Mission Console");
+        this.add("message.galacticraft.vehicle.ai.stuck_aborted", "Autonomous vehicle stuck after 3 recovery attempts — mission paused");
+        this.add("message.galacticraft.vehicle.ai.taxi_arrived", "Autonomous Taxi arrived at Station #%s");
         this.item(GCItems.PILOT_COCKPIT_SEAT, "Pilot Cockpit Seat");
         this.item(GCItems.PASSENGER_SEAT, "Passenger Seat");
         this.item(GCItems.CREW_BENCH_SEAT, "NPC Crew Bench");
@@ -447,6 +450,7 @@ public class GCTranslationProvider extends TranslationProvider {
         this.add("message.galacticraft.vehicle.no_battery", "Battery depleted (0%) — install a Battery Bank, Solar Array, or RTG Core");
         this.add("message.galacticraft.vehicle.engine_off", "Motor is OFF — press [M] (drone) or [P] (cockpit panel) to start");
         this.add("tooltip.galacticraft.vehicle.pressurized", "Pressurized Cabin (Zero O2 Consumption)");
+        this.add("tooltip.galacticraft.vehicle_crate.ai_core", "Autopilot: AI Core Installed");
         this.add("container.galacticraft.rocket_cargo", "Cargo Bay");
         this.add("container.galacticraft.vehicle_cargo", "Vehicle Cargo");
         this.add("gui.galacticraft.vehicle_fabricator.craft", "Craft");

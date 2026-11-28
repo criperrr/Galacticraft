@@ -34,6 +34,7 @@ import dev.galacticraft.api.rocket.part.data.RocketPartStats;
 import dev.galacticraft.api.rocket.part.modular.RocketPartConfig;
 import dev.galacticraft.api.util.StreamCodecs;
 import dev.galacticraft.api.vehicle.VehicleConfiguration;
+import dev.galacticraft.api.vehicle.ai.VehicleMissionConfig;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -109,6 +110,9 @@ public class GCDataComponents {
     public static final DataComponentType<VehicleConfiguration> VEHICLE_CONFIGURATION = register("vehicle_configuration", b -> b
             .persistent(VehicleConfiguration.CODEC)
             .networkSynchronized(VehicleConfiguration.STREAM_CODEC));
+    public static final DataComponentType<VehicleMissionConfig> VEHICLE_MISSION_CONFIG = register("vehicle_mission_config", b -> b
+            .persistent(VehicleMissionConfig.CODEC)
+            .networkSynchronized(VehicleMissionConfig.STREAM_CODEC));
     public static final DataComponentType<String> LINKED_DRONE_UUID = register("linked_drone_uuid", b -> b
             .persistent(Codec.STRING)
             .networkSynchronized(ByteBufCodecs.STRING_UTF8));

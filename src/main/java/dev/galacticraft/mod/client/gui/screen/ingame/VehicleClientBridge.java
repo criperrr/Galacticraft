@@ -38,6 +38,10 @@ public final class VehicleClientBridge {
         Minecraft.getInstance().setScreen(new VehicleControlPanelScreen(vehicle));
     }
 
+    public static void openAiMissionScreen(@NotNull ModularVehicleEntity vehicle) {
+        Minecraft.getInstance().setScreen(new VehicleAiMissionScreen(vehicle));
+    }
+
     public static void enterDroneRemote(@NotNull ModularVehicleEntity drone) {
         ClientDroneRemoteController.enterControl(drone);
     }
