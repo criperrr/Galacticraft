@@ -568,27 +568,38 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
         if (size == VehicleSizeClass.SMALL) {
             return;
         }
-        double zSpan = this.isFixedWing()
-                ? (size == VehicleSizeClass.LARGE ? 3.80 : 2.15)
-                : (size == VehicleSizeClass.LARGE ? 1.45 : 0.95);
-        float boxW = this.isFixedWing()
-                ? (size == VehicleSizeClass.LARGE ? 3.10F : 1.80F)
-                : (size == VehicleSizeClass.LARGE ? 1.95F : 1.55F);
-        float boxH = this.isFixedWing()
-                ? (size == VehicleSizeClass.LARGE ? 2.80F : 1.85F)
-                : (size == VehicleSizeClass.LARGE ? 1.45F : 1.15F);
 
-        VehiclePartEntity front = GCEntityTypes.VEHICLE_PART.create(this.level());
-        VehiclePartEntity rear = GCEntityTypes.VEHICLE_PART.create(this.level());
-        if (front != null) {
-            front.attachTo(this, "front", new Vec3(0.0, 0.1, zSpan), boxW, boxH);
-            this.level().addFreshEntity(front);
-            this.childHitboxes.add(front);
+        if (this.isFixedWing()) {
+            if (size == VehicleSizeClass.LARGE) {
+                // Full 16.2m Cargo Airplane solid fuselage hull collision & localized interaction sections
+                this.spawnChildPart("front", new Vec3(0.0, 0.20, 4.55), 2.55F, 2.40F, true);
+                this.spawnChildPart("front", new Vec3(0.0, 0.20, 2.20), 3.25F, 3.20F, true);
+                this.spawnChildPart("cargo", new Vec3(0.0, 0.20, -2.20), 3.25F, 3.20F, true);
+                this.spawnChildPart("tail", new Vec3(0.0, 1.20, -5.60), 2.10F, 2.60F, true);
+                this.spawnChildPart("tail", new Vec3(0.0, 2.20, -8.30), 1.40F, 3.60F, true);
+            } else {
+                // Full 9.4m Bush Plane solid fuselage hull collision & localized interaction sections
+                this.spawnChildPart("front", new Vec3(0.0, 0.15, 2.10), 1.65F, 1.85F, true);
+                this.spawnChildPart("cargo", new Vec3(0.0, 0.15, -1.75), 1.70F, 1.90F, true);
+                this.spawnChildPart("tail", new Vec3(0.0, 0.70, -4.10), 1.15F, 1.75F, true);
+            }
+            return;
         }
-        if (rear != null) {
-            rear.attachTo(this, "cargo", new Vec3(0.0, 0.1, -zSpan), boxW, boxH);
-            this.level().addFreshEntity(rear);
-            this.childHitboxes.add(rear);
+
+        double zSpan = size == VehicleSizeClass.LARGE ? 1.45 : 0.95;
+        float boxW = size == VehicleSizeClass.LARGE ? 1.95F : 1.55F;
+        float boxH = size == VehicleSizeClass.LARGE ? 1.45F : 1.15F;
+
+        this.spawnChildPart("front", new Vec3(0.0, 0.1, zSpan), boxW, boxH, true);
+        this.spawnChildPart("cargo", new Vec3(0.0, 0.1, -zSpan), boxW, boxH, true);
+    }
+
+    private void spawnChildPart(@NotNull String section, @NotNull Vec3 localOffset, float width, float height, boolean solid) {
+        VehiclePartEntity part = GCEntityTypes.VEHICLE_PART.create(this.level());
+        if (part != null) {
+            part.attachTo(this, section, localOffset, width, height, solid);
+            this.level().addFreshEntity(part);
+            this.childHitboxes.add(part);
         }
     }
 
@@ -617,6 +628,14 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
     @Override
     public boolean canBeCollidedWith() {
         return true;
+    }
+
+    @Override
+    public boolean canCollideWith(Entity other) {
+        if (other instanceof VehiclePartEntity || this.hasPassenger(other)) {
+            return false;
+        }
+        return super.canCollideWith(other);
     }
 
     @Override
@@ -1556,7 +1575,7 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
             return vtolRamp.clip(localOrigin, localEnd).isPresent();
         }
         if (VehicleRegistry.CHASSIS_CARGO_AIRPLANE.equals(chassisId)) {
-            var cargoRamp = new net.minecraft.world.phys.AABB(-1.42, 1.08, -5.35, 1.42, 2.85, -4.15);
+            var cargoRamp = new net.minecraft.world.phys.AABB(-1.38, 1.08, -4.60, 1.38, 2.70, -4.15);
             return cargoRamp.clip(localOrigin, localEnd).isPresent();
         }
         if (size == VehicleSizeClass.MEDIUM) {
@@ -1888,6 +1907,10 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
         double sideOffset = (idx >= 0 && idx < seats.size()) ? seats.get(idx).exitSideOffset() : 1.5;
         if (Math.abs(sideOffset) < 0.5) {
             sideOffset = 1.5;
+        }
+        if (this.isFixedWing()) {
+            double minClear = this.derivedStats.sizeClass() == VehicleSizeClass.LARGE ? 2.65 : 1.85;
+            sideOffset = Math.copySign(Math.max(Math.abs(sideOffset), minClear), sideOffset);
         }
         double yawRad = Math.toRadians(this.getYRot());
         double dx = Math.cos(yawRad) * sideOffset;
