@@ -1,0 +1,62 @@
+{
+  "era": 2,
+  "icon_item": "galacticraft:high_aspect_mars_wing",
+  "id": "galacticraft:materials/planetary_aerodynamics",
+  "order": 50,
+  "pages": [
+    {
+      "type": "text",
+      "body": "manual.galacticraft.entry.vehicles_aero.body1",
+      "callout": "manual.galacticraft.entry.vehicles_aero.warn1",
+      "callout_style": "warn",
+      "heading": "manual.galacticraft.entry.vehicles_aero.h1",
+      "link_entries": [
+        "galacticraft:machines/modular_vehicles_assembly",
+        "galacticraft:atlas/moon",
+        "galacticraft:atlas/mars",
+        "galacticraft:atlas/titan"
+      ],
+      "showcase_items": [
+        "galacticraft:coaxial_mars_rotor",
+        "galacticraft:vtol_thruster",
+        "galacticraft:high_aspect_mars_wing",
+        "galacticraft:electric_propeller",
+        "galacticraft:retractable_landing_gear"
+      ]
+    },
+    {
+      "type": "text",
+      "body": "manual.galacticraft.entry.vehicles_aero.body2",
+      "callout": "manual.galacticraft.entry.vehicles_aero.tip2",
+      "callout_style": "tip",
+      "heading": "manual.galacticraft.entry.vehicles_aero.h2",
+      "link_entries": [
+        "galacticraft:lab_log/autonomous_ai_core"
+      ],
+      "showcase_items": [
+        "galacticraft:light_airplane_chassis",
+        "galacticraft:cargo_airplane_chassis",
+        "galacticraft:drone_remote_controller"
+      ]
+    }
+  ],
+  "related_items": [
+    "galacticraft:micro_drone_chassis",
+    "galacticraft:light_helicopter_chassis",
+    "galacticraft:heavy_vtol_chassis",
+    "galacticraft:light_airplane_chassis",
+    "galacticraft:cargo_airplane_chassis",
+    "galacticraft:coaxial_mars_rotor",
+    "galacticraft:heavy_lift_rotor",
+    "galacticraft:vtol_thruster",
+    "galacticraft:standard_airplane_wing",
+    "galacticraft:high_aspect_mars_wing",
+    "galacticraft:heavy_cargo_wing",
+    "galacticraft:electric_propeller",
+    "galacticraft:high_speed_ducted_fan",
+    "galacticraft:retractable_landing_gear",
+    "galacticraft:drone_remote_controller"
+  ],
+  "tab": "materials",
+  "title_key": "manual.galacticraft.entry.vehicles_aero.title"
+}

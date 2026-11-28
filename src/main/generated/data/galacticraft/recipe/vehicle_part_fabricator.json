@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "galacticraft:chassis_bench"
+    },
+    "D": {
+      "item": "galacticraft:compressed_desh"
+    },
+    "T": {
+      "item": "galacticraft:compressed_titanium"
+    },
+    "W": {
+      "item": "galacticraft:advanced_wafer"
+    }
+  },
+  "pattern": [
+    "TWT",
+    "DBD",
+    "TWT"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:vehicle_part_fabricator"
+  }
+}
