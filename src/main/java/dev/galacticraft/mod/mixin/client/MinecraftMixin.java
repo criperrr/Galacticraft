@@ -27,6 +27,7 @@ import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.GalacticraftClient;
 import dev.galacticraft.mod.client.render.astro.ClientTelescopeController;
 import dev.galacticraft.mod.client.render.vehicle.ClientDroneRemoteController;
+import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.main.GameConfig;
 import net.minecraft.resources.ResourceKey;
@@ -52,6 +53,7 @@ public class MinecraftMixin {
     @Inject(method = "handleKeybinds", at = @At("HEAD"), cancellable = true)
     private void gc$lockKeybindsInTelescope(CallbackInfo ci) {
         if (ClientTelescopeController.isActive() || ClientDroneRemoteController.isActive()) {
+            KeyMapping.releaseAll();
             ci.cancel();
         }
     }

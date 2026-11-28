@@ -34,6 +34,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.DeltaTracker;
+import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -98,6 +99,7 @@ public final class ClientDroneRemoteController {
         mKeyWasDown = false;
         mc.setScreen(null);
         mc.mouseHandler.grabMouse();
+        KeyMapping.releaseAll();
         mc.player.playSound(SoundEvents.BEACON_ACTIVATE, 0.55F, 1.45F);
     }
 
@@ -108,6 +110,7 @@ public final class ClientDroneRemoteController {
         active = false;
         droneEntityId = -1;
         pendingYawDelta = 0.0F;
+        KeyMapping.releaseAll();
         Minecraft mc = Minecraft.getInstance();
         if (savedCameraType != null) {
             mc.options.setCameraType(savedCameraType);

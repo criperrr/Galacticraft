@@ -45,6 +45,9 @@ public class MouseHandlerMixin {
             AstroSpyglassManager.onMouseScroll(vertical);
             return;
         }
+        if (ClientDroneRemoteController.isActive()) {
+            return;
+        }
         if (!AstroSkyEngine.CONFIG.enableSpyglassZoom || !AstroSpyglassManager.isInUse() || !AstroSpyglassManager.onMouseScroll(vertical)) {
             original.call(window, horizontal, vertical);
         }
