@@ -30,6 +30,59 @@
       }
     ]
   },
+  "entity.vehicle.electric_motor": {
+    "subtitle": "subtitles.galacticraft.entity.vehicle.electric_motor",
+    "sounds": [
+      {
+        "name": "galacticraft:machine/whir",
+        "stream": false
+      }
+    ]
+  },
+  "entity.vehicle.rotor_blades": {
+    "subtitle": "subtitles.galacticraft.entity.vehicle.rotor_blades",
+    "sounds": [
+      {
+        "name": "galacticraft:machine/oxygen/fan",
+        "stream": false
+      }
+    ]
+  },
+  "entity.vehicle.propeller": {
+    "subtitle": "subtitles.galacticraft.entity.vehicle.propeller",
+    "sounds": [
+      {
+        "name": "galacticraft:machine/oxygen/fan",
+        "stream": false
+      },
+      {
+        "name": "galacticraft:machine/buzz",
+        "stream": false
+      }
+    ]
+  },
+  "entity.vehicle.vtol_thruster": {
+    "subtitle": "subtitles.galacticraft.entity.vehicle.vtol_thruster",
+    "sounds": [
+      {
+        "name": "galacticraft:entity/rocket/ignite",
+        "stream": false
+      }
+    ]
+  },
+  "entity.vehicle.gear_hydraulics": {
+    "subtitle": "subtitles.galacticraft.entity.vehicle.gear_hydraulics",
+    "sounds": [
+      {
+        "name": "galacticraft:machine/airlock/open",
+        "stream": false
+      },
+      {
+        "name": "galacticraft:machine/airlock/close",
+        "stream": false
+      }
+    ]
+  },
   "entity.skeleton_boss.death": {
     "subtitle": "subtitles.galacticraft.entity.skeleton_boss.death",
     "sounds": [

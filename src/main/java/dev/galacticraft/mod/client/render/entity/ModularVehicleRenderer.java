@@ -90,17 +90,17 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
 
     // MTS-style animation bindings per chassis
     private static final VehicleAnimationBinding STEER_LRV = new VehicleAnimationBinding("steering_wheel", VehicleAnimationBinding.Type.ROTATION, 0.0F, 1.06F, 0.36F, 0.0F, 0.0F, 1.0F, 3.2F);
-    private static final VehicleAnimationBinding STEER_SEV = new VehicleAnimationBinding("steering_wheel", VehicleAnimationBinding.Type.ROTATION, -0.56F, 1.48F, 1.25F, 0.0F, 0.0F, 1.0F, 3.2F);
-    private static final VehicleAnimationBinding STEER_MARS = new VehicleAnimationBinding("steering_wheel", VehicleAnimationBinding.Type.ROTATION, -0.68F, 1.82F, 1.74F, 0.0F, 0.0F, 1.0F, 3.2F);
+    private static final VehicleAnimationBinding STEER_SEV = new VehicleAnimationBinding("steering_wheel", VehicleAnimationBinding.Type.ROTATION, -0.52F, 1.42F, 1.12F, 0.0F, 0.0F, 1.0F, 3.2F);
+    private static final VehicleAnimationBinding STEER_MARS = new VehicleAnimationBinding("steering_wheel", VehicleAnimationBinding.Type.ROTATION, -0.76F, 2.28F, 2.86F, 0.0F, 0.0F, 1.0F, 3.2F);
     private static final VehicleAnimationBinding STEER_LIGHT_PLANE = new VehicleAnimationBinding("steering_wheel", VehicleAnimationBinding.Type.ROTATION, -0.40F, 1.40F, 1.24F, 0.0F, 0.0F, 1.0F, 1.4F);
     private static final VehicleAnimationBinding STEER_CARGO_PLANE = new VehicleAnimationBinding("steering_wheel", VehicleAnimationBinding.Type.ROTATION, -0.66F, 1.96F, 4.20F, 0.0F, 0.0F, 1.0F, 1.4F);
-    private static final VehicleAnimationBinding DOOR_LEFT_SEV = new VehicleAnimationBinding("door_left", VehicleAnimationBinding.Type.ROTATION, -1.26F, 1.28F, 1.81F, 0.0F, 1.0F, 0.0F, 55.0F);
-    private static final VehicleAnimationBinding DOOR_RIGHT_SEV = new VehicleAnimationBinding("door_right", VehicleAnimationBinding.Type.ROTATION, 1.26F, 1.28F, 1.81F, 0.0F, 1.0F, 0.0F, -55.0F);
+    private static final VehicleAnimationBinding DOOR_LEFT_SEV = new VehicleAnimationBinding("door_left", VehicleAnimationBinding.Type.ROTATION, -1.18F, 1.42F, 1.16F, 0.0F, 1.0F, 0.0F, 55.0F);
+    private static final VehicleAnimationBinding DOOR_RIGHT_SEV = new VehicleAnimationBinding("door_right", VehicleAnimationBinding.Type.ROTATION, 1.18F, 1.42F, 1.16F, 0.0F, 1.0F, 0.0F, -55.0F);
     private static final VehicleAnimationBinding DOOR_LEFT_HELI = new VehicleAnimationBinding("door_left", VehicleAnimationBinding.Type.ROTATION, -1.02F, 1.15F, 1.16F, 0.0F, 1.0F, 0.0F, 55.0F);
     private static final VehicleAnimationBinding DOOR_RIGHT_HELI = new VehicleAnimationBinding("door_right", VehicleAnimationBinding.Type.ROTATION, 1.02F, 1.15F, 1.16F, 0.0F, 1.0F, 0.0F, -55.0F);
     private static final VehicleAnimationBinding DOOR_LEFT_PLANE = new VehicleAnimationBinding("door_left", VehicleAnimationBinding.Type.ROTATION, -0.98F, 1.48F, 0.80F, 0.0F, 1.0F, 0.0F, 55.0F);
     private static final VehicleAnimationBinding DOOR_RIGHT_PLANE = new VehicleAnimationBinding("door_right", VehicleAnimationBinding.Type.ROTATION, 0.98F, 1.48F, 0.80F, 0.0F, 1.0F, 0.0F, -55.0F);
-    private static final VehicleAnimationBinding RAMP_MARS = new VehicleAnimationBinding("rear_ramp", VehicleAnimationBinding.Type.ROTATION, 0.0F, 1.30F, -2.68F, 1.0F, 0.0F, 0.0F, -82.0F);
+    private static final VehicleAnimationBinding RAMP_MARS = new VehicleAnimationBinding("rear_ramp", VehicleAnimationBinding.Type.ROTATION, 0.0F, 1.48F, -4.05F, 1.0F, 0.0F, 0.0F, -82.0F);
     private static final VehicleAnimationBinding RAMP_VTOL = new VehicleAnimationBinding("rear_ramp", VehicleAnimationBinding.Type.ROTATION, 0.0F, 0.78F, -2.68F, 1.0F, 0.0F, 0.0F, -80.0F);
     private static final VehicleAnimationBinding RAMP_CARGO_PLANE = new VehicleAnimationBinding("rear_ramp", VehicleAnimationBinding.Type.ROTATION, 0.0F, 1.04F, -4.25F, 1.0F, 0.0F, 0.0F, -65.0F);
     private static final VehicleAnimationBinding ELEVATOR_LIGHT_PLANE = new VehicleAnimationBinding("elevator", VehicleAnimationBinding.Type.ROTATION, 0.0F, 1.72F, -5.05F, 1.0F, 0.0F, 0.0F, 24.0F);
@@ -125,7 +125,8 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
         VehicleSizeClass size = chassis.sizeClass();
         this.shadowRadius = entity.isFixedWing()
                 ? (size == VehicleSizeClass.LARGE ? 5.2F : 3.2F)
-                : (size == VehicleSizeClass.LARGE ? 2.8F : (size == VehicleSizeClass.MEDIUM ? 2.0F : 1.45F));
+                : (VehicleRegistry.CHASSIS_HEAVY_HAULER.equals(chassis.id()) ? 3.8F
+                : (size == VehicleSizeClass.LARGE ? 2.8F : (size == VehicleSizeClass.MEDIUM ? 1.9F : 1.40F)));
 
         poseStack.pushPose();
         float yaw = Mth.rotLerp(partialTick, entity.yRotO, entity.getYRot());
@@ -211,8 +212,8 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
         }
 
         // 2. Render installed modular parts (wheels, rotors, wings, propellers, landing gear, VTOL thrusters, motor, batteries, seats, cargo, instruments)
-        float halfW = size == VehicleSizeClass.LARGE ? 1.55F : (size == VehicleSizeClass.MEDIUM ? 1.26F : 0.96F);
-        float halfL = size == VehicleSizeClass.LARGE ? 3.05F : (size == VehicleSizeClass.MEDIUM ? 2.18F : 1.56F);
+        float halfW = size == VehicleSizeClass.LARGE ? 1.62F : (size == VehicleSizeClass.MEDIUM ? 1.12F : 0.86F);
+        float halfL = size == VehicleSizeClass.LARGE ? 4.20F : (size == VehicleSizeClass.MEDIUM ? 2.15F : 1.54F);
         float rotorRpm = entity.getRotorRpm();
         float rotorAngle = entity.clientRotorAngle + (float) (rotorRpm * (Math.PI / 600.0)) * partialTick;
         for (VehicleHardpoint hp : chassis.hardpoints()) {
@@ -406,20 +407,38 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
                     ps.popPose();
                 } else {
                     boolean scanning = animState == VehicleAnimState.SCANNING_TERRAIN;
-                    drawAtlasBox(ps, c, 2, 0, -0.06F, 0.0F, -0.06F, 0.06F, 0.84F, 0.06F, light);
-                    ps.pushPose();
-                    ps.translate(0.0F, 0.88F, 0.0F);
-                    if (scanning) {
-                        float panDeg = Mth.sin(animTime * 0.16F) * 90.0F;
-                        ps.mulPose(Axis.YP.rotationDegrees(panDeg));
+                    boolean compactDroneSensor = VehicleRegistry.CHASSIS_MICRO_DRONE.equals(entity.getChassisDefinition().id());
+                    if (compactDroneSensor) {
+                        // Low-profile compact optical/LiDAR gimbal dome for Micro-Drone (no tall rover mast pole!)
+                        drawAtlasBox(ps, c, 2, 0, -0.09F, -0.02F, -0.09F, 0.09F, 0.06F, 0.09F, light);
+                        ps.pushPose();
+                        ps.translate(0.0F, 0.10F, 0.0F);
+                        if (scanning) {
+                            float panDeg = Mth.sin(animTime * 0.16F) * 90.0F;
+                            ps.mulPose(Axis.YP.rotationDegrees(panDeg));
+                        }
+                        drawAtlasBox(ps, c, 1, 0, -0.11F, -0.05F, -0.09F, 0.11F, 0.07F, 0.09F, light);
+                        drawAtlasBox(ps, c, 0, 2, -0.05F, -0.02F, 0.08F, 0.05F, 0.04F, 0.11F, scanning ? LightTexture.FULL_BRIGHT : light);
+                        if (scanning) {
+                            renderScanLaserBeam(ps, bufferSource);
+                        }
+                        ps.popPose();
+                    } else {
+                        drawAtlasBox(ps, c, 2, 0, -0.06F, 0.0F, -0.06F, 0.06F, 0.84F, 0.06F, light);
+                        ps.pushPose();
+                        ps.translate(0.0F, 0.88F, 0.0F);
+                        if (scanning) {
+                            float panDeg = Mth.sin(animTime * 0.16F) * 90.0F;
+                            ps.mulPose(Axis.YP.rotationDegrees(panDeg));
+                        }
+                        drawAtlasBox(ps, c, 0, 0, -0.24F, -0.08F, -0.12F, 0.24F, 0.10F, 0.14F, light);
+                        // Spectrometer lens aperture
+                        drawAtlasBox(ps, c, 0, 2, -0.08F, -0.04F, 0.13F, 0.08F, 0.06F, 0.16F, scanning ? LightTexture.FULL_BRIGHT : light);
+                        if (scanning) {
+                            renderScanLaserBeam(ps, bufferSource);
+                        }
+                        ps.popPose();
                     }
-                    drawAtlasBox(ps, c, 0, 0, -0.24F, -0.08F, -0.12F, 0.24F, 0.10F, 0.14F, light);
-                    // Spectrometer lens aperture
-                    drawAtlasBox(ps, c, 0, 2, -0.08F, -0.04F, 0.13F, 0.08F, 0.06F, 0.16F, scanning ? LightTexture.FULL_BRIGHT : light);
-                    if (scanning) {
-                        renderScanLaserBeam(ps, bufferSource);
-                    }
-                    ps.popPose();
                 }
             }
             case AI_CORE -> {
@@ -799,15 +818,15 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
         drawAtlasBox(ps, c, 2, 0, strutX0, hubY - 0.05F, hubZ - 0.07F, strutX1, hubY + 0.07F, hubZ + 0.07F, light);
 
         if (VehicleRegistry.PART_HEAVY_TRACKS.equals(part.id())) {
-            float trackW = size == VehicleSizeClass.LARGE ? 0.50F : 0.40F;
-            float trackH = size == VehicleSizeClass.LARGE ? 0.72F : 0.56F;
-            float trackL = size == VehicleSizeClass.LARGE ? 0.85F : 0.68F;
+            float trackW = size == VehicleSizeClass.LARGE ? 0.72F : (size == VehicleSizeClass.MEDIUM ? 0.46F : 0.36F);
+            float trackH = size == VehicleSizeClass.LARGE ? 1.18F : (size == VehicleSizeClass.MEDIUM ? 0.78F : 0.62F);
+            float trackL = size == VehicleSizeClass.LARGE ? 1.05F : (size == VehicleSizeClass.MEDIUM ? 0.68F : 0.58F);
             drawAtlasBox(ps, c, 0, 1, hubX - trackW * 0.5F, 0.02F, hubZ - trackL, hubX + trackW * 0.5F, trackH, hubZ + trackL, light);
             return;
         }
 
         ObjMeshModel wheelObj = ObjModelLoader.getOrLoad(MODEL_LUNAR_WHEEL);
-        float wheelScale = size == VehicleSizeClass.LARGE ? 1.32F : (size == VehicleSizeClass.MEDIUM ? 1.08F : 0.84F);
+        float wheelScale = size == VehicleSizeClass.LARGE ? 1.64F : (size == VehicleSizeClass.MEDIUM ? 1.00F : 0.80F);
         boolean isFront = hp.id().contains("_f");
 
         ps.pushPose();

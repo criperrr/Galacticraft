@@ -130,6 +130,18 @@ public class GCMiscRecipeProvider extends FabricRecipeProvider {
                 .unlockedBy(getHasName(GCItems.FREQUENCY_MODULE), has(GCItems.FREQUENCY_MODULE))
                 .emiDefaultRecipe(true)
                 .save(output);
+
+        GCShapedRecipeBuilder.crafting(RecipeCategory.MISC, GCBlocks.VEHICLE_PART_FABRICATOR)
+                .define('T', GCItems.COMPRESSED_TITANIUM)
+                .define('D', GCItems.COMPRESSED_DESH)
+                .define('W', GCItems.ADVANCED_WAFER)
+                .define('B', GCBlocks.CHASSIS_BENCH)
+                .pattern("TWT")
+                .pattern("DBD")
+                .pattern("TWT")
+                .unlockedBy(getHasName(GCItems.COMPRESSED_TITANIUM), has(GCItems.COMPRESSED_TITANIUM))
+                .emiDefaultRecipe(true)
+                .save(output);
         GCShapedRecipeBuilder.crafting(RecipeCategory.MISC, GCItems.OXYGEN_MASK)
                 .define('G', ConventionalItemTags.GLASS_PANES_COLORLESS)
                 .define('H', Items.IRON_HELMET)
