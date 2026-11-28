@@ -206,6 +206,7 @@ public class GalacticraftClient implements ClientModInitializer {
         GCEntityModelLayer.register();
         dev.galacticraft.mod.client.render.astro.ClientTelescopeController.registerEvents();
         dev.galacticraft.mod.client.render.vehicle.ClientDroneRemoteController.registerEvents();
+        dev.galacticraft.mod.client.render.vehicle.FixedWingFlightHud.registerEvents();
         registerFeatureRenderers();
         GalacticraftRocketPartRenderers.register();
         GCKeyBinds.register();

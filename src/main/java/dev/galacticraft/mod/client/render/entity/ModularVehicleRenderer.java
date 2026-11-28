@@ -101,8 +101,8 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
     private static final VehicleAnimationBinding RAMP_MARS = new VehicleAnimationBinding("rear_ramp", VehicleAnimationBinding.Type.ROTATION, 0.0F, 1.30F, -2.68F, 1.0F, 0.0F, 0.0F, -82.0F);
     private static final VehicleAnimationBinding RAMP_VTOL = new VehicleAnimationBinding("rear_ramp", VehicleAnimationBinding.Type.ROTATION, 0.0F, 0.78F, -2.68F, 1.0F, 0.0F, 0.0F, -80.0F);
     private static final VehicleAnimationBinding RAMP_CARGO_PLANE = new VehicleAnimationBinding("rear_ramp", VehicleAnimationBinding.Type.ROTATION, 0.0F, 0.94F, -3.12F, 1.0F, 0.0F, 0.0F, -78.0F);
-    private static final VehicleAnimationBinding ELEVATOR_LIGHT_PLANE = new VehicleAnimationBinding("elevator", VehicleAnimationBinding.Type.ROTATION, 0.0F, 1.60F, -3.68F, 1.0F, 0.0F, 0.0F, -24.0F);
-    private static final VehicleAnimationBinding ELEVATOR_CARGO_PLANE = new VehicleAnimationBinding("elevator", VehicleAnimationBinding.Type.ROTATION, 0.0F, 2.42F, -5.12F, 1.0F, 0.0F, 0.0F, -24.0F);
+    private static final VehicleAnimationBinding ELEVATOR_LIGHT_PLANE = new VehicleAnimationBinding("elevator", VehicleAnimationBinding.Type.ROTATION, 0.0F, 1.60F, -3.68F, 1.0F, 0.0F, 0.0F, 24.0F);
+    private static final VehicleAnimationBinding ELEVATOR_CARGO_PLANE = new VehicleAnimationBinding("elevator", VehicleAnimationBinding.Type.ROTATION, 0.0F, 2.42F, -5.12F, 1.0F, 0.0F, 0.0F, 24.0F);
     private static final VehicleAnimationBinding RUDDER_LIGHT_PLANE = new VehicleAnimationBinding("rudder", VehicleAnimationBinding.Type.ROTATION, 0.0F, 2.25F, -3.76F, 0.0F, 1.0F, 0.0F, 26.0F);
     private static final VehicleAnimationBinding RUDDER_CARGO_PLANE = new VehicleAnimationBinding("rudder", VehicleAnimationBinding.Type.ROTATION, 0.0F, 3.35F, -5.18F, 0.0F, 1.0F, 0.0F, 26.0F);
 
@@ -133,7 +133,8 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
             float pivotY = size == VehicleSizeClass.LARGE ? 1.55F : (size == VehicleSizeClass.MEDIUM ? 1.25F : 0.45F);
             poseStack.translate(0.0F, pivotY, 0.0F);
             poseStack.mulPose(Axis.XP.rotationDegrees(entity.clientPitch));
-            poseStack.mulPose(Axis.ZP.rotationDegrees(-entity.clientRoll));
+            // Local +Z is nose forward and -X is pilot right: +Z rotation banks right wing (-X) down!
+            poseStack.mulPose(Axis.ZP.rotationDegrees(isFixedWing ? entity.clientRoll : -entity.clientRoll));
             poseStack.translate(0.0F, -pivotY, 0.0F);
         }
 
@@ -465,8 +466,9 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
         }
         ObjMeshModel.Group aileronGroup = wingObj.getGroup(prefix + "_aileron_" + side);
         if (aileronGroup != null) {
-            // Left and right ailerons deflect oppositely to induce roll
-            float deflectDeg = aileronInput * (isLeft ? -24.0F : 24.0F);
+            // In MC right-handed coords (+Z nose, -X pilot right):
+            // Banking right (aileronInput > 0) raises right-wing (-X) aileron (+24 deg) and lowers left-wing (+X) aileron (-24 deg)
+            float deflectDeg = aileronInput * (isLeft ? 24.0F : -24.0F);
             ps.pushPose();
             ps.translate(0.0F, 0.0F, aileronHingeZ);
             ps.mulPose(Axis.XP.rotationDegrees(deflectDeg));

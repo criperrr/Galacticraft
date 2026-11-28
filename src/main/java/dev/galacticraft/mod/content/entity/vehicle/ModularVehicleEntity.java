@@ -309,6 +309,24 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
         return this.isControlledByLocalInstance() ? this.localThrottle : this.entityData.get(DATA_THROTTLE);
     }
 
+    /**
+     * Adjusts the fixed-wing electric throttle quadrant by {@code delta} (clamped to {@code [0.0, 1.0]}).
+     */
+    public void adjustThrottleDirect(float delta) {
+        this.setThrottleDirect(this.localThrottle + delta);
+    }
+
+    /**
+     * Sets the fixed-wing electric throttle lever directly (clamped to {@code [0.0, 1.0]}),
+     * retaining power level like a real aircraft throttle quadrant.
+     */
+    public void setThrottleDirect(float value) {
+        this.localThrottle = Mth.clamp(value, 0.0F, 1.0F);
+        if (!this.level().isClientSide) {
+            this.entityData.set(DATA_THROTTLE, this.localThrottle);
+        }
+    }
+
     public float getElevatorInput() {
         return this.isControlledByLocalInstance() ? this.localElevator : this.entityData.get(DATA_ELEVATOR);
     }
@@ -425,6 +443,19 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
             case "toggle_brake" -> {
                 this.entityData.set(DATA_PARKING_BRAKE, !this.isParkingBrakeOn());
                 this.level().playSound(null, this.blockPosition(), SoundEvents.PISTON_CONTRACT, SoundSource.NEUTRAL, 0.45F, 1.4F);
+            }
+            case "set_throttle" -> {
+                if (this.isFixedWing()) {
+                    try {
+                        float parsed = Float.parseFloat(value);
+                        float prev = this.localThrottle;
+                        this.setThrottleDirect(parsed);
+                        if (parsed <= 0.001F && prev > 0.05F) {
+                            this.level().playSound(null, this.blockPosition(), SoundEvents.LEVER_CLICK, SoundSource.NEUTRAL, 0.45F, 0.85F);
+                        }
+                    } catch (NumberFormatException ignored) {
+                    }
+                }
             }
             case "open_cargo" -> {
                 if (this.cargoInventory.getContainerSize() > 0) {
@@ -957,14 +988,12 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
         double stallSpeed = this.derivedStats.computeStallSpeedBlocksPerTick(env.gravityG(), env.pressureAtm());
         double maxSpeed = Math.max(0.55, this.derivedStats.maxSpeedBlocksPerTick());
 
-        // 1. Electric throttle quadrant (W increases, S decreases / wheel brakes on runway)
+        // 1. Electric throttle quadrant (retains pilot's lever setting from 0% to 100%; W/R/+ increases, S/C/- decreases, X cuts to 0%)
         if (canOperate) {
             if (this.inputForward) {
-                this.localThrottle = Mth.clamp(this.localThrottle + 0.045F, 0.0F, 1.0F);
+                this.localThrottle = Mth.clamp(this.localThrottle + 0.04F, 0.0F, 1.0F);
             } else if (this.inputBackward) {
-                this.localThrottle = Mth.clamp(this.localThrottle - 0.055F, 0.0F, 1.0F);
-            } else if (this.onGround() && this.localThrottle < 0.14F) {
-                this.localThrottle = Math.max(0.0F, this.localThrottle - 0.02F);
+                this.localThrottle = Mth.clamp(this.localThrottle - 0.05F, 0.0F, 1.0F);
             }
         } else {
             this.localThrottle = Math.max(0.0F, this.localThrottle - 0.06F);
@@ -1812,7 +1841,7 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
             double dy = ly - pivotY;
             float rollDeg = this.level().isClientSide ? this.clientRoll : this.getCyclicRollDeg();
             float pitchDeg = this.level().isClientSide ? this.clientPitch : this.getCyclicPitchDeg();
-            double rollRad = Math.toRadians(-rollDeg);
+            double rollRad = Math.toRadians(this.isFixedWing() ? rollDeg : -rollDeg);
             double cosR = Math.cos(rollRad);
             double sinR = Math.sin(rollRad);
             double tx = lx * cosR - dy * sinR;

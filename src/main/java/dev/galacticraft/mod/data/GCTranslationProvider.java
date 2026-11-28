@@ -378,6 +378,9 @@ public class GCTranslationProvider extends TranslationProvider {
         this.add("message.galacticraft.vehicle.aim_at_part", "Aim directly at an installed part to remove it");
         this.add("message.galacticraft.vehicle.missing_gauge_item", "Missing instrument in inventory: %s");
         this.add("key.galacticraft.vehicle_panel", "Vehicle Cockpit Panel");
+        this.add("key.galacticraft.aircraft_throttle_up", "Aircraft Throttle Up");
+        this.add("key.galacticraft.aircraft_throttle_down", "Aircraft Throttle Down");
+        this.add("key.galacticraft.aircraft_throttle_cutoff", "Aircraft Throttle Cutoff (0%)");
         this.item(GCItems.VEHICLE_CRATE, "Vehicle Shipping Crate");
         this.item(GCItems.VEHICLE_WRENCH, "Vehicle Assembly Wrench");
         this.item(GCItems.DRONE_REMOTE_CONTROLLER, "Drone Remote Flight Controller");

@@ -163,6 +163,9 @@ public class GCPtBrTranslationProvider extends FabricLanguageProvider {
         builder.add("message.galacticraft.vehicle.aim_at_part", "Mire diretamente na peça instalada para removê-la");
         builder.add("message.galacticraft.vehicle.missing_gauge_item", "Você precisa ter o mostrador no inventário: %s");
         builder.add("key.galacticraft.vehicle_panel", "Painel do Cockpit do Veículo");
+        builder.add("key.galacticraft.aircraft_throttle_up", "Aumentar Throttle do Avião");
+        builder.add("key.galacticraft.aircraft_throttle_down", "Reduzir Throttle do Avião");
+        builder.add("key.galacticraft.aircraft_throttle_cutoff", "Cortar Throttle do Avião (0%)");
         builder.add("item.galacticraft.vehicle_crate", "Caixa de Transporte de Veículo");
         builder.add("item.galacticraft.vehicle_wrench", "Chave de Montagem de Veículos");
         builder.add("item.galacticraft.drone_remote_controller", "Controle Remoto de Drone");

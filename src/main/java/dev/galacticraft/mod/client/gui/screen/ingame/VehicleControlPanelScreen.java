@@ -169,6 +169,27 @@ public class VehicleControlPanelScreen extends Screen {
             return true;
         }
 
+        // 2b. Quick Throttle detent bar above panel for Fixed-Wing Airplanes (0% IDLE / 50% CRZ / 100% MAX)
+        if (this.vehicle.isFixedWing()) {
+            int barX = this.panelX + 10;
+            int barY = this.panelY - 22;
+            if (hit(mouseX, mouseY, barX, barY, 54, 18)) {
+                this.vehicle.setThrottleDirect(0.0F);
+                this.sendAction("set_throttle", "", "0.0");
+                return true;
+            }
+            if (hit(mouseX, mouseY, barX + 58, barY, 54, 18)) {
+                this.vehicle.setThrottleDirect(0.5F);
+                this.sendAction("set_throttle", "", "0.5");
+                return true;
+            }
+            if (hit(mouseX, mouseY, barX + 116, barY, 54, 18)) {
+                this.vehicle.setThrottleDirect(1.0F);
+                this.sendAction("set_throttle", "", "1.0");
+                return true;
+            }
+        }
+
         // 3. Right circular analog dial sockets (Left-Click: open gauge picker; Right-Click: eject gauge)
         int dialAreaX = this.panelX + 190;
         int dialY = this.panelY + 22;
@@ -223,6 +244,13 @@ public class VehicleControlPanelScreen extends Screen {
         // Left aerospace switches
         int swX = x + 10;
         int swY = y + 22;
+        if (this.vehicle.isFixedWing()) {
+            int barY = y - 22;
+            float thr = this.vehicle.getThrottle();
+            drawRockerSwitch(g, swX, barY, 54, 18, "THR 0%", thr < 0.05F, 0xFF7CE8FF, mouseX, mouseY);
+            drawRockerSwitch(g, swX + 58, barY, 54, 18, "THR 50%", thr >= 0.35F && thr <= 0.70F, 0xFF3BF078, mouseX, mouseY);
+            drawRockerSwitch(g, swX + 116, barY, 54, 18, "THR MAX", thr > 0.85F, 0xFFFF8833, mouseX, mouseY);
+        }
         drawRockerSwitch(g, swX, swY, 54, 24, "MOTOR", this.vehicle.isEngineRunning(), 0xFF3BF078, mouseX, mouseY);
         drawRockerSwitch(g, swX + 58, swY, 54, 24, "FARÓIS", this.vehicle.areHeadlightsOn(), 0xFFFFD84D, mouseX, mouseY);
         drawRockerSwitch(g, swX + 116, swY, 54, 24, "PORTAS", this.vehicle.areDoorsOpen(), 0xFF2ED1FF, mouseX, mouseY);
