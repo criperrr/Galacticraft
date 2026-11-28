@@ -260,6 +260,25 @@ public class VehicleControlPanelScreen extends Screen {
                 warn = warn.substring(0, 52) + "..";
             }
             g.drawString(this.font, warn, x + 10, barY, 0xFFFF6E6E, false);
+        } else if (this.vehicle.isFixedWing()) {
+            PlanetaryEnvironment env = PlanetaryEnvironment.fromLevel(this.vehicle.level());
+            long energyKj = this.vehicle.getConfiguration().storedEnergy() / 1000L;
+            long capKj = Math.max(1L, stats.energyCapacity() / 1000L);
+            double iasKmh = Math.abs(this.vehicle.getSyncedSpeed()) * 72.0;
+            double stallBpt = stats.computeStallSpeedBlocksPerTick(env.gravityG(), env.pressureAtm());
+            if (stats.isBlockedByVacuum(env.pressureAtm())) {
+                g.drawString(this.font, "VÁCUO! VOO AERODINÂMICO DESATIVADO — INSTALE VTOL | BAT " + energyKj + "/" + capKj + " kJ", x + 10, barY, 0xFFFF6E6E, false);
+            } else if (this.vehicle.isStalling()) {
+                String warn = String.format("ESTOL! ACELERE (W) / BAIXE NARIZ | IAS %.0f/%.0f km/h | AGL %.1fm",
+                        iasKmh, Double.isFinite(stallBpt) ? stallBpt * 72.0 : 999.0, this.vehicle.computeAltitudeAgl());
+                g.drawString(this.font, warn, x + 10, barY, 0xFFFF5A5A, false);
+            } else {
+                String tag = stats.isHybridVtolFixedWing() ? "HÍBRIDO" : "AVIÃO";
+                String stallTxt = Double.isFinite(stallBpt) ? String.format("%.0f", stallBpt * 72.0) : "VTOL";
+                String telemetry = String.format("%s | IAS %.0f/%s km/h | THR %d%% | AGL %.1fm | BAT %d/%d kJ",
+                        tag, iasKmh, stallTxt, Math.round(this.vehicle.getThrottle() * 100.0F), this.vehicle.computeAltitudeAgl(), energyKj, capKj);
+                g.drawString(this.font, telemetry, x + 10, barY, 0xFF7CE8FF, false);
+            }
         } else if (this.vehicle.isRotorcraft()) {
             PlanetaryEnvironment env = PlanetaryEnvironment.fromLevel(this.vehicle.level());
             double twr = stats.computeRotorTwr(env.gravityG(), env.pressureAtm());

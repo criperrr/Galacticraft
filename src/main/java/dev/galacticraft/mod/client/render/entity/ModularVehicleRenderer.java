@@ -80,17 +80,31 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
     private static final ResourceLocation MODEL_HEAVY_VTOL = Constant.id("models/vehicle/heavy_vtol.obj");
     private static final ResourceLocation MODEL_ROTOR_BLADES = Constant.id("models/vehicle/rotor_blades.obj");
     private static final ResourceLocation MODEL_VTOL_THRUSTER = Constant.id("models/vehicle/vtol_thruster.obj");
+    private static final ResourceLocation MODEL_LIGHT_AIRPLANE = Constant.id("models/vehicle/light_airplane.obj");
+    private static final ResourceLocation MODEL_CARGO_AIRPLANE = Constant.id("models/vehicle/cargo_airplane.obj");
+    private static final ResourceLocation MODEL_AIRPLANE_WING = Constant.id("models/vehicle/airplane_wing.obj");
+    private static final ResourceLocation MODEL_ELECTRIC_PROPELLER = Constant.id("models/vehicle/electric_propeller.obj");
+    private static final ResourceLocation MODEL_RETRACTABLE_GEAR = Constant.id("models/vehicle/retractable_landing_gear.obj");
 
     // MTS-style animation bindings per chassis
     private static final VehicleAnimationBinding STEER_LRV = new VehicleAnimationBinding("steering_wheel", VehicleAnimationBinding.Type.ROTATION, 0.0F, 1.06F, 0.36F, 0.0F, 0.0F, 1.0F, 3.2F);
     private static final VehicleAnimationBinding STEER_SEV = new VehicleAnimationBinding("steering_wheel", VehicleAnimationBinding.Type.ROTATION, -0.56F, 1.48F, 1.25F, 0.0F, 0.0F, 1.0F, 3.2F);
     private static final VehicleAnimationBinding STEER_MARS = new VehicleAnimationBinding("steering_wheel", VehicleAnimationBinding.Type.ROTATION, -0.68F, 1.82F, 1.74F, 0.0F, 0.0F, 1.0F, 3.2F);
+    private static final VehicleAnimationBinding STEER_LIGHT_PLANE = new VehicleAnimationBinding("steering_wheel", VehicleAnimationBinding.Type.ROTATION, -0.42F, 1.24F, 1.18F, 0.0F, 0.0F, 1.0F, 1.4F);
+    private static final VehicleAnimationBinding STEER_CARGO_PLANE = new VehicleAnimationBinding("steering_wheel", VehicleAnimationBinding.Type.ROTATION, -0.56F, 1.54F, 2.52F, 0.0F, 0.0F, 1.0F, 1.4F);
     private static final VehicleAnimationBinding DOOR_LEFT_SEV = new VehicleAnimationBinding("door_left", VehicleAnimationBinding.Type.ROTATION, -1.26F, 1.28F, 1.81F, 0.0F, 1.0F, 0.0F, 55.0F);
     private static final VehicleAnimationBinding DOOR_RIGHT_SEV = new VehicleAnimationBinding("door_right", VehicleAnimationBinding.Type.ROTATION, 1.26F, 1.28F, 1.81F, 0.0F, 1.0F, 0.0F, -55.0F);
     private static final VehicleAnimationBinding DOOR_LEFT_HELI = new VehicleAnimationBinding("door_left", VehicleAnimationBinding.Type.ROTATION, -1.02F, 1.15F, 1.16F, 0.0F, 1.0F, 0.0F, 55.0F);
     private static final VehicleAnimationBinding DOOR_RIGHT_HELI = new VehicleAnimationBinding("door_right", VehicleAnimationBinding.Type.ROTATION, 1.02F, 1.15F, 1.16F, 0.0F, 1.0F, 0.0F, -55.0F);
+    private static final VehicleAnimationBinding DOOR_LEFT_PLANE = new VehicleAnimationBinding("door_left", VehicleAnimationBinding.Type.ROTATION, -0.92F, 1.24F, 1.08F, 0.0F, 1.0F, 0.0F, 55.0F);
+    private static final VehicleAnimationBinding DOOR_RIGHT_PLANE = new VehicleAnimationBinding("door_right", VehicleAnimationBinding.Type.ROTATION, 0.92F, 1.24F, 1.08F, 0.0F, 1.0F, 0.0F, -55.0F);
     private static final VehicleAnimationBinding RAMP_MARS = new VehicleAnimationBinding("rear_ramp", VehicleAnimationBinding.Type.ROTATION, 0.0F, 1.30F, -2.68F, 1.0F, 0.0F, 0.0F, -82.0F);
     private static final VehicleAnimationBinding RAMP_VTOL = new VehicleAnimationBinding("rear_ramp", VehicleAnimationBinding.Type.ROTATION, 0.0F, 0.78F, -2.68F, 1.0F, 0.0F, 0.0F, -80.0F);
+    private static final VehicleAnimationBinding RAMP_CARGO_PLANE = new VehicleAnimationBinding("rear_ramp", VehicleAnimationBinding.Type.ROTATION, 0.0F, 0.94F, -3.12F, 1.0F, 0.0F, 0.0F, -78.0F);
+    private static final VehicleAnimationBinding ELEVATOR_LIGHT_PLANE = new VehicleAnimationBinding("elevator", VehicleAnimationBinding.Type.ROTATION, 0.0F, 1.60F, -3.68F, 1.0F, 0.0F, 0.0F, -24.0F);
+    private static final VehicleAnimationBinding ELEVATOR_CARGO_PLANE = new VehicleAnimationBinding("elevator", VehicleAnimationBinding.Type.ROTATION, 0.0F, 2.42F, -5.12F, 1.0F, 0.0F, 0.0F, -24.0F);
+    private static final VehicleAnimationBinding RUDDER_LIGHT_PLANE = new VehicleAnimationBinding("rudder", VehicleAnimationBinding.Type.ROTATION, 0.0F, 2.25F, -3.76F, 0.0F, 1.0F, 0.0F, 26.0F);
+    private static final VehicleAnimationBinding RUDDER_CARGO_PLANE = new VehicleAnimationBinding("rudder", VehicleAnimationBinding.Type.ROTATION, 0.0F, 3.35F, -5.18F, 0.0F, 1.0F, 0.0F, 26.0F);
 
     public ModularVehicleRenderer(EntityRendererProvider.Context context) {
         super(context);
@@ -114,7 +128,8 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
         poseStack.mulPose(Axis.YP.rotationDegrees(-yaw));
 
         boolean isRotorcraft = entity.isRotorcraft();
-        if (isRotorcraft) {
+        boolean isFixedWing = entity.isFixedWing();
+        if (isRotorcraft || isFixedWing) {
             float pivotY = size == VehicleSizeClass.LARGE ? 1.55F : (size == VehicleSizeClass.MEDIUM ? 1.25F : 0.45F);
             poseStack.translate(0.0F, pivotY, 0.0F);
             poseStack.mulPose(Axis.XP.rotationDegrees(entity.clientPitch));
@@ -133,6 +148,8 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
         boolean headlights = entity.areHeadlightsOn();
         boolean isLightHeli = VehicleRegistry.CHASSIS_LIGHT_HELICOPTER.equals(chassisId);
         boolean isHeavyVtol = VehicleRegistry.CHASSIS_HEAVY_VTOL.equals(chassisId);
+        boolean isLightPlane = VehicleRegistry.CHASSIS_LIGHT_AIRPLANE.equals(chassisId);
+        boolean isCargoPlane = VehicleRegistry.CHASSIS_CARGO_AIRPLANE.equals(chassisId);
 
         // 1. Render all opaque Wavefront .obj groups with live MTS animation bindings
         for (Map.Entry<String, ObjMeshModel.Group> entry : chassisModel.groups().entrySet()) {
@@ -142,18 +159,29 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
             }
             poseStack.pushPose();
             if ("steering_wheel".equals(name)) {
-                VehicleAnimationBinding bind = switch (size) {
-                    case SMALL -> STEER_LRV;
-                    case MEDIUM -> STEER_SEV;
-                    case LARGE -> STEER_MARS;
-                };
+                VehicleAnimationBinding bind;
+                if (isLightPlane) {
+                    bind = STEER_LIGHT_PLANE;
+                } else if (isCargoPlane) {
+                    bind = STEER_CARGO_PLANE;
+                } else {
+                    bind = switch (size) {
+                        case SMALL -> STEER_LRV;
+                        case MEDIUM -> STEER_SEV;
+                        case LARGE -> STEER_MARS;
+                    };
+                }
                 bind.apply(poseStack, steer);
             } else if ("door_left".equals(name)) {
-                (isLightHeli ? DOOR_LEFT_HELI : DOOR_LEFT_SEV).apply(poseStack, doorOpen);
+                (isLightPlane ? DOOR_LEFT_PLANE : (isLightHeli ? DOOR_LEFT_HELI : DOOR_LEFT_SEV)).apply(poseStack, doorOpen);
             } else if ("door_right".equals(name)) {
-                (isLightHeli ? DOOR_RIGHT_HELI : DOOR_RIGHT_SEV).apply(poseStack, doorOpen);
+                (isLightPlane ? DOOR_RIGHT_PLANE : (isLightHeli ? DOOR_RIGHT_HELI : DOOR_RIGHT_SEV)).apply(poseStack, doorOpen);
             } else if ("rear_ramp".equals(name)) {
-                (isHeavyVtol ? RAMP_VTOL : RAMP_MARS).apply(poseStack, doorOpen);
+                (isCargoPlane ? RAMP_CARGO_PLANE : (isHeavyVtol ? RAMP_VTOL : RAMP_MARS)).apply(poseStack, doorOpen);
+            } else if ("elevator".equals(name)) {
+                (isCargoPlane ? ELEVATOR_CARGO_PLANE : ELEVATOR_LIGHT_PLANE).apply(poseStack, entity.clientElevator);
+            } else if ("rudder".equals(name)) {
+                (isCargoPlane ? RUDDER_CARGO_PLANE : RUDDER_LIGHT_PLANE).apply(poseStack, entity.clientRudder);
             } else if ("landing_gear".equals(name)) {
                 float retractY = gearProgress * (size == VehicleSizeClass.LARGE ? 0.54F : 0.40F);
                 poseStack.translate(0.0F, retractY, 0.0F);
@@ -172,7 +200,7 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
             poseStack.popPose();
         }
 
-        // 2. Render installed modular parts (wheels, rotors, VTOL thrusters, motor, batteries, seats, cargo, instruments)
+        // 2. Render installed modular parts (wheels, rotors, wings, propellers, landing gear, VTOL thrusters, motor, batteries, seats, cargo, instruments)
         float halfW = size == VehicleSizeClass.LARGE ? 1.55F : (size == VehicleSizeClass.MEDIUM ? 1.26F : 0.96F);
         float halfL = size == VehicleSizeClass.LARGE ? 3.05F : (size == VehicleSizeClass.MEDIUM ? 2.18F : 1.56F);
         float rotorRpm = entity.getRotorRpm();
@@ -187,6 +215,12 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
                     renderBareWheelAxle(poseStack, opaque, hp, halfW, packedLight);
                 } else if (hp.type() == HardpointType.ROTOR) {
                     renderBareRotorMount(poseStack, opaque, hp, packedLight);
+                } else if (hp.type() == HardpointType.WING) {
+                    renderBareWingSpar(poseStack, opaque, hp, packedLight);
+                } else if (hp.type() == HardpointType.PROPELLER) {
+                    renderBarePropShaft(poseStack, opaque, hp, packedLight);
+                } else if (hp.type() == HardpointType.LANDING_GEAR) {
+                    renderBareGearMount(poseStack, opaque, hp, packedLight);
                 }
                 continue;
             }
@@ -196,6 +230,12 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
             }
             if (part.type() == HardpointType.ROTOR) {
                 renderInstalledRotorOrThruster(poseStack, opaque, hp, part, chassisId, rotorAngle, rotorRpm, entity.isEngineRunning(), packedLight);
+            } else if (part.type() == HardpointType.WING) {
+                renderInstalledWing(poseStack, opaque, hp, part, entity.clientAileron, packedLight);
+            } else if (part.type() == HardpointType.PROPELLER) {
+                renderInstalledPropeller(poseStack, opaque, hp, part, chassisId, rotorAngle, packedLight);
+            } else if (part.type() == HardpointType.LANDING_GEAR) {
+                renderInstalledLandingGear(poseStack, opaque, hp, size, gearProgress, steer, packedLight);
             } else {
                 renderInstalledPart(poseStack, opaque, hp, part, size, halfW, halfL, entity.clientWheelSpin, steer, packedLight);
             }
@@ -213,31 +253,32 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
         ObjMeshModel.Group doorLeftGlass = chassisModel.getGroup("door_left_glass");
         if (doorLeftGlass != null) {
             poseStack.pushPose();
-            (isLightHeli ? DOOR_LEFT_HELI : DOOR_LEFT_SEV).apply(poseStack, doorOpen);
+            (isLightPlane ? DOOR_LEFT_PLANE : (isLightHeli ? DOOR_LEFT_HELI : DOOR_LEFT_SEV)).apply(poseStack, doorOpen);
             doorLeftGlass.render(poseStack, glassConsumer, 1.0F, 1.0F, 1.0F, 1.0F, packedLight);
             poseStack.popPose();
         }
         ObjMeshModel.Group doorRightGlass = chassisModel.getGroup("door_right_glass");
         if (doorRightGlass != null) {
             poseStack.pushPose();
-            (isLightHeli ? DOOR_RIGHT_HELI : DOOR_RIGHT_SEV).apply(poseStack, doorOpen);
+            (isLightPlane ? DOOR_RIGHT_PLANE : (isLightHeli ? DOOR_RIGHT_HELI : DOOR_RIGHT_SEV)).apply(poseStack, doorOpen);
             doorRightGlass.render(poseStack, glassConsumer, 1.0F, 1.0F, 1.0F, 1.0F, packedLight);
             poseStack.popPose();
         }
 
-        // 4b. Render translucent radial Rotor Blur Discs above 600 RPM (Sodium/Iris safe!)
-        if (isRotorcraft && rotorRpm >= ModularVehicleEntity.BLUR_DISC_RPM_THRESHOLD) {
+        // 4b. Render translucent radial Rotor / Propeller Blur Discs above 600 RPM (Sodium/Iris safe!)
+        if ((isRotorcraft || isFixedWing) && rotorRpm >= ModularVehicleEntity.BLUR_DISC_RPM_THRESHOLD) {
             float blurAlpha = Mth.clamp((rotorRpm - ModularVehicleEntity.BLUR_DISC_RPM_THRESHOLD) / 360.0F, 0.15F, 0.85F);
             VertexConsumer blurConsumer = bufferSource.getBuffer(RenderType.entityTranslucent(ROTOR_BLUR_TEX));
             for (VehicleHardpoint hp : chassis.hardpoints()) {
-                if (hp.type() != HardpointType.ROTOR) {
-                    continue;
-                }
                 ResourceLocation partId = cfg.getPart(hp.id());
-                if (partId == null || VehicleRegistry.PART_VTOL_THRUSTER.equals(partId)) {
+                if (partId == null) {
                     continue;
                 }
-                renderRotorBlurDisc(poseStack, blurConsumer, hp, chassisId, partId, rotorAngle, blurAlpha, packedLight);
+                if (hp.type() == HardpointType.ROTOR && !VehicleRegistry.PART_VTOL_THRUSTER.equals(partId)) {
+                    renderRotorBlurDisc(poseStack, blurConsumer, hp, chassisId, partId, rotorAngle, blurAlpha, packedLight);
+                } else if (hp.type() == HardpointType.PROPELLER) {
+                    renderPropellerBlurDisc(poseStack, blurConsumer, hp, chassisId, partId, rotorAngle, blurAlpha, packedLight);
+                }
             }
         }
 
@@ -358,11 +399,162 @@ public class ModularVehicleRenderer extends EntityRenderer<ModularVehicleEntity>
         if (VehicleRegistry.CHASSIS_HEAVY_VTOL.equals(chassisId)) {
             return MODEL_HEAVY_VTOL;
         }
+        if (VehicleRegistry.CHASSIS_LIGHT_AIRPLANE.equals(chassisId)) {
+            return MODEL_LIGHT_AIRPLANE;
+        }
+        if (VehicleRegistry.CHASSIS_CARGO_AIRPLANE.equals(chassisId)) {
+            return MODEL_CARGO_AIRPLANE;
+        }
         return switch (size) {
             case SMALL -> MODEL_APOLLO_LRV;
             case MEDIUM -> MODEL_NASA_SEV;
             case LARGE -> MODEL_MARS_HABITAT;
         };
+    }
+
+    private void renderBareWingSpar(PoseStack ps, VertexConsumer c, VehicleHardpoint hp, int light) {
+        float x = (float) hp.localX();
+        float y = (float) hp.localY();
+        float z = (float) hp.localZ();
+        float dir = x < 0.0F ? -1.0F : 1.0F;
+        float x0 = Math.min(x, x + dir * 0.42F);
+        float x1 = Math.max(x, x + dir * 0.42F);
+        drawAtlasBox(ps, c, 2, 0, x0, y - 0.08F, z - 0.22F, x1, y + 0.08F, z + 0.22F, light);
+    }
+
+    private void renderBarePropShaft(PoseStack ps, VertexConsumer c, VehicleHardpoint hp, int light) {
+        float x = (float) hp.localX();
+        float y = (float) hp.localY();
+        float z = (float) hp.localZ();
+        drawAtlasBox(ps, c, 2, 0, x - 0.08F, y - 0.08F, z - 0.12F, x + 0.08F, y + 0.08F, z + 0.14F, light);
+    }
+
+    private void renderBareGearMount(PoseStack ps, VertexConsumer c, VehicleHardpoint hp, int light) {
+        float x = (float) hp.localX();
+        float y = (float) hp.localY();
+        float z = (float) hp.localZ();
+        drawAtlasBox(ps, c, 2, 0, x - 0.12F, y - 0.06F, z - 0.12F, x + 0.12F, y + 0.08F, z + 0.12F, light);
+    }
+
+    private void renderInstalledWing(
+            PoseStack ps, VertexConsumer c,
+            VehicleHardpoint hp, VehiclePartDefinition part,
+            float aileronInput, int light
+    ) {
+        ObjMeshModel wingObj = ObjModelLoader.getOrLoad(MODEL_AIRPLANE_WING);
+        boolean isLeft = hp.localX() < 0.0 || hp.id().contains("left");
+        String side = isLeft ? "left" : "right";
+        String prefix;
+        float aileronHingeZ;
+        if (VehicleRegistry.PART_HIGH_ASPECT_MARS_WING.equals(part.id())) {
+            prefix = "mars";
+            aileronHingeZ = -0.15F;
+        } else if (VehicleRegistry.PART_HEAVY_CARGO_WING.equals(part.id())) {
+            prefix = "cargo";
+            aileronHingeZ = -0.30F;
+        } else {
+            prefix = "std";
+            aileronHingeZ = -0.22F;
+        }
+
+        ps.pushPose();
+        ps.translate(hp.localX(), hp.localY(), hp.localZ());
+        ObjMeshModel.Group wingGroup = wingObj.getGroup(prefix + "_" + side);
+        if (wingGroup != null) {
+            wingGroup.render(ps, c, 1.0F, 1.0F, 1.0F, 1.0F, light);
+        }
+        ObjMeshModel.Group aileronGroup = wingObj.getGroup(prefix + "_aileron_" + side);
+        if (aileronGroup != null) {
+            // Left and right ailerons deflect oppositely to induce roll
+            float deflectDeg = aileronInput * (isLeft ? -24.0F : 24.0F);
+            ps.pushPose();
+            ps.translate(0.0F, 0.0F, aileronHingeZ);
+            ps.mulPose(Axis.XP.rotationDegrees(deflectDeg));
+            ps.translate(0.0F, 0.0F, -aileronHingeZ);
+            aileronGroup.render(ps, c, 1.0F, 1.0F, 1.0F, 1.0F, light);
+            ps.popPose();
+        }
+        ps.popPose();
+    }
+
+    private void renderInstalledPropeller(
+            PoseStack ps, VertexConsumer c,
+            VehicleHardpoint hp, VehiclePartDefinition part,
+            ResourceLocation chassisId, float propAngle, int light
+    ) {
+        ObjMeshModel propObj = ObjModelLoader.getOrLoad(MODEL_ELECTRIC_PROPELLER);
+        float scale = VehicleRegistry.CHASSIS_CARGO_AIRPLANE.equals(chassisId) ? 1.25F : 1.02F;
+        float dir = hp.id().contains("right") ? -1.0F : 1.0F;
+
+        ps.pushPose();
+        ps.translate(hp.localX(), hp.localY(), hp.localZ());
+        ps.scale(scale, scale, scale);
+        if (VehicleRegistry.PART_HIGH_SPEED_DUCTED_FAN.equals(part.id())) {
+            ObjMeshModel.Group shroud = propObj.getGroup("duct_shroud");
+            if (shroud != null) {
+                shroud.render(ps, c, 1.0F, 1.0F, 1.0F, 1.0F, light);
+            }
+            ObjMeshModel.Group blades = propObj.getGroup("blades_ducted");
+            if (blades != null) {
+                ps.pushPose();
+                ps.mulPose(Axis.ZP.rotation(propAngle * dir));
+                blades.render(ps, c, 1.0F, 1.0F, 1.0F, 1.0F, light);
+                ps.popPose();
+            }
+        } else {
+            ObjMeshModel.Group hub = propObj.getGroup("hub");
+            if (hub != null) {
+                hub.render(ps, c, 1.0F, 1.0F, 1.0F, 1.0F, light);
+            }
+            ObjMeshModel.Group blades = propObj.getGroup("blades_prop");
+            if (blades != null) {
+                ps.pushPose();
+                ps.mulPose(Axis.ZP.rotation(propAngle * dir));
+                blades.render(ps, c, 1.0F, 1.0F, 1.0F, 1.0F, light);
+                ps.popPose();
+            }
+        }
+        ps.popPose();
+    }
+
+    private void renderPropellerBlurDisc(
+            PoseStack ps, VertexConsumer c,
+            VehicleHardpoint hp, ResourceLocation chassisId, ResourceLocation partId,
+            float propAngle, float alpha, int light
+    ) {
+        float scale = VehicleRegistry.CHASSIS_CARGO_AIRPLANE.equals(chassisId) ? 1.25F : 1.02F;
+        float radius = (VehicleRegistry.PART_HIGH_SPEED_DUCTED_FAN.equals(partId) ? 0.58F : 0.90F) * scale;
+        ps.pushPose();
+        ps.translate(hp.localX(), hp.localY(), hp.localZ() + 0.06F * scale);
+        // Rotate horizontal disc into XY plane facing +Z propeller sweep
+        ps.mulPose(Axis.XP.rotationDegrees(90.0F));
+        ps.mulPose(Axis.YP.rotation(propAngle * 0.40F));
+        drawBlurDiscQuad(ps, c, radius, alpha, light);
+        ps.popPose();
+    }
+
+    private void renderInstalledLandingGear(
+            PoseStack ps, VertexConsumer c,
+            VehicleHardpoint hp, VehicleSizeClass size,
+            float gearProgress, float steerDeg, int light
+    ) {
+        ObjMeshModel gearObj = ObjModelLoader.getOrLoad(MODEL_RETRACTABLE_GEAR);
+        float scale = size == VehicleSizeClass.LARGE ? 1.22F : 1.0F;
+        boolean isNose = hp.id().contains("nose");
+
+        ps.pushPose();
+        ps.translate(hp.localX(), hp.localY() + gearProgress * 0.34F, hp.localZ());
+        if (isNose && gearProgress < 0.25F) {
+            ps.mulPose(Axis.YP.rotationDegrees(-steerDeg * 0.65F));
+        }
+        // Fold strut neatly rearward/upward into fuselage/wing bay during GEAR_TRANSIT
+        ps.mulPose(Axis.XP.rotationDegrees(gearProgress * 76.0F));
+        ps.scale(scale, scale, scale);
+        ObjMeshModel.Group strut = gearObj.getGroup("gear_strut");
+        if (strut != null) {
+            strut.render(ps, c, 1.0F, 1.0F, 1.0F, 1.0F, light);
+        }
+        ps.popPose();
     }
 
     private static float rotorScaleFor(ResourceLocation chassisId, String hardpointId) {

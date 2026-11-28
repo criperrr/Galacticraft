@@ -50,7 +50,10 @@ public record VehiclePartDefinition(
         boolean rtgTrickle,
         double rotorSweptAreaM2,
         double rotorLiftFactor,
-        double vacuumThrustN
+        double vacuumThrustN,
+        double wingAreaM2,
+        double wingMaxCl,
+        double propThrustN
 ) {
     public VehiclePartDefinition(
             @NotNull ResourceLocation id,
@@ -73,7 +76,36 @@ public record VehiclePartDefinition(
         this(
                 id, translationKey, type, sizeClass, massKg, driveForceN, maxSpeedBlocksPerTick,
                 powerOutputW, energyCapacity, fuelCapacity, cargoSlots, seatRole, exitSideOffset,
-                skidSteerCapable, solarRecharging, rtgTrickle, 0.0, 0.0, 0.0
+                skidSteerCapable, solarRecharging, rtgTrickle, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
+        );
+    }
+
+    public VehiclePartDefinition(
+            @NotNull ResourceLocation id,
+            @NotNull String translationKey,
+            @NotNull HardpointType type,
+            @NotNull VehicleSizeClass sizeClass,
+            double massKg,
+            double driveForceN,
+            double maxSpeedBlocksPerTick,
+            double powerOutputW,
+            long energyCapacity,
+            long fuelCapacity,
+            int cargoSlots,
+            @Nullable SeatRole seatRole,
+            double exitSideOffset,
+            boolean skidSteerCapable,
+            boolean solarRecharging,
+            boolean rtgTrickle,
+            double rotorSweptAreaM2,
+            double rotorLiftFactor,
+            double vacuumThrustN
+    ) {
+        this(
+                id, translationKey, type, sizeClass, massKg, driveForceN, maxSpeedBlocksPerTick,
+                powerOutputW, energyCapacity, fuelCapacity, cargoSlots, seatRole, exitSideOffset,
+                skidSteerCapable, solarRecharging, rtgTrickle, rotorSweptAreaM2, rotorLiftFactor, vacuumThrustN,
+                0.0, 0.0, 0.0
         );
     }
 
@@ -92,9 +124,20 @@ public record VehiclePartDefinition(
         rotorSweptAreaM2 = Math.max(0.0, rotorSweptAreaM2);
         rotorLiftFactor = Math.max(0.0, rotorLiftFactor);
         vacuumThrustN = Math.max(0.0, vacuumThrustN);
+        wingAreaM2 = Math.max(0.0, wingAreaM2);
+        wingMaxCl = Math.max(0.0, wingMaxCl);
+        propThrustN = Math.max(0.0, propThrustN);
     }
 
     public boolean isVacuumThruster() {
         return this.type == HardpointType.ROTOR && this.vacuumThrustN > 0.0;
+    }
+
+    public boolean isWing() {
+        return this.type == HardpointType.WING && this.wingAreaM2 > 0.0;
+    }
+
+    public boolean isPropeller() {
+        return this.type == HardpointType.PROPELLER && this.propThrustN > 0.0;
     }
 }

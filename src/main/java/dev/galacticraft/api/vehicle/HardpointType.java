@@ -32,6 +32,9 @@ import org.jetbrains.annotations.NotNull;
 public enum HardpointType implements StringRepresentable {
     LOCOMOTION("locomotion"),
     ROTOR("rotor"),
+    WING("wing"),
+    PROPELLER("propeller"),
+    LANDING_GEAR("landing_gear"),
     MOTOR("motor"),
     POWERPLANT("powerplant"),
     SEAT("seat"),
