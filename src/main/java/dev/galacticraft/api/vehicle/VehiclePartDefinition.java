@@ -47,8 +47,36 @@ public record VehiclePartDefinition(
         double exitSideOffset,
         boolean skidSteerCapable,
         boolean solarRecharging,
-        boolean rtgTrickle
+        boolean rtgTrickle,
+        double rotorSweptAreaM2,
+        double rotorLiftFactor,
+        double vacuumThrustN
 ) {
+    public VehiclePartDefinition(
+            @NotNull ResourceLocation id,
+            @NotNull String translationKey,
+            @NotNull HardpointType type,
+            @NotNull VehicleSizeClass sizeClass,
+            double massKg,
+            double driveForceN,
+            double maxSpeedBlocksPerTick,
+            double powerOutputW,
+            long energyCapacity,
+            long fuelCapacity,
+            int cargoSlots,
+            @Nullable SeatRole seatRole,
+            double exitSideOffset,
+            boolean skidSteerCapable,
+            boolean solarRecharging,
+            boolean rtgTrickle
+    ) {
+        this(
+                id, translationKey, type, sizeClass, massKg, driveForceN, maxSpeedBlocksPerTick,
+                powerOutputW, energyCapacity, fuelCapacity, cargoSlots, seatRole, exitSideOffset,
+                skidSteerCapable, solarRecharging, rtgTrickle, 0.0, 0.0, 0.0
+        );
+    }
+
     public VehiclePartDefinition {
         Objects.requireNonNull(id, "id");
         Objects.requireNonNull(translationKey, "translationKey");
@@ -61,5 +89,12 @@ public record VehiclePartDefinition(
         energyCapacity = Math.max(0L, energyCapacity);
         fuelCapacity = Math.max(0L, fuelCapacity);
         cargoSlots = Math.max(0, cargoSlots);
+        rotorSweptAreaM2 = Math.max(0.0, rotorSweptAreaM2);
+        rotorLiftFactor = Math.max(0.0, rotorLiftFactor);
+        vacuumThrustN = Math.max(0.0, vacuumThrustN);
+    }
+
+    public boolean isVacuumThruster() {
+        return this.type == HardpointType.ROTOR && this.vacuumThrustN > 0.0;
     }
 }

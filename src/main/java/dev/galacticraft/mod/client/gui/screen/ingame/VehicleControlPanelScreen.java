@@ -29,6 +29,7 @@ import dev.galacticraft.api.vehicle.VehicleRegistry;
 import dev.galacticraft.mod.Constant;
 import dev.galacticraft.mod.content.entity.vehicle.ModularVehicleEntity;
 import dev.galacticraft.mod.content.item.GCItems;
+import dev.galacticraft.mod.content.rocket.physics.PlanetaryEnvironment;
 import dev.galacticraft.mod.network.c2s.VehicleControlActionPayload;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gui.GuiGraphics;
@@ -259,6 +260,19 @@ public class VehicleControlPanelScreen extends Screen {
                 warn = warn.substring(0, 52) + "..";
             }
             g.drawString(this.font, warn, x + 10, barY, 0xFFFF6E6E, false);
+        } else if (this.vehicle.isRotorcraft()) {
+            PlanetaryEnvironment env = PlanetaryEnvironment.fromLevel(this.vehicle.level());
+            double twr = stats.computeRotorTwr(env.gravityG(), env.pressureAtm());
+            long energyKj = this.vehicle.getConfiguration().storedEnergy() / 1000L;
+            long capKj = Math.max(1L, stats.energyCapacity() / 1000L);
+            if (stats.isBlockedByVacuum(env.pressureAtm())) {
+                g.drawString(this.font, "VÁCUO! INSTALE PROPULSORES VTOL ELÉTRICOS  |  BAT " + energyKj + "/" + capKj + " kJ", x + 10, barY, 0xFFFF6E6E, false);
+            } else {
+                String mode = stats.hasVacuumThrusters() ? "VTOL" : "ROTOR";
+                String telemetry = String.format("%s %d RPM | AGL %.1fm | TWR %.2f | BAT %d/%d kJ",
+                        mode, Math.round(this.vehicle.getRotorRpm()), this.vehicle.computeAltitudeAgl(), Math.min(twr, 99.0), energyKj, capKj);
+                g.drawString(this.font, telemetry, x + 10, barY, twr >= 1.0 ? 0xFF7CE8FF : 0xFFFFB84D, false);
+            }
         } else {
             double kmh = Math.abs(this.vehicle.getSyncedSpeed()) * 72.0;
             long energyKj = this.vehicle.getConfiguration().storedEnergy() / 1000L;

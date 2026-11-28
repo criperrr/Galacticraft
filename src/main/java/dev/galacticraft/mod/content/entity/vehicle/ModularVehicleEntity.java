@@ -23,6 +23,7 @@
 package dev.galacticraft.mod.content.entity.vehicle;
 
 import dev.galacticraft.api.entity.ControllableEntity;
+import dev.galacticraft.api.entity.IgnoreShift;
 import dev.galacticraft.api.vehicle.HardpointType;
 import dev.galacticraft.api.vehicle.SeatRole;
 import dev.galacticraft.api.vehicle.SeatSpec;
@@ -36,11 +37,13 @@ import dev.galacticraft.api.vehicle.VehicleRegistry;
 import dev.galacticraft.api.vehicle.VehicleSizeClass;
 import dev.galacticraft.mod.content.GCEntityTypes;
 import dev.galacticraft.mod.content.entity.data.GCEntityDataSerializers;
+import dev.galacticraft.mod.content.item.DroneRemoteControllerItem;
 import dev.galacticraft.mod.content.item.GCItems;
 import dev.galacticraft.mod.content.item.VehicleCrateItem;
 import dev.galacticraft.mod.content.item.VehiclePartItem;
 import dev.galacticraft.mod.content.item.VehicleWrenchItem;
 import dev.galacticraft.mod.content.rocket.physics.PlanetaryEnvironment;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -85,7 +88,11 @@ import java.util.List;
  * multi-part child hitboxes for {@code MEDIUM}/{@code LARGE} chassis, and
  * packing into a {@link VehicleCrateItem} for rocket cargo transport.
  */
-public class ModularVehicleEntity extends GCVehicle implements ControllableEntity {
+public class ModularVehicleEntity extends GCVehicle implements ControllableEntity, IgnoreShift {
+    public static final float MAX_CYCLIC_TILT_DEG = 22.0F;
+    public static final float BLUR_DISC_RPM_THRESHOLD = 600.0F;
+    public static final double GEAR_RETRACT_AGL_BLOCKS = 4.0;
+
     private static final EntityDataAccessor<VehicleConfiguration> DATA_CONFIG = SynchedEntityData.defineId(
             ModularVehicleEntity.class, GCEntityDataSerializers.VEHICLE_CONFIGURATION
     );
@@ -110,6 +117,18 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
     private static final EntityDataAccessor<Boolean> DATA_PARKING_BRAKE = SynchedEntityData.defineId(
             ModularVehicleEntity.class, EntityDataSerializers.BOOLEAN
     );
+    private static final EntityDataAccessor<Float> DATA_ROTOR_RPM = SynchedEntityData.defineId(
+            ModularVehicleEntity.class, EntityDataSerializers.FLOAT
+    );
+    private static final EntityDataAccessor<Float> DATA_CYCLIC_PITCH = SynchedEntityData.defineId(
+            ModularVehicleEntity.class, EntityDataSerializers.FLOAT
+    );
+    private static final EntityDataAccessor<Float> DATA_CYCLIC_ROLL = SynchedEntityData.defineId(
+            ModularVehicleEntity.class, EntityDataSerializers.FLOAT
+    );
+    private static final EntityDataAccessor<Float> DATA_GEAR_PROGRESS = SynchedEntityData.defineId(
+            ModularVehicleEntity.class, EntityDataSerializers.FLOAT
+    );
 
     private VehicleDerivedStats derivedStats = VehicleRegistry.computeStats(VehicleConfiguration.emptyChassis(VehicleRegistry.CHASSIS_SCOUT_ROVER));
     private SimpleContainer cargoInventory = new SimpleContainer(0);
@@ -121,15 +140,34 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
     private boolean inputLeft;
     private boolean inputRight;
     private boolean inputBrake;
+    private boolean inputDescend;
     private int inputHoldTicks;
+
+    // Transient remote drone pilot state (server-authoritative for SMALL unmanned drones)
+    private float remoteForward;
+    private float remoteStrafe;
+    private float remoteYawDelta;
+    private float remoteCollective;
+    private int remoteHoldTicks;
+    private @Nullable Player lastRemotePilot;
+    private int warningCooldownTicks;
+    private @Nullable PlanetaryEnvironment environmentOverrideForTest;
 
     // Physics state
     private double forwardSpeed;
+    private double horizVx;
+    private double horizVz;
     private float steeringAngle;
+    private float localRotorRpm;
+    private float localCyclicPitch;
+    private float localCyclicRoll;
+    private float localGearProgress;
     public float clientWheelSpin;
     public float clientDoorProgress;
     public float clientPitch;
     public float clientRoll;
+    public float clientRotorAngle;
+    public float clientGearProgress;
 
     public ModularVehicleEntity(EntityType<?> entityType, Level level) {
         super(entityType, level);
@@ -147,6 +185,10 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
         builder.define(DATA_HEADLIGHTS_ON, true);
         builder.define(DATA_DOORS_OPEN, false);
         builder.define(DATA_PARKING_BRAKE, false);
+        builder.define(DATA_ROTOR_RPM, 0.0F);
+        builder.define(DATA_CYCLIC_PITCH, 0.0F);
+        builder.define(DATA_CYCLIC_ROLL, 0.0F);
+        builder.define(DATA_GEAR_PROGRESS, 0.0F);
     }
 
     @Override
@@ -199,6 +241,34 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
         return this.isControlledByLocalInstance() ? (float) this.forwardSpeed : this.entityData.get(DATA_SPEED);
     }
 
+    public boolean isRotorcraft() {
+        return this.derivedStats.isRotorcraft();
+    }
+
+    /**
+     * Returns {@code true} for unmanned {@code SMALL} rotorcraft drones (e.g., Micro-Drone / Quadcopter)
+     * that can be paired and piloted remotely via {@link DroneRemoteControllerItem}.
+     */
+    public boolean isRemoteControllableDrone() {
+        return this.isRotorcraft() && this.derivedStats.sizeClass() == VehicleSizeClass.SMALL;
+    }
+
+    public float getRotorRpm() {
+        return this.isControlledByLocalInstance() ? this.localRotorRpm : this.entityData.get(DATA_ROTOR_RPM);
+    }
+
+    public float getCyclicPitchDeg() {
+        return this.isControlledByLocalInstance() ? this.localCyclicPitch : this.entityData.get(DATA_CYCLIC_PITCH);
+    }
+
+    public float getCyclicRollDeg() {
+        return this.isControlledByLocalInstance() ? this.localCyclicRoll : this.entityData.get(DATA_CYCLIC_ROLL);
+    }
+
+    public float getGearProgress() {
+        return this.isControlledByLocalInstance() ? this.localGearProgress : this.entityData.get(DATA_GEAR_PROGRESS);
+    }
+
     public boolean isEngineRunning() {
         return this.entityData.get(DATA_ENGINE_ON);
     }
@@ -213,6 +283,71 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
 
     public boolean isParkingBrakeOn() {
         return this.entityData.get(DATA_PARKING_BRAKE);
+    }
+
+    @Override
+    public boolean shouldIgnoreShiftExit() {
+        return this.isRotorcraft() && (!this.onGround() || this.computeAltitudeAgl() > 0.35);
+    }
+
+    @Override
+    public boolean causeFallDamage(float fallDistance, float multiplier, DamageSource source) {
+        if (this.isRotorcraft()) {
+            return false;
+        }
+        return super.causeFallDamage(fallDistance, multiplier, source);
+    }
+
+    @Override
+    public void lerpTo(double x, double y, double z, float yaw, float pitch, int interpolationSteps) {
+        super.lerpTo(x, y, z, yaw, pitch, this.isRotorcraft() ? 3 : interpolationSteps);
+    }
+
+    /**
+     * Applies remote-pilot flight inputs streamed from {@link dev.galacticraft.mod.network.c2s.DroneRemoteControlPayload}.
+     */
+    public void applyRemoteControlInput(
+            @NotNull Player pilot,
+            float forward,
+            float strafe,
+            float yawDelta,
+            float collective,
+            boolean toggleLights,
+            boolean toggleEngine
+    ) {
+        if (!this.isRemoteControllableDrone()) {
+            return;
+        }
+        this.remoteForward = Mth.clamp(forward, -1.0F, 1.0F);
+        this.remoteStrafe = Mth.clamp(strafe, -1.0F, 1.0F);
+        this.remoteYawDelta = Mth.clamp(yawDelta, -18.0F, 18.0F);
+        this.remoteCollective = Mth.clamp(collective, -1.0F, 1.0F);
+        this.remoteHoldTicks = 4;
+        this.lastRemotePilot = pilot;
+        if (toggleLights) {
+            this.handlePanelAction(pilot, "toggle_headlights", "", "");
+        }
+        if (toggleEngine) {
+            this.handlePanelAction(pilot, "toggle_ignition", "", "");
+        }
+    }
+
+    /**
+     * Measures vertical clearance above solid ground in blocks (up to 12 blocks) for landing gear automation
+     * and cockpit altitude AGL telemetry.
+     */
+    public double computeAltitudeAgl() {
+        if (this.onGround()) {
+            return 0.0;
+        }
+        BlockPos start = this.blockPosition();
+        for (int dy = 0; dy <= 12; dy++) {
+            BlockPos check = start.below(dy);
+            if (!this.level().getBlockState(check).getCollisionShape(this.level(), check).isEmpty()) {
+                return Math.max(0.0, this.getY() - (check.getY() + 1.0));
+            }
+        }
+        return 12.0;
     }
 
     public void handlePanelAction(@NotNull Player player, @NotNull String action, @NotNull String targetSlot, @NotNull String value) {
@@ -408,6 +543,7 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
         this.inputLeft = left || leftImpulse > 0.05F;
         this.inputRight = right || leftImpulse < -0.05F;
         this.inputBrake = jumping;
+        this.inputDescend = shiftKeyDown;
         this.inputHoldTicks = 2;
     }
 
@@ -415,8 +551,18 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
     public void tick() {
         super.tick();
 
+        if (this.warningCooldownTicks > 0) {
+            this.warningCooldownTicks--;
+        }
+
         if (this.isControlledByLocalInstance()) {
-            this.tickDrivePhysics();
+            if (this.isRotorcraft()) {
+                this.tickRotorcraftPhysics();
+            } else {
+                this.tickDrivePhysics();
+            }
+        } else if (!this.level().isClientSide && this.isRotorcraft()) {
+            this.tickServerSeatedRotorcraftSync();
         }
 
         if (!this.level().isClientSide) {
@@ -436,11 +582,304 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
             this.inputLeft = false;
             this.inputRight = false;
             this.inputBrake = false;
+            this.inputDescend = false;
+        }
+        if (this.remoteHoldTicks > 0) {
+            this.remoteHoldTicks--;
+        } else {
+            this.remoteForward = 0.0F;
+            this.remoteStrafe = 0.0F;
+            this.remoteYawDelta = 0.0F;
+            this.remoteCollective = 0.0F;
+            this.lastRemotePilot = null;
         }
     }
 
+    /**
+     * Optional planetary environment override for headless GameTests running on the flat test server.
+     */
+    public void setEnvironmentForTest(@Nullable PlanetaryEnvironment environment) {
+        this.environmentOverrideForTest = environment;
+    }
+
+    public @NotNull PlanetaryEnvironment resolveEnvironment() {
+        return this.environmentOverrideForTest != null
+                ? this.environmentOverrideForTest
+                : PlanetaryEnvironment.fromLevel(this.level());
+    }
+
+    private void tickRotorcraftPhysics() {
+        PlanetaryEnvironment env = this.resolveEnvironment();
+        LivingEntity seatedPilot = this.getControllingPassenger();
+        boolean hasSeatedPilot = seatedPilot != null;
+        boolean hasRemotePilot = !hasSeatedPilot && this.remoteHoldTicks > 0;
+        boolean hasAnyPilot = hasSeatedPilot || hasRemotePilot;
+
+        double twr = this.derivedStats.computeRotorTwr(env.gravityG(), env.pressureAtm());
+        boolean vacuumBlocked = this.derivedStats.isBlockedByVacuum(env.pressureAtm());
+        boolean canLift = hasAnyPilot && this.isEngineRunning() && !this.isParkingBrakeOn()
+                && this.derivedStats.isDrivable() && !vacuumBlocked && twr >= 1.0 && this.hasAvailablePower();
+
+        float fwdInput = hasSeatedPilot
+                ? (this.inputForward ? 1.0F : 0.0F) - (this.inputBackward ? 1.0F : 0.0F)
+                : (hasRemotePilot ? this.remoteForward : 0.0F);
+        float strafeInput = hasRemotePilot ? this.remoteStrafe : 0.0F;
+        float yawInput = hasSeatedPilot
+                ? ((this.inputRight ? 1.0F : 0.0F) - (this.inputLeft ? 1.0F : 0.0F)) * 3.1F
+                : (hasRemotePilot ? this.remoteYawDelta : 0.0F);
+        float collective = hasSeatedPilot
+                ? (this.inputBrake ? 1.0F : 0.0F) - (this.inputDescend ? 1.0F : 0.0F)
+                : (hasRemotePilot ? this.remoteCollective : 0.0F);
+
+        // Warn pilot if attempting takeoff while missing parts, out of battery, engine off, vacuum-blocked, or low TWR
+        if (hasAnyPilot && collective > 0.1F && !canLift && this.warningCooldownTicks == 0) {
+            Player targetPlayer = seatedPilot instanceof Player p ? p : this.lastRemotePilot;
+            if (targetPlayer != null) {
+                if (!this.derivedStats.missingRequiredHardpoints().isEmpty()) {
+                    targetPlayer.displayClientMessage(
+                            Component.translatable("message.galacticraft.vehicle.missing_parts",
+                                    String.join(", ", this.derivedStats.missingRequiredHardpoints())).withStyle(ChatFormatting.RED),
+                            true
+                    );
+                    this.warningCooldownTicks = 40;
+                } else if (!this.hasAvailablePower()) {
+                    targetPlayer.displayClientMessage(
+                            Component.translatable("message.galacticraft.vehicle.no_battery").withStyle(ChatFormatting.RED),
+                            true
+                    );
+                    this.warningCooldownTicks = 40;
+                } else if (!this.isEngineRunning()) {
+                    targetPlayer.displayClientMessage(
+                            Component.translatable("message.galacticraft.vehicle.engine_off").withStyle(ChatFormatting.YELLOW),
+                            true
+                    );
+                    this.warningCooldownTicks = 40;
+                } else if (vacuumBlocked) {
+                    targetPlayer.displayClientMessage(
+                            Component.translatable("message.galacticraft.vehicle.vacuum_rotor_blocked").withStyle(ChatFormatting.RED),
+                            true
+                    );
+                    this.warningCooldownTicks = 40;
+                } else if (this.derivedStats.isDrivable() && twr < 1.0) {
+                    targetPlayer.displayClientMessage(
+                            Component.translatable("message.galacticraft.vehicle.insufficient_twr", String.format("%.2f", twr)).withStyle(ChatFormatting.GOLD),
+                            true
+                    );
+                    this.warningCooldownTicks = 40;
+                }
+            }
+        }
+
+        // 1. Rotor RPM spool-up / spool-down (blur disc engages cleanly above 600 RPM)
+        float targetRpm = 0.0F;
+        if (this.isEngineRunning() && this.derivedStats.isDrivable() && this.hasAvailablePower()) {
+            if (canLift && (!this.onGround() || collective > 0.05F)) {
+                targetRpm = 940.0F + Math.max(0.0F, collective) * 340.0F;
+            } else if (hasAnyPilot) {
+                targetRpm = vacuumBlocked ? 260.0F : 480.0F;
+            } else {
+                targetRpm = 0.0F;
+            }
+        }
+        float rpmLerp = targetRpm > this.localRotorRpm ? 0.12F : 0.06F;
+        this.localRotorRpm = Mth.lerp(rpmLerp, this.localRotorRpm, targetRpm);
+        if (this.localRotorRpm < 1.0F) {
+            this.localRotorRpm = 0.0F;
+        }
+
+        // 2. Yaw rotation
+        if (Math.abs(yawInput) > 0.01F && (!this.onGround() || hasRemotePilot || canLift)) {
+            this.setYRot(this.getYRot() + yawInput);
+        }
+
+        // 3. Cyclic pitch & roll tilt (clamped to +/- 22 deg, coupled directly to horizontal acceleration)
+        float targetPitch = (!this.onGround() && canLift) ? Mth.clamp(fwdInput * MAX_CYCLIC_TILT_DEG, -MAX_CYCLIC_TILT_DEG, MAX_CYCLIC_TILT_DEG) : 0.0F;
+        float targetRoll;
+        if (!this.onGround() && canLift) {
+            if (hasRemotePilot) {
+                targetRoll = Mth.clamp(strafeInput * MAX_CYCLIC_TILT_DEG, -MAX_CYCLIC_TILT_DEG, MAX_CYCLIC_TILT_DEG);
+            } else {
+                targetRoll = Mth.clamp(-yawInput * 5.2F, -18.0F, 18.0F);
+            }
+        } else {
+            targetRoll = 0.0F;
+        }
+        this.localCyclicPitch = Mth.lerp(0.22F, this.localCyclicPitch, targetPitch);
+        this.localCyclicRoll = Mth.lerp(0.22F, this.localCyclicRoll, targetRoll);
+
+        // 4. Vertical collective lift vs planetary gravity
+        double gravityStep = 0.08 * Math.clamp(env.gravityG(), 0.0, 2.5);
+        double vy = this.getDeltaMovement().y;
+        boolean readyToFly = canLift && this.localRotorRpm >= 420.0F;
+        if (readyToFly) {
+            double maxClimbSpeed = Math.clamp(0.28 + Math.min(twr, 4.0) * 0.065, 0.28, 0.54);
+            double climbAccel = Math.clamp((twr - 1.0) * 0.04 + 0.036, 0.028, 0.085);
+            if (collective > 0.05F) {
+                vy = Math.min(maxClimbSpeed * collective, vy + climbAccel);
+            } else if (collective < -0.05F) {
+                vy = Math.max(-0.38 * Math.abs(collective), vy - 0.042);
+            } else {
+                // Stabilized hover hold when airborne; stay resting cleanly when grounded
+                vy = this.onGround() ? 0.0 : vy * 0.78;
+                if (Math.abs(vy) < 0.004) {
+                    vy = 0.0;
+                }
+            }
+            if (!this.level().isClientSide) {
+                this.consumeRotorPower(env, collective > 0.1F);
+            }
+        } else {
+            if (this.onGround()) {
+                vy = Math.max(0.0, vy);
+            } else {
+                // Soft autorotation descent if blades are spinning in atmosphere
+                double fallScale = (!vacuumBlocked && this.localRotorRpm > 200.0F) ? 0.55 : 1.0;
+                double terminal = (!vacuumBlocked && this.localRotorRpm > 200.0F) ? -0.45 : -1.25;
+                vy = Math.max(terminal, vy - gravityStep * fallScale);
+            }
+        }
+
+        // 5. Horizontal velocity coupled to cyclic tilt vector
+        double maxHorizSpeed = Math.max(0.38, this.derivedStats.maxSpeedBlocksPerTick());
+        if (!this.onGround() && readyToFly) {
+            double yawRad = Math.toRadians(this.getYRot());
+            double fx = -Math.sin(yawRad);
+            double fz = Math.cos(yawRad);
+            double rx = Math.cos(yawRad);
+            double rz = Math.sin(yawRad);
+
+            double pitchFactor = Math.sin(Math.toRadians(this.localCyclicPitch));
+            double rollFactor = hasRemotePilot ? Math.sin(Math.toRadians(this.localCyclicRoll)) : 0.0;
+            double horizAccel = 0.095 * (this.derivedStats.sizeClass() == VehicleSizeClass.SMALL ? 1.25 : 1.0);
+            this.horizVx += (fx * pitchFactor + rx * rollFactor) * horizAccel;
+            this.horizVz += (fz * pitchFactor + rz * rollFactor) * horizAccel;
+
+            double drag = env.pressureAtm() >= VehicleDerivedStats.MIN_AERO_PRESSURE_ATM ? 0.90 : 0.94;
+            this.horizVx *= drag;
+            this.horizVz *= drag;
+            double hSpeed = Math.hypot(this.horizVx, this.horizVz);
+            if (hSpeed > maxHorizSpeed) {
+                double scale = maxHorizSpeed / hSpeed;
+                this.horizVx *= scale;
+                this.horizVz *= scale;
+            }
+        } else {
+            double damp = this.onGround() ? 0.72 : 0.96;
+            this.horizVx *= damp;
+            this.horizVz *= damp;
+        }
+        if (Math.hypot(this.horizVx, this.horizVz) < 0.002) {
+            this.horizVx = 0.0;
+            this.horizVz = 0.0;
+        }
+
+        this.forwardSpeed = Math.hypot(this.horizVx, this.horizVz);
+        this.setDeltaMovement(this.horizVx, vy, this.horizVz);
+        this.move(MoverType.SELF, this.getDeltaMovement());
+        if (this.horizontalCollision) {
+            this.horizVx *= 0.25;
+            this.horizVz *= 0.25;
+        }
+
+        // 6. Retractable landing gear automation (GEAR_TRANSIT above 4.0 blocks AGL)
+        double agl = this.computeAltitudeAgl();
+        float targetGear = (!this.onGround() && agl > GEAR_RETRACT_AGL_BLOCKS) ? 1.0F : 0.0F;
+        this.localGearProgress = Mth.lerp(0.12F, this.localGearProgress, targetGear);
+        if (Math.abs(this.localGearProgress - targetGear) < 0.01F) {
+            this.localGearProgress = targetGear;
+        }
+
+        if (!this.level().isClientSide) {
+            this.entityData.set(DATA_ROTOR_RPM, this.localRotorRpm);
+            this.entityData.set(DATA_CYCLIC_PITCH, this.localCyclicPitch);
+            this.entityData.set(DATA_CYCLIC_ROLL, this.localCyclicRoll);
+            this.entityData.set(DATA_GEAR_PROGRESS, this.localGearProgress);
+            this.entityData.set(DATA_SPEED, (float) this.forwardSpeed);
+            this.entityData.set(DATA_ANIM_STATE,
+                    (this.localGearProgress > 0.04F && this.localGearProgress < 0.96F)
+                            ? VehicleAnimState.GEAR_TRANSIT
+                            : VehicleAnimState.NONE);
+        }
+    }
+
+    /**
+     * Keeps synced rotorcraft telemetry, landing gear animation state, pilot warnings, and
+     * electric power draw authoritative on the server while a seated player runs client-predicted flight.
+     */
+    private void tickServerSeatedRotorcraftSync() {
+        PlanetaryEnvironment env = this.resolveEnvironment();
+        LivingEntity pilot = this.getControllingPassenger();
+        boolean hasPilot = pilot != null;
+        double twr = this.derivedStats.computeRotorTwr(env.gravityG(), env.pressureAtm());
+        boolean vacuumBlocked = this.derivedStats.isBlockedByVacuum(env.pressureAtm());
+        boolean canLift = hasPilot && this.isEngineRunning() && !this.isParkingBrakeOn()
+                && this.derivedStats.isDrivable() && !vacuumBlocked && twr >= 1.0 && this.hasAvailablePower();
+
+        float collective = hasPilot ? (this.inputBrake ? 1.0F : 0.0F) - (this.inputDescend ? 1.0F : 0.0F) : 0.0F;
+        float fwdInput = hasPilot ? (this.inputForward ? 1.0F : 0.0F) - (this.inputBackward ? 1.0F : 0.0F) : 0.0F;
+        float yawInput = hasPilot ? ((this.inputRight ? 1.0F : 0.0F) - (this.inputLeft ? 1.0F : 0.0F)) * 3.1F : 0.0F;
+
+        if (hasPilot && collective > 0.1F && !canLift && this.warningCooldownTicks == 0 && pilot instanceof Player p) {
+            if (vacuumBlocked) {
+                p.displayClientMessage(Component.translatable("message.galacticraft.vehicle.vacuum_rotor_blocked").withStyle(ChatFormatting.RED), true);
+                this.warningCooldownTicks = 40;
+            } else if (this.derivedStats.isDrivable() && twr < 1.0) {
+                p.displayClientMessage(Component.translatable("message.galacticraft.vehicle.insufficient_twr", String.format("%.2f", twr)).withStyle(ChatFormatting.GOLD), true);
+                this.warningCooldownTicks = 40;
+            }
+        }
+
+        float targetRpm = 0.0F;
+        if (this.isEngineRunning() && this.derivedStats.isDrivable() && this.hasAvailablePower()) {
+            if (canLift && (!this.onGround() || collective > 0.05F)) {
+                targetRpm = 940.0F + Math.max(0.0F, collective) * 340.0F;
+            } else if (hasPilot) {
+                targetRpm = vacuumBlocked ? 260.0F : 480.0F;
+            }
+        }
+        this.localRotorRpm = Mth.lerp(targetRpm > this.localRotorRpm ? 0.12F : 0.06F, this.localRotorRpm, targetRpm);
+        float targetPitch = (!this.onGround() && canLift) ? Mth.clamp(fwdInput * MAX_CYCLIC_TILT_DEG, -MAX_CYCLIC_TILT_DEG, MAX_CYCLIC_TILT_DEG) : 0.0F;
+        float targetRoll = (!this.onGround() && canLift) ? Mth.clamp(-yawInput * 5.2F, -18.0F, 18.0F) : 0.0F;
+        this.localCyclicPitch = Mth.lerp(0.22F, this.localCyclicPitch, targetPitch);
+        this.localCyclicRoll = Mth.lerp(0.22F, this.localCyclicRoll, targetRoll);
+
+        double agl = this.computeAltitudeAgl();
+        float targetGear = (!this.onGround() && agl > GEAR_RETRACT_AGL_BLOCKS) ? 1.0F : 0.0F;
+        this.localGearProgress = Mth.lerp(0.12F, this.localGearProgress, targetGear);
+
+        if (canLift && (!this.onGround() || collective > 0.05F)) {
+            this.consumeRotorPower(env, collective > 0.1F);
+        }
+
+        this.entityData.set(DATA_ROTOR_RPM, this.localRotorRpm);
+        this.entityData.set(DATA_CYCLIC_PITCH, this.localCyclicPitch);
+        this.entityData.set(DATA_CYCLIC_ROLL, this.localCyclicRoll);
+        this.entityData.set(DATA_GEAR_PROGRESS, this.localGearProgress);
+        this.entityData.set(DATA_ANIM_STATE,
+                (this.localGearProgress > 0.04F && this.localGearProgress < 0.96F)
+                        ? VehicleAnimState.GEAR_TRANSIT
+                        : VehicleAnimState.NONE);
+    }
+
+    private void consumeRotorPower(@NotNull PlanetaryEnvironment env, boolean climbing) {
+        if (this.tickCount % 10 != 0) {
+            return;
+        }
+        VehicleConfiguration cfg = this.getConfiguration();
+        long energy = cfg.storedEnergy();
+        if (energy <= 0L) {
+            return;
+        }
+        boolean vacuumMode = env.pressureAtm() < VehicleDerivedStats.MIN_AERO_PRESSURE_ATM && this.derivedStats.hasVacuumThrusters();
+        long baseDrain = vacuumMode ? 22L : 12L;
+        if (climbing) {
+            baseDrain += 6L;
+        }
+        this.entityData.set(DATA_CONFIG, cfg.withResources(Math.max(0L, energy - baseDrain), 0L));
+    }
+
     private void tickDrivePhysics() {
-        PlanetaryEnvironment env = PlanetaryEnvironment.fromLevel(this.level());
+        PlanetaryEnvironment env = this.resolveEnvironment();
         boolean hasPilot = this.getControllingPassenger() != null;
         boolean canDrive = hasPilot && this.isEngineRunning() && !this.isParkingBrakeOn()
                 && this.derivedStats.isDrivable() && this.hasAvailablePower();
@@ -562,11 +1001,20 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
         this.clientWheelSpin += speed * 1.45F;
         float targetDoor = this.areDoorsOpen() ? 1.0F : 0.0F;
         this.clientDoorProgress = Mth.lerp(0.18F, this.clientDoorProgress, targetDoor);
+
+        if (this.isRotorcraft()) {
+            float rpm = this.getRotorRpm();
+            // Convert RPM to radians per tick (rpm / 60 rev/s / 20 ticks/s * 2pi)
+            this.clientRotorAngle = (this.clientRotorAngle + (float) (rpm * (Math.PI / 600.0))) % Mth.TWO_PI;
+            this.clientPitch = Mth.lerp(0.28F, this.clientPitch, this.getCyclicPitchDeg());
+            this.clientRoll = Mth.lerp(0.28F, this.clientRoll, this.getCyclicRollDeg());
+            this.clientGearProgress = Mth.lerp(0.20F, this.clientGearProgress, this.getGearProgress());
+        }
     }
 
     /**
      * Returns the exact vehicle-local bounding box for each individual hardpoint
-     * (wheel-by-wheel hubs, electric motor, powerplant, seat, cargo, dashboard dial),
+     * (wheel-by-wheel hubs, rotor nacelles, electric motor, powerplant, seat, cargo, dashboard dial),
      * shared between the server-side 3D raycast and client-side wireframe highlights.
      */
     public @NotNull List<net.minecraft.world.phys.AABB> getHardpointLocalBoxes(@NotNull VehicleHardpoint hp) {
@@ -579,6 +1027,10 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
                 double wheelR = size == VehicleSizeClass.LARGE ? 0.66 : (size == VehicleSizeClass.MEDIUM ? 0.54 : 0.42);
                 double pad = wheelR + 0.08;
                 yield List.of(new net.minecraft.world.phys.AABB(x - 0.34, Math.max(0.0, y - pad), z - pad, x + 0.34, y + pad, z + pad));
+            }
+            case ROTOR -> {
+                double rad = size == VehicleSizeClass.LARGE ? 0.72 : (size == VehicleSizeClass.MEDIUM ? 0.56 : 0.42);
+                yield List.of(new net.minecraft.world.phys.AABB(x - rad, y - 0.24, z - rad, x + rad, y + 0.34, z + rad));
             }
             case MOTOR -> List.of(new net.minecraft.world.phys.AABB(x - 0.42, y, z - 0.38, x + 0.42, y + 0.52, z + 0.38));
             case DASHBOARD -> List.of(new net.minecraft.world.phys.AABB(x - 0.24, y - 0.22, z - 0.22, x + 0.24, y + 0.22, z + 0.22));
@@ -613,6 +1065,16 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
         Vec3 localDir = new Vec3(lookWorld.x * cos + lookWorld.z * sin, lookWorld.y, -lookWorld.x * sin + lookWorld.z * cos);
         Vec3 localEnd = localOrigin.add(localDir.scale(6.5));
 
+        ResourceLocation chassisId = this.getChassisDefinition().id();
+        if (VehicleRegistry.CHASSIS_LIGHT_HELICOPTER.equals(chassisId)) {
+            var leftDoor = new net.minecraft.world.phys.AABB(-1.18, 0.72, -0.26, -0.88, 1.98, 1.22);
+            var rightDoor = new net.minecraft.world.phys.AABB(0.88, 0.72, -0.26, 1.18, 1.98, 1.22);
+            return leftDoor.clip(localOrigin, localEnd).isPresent() || rightDoor.clip(localOrigin, localEnd).isPresent();
+        }
+        if (VehicleRegistry.CHASSIS_HEAVY_VTOL.equals(chassisId)) {
+            var vtolRamp = new net.minecraft.world.phys.AABB(-1.08, 0.80, -2.92, 1.08, 2.40, -2.45);
+            return vtolRamp.clip(localOrigin, localEnd).isPresent();
+        }
         if (size == VehicleSizeClass.MEDIUM) {
             var leftDoor = new net.minecraft.world.phys.AABB(-1.42, 0.96, -0.22, -1.06, 2.26, 1.84);
             var rightDoor = new net.minecraft.world.phys.AABB(1.06, 0.96, -0.22, 1.42, 2.26, 1.84);
@@ -687,7 +1149,21 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
             return InteractionResult.SUCCESS;
         }
 
-        // 2. Wrench: Shift+Right-Click packs into VehicleCrateItem; Right-Click detaches last part
+        // 1b. Drone Remote Controller pairing on SMALL unmanned rotorcraft drones
+        if (held.getItem() instanceof DroneRemoteControllerItem) {
+            if (!this.level().isClientSide) {
+                if (!this.isRemoteControllableDrone()) {
+                    player.displayClientMessage(Component.translatable("message.galacticraft.drone_remote.only_small_drone").withStyle(ChatFormatting.YELLOW), true);
+                    return InteractionResult.CONSUME;
+                }
+                DroneRemoteControllerItem.linkDrone(held, this);
+                this.level().playSound(null, this.blockPosition(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 0.7F, 1.35F);
+                player.displayClientMessage(Component.translatable("message.galacticraft.drone_remote.linked").withStyle(ChatFormatting.GREEN), true);
+            }
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
+        }
+
+        // 2. Wrench: Shift+Right-Click packs into VehicleCrateItem; Right-Click detaches aimed part
         if (held.getItem() instanceof VehicleWrenchItem) {
             if (!this.level().isClientSide) {
                 if (player.isShiftKeyDown()) {
@@ -721,8 +1197,12 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
 
-        // 4. Mount seat
+        // 5. Mount seat (or direct player to Drone Remote Controller for unmanned micro-drones)
         if (!this.level().isClientSide) {
+            if (this.isRemoteControllableDrone()) {
+                player.displayClientMessage(Component.translatable("message.galacticraft.vehicle.drone_use_remote").withStyle(ChatFormatting.AQUA), true);
+                return InteractionResult.CONSUME;
+            }
             if (this.derivedStats.seats().isEmpty()) {
                 player.displayClientMessage(Component.translatable("message.galacticraft.vehicle.no_seat_installed"), true);
                 return InteractionResult.CONSUME;
@@ -764,10 +1244,11 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
         }
 
         VehicleConfiguration updated = current.withPart(bestTarget.id(), partId);
-        // Top up starter energy/fuel on initial powerplant install so freshly assembled vehicles can be tested right away
-        if (part.type() == HardpointType.POWERPLANT) {
-            long nextEnergy = Math.min(updated.storedEnergy() + part.energyCapacity() / 2, this.derivedStats.energyCapacity() + part.energyCapacity());
-            long nextFuel = Math.min(updated.storedFuel() + part.fuelCapacity() / 2, this.derivedStats.fuelCapacity() + part.fuelCapacity());
+        // Fully charge newly installed electric powerplant (or motor buffer) so hand-assembled vehicles work immediately
+        if (part.type() == HardpointType.POWERPLANT || part.type() == HardpointType.MOTOR) {
+            long newCap = this.derivedStats.energyCapacity() + part.energyCapacity();
+            long nextEnergy = Math.min(updated.storedEnergy() + part.energyCapacity(), newCap);
+            long nextFuel = Math.min(updated.storedFuel() + part.fuelCapacity(), this.derivedStats.fuelCapacity() + part.fuelCapacity());
             updated = updated.withResources(nextEnergy, nextFuel);
         }
         this.setConfiguration(updated);
@@ -874,18 +1355,45 @@ public class ModularVehicleEntity extends GCVehicle implements ControllableEntit
         List<SeatSpec> seats = this.derivedStats.seats();
         Vec3 local = (idx >= 0 && idx < seats.size()) ? seats.get(idx).localOffset() : new Vec3(0.0, 0.65, 0.0);
 
+        double lx = local.x;
+        double ly = local.y + (this.isRotorcraft() ? 0.06 : 0.14);
+        double lz = local.z;
+
+        // Match rotorcraft cyclic pitch/roll tilt around center-of-mass pivot so pilot stays locked in seat during flight
+        if (this.isRotorcraft()) {
+            VehicleSizeClass size = this.derivedStats.sizeClass();
+            double pivotY = size == VehicleSizeClass.LARGE ? 1.55 : (size == VehicleSizeClass.MEDIUM ? 1.25 : 0.45);
+            double dy = ly - pivotY;
+            float rollDeg = this.level().isClientSide ? this.clientRoll : this.getCyclicRollDeg();
+            float pitchDeg = this.level().isClientSide ? this.clientPitch : this.getCyclicPitchDeg();
+            double rollRad = Math.toRadians(-rollDeg);
+            double cosR = Math.cos(rollRad);
+            double sinR = Math.sin(rollRad);
+            double tx = lx * cosR - dy * sinR;
+            double ty1 = lx * sinR + dy * cosR;
+
+            double pitchRad = Math.toRadians(pitchDeg);
+            double cosP = Math.cos(pitchRad);
+            double sinP = Math.sin(pitchRad);
+            double ty2 = ty1 * cosP - lz * sinP;
+            double tz = ty1 * sinP + lz * cosP;
+
+            lx = tx;
+            ly = pivotY + ty2;
+            lz = tz;
+        }
+
         // Match exact renderer transform Axis.YP.rotationDegrees(-yRot):
         // local +Z is forward (-sin(yRot), +cos(yRot)), local +X is right (+cos(yRot), +sin(yRot))
         double yawRad = Math.toRadians(this.getYRot());
         double sin = Math.sin(yawRad);
         double cos = Math.cos(yawRad);
-        double rx = local.x * cos - local.z * sin;
-        double rz = local.x * sin + local.z * cos;
+        double rx = lx * cos - lz * sin;
+        double rz = lx * sin + lz * cos;
 
         // Place passenger's hips directly on the seat cushion using MC 1.21.1 vehicle attachment point
         Vec3 attach = passenger.getVehicleAttachmentPoint(this);
-        double seatSurfaceY = this.getY() + local.y + 0.14;
-        moveFunction.accept(passenger, this.getX() + rx - attach.x, seatSurfaceY - attach.y, this.getZ() + rz - attach.z);
+        moveFunction.accept(passenger, this.getX() + rx - attach.x, this.getY() + ly - attach.y, this.getZ() + rz - attach.z);
     }
 
     @Override

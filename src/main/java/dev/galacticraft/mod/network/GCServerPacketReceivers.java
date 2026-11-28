@@ -57,6 +57,7 @@ public class GCServerPacketReceivers {
         registerPacket(UpdateManualStatePayload.TYPE);
         registerPacket(CraftVehiclePartPayload.TYPE);
         registerPacket(VehicleControlActionPayload.TYPE);
+        registerPacket(DroneRemoteControlPayload.TYPE);
     }
 
     public static <P extends C2SPayload> void registerPacket(CustomPacketPayload.Type<P> type) {

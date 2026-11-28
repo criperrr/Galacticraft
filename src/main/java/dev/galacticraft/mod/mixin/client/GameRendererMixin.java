@@ -27,6 +27,7 @@ import dev.galacticraft.mod.client.accessor.GameRendererAccessor;
 import dev.galacticraft.mod.client.gui.screen.manual.AerospaceTabletAnimator;
 import dev.galacticraft.mod.client.render.astro.AstroSpyglassManager;
 import dev.galacticraft.mod.client.render.astro.ClientTelescopeController;
+import dev.galacticraft.mod.client.render.vehicle.ClientDroneRemoteController;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
@@ -120,7 +121,7 @@ public abstract class GameRendererMixin implements GameRendererAccessor {
 
     @Inject(method = "renderItemInHand", at = @At("HEAD"), cancellable = true)
     private void gc$hideHandInTelescope(Camera camera, float partialTick, Matrix4f projectionMatrix, CallbackInfo ci) {
-        if (ClientTelescopeController.isActive()) {
+        if (ClientTelescopeController.isActive() || ClientDroneRemoteController.isActive()) {
             ci.cancel();
         }
     }

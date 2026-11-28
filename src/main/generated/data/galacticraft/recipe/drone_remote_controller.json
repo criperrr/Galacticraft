@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "galacticraft:compressed_aluminum"
+    },
+    "F": {
+      "item": "galacticraft:frequency_module"
+    },
+    "G": {
+      "tag": "c:glass_panes/colorless"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "W": {
+      "item": "galacticraft:advanced_wafer"
+    }
+  },
+  "pattern": [
+    "A A",
+    "FGF",
+    "RWR"
+  ],
+  "result": {
+    "count": 1,
+    "id": "galacticraft:drone_remote_controller"
+  }
+}

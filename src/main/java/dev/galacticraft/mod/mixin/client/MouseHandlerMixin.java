@@ -28,6 +28,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import dev.galacticraft.mod.client.render.astro.AstroSkyEngine;
 import dev.galacticraft.mod.client.render.astro.AstroSpyglassManager;
 import dev.galacticraft.mod.client.render.astro.ClientTelescopeController;
+import dev.galacticraft.mod.client.render.vehicle.ClientDroneRemoteController;
 import net.minecraft.client.MouseHandler;
 import net.minecraft.client.player.LocalPlayer;
 import org.spongepowered.asm.mixin.Mixin;
@@ -44,6 +45,9 @@ public class MouseHandlerMixin {
             AstroSpyglassManager.onMouseScroll(vertical);
             return;
         }
+        if (ClientDroneRemoteController.isActive()) {
+            return;
+        }
         if (!AstroSkyEngine.CONFIG.enableSpyglassZoom || !AstroSpyglassManager.isInUse() || !AstroSpyglassManager.onMouseScroll(vertical)) {
             original.call(window, horizontal, vertical);
         }
@@ -51,7 +55,7 @@ public class MouseHandlerMixin {
 
     @Inject(method = "onPress", at = @At("HEAD"), cancellable = true)
     private void gc$blockMouseButtonsInTelescope(long window, int button, int action, int modifiers, CallbackInfo ci) {
-        if (ClientTelescopeController.isActive()) {
+        if (ClientTelescopeController.isActive() || ClientDroneRemoteController.isActive()) {
             ci.cancel();
         }
     }
@@ -70,6 +74,10 @@ public class MouseHandlerMixin {
     private void gc$routeMouseTurnToTelescope(LocalPlayer player, double yawDelta, double pitchDelta, Operation<Void> original) {
         if (ClientTelescopeController.isActive()) {
             ClientTelescopeController.onMouseTurn(yawDelta, pitchDelta);
+            return;
+        }
+        if (ClientDroneRemoteController.isActive()) {
+            ClientDroneRemoteController.onMouseTurn(yawDelta, pitchDelta);
             return;
         }
         original.call(player, yawDelta, pitchDelta);

@@ -28,7 +28,9 @@ import dev.galacticraft.mod.attachments.ManualReaderAttachment;
 import dev.galacticraft.mod.client.gui.screen.ingame.CelestialSelectionScreen;
 import dev.galacticraft.mod.client.gui.screen.manual.AerospaceManualScreen;
 import dev.galacticraft.mod.client.gui.screen.manual.ResearchUnlockToast;
+import dev.galacticraft.mod.client.render.astro.ClientTelescopeController;
 import dev.galacticraft.mod.client.render.rocket.part.RocketPartPlacementPreviewRenderer;
+import dev.galacticraft.mod.client.render.vehicle.ClientDroneRemoteController;
 import dev.galacticraft.mod.content.entity.vehicle.ModularRocketFlightEntity;
 import dev.galacticraft.mod.content.item.ModularRocketPartBlockItem;
 import dev.galacticraft.mod.network.c2s.ModularRocketControlPayload;
@@ -68,6 +70,25 @@ public class GCKeyBinds {
 
     public static void handleKeybinds(Minecraft client) {
         if (client.level != null && client.player != null) {
+            if (ClientDroneRemoteController.isActive() || ClientTelescopeController.isActive()) {
+                while (OPEN_CELESTIAL_SCREEN.consumeClick()) {
+                }
+                while (OPEN_ROCKET_INVENTORY.consumeClick()) {
+                }
+                while (OPEN_AEROSPACE_MANUAL.consumeClick()) {
+                }
+                while (CYCLE_ROCKET_SYMMETRY.consumeClick()) {
+                }
+                while (ROCKET_LES_ABORT.consumeClick()) {
+                }
+                while (ROCKET_LANDING_GEAR.consumeClick()) {
+                }
+                while (ROCKET_ENGINE_CUTOFF.consumeClick()) {
+                }
+                while (OPEN_VEHICLE_PANEL.consumeClick()) {
+                }
+                return;
+            }
             if (client.screen == null) {
                 ModularRocketFlightEntity modularRocket = client.player.getVehicle() instanceof ModularRocketFlightEntity r ? r : null;
                 if (modularRocket != null) {

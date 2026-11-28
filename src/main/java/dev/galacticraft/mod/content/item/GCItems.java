@@ -410,17 +410,24 @@ public class GCItems {
     public static final Item ARCH_GREY_SPAWN_EGG = ITEMS.register(Constant.SpawnEgg.ARCH_GREY, new SpawnEggItem(GCEntityTypes.ARCH_GREY, 0x656463, 0x2d8563, new Item.Properties()));
     public static final Item SLIMELING_SPAWN_EGG = ITEMS.register(Constant.SpawnEgg.SLIMELING, new SpawnEggItem(GCEntityTypes.SLIMELING, 0x51a03e, 0xd2783b, new Item.Properties()));
 
-    // MODULAR VEHICLES (PHASE 1)
+    // MODULAR VEHICLES (PHASE 1 & PHASE 2 ROTORCRAFT)
     public static final Item VEHICLE_CRATE = ITEMS.register("vehicle_crate", new VehicleCrateItem(new Item.Properties()));
     public static final Item VEHICLE_WRENCH = ITEMS.register("vehicle_wrench", new VehicleWrenchItem(new Item.Properties()));
+    public static final Item DRONE_REMOTE_CONTROLLER = ITEMS.register("drone_remote_controller", new DroneRemoteControllerItem(new Item.Properties()));
 
     public static final Item SCOUT_ROVER_CHASSIS = ITEMS.register("scout_rover_chassis", new VehicleChassisItem(VehicleRegistry.CHASSIS_SCOUT_ROVER, new Item.Properties()));
     public static final Item UTILITY_BUGGY_CHASSIS = ITEMS.register("utility_buggy_chassis", new VehicleChassisItem(VehicleRegistry.CHASSIS_UTILITY_BUGGY, new Item.Properties()));
     public static final Item HEAVY_HAULER_CHASSIS = ITEMS.register("heavy_hauler_chassis", new VehicleChassisItem(VehicleRegistry.CHASSIS_HEAVY_HAULER, new Item.Properties()));
+    public static final Item MICRO_DRONE_CHASSIS = ITEMS.register("micro_drone_chassis", new VehicleChassisItem(VehicleRegistry.CHASSIS_MICRO_DRONE, new Item.Properties()));
+    public static final Item LIGHT_HELICOPTER_CHASSIS = ITEMS.register("light_helicopter_chassis", new VehicleChassisItem(VehicleRegistry.CHASSIS_LIGHT_HELICOPTER, new Item.Properties()));
+    public static final Item HEAVY_VTOL_CHASSIS = ITEMS.register("heavy_vtol_chassis", new VehicleChassisItem(VehicleRegistry.CHASSIS_HEAVY_VTOL, new Item.Properties()));
 
     public static final Item STANDARD_WHEEL_SET = ITEMS.register("standard_wheel_set", new VehiclePartItem(VehicleRegistry.PART_STANDARD_WHEELS, new Item.Properties()));
     public static final Item HEAVY_TRACKS = ITEMS.register("heavy_tracks", new VehiclePartItem(VehicleRegistry.PART_HEAVY_TRACKS, new Item.Properties()));
     public static final Item ROCKER_BOGIE_6X6 = ITEMS.register("rocker_bogie_6x6", new VehiclePartItem(VehicleRegistry.PART_ROCKER_BOGIE_6X6, new Item.Properties()));
+    public static final Item COAXIAL_MARS_ROTOR = ITEMS.register("coaxial_mars_rotor", new VehiclePartItem(VehicleRegistry.PART_COAXIAL_MARS_ROTOR, new Item.Properties()));
+    public static final Item HEAVY_LIFT_ROTOR = ITEMS.register("heavy_lift_rotor", new VehiclePartItem(VehicleRegistry.PART_HEAVY_LIFT_ROTOR, new Item.Properties()));
+    public static final Item VTOL_THRUSTER = ITEMS.register("vtol_thruster", new VehiclePartItem(VehicleRegistry.PART_VTOL_THRUSTER, new Item.Properties()));
     public static final Item BATTERY_BANK = ITEMS.register("battery_bank", new VehiclePartItem(VehicleRegistry.PART_BATTERY_BANK, new Item.Properties()));
     public static final Item SOLAR_ARRAY_MODULE = ITEMS.register("solar_array_module", new VehiclePartItem(VehicleRegistry.PART_SOLAR_ARRAY, new Item.Properties()));
     public static final Item RTG_CORE_MODULE = ITEMS.register("rtg_core_module", new VehiclePartItem(VehicleRegistry.PART_RTG_CORE, new Item.Properties()));
@@ -443,6 +450,9 @@ public class GCItems {
         if (VehicleRegistry.PART_STANDARD_WHEELS.equals(partId)) return new ItemStack(STANDARD_WHEEL_SET);
         if (VehicleRegistry.PART_HEAVY_TRACKS.equals(partId)) return new ItemStack(HEAVY_TRACKS);
         if (VehicleRegistry.PART_ROCKER_BOGIE_6X6.equals(partId)) return new ItemStack(ROCKER_BOGIE_6X6);
+        if (VehicleRegistry.PART_COAXIAL_MARS_ROTOR.equals(partId)) return new ItemStack(COAXIAL_MARS_ROTOR);
+        if (VehicleRegistry.PART_HEAVY_LIFT_ROTOR.equals(partId)) return new ItemStack(HEAVY_LIFT_ROTOR);
+        if (VehicleRegistry.PART_VTOL_THRUSTER.equals(partId)) return new ItemStack(VTOL_THRUSTER);
         if (VehicleRegistry.PART_BATTERY_BANK.equals(partId)) return new ItemStack(BATTERY_BANK);
         if (VehicleRegistry.PART_SOLAR_ARRAY.equals(partId)) return new ItemStack(SOLAR_ARRAY_MODULE);
         if (VehicleRegistry.PART_RTG_CORE.equals(partId)) return new ItemStack(RTG_CORE_MODULE);
